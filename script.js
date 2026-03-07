@@ -4123,28 +4123,29 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                     
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold tracking-tight mb-4">Mọi thứ bạn cần</h2>
-                        <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học ngôn ngữ toàn diện, kết hợp lặp lại ngắt quãng, chủ động gợi nhớ và lộ trình bài bản.</p>
+                        <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        {/* Thẻ 1 */}
-                        <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1" style={{ opacity: 1, transform: 'none' }}>
-                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-open w-6 h-6"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-bold mb-1">Thẻ học từ vựng</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & Kanji</p>
-                            <p className="text-zinc-500 leading-relaxed">Nắm vững hàng ngàn từ vựng với hệ thống lặp lại ngắt quãng thông minh.</p>
-                        </div>
+                       
 
-                        {/* Thẻ 2 */}
+                        {/* Thẻ 1 */}
                         <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1" style={{ opacity: 1, transform: 'none' }}>
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-brain w-6 h-6"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1">Làm bài tập</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kiểm tra kiến thức</p>
-                            <p className="text-zinc-500 leading-relaxed">Các bài trắc nghiệm tương tác để củng cố ngữ pháp và kỹ năng nghe.</p>
+                            <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                            <p className="text-zinc-500 leading-relaxed">Câu hỏi trắc nghiệm và ghép thẻ.</p>
+                        </div>
+                       {/* Thẻ 2 */}
+                        <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1" style={{ opacity: 1, transform: 'none' }}>
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-open w-6 h-6"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                            <p className="text-zinc-500 leading-relaxed">Tích hợp lặp lại ngắt quãng thông minh.</p>
                         </div>
 
                         {/* Thẻ 3 */}
@@ -4157,9 +4158,9 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar w-6 h-6"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1">Lịch trình học</h3>
+                            <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Giữ vững tiến độ</p>
-                            <p className="text-zinc-500 leading-relaxed">Lịch trình cá nhân hóa phù hợp với tốc độ và mục tiêu của bạn.</p>
+                            <p className="text-zinc-500 leading-relaxed">Lịch trình cá nhân hóa phù hợp với tốc độ của bạn.</p>
                         </div>
                     </div>
                 </div>
@@ -4169,10 +4170,10 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
             <footer className="bg-white border-t border-zinc-100 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-zinc-900 rounded-full flex items-center justify-center text-white text-xs font-bold font-jp">日</div>
+                        <div className="w-6 h-6 bg-zinc-900 rounded-full flex items-center justify-center text-white text-xs font-bold font-jp">学</div>
                         <span className="font-bold tracking-tight">Phá Đảo Tiếng Nhật</span>
                     </div>
-                    <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật. Bảo lưu mọi quyền.</p>
+                    <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
             </footer>
         </div>
