@@ -3944,7 +3944,7 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
-// --- COMPONENT: KANJI MỖI NGÀY ---
+// --- COMPONENT: KANJI MỖI NGÀY (CẬP NHẬT KÍCH THƯỚC & SVG) ---
 const KanjiOfTheDay = ({ dbData }) => {
     const [kanji, setKanji] = useState('禅'); 
     const [info, setInfo] = useState({ sound: 'ZEN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
@@ -3964,42 +3964,46 @@ const KanjiOfTheDay = ({ dbData }) => {
     const { paths } = useKanjiSvg(kanji);
 
     return (
-        <div className="relative hidden lg:block" style={{ opacity: 1, transform: 'none' }}>
-            <div className="aspect-square rounded-2xl bg-zinc-100 overflow-hidden relative shadow-inner">
-                {/* Chữ Kanji lớn ở giữa (có viền mờ) */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+        /* GIỚI HẠN KHUNG NHỎ LẠI BẰNG max-w-[420px] */
+        <div className="relative hidden lg:block w-full max-w-[420px] mx-auto ml-auto" style={{ opacity: 1, transform: 'none' }}>
+            <div className="aspect-square rounded-3xl bg-[#f8f8f8] overflow-hidden relative border border-zinc-100">
+                
+                {/* CHỮ KANJI SVG - ĐÃ THU NHỎ VÀ ĐẨY LÊN TRÊN */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     {paths.length > 0 ? (
-                        <svg viewBox="0 0 109 109" className="w-[120%] h-[120%] -translate-y-5">
+                        /* Kích thước 85%, dịch lên trên (translate-y-8) để không bị thẻ đè */
+                        <svg viewBox="0 0 109 109" className="w-[85%] h-[85%] -translate-y-8">
                             {paths.map((d, index) => (
                                 <path 
                                     key={`${kanji}-${index}`} 
                                     d={d} 
                                     className="stroke-anim-path" 
                                     style={{ 
-                                        animationDuration: '3s', 
-                                        animationDelay: `${index * 0.3}s`, 
-                                        stroke: '#000', 
-                                        strokeWidth: 2 
+                                        animationDuration: '3.5s', 
+                                        animationDelay: `${index * 0.25}s`, 
+                                        stroke: '#e4e4e7', /* Màu xám nhạt giống ảnh gốc */
+                                        strokeWidth: 3.5 
                                     }} 
                                 />
                             ))}
                         </svg>
                     ) : (
-                        <span className="text-[20rem] font-bold text-zinc-900 font-jp select-none">{kanji}</span>
+                        <span className="text-[14rem] font-bold text-zinc-200 font-jp select-none -translate-y-6">{kanji}</span>
                     )}
                 </div>
 
-                {/* Thẻ Card nội dung bên dưới */}
-                <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur p-6 rounded-xl border border-zinc-100 shadow-sm z-10 transition-transform hover:-translate-y-2 duration-300">
-                    <div className="flex justify-between items-start mb-2">
+                {/* THẺ CARD TRẮNG BÊN DƯỚI */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] z-10 transition-transform hover:-translate-y-1 duration-300">
+                    <div className="flex justify-between items-start mb-1.5">
                         <div>
-                            <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Từ vựng mỗi ngày</p>
-                            <h3 className="text-2xl font-bold mt-1 font-jp">
-                                <span className="font-['Klee_One'] text-3xl">{kanji}</span> ({info.sound})
+                            <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Từ vựng mỗi ngày</p>
+                            <h3 className="text-2xl font-bold font-jp flex items-baseline gap-2">
+                                <span className="font-['Klee_One'] text-3xl">{kanji}</span> 
+                                <span className="text-lg">({info.sound})</span>
                             </h3>
                         </div>
-                        <button className="p-2 hover:bg-zinc-100 rounded-full transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-zinc-400" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                        <button className="p-1.5 text-zinc-400 hover:bg-zinc-100 rounded-lg transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
                         </button>
                     </div>
                     <p className="text-zinc-600 text-sm truncate">{info.meaning}</p>
@@ -4057,37 +4061,42 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                 </div>
             </nav>
 
-            {/* HERO SECTION */}
-            <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-[90vh] flex items-center">
+          {/* HERO SECTION */}
+            <section className="pt-28 pb-16 px-6 lg:px-8 max-w-7xl mx-auto min-h-[90vh] flex items-center">
                 <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
-                    <div style={{ opacity: 1, transform: 'none' }}>
-                        <div className="inline-block px-3 py-1 mb-6 border border-zinc-200 rounded-full bg-zinc-50">
-                            <span className="text-xs font-medium text-zinc-600 tracking-wide uppercase">Bắt đầu hành trình của bạn</span>
+                    
+                    {/* KHỐI TEXT BÊN TRÁI */}
+                    <div style={{ opacity: 1, transform: 'none' }} className="animate-in slide-in-from-left-8 duration-700">
+                        <div className="inline-block px-3 py-1 mb-5 border border-zinc-200 rounded-full bg-zinc-50">
+                            <span className="text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bắt đầu hành trình của bạn</span>
                         </div>
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+                        
+                        {/* Font chữ đã được thu nhỏ lại vừa vặn hơn */}
+                        <h1 className="text-5xl md:text-[4rem] font-bold tracking-tight leading-[1.05] mb-6 text-zinc-900">
                             Chinh phục tiếng Nhật, <br />
                             <span className="text-zinc-400 font-light italic font-serif">Từng ngày một.</span>
                         </h1>
-                        <p className="text-xl text-zinc-500 mb-8 max-w-lg font-jp">
-                            日本語を学びましょう。 Công cụ đơn giản, hiệu quả giúp bạn đọc, viết và nói tự tin.
+                        
+                        <p className="text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
+                            <span className="font-jp">日本語を学びましょう。</span> Công cụ đơn giản, hiệu quả giúp bạn đọc, viết và nói tự tin.
                         </p>
-                        <div className="flex flex-wrap gap-4">
-                            <button onClick={scrollToFeatures} className="px-8 py-4 bg-zinc-900 text-white rounded-full font-medium hover:bg-zinc-800 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group">
+                        
+                        <div className="flex flex-wrap gap-3">
+                            <button onClick={scrollToFeatures} className="px-7 py-3.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group">
                                 Bắt đầu học
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="m9 18 6-6-6-6"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="m9 18 6-6-6-6"></path></svg>
                             </button>
-                            <button onClick={scrollToFeatures} className="px-8 py-4 bg-white border border-zinc-200 text-zinc-900 rounded-full font-medium hover:bg-zinc-50 transition-colors active:scale-95">
+                            <button onClick={scrollToFeatures} className="px-7 py-3.5 bg-white border border-zinc-200 text-zinc-800 rounded-full text-sm font-bold hover:bg-zinc-50 transition-colors active:scale-95">
                                 Xem lộ trình
                             </button>
                         </div>
                     </div>
 
-                    {/* Khối Kanji tự sinh đã làm ở Bước 1 */}
+                    {/* KHỐI KANJI BÊN PHẢI ĐÃ LÀM Ở BƯỚC 1 */}
                     <KanjiOfTheDay dbData={dbData} />
 
                 </div>
             </section>
-
             {/* FEATURES SECTION (3 THẺ CỦA BẠN) */}
             <section ref={featuresRef} className="py-20 bg-zinc-50/50 border-t border-zinc-100 min-h-screen flex flex-col justify-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
