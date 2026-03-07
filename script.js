@@ -3945,10 +3945,30 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
     );
 };
 
-// --- 1. LANDING PAGE SIÊU TỐI GIẢN ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup }) => {
-    // Tính toán số lượng cần ôn tập
-    const dueCharsCount = React.useMemo(() => {
+// --- COMPONENT GIAO DIỆN TRANG CHỦ CHUYÊN NGHIỆP (2 MÀN HÌNH) ---
+const LandingPage = ({ 
+    config, onChange, mode, setPracticeMode, srsData, 
+    onOpenReviewList, onStartFlashcard, onStartGame, dbData 
+}) => {
+    const [localText, setLocalText] = useState(config.text);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const searchInputRef = useRef(null);
+    const workspaceRef = useRef(null); // Ref để cuộn xuống màn hình 2
+
+    // State Thư viện & Loading
+    const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [randomCount, setRandomCount] = useState(10);
+    const [minnaLesson, setMinnaLesson] = useState('');
+    const [mimiPart, setMimiPart] = useState('');
+    const [mimiLevel, setMimiLevel] = useState('N3');
+    const [tangoPart, setTangoPart] = useState('');
+    const [tangoLevel, setTangoLevel] = useState('N3');
+
+    const dueCharsCount = useMemo(() => {
         const now = Date.now();
         return Object.keys(srsData || {}).filter(char => {
             const data = srsData[char];
@@ -3956,66 +3976,433 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup }) => {
         }).length;
     }, [srsData]);
 
+    useEffect(() => { setLocalText(config.text); }, [config.text]);
+
+    // Hàm cuộn mượt xuống màn hình 2
+    const scrollToWorkspace = () => {
+        workspaceRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // --- LOGIC NHẬP LIỆU & TIỆN ÍCH ---
+    const handleInputText = (e) => {
+        const val = e.target.value;
+        setLocalText(val);
+        onChange({ ...config, text: val.replace(/[a-zA-Z]/g, '') });
+    };
+
+    const handleCleanText = () => {
+        if (!localText) return;
+        let cleaned = localText.replace(/[a-zA-Z]/g, '').replace(/[\n\r]+/g, '').replace(/[ 　\t]+/g, '').trim();
+        setLocalText(cleaned);
+        onChange({ ...config, text: cleaned });
+    };
+
+    const handleShuffle = () => {
+        if (!config.text) return;
+        let newContent = "";
+        if (mode === 'vocab') {
+            const lines = config.text.split(/[\n;]+/).filter(line => line.trim() !== '');
+            for (let i = lines.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [lines[i], lines[j]] = [lines[j], lines[i]];
+            }
+            newContent = lines.join('\n');
+        } else {
+            const arr = [...config.text];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            newContent = arr.join('');
+        }
+        setLocalText(newContent);
+        onChange({ ...config, text: newContent });
+    };
+
+    // --- LOGIC TÌM KIẾM ---
+    const handleSearchRealtime = (val) => {
+        setSearchTerm(val);
+        const query = val.toLowerCase().trim();
+        const queryNoAccent = removeAccents(query);
+        if (!query || !dbData) { setSearchResults([]); return; }
+
+        let matches = [];
+        if (mode === 'vocab') {
+            if (!query.match(/[\u4E00-\u9FAF]/)) { setSearchResults([]); return; }
+            if (dbData.TUVUNG_DB) {
+                Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
+                    if (word.includes(val.trim())) matches.push({ char: word, sound: info.reading, type: 'vocab', length: word.length });
+                });
+            }
+            matches.sort((a, b) => a.length - b.length);
+            const uniqueMatches = [];
+            matches.forEach(current => {
+                const isRedundant = uniqueMatches.some(base => current.char.startsWith(base.char) && (current.char.endsWith('ます') || current.char.endsWith('します')));
+                if (!isRedundant) uniqueMatches.push(current);
+            });
+            matches = uniqueMatches.slice(0, 10); 
+        } else {
+            Object.entries(dbData.KANJI_DB || {}).forEach(([char, info]) => {
+                if (info.sound) {
+                    const sound = info.sound.toLowerCase();
+                    const soundNoAccent = removeAccents(sound);
+                    let priority = 99;
+                    if (sound === query) priority = 1;
+                    else if (soundNoAccent === queryNoAccent) priority = 2;
+                    else if (sound.includes(query)) priority = 3;
+                    else if (soundNoAccent.includes(queryNoAccent)) priority = 4;
+                    if (priority < 99) matches.push({ char, ...info, type: 'kanji', priority, sound });
+                }
+            });
+            matches.sort((a, b) => {
+                if (a.priority !== b.priority) return a.priority - b.priority;
+                return a.sound.localeCompare(b.sound);
+            });
+            matches = matches.slice(0, 10);
+        }
+        setSearchResults(matches);
+        setActiveIndex(0);
+    };
+
+    const selectResult = (item) => {
+        let newText = "";
+        if (mode === 'vocab') {
+            const separator = config.text.length > 0 && !config.text.endsWith('\n') ? '\n' : '';
+            newText = config.text + separator + item.char + '\n';
+            newText = [...new Set(newText.split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n';
+        } else {
+            newText = Array.from(new Set(config.text + item.char)).join('');
+        }
+        setLocalText(newText);
+        onChange({ ...config, text: newText });
+        setSearchTerm(''); setSearchResults([]);
+        searchInputRef.current?.focus();
+    };
+
+    // --- LOGIC TẢI DỮ LIỆU ---
+    const fetchAndSetData = async (url) => {
+        setIsLoading(true); setProgress(20);
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Lỗi");
+            const isJsonArray = url.includes('minna') || url.includes('mimi') || url.includes('tango');
+            let resultText = "";
+            if (isJsonArray) {
+                const data = await response.json();
+                resultText = data.join('\n');
+            } else {
+                const rawText = await response.text();
+                resultText = rawText.replace(/["\n\r\s,\[\]]/g, '');
+            }
+            setProgress(100);
+            setTimeout(() => {
+                setLocalText(resultText); onChange({ ...config, text: resultText });
+                setIsLoading(false); setIsLibraryOpen(false);
+            }, 400);
+        } catch (error) { alert("Lỗi tải dữ liệu!"); setIsLoading(false); }
+    };
+
+    const loadRandomKanji = async (level) => {
+        setIsLoading(true); setProgress(20);
+        try {
+            const response = await fetch(`./data/kanji${level.toLowerCase()}.json`);
+            const rawText = await response.text();
+            const cleanText = rawText.replace(/["\n\r\s]/g, '');
+            const allChars = Array.from(cleanText);
+            const unstudiedChars = allChars.filter(char => !srsData[char]);
+            const studiedChars = allChars.filter(char => srsData[char]);
+            let count = randomCount > 50 ? 50 : (randomCount || 10);
+            let selectedPool = "";
+            if (unstudiedChars.length >= count) {
+                selectedPool = unstudiedChars.sort(() => Math.random() - 0.5).slice(0, count).join('');
+            } else {
+                const neededMore = count - unstudiedChars.length;
+                const extraFromStudied = studiedChars.sort(() => Math.random() - 0.5).slice(0, neededMore);
+                selectedPool = unstudiedChars.join('') + extraFromStudied.join('');
+            }
+            const finalResult = [...selectedPool].sort(() => Math.random() - 0.5).join('');
+            setProgress(100);
+            setTimeout(() => {
+                setLocalText(finalResult); onChange({ ...config, text: finalResult });
+                setIsLoading(false); setIsLibraryOpen(false);
+            }, 400);
+        } catch (error) { setIsLoading(false); }
+    };
+
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans text-gray-900 pb-20 flex flex-col items-center justify-center">
-            <main className="max-w-[1000px] w-full mx-auto px-6 mt-12 md:mt-0">
-                
-                {/* Tiêu đề */}
-                <div className="text-center mb-16 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-900 text-white rounded-xl font-black text-2xl mb-4 shadow-lg">
-                        P
+        <div className="bg-[#fafafa] font-sans text-gray-900 relative">
+            
+            {/* LOADING OVERLAY */}
+            {isLoading && (
+                <div className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md">
+                    <div className="w-64 p-6 bg-white rounded-xl shadow-2xl border border-gray-200 text-center">
+                        <span className="text-xs font-bold text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">Hệ thống đang xử lý... {progress}%</span>
+                        <div className="w-full bg-gray-200 rounded-full h-1 overflow-hidden">
+                            <div className="bg-gray-900 h-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
+                        </div>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight leading-tight">
-                        Chinh phục tiếng Nhật,<br />
-                        <span className="font-serif italic text-gray-400 font-normal">từng ngày một.</span>
+                </div>
+            )}
+
+            {/* MODAL THƯ VIỆN */}
+            {isLibraryOpen && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in" onClick={() => setIsLibraryOpen(false)}>
+                    <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden cursor-default border border-gray-200 animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
+                        <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                            <h3 className="font-bold text-sm uppercase tracking-wider text-gray-800">Thư viện dữ liệu</h3>
+                            <button onClick={() => setIsLibraryOpen(false)} className="text-gray-400 hover:text-gray-900">✕</button>
+                        </div>
+                        <div className="p-6 space-y-6">
+                            {mode === 'kanji' ? (
+                                <>
+                                    <div>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
+                                        <div className="flex gap-3 items-center mb-4">
+                                            <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold focus:border-gray-900 outline-none" />
+                                            <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
+                                        </div>
+                                        <div className="grid grid-cols-5 gap-2">
+                                            {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
+                                                <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2 border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-lg font-bold text-xs transition-colors">{lvl}</button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="border-t border-gray-100 pt-5">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bảng chữ cái</label>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2 border border-gray-200 rounded-lg text-xs font-bold hover:bg-gray-50">Bộ thủ</button>
+                                            <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2 border border-gray-200 rounded-lg text-xs font-bold hover:bg-gray-50">Hiragana</button>
+                                            <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2 border border-gray-200 rounded-lg text-xs font-bold hover:bg-gray-50">Katakana</button>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Minna</span>
+                                        <input type="number" placeholder="Bài..." value={minnaLesson} onChange={e => setMinnaLesson(e.target.value)} className="flex-1 p-2.5 border border-gray-300 rounded-lg text-sm font-bold focus:border-gray-900 outline-none" />
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/minna/minna${minnaLesson || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase rounded-lg hover:bg-black transition-colors">Tải</button>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Mimi</span>
+                                        <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-2.5 border border-gray-300 rounded-lg text-sm font-bold outline-none">
+                                            <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                        </select>
+                                        <input type="number" placeholder="Phần..." value={mimiPart} onChange={e => setMimiPart(e.target.value)} className="flex-1 p-2.5 border border-gray-300 rounded-lg text-sm font-bold focus:border-gray-900 outline-none w-16" />
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/mimikara/${mimiLevel.toLowerCase()}/mimi${mimiLevel.toLowerCase()}p${mimiPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase rounded-lg hover:bg-black transition-colors">Tải</button>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Tango</span>
+                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-300 rounded-lg text-sm font-bold outline-none">
+                                            <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                        </select>
+                                        <input type="number" placeholder="Phần..." value={tangoPart} onChange={e => setTangoPart(e.target.value)} className="flex-1 p-2.5 border border-gray-300 rounded-lg text-sm font-bold focus:border-gray-900 outline-none w-16" />
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/tango/${tangoLevel.toLowerCase()}/tango${tangoLevel.toLowerCase()}p${tangoPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase rounded-lg hover:bg-black transition-colors">Tải</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ========================================= */}
+            {/* MÀN HÌNH 1: HERO SECTION (100vh)          */}
+            {/* ========================================= */}
+            <div className="h-screen flex flex-col relative border-b border-gray-200">
+                {/* Navbar */}
+                <nav className="flex items-center justify-between px-6 md:px-12 py-6">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gray-900 text-white flex items-center justify-center font-bold text-lg">P</div>
+                        <span className="text-xl font-bold tracking-tight hidden sm:block">PháĐảoTiếngNhật</span>
+                    </div>
+                    <div className="flex items-center gap-6 text-sm font-bold text-gray-500 uppercase tracking-wider">
+                        <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors hidden sm:block">Tài liệu</a>
+                        <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors hidden sm:block">Nhóm học tập</a>
+                    </div>
+                </nav>
+
+                {/* Slogan */}
+                <div className="flex-1 flex flex-col items-center justify-center text-center px-4 -mt-10">
+                    <div className="inline-flex items-center px-3 py-1 border border-gray-300 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-6">
+                        Nền tảng học tập chuyên nghiệp
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-gray-900 tracking-tight leading-[1.1] mb-6">
+                        Hệ thống hóa <br/> quá trình học tiếng Nhật.
                     </h1>
+                    <p className="text-gray-500 text-lg md:text-xl font-medium max-w-2xl leading-relaxed mb-10">
+                        Sử dụng thuật toán lặp lại ngắt quãng (Spaced Repetition) kết hợp Flashcard và hệ thống bài tập thực hành toàn diện.
+                    </p>
+                    <button 
+                        onClick={scrollToWorkspace}
+                        className="px-8 py-4 bg-gray-900 hover:bg-black text-white text-sm font-bold uppercase tracking-widest flex items-center gap-3 transition-all active:scale-95 shadow-xl"
+                    >
+                        Bắt đầu ngay
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                    </button>
                 </div>
+            </div>
 
-                {/* Các Nút Hành Động Chính */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+            {/* ========================================= */}
+            {/* MÀN HÌNH 2: WORKSPACE / DASHBOARD          */}
+            {/* ========================================= */}
+            <div ref={workspaceRef} className="min-h-screen py-16 px-6 md:px-12 bg-white">
+                <div className="max-w-[1200px] mx-auto">
                     
-                    {/* 1. Flashcard */}
-                    <button 
-                        onClick={() => onOpenSetup('flashcard')}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    {/* Header Workspace */}
+                    <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
+                        <div>
+                            <h2 className="text-3xl font-black text-gray-900 tracking-tight">Bảng điều khiển</h2>
+                            <p className="text-gray-500 font-medium mt-1">Quản lý dữ liệu và tiến trình học tập của bạn.</p>
                         </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Thẻ Flashcard</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Học từ vựng và Kanji mới với thuật toán lặp lại ngắt quãng thông minh.</p>
-                    </button>
-
-                    {/* 2. Trắc nghiệm (Game) */}
-                    <button 
-                        onClick={() => onOpenSetup('game')}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13v.01M18 11v.01"/></svg>
+                        {/* Nút chuyển chế độ */}
+                        <div className="flex bg-gray-100 p-1 rounded-lg border border-gray-200 w-max">
+                            <button 
+                                onClick={() => { setPracticeMode('kanji'); setLocalText(''); onChange({ ...config, text: '' }); }}
+                                className={`px-6 py-2 text-xs font-bold uppercase tracking-wider transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                            >
+                                Kanji
+                            </button>
+                            <button 
+                                onClick={() => { setPracticeMode('vocab'); setLocalText(''); onChange({ ...config, text: '' }); }}
+                                className={`px-6 py-2 text-xs font-bold uppercase tracking-wider transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                            >
+                                Từ vựng
+                            </button>
                         </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Làm bài tập</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Kiểm tra kiến thức bằng các bài trắc nghiệm và trò chơi ghép thẻ.</p>
-                    </button>
+                    </div>
 
-                    {/* 3. Lịch trình ôn tập */}
-                    <button 
-                        onClick={onOpenReviewList}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group relative overflow-hidden"
-                    >
-                        {dueCharsCount > 0 && (
-                            <div className="absolute top-6 right-6 bg-red-500 text-white text-[10px] font-black px-2.5 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-lg shadow-red-200">
-                                Cần ôn {dueCharsCount} chữ
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        
+                        {/* CỘT TRÁI: KHUNG NHẬP LIỆU (Col span 7) */}
+                        <div className="lg:col-span-7 space-y-6">
+                            
+                            {/* Input Header & Search */}
+                            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+                                <label className="text-sm font-bold text-gray-900 uppercase tracking-widest">
+                                    {mode === 'kanji' ? 'Dữ liệu Kanji' : 'Dữ liệu Từ vựng'}
+                                </label>
+                                
+                                <div className="relative w-full sm:w-64">
+                                    <input 
+                                        ref={searchInputRef} type="text" value={searchTerm} onChange={(e) => handleSearchRealtime(e.target.value)} 
+                                        placeholder={mode === 'vocab' ? "Tra cứu từ vựng..." : "Tra cứu theo Hán Việt..."} 
+                                        className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 text-sm focus:outline-none focus:ring-1 focus:ring-gray-900 transition-all font-medium" 
+                                    />
+                                    <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    
+                                    {searchResults.length > 0 && (
+                                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 shadow-2xl z-50 max-h-60 overflow-y-auto">
+                                            {searchResults.map((item, idx) => (
+                                                <div key={idx} onClick={() => selectResult(item)} className={`flex items-center justify-between px-4 py-3 cursor-pointer border-b border-gray-100 hover:bg-gray-50 transition-colors ${idx === activeIndex ? 'bg-gray-50' : ''}`}>
+                                                    <span className="font-['Klee_One'] text-lg font-bold text-gray-900">{item.char}</span>
+                                                    <span className="text-xs font-bold text-gray-400 uppercase">{item.sound}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+
+                            {/* Textarea */}
+                            <div className="relative">
+                                <textarea 
+                                    value={localText} onChange={handleInputText} 
+                                    placeholder={mode === 'vocab' ? "Nhập từ vựng vào đây...\nMỗi từ 1 dòng" : "Nhập Kanji vào đây..."} 
+                                    className="w-full h-64 p-5 bg-gray-50 border border-gray-200 resize-none text-2xl font-['Klee_One'] text-gray-800 focus:outline-none focus:bg-white focus:border-gray-900 transition-colors custom-scrollbar" 
+                                />
+                                {localText && (
+                                    <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-gray-400 hover:text-red-600 uppercase tracking-widest transition-colors">
+                                        Xóa nội dung
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* Tiện ích */}
+                            <div className="flex flex-wrap items-center gap-3">
+                                <button onClick={() => setIsLibraryOpen(true)} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:border-gray-900 text-gray-700 text-xs font-bold uppercase tracking-wider transition-colors">
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                                    Thư viện
+                                </button>
+                                <button onClick={handleShuffle} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:border-gray-900 text-gray-700 text-xs font-bold uppercase tracking-wider transition-colors">
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                                    Xáo trộn
+                                </button>
+                                <button onClick={handleCleanText} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:border-gray-900 text-gray-700 text-xs font-bold uppercase tracking-wider transition-colors">
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l5.37-5.38"/></svg>
+                                    Làm sạch
+                                </button>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Lịch trình học</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Ôn tập các từ đã học hôm nay để không bao giờ quên.</p>
-                    </button>
+
+                        {/* CỘT PHẢI: CÁC NÚT CHỨC NĂNG (Col span 5) */}
+                        <div className="lg:col-span-5 flex flex-col gap-4">
+                            <label className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-2">
+                                Chế độ học tập
+                            </label>
+
+                            {/* Nút Flashcard */}
+                            <button 
+                                onClick={() => {
+                                    if (!config.text) return alert("Vui lòng nhập dữ liệu bên trái trước khi học!");
+                                    onStartFlashcard();
+                                }}
+                                className="flex items-center justify-between p-6 bg-gray-900 hover:bg-black text-white transition-all group text-left border border-gray-900"
+                            >
+                                <div>
+                                    <h3 className="text-xl font-black mb-1">Thẻ Flashcard</h3>
+                                    <p className="text-xs text-gray-400 font-medium">Học mới với thuật toán SRS</p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                </div>
+                            </button>
+
+                            {/* Nút Game */}
+                            <button 
+                                onClick={() => {
+                                    if (!config.text) return alert("Vui lòng nhập dữ liệu bên trái trước khi ôn tập!");
+                                    onStartGame();
+                                }}
+                                className="flex items-center justify-between p-6 bg-white hover:bg-gray-50 border border-gray-200 transition-all group text-left"
+                            >
+                                <div>
+                                    <h3 className="text-xl font-black text-gray-900 mb-1">Bài tập thực hành</h3>
+                                    <p className="text-xs text-gray-500 font-medium">Làm trắc nghiệm & ghép thẻ</p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 text-gray-900 transition-colors">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13v.01M18 11v.01"/></svg>
+                                </div>
+                            </button>
+
+                            {/* Nút Danh sách ôn tập */}
+                            <button 
+                                onClick={onOpenReviewList}
+                                className="flex items-center justify-between p-6 bg-white hover:bg-gray-50 border border-gray-200 transition-all group text-left relative overflow-hidden mt-4"
+                            >
+                                {dueCharsCount > 0 && (
+                                    <div className="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-bl-lg animate-pulse uppercase tracking-wider">
+                                        Cần ôn {dueCharsCount} chữ
+                                    </div>
+                                )}
+                                <div>
+                                    <h3 className="text-xl font-black text-gray-900 mb-1">Lịch trình hệ thống</h3>
+                                    <p className="text-xs text-gray-500 font-medium">Xem tiến độ thẻ cần ôn</p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 text-gray-900 transition-colors">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                </div>
+                            </button>
+
+                        </div>
+                    </div>
                 </div>
-            </main>
+            </div>
+
+            {/* Footer */}
+            <footer className="text-center text-xs font-bold text-gray-400 py-8 uppercase tracking-widest border-t border-gray-200 bg-white">
+                © 2026 Phá Đảo Tiếng Nhật
+            </footer>
         </div>
     );
 };
@@ -4390,9 +4777,6 @@ const App = () => {
     const [isLearnGameOpen, setIsLearnGameOpen] = useState(false);
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
     
-    // State cho Modal Thiết lập (StudySetupModal)
-    const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
-
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
     
@@ -4438,16 +4822,7 @@ const App = () => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-    // --- HÀM KHỞI ĐỘNG HỌC ---
-    const handleStartLearning = (target) => {
-        setSetupConfig({ isOpen: false, targetAction: null }); // Đóng bảng Setup
-        setTimeout(() => {
-            if (target === 'flashcard') setIsFlashcardOpen(true);
-            if (target === 'game') setIsLearnGameOpen(true);
-        }, 100);
-    };
-
-    // --- HIỂN THỊ LOADING ---
+    // --- HIỂN THỊ LOADING BAN ĐẦU ---
     if (!isDbLoaded) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -4460,28 +4835,20 @@ const App = () => {
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-            {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
+            {/* 1. TRANG CHỦ CHUYÊN NGHIỆP 2 MÀN HÌNH */}
             <LandingPage 
-                srsData={srsData}
-                onOpenReviewList={() => setIsReviewListOpen(true)}
-                onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
-            />
-
-            {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
-            <StudySetupModal 
-                isOpen={setupConfig.isOpen}
-                onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
-                targetAction={setupConfig.targetAction}
-                onStart={handleStartLearning}
                 config={config}
                 onChange={setConfig}
                 mode={practiceMode}
                 setPracticeMode={setPracticeMode}
-                dbData={dbData}
                 srsData={srsData}
+                dbData={dbData}
+                onOpenReviewList={() => setIsReviewListOpen(true)}
+                onStartFlashcard={() => setIsFlashcardOpen(true)}
+                onStartGame={() => setIsLearnGameOpen(true)}
             />
 
-            {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
+            {/* 2. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
                 isOpen={isFlashcardOpen} 
                 onClose={() => setIsFlashcardOpen(false)} 
@@ -4526,8 +4893,8 @@ const App = () => {
                 onLoadChars={(chars) => {
                     setConfig({ ...config, text: chars }); 
                     setIsReviewListOpen(false); 
-                    // Tự động mở Setup bảng Flashcard khi click ôn tập từ danh sách
-                    setSetupConfig({ isOpen: true, targetAction: 'flashcard' });
+                    // Tự động mở bảng Flashcard ngay sau khi load chữ
+                    setTimeout(() => setIsFlashcardOpen(true), 100);
                 }}
             />
 
