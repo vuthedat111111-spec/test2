@@ -4366,18 +4366,25 @@ if (!isDbLoaded) {
     );
 }
 
+// ... (Các dòng code bên trên của App giữ nguyên, ví dụ: if (!isDbLoaded) return ...)
+
 return (
     <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
         
+        {/* --- GIAO DIỆN CHÍNH (Trang chủ phong cách Zen) --- */}
+        <LandingPage 
+            config={config}
+            onChange={setConfig}
+            mode={practiceMode}
+            setPracticeMode={setPracticeMode}
+            srsData={srsData}
+            onOpenReviewList={() => setIsReviewListOpen(true)}
+            setIsFlashcardOpen={setIsFlashcardOpen}
+            setIsLearnGameOpen={setIsLearnGameOpen}
+            dbData={dbData}
+        />
 
-
-        {/* CHỖ TRỐNG: Lát nữa ta sẽ nhúng Component giao diện NihongoZen vào đây */}
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-3xl font-black mb-4"><LandingPage /></h1>
-            <p>Logic dữ liệu vẫn đang chạy ngầm an toàn!</p>
-        </div>
-
-        {/* CÁC MODAL GIỮ NGUYÊN 100% NHƯ YÊU CẦU */}
+        {/* --- CÁC MODAL HỌC TẬP (GIỮ NGUYÊN 100%) --- */}
         <FlashcardModal 
             isOpen={isFlashcardOpen} 
             onClose={() => setIsFlashcardOpen(false)} 
