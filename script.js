@@ -3944,11 +3944,15 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
-// --- COMPONENT: KANJI MỖI NGÀY (THIẾT KẾ MỚI: TRÊN - GIỮA - DƯỚI) ---
+// --- COMPONENT: KANJI MỖI NGÀY (CHỮ ĐEN TO - VẼ CHẬM - LOOP VÔ TẬN) ---
 const KanjiOfTheDay = ({ dbData }) => {
     const [kanji, setKanji] = useState('禅'); 
-    const [info, setInfo] = useState({ sound: 'THIỀN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
+    const [info, setInfo] = useState({ sound: 'ZEN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
+    
+    // State để kích hoạt vòng lặp vô tận
+    const [replayKey, setReplayKey] = useState(0);
 
+    // Lấy ngẫu nhiên Kanji khi vào trang
     useEffect(() => {
         if (dbData && dbData.KANJI_DB) {
             const goodKanjis = ['道', '愛', '和', '心', '空', '夢', '静', '禅', '光', '星', '学', '進'];
@@ -3963,8 +3967,21 @@ const KanjiOfTheDay = ({ dbData }) => {
 
     const { paths } = useKanjiSvg(kanji);
 
+    // LOGIC: Tự động tính toán tổng thời gian vẽ để reset lại từ đầu (Tạo Loop)
+    useEffect(() => {
+        if (paths.length === 0) return;
+        
+        // Công thức: Thời gian 1 nét (4s) + (Tổng số nét * Độ trễ mỗi nét 0.5s) + Nghỉ 2s trước khi lặp lại
+        const totalDuration = (4 + paths.length * 0.5 + 2) * 1000; 
+        
+        const timer = setInterval(() => {
+            setReplayKey(prev => prev + 1); // Thay đổi key sẽ ép React vẽ lại SVG từ đầu
+        }, totalDuration);
+
+        return () => clearInterval(timer);
+    }, [paths, kanji]);
+
     return (
-        /* KHUNG CHÍNH: Màu xám siêu nhạt (#f8f8f9), bo góc tròn, shadow nhẹ */
         <div className="hidden lg:flex w-full max-w-[400px] mx-auto ml-auto aspect-square bg-[#f8f8f9] rounded-3xl border border-zinc-200 shadow-sm flex-col p-7 transition-transform hover:-translate-y-1 duration-300">
             
             {/* 1. TRÊN CÙNG: TIÊU ĐỀ */}
@@ -3974,36 +3991,35 @@ const KanjiOfTheDay = ({ dbData }) => {
                 </span>
             </div>
 
-            {/* 2. Ở GIỮA: CHỮ KANJI HOẠT HỌA */}
-            {/* flex-1 giúp đẩy tiêu đề lên sát trên, đẩy ý nghĩa xuống sát dưới, chừa trọn vẹn khoảng trống giữa cho SVG */}
-            <div className="flex-1 w-full flex items-center justify-center relative my-4">
+            {/* 2. Ở GIỮA: CHỮ KANJI (To hơn, Màu đen, Cách đều lề trên dưới) */}
+            {/* flex-1 ép khối này nằm giữa và chiếm khoảng trống. my-2 tạo khoảng lề an toàn */}
+            <div className="flex-1 w-full flex items-center justify-center relative my-2 overflow-hidden">
                 {paths.length > 0 ? (
-                    /* Cố định kích thước SVG ở mức 70% để không bao giờ chạm viền */
-                    <svg viewBox="0 0 109 109" className="w-[70%] h-[70%]">
+                    /* w-[85%] h-[85%] giúp chữ to nhất có thể nhưng vẫn giữ khoảng cách chuẩn với viền */
+                    <svg key={replayKey} viewBox="0 0 109 109" className="w-[85%] h-[85%]">
                         {paths.map((d, index) => (
                             <path 
                                 key={`${kanji}-${index}`} 
                                 d={d} 
                                 className="stroke-anim-path" 
                                 style={{ 
-                                    animationDuration: '3.5s', 
-                                    animationDelay: `${index * 0.25}s`, 
-                                    stroke: '#10b981', /* Màu xanh lá (Emerald-500) rất chuyên nghiệp và dịu mắt */
+                                    animationDuration: '4s', // Vẽ chậm lại (từ 3s lên 4s)
+                                    animationDelay: `${index * 0.5}s`, // Khoảng cách giữa các nét chậm hơn (0.5s)
+                                    stroke: '#1a1a1a', // Màu đen (Zen Black)
                                     strokeWidth: 3 
                                 }} 
                             />
                         ))}
                     </svg>
                 ) : (
-                    <span className="text-[8rem] font-bold text-[#10b981] font-['Klee_One'] select-none">
+                    <span className="text-[9rem] font-bold text-[#1a1a1a] font-['Klee_One'] select-none">
                         {kanji}
                     </span>
                 )}
             </div>
 
             {/* 3. DƯỚI CÙNG: ÂM HÁN VIỆT & Ý NGHĨA */}
-            {/* Được bọc trong một khối màu trắng nhỏ để tạo sự tách biệt và gọn gàng */}
-            <div className="w-full text-center bg-white py-3.5 px-4 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-zinc-100">
+            <div className="w-full text-center bg-white py-3.5 px-4 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-zinc-100 z-10">
                 <div className="flex flex-col items-center justify-center gap-0.5">
                     <span className="text-sm font-black uppercase tracking-widest text-zinc-800">
                         {info.sound}
