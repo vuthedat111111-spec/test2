@@ -3944,6 +3944,318 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
+
+// --- BƯỚC 3 & 4: COMPONENT GIAO DIỆN MỚI (LandingPage) ---
+const LandingPage = ({ 
+    config, 
+    onChange, 
+    mode, 
+    setPracticeMode, 
+    srsData, 
+    onOpenReviewList, 
+    setIsFlashcardOpen, 
+    setIsLearnGameOpen,
+    dbData 
+}) => {
+    const [localText, setLocalText] = useState(config.text);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const searchInputRef = useRef(null);
+
+    // Tính toán số lượng cần ôn tập (Badge cam nhỏ)
+    const dueCharsCount = useMemo(() => {
+        const now = Date.now();
+        return Object.keys(srsData || {}).filter(char => {
+            const data = srsData[char];
+            return !data.isDone && data.nextReview !== null && (data.nextReview === 0 || data.nextReview <= now);
+        }).length;
+    }, [srsData]);
+
+    // Đồng bộ localText khi config.text thay đổi từ ngoài
+    useEffect(() => {
+        setLocalText(config.text);
+    }, [config.text]);
+
+    // --- HÀM XỬ LÝ NHẬP LIỆU (Tối giản lại, không còn checkbox phức tạp) ---
+    const handleInputText = (e) => {
+        const val = e.target.value;
+        setLocalText(val);
+        // Tự động xóa chữ latin khi lưu vào config (có thể bỏ nếu bạn muốn cho phép gõ romaji)
+        onChange({ ...config, text: val.replace(/[a-zA-Z]/g, '') });
+    };
+
+    // --- HÀM TÌM KIẾM THÔNG MINH (Tái sử dụng logic cũ của bạn, nhưng làm UI gọn hơn) ---
+    const handleSearchRealtime = (val) => {
+        setSearchTerm(val);
+        const query = val.toLowerCase().trim();
+        const queryNoAccent = removeAccents(query);
+
+        if (!query || !dbData) {
+            setSearchResults([]);
+            return;
+        }
+
+        let matches = [];
+
+        if (mode === 'vocab') {
+            const isInputKanji = query.match(/[\u4E00-\u9FAF]/);
+            if (!isInputKanji) {
+                setSearchResults([]);
+                return;
+            }
+
+            if (dbData.TUVUNG_DB) {
+                Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
+                    if (word.includes(val.trim())) {
+                        matches.push({ char: word, sound: info.reading, type: 'vocab', length: word.length });
+                    }
+                });
+            }
+
+            matches.sort((a, b) => a.length - b.length);
+
+            // Lọc trùng (chỉ lấy 10 kết quả đầu cho gọn)
+            const uniqueMatches = [];
+            matches.forEach(current => {
+                const isRedundant = uniqueMatches.some(base => {
+                    if (current.char.startsWith(base.char)) {
+                        if (current.char.endsWith('ます') || current.char.endsWith('します')) return true;
+                    }
+                    return false;
+                });
+                if (!isRedundant) uniqueMatches.push(current);
+            });
+            matches = uniqueMatches.slice(0, 10); 
+        } else {
+            // Chế độ Kanji
+            Object.entries(dbData.KANJI_DB || {}).forEach(([char, info]) => {
+                if (info.sound) {
+                    const sound = info.sound.toLowerCase();
+                    const soundNoAccent = removeAccents(sound);
+                    let priority = 99;
+
+                    if (sound === query) priority = 1;
+                    else if (soundNoAccent === queryNoAccent) priority = 2;
+                    else if (sound.includes(query)) priority = 3;
+                    else if (soundNoAccent.includes(queryNoAccent)) priority = 4;
+
+                    if (priority < 99) {
+                        matches.push({ char, ...info, type: 'kanji', priority, sound });
+                    }
+                }
+            });
+
+            matches.sort((a, b) => {
+                if (a.priority !== b.priority) return a.priority - b.priority;
+                return a.sound.localeCompare(b.sound);
+            });
+            matches = matches.slice(0, 10);
+        }
+
+        setSearchResults(matches);
+        setActiveIndex(0);
+    };
+
+    // Chọn kết quả
+    const selectResult = (item) => {
+        let newText = "";
+        if (mode === 'vocab') {
+            const separator = config.text.length > 0 && !config.text.endsWith('\n') ? '\n' : '';
+            newText = config.text + separator + item.char + '\n';
+        } else {
+            newText = config.text + item.char;
+        }
+
+        // Tự động xóa trùng
+        if (mode === 'vocab') {
+            const lines = newText.split('\n').map(l=>l.trim()).filter(l=>l);
+            newText = [...new Set(lines)].join('\n') + '\n';
+        } else {
+            newText = Array.from(new Set(newText)).join('');
+        }
+
+        setLocalText(newText);
+        onChange({ ...config, text: newText });
+        setSearchTerm('');
+        setSearchResults([]);
+        searchInputRef.current.focus();
+    };
+
+    return (
+        <div className="min-h-screen bg-[#fafafa] font-sans text-gray-900 pb-20">
+            
+            {/* --- NAVBAR --- */}
+            <nav className="flex items-center justify-between px-6 md:px-12 py-5 bg-white border-b border-gray-100 sticky top-0 z-40">
+                <div className="flex items-center gap-3 cursor-pointer">
+                    <div className="w-8 h-8 bg-gray-900 text-white rounded-md flex items-center justify-center font-black text-xl leading-none">
+                        P
+                    </div>
+                    <span className="text-xl font-bold tracking-tight hidden sm:block">PháĐảoTiếngNhật</span>
+                </div>
+
+                <div className="flex items-center gap-2 sm:gap-6 text-sm font-medium text-gray-500">
+                    <button 
+                        onClick={() => setPracticeMode('kanji')}
+                        className={`px-3 py-1.5 rounded-full transition-colors ${mode === 'kanji' ? 'text-gray-900 font-bold bg-gray-100' : 'hover:text-gray-900'}`}
+                    >
+                        Kanji
+                    </button>
+                    <button 
+                        onClick={() => setPracticeMode('vocab')}
+                        className={`px-3 py-1.5 rounded-full transition-colors ${mode === 'vocab' ? 'text-gray-900 font-bold bg-gray-100' : 'hover:text-gray-900'}`}
+                    >
+                        Từ vựng
+                    </button>
+                    <span className="w-px h-4 bg-gray-300 mx-2 hidden sm:block"></span>
+                    <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors hidden sm:block">Tài nguyên</a>
+                </div>
+            </nav>
+
+            {/* --- MAIN CONTENT --- */}
+            <main className="max-w-[1000px] mx-auto px-6 mt-12 md:mt-20">
+                
+                {/* Tiêu đề */}
+                <div className="text-center mb-12 space-y-4">
+                    <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-widest bg-white shadow-sm">
+                        Hệ thống học tập tối giản
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight leading-tight">
+                        Chinh phục tiếng Nhật,<br />
+                        <span className="font-serif italic text-gray-400 font-normal">từng ngày một.</span>
+                    </h1>
+                    <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto font-medium">
+                        Công cụ tạo flashcard lặp lại ngắt quãng thông minh, giúp bạn ghi nhớ Kanji và Từ vựng một cách hiệu quả nhất.
+                    </p>
+                </div>
+
+                {/* --- KHUNG NHẬP LIỆU (THAY THẾ CHỨC NĂNG TẠO FILE IN) --- */}
+                <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-10 mb-16 relative">
+                    
+                    {/* Header Khung nhập */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                        <div>
+                            <h2 className="text-xl font-bold text-gray-900">
+                                {mode === 'kanji' ? 'Nhập Kanji' : 'Nhập Từ vựng'}
+                            </h2>
+                            <p className="text-sm text-gray-500">
+                                {mode === 'kanji' ? 'Gõ trực tiếp Kanji vào ô dưới để bắt đầu học.' : 'Gõ từ vựng (mỗi từ 1 dòng hoặc cách nhau bằng dấu ;)'}
+                            </p>
+                        </div>
+                        
+                        {/* Thanh tìm kiếm nhỏ */}
+                        <div className="relative w-full sm:w-64">
+                            <input 
+                                ref={searchInputRef}
+                                type="text" 
+                                value={searchTerm}
+                                onChange={(e) => handleSearchRealtime(e.target.value)}
+                                placeholder={mode === 'vocab' ? "Tra cứu từ vựng..." : "Tra cứu theo âm Hán Việt..."}
+                                className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all font-medium placeholder-gray-400"
+                            />
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            
+                            {/* Dropdown Tìm kiếm (Giao diện mới gọn hơn) */}
+                            {searchResults.length > 0 && (
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 max-h-60 overflow-y-auto">
+                                    {searchResults.map((item, idx) => (
+                                        <div 
+                                            key={idx} 
+                                            onClick={() => selectResult(item)}
+                                            className={`flex items-center justify-between px-4 py-3 cursor-pointer border-b border-gray-50 hover:bg-gray-50 transition-colors ${idx === activeIndex ? 'bg-gray-50' : ''}`}
+                                        >
+                                            <span className="font-['Klee_One'] text-xl font-bold text-gray-900">{item.char}</span>
+                                            <span className="text-xs font-bold text-gray-400 uppercase">{item.sound}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Ô Textarea */}
+                    <div className="relative mb-6">
+                        <textarea 
+                            value={localText}
+                            onChange={handleInputText}
+                            placeholder={mode === 'vocab' ? "Ví dụ:\n日本語\n先生" : "Ví dụ: 日本語"}
+                            className="w-full h-32 md:h-40 p-5 bg-[#fafafa] border border-gray-200 rounded-2xl resize-none text-xl md:text-2xl font-['Klee_One'] text-gray-800 placeholder-gray-300 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all"
+                        />
+                        <button 
+                            onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }}
+                            className="absolute bottom-4 right-4 text-xs font-bold text-gray-400 hover:text-red-500 transition-colors uppercase tracking-wider bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm"
+                        >
+                            Xóa hết
+                        </button>
+                    </div>
+
+                    {/* Các Nút Hành Động Chính (Cards như ảnh 2) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        {/* 1. Flashcard */}
+                        <button 
+                            onClick={() => {
+                                if (!config.text) return alert("Vui lòng nhập chữ để học!");
+                                setIsFlashcardOpen(true);
+                            }}
+                            className="flex flex-col items-start text-left p-6 rounded-2xl border border-gray-200 bg-white hover:border-gray-400 hover:shadow-lg transition-all group"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">Thẻ Flashcard</h3>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">{mode === 'kanji' ? 'Hán tự & Bộ thủ' : 'Từ vựng'}</p>
+                            <p className="text-sm text-gray-500 leading-relaxed">Học và ghi nhớ với thuật toán lặp lại ngắt quãng thông minh.</p>
+                        </button>
+
+                        {/* 2. Trắc nghiệm (Game) */}
+                        <button 
+                            onClick={() => {
+                                if (!config.text) return alert("Vui lòng nhập chữ để học!");
+                                setIsLearnGameOpen(true);
+                            }}
+                            className="flex flex-col items-start text-left p-6 rounded-2xl border border-gray-200 bg-white hover:border-gray-400 hover:shadow-lg transition-all group"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13v.01M18 11v.01"/></svg>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">Làm bài tập</h3>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Kiểm tra kiến thức</p>
+                            <p className="text-sm text-gray-500 leading-relaxed">Ôn luyện lại bằng các bài trắc nghiệm và ghép thẻ tương tác.</p>
+                        </button>
+
+                        {/* 3. Lịch trình ôn tập */}
+                        <button 
+                            onClick={onOpenReviewList}
+                            className="flex flex-col items-start text-left p-6 rounded-2xl border border-gray-200 bg-white hover:border-gray-400 hover:shadow-lg transition-all group relative overflow-hidden"
+                        >
+                            {/* Badge nhắc nhở ôn tập */}
+                            {dueCharsCount > 0 && (
+                                <div className="absolute top-4 right-4 bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded-full animate-pulse">
+                                    Cần ôn {dueCharsCount} chữ
+                                </div>
+                            )}
+
+                            <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">Lịch trình học</h3>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Giữ vững tiến độ</p>
+                            <p className="text-sm text-gray-500 leading-relaxed">Xem danh sách các từ cần ôn tập hôm nay do hệ thống sắp xếp.</p>
+                        </button>
+
+                    </div>
+                </div>
+
+            </main>
+
+            {/* Footer tối giản */}
+            <footer className="text-center text-xs font-medium text-gray-400 py-8 border-t border-gray-100 max-w-[1000px] mx-auto">
+                <p>© 2026 Phá Đảo Tiếng Nhật. Xây dựng vì cộng đồng học tiếng Nhật.</p>
+            </footer>
+        </div>
+    );
+};
     
     const App = () => {
 //thongbao
@@ -4057,18 +4369,11 @@ if (!isDbLoaded) {
 return (
     <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
         
-        {/* --- POPUP THÔNG BÁO KHI VÀO WEB (Có thể giữ hoặc xóa tùy bạn) --- */}
-        {showStartupNotice && (
-             // ... (Giữ nguyên đoạn code popup thông báo của bạn ở đây nếu muốn) ...
-             <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-                 {/* ... Code nút Đã hiểu ... */}
-                 <button onClick={() => setShowStartupNotice(false)} className="w-full py-3.5 bg-black hover:bg-gray-800 text-white font-bold rounded-xl shadow-lg transition-all uppercase text-xs tracking-widest">Đã hiểu</button>
-             </div>
-        )}
+
 
         {/* CHỖ TRỐNG: Lát nữa ta sẽ nhúng Component giao diện NihongoZen vào đây */}
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-3xl font-black mb-4">Đang cập nhật giao diện mới...</h1>
+            <h1 className="text-3xl font-black mb-4"><LandingPage /></h1>
             <p>Logic dữ liệu vẫn đang chạy ngầm an toàn!</p>
         </div>
 
