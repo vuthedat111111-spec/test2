@@ -4037,18 +4037,15 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                            <div className="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold font-jp">日</div>
-                            <span className="text-xl font-bold tracking-tight">PháĐảo<span className="font-light">TiếngNhật</span></span>
+                            <div className="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold font-jp">学</div>
+                            <span className="text-xl font-bold tracking-tight">PHÁ ĐẢO<span className="font-light"> TIẾNG NHẬT</span></span>
                         </div>
                         
                         <div className="hidden md:flex items-center gap-8">
-                            <span onClick={scrollToFeatures} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer">Bài học</span>
-                            <span onClick={() => onOpenSetup('flashcard')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer">Flashcard</span>
-                            <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer">Tài nguyên</a>
+            
+                
+                            <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer">Tài liệu</a>
                             <div className="h-4 w-px bg-zinc-200"></div>
-                            <button className="p-2 text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer" onClick={() => onOpenSetup('flashcard')}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
-                            </button>
                             <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-white rounded-full text-sm font-medium hover:bg-zinc-800 transition-colors">
                                 <span>Tham gia Nhóm</span>
                             </a>
@@ -4072,22 +4069,19 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                         </div>
                         
                         {/* Font chữ đã được thu nhỏ lại vừa vặn hơn */}
-                        <h1 className="text-5xl md:text-[4rem] font-bold tracking-tight leading-[1.05] mb-6 text-zinc-900">
-                            Chinh phục tiếng Nhật, <br />
-                            <span className="text-zinc-400 font-light italic font-serif">Từng ngày một.</span>
+                        <h1 className="text-3xl md:text-[4rem] font-bold tracking-tight leading-[1.05] mb-6 text-zinc-900">
+                            Nơi nào có ý chí, <br />
+                            <span className="text-zinc-400 font-light italic font-serif">nơi đó có con đường.</span>
                         </h1>
                         
                         <p className="text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
-                            <span className="font-jp">日本語を学びましょう。</span> Công cụ đơn giản, hiệu quả giúp bạn đọc, viết và nói tự tin.
+                            <span className="font-jp">日本語を勉強しましょう。</span>
                         </p>
                         
                         <div className="flex flex-wrap gap-3">
                             <button onClick={scrollToFeatures} className="px-7 py-3.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group">
                                 Bắt đầu học
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="m9 18 6-6-6-6"></path></svg>
-                            </button>
-                            <button onClick={scrollToFeatures} className="px-7 py-3.5 bg-white border border-zinc-200 text-zinc-800 rounded-full text-sm font-bold hover:bg-zinc-50 transition-colors active:scale-95">
-                                Xem lộ trình
                             </button>
                         </div>
                     </div>
