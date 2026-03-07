@@ -4179,7 +4179,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
         </div>
     );
 };
-// --- COMPONENT: THANH TÌM KIẾM ĐỘC LẬP (100% ĐEN TRẮNG) ---
+// --- COMPONENT: THANH TÌM KIẾM ĐỘC LẬP (BẢN MONOCHROME CÓ TAG JLPT) ---
 const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -4187,13 +4187,26 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
     const searchInputRef = useRef(null);
     const scrollRef = useRef(null);
 
-    // Cuộn tự động
+    // Cuộn tự động khi dùng phím mũi tên
     useEffect(() => {
         if (scrollRef.current && searchResults.length > 0) {
-            const activeItem = scrollRef.current.childNodes[mode === 'vocab' ? activeIndex + 1 : activeIndex];
+            // Offset active index nếu có nút "Thêm tất cả" (mode vocab)
+            const indexToScroll = mode === 'vocab' ? activeIndex + 1 : activeIndex;
+            const activeItem = scrollRef.current.childNodes[indexToScroll];
             if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }, [activeIndex, searchResults.length, mode]);
+
+    // Hàm lấy cấp độ JLPT
+    const getJLPTLevel = (char) => {
+        if (!dbData || !dbData.KANJI_LEVELS) return null;
+        if (dbData.KANJI_LEVELS.N5?.includes(char)) return 'N5';
+        if (dbData.KANJI_LEVELS.N4?.includes(char)) return 'N4';
+        if (dbData.KANJI_LEVELS.N3?.includes(char)) return 'N3';
+        if (dbData.KANJI_LEVELS.N2?.includes(char)) return 'N2';
+        if (dbData.KANJI_LEVELS.N1?.includes(char)) return 'N1';
+        return null;
+    };
 
     const handleSearchRealtime = (val) => {
         setSearchTerm(val);
@@ -4213,7 +4226,8 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
 
             if (dbData.TUVUNG_DB) {
                 Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
-                    if (word.includes(val.trim())) matches.push({ char: word, sound: info.reading, type: 'vocab', length: word.length });
+                    // Lấy thêm meaning cho từ vựng
+                    if (word.includes(val.trim())) matches.push({ char: word, sound: info.reading, meaning: info.meaning, type: 'vocab', length: word.length });
                 });
             }
             matches.sort((a, b) => a.length - b.length);
@@ -4238,6 +4252,8 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                     else if (soundNoAccent === queryNoAccent) priority = 2;
                     else if (sound.includes(query)) priority = 3;
                     else if (soundNoAccent.includes(queryNoAccent)) priority = 4;
+                    
+                    // Info đã chứa sẵn meaning
                     if (priority < 99) matches.push({ char, ...info, type: 'kanji', priority, sound });
                 }
             });
@@ -4267,6 +4283,7 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
 
     return (
         <div className="relative w-full z-20">
+            {/* Ô Input Tìm Kiếm */}
             <input 
                 ref={searchInputRef}
                 type="text" 
@@ -4284,25 +4301,68 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
             />
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
 
+            {/* Nút Xóa (Dấu X) */}
             {searchTerm && (
                 <button onClick={() => { setSearchTerm(''); setSearchResults([]); searchInputRef.current?.focus(); }} className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-gray-900 transition-colors bg-transparent rounded-full hover:bg-gray-200">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             )}
 
+            {/* Khung Gợi Ý Kết Quả */}
             {searchResults.length > 0 && (
                 <div ref={scrollRef} className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl max-h-60 overflow-y-auto custom-scrollbar p-2">
+                    
+                    {/* Nút thêm tất cả (Từ vựng) */}
                     {mode === 'vocab' && (
                         <button onClick={handleSelectAll} className="w-full mb-2 py-2 bg-gray-900 text-white text-[10px] font-black rounded-xl uppercase tracking-widest hover:bg-black active:scale-95 transition-all">
                             Thêm tất cả ({searchResults.length})
                         </button>
                     )}
-                    {searchResults.map((item, idx) => (
-                        <div key={idx} onClick={() => handleSelect(item)} className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-xl transition-colors ${idx === activeIndex ? 'bg-gray-100' : 'hover:bg-gray-50'}`}>
-                            <span className="font-['Klee_One'] text-xl font-bold text-gray-900">{item.char}</span>
-                            <span className="text-xs font-bold text-gray-500 uppercase">{item.sound}</span>
-                        </div>
-                    ))}
+
+                    {/* Danh sách thẻ kết quả */}
+                    {searchResults.map((item, idx) => {
+                        const level = item.type === 'kanji' ? getJLPTLevel(item.char) : null; 
+
+                        return (
+                            <div 
+                                key={idx} 
+                                onClick={() => handleSelect(item)} 
+                                className={`flex items-center gap-3 px-3 py-2 cursor-pointer rounded-xl transition-colors ${idx === activeIndex ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                            >
+                                {/* 1. CHỮ KANJI (Bên trái) */}
+                                <span className={`font-['Klee_One'] text-gray-900 font-bold flex-shrink-0 ${mode === 'vocab' ? "text-xl" : "text-2xl"}`}>
+                                    {item.char}
+                                </span>
+
+                                {/* 2. ÂM ĐỌC & Ý NGHĨA (Ở giữa) */}
+                                <div className="flex flex-col justify-center flex-1 min-w-0">
+                                    <span className="text-sm font-bold text-gray-800 uppercase leading-tight truncate">
+                                        {item.sound} 
+                                    </span>
+                                    {item.meaning && (
+                                        <span className="text-[10px] font-medium text-gray-500 truncate leading-tight mt-0.5">
+                                            {item.meaning}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* 3. TAG JLPT HOẶC BỘ THỦ (Bên phải - MONOCHROME) */}
+                                <div className="ml-auto flex-shrink-0 pl-2">
+                                    {mode !== 'vocab' && (
+                                        level ? (
+                                            <div className="px-1.5 py-0.5 rounded text-[9px] font-black border border-gray-300 bg-white text-gray-700">
+                                                {level}
+                                            </div>
+                                        ) : (
+                                            <div className="px-1.5 py-0.5 rounded text-[9px] font-black border border-gray-200 bg-gray-50 text-gray-500 uppercase">
+                                                Bộ thủ
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>
