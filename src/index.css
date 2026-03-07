@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-jp: "Noto Sans JP", sans-serif;
+  
+  --color-zen-black: #1a1a1a;
+  --color-zen-gray: #f5f5f5;
+  --color-zen-white: #ffffff;
+  --color-zen-accent: #e5e5e5;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-zen-white);
+  color: var(--color-zen-black);
+}
+
+.font-jp {
+  font-family: var(--font-jp);
+}
