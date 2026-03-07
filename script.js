@@ -4179,86 +4179,38 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
         </div>
     );
 };
-// --- 2. MODAL THIẾT LẬP BÀI HỌC (Chứa form nhập liệu) ---
-const StudySetupModal = ({ 
-    isOpen, onClose, onStart, targetAction, 
-    config, onChange, mode, setPracticeMode, dbData, srsData 
-}) => {
-    const [localText, setLocalText] = useState(config.text);
+// --- COMPONENT: THANH TÌM KIẾM ĐỘC LẬP (100% ĐEN TRẮNG) ---
+const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const searchInputRef = useRef(null);
+    const scrollRef = useRef(null);
 
-    const [isLibraryOpen, setIsLibraryOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [progress, setProgress] = useState(0);
-
-    const [randomCount, setRandomCount] = useState(10);
-    const [minnaLesson, setMinnaLesson] = useState('');
-    const [mimiPart, setMimiPart] = useState('');
-    const [mimiLevel, setMimiLevel] = useState('N3');
-    const [tangoPart, setTangoPart] = useState('');
-    const [tangoLevel, setTangoLevel] = useState('N3');
-
+    // Cuộn tự động
     useEffect(() => {
-        if (isOpen) {
-            setLocalText(config.text);
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
+        if (scrollRef.current && searchResults.length > 0) {
+            const activeItem = scrollRef.current.childNodes[mode === 'vocab' ? activeIndex + 1 : activeIndex];
+            if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen, config.text]);
-
-    if (!isOpen) return null;
-
-    // Các hàm xử lý nhập liệu, xáo trộn, làm sạch (Tái sử dụng)
-    const handleInputText = (e) => {
-        const val = e.target.value;
-        setLocalText(val);
-        onChange({ ...config, text: val.replace(/[a-zA-Z]/g, '') });
-    };
-
-    const handleCleanText = () => {
-        if (!localText) return;
-        let cleaned = localText.replace(/[a-zA-Z]/g, '').replace(/[\n\r]+/g, '').replace(/[ 　\t]+/g, '').trim();
-        setLocalText(cleaned);
-        onChange({ ...config, text: cleaned });
-    };
-
-    const handleShuffle = () => {
-        if (!config.text) return;
-        let newContent = "";
-        if (mode === 'vocab') {
-            const lines = config.text.split(/[\n;]+/).filter(line => line.trim() !== '');
-            for (let i = lines.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [lines[i], lines[j]] = [lines[j], lines[i]];
-            }
-            newContent = lines.join('\n');
-        } else {
-            const arr = [...config.text];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            newContent = arr.join('');
-        }
-        setLocalText(newContent);
-        onChange({ ...config, text: newContent });
-    };
+    }, [activeIndex, searchResults.length, mode]);
 
     const handleSearchRealtime = (val) => {
         setSearchTerm(val);
         const query = val.toLowerCase().trim();
         const queryNoAccent = removeAccents(query);
 
-        if (!query || !dbData) { setSearchResults([]); return; }
+        if (!query || !dbData) {
+            setSearchResults([]);
+            return;
+        }
+
         let matches = [];
 
         if (mode === 'vocab') {
-            if (!query.match(/[\u4E00-\u9FAF]/)) { setSearchResults([]); return; }
+            const isInputKanji = query.match(/[\u4E00-\u9FAF]/);
+            if (!isInputKanji) { setSearchResults([]); return; }
+
             if (dbData.TUVUNG_DB) {
                 Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
                     if (word.includes(val.trim())) matches.push({ char: word, sound: info.reading, type: 'vocab', length: word.length });
@@ -4299,7 +4251,130 @@ const StudySetupModal = ({
         setActiveIndex(0);
     };
 
-    const selectResult = (item) => {
+    const handleSelect = (item) => {
+        onSelectResult(item); 
+        setSearchTerm('');
+        setSearchResults([]);
+        searchInputRef.current?.focus();
+    };
+
+    const handleSelectAll = () => {
+        if (onSelectAll) onSelectAll(searchResults);
+        setSearchTerm('');
+        setSearchResults([]);
+        searchInputRef.current?.focus();
+    }
+
+    return (
+        <div className="relative w-full z-20">
+            <input 
+                ref={searchInputRef}
+                type="text" 
+                value={searchTerm}
+                onChange={(e) => handleSearchRealtime(e.target.value)}
+                onKeyDown={(e) => {
+                    if (searchResults.length > 0) {
+                        if (e.key === 'ArrowDown') { e.preventDefault(); setActiveIndex(prev => (prev < searchResults.length - 1 ? prev + 1 : 0)); } 
+                        else if (e.key === 'ArrowUp') { e.preventDefault(); setActiveIndex(prev => (prev > 0 ? prev - 1 : searchResults.length - 1)); } 
+                        else if (e.key === 'Enter') { e.preventDefault(); handleSelect(searchResults[activeIndex]); }
+                    }
+                }}
+                placeholder={mode === 'vocab' ? "Tra cứu từ vựng..." : "Tra cứu theo âm Hán Việt..."} 
+                className="w-full pl-10 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all"
+            />
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
+
+            {searchTerm && (
+                <button onClick={() => { setSearchTerm(''); setSearchResults([]); searchInputRef.current?.focus(); }} className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-gray-900 transition-colors bg-transparent rounded-full hover:bg-gray-200">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            )}
+
+            {searchResults.length > 0 && (
+                <div ref={scrollRef} className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl max-h-60 overflow-y-auto custom-scrollbar p-2">
+                    {mode === 'vocab' && (
+                        <button onClick={handleSelectAll} className="w-full mb-2 py-2 bg-gray-900 text-white text-[10px] font-black rounded-xl uppercase tracking-widest hover:bg-black active:scale-95 transition-all">
+                            Thêm tất cả ({searchResults.length})
+                        </button>
+                    )}
+                    {searchResults.map((item, idx) => (
+                        <div key={idx} onClick={() => handleSelect(item)} className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-xl transition-colors ${idx === activeIndex ? 'bg-gray-100' : 'hover:bg-gray-50'}`}>
+                            <span className="font-['Klee_One'] text-xl font-bold text-gray-900">{item.char}</span>
+                            <span className="text-xs font-bold text-gray-500 uppercase">{item.sound}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+// --- 2. MODAL THIẾT LẬP BÀI HỌC (100% ĐEN/TRẮNG/XÁM) ---
+const StudySetupModal = ({ 
+    isOpen, onClose, onStart, targetAction, 
+    config, onChange, mode, setPracticeMode, dbData, srsData 
+}) => {
+    const [localText, setLocalText] = useState(config.text);
+    const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    const [randomCount, setRandomCount] = useState(10);
+    const [minnaLesson, setMinnaLesson] = useState('');
+    const [mimiPart, setMimiPart] = useState('');
+    const [mimiLevel, setMimiLevel] = useState('N3');
+    const [tangoPart, setTangoPart] = useState('');
+    const [tangoLevel, setTangoLevel] = useState('N3');
+
+    useEffect(() => {
+        if (isOpen) {
+            setLocalText(config.text);
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen, config.text]);
+
+    if (!isOpen) return null;
+
+    // --- CÁC HÀM XỬ LÝ TEXT ---
+    const handleInputText = (e) => {
+        const val = e.target.value;
+        setLocalText(val);
+        onChange({ ...config, text: val.replace(/[a-zA-Z]/g, '') });
+    };
+
+    const handleCleanText = () => {
+        if (!localText) return;
+        let cleaned = localText.replace(/[a-zA-Z]/g, '').replace(/[\n\r]+/g, '').replace(/[ 　\t]+/g, '').trim();
+        setLocalText(cleaned);
+        onChange({ ...config, text: cleaned });
+    };
+
+    const handleShuffle = () => {
+        if (!config.text) return;
+        let newContent = "";
+        if (mode === 'vocab') {
+            const lines = config.text.split(/[\n;]+/).filter(line => line.trim() !== '');
+            for (let i = lines.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [lines[i], lines[j]] = [lines[j], lines[i]];
+            }
+            newContent = lines.join('\n');
+        } else {
+            const arr = [...config.text];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            newContent = arr.join('');
+        }
+        setLocalText(newContent);
+        onChange({ ...config, text: newContent });
+    };
+
+    // --- HÀM XỬ LÝ KHI CHỌN KẾT QUẢ TỪ SEARCH BAR ---
+    const handleSelectFromResult = (item) => {
         let newText = "";
         if (mode === 'vocab') {
             const separator = config.text.length > 0 && !config.text.endsWith('\n') ? '\n' : '';
@@ -4310,11 +4385,20 @@ const StudySetupModal = ({
         }
         setLocalText(newText);
         onChange({ ...config, text: newText });
-        setSearchTerm('');
-        setSearchResults([]);
-        searchInputRef.current.focus();
     };
 
+    const handleSelectAllFromResult = (items) => {
+        const wordsToAdd = items.map(item => item.char).join('\n');
+        let currentText = localText || "";
+        if (currentText.length > 0 && !currentText.endsWith('\n')) currentText += '\n';
+        let newText = currentText + wordsToAdd + '\n';
+        newText = [...new Set(newText.split('\n').map(l => l.trim()).filter(l => l))].join('\n') + '\n';
+        
+        setLocalText(newText);
+        onChange({ ...config, text: newText });
+    };
+
+    // --- HÀM TẢI DỮ LIỆU THƯ VIỆN ---
     const fetchAndSetData = async (url) => {
         setIsLoading(true); setProgress(20);
         try {
@@ -4331,15 +4415,10 @@ const StudySetupModal = ({
             }
             setProgress(100);
             setTimeout(() => {
-                setLocalText(resultText);
-                onChange({ ...config, text: resultText });
-                setIsLoading(false);
-                setIsLibraryOpen(false);
+                setLocalText(resultText); onChange({ ...config, text: resultText });
+                setIsLoading(false); setIsLibraryOpen(false);
             }, 400);
-        } catch (error) {
-            alert("Lỗi tải dữ liệu!");
-            setIsLoading(false);
-        }
+        } catch (error) { alert("Lỗi tải dữ liệu!"); setIsLoading(false); }
     };
 
     const loadRandomKanji = async (level) => {
@@ -4363,81 +4442,81 @@ const StudySetupModal = ({
             const finalResult = [...selectedPool].sort(() => Math.random() - 0.5).join('');
             setProgress(100);
             setTimeout(() => {
-                setLocalText(finalResult);
-                onChange({ ...config, text: finalResult });
-                setIsLoading(false);
-                setIsLibraryOpen(false);
+                setLocalText(finalResult); onChange({ ...config, text: finalResult });
+                setIsLoading(false); setIsLibraryOpen(false);
             }, 400);
         } catch (error) { setIsLoading(false); }
     };
 
     return (
-        <div className="fixed inset-0 z-[300] flex justify-center items-end sm:items-center bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[300] flex justify-center items-end sm:items-center bg-gray-900/80 backdrop-blur-sm animate-in fade-in duration-200">
             
+            {/* LOADING OVERLAY */}
             {isLoading && (
-                <div className="fixed inset-0 z-[400] flex flex-col items-center justify-center bg-white/80 backdrop-blur-md">
-                    <div className="w-64 p-6 bg-white rounded-3xl shadow-2xl border border-gray-100 text-center">
-                        <span className="text-xs font-black text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">Đang nạp dữ liệu...</span>
-                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
-                            <div className="bg-gray-900 h-full rounded-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
+                <div className="fixed inset-0 z-[400] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md">
+                    <div className="w-64 p-6 bg-white rounded-2xl shadow-2xl border border-gray-200 text-center">
+                        <span className="text-xs font-bold text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">Đang xử lý... {progress}%</span>
+                        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                            <div className="bg-gray-900 h-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
                 </div>
             )}
 
+            {/* MODAL THƯ VIỆN (ĐEN TRẮNG XÁM) */}
             {isLibraryOpen && (
-                <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in" onClick={() => setIsLibraryOpen(false)}>
-                    <div className="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden cursor-default animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
+                <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in" onClick={() => setIsLibraryOpen(false)}>
+                    <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden cursor-default border border-gray-200 animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
                         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                            <h3 className="font-black text-sm uppercase tracking-wide">Thư viện mẫu</h3>
-                            <button onClick={() => setIsLibraryOpen(false)} className="text-gray-400 hover:text-red-500 transition-colors">✕</button>
+                            <h3 className="font-bold text-sm uppercase tracking-wider text-gray-800">Thư viện dữ liệu</h3>
+                            <button onClick={() => setIsLibraryOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors">✕</button>
                         </div>
                         <div className="p-6 space-y-6">
                             {mode === 'kanji' ? (
                                 <>
                                     <div>
-                                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
-                                        <div className="flex gap-2 items-center mb-3">
-                                            <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-16 p-2 text-center border border-gray-200 rounded-xl font-bold focus:border-gray-900 outline-none" />
-                                            <span className="text-xs font-bold text-gray-500">chữ mới</span>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
+                                        <div className="flex gap-3 items-center mb-4">
+                                            <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold focus:border-gray-900 outline-none" />
+                                            <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
                                         </div>
                                         <div className="grid grid-cols-5 gap-2">
                                             {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
-                                                <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-black text-xs transition-all active:scale-95">{lvl}</button>
+                                                <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95 text-gray-700">{lvl}</button>
                                             ))}
                                         </div>
                                     </div>
                                     <div className="border-t border-gray-100 pt-5">
-                                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
                                         <div className="grid grid-cols-3 gap-2">
-                                            <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-50">Bộ thủ</button>
-                                            <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-50">Hiragana</button>
-                                            <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-50">Katakana</button>
+                                            <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Bộ thủ</button>
+                                            <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Hiragana</button>
+                                            <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Katakana</button>
                                         </div>
                                     </div>
                                 </>
                             ) : (
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-black uppercase text-gray-500 tracking-wider">Minna</span>
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Minna</span>
                                         <input type="number" placeholder="Bài..." value={minnaLesson} onChange={e => setMinnaLesson(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/minna/minna${minnaLesson || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-black uppercase tracking-wider rounded-xl hover:bg-black active:scale-95">Tải</button>
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/minna/minna${minnaLesson || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-black uppercase text-gray-500 tracking-wider">Mimi</span>
-                                        <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none">
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Mimi</span>
+                                        <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none bg-white">
                                             <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
                                         </select>
                                         <input type="number" placeholder="Phần..." value={mimiPart} onChange={e => setMimiPart(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none w-16" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/mimikara/${mimiLevel.toLowerCase()}/mimi${mimiLevel.toLowerCase()}p${mimiPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-black uppercase tracking-wider rounded-xl hover:bg-black active:scale-95">Tải</button>
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/mimikara/${mimiLevel.toLowerCase()}/mimi${mimiLevel.toLowerCase()}p${mimiPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-black uppercase text-gray-500 tracking-wider">Tango</span>
-                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none">
+                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Tango</span>
+                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none bg-white">
                                             <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
                                         </select>
                                         <input type="number" placeholder="Phần..." value={tangoPart} onChange={e => setTangoPart(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none w-16" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/tango/${tangoLevel.toLowerCase()}/tango${tangoLevel.toLowerCase()}p${tangoPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-black uppercase tracking-wider rounded-xl hover:bg-black active:scale-95">Tải</button>
+                                        <button onClick={() => fetchAndSetData(`./data/tuvung/tango/${tangoLevel.toLowerCase()}/tango${tangoLevel.toLowerCase()}p${tangoPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
                                     </div>
                                 </div>
                             )}
@@ -4446,96 +4525,80 @@ const StudySetupModal = ({
                 </div>
             )}
 
-            {/* BẢNG CHÍNH */}
+            {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
             <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
                 
                 {/* Header: Đổi chế độ */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                    <div className="flex bg-gray-100 p-1 rounded-xl">
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50">
+                    <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
                         <button 
-                            onClick={() => { setPracticeMode('kanji'); setLocalText(''); onChange({ ...config, text: '' }); setSearchResults([]); }}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                            onClick={() => { setPracticeMode('kanji'); setLocalText(''); onChange({ ...config, text: '' }); }}
+                            className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
                         >
                             KANJI
                         </button>
                         <button 
-                            onClick={() => { setPracticeMode('vocab'); setLocalText(''); onChange({ ...config, text: '' }); setSearchResults([]); }}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                            onClick={() => { setPracticeMode('vocab'); setLocalText(''); onChange({ ...config, text: '' }); }}
+                            className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
                         >
                             TỪ VỰNG
                         </button>
                     </div>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-colors">✕</button>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
                 </div>
 
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5">
                     
-                    {/* Tìm kiếm */}
-                    <div className="relative z-20">
-                        <input 
-                            ref={searchInputRef} type="text" value={searchTerm} onChange={(e) => handleSearchRealtime(e.target.value)} 
-                            placeholder={mode === 'vocab' ? "Tra cứu từ vựng..." : "Tra cứu theo âm Hán Việt..."} 
-                            className="w-full pl-10 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all" 
-                        />
-                        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                        
-                        {searchResults.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-xl max-h-60 overflow-y-auto z-50 p-2">
-                                {mode === 'vocab' && (
-                                    <button onClick={handleSelectAllResults} className="w-full mb-2 py-2 bg-gray-900 text-white text-[10px] font-black rounded-xl uppercase tracking-widest hover:bg-black active:scale-95">Thêm tất cả ({searchResults.length})</button>
-                                )}
-                                {searchResults.map((item, idx) => (
-                                    <div key={idx} onClick={() => selectResult(item)} className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-xl hover:bg-gray-50 transition-colors ${idx === activeIndex ? 'bg-gray-50' : ''}`}>
-                                        <span className="font-['Klee_One'] text-xl font-bold text-gray-900">{item.char}</span>
-                                        <span className="text-xs font-bold text-gray-400 uppercase">{item.sound}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    {/* Component SearchBar Độc lập */}
+                    <SearchBar 
+                        mode={mode} 
+                        dbData={dbData} 
+                        onSelectResult={handleSelectFromResult} 
+                        onSelectAll={handleSelectAllFromResult} 
+                    />
 
-                    {/* Textarea */}
+                    {/* Textarea Nhập liệu */}
                     <div className="relative">
                         <textarea 
                             value={localText} onChange={handleInputText} 
                             placeholder={mode === 'vocab' ? "Ví dụ:\n日本語\n先生" : "Ví dụ: 日本語"} 
-                            className="w-full h-36 p-5 bg-[#fafafa] border border-gray-200 rounded-2xl resize-none text-2xl font-['Klee_One'] text-gray-800 placeholder-gray-300 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all custom-scrollbar" 
+                            className="w-full h-40 p-5 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-2xl font-['Klee_One'] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar" 
                         />
                         {localText && (
-                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-black text-gray-400 hover:text-red-500 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">
+                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-gray-500 hover:text-gray-900 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">
                                 Xóa hết
                             </button>
                         )}
                     </div>
 
-                    {/* Tiện ích */}
-                    <div className="grid grid-cols-3 gap-2">
-                        <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-600 transition-colors">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
-                            <span className="text-[10px] font-bold uppercase tracking-wider">Thư viện</span>
+                    {/* Tiện ích (Thư viện, Xáo trộn, Làm sạch) */}
+                    <div className="grid grid-cols-3 gap-3">
+                        <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
                         </button>
-                        <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-600 transition-colors">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                            <span className="text-[10px] font-bold uppercase tracking-wider">Xáo trộn</span>
+                        <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
                         </button>
-                        <button onClick={handleCleanText} className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-600 transition-colors">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l5.37-5.38"/></svg>
-                            <span className="text-[10px] font-bold uppercase tracking-wider">Làm sạch</span>
+                        <button onClick={handleCleanText} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l5.37-5.38"/></svg>
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Làm sạch</span>
                         </button>
                     </div>
                 </div>
 
                 {/* Footer: Nút Bắt đầu */}
-                <div className="p-4 border-t border-gray-100 bg-white">
+                <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
                         onClick={() => {
                             if (!config.text || config.text.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
                             onStart(targetAction);
                         }}
-                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-xl transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
-                        BẮT ĐẦU HỌC
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        BẮT ĐẦU {targetAction === 'flashcard' ? 'HỌC THẺ' : 'LÀM BÀI TẬP'}
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
 
@@ -4543,7 +4606,6 @@ const StudySetupModal = ({
         </div>
     );
 };
-    
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
