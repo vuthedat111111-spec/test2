@@ -1,234 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Serif+JP:wght@400;700&display=swap');
-      
-/* --- TRACING  STYLE --- */
-.kanji-trace {
-font-family: 'Klee One', 'UD Digi Kyokasho N-R', 'UD Digi Kyokasho', 'UD デジタル 教科書体 N-R', 'UD デジタル 教科書体', cursive;
-color: #bfbfbf; 
--webkit-text-stroke: 0px white; 
-paint-order: stroke fill;
-position: relative;
-z-index: 10;
-line-height: 0; 
-user-select: none;
-}
- 
-/* --- DECOMPOSITION SVG STYLE --- */
-.decomp-svg {
-width: 100%;
-height: 100%;
-display: block;
-}
-.decomp-svg path {
-stroke: #000;
-stroke-width: 3px;
-fill: none;
-stroke-linecap: round;
-stroke-linejoin: round;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Klee+One:wght@400;600&display=swap');
+
+/* --- CONFIGURATION TỪ WEB GỐC --- */
+:root {
+  --color-zinc-50: oklch(98.5% 0 0);
+  --color-zinc-100: oklch(96.7% 0.001 286.375);
+  --color-zinc-200: oklch(92% 0.004 286.32);
+  --color-zinc-400: oklch(70.5% 0.015 286.067);
+  --color-zinc-500: oklch(55.2% 0.016 285.938);
+  --color-zinc-600: oklch(44.2% 0.017 285.786);
+  --color-zinc-800: oklch(27.4% 0.006 286.033);
+  --color-zinc-900: oklch(21% 0.006 285.885);
+  --color-white: #fff;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-jp: "Noto Sans JP", sans-serif;
+  --color-zen-black: #1a1a1a;
+  --color-zen-white: #ffffff;
 }
 
-/* --- INLINE REFERENCE SVG STYLE (BOX 1 FIX) --- */
-.ref-wrapper {
-width: 100%;
-height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
-
-.ref-wrapper svg {
-width: 100% !important;
-height: 100% !important;
-display: block;
-transform-origin: center center;
-transform: translate(var(--guide-x, 0px), var(--guide-y, 0px)) scale(var(--guide-scale, 0.9));
-}
-
-.ref-wrapper text {
-font-size: 8px;
-fill: #999;
-font-family: sans-serif;
-}
-.ref-wrapper path {
-stroke: #000;
-stroke-width: 3px;
-fill: none;
-stroke-linecap: round;
-stroke-linejoin: round;
-}
-
-/* --- PRINT CONFIGURATION --- */
-@media print {
-@page {
-    size: A4 portrait;
-    margin: 0;
-}
-
-html, body {
-    width: 210mm;
-    min-height: 297mm;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: white;
-}
-
-#root {
-    width: 100%;
-}
-
-.no-print {
-    display: none !important;
-}
-
-.a4-page {
-    width: 210mm !important;
-    height: 296mm !important; 
-    margin: 0 !important;
-    padding-top: 10mm !important;
-    padding-bottom: 0 !important;
-    page-break-after: always !important;
-    overflow: hidden !important;
-    box-shadow: none !important;
-    border: none !important;
-}
-.print-layout-reset {
-overflow: visible !important; 
-height: auto !important;      
-display: block !important;    
-}
-::-webkit-scrollbar {
-display: none !important;
-}
-}
-
-@media screen {
 body {
-    background-color: #f3f4f6;
-}
-.a4-page {
-    width: 210mm;
-    height: 297mm;
-    background: white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-}
-}
-/* --- 1. CLASS ẨN THANH TRƯỢT (Dùng cho Sidebar bên ngoài) --- */
-.hide-scrollbar::-webkit-scrollbar {
-display: none;
-}
-.hide-scrollbar {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
+  font-family: var(--font-sans);
+  background-color: var(--color-zen-white);
+  color: var(--color-zen-black);
 }
 
-/* --- 2. CLASS THANH TRƯỢT ĐẸP (Dùng cho danh sách con bên trong) --- */
-.custom-scrollbar::-webkit-scrollbar {
-width: 6px; 
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-background: #ffffff;
-border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-background-color: #bfdbfe; 
-border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-background-color: #60a5fa;
-}
-/* Hỗ trợ Firefox */
-.custom-scrollbar {
-scrollbar-width: thin;
-scrollbar-color: #bfdbfe #ffffff;
-}
-/* --- 3. CLASS THANH TRƯỢT TRONG SUỐT --- */
-.input-scrollbar::-webkit-scrollbar {
-width: 14px; 
+.font-jp {
+  font-family: var(--font-jp);
 }
 
-/* Nền trong suốt và có margin để tránh góc bo */
-.input-scrollbar::-webkit-scrollbar-track {
-background: transparent; 
-margin-top: 8px;    
-margin-bottom: 8px; 
-}
+/* --- SCROLLBAR STYLE --- */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Cục lăn: Bo tròn và nằm lơ lửng ở giữa */
-.input-scrollbar::-webkit-scrollbar-thumb {
-background-color: #cbd5e1; 
-border-radius: 20px;        
-border: 5px solid transparent; 
-background-clip: content-box;  
-}
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: var(--color-zinc-200); border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: var(--color-zinc-400); }
 
-.input-scrollbar::-webkit-scrollbar-thumb:hover {
-background-color: #94a3b8; 
-}
-/* --- ANIMATION STROKE STYLE (Dynamic Speed) --- */
+/* --- ANIMATION STROKE (DÀNH CHO HÌNH VẼ KANJI) --- */
 @keyframes drawStroke {
-0% { stroke-dashoffset: 500; opacity: 0; }
-10% { opacity: 1; }
-100% { stroke-dashoffset: 0; opacity: 1; }
+  0% { stroke-dashoffset: 500; opacity: 0; }
+  10% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
 }
 
 @keyframes fadeInNumber {
-to { opacity: 0.7; }
+  to { opacity: 0.7; }
 }
 
 .stroke-anim-path {
-fill: none;
-stroke: #333; 
-stroke-width: 4px; 
-stroke-linecap: round;
-stroke-linejoin: round;
-stroke-dasharray: 500; 
-stroke-dashoffset: 500;
-opacity: 0;
-/* Đã xóa thời gian cố định ở đây để điều khiển bằng Code */
-animation-name: drawStroke;
-animation-timing-function: ease-out;
-animation-fill-mode: forwards;
+  fill: none;
+  stroke: #18181b; /* Màu đen zinc-900 cho nét vẽ chuẩn */
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  opacity: 0;
+  animation-name: drawStroke;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
 .stroke-number {
-font-size: 8px;
-fill: #999;
-font-family: sans-serif;
-opacity: 0; 
-animation: fadeInNumber 0.5s forwards; 
-}
-/* --- CSS ĐỔI MÀU CHỮ KHI HOVER VÀO Ô ĐẦU TIÊN --- */
-/* Khi di chuột vào ô có class 'reference-box', các đường vẽ (path) sẽ đổi màu */
-.reference-box:hover path {
-stroke: #4f46e5 !important; /* Màu xanh Indigo-600 */
-transition: stroke 0.2s ease;
+  font-size: 8px;
+  fill: #999;
+  font-family: sans-serif;
+  opacity: 0;
+  animation: fadeInNumber 0.5s forwards;
 }
 
-/* Dành cho trường hợp chữ chưa tải được SVG (dạng text) */
-.reference-box:hover .kanji-trace {
-color: #4f46e5 !important; 
-transition: color 0.2s ease;
-}
-/* Hiệu ứng mượt cho Flashcard */
-.exit-left {
-    transform: translateX(-150%) rotate(-15deg);
-    opacity: 0;
-    transition: all 0.4s ease-in;
-}
-
-.exit-right {
-    transform: translateX(150%) rotate(15deg);
-    opacity: 0;
-    transition: all 0.4s ease-in;
-}
-
-/* Đảm bảo backface-visibility hoạt động tốt trên mobile */
+/* Các Animation lật thẻ giữ nguyên */
 [transform-style="preserve-3d"] {
-    perspective: 1000px;
+  perspective: 1000px;
 }
-
-/* Hiệu ứng hover cho thumb tiến độ */
-.progress-thumb-animate {
-    transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+.exit-left { transform: translateX(-150%) rotate(-15deg); opacity: 0; transition: all 0.4s ease-in; }
+.exit-right { transform: translateX(150%) rotate(15deg); opacity: 0; transition: all 0.4s ease-in; }
