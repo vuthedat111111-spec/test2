@@ -3944,10 +3944,78 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
+// --- COMPONENT: KANJI MỖI NGÀY (CÓ HOẠT HỌA NÉT VẼ) ---
+const KanjiOfTheDay = ({ dbData }) => {
+    const [kanji, setKanji] = useState('禅'); // Mặc định chữ Thiền (Zen)
+    const [info, setInfo] = useState({ sound: 'ZEN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
 
-// --- 1. LANDING PAGE SIÊU TỐI GIẢN ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup }) => {
-    // Tính toán số lượng cần ôn tập
+    // Lấy ngẫu nhiên 1 chữ Kanji khi tải trang
+    useEffect(() => {
+        if (dbData && dbData.KANJI_DB) {
+            const keys = Object.keys(dbData.KANJI_DB);
+            if (keys.length > 0) {
+                // Lấy 1 list các chữ hay để hiển thị trang chủ (có thể tùy chỉnh)
+                const goodKanjis = ['道', '愛', '和', '心', '空', '夢', '静', '禅', '光', '星'];
+                const randomChar = goodKanjis[Math.floor(Math.random() * goodKanjis.length)];
+                
+                setKanji(randomChar);
+                if (dbData.KANJI_DB[randomChar]) {
+                    setInfo(dbData.KANJI_DB[randomChar]);
+                }
+            }
+        }
+    }, [dbData]);
+
+    // Gọi hàm lấy SVG của bạn
+    const { paths } = useKanjiSvg(kanji);
+
+    return (
+        <div className="relative w-full aspect-square md:aspect-auto md:h-[450px] bg-[#f4f4f5] rounded-3xl p-6 md:p-8 flex flex-col justify-end overflow-hidden group shadow-inner">
+            
+            {/* Chữ Kanji siêu to, mờ và có hiệu ứng vẽ nét ở Background */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
+                {paths.length > 0 ? (
+                    <svg viewBox="0 0 109 109" className="w-[120%] h-[120%]">
+                        {paths.map((d, index) => (
+                            <path 
+                                key={`${kanji}-${index}`} 
+                                d={d} 
+                                className="stroke-anim-path" 
+                                style={{ 
+                                    animationDuration: '3s', 
+                                    animationDelay: `${index * 0.3}s`, 
+                                    stroke: '#000', 
+                                    strokeWidth: 2, 
+                                    fill: 'none' 
+                                }} 
+                            />
+                        ))}
+                    </svg>
+                ) : (
+                    <span className="text-[250px] font-['Klee_One'] text-black">{kanji}</span>
+                )}
+            </div>
+
+            {/* Card thông tin đè lên trên */}
+            <div className="bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-lg z-10 w-full transform transition-transform group-hover:-translate-y-2 duration-300">
+                <div className="flex justify-between items-start mb-2">
+                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Từ vựng mỗi ngày</span>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                </div>
+                <h4 className="text-2xl font-black text-gray-900 mb-1 flex items-baseline gap-2">
+                    <span className="font-['Klee_One'] text-3xl">{kanji}</span> 
+                    <span className="font-sans text-lg">({info.sound})</span>
+                </h4>
+                <p className="text-sm text-gray-600 truncate">{info.meaning}</p>
+            </div>
+        </div>
+    );
+};
+// --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP (2 MÀN HÌNH) ---
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
+    const featuresRef = useRef(null);
+
+    // Tính toán số lượng thẻ cần ôn tập
     const dueCharsCount = React.useMemo(() => {
         const now = Date.now();
         return Object.keys(srsData || {}).filter(char => {
@@ -3956,66 +4024,141 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup }) => {
         }).length;
     }, [srsData]);
 
+    // Hàm cuộn mượt xuống phần tính năng
+    const scrollToFeatures = () => {
+        featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans text-gray-900 pb-20 flex flex-col items-center justify-center">
-            <main className="max-w-[1000px] w-full mx-auto px-6 mt-12 md:mt-0">
-                
-                {/* Tiêu đề */}
-                <div className="text-center mb-16 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-900 text-white rounded-xl font-black text-2xl mb-4 shadow-lg">
-                        P
+        <div className="bg-white font-sans text-gray-900">
+            
+            {/* ============================================== */}
+            {/* TRANG 1: HERO SECTION                          */}
+            {/* ============================================== */}
+            <div className="min-h-screen flex flex-col">
+                {/* Navbar tĩnh */}
+                <nav className="flex items-center justify-between px-6 md:px-16 py-6 w-full max-w-[1400px] mx-auto">
+                    <div className="flex items-center gap-3 cursor-pointer">
+                        <div className="w-8 h-8 bg-gray-900 text-white rounded-lg flex items-center justify-center font-black text-lg leading-none">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                        </div>
+                        <span className="text-xl font-bold tracking-tight hidden sm:block">NihongoZen</span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight leading-tight">
-                        Chinh phục tiếng Nhật,<br />
-                        <span className="font-serif italic text-gray-400 font-normal">từng ngày một.</span>
-                    </h1>
-                </div>
 
-                {/* Các Nút Hành Động Chính */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                    
-                    {/* 1. Flashcard */}
-                    <button 
-                        onClick={() => onOpenSetup('flashcard')}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                        </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Thẻ Flashcard</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Học từ vựng và Kanji mới với thuật toán lặp lại ngắt quãng thông minh.</p>
-                    </button>
+                    <div className="hidden md:flex items-center gap-10 text-sm font-medium text-gray-500">
+                        <span className="hover:text-gray-900 cursor-pointer transition-colors">Bài học</span>
+                        <span className="hover:text-gray-900 cursor-pointer transition-colors">Ngữ pháp</span>
+                        <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">Tài nguyên</a>
+                        <span className="w-px h-4 bg-gray-200"></span>
+                        <svg className="w-5 h-5 cursor-pointer hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
+                        <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-gray-900 hover:bg-black text-white rounded-full font-bold transition-all active:scale-95">Tham gia Nhóm</a>
+                    </div>
+                </nav>
 
-                    {/* 2. Trắc nghiệm (Game) */}
-                    <button 
-                        onClick={() => onOpenSetup('game')}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13v.01M18 11v.01"/></svg>
-                        </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Làm bài tập</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Kiểm tra kiến thức bằng các bài trắc nghiệm và trò chơi ghép thẻ.</p>
-                    </button>
-
-                    {/* 3. Lịch trình ôn tập */}
-                    <button 
-                        onClick={onOpenReviewList}
-                        className="flex flex-col items-start text-left p-8 rounded-[2rem] border border-gray-200 bg-white hover:border-gray-900 hover:shadow-2xl transition-all group relative overflow-hidden"
-                    >
-                        {dueCharsCount > 0 && (
-                            <div className="absolute top-6 right-6 bg-red-500 text-white text-[10px] font-black px-2.5 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-lg shadow-red-200">
-                                Cần ôn {dueCharsCount} chữ
+                {/* Nội dung chính Màn hình 1 */}
+                <div className="flex-1 flex items-center max-w-[1400px] mx-auto px-6 md:px-16 w-full py-10 md:py-0">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 w-full">
+                        
+                        {/* Cột trái: Chữ và Nút */}
+                        <div className="flex-1 space-y-8 max-w-xl animate-in slide-in-from-left-8 duration-700">
+                            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-gray-50">
+                                Bắt đầu hành trình của bạn
                             </div>
-                        )}
-                        <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            
+                            <h1 className="text-5xl md:text-[5.5rem] font-black text-gray-900 tracking-tight leading-[1.1]">
+                                Chinh phục <br className="hidden md:block"/>tiếng Nhật,<br />
+                                <span className="font-serif italic text-gray-400 font-normal">Từng ngày một.</span>
+                            </h1>
+                            
+                            <p className="text-gray-500 text-lg leading-relaxed font-medium">
+                                <span className="font-['Klee_One'] text-gray-700">日本語を学びましょう。</span> Công cụ đơn giản, hiệu quả giúp bạn đọc, viết và ghi nhớ tiếng Nhật tự tin.
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                                <button onClick={scrollToFeatures} className="w-full sm:w-auto px-8 py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-full transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg">
+                                    Bắt đầu học
+                                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                </button>
+                                <button onClick={scrollToFeatures} className="w-full sm:w-auto px-8 py-4 bg-white border border-gray-200 text-gray-700 font-bold rounded-full transition-all hover:bg-gray-50 active:scale-95">
+                                    Xem lộ trình
+                                </button>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2">Lịch trình học</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">Ôn tập các từ đã học hôm nay để không bao giờ quên.</p>
-                    </button>
+
+                        {/* Cột phải: Kanji mỗi ngày (Có hiệu ứng vẽ nét) */}
+                        <div className="flex-1 w-full max-w-md lg:max-w-none animate-in slide-in-from-right-8 duration-700 delay-150">
+                            <KanjiOfTheDay dbData={dbData} />
+                        </div>
+                        
+                    </div>
                 </div>
-            </main>
+            </div>
+
+            {/* ============================================== */}
+            {/* TRANG 2: FEATURES / DASHBOARD                  */}
+            {/* ============================================== */}
+            <div ref={featuresRef} className="min-h-screen bg-[#fafafa] border-t border-gray-100 flex flex-col justify-center py-24 px-6 md:px-16 relative">
+                
+                <div className="max-w-[1200px] mx-auto w-full">
+                    {/* Header Trang 2 */}
+                    <div className="text-center mb-16 space-y-4">
+                        <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Mọi thứ bạn cần</h2>
+                        <p className="text-gray-500 font-medium max-w-2xl mx-auto leading-relaxed">
+                            Phương pháp học ngôn ngữ toàn diện, kết hợp lặp lại ngắt quãng, chủ động gợi nhớ và lộ trình bài bản.
+                        </p>
+                    </div>
+
+                    {/* 3 Thẻ Chức năng */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        
+                        {/* Thẻ 1: Flashcard */}
+                        <button onClick={() => onOpenSetup('flashcard')} className="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-left hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group focus:outline-none">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-1">Thẻ học từ vựng</h3>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Từ vựng & Kanji</p>
+                            <p className="text-gray-500 text-sm leading-relaxed">Nắm vững hàng ngàn từ vựng với hệ thống lặp lại ngắt quãng thông minh.</p>
+                        </button>
+
+                        {/* Thẻ 2: Game / Trắc nghiệm */}
+                        <button onClick={() => onOpenSetup('game')} className="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-left hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group focus:outline-none">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 0 0 0-12v12z"/><path d="M12 18a6 6 0 0 1 0-12v12z"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-1">Làm bài tập</h3>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Kiểm tra kiến thức</p>
+                            <p className="text-gray-500 text-sm leading-relaxed">Các bài trắc nghiệm tương tác để củng cố ngữ pháp, hán tự và kỹ năng đọc.</p>
+                        </button>
+
+                        {/* Thẻ 3: Lịch trình */}
+                        <button onClick={onOpenReviewList} className="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-left hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group focus:outline-none relative overflow-hidden">
+                            {dueCharsCount > 0 && (
+                                <div className="absolute top-6 right-6 bg-red-500 text-white text-[10px] font-black px-2.5 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-lg shadow-red-200">
+                                    Cần ôn {dueCharsCount} thẻ
+                                </div>
+                            )}
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-1">Lịch trình học</h3>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Giữ vững tiến độ</p>
+                            <p className="text-gray-500 text-sm leading-relaxed">Lịch trình cá nhân hóa tự động nhắc nhở bạn ôn tập chống lãng quên.</p>
+                        </button>
+
+                    </div>
+                </div>
+
+                {/* Footer Trang 2 */}
+                <div className="absolute bottom-6 left-6 right-6 flex flex-col md:flex-row justify-between items-center text-xs font-medium text-gray-400 gap-2">
+                    <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 bg-gray-800 text-white rounded flex items-center justify-center font-bold text-[10px]">P</div>
+                        <span className="font-bold text-gray-600">NihongoZen</span>
+                    </div>
+                    <span>© 2024 NihongoZen. Bảo lưu mọi quyền.</span>
+                </div>
+            </div>
+
         </div>
     );
 };
