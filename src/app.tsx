@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { BookOpen, Brain, Calendar, ChevronRight, Menu, Search, User } from 'lucide-react';
 import { useState } from 'react';
-
+ 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
