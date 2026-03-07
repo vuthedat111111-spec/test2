@@ -3964,15 +3964,15 @@ const KanjiOfTheDay = ({ dbData }) => {
     const { paths } = useKanjiSvg(kanji);
 
     return (
-        /* GIỚI HẠN KHUNG NHỎ LẠI BẰNG max-w-[420px] */
-        <div className="relative hidden lg:block w-full max-w-[420px] mx-auto ml-auto" style={{ opacity: 1, transform: 'none' }}>
+      
+        <div className="relative hidden lg:block w-full max-w-[320px] mx-auto ml-auto" style={{ opacity: 1, transform: 'none' }}>
             <div className="aspect-square rounded-3xl bg-[#f8f8f8] overflow-hidden relative border border-zinc-100">
                 
                 {/* CHỮ KANJI SVG - ĐÃ THU NHỎ VÀ ĐẨY LÊN TRÊN */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     {paths.length > 0 ? (
-                        /* Kích thước 85%, dịch lên trên (translate-y-8) để không bị thẻ đè */
-                        <svg viewBox="0 0 109 109" className="w-[85%] h-[85%] -translate-y-8">
+                
+                        <svg viewBox="0 0 109 109" className="w-[75%] h-[85%] -translate-y-5">
                             {paths.map((d, index) => (
                                 <path 
                                     key={`${kanji}-${index}`} 
@@ -3981,7 +3981,7 @@ const KanjiOfTheDay = ({ dbData }) => {
                                     style={{ 
                                         animationDuration: '3.5s', 
                                         animationDelay: `${index * 0.25}s`, 
-                                        stroke: '#e4e4e7', /* Màu xám nhạt giống ảnh gốc */
+                                        stroke: '#e4e4e7', 
                                         strokeWidth: 3.5 
                                     }} 
                                 />
@@ -3994,19 +3994,14 @@ const KanjiOfTheDay = ({ dbData }) => {
 
                 {/* THẺ CARD TRẮNG BÊN DƯỚI */}
                 <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] z-10 transition-transform hover:-translate-y-1 duration-300">
-                    <div className="flex justify-between items-start mb-1.5">
-                        <div>
-                            <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Từ vựng mỗi ngày</p>
-                            <h3 className="text-2xl font-bold font-jp flex items-baseline gap-2">
-                                <span className="font-['Klee_One'] text-3xl">{kanji}</span> 
-                                <span className="text-lg">({info.sound})</span>
-                            </h3>
-                        </div>
-                        <button className="p-1.5 text-zinc-400 hover:bg-zinc-100 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
-                        </button>
+                    <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+                        Kanji mỗi ngày
+                    </p>
+                    <div className="flex items-baseline gap-2 w-full truncate">
+                        <span className="font-['Klee_One'] text-3xl font-bold text-gray-900">{kanji}</span> 
+                        <span className="text-lg font-bold text-gray-900 uppercase">({info.sound})</span>
+                        <span className="text-sm font-normal text-zinc-600 truncate">{info.meaning}</span>
                     </div>
-                    <p className="text-zinc-600 text-sm truncate">{info.meaning}</p>
                 </div>
             </div>
         </div>
@@ -4070,8 +4065,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                         
                         {/* Font chữ đã được thu nhỏ lại vừa vặn hơn */}
                         <h1 className="text-3xl md:text-[4rem] font-bold tracking-tight leading-[1.05] mb-6 text-zinc-900">
-                            Nơi nào có ý chí, <br />
-                            <span className="text-zinc-400 font-light italic font-serif">nơi đó có con đường.</span>
+                            Nơi nào có ý chí <br />
+                            <span className="text-zinc-400 font-light italic font-serif">nơi đó có con đường</span>
                         </h1>
                         
                         <p className="text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
