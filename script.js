@@ -3944,14 +3944,14 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
-// --- COMPONENT: KANJI MỖI NGÀY (CẬP NHẬT KÍCH THƯỚC & SVG) ---
+// --- COMPONENT: KANJI MỖI NGÀY (THIẾT KẾ MỚI: TRÊN - GIỮA - DƯỚI) ---
 const KanjiOfTheDay = ({ dbData }) => {
     const [kanji, setKanji] = useState('禅'); 
-    const [info, setInfo] = useState({ sound: 'ZEN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
+    const [info, setInfo] = useState({ sound: 'THIỀN', meaning: 'Thiền định; tĩnh tâm; suy ngẫm.' });
 
     useEffect(() => {
         if (dbData && dbData.KANJI_DB) {
-            const goodKanjis = ['道', '愛', '和', '心', '空', '夢', '静', '禅', '光', '星'];
+            const goodKanjis = ['道', '愛', '和', '心', '空', '夢', '静', '禅', '光', '星', '学', '進'];
             const randomChar = goodKanjis[Math.floor(Math.random() * goodKanjis.length)];
             
             setKanji(randomChar);
@@ -3964,46 +3964,56 @@ const KanjiOfTheDay = ({ dbData }) => {
     const { paths } = useKanjiSvg(kanji);
 
     return (
-      
-        <div className="relative hidden lg:block w-full max-w-[320px] mx-auto ml-auto" style={{ opacity: 1, transform: 'none' }}>
-            <div className="aspect-square rounded-3xl bg-[#f8f8f8] overflow-hidden relative border border-zinc-100">
-                
-                {/* CHỮ KANJI SVG - ĐÃ THU NHỎ VÀ ĐẨY LÊN TRÊN */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    {paths.length > 0 ? (
-                
-                        <svg viewBox="0 0 109 109" className="w-[75%] h-[85%] -translate-y-5">
-                            {paths.map((d, index) => (
-                                <path 
-                                    key={`${kanji}-${index}`} 
-                                    d={d} 
-                                    className="stroke-anim-path" 
-                                    style={{ 
-                                        animationDuration: '3.5s', 
-                                        animationDelay: `${index * 0.25}s`, 
-                                        stroke: '#e4e4e7', 
-                                        strokeWidth: 3.5 
-                                    }} 
-                                />
-                            ))}
-                        </svg>
-                    ) : (
-                        <span className="text-[14rem] font-bold text-zinc-200 font-jp select-none -translate-y-6">{kanji}</span>
-                    )}
-                </div>
+        /* KHUNG CHÍNH: Màu xám siêu nhạt (#f8f8f9), bo góc tròn, shadow nhẹ */
+        <div className="hidden lg:flex w-full max-w-[400px] mx-auto ml-auto aspect-square bg-[#f8f8f9] rounded-3xl border border-zinc-200 shadow-sm flex-col p-7 transition-transform hover:-translate-y-1 duration-300">
+            
+            {/* 1. TRÊN CÙNG: TIÊU ĐỀ */}
+            <div className="w-full text-center">
+                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">
+                    Kanji mỗi ngày
+                </span>
+            </div>
 
-                {/* THẺ CARD TRẮNG BÊN DƯỚI */}
-                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] z-10 transition-transform hover:-translate-y-1 duration-300">
-                    <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
-                        Kanji mỗi ngày
-                    </p>
-                    <div className="flex items-baseline gap-2 w-full truncate">
-                        <span className="font-['Klee_One'] text-3xl font-bold text-gray-900">{kanji}</span> 
-                        <span className="text-lg font-bold text-gray-900 uppercase">({info.sound})</span>
-                        <span className="text-sm font-normal text-zinc-600 truncate">{info.meaning}</span>
-                    </div>
+            {/* 2. Ở GIỮA: CHỮ KANJI HOẠT HỌA */}
+            {/* flex-1 giúp đẩy tiêu đề lên sát trên, đẩy ý nghĩa xuống sát dưới, chừa trọn vẹn khoảng trống giữa cho SVG */}
+            <div className="flex-1 w-full flex items-center justify-center relative my-4">
+                {paths.length > 0 ? (
+                    /* Cố định kích thước SVG ở mức 70% để không bao giờ chạm viền */
+                    <svg viewBox="0 0 109 109" className="w-[70%] h-[70%]">
+                        {paths.map((d, index) => (
+                            <path 
+                                key={`${kanji}-${index}`} 
+                                d={d} 
+                                className="stroke-anim-path" 
+                                style={{ 
+                                    animationDuration: '3.5s', 
+                                    animationDelay: `${index * 0.25}s`, 
+                                    stroke: '#10b981', /* Màu xanh lá (Emerald-500) rất chuyên nghiệp và dịu mắt */
+                                    strokeWidth: 3 
+                                }} 
+                            />
+                        ))}
+                    </svg>
+                ) : (
+                    <span className="text-[8rem] font-bold text-[#10b981] font-['Klee_One'] select-none">
+                        {kanji}
+                    </span>
+                )}
+            </div>
+
+            {/* 3. DƯỚI CÙNG: ÂM HÁN VIỆT & Ý NGHĨA */}
+            {/* Được bọc trong một khối màu trắng nhỏ để tạo sự tách biệt và gọn gàng */}
+            <div className="w-full text-center bg-white py-3.5 px-4 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-zinc-100">
+                <div className="flex flex-col items-center justify-center gap-0.5">
+                    <span className="text-sm font-black uppercase tracking-widest text-zinc-800">
+                        {info.sound}
+                    </span>
+                    <span className="text-[13px] font-medium text-zinc-500 truncate w-full px-2">
+                        {info.meaning}
+                    </span>
                 </div>
             </div>
+
         </div>
     );
 };
