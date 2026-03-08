@@ -1870,19 +1870,7 @@ N1: 'bg-red-100 text-red-700 border-red-200 hover:bg-red-600 hover:text-white ho
         removeDuplicates: false 
     });
 
-    // --- HÀM TẠO PLACEHOLDER ---
-    const getDynamicPlaceholder = () => {
-        if (mode === 'vocab') {
-            return "ひらがな ; カタカナ\n漢字";
-        }
-        const labels = [];
-        if (filterOptions.kanji) labels.push("漢字");        
-        if (filterOptions.hiragana) labels.push("ひらがな"); 
-        if (filterOptions.katakana) labels.push("カタカナ"); 
-        
-        if (labels.length === 0) return "Vui lòng chọn ít nhất 1 loại chữ...";
-        return labels.join(", ");
-    };
+   
 
     // --- 1. CLICK RA NGOÀI ĐỂ ĐÓNG MENU ---
     // --- XỬ LÝ CLICK RA NGOÀI ĐỂ ĐÓNG MENU ---
@@ -4520,15 +4508,22 @@ const StudySetupModal = ({
         }
     };
 
-    // Tạo Placeholder động
+   // Tạo Placeholder động
     const getDynamicPlaceholder = () => {
-        if (mode === 'vocab') return "Nhập từ vựng...\nVí dụ:\n日本語\n先生";
+        if (mode === 'vocab') {
+            return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
+        }
+        
         const labels = [];
         if (filterOptions.kanji) labels.push("漢字");        
         if (filterOptions.hiragana) labels.push("ひらがな"); 
         if (filterOptions.katakana) labels.push("カタカナ"); 
-        if (labels.length === 0) return "Vui lòng chọn ít nhất 1 loại chữ...";
-        return labels.join(", ");
+        
+        if (labels.length === 0) {
+            return "Vui lòng chọn 1 loại chữ trong BỘ LỌC";
+        }
+        
+        return "Nhập thủ công\n" + labels.join("、");
     };
 
     // ==========================================
@@ -4740,7 +4735,7 @@ const StudySetupModal = ({
                         onSelectAll={handleSelectAllFromResult} 
                     />
 
-                    {/* Textarea Nhập liệu */}
+                   {/* Textarea Nhập liệu */}
                     <div className="relative">
                         <textarea 
                             value={localText} 
@@ -4749,10 +4744,11 @@ const StudySetupModal = ({
                             onCompositionEnd={handleCompositionEnd}
                             onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-28 p-5 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-2xl font-['Klee_One'] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
-                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-gray-500 hover:text-red uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">
+                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-gray-500 hover:text-gray-900 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">
                                 Xóa hết
                             </button>
                         )}
