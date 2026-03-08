@@ -578,7 +578,122 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         </div>
     );
 };
+const EssayGameModal = ({ isOpen, onClose, text, dbData, mode }) => {
+    const [queue, setQueue] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [userInput, setUserInput] = useState('');
+    const [status, setStatus] = useState('idle'); // idle, correct, wrong
+    const [finished, setFinished] = useState(false);
 
+    // Thư viện chuyển đổi Romaji -> Hiragana đơn giản
+    const toHiragana = (raw) => {
+        const romajiMap = {
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ',
+            'sa':'さ','si':'し','su':'す','se':'せ','so':'そ','ta':'た','ti':'ち','tu':'つ','te':'て','to':'と',
+            'na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'o','ha':'は','hi':'ひ','hu':'ふ','he':'へ','ho':'ほ',
+            'ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り',
+            'ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ',
+            'go':'ご','za':'ざ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で',
+            'do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ'
+        };
+        let out = raw.toLowerCase();
+        Object.keys(romajiMap).forEach(k => { out = out.replace(new RegExp(k, 'g'), romajiMap[k]); });
+        return out;
+    };
+
+    useEffect(() => {
+        if (isOpen && text) {
+            let items = mode === 'vocab' 
+                ? text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData?.TUVUNG_DB?.[w])
+                : Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData?.KANJI_DB?.[c]);
+            
+            setQueue(items.sort(() => Math.random() - 0.5));
+            setCurrentIndex(0);
+            setFinished(false);
+            setUserInput('');
+            setStatus('idle');
+        }
+    }, [isOpen, text, mode, dbData]);
+
+    const checkAnswer = () => {
+        const currentItem = queue[currentIndex];
+        const cleanInput = removeAccents(userInput.trim().toLowerCase());
+        let isCorrect = false;
+
+        if (mode === 'kanji') {
+            const correctSound = removeAccents(dbData.KANJI_DB[currentItem]?.sound?.toLowerCase() || '');
+            isCorrect = cleanInput === correctSound;
+        } else {
+            const correctReading = dbData.TUVUNG_DB[currentItem]?.reading || '';
+            // Chấp nhận cả việc gõ Romaji (tự convert) hoặc gõ Hiragana trực tiếp
+            isCorrect = (userInput.trim() === correctReading) || (toHiragana(userInput.trim()) === correctReading);
+        }
+
+        if (isCorrect) {
+            setStatus('correct');
+            setTimeout(() => {
+                if (currentIndex < queue.length - 1) {
+                    setCurrentIndex(prev => prev + 1);
+                    setUserInput('');
+                    setStatus('idle');
+                } else {
+                    setFinished(true);
+                }
+            }, 600);
+        } else {
+            setStatus('wrong');
+            setTimeout(() => setStatus('idle'), 500);
+        }
+    };
+
+    if (!isOpen || queue.length === 0) return null;
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in">
+            <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100">
+                {!finished ? (
+                    <>
+                        <div className="w-full flex justify-between items-center mb-8">
+                            <span className="text-[10px] font-black text-zinc-300 uppercase tracking-widest">Chế độ Tự luận</span>
+                            <span className="text-[10px] font-black text-zinc-400 bg-zinc-100 px-2 py-1 rounded-lg">{currentIndex + 1} / {queue.length}</span>
+                        </div>
+
+                        <div className={`mb-10 transition-transform duration-300 ${status === 'correct' ? 'scale-110' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                            <span className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800`}>
+                                {queue[currentIndex]}
+                            </span>
+                        </div>
+
+                        <div className="w-full space-y-4">
+                            <input 
+                                type="text"
+                                autoFocus
+                                value={userInput}
+                                onChange={(e) => setUserInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                                placeholder={mode === 'kanji' ? "Gõ âm Hán Việt..." : "Gõ cách đọc Hiragana..."}
+                                className={`w-full p-4 text-center text-lg font-bold border-2 rounded-2xl outline-none transition-all ${
+                                    status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
+                                    status === 'wrong' ? 'border-red-500 bg-red-50 animate-shake' : 'border-zinc-200 focus:border-zinc-900'
+                                }`}
+                            />
+                            <p className="text-[9px] text-zinc-400 text-center italic uppercase tracking-tighter">Nhấn Enter để kiểm tra</p>
+                        </div>
+                        
+                        <button onClick={onClose} className="mt-8 text-zinc-300 hover:text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Thoát bài học</button>
+                    </>
+                ) : (
+                    <div className="text-center py-6">
+                        <div className="text-6xl mb-4">🏆</div>
+                        <h3 className="text-xl font-black text-zinc-800 mb-2 uppercase">HOÀN THÀNH</h3>
+                        <p className="text-zinc-400 text-sm mb-8 font-medium">Bạn đã vượt qua tất cả thử thách tự luận!</p>
+                        <button onClick={onClose} className="w-full py-4 bg-zinc-900 text-white font-black rounded-2xl shadow-lg active:scale-95 transition-all uppercase tracking-widest text-xs">Quay về trang chủ</button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 // --- BƯỚC 4: FLASHCARD MODAL (FIXED UI TỪ VỰNG) ---
 const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, onSrsRestore, mode }) => { 
     const [originalQueue, setOriginalQueue] = React.useState([]);
@@ -2412,8 +2527,16 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+                      {/* Thẻ 3: Tự luận */}
+<div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1">TỰ LUẬN</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Gõ đáp án chính xác</p>
+</div>
 
-                        {/* Thẻ 3 */}
+                        {/* Thẻ 4 */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden" style={{ opacity: 1, transform: 'none' }}>
                             {dueCharsCount > 0 && (
                                 <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full animate-pulse uppercase tracking-wider whitespace-nowrap z-10 shadow-md">
@@ -3238,6 +3361,7 @@ const App = () => {
     const [isLearnGameOpen, setIsLearnGameOpen] = useState(false);
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
     const [isPreviewListOpen, setIsPreviewListOpen] = useState(false);
+    const [isEssayOpen, setIsEssayOpen] = useState(false);
     
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
@@ -3334,6 +3458,7 @@ const App = () => {
             
             if (target === 'flashcard') setIsFlashcardOpen(true);
             if (target === 'game') setIsLearnGameOpen(true);
+            if (target === 'essay') setIsEssayOpen(true);
         }
     };
 
@@ -3421,7 +3546,13 @@ const App = () => {
                 onSave={handleSaveVocab}
                 dbData={dbData}
             />
-
+                    <EssayGameModal 
+    isOpen={isEssayOpen}
+    onClose={() => setIsEssayOpen(false)}
+    text={config.text}
+    dbData={dbData}
+    mode={practiceMode}
+/>
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */}
             <ReviewListModal 
                 isOpen={isReviewListOpen}
