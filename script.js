@@ -2949,6 +2949,20 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
 
     if (!isOpen) return null;
 
+    // Hàm tự động đưa con số về min (1) hoặc max (50)
+    const validateRandomCount = () => {
+        let val = parseInt(randomCount);
+        if (isNaN(val) || val < 1) {
+            setRandomCount(1);
+            return 1;
+        } else if (val > 50) {
+            setRandomCount(50);
+            return 50;
+        }
+        setRandomCount(val);
+        return val;
+    };
+    
     // --- HÀM TẢI DỮ LIỆU CHUNG ---
     const fetchAndSetData = async (url) => {
         setIsLoading(true); setProgress(20);
@@ -2980,9 +2994,10 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
         }
     };
 
-    // --- HÀM TẢI RANDOM KANJI ---
-    const loadRandomKanji = async (level) => {
-        if (!randomCount || randomCount <= 0) return alert("Vui lòng nhập số lượng!");
+   const loadRandomKanji = async (level) => {
+        // Tự động kiểm tra và lấy con số đã chuẩn hóa
+        const finalCount = validateRandomCount(); 
+        
         setIsLoading(true); setProgress(20);
         try {
             const response = await fetch(`./data/kanji${level.toLowerCase()}.json`);
@@ -2992,9 +3007,10 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
             const unstudiedChars = allChars.filter(char => !srsData[char]);
             const studiedChars = allChars.filter(char => srsData[char]);
             
-            let count = randomCount > 50 ? 50 : randomCount;
-            let selectedPool = "";
+            // Sử dụng finalCount đã được chuẩn hóa (1-50)
+            let count = finalCount; 
             
+            let selectedPool = "";
             if (unstudiedChars.length >= count) {
                 selectedPool = unstudiedChars.sort(() => Math.random() - 0.5).slice(0, count).join('');
             } else {
@@ -3012,7 +3028,6 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
             }, 400);
         } catch (error) { setIsLoading(false); }
     };
-
     // --- HÀM TẢI TỪ VỰNG THÔNG MINH ---
     const handleSmartLoadVocabulary = () => {
         if (minnaLesson) {
@@ -3059,7 +3074,13 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                             <div>
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
                                 <div className="flex gap-3 items-center mb-4">
-                                    <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" />
+                                   <input 
+    type="number" 
+    value={randomCount} 
+    onChange={e => setRandomCount(e.target.value)} 
+    onBlur={validateRandomCount} // Tự động về 1 hoặc 50 khi click ra ngoài
+    className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" 
+/>
                                     <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
                                 </div>
                                 <div className="grid grid-cols-5 gap-2">
