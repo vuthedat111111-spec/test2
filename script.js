@@ -225,10 +225,12 @@ const useKanjiReadings = (char, active, dbData) => {
   return readings;
 };
 
+// --- COMPONENT: BẢNG LỊCH TRÌNH ÔN TẬP (UI MONOCHROME HIỆN ĐẠI) ---
 const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, dbData }) => {
     const [isConfirmOpen, setIsConfirmOpen] = React.useState(false);
     const [isHelpOpen, setIsHelpOpen] = React.useState(false);
-// --- LOGIC MỚI: TÍNH TIẾN ĐỘ THEO CẤP ĐỘ ---
+
+    // Tính toán tiến độ
     const levelProgress = React.useMemo(() => {
         if (!dbData || !dbData.KANJI_LEVELS) return [];
         const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
@@ -239,7 +241,6 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
             const totalCount = totalChars.length;
             if (totalCount === 0) return;
 
-            // Đếm số chữ đã có trong srsData (đã học/đang học)
             const learnedCount = totalChars.filter(char => srsData && srsData[char]).length;
 
             if (learnedCount > 0) {
@@ -254,13 +255,15 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         return result;
     }, [srsData, dbData]);
 
+    // Đổi màu thanh tiến độ thành Monochrome (Đen - Xám)
     const levelColors = {
-        N5: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', bar: 'bg-emerald-500' },
-        N4: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200', bar: 'bg-sky-500' },
-        N3: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', bar: 'bg-orange-500' },
-        N2: { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200', bar: 'bg-purple-500' },
-        N1: { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200', bar: 'bg-rose-500' }
+        N5: { bg: 'bg-white', text: 'text-gray-900', border: 'border-gray-200', bar: 'bg-gray-900' },
+        N4: { bg: 'bg-white', text: 'text-gray-800', border: 'border-gray-200', bar: 'bg-gray-800' },
+        N3: { bg: 'bg-white', text: 'text-gray-700', border: 'border-gray-200', bar: 'bg-gray-700' },
+        N2: { bg: 'bg-white', text: 'text-gray-600', border: 'border-gray-200', bar: 'bg-gray-600' },
+        N1: { bg: 'bg-white', text: 'text-gray-500', border: 'border-gray-200', bar: 'bg-gray-500' }
     };
+
     const handleExport = () => {
         const data = localStorage.getItem('phadao_srs_data');
         if (!data || data === '{}') {
@@ -281,7 +284,6 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     };
-
 
     const handleImport = (e) => {
         const file = e.target.files[0];
@@ -310,7 +312,6 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
 
-    
     React.useEffect(() => {
         if (!isOpen) {
             setIsConfirmOpen(false);
@@ -318,7 +319,6 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         }
     }, [isOpen]);
 
-   
     const groupedData = React.useMemo(() => {
         const groups = { today: [] }; 
         const now = Date.now();
@@ -345,271 +345,265 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
     }).slice(0, 5);
 
     return (
-        <div className="fixed inset-0 z-[400] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-200 cursor-pointer" onClick={onClose}>
-            <div className={`bg-white rounded-2xl shadow-2xl w-full flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-200 overflow-hidden relative transition-all cursor-default ${isConfirmOpen ? 'max-w-[300px]' : 'max-w-md'}`} onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[500] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200 cursor-pointer" onClick={onClose}>
+            <div className={`bg-white rounded-3xl shadow-2xl w-full flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-300 overflow-hidden relative cursor-default border border-gray-200 ${isConfirmOpen ? 'max-w-[320px]' : 'max-w-md'}`} onClick={e => e.stopPropagation()}>
                 
                 {isHelpOpen ? (
-                    // === GIAO DIỆN HƯỚNG DẪN (SRS GUIDE) - NỘI DUNG MỚI ===
-                    
+                    // === UI 1: HƯỚNG DẪN SAO LƯU (MONOCHROME) ===
                     <>
-                         <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-indigo-50">
-                            <h3 className="text-base font-black text-indigo-700 uppercase flex items-center gap-2">
-                                🎓 HƯỚNG DẪN
+                        <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                            <h3 className="text-sm font-black text-gray-900 uppercase flex items-center gap-2 tracking-widest">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                                HƯỚNG DẪN ÔN TẬP
                             </h3>
-                            <button onClick={() => setIsHelpOpen(false)} className="text-indigo-400 hover:text-indigo-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <button onClick={() => setIsHelpOpen(false)} className="text-gray-400 hover:text-gray-900 bg-white hover:bg-gray-200 rounded-full p-1.5 transition-colors shadow-sm border border-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
                         
-                        <div className="p-6 overflow-y-auto custom-scrollbar text-sm text-gray-600 space-y-6 flex-1">
-                            
-                            {/* 1. Phương pháp học */}
+                        <div className="p-6 overflow-y-auto custom-scrollbar text-sm text-gray-600 space-y-6 flex-1 bg-white">
+                            {/* Mục 1 */}
                             <div>
-                                <h4 className="font-bold text-gray-800 mb-1 flex items-center gap-2">
-                                    <span className="text-lg">🧠</span> 1. PHƯƠNG PHÁP HỌC
+                                <h4 className="font-black text-gray-900 mb-2 flex items-center gap-2 uppercase text-xs tracking-wider">
+                                    <span className="w-4 h-4 rounded bg-gray-900 text-white flex items-center justify-center text-[10px]">1</span> 
+                                    PHƯƠNG PHÁP HỌC
                                 </h4>
-                                <p className="text-sm leading-relaxed text-justify">
-                                    Hệ thống sử dụng thuật toán <b>Lặp lại ngắt quãng</b> (Spaced Repetition) tích hợp vào <b>FLASHCARD</b>. Thay vì học nhồi nhét, hệ thống sẽ tính toán <b>"thời điểm lãng quên"</b> của não bộ để nhắc bạn ôn lại <b>đúng lúc bạn sắp quên</b>.
+                                <p className="text-sm leading-relaxed text-justify text-gray-500 border-l-2 border-gray-200 pl-3 ml-2">
+                                    Hệ thống sử dụng thuật toán <strong className="text-gray-900">Lặp lại ngắt quãng</strong> (Spaced Repetition) tích hợp vào <b>FLASHCARD</b>. Thay vì học nhồi nhét, hệ thống sẽ tính toán <strong className="text-gray-900">"thời điểm lãng quên"</strong> của não bộ để nhắc bạn ôn lại đúng lúc bạn sắp quên.
                                 </p>
                             </div>
 
-                            {/* 2. Cơ chế hoạt động */}
-                            <div className="bg-indigo-50 p-3 rounded-xl border border-indigo-100 text-sm">
-    <h4 className="font-bold text-indigo-700 mb-1 flex items-center gap-2">
-        <span className="text-lg">⚙️</span> 2. CƠ CHẾ HOẠT ĐỘNG
-    </h4>
-    <div className="text-indigo-900 leading-relaxed">
-        <p className="mb-2">
-            Hệ thống tự động tính toán <b>mức độ ghi nhớ</b> của bạn đối với từng Kanji (dựa trên quá trình và kết quả học Flashcard). Từ đó đưa ra <b>lịch trình ôn tập phù hợp</b> riêng cho từng chữ.
-        </p>
-        <p className="flex gap-1 items-start mt-2 font-medium">
-            <span>🔔</span>
-            <span><b>Nhắc nhở:</b> Thông báo sẽ tự động xuất hiện trên giao diện web khi đến hạn ôn tập (vào lúc 5 giờ sáng).</span>
-        </p>
-    </div>
-</div>
-                            
-                            {/* 3. Lưu ý dữ liệu */}
-                            <div className="bg-yellow-50 p-3 rounded-xl border border-yellow-100 text-sm">
-                                <h4 className="font-bold text-yellow-700 mb-1 flex items-center gap-1">
-                                    ⚠️ 3. LƯU Ý QUAN TRỌNG VỀ DỮ LIỆU
+                            {/* Mục 2 */}
+                            <div>
+                                <h4 className="font-black text-gray-900 mb-2 flex items-center gap-2 uppercase text-xs tracking-wider">
+                                    <span className="w-4 h-4 rounded bg-gray-900 text-white flex items-center justify-center text-[10px]">2</span> 
+                                    CƠ CHẾ HOẠT ĐỘNG
                                 </h4>
-                                <ul className="list-disc list-inside space-y-1.5 text-gray-600">
-                                    <li><b>Lưu trữ:</b> Dữ liệu học tập được lưu trực tiếp trên <b>Trình duyệt</b> của thiết bị bạn đang dùng.</li>
-                                    <li><b>Dung lượng:</b> Cực kỳ nhẹ! Toàn bộ 2136 Kanji chỉ chiếm khoảng 300KB (nhẹ hơn 1 bức ảnh mờ), hoàn toàn không gây nặng máy.</li>
-                                    <li><b>Cảnh báo:</b> Dữ liệu sẽ mất nếu bạn <b>Xóa lịch sử duyệt web</b> hoặc dùng <b>Tab ẩn danh</b>. Hãy dùng trình duyệt thường để học nhé!</li>
+                                <div className="text-gray-500 leading-relaxed border-l-2 border-gray-200 pl-3 ml-2 space-y-2">
+                                    <p>
+                                        Hệ thống tự động tính toán <strong className="text-gray-900">mức độ ghi nhớ</strong> của bạn đối với từng Kanji. Từ đó đưa ra lịch trình ôn tập phù hợp riêng cho từng chữ.
+                                    </p>
+                                    <div className="flex gap-2 items-start bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                        <svg className="w-4 h-4 text-gray-900 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                                        <span className="text-xs"><b>Nhắc nhở:</b> Thông báo sẽ tự động xuất hiện trên giao diện web khi đến hạn ôn tập (vào lúc 5 giờ sáng hàng ngày).</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Mục 3 */}
+                            <div>
+                                <h4 className="font-black text-gray-900 mb-2 flex items-center gap-2 uppercase text-xs tracking-wider">
+                                    <span className="w-4 h-4 rounded bg-gray-900 text-white flex items-center justify-center text-[10px]">3</span> 
+                                    LƯU Ý DỮ LIỆU
+                                </h4>
+                                <ul className="list-disc list-outside space-y-2 text-gray-500 border-l-2 border-gray-200 pl-6 ml-2">
+                                    <li><strong className="text-gray-900">Lưu trữ:</strong> Dữ liệu học tập được lưu trực tiếp trên Trình duyệt của thiết bị bạn đang dùng.</li>
+                                    <li><strong className="text-gray-900">Dung lượng:</strong> Cực kỳ nhẹ! Toàn bộ Kanji chỉ chiếm khoảng vài trăm KB, không gây nặng máy.</li>
+                                    <li className="text-red-600 font-medium">Cảnh báo: Dữ liệu sẽ mất nếu bạn Xóa lịch sử duyệt web hoặc dùng Tab ẩn danh. Hãy dùng trình duyệt thường để học nhé!</li>
                                 </ul>
                             </div>
                                 
-{/* --- MỤC 4: SAO LƯU & KHÔI PHỤC (MỚI) --- */}
-<div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-sm">
-    <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
-        <span className="text-lg">💾</span> 4. SAO LƯU & KHÔI PHỤC
-    </h4>
-    
-    <div className="text-emerald-900 leading-relaxed mb-3 text-justify">
-        <p className="mb-1">
-            <b>Tại sao cần sao lưu?</b> Để chuyển dữ liệu học tập sang máy khác (điện thoại/máy tính), hoặc phòng trường hợp lỡ tay xóa mất lịch sử duyệt web.
-        </p>
-    </div>
+                            {/* Mục 4: Sao lưu */}
+                            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
+                                <h4 className="font-black text-gray-900 mb-2 flex items-center gap-2 uppercase text-xs tracking-wider">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                                    SAO LƯU & KHÔI PHỤC
+                                </h4>
+                                
+                                <p className="text-xs text-gray-500 mb-4 leading-relaxed">
+                                    Dùng để chuyển dữ liệu sang máy khác, hoặc phòng trường hợp lỡ tay xóa lịch sử duyệt web.
+                                </p>
 
-    {/* Cụm nút bấm */}
-    <div className="grid grid-cols-2 gap-3">
-        {/* NÚT TẢI VỀ */}
-        <button 
-            onClick={handleExport}
-            className="flex flex-col items-center justify-center gap-1 py-2 bg-white border border-emerald-200 text-emerald-700 font-bold rounded-lg shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-95"
-        >
-            <div className="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span>TẢI FILE VỀ</span>
-            </div>
-            <span className="text-[9px] font-normal opacity-80">(Lưu file .json)</span>
-        </button>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button 
+                                        onClick={handleExport}
+                                        className="flex flex-col items-center justify-center gap-1.5 py-3 bg-white border border-gray-200 text-gray-900 font-bold rounded-xl shadow-sm hover:border-gray-900 hover:shadow-md transition-all active:scale-95 group"
+                                    >
+                                        <svg className="w-5 h-5 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        <span className="text-xs">TẢI BẢN SAO</span>
+                                    </button>
 
-        {/* NÚT TẢI LÊN */}
-        <label className="flex flex-col items-center justify-center gap-1 py-2 bg-emerald-600 border border-emerald-600 text-white font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition-all active:scale-95 cursor-pointer">
-            <div className="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <span>KHÔI PHỤC</span>
-            </div>
-            <span className="text-[9px] font-normal opacity-80">(Chọn file đã lưu)</span>
-            <input type="file" accept=".json" className="hidden" onChange={handleImport} />
-        </label>
-    </div>
-</div>
-                            <button onClick={() => setIsHelpOpen(false)} className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition-all active:scale-95 text-xs uppercase">
-                                quay lại lịch trình ôn tập
+                                    <label className="flex flex-col items-center justify-center gap-1.5 py-3 bg-gray-900 text-white font-bold rounded-xl shadow-sm hover:bg-black hover:shadow-md transition-all active:scale-95 cursor-pointer">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        <span className="text-xs">KHÔI PHỤC</span>
+                                        <input type="file" accept=".json" className="hidden" onChange={handleImport} />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-5 border-t border-gray-100 bg-gray-50">
+                            <button onClick={() => setIsHelpOpen(false)} className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] text-xs uppercase tracking-widest">
+                                Đã hiểu & Quay lại
                             </button>
                         </div>
                     </>
 
                 ) : !isConfirmOpen ? (
-                    // === GIAO DIỆN 1: DANH SÁCH (Mặc định) ===
+                    // === UI 2: DANH SÁCH ÔN TẬP CHÍNH ===
                     <>
-                        <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                            <div className="flex items-baseline gap-3">
-                                <h3 className="text-sm font-bold text-gray-800 uppercase flex items-center gap-2">📅 LỊCH TRÌNH ÔN TẬP</h3>
-                                <button onClick={() => setIsHelpOpen(true)} className="text-[12px] font-bold text-blue-500 hover:text-blue-700 underline decoration-blue-300 hover:decoration-blue-700 underline-offset-2 transition-all">
-                                    xem hướng dẫn
+                        <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                            <div className="flex flex-col">
+                                <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest flex items-center gap-2">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                    Lịch trình ôn tập
+                                </h3>
+                                <button onClick={() => setIsHelpOpen(true)} className="text-[10px] font-bold text-gray-400 hover:text-gray-900 underline underline-offset-2 mt-1 text-left w-fit transition-colors">
+                                    Xem hướng dẫn & Sao lưu
                                 </button>
                             </div>
-                            <button onClick={onClose} className="text-gray-400 hover:text-red-500 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center bg-white border border-gray-200 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
 
-                        <div className="p-4 overflow-y-auto custom-scrollbar flex-1">
-                            <div className="space-y-4">
-                 {/* --- HIỂN THỊ TIẾN ĐỘ (ĐÃ SỬA CO DÃN) --- */}
-                {levelProgress.length > 0 && (
-                    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-3 mb-4">
-                        <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
-                            Tiến độ học tập
-                        </h4>
-                        
-                        {/* 1. SỬA CONTAINER: Dùng Flexbox để co dãn */}
-                        <div className="flex flex-wrap gap-2">
-                            {levelProgress.map((item) => {
-                                const style = levelColors[item.level] || levelColors.N5;
-                                return (
-                                    <div 
-                                        key={item.level} 
-                                        // 2. SỬA ITEM: Thêm flex-1 và min-w-[40%]
-                                        className={`${style.bg} border ${style.border} rounded-lg p-2.5 flex flex-col justify-center flex-1 min-w-[40%]`}
-                                    >
-                                        <div className="flex justify-between items-end mb-1.5">
-                                            <span className={`text-xs font-black ${style.text}`}>{item.level}</span>
-                                            <span className={`text-[10px] font-bold ${style.text} opacity-80`}>
-                                                {item.learned}/{item.total}
-                                            </span>
-                                        </div>
-                                        {/* Thanh Progress */}
-                                        <div className="w-full h-1.5 bg-white/60 rounded-full overflow-hidden">
-                                            <div 
-                                                className={`h-full rounded-full ${style.bar} transition-all duration-500`} 
-                                                style={{ width: `${item.percent}%` }}
-                                            ></div>
-                                        </div>
+                        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-white space-y-6">
+                            
+                            {/* TIẾN ĐỘ HỌC TẬP */}
+                            {levelProgress.length > 0 && (
+                                <div>
+                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tiến độ JLPT</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {levelProgress.map((item) => {
+                                            const style = levelColors[item.level] || levelColors.N5;
+                                            return (
+                                                <div 
+                                                    key={item.level} 
+                                                    className={`${style.bg} border ${style.border} rounded-xl p-3 flex flex-col justify-center flex-1 min-w-[40%] shadow-sm`}
+                                                >
+                                                    <div className="flex justify-between items-end mb-2">
+                                                        <span className={`text-xs font-black ${style.text}`}>{item.level}</span>
+                                                        <span className={`text-[10px] font-bold text-gray-400`}>
+                                                            {item.learned}/{item.total}
+                                                        </span>
+                                                    </div>
+                                                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                                        <div 
+                                                            className={`h-full rounded-full ${style.bar} transition-all duration-1000 ease-out`} 
+                                                            style={{ width: `${item.percent}%` }}
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-                                <div className="bg-orange-50 rounded-xl p-3 border border-orange-100">
-                                    <div className="flex items-center justify-between mb-2">
-                                       <span className="text-sm font-black text-orange-600 uppercase">Cần ôn ngay</span>
-<div className="flex items-center gap-2">
-    {/* --- NÚT DẤU CỘNG (MỚI) --- */}
-    {groupedData.today.length > 0 && (
-        <button 
-            onClick={(e) => {
-                e.stopPropagation();
-                onLoadChars(groupedData.today.join(''));
-            }}
-            className="w-6 h-6 flex items-center justify-center rounded-full bg-white border border-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all active:scale-90 shadow-sm"
-            title="Tạo bài luyện cho các chữ này"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        </button>
-    )}
-    <span className="bg-orange-200 text-orange-700 text-sm font-bold px-1.5 rounded">{groupedData.today.length} chữ</span>
-</div>
-                                    </div>
+                                </div>
+                            )}
+
+                            {/* CẦN ÔN NGAY (TÔNG ĐỎ) */}
+                            <div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="text-[10px] font-black text-red-600 uppercase tracking-widest flex items-center gap-1.5">
+                                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                        Cần ôn ngay ({groupedData.today.length})
+                                    </h4>
+                                    {groupedData.today.length > 0 && (
+                                        <button 
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onLoadChars(groupedData.today.join(''));
+                                            }}
+                                            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-95 uppercase tracking-wider shadow-md shadow-red-200 flex items-center gap-1"
+                                        >
+                                            Ôn ngay
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                        </button>
+                                    )}
+                                </div>
+                                
+                                <div className={`p-4 rounded-2xl border ${groupedData.today.length > 0 ? 'bg-red-50/50 border-red-200' : 'bg-gray-50 border-gray-200'}`}>
                                     {groupedData.today.length > 0 ? (
-                                        <div className="flex flex-wrap gap-1">
+                                        <div className="flex flex-wrap gap-1.5">
                                             {groupedData.today.map((char, i) => (
-                                                <span key={i} className="inline-block bg-white text-gray-800 border border-orange-200 rounded px-1.5 py-0.5 text-lg font-['Klee_One'] min-w-[32px] text-center shadow-sm">{char}</span>
+                                                <span key={i} className="inline-flex items-center justify-center bg-white text-red-700 border border-red-200 rounded-lg w-8 h-9 text-xl font-['Klee_One'] shadow-sm">{char}</span>
                                             ))}
                                         </div>
-                                    ) : (<p className="text-[12px] text-gray-400 italic">Không có Kanji cần ôn. Giỏi quá! 🎉</p>)}
+                                    ) : (
+                                        <p className="text-xs text-gray-500 font-medium text-center py-2 flex items-center justify-center gap-2">
+                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                                            Tuyệt vời! Bạn không có thẻ nào cần ôn hôm nay.
+                                        </p>
+                                    )}
                                 </div>
+                            </div>
 
-                                {futureDates.length > 0 && (
+                            {/* LỊCH SẮP TỚI */}
+                            {futureDates.length > 0 && (
+                                <div>
+                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Lịch sắp tới</h4>
                                     <div className="space-y-3">
-                                         <div className="flex items-center gap-2 mt-2">
-                                            <span className="h-[1px] flex-1 bg-gray-100"></span>
-                                            <span className="text-sm font-bold text-gray-400 uppercase">Sắp tới</span>
-                                            <span className="h-[1px] flex-1 bg-gray-100"></span>
-                                        </div>
                                         {futureDates.map(date => (
-                                            <div key={date} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
+                                            <div key={date} className="bg-white rounded-xl p-3.5 border border-gray-200 shadow-sm hover:border-gray-300 transition-colors">
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-xs font-bold text-gray-600 flex items-center gap-1">
-    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-    Ngày {date}
-</span>
-<div className="flex items-center gap-2">
-    {/* --- NÚT DẤU CỘNG (MỚI) --- */}
-    <button 
-        onClick={(e) => {
-            e.stopPropagation();
-            onLoadChars(groupedData[date].join(''));
-        }}
-        className="w-5 h-5 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-400 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 transition-all active:scale-90 shadow-sm"
-        title="Tạo bài luyện cho ngày này"
-    >
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-    </button>
-    <span className="bg-gray-200 text-gray-600 text-[10px] font-bold px-1.5 rounded">{groupedData[date].length} chữ</span>
-</div>
+                                                    <span className="text-[11px] font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded-md">
+                                                        Ngày {date}
+                                                    </span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-gray-400 text-[10px] font-bold">{groupedData[date].length} chữ</span>
+                                                        <button 
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                onLoadChars(groupedData[date].join(''));
+                                                            }}
+                                                            className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all active:scale-90"
+                                                            title="Tạo bài học trước cho ngày này"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-wrap gap-1">
                                                     {groupedData[date].map((char, i) => (
-                                                        <span key={i} className="inline-block bg-white text-gray-500 border border-gray-200 rounded px-1.5 py-0.5 text-base font-['Klee_One'] min-w-[28px] text-center opacity-70">{char}</span>
+                                                        <span key={i} className="inline-flex items-center justify-center bg-gray-50 text-gray-500 border border-gray-100 rounded-md w-7 h-8 text-lg font-['Klee_One']">{char}</span>
                                                     ))}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
+                        </div>
 
-                            <div className="mt-8 pt-6 border-t border-dashed border-gray-200 text-center pb-2">
-                                <button 
-                                    onClick={() => {
-                                        if (!srsData || Object.keys(srsData).length === 0) {
-                                            alert("Danh sách trống");
-                                            return;
-                                        }
-                                        setIsConfirmOpen(true);
-                                    }}
-                                    className="text-red-700 hover:text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 mx-auto"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                                    XÓA TOÀN BỘ TIẾN ĐỘ
-                                </button>
-                            </div>
+                        {/* RESET DỮ LIỆU */}
+                        <div className="p-4 border-t border-gray-100 bg-white flex justify-center">
+                            <button 
+                                onClick={() => {
+                                    if (!srsData || Object.keys(srsData).length === 0) {
+                                        alert("Danh sách trống!");
+                                        return;
+                                    }
+                                    setIsConfirmOpen(true);
+                                }}
+                                className="text-red-500 hover:text-red-700 hover:bg-red-50 px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-1.5"
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                Reset toàn bộ tiến độ
+                            </button>
                         </div>
                     </>
                 ) : (
-                    // === GIAO DIỆN 2: CẢNH BÁO XÓA ===
+                    // === UI 3: CẢNH BÁO XÓA ===
                     <div 
-                        className="p-7 text-center animate-in fade-in zoom-in-95 duration-200 flex flex-col items-center justify-center min-h-[300px] cursor-pointer"
+                        className="p-8 text-center flex flex-col items-center justify-center bg-white"
                         onClick={(e) => {
                             e.stopPropagation(); 
                             setIsConfirmOpen(false); 
                         }}
                     >
-                        <div 
-                            className="w-full h-full flex flex-col items-center justify-center cursor-default" 
-                            onClick={(e) => e.stopPropagation()} 
-                        >
-                            <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-5 animate-bounce">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                            </div>
-                            <h3 className="text-xl font-black text-gray-800 mb-2 uppercase">Cảnh báo</h3>
-                            <p className="text-sm text-gray-500 mb-8 leading-relaxed max-w-[260px]">
-                                Lịch sử học tập sẽ bị xóa vĩnh viễn.<br/>
-                                <span className="text-red-500 font-bold">Không thể khôi phục lại!</span>
-                            </p>
-                            
-                            <div className="flex flex-col gap-3 w-full max-w-[260px]">
-                                <button onClick={() => setIsConfirmOpen(false)} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-95 uppercase text-xs tracking-wider">KHÔNG XÓA NỮA</button>
-                                <button onClick={() => { onResetSRS(); setIsConfirmOpen(false); onClose(); }} className="w-full py-3 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 font-bold rounded-xl transition-all text-xs">Vẫn xóa dữ liệu</button>
-                            </div>
+                        <div className="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-5 border-[4px] border-white shadow-[0_0_0_4px_rgba(254,226,226,1)] animate-bounce">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <h3 className="text-xl font-black text-gray-900 mb-2 uppercase tracking-wide">Cảnh báo</h3>
+                        <p className="text-sm text-gray-500 mb-8 leading-relaxed">
+                            Toàn bộ lịch sử ôn tập Flashcard sẽ bị <b className="text-red-600">xóa vĩnh viễn</b>.<br/>Hành động này không thể hoàn tác!
+                        </p>
+                        
+                        <div className="flex flex-col gap-3 w-full">
+                            <button onClick={() => setIsConfirmOpen(false)} className="w-full py-3.5 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-95 uppercase text-xs tracking-widest">
+                                Không xóa nữa
+                            </button>
+                            <button onClick={() => { onResetSRS(); setIsConfirmOpen(false); onClose(); }} className="w-full py-3 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-100 font-bold rounded-xl transition-all text-xs uppercase tracking-wider">
+                                Vẫn xóa dữ liệu
+                            </button>
                         </div>
                     </div>
                 )}
@@ -5302,6 +5296,7 @@ const App = () => {
                 dbData={dbData}
             />
 
+            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */}
             <ReviewListModal 
                 isOpen={isReviewListOpen}
                 onClose={() => setIsReviewListOpen(false)}
@@ -5310,9 +5305,9 @@ const App = () => {
                 onResetSRS={handleResetAllSRS}
                 onLoadChars={(chars) => {
                     setConfig({ ...config, text: chars }); 
-                    setIsReviewListOpen(false); 
-                    // Tự động mở Setup bảng Flashcard khi click ôn tập từ danh sách
-                    setSetupConfig({ isOpen: true, targetAction: 'flashcard' });
+                    setIsReviewListOpen(false);
+                    // Tự động mở flashcard ngay lập tức
+                    setTimeout(() => setIsFlashcardOpen(true), 100);
                 }}
             />
 
