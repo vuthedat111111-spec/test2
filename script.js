@@ -2,7 +2,58 @@ const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
     const { useState, useEffect, useMemo, useRef } = React;
+// --- THƯ VIỆN KAMIYA ---
+"use strict";var kamiya=(()=>{var j=Object.defineProperty;var W=Object.getOwnPropertyDescriptor;var _=Object.getOwnPropertyNames;var q=Object.prototype.hasOwnProperty;var z=(r,e)=>{for(var n in e)j(r,n,{get:e[n],enumerable:!0})},B=(r,e,n,a)=>{if(e&&typeof e=="object"||typeof e=="function")for(let t of _(e))!q.call(r,t)&&t!==n&&j(r,t,{get:()=>e[t],enumerable:!(a=W(e,t))||a.enumerable});return r};var G=r=>B(j({},"__esModule",{value:!0}),r);var $={};z($,{adjConjugate:()=>k,adjConjugations:()=>A,adjDeconjugate:()=>K,auxiliaries:()=>H,conjugate:()=>s,conjugateAuxiliaries:()=>v,conjugateTypeI:()=>C,conjugateTypeII:()=>S,conjugations:()=>p,verbDeconjugate:()=>X});var f=r=>r.split(""),M=[f("あいうえお"),f("かきくけこ"),f("がぎぐげご"),f("さしすせそ"),f("ざじずぜぞ"),f("たちつてと"),f("だぢづでど"),f("なにぬねの"),f("はひふへほ"),f("ばびぶべぼ"),f("ぱぴぷぺぽ"),f("まみむめも"),["や","","ゆ","","よ"],f("らりるれろ"),["わ","","","","を"],["ん","","","",""]],D=new Map([]);M.forEach((r,e)=>{r.forEach(n=>{n.length>0&&D.set(n,e)})});function y(r,e){if(e<0||e>4)throw new Error("vowel must be between 0 and 4");let n=D.get(r);if(typeof n=="undefined")throw new Error("unknown character");let a=M[n][e];if(a.length===0)throw new Error("vowel for kana does not exist");return a}var A=["Present","Prenomial","Negative","Past","NegativePast","ConjunctiveTe","Adverbial","Conditional","TaraConditional","Tari","Noun","StemSou","StemNegativeSou"];function P(r){throw new Error("never?")}function k(r,e,n){if(n){let a=r.slice(0,-1),t=!1;switch(r==="いい"||r==="良い"||r==="よい"?(a=r.startsWith("良")?"良":"よ",t=!0):r.endsWith("ない")&&(t=!0),e){case"Present":return[r];case"Prenomial":return[r];case"Negative":return[a+"くない"];case"Past":return[a+"かった"];case"NegativePast":return[a+"くなかった"];case"ConjunctiveTe":return[a+"く",a+"くて"];case"Adverbial":return[a+"く"];case"Conditional":return[a+"ければ"];case"TaraConditional":return[a+"かったら"];case"Tari":return[a+"かったり"];case"Noun":return[a+"さ"];case"StemSou":return[t?a+"さそう":a+"そう"];case"StemNegativeSou":return[a+"くな"+"さそう"];default:P(e)}}switch(e){case"Prenomial":return[r+"な"];case"Present":return["だ","です","でございます"].map(a=>r+a);case"Negative":return["ではない","でない","じゃない","ではありません"].map(a=>r+a);case"Past":return["だった","でした"].map(a=>r+a);case"NegativePast":return["ではなかった","でなかった","じゃなかった","ではありませんでした"].map(a=>r+a);case"ConjunctiveTe":return[r+"で"];case"Adverbial":return[r+"に"];case"Conditional":return["なら","ならば"].map(a=>r+a);case"TaraConditional":return["だったら"].map(a=>r+a);case"Tari":return["だったり","でしたり"].map(a=>r+a);case"Noun":return[r+"さ"];case"StemSou":return[r+"そう"];case"StemNegativeSou":return[r+"じゃなさそう"];default:P(e)}throw new Error("unknown conjugation/iAdjective")}function K(r,e,n){let a=[];for(let t of A){let u=k(e,t,n);u.includes(r)&&a.push({conjugation:t,result:u})}return a}var p=["Negative","Conjunctive","Dictionary","Conditional","Imperative","Volitional","Te","Ta","Tara","Tari","Zu","Nu"],H=["Potential","Masu","Nai","Tai","Tagaru","Hoshii","Rashii","SoudaHearsay","SoudaConjecture","SeruSaseru","ShortenedCausative","ReruRareru","CausativePassive","ShortenedCausativePassive","Ageru","Sashiageru","Yaru","Morau","Itadaku","Kureru","Kudasaru","TeIru","TeAru","Miru","Iku","Kuru","Oku","Shimau","TeOru"],J=[["ある","Negative",""],["ござる","Conjunctive","ござい"],["いらっしゃる","Conjunctive","いらっしゃい"],["いらっしゃる","Conditional","いらっしゃい"],["いらっしゃる","Imperative","いらっしゃい"]],E=new Map([]);for(let[r,e,n]of J){let a=E.get(r);a?a.set(e,n):E.set(r,new Map([[e,n]]))}var m=new Map(p.filter(r=>r!=="Imperative").map((r,e)=>[r,e])),U;m.set("Zu",(U=m.get("Negative"))!=null?U:-1);var R;m.set("Nu",(R=m.get("Negative"))!=null?R:-1);var L=[["く",["いて","いた","いたら","いたり"]],["ぐ",["いで","いだ","いだら","いだり"]],["す",["して","した","したら","したり"]],["ぬ",["んで","んだ","んだら","んだり"]],["ぶ",["んで","んだ","んだら","んだり"]],["む",["んで","んだ","んだら","んだり"]],["つ",["って","った","ったら","ったり"]],["る",["って","った","ったら","ったり"]],["う",["って","った","ったら","ったり"]]],O=new Map([]);for(let[r,e]of L)O.set(r,e);function C(r,e){{if(r==="する")return I(r,e);if(r==="くる"||r==="来る")return Z(r,e);if(r==="だ")return Y(r,e);if(r==="です")return V(r,e);if(r.endsWith("くださる")){if(e==="Dictionary")return[r];if(e==="Conjunctive")return[r.slice(0,-2)+"さい"];throw new Error("unknown conjugation for -kudasaru")}let i=E.get(r);if(i&&i.has(e))return[i.get(e)||""]}let n=r.slice(0,-1),a=r.slice(-1),t=m.get(e==="Imperative"?"Conditional":e);if(typeof t=="undefined")throw new Error("Conjugation not yet implemented");if(t<5)return a==="う"?t===0?[n+"わ"]:[n+y("あ",t)]:[n+y(a,t)];let u=t-5,o=O.get(r==="行く"||r==="いく"?"つ":a);if(!o)throw new Error("Unknown verb ending. Is it in dictionary form?");return[n+o[u]]}function S(r,e){if(r==="する")return I(r,e);if(r==="くる"||r==="来る")return Z(r,e);if(r==="だ")return Y(r,e);if(r==="です")return V(r,e);let n=r.slice(0,-1);switch(e){case"Negative":case"Zu":case"Nu":return[n];case"Conjunctive":return[n];case"Dictionary":return[r];case"Conditional":return[n+"れ"];case"Imperative":return[n+"ろ",n+"よ"];case"Volitional":return[n+"よう"];case"Te":return[n+"て"];case"Ta":return[n+"た"];case"Tara":return[n+"たら"];case"Tari":return[n+"たり"];default:throw new Error("Unhandled conjugation")}}function Z(r,e){let n="";switch(e){case"Negative":case"Zu":case"Nu":n="こ";break;case"Conjunctive":n="き";break;case"Dictionary":n="くる";break;case"Conditional":n="くれ";break;case"Imperative":n="こい";break;case"Volitional":n="こよう";break;case"Te":n="きて";break;case"Ta":n="きた";break;case"Tara":n="きたら";break;case"Tari":n="きたり";break;default:throw new Error("Unhandled conjugation")}let a=r.slice(0,-1);if(a==="く")return[n];if(a==="来")return["来"+n.slice(1)];throw new Error("Expected input to be 来る or くる")}function I(r,e){switch(e){case"Negative":return["し"];case"Conjunctive":return["し"];case"Dictionary":return["する"];case"Conditional":return["すれ"];case"Imperative":return["しろ","せよ"];case"Volitional":return["しよう"];case"Te":return["して"];case"Ta":return["した"];case"Tara":return["したら"];case"Tari":return["したり"];case"Zu":return["せず"];case"Nu":return["せぬ"];default:throw new Error("Unhandled conjugation")}}function Y(r,e){switch(e){case"Negative":return["でない","ではない","じゃない"];case"Dictionary":return["だ"];case"Conditional":return["なら"];case"Te":return["で"];case"Ta":return["だった"];case"Tara":return["だったら"];case"Tari":return["だったり"];default:throw new Error("Unhandled conjugation")}}function V(r,e){switch(e){case"Negative":return["でありません","ではありません"];case"Dictionary":return["です"];case"Te":return["でして"];case"Ta":return["でした"];case"Tara":return["でしたら"];case"Tari":return["でしたり"];default:throw new Error("Unhandled conjugation")}}function Q(r,e,n=!1){return(r.slice(-1)==="る"&&n?S:C)(r,e)}function s(r,e,n=!1){let a=Q(r,e,n);return(e==="Negative"||e==="Zu"||e==="Nu")&&r!=="だ"&&r!=="です"?e==="Negative"?a.push(a[0]+"ない"):e==="Zu"?a.push(a[0]+"ず"):e==="Nu"&&a.push(a[0]+"ぬ"):e==="Conjunctive"?a.push(a[0]+"ます"):e==="Conditional"?a.push(a[0]+"ば"):e==="Volitional"&&a.push(a[0]+"う"),a}function v(r,e,n,a=!1){if(e.length===0)return s(r,n,a);if(r==="だ"||r==="です"){if(e.length===1&&e[0]==="Nai"){if(n==="Ta")return r==="だ"?["ではなかった","じゃなかった"]:["ではありませんでした","でありませんでした"];if(n==="Te"&&r==="だ")return["じゃなくて"];if(n==="Conjunctive"&&r==="だ")return["じゃなく"]}throw new Error("unhandled copula auxiliaries/conjugation")}let t=[r],u=a;for(let[o,i]of e.entries()){let c=o===e.length-1?n:"Dictionary",g=e[o-1];if(o!==e.length-1&&(i==="Masu"||i==="Nai"||i==="Tai"||i=="Hoshii"||i==="Rashii"||i==="SoudaConjecture"||i==="SoudaHearsay"))throw new Error("must be final auxiliary");if(g==="Kuru"){let l=t.map(h=>h.slice(0,-2)),d=T("くる",i,c);t=l.flatMap(h=>d.map(w=>h+w))}else t=t.flatMap(l=>T(l,i,c,u));u=i==="Potential"||i==="SeruSaseru"||i==="ReruRareru"||i==="CausativePassive"||i==="ShortenedCausativePassive"||i==="Ageru"||i==="Sashiageru"||i==="Kureru"||i==="Miru"||i==="TeIru"}return t}function T(r,e,n,a=!1){if(e==="Potential"){let t=C(r,"Conditional")[0]+"る";return s(t,n,!0)}else if(e==="Masu"){let t=s(r,"Conjunctive",a)[0];switch(n){case"Negative":return[t+"ません",t+"ませんでした"];case"Dictionary":return[t+"ます"];case"Conditional":return[t+"ますれば"];case"Imperative":return[t+"ませ",t+"まし"];case"Volitional":return[t+"ましょう"];case"Te":return[t+"まして"];case"Ta":return[t+"ました"];case"Tara":return[t+"ましたら"];default:throw new Error("Unhandled conjugation")}}else if(e==="Nai"){let t=s(r,"Negative",a)[0];switch(n){case"Negative":return[t+"なくはない"];case"Conjunctive":return[t+"なく"];case"Dictionary":return[t+"ない"];case"Conditional":return[t+"なければ"];case"Te":return[t+"なくて",t+"ないで"];case"Ta":return[t+"なかった"];case"Tara":return[t+"なかったら"];default:throw new Error("Unhandled conjugation")}}else if(e==="Tai"){let t=s(r,"Conjunctive",a)[0];switch(n){case"Negative":return[t+"たくない"];case"Conjunctive":return[t+"たく"];case"Dictionary":return[t+"たい"];case"Conditional":return[t+"たければ"];case"Te":return[t+"たくて"];case"Ta":return[t+"たかった"];case"Tara":return[t+"たかったら"];default:throw new Error("Unhandled conjugation")}}else if(e==="Tagaru"){switch(n){case"Conditional":case"Imperative":case"Volitional":case"Tari":throw new Error("Unhandled conjugation")}let t=s(r,"Conjunctive",a);return s("たがる",n,!1).map(o=>t[0]+o)}else if(e==="Hoshii"){let t=s(r,"Te",a)[0];switch(n){case"Negative":return[t+"ほしくない"];case"Conjunctive":return[t+"ほしく"];case"Dictionary":return[t+"ほしい"];case"Conditional":return[t+"ほしければ"];case"Te":return[t+"ほしくて"];case"Ta":return[t+"ほしかった"];case"Tara":return[t+"ほしかったら"];default:throw new Error("Unhandled conjugation")}}else if(e==="Rashii"){let t=s(r,"Ta",a)[0],u=r,o=i=>[t,u].map(c=>c+i);switch(n){case"Negative":return[T(r,"Nai","Dictionary")[0]+"らしい"];case"Conjunctive":return o("らしく");case"Dictionary":return o("らしい");case"Te":return o("らしくて");default:throw new Error("Unhandled conjugation")}}else if(e==="SoudaHearsay"){let t=s(r,"Ta",a)[0],u=r,o=i=>[t,u].map(c=>c+i);switch(n){case"Dictionary":return o("そうだ");default:throw new Error("Unhandled conjugation")}}else if(e==="SoudaConjecture"){let t=s(r,"Conjunctive",a)[0];switch(n){case"Dictionary":return[t+"そうだ",t+"そうです"];case"Conditional":return[t+"そうなら"];case"Ta":return[t+"そうだった",t+"そうでした"];default:throw new Error("Unhandled conjugation")}}else if(e==="SeruSaseru"||e==="ShortenedCausative"){if(n==="Tara"||n==="Tari")throw new Error("Unhandled conjugation");let t;return r==="くる"||r==="来る"?t=(r[0]==="来"?"来":"こ")+"させる":r==="する"?t="させる":a?t=S(r,"Negative")[0]+"させる":t=C(r,"Negative")[0]+"せる",e==="ShortenedCausative"?(t=t.slice(0,-2)+"す",s(t,n,!1)):s(t,n,!0)}else if(e==="ReruRareru"){if(n==="Conditional"||n==="Imperative"||n==="Volitional"||n==="Tara"||n==="Tari")throw new Error("Unhandled conjugation");let t;return r==="くる"||r==="来る"?t=(r[0]==="来"?"来":"こ")+"られる":r==="する"?t="される":a?t=S(r,"Negative")[0]+"られる":t=C(r,"Negative")[0]+"れる",s(t,n,!0)}else if(e==="CausativePassive"){let t=T(r,"SeruSaseru","Negative",a)[0]+"られる";return s(t,n,!0)}else if(e==="ShortenedCausativePassive"){let t=T(r,"ShortenedCausative","Negative",a)[0]+"れる";return s(t,n,!0)}else if(e==="Ageru"||e==="Sashiageru"||e==="Yaru"||e==="Morau"||e==="Itadaku"||e==="Kureru"||e==="Kudasaru"||e==="TeIru"||e==="TeAru"||e==="Miru"||e==="Iku"||e==="Kuru"||e==="Oku"||e==="TeOru"){let t=s(r,"Te",a)[0],u=e==="Ageru"?["あげる"]:e==="Sashiageru"?["差し上げる","さしあげる"]:e==="Yaru"?["やる"]:e==="Morau"?["もらう"]:e==="Itadaku"?["いただく"]:e==="Kureru"?["くれる"]:e==="Kudasaru"?["くださる"]:e==="TeIru"?["いる","る"]:e==="TeAru"?["ある"]:e==="Miru"?["みる"]:e==="Iku"?["いく"]:e==="Kuru"?["くる"]:e==="Oku"?["おく"]:e==="TeOru"?["おる"]:[];if(!u[0])throw new Error("missing ternary");if(e==="Kuru")return s(u[0],n).map(c=>t+c);let o=e==="Ageru"||e==="Sashiageru"||e==="Kureru"||e==="TeIru"||e==="Miru",i=u.map(c=>t+c);return e==="Oku"?i.push(t.slice(0,-1)+(t.slice(-1)==="で"?"どく":"とく")):e==="Iku"&&i.push(t+"く"),i.flatMap(c=>s(c,n,o))}else if(e==="Shimau"){let t=s(r,"Te",a)[0],u=s(t+"しまう",n),o=t.slice(0,-1);if(t.endsWith("て")){let g=s(o+"ちゃう",n),l=s(o+"ちまう",n);return u.concat(g).concat(l)}let i=s(o+"じまう",n),c=s(o+"ぢまう",n);return u.concat(i).concat(c)}throw new Error("Unhandled auxiliary")}function X(r,e,n=!1,a=1/0){let t=[];for(let g of p)try{let l=s(e,g,n);l.includes(r)&&t.push({conjugation:g,auxiliaries:[],result:l})}catch(l){}if(a<=0)return t;for(let g of H)for(let l of p)try{let d=T(e,g,l,n);d.includes(r)&&t.push({conjugation:l,auxiliaries:[g],result:d})}catch(d){}if(a<=1)return t;let u=["Ageru","Sashiageru","Yaru","Morau","Itadaku","Kureru","Kudasaru","Miru","Iku","Kuru","Oku","Shimau","TeIru","TeAru","TeOru","Potential","ReruRareru","SeruSaseru"],o=["Masu","SoudaConjecture","SoudaHearsay","TeIru","Tai","Nai","Yaru"];for(let g of u)for(let l of o)for(let d of p){let h=[g,l];try{let w=v(e,h,d,n);w.includes(r)&&t.push({conjugation:d,auxiliaries:h,result:w})}catch(w){}}if(a<=2)return t;let i=["SeruSaseru","ReruRareru","Itadaku"],c=["Masu"];for(let g of i)for(let l of u)for(let d of c)for(let h of p){let w=[g,l,d];try{let N=v(e,w,h,n);N.includes(r)&&t.push({conjugation:h,auxiliaries:w,result:N})}catch(N){}}return t}return G($);})();
 
+// --- CÔNG CỤ CHIA ĐỘNG TỪ ---
+const VerbHelper = {
+    I_DAN: ['い', 'き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'ぢ', 'び', 'ぴ'],
+    E_DAN: ['え', 'け', 'せ', 'て', 'ね', 'へ', 'め', 'れ', 'げ', 'ぜ', 'で', 'べ', 'ぺ'],
+    I_TO_U: { 'い':'う', 'き':'く', 'し':'す', 'ち':'つ', 'に':'ぬ', 'ひ':'ふ', 'み':'む', 'り':'る', 'ぎ':'ぐ', 'じ':'ず', 'ぢ':'づ', 'び':'ぶ', 'ぴ':'ぷ' },
+    
+    classify: function(verbMasu, db) {
+        const verb = verbMasu.trim();
+        if (!verb.endsWith('ます')) return { verb, error: true };
+        if (db && db[verb]) return { verb, group: db[verb].group };
+        const stem = verb.slice(0, -2);
+        if (stem.length === 0) return { verb, error: true };
+        const charBeforeMasu = stem.slice(-1);
+        if (charBeforeMasu === 'し' && stem.length > 1) return { verb, group: 3 };
+        if (this.E_DAN.includes(charBeforeMasu)) return { verb, group: 2 };
+        if (this.I_DAN.includes(charBeforeMasu)) return { verb, group: 1 };
+        return { verb, error: true };
+    },
+
+    toDictionary: function(verbMasu, group) {
+        const stem = verbMasu.replace('ます', '');
+        if (group === 3) {
+            if (stem === 'し') return 'する';
+            if (stem === 'き' || stem === '来') return stem === '来' ? '来る' : 'くる';
+            if (stem.endsWith('し')) return stem.slice(0, -1) + 'する';
+        }
+        if (group === 2) return stem + 'る';
+        if (group === 1) {
+            const mappedChar = this.I_TO_U[stem.slice(-1)];
+            if (mappedChar) return stem.slice(0, -1) + mappedChar;
+        }
+        return verbMasu;
+    },
+
+    conjugate: function(verbMasu, targetForm, db) {
+        const info = this.classify(verbMasu, db);
+        if (info.error) return { original: verbMasu, result: 'Lỗi định dạng', error: true };
+        
+        const dictForm = this.toDictionary(info.verb, info.group);
+        const isIchidan = (info.group === 2);
+        
+        try {
+            const result = kamiya.conjugate(dictForm, targetForm, isIchidan)[0];
+            return { original: info.verb, result: result, group: info.group, error: false };
+        } catch (e) {
+            return { original: verbMasu, result: 'Lỗi chia từ', error: true };
+        }
+    }
+};
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
   const now = Date.now();
@@ -54,14 +105,14 @@ const calculateSRS = (currentData, quality) => {
 // --- FETCH DATA FROM GITHUB (ĐÃ SỬA: TẢI THÊM N5-N1) --- 
 const fetchDataFromGithub = async () => {
   try { 
-    // 1. Tải các file cơ sở dữ liệu chính (THÊM tuvungg.json)
-    const [dbResponse, onkunResponse, vocabResponse, tuvungResponse] = await Promise.all([
+    // 1. Tải các file cơ sở dữ liệu chính (THÊM vdacbiet.json)
+    const [dbResponse, onkunResponse, vocabResponse, tuvungResponse, vdacbietResponse] = await Promise.all([
       fetch('./data/kanji_db.json'),
       fetch('./data/onkun.json'),
       fetch('./data/vocab.json'),
-      fetch('./data/tuvungg.json')
+      fetch('./data/tuvungg.json'),
+      fetch('./data/vdacbiet.json').catch(() => null) // Tránh lỗi nếu chưa tạo file
     ]);
-
     // 2. Tải thêm 5 file danh sách cấp độ (N5 -> N1)
     const levels = ['n5', 'n4', 'n3', 'n2', 'n1'];
     const levelPromises = levels.map(l => fetch(`./data/kanji${l}.json`));
@@ -77,10 +128,16 @@ const fetchDataFromGithub = async () => {
     if (onkunResponse.ok) onkunDb = await onkunResponse.json();
     if (vocabResponse.ok) vocabDb = await vocabResponse.json();
 
-    // Xử lý file Từ vựng (MỚI)
+   // Xử lý file Từ vựng (MỚI)
     let tuvungDb = {};
     if (tuvungResponse && tuvungResponse.ok) {
         tuvungDb = await tuvungResponse.json();
+    }
+    
+    // Xử lý DB Ngoại lệ động từ
+    let vdacbietDb = {};
+    if (vdacbietResponse && vdacbietResponse.ok) {
+        vdacbietDb = await vdacbietResponse.json();
     }
 
     // Xử lý 5 file cấp độ
@@ -94,8 +151,8 @@ const fetchDataFromGithub = async () => {
         }
     }
 
-    // Trả về dữ liệu gộp (THÊM TUVUNG_DB)
-    return { ...kanjiDb, ONKUN_DB: onkunDb, VOCAB_DB: vocabDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels }; 
+   // Trả về dữ liệu gộp (THÊM TUVUNG_DB và VDACBIET_DB)
+    return { ...kanjiDb, ONKUN_DB: onkunDb, VOCAB_DB: vocabDb, TUVUNG_DB: tuvungDb, VDACBIET_DB: vdacbietDb, KANJI_LEVELS: kanjiLevels };
   } catch (error) {
     console.error("Lỗi tải dữ liệu hệ thống:", error);
     return null;
@@ -602,8 +659,13 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         setWrongDetected(false);
         setCorrectAnswer('');
 
-        let items = [];
-        if (mode === 'vocab') {
+       let items = [];
+        if (mode === 'conjugation') {
+            const rawVerbs = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w);
+            // targetForm lấy tạm từ config truyền xuống, hoặc mặc định Te
+            // Ở App.js bạn có truyền config xuống EssayGameModal
+            items = rawVerbs.map(v => VerbHelper.conjugate(v, config?.targetForm, dbData?.VDACBIET_DB || {})).filter(item => !item.error);
+        } else if (mode === 'vocab') {
             items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
         } else {
             items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
@@ -667,13 +729,17 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
         }
 
-        // FIX LỖI: Lấy target từ currentItem thay vì currentIndex
-        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
-        
+       let target = '';
         let isCorrect = false;
-        if (mode === 'kanji') {
+
+        if (mode === 'conjugation') {
+            target = currentItem.result; // currentItem lúc này là Object
+            isCorrect = finalInput === target; // Phải gõ chuẩn Hiragana
+        } else if (mode === 'kanji') {
+            target = dbData.KANJI_DB[currentItem]?.sound || '';
             isCorrect = finalInput.toUpperCase() === target.toUpperCase();
         } else {
+            target = dbData.TUVUNG_DB[currentItem]?.reading || '';
             isCorrect = removeAccents(finalInput.toLowerCase()) === removeAccents(target.toLowerCase());
         }
 
@@ -729,8 +795,10 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                         </div>
                     </div>
 
-    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-    <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>{currentItem}</h2>
+   <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+    <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>
+        {mode === 'conjugation' ? currentItem?.original : currentItem}
+    </h2>
     
     {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
     {mode === 'vocab' && (
@@ -742,7 +810,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                         <input 
                             type="text" autoFocus value={userInput} onChange={handleInputChange}
                             onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
+                           placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'conjugation' ? "Nhập kết quả đã chia..." : mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
                             className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
                         />
                         {(status === 'retyping' || status === 'wrong') && (
@@ -2029,10 +2097,14 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
 
-    const { needsEdit, ready, kanjiList } = React.useMemo(() => {
-        if (mode === 'kanji') {
+    const { needsEdit, ready, kanjiList, conjugationList } = React.useMemo(() => {
+        if (mode === 'conjugation') {
+            const verbs = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
+            const results = verbs.map(v => VerbHelper.conjugate(v, config?.targetForm || 'Te', dbData?.VDACBIET_DB || {}));
+            return { kanjiList: [], needsEdit: [], ready: [], conjugationList: results };
+        } else if (mode === 'kanji') {
             const chars = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => c);
-            return { kanjiList: chars, needsEdit: [], ready: [] };
+            return { kanjiList: chars, needsEdit: [], ready: [], conjugationList: [] };
         } else {
             const words = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
             const missing = [];
@@ -2091,9 +2163,24 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                         <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">✕</button>
                     </div>
 
-                    {/* Body (List) */}
+                   {/* Body (List) */}
                     <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
-                        {mode === 'kanji' ? (
+                        {mode === 'conjugation' ? (
+                            <div>
+                                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Kết quả chia ({conjugationList.length} từ)</p>
+                                <div className="space-y-2">
+                                    {conjugationList.map((item, i) => (
+                                        <div key={i} className="flex justify-between items-center border border-gray-200 rounded-xl p-4 bg-gray-50">
+                                            <span className="text-lg font-bold text-gray-600">{item.original}</span>
+                                            <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                            <span className={`text-xl font-black ${item.error ? 'text-red-500' : 'text-indigo-600'}`}>
+                                                {item.result}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : mode === 'kanji' ? (
                             <div>
                                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
                                 <div className="flex flex-wrap gap-2">
@@ -2553,22 +2640,16 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-       {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (BỊ KHÓA) */}
-<div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
-    {/* Nhãn "Sắp ra mắt" */}
-    <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-        Sắp ra mắt
-    </div>
-    
-    <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
-        {/* Icon mũi tên biến đổi (biểu tượng cho chia động từ) */}
+      {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (ĐÃ MỞ KHÓA) */}
+<div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 16v-2.38C4 11.5 5.97 10.5 7 10h10v-3l3 4-3 4v-3H7c-.45 0-.82.16-1 .5V16H4z"></path>
             <path d="M20 8v2.38C20 12.5 18.03 13.5 17 14H7v3l-3-4 3-4v3h10c.45 0 .82-.16 1-.5V8h2z"></path>
         </svg>
     </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-400">CHIA ĐỘNG TỪ</h3>
-    <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
+    <h3 className="text-xl font-bold mb-1">CHIA ĐỘNG TỪ</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Phản xạ thay đổi đuôi từ</p>
 </div>
 
     {/* THẺ TÍNH NĂNG MỚI: LUYỆN JLPT (BỊ KHÓA) */}
@@ -3408,7 +3489,8 @@ useEffect(() => {
         }
     };
 
-    const getDynamicPlaceholder = () => {
+   const getDynamicPlaceholder = () => {
+        if (mode === 'conjugation') return "Nhập các động từ đuôi 'ます' (Mỗi từ 1 dòng)...\nVí dụ:\n食べます\n飲みます\nします";
         if (mode === 'vocab') return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
         const labels = [];
         if (filterOptions.kanji) labels.push("漢字");        
@@ -3452,9 +3534,10 @@ useEffect(() => {
                 
                 {/* Header: Đổi chế độ */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50">
-                   <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
-        <button onClick={() => setPracticeMode('kanji')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
-        <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
+                  <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 overflow-x-auto custom-scrollbar">
+        <button onClick={() => setPracticeMode('kanji')} className={`px-5 py-2 whitespace-nowrap rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
+        <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 whitespace-nowrap rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
+        <button onClick={() => setPracticeMode('conjugation')} className={`px-5 py-2 whitespace-nowrap rounded-lg text-xs font-bold transition-all ${mode === 'conjugation' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>CHIA ĐỘNG TỪ</button>
     </div>
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
                 </div>
@@ -3475,7 +3558,24 @@ useEffect(() => {
                             setLocalText(newText); onChange({ ...config, text: newText });
                         }} 
                     />
-
+{/* Chọn thể cho Chia động từ */}
+                    {mode === 'conjugation' && (
+                        <div className="mb-2">
+                            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1 block">Chọn thể muốn luyện tập</label>
+                            <select 
+                                value={config.targetForm} 
+                                onChange={(e) => onChange({ ...config, targetForm: e.target.value })}
+                                className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl font-bold text-gray-800 outline-none focus:border-gray-900"
+                            >
+                                <option value="Te">Thể Te (て)</option>
+                                <option value="Ta">Thể Ta (た)</option>
+                                <option value="Negative">Thể Nai (ない)</option>
+                                <option value="Dictionary">Thể Từ điển (る)</option>
+                                <option value="Conditional">Thể Điều kiện (ば)</option>
+                                <option value="Volitional">Thể Ý chí (よう)</option>
+                            </select>
+                        </div>
+                    )}
                     {/* Textarea Nhập liệu */}
                     <div className="relative">
                         <textarea 
@@ -3595,9 +3695,9 @@ const App = () => {
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
 
     const [practiceMode, setPracticeMode] = useState('kanji');
-    const [config, setConfig] = useState({ text: '' });
+    const [config, setConfig] = useState({ text: '', targetForm: 'Te' });
     // Bộ nhớ tạm để lưu text của 2 chế độ
-    const [textCache, setTextCache] = useState({ kanji: '', vocab: '' });
+   const [textCache, setTextCache] = useState({ kanji: '', vocab: '', conjugation: '' });
 
     // Hàm xử lý chuyển đổi chế độ thông minh
     const handleModeSwitch = (newMode) => {
@@ -3779,6 +3879,7 @@ const App = () => {
     onClose={() => setIsEssayOpen(false)}
     text={config.text}
     dbData={dbData}
+config={config}
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
