@@ -461,7 +461,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
                             {/* TIẾN ĐỘ HỌC TẬP */}
                             {levelProgress.length > 0 && (
                                 <div>
-                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tiến độ</h4>
+                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tiến độ JLPT</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {levelProgress.map((item) => {
                                             const style = levelColors[item.level] || levelColors.N5;
@@ -520,7 +520,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
                                     ) : (
                                         <p className="text-xs text-gray-500 font-medium text-center py-2 flex items-center justify-center gap-2">
                                             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                                            Tuyệt vời! Bạn không có Kanji cần ôn hôm nay.
+                                            Tuyệt vời! Bạn không có kanji cần ôn hôm nay.
                                         </p>
                                     )}
                                 </div>
@@ -576,7 +576,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
                                 className="text-red-500 hover:text-red-700 hover:bg-red-50 px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-1.5"
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                                Xóa toàn bộ tiến độ
+                                Reset toàn bộ tiến độ
                             </button>
                         </div>
                     </>
@@ -4366,7 +4366,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold tracking-tight mb-4">Mọi thứ bạn cần</h2>
+                        <h2 className="text-3xl font-bold tracking-tight mb-4">HÔM NAY BẠN MUỐN HỌC GÌ?</h2>
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
 
@@ -4380,7 +4380,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             </div>
                             <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
-                           
+                          
                         </div>
                        {/* Thẻ 2 */}
                         <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1" style={{ opacity: 1, transform: 'none' }}>
@@ -4389,7 +4389,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             </div>
                             <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
-                           
+                          
                         </div>
 
                         {/* Thẻ 3 */}
@@ -4403,8 +4403,9 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar w-6 h-6"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">KANJI</p>
-                          
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
+                           
+                        </div>
                     </div>
                 </div>
             </section>
