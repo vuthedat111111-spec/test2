@@ -1,7 +1,35 @@
 const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
-    const { useState, useEffect, useMemo, useRef } = React;
+
+// --- BỘ CHUYỂN ĐỔI KANA ---
+
+    const convertToKana = (rawText, isKatakanaTarget) => {
+
+        const hiraMap = {
+
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+
+        };
+
+        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
+
+        let result = rawText.toLowerCase();
+
+        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
+
+        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
+
+        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
+
+        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
+
+        return isKatakanaTarget ? toKata(result) : result;
+
+    };
+
+
+const { useState, useEffect, useMemo, useRef } = React;
 
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
@@ -614,20 +642,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         setInitialTotal(shuffled.length);
     };
 
-    // --- BỘ CHUYỂN ĐỔI KANA ---
-    const convertToKana = (rawText, isKatakanaTarget) => {
-        const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
-        };
-        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
-        let result = rawText.toLowerCase();
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
-        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
-        return isKatakanaTarget ? toKata(result) : result;
-    };
-
+    
     const checkIsKatakana = (target) => /[\u30A0-\u30FF]/.test(target);
 
     const handleInputChange = (e) => {
@@ -4104,116 +4119,117 @@ const App = () => {
         );
     }
 
-    return (
+   return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
-            
-            {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
-            <LandingPage 
-                srsData={srsData}
-                onOpenReviewList={() => setIsReviewListOpen(true)}
-                onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
-            />
+            {/* Chỉ hiển thị Home nếu page là home */}
+            {currentPage === 'home' && (
+                <>
+                    <LandingPage 
+                        srsData={srsData}
+                        onOpenReviewList={() => setIsReviewListOpen(true)}
+                        onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
+                        onNavigateToVerb={() => setCurrentPage('verb-practice')} // Fix lỗi điều hướng
+                        dbData={dbData}
+                    />
 
-            {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
-            <StudySetupModal 
-                isOpen={setupConfig.isOpen}
-                onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
-                targetAction={setupConfig.targetAction}
-                onStart={handleStartLearning}
-                config={config}
-                onChange={setConfig}
-                mode={practiceMode}
-                setPracticeMode={handleModeSwitch}
-                dbData={dbData}
-                srsData={srsData}
-            />
-{/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
-            <PreviewListModal
-                isOpen={isPreviewListOpen}
-                onClose={() => {
-                    // Khi bấm Quay Lại, đóng Preview và mở lại Setup ngay lập tức
-                    setIsPreviewListOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                }}
-                onStart={handleStartLearning}
-                targetAction={setupConfig.targetAction}
-                text={config.text}
-                mode={practiceMode}
-                dbData={dbData}
-                customVocabData={customVocabData}
-                onSaveVocab={handleSaveVocab}
-            />
-            {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
-            <FlashcardModal 
-                isOpen={isFlashcardOpen} 
-                onClose={() => setIsFlashcardOpen(false)} 
-                text={config.text} 
-                dbData={dbData} 
-                onSrsUpdate={updateSRSProgress}
-                srsData={srsData} 
-                mode={practiceMode}
-                onSrsRestore={(char, oldData) => {
-                    const newData = { ...srsData, [char]: oldData };
-                    setSrsData(newData);
-                    localStorage.setItem('phadao_srs_data', JSON.stringify(newData));
-                }}
-            />
+                    <StudySetupModal 
+                        isOpen={setupConfig.isOpen}
+                        onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
+                        targetAction={setupConfig.targetAction}
+                        onStart={handleStartLearning}
+                        config={config}
+                        onChange={setConfig}
+                        mode={practiceMode}
+                        setPracticeMode={handleModeSwitch}
+                        dbData={dbData}
+                        srsData={srsData}
+                    />
 
-            <LearnGameModal 
-                isOpen={isLearnGameOpen}
-                onClose={() => setIsLearnGameOpen(false)}
-                text={config.text}
-                dbData={dbData}
-                mode={practiceMode}
-                onSwitchToFlashcard={() => {
-                    setIsLearnGameOpen(false);
-                    setIsFlashcardOpen(true); 
-                }}
-            />
+                    <PreviewListModal
+                        isOpen={isPreviewListOpen}
+                        onClose={() => {
+                            setIsPreviewListOpen(false);
+                            setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                        }}
+                        onStart={handleStartLearning}
+                        targetAction={setupConfig.targetAction}
+                        text={config.text}
+                        mode={practiceMode}
+                        dbData={dbData}
+                        customVocabData={customVocabData}
+                        onSaveVocab={handleSaveVocab}
+                    />
 
-            <EditVocabModal  
-                isOpen={!!editingVocab}
-                onClose={() => setEditingVocab(null)}
-                data={editingVocab}
-                onSave={handleSaveVocab}
-                dbData={dbData}
-            />
-    <EssayGameModal 
-    isOpen={isEssayOpen}
-    onClose={() => setIsEssayOpen(false)}
-    text={config.text}
-    dbData={dbData}
-    mode={practiceMode}
-    onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
-/>
-            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
-            <ReviewListModal 
-    isOpen={isReviewListOpen}
-    onClose={() => setIsReviewListOpen(false)}
-    srsData={srsData}
-    dbData={dbData}
-    onResetSRS={handleResetAllSRS}
-    onLoadChars={(chars) => {
-        // === FIX LỖI: Tự động lưu cache và chuyển sang chế độ Kanji ===
-        if (practiceMode === 'vocab') {
-            setTextCache(prev => ({ ...prev, vocab: config.text }));
-        }
-        setPracticeMode('kanji'); // Ép sang chế độ Kanji
-        setConfig({ text: chars }); // Đưa danh sách chữ cần ôn vào
-        
-        setIsReviewListOpen(false);
-        // Tự động mở flashcard ngay lập tức
-        setTimeout(() => setIsFlashcardOpen(true), 100);
-    }}
-/>
-        </div>
-           {/* --- TRANG CHIA ĐỘNG TỪ MỚI --- */}
+                    <FlashcardModal 
+                        isOpen={isFlashcardOpen} 
+                        onClose={() => setIsFlashcardOpen(false)} 
+                        text={config.text} 
+                        dbData={dbData} 
+                        onSrsUpdate={updateSRSProgress}
+                        srsData={srsData} 
+                        mode={practiceMode}
+                        onSrsRestore={(char, oldData) => {
+                            const newData = { ...srsData, [char]: oldData };
+                            setSrsData(newData);
+                            localStorage.setItem('phadao_srs_data', JSON.stringify(newData));
+                        }}
+                    />
+
+                    <LearnGameModal 
+                        isOpen={isLearnGameOpen}
+                        onClose={() => setIsLearnGameOpen(false)}
+                        text={config.text}
+                        dbData={dbData}
+                        mode={practiceMode}
+                        onSwitchToFlashcard={() => {
+                            setIsLearnGameOpen(false);
+                            setIsFlashcardOpen(true); 
+                        }}
+                    />
+
+                    <EditVocabModal  
+                        isOpen={!!editingVocab}
+                        onClose={() => setEditingVocab(null)}
+                        data={editingVocab}
+                        onSave={handleSaveVocab}
+                        dbData={dbData}
+                    />
+
+                    <EssayGameModal 
+                        isOpen={isEssayOpen}
+                        onClose={() => setIsEssayOpen(false)}
+                        text={config.text}
+                        dbData={dbData}
+                        mode={practiceMode}
+                        onSwitchMode={(target) => handleStartLearning(target)}
+                    />
+
+                    <ReviewListModal 
+                        isOpen={isReviewListOpen}
+                        onClose={() => setIsReviewListOpen(false)}
+                        srsData={srsData}
+                        dbData={dbData}
+                        onResetSRS={handleResetAllSRS}
+                        onLoadChars={(chars) => {
+                            if (practiceMode === 'vocab') {
+                                setTextCache(prev => ({ ...prev, vocab: config.text }));
+                            }
+                            setPracticeMode('kanji');
+                            setConfig({ text: chars });
+                            setIsReviewListOpen(false);
+                            setTimeout(() => setIsFlashcardOpen(true), 100);
+                        }}
+                    />
+                </>
+            )}
+
+            {/* Hiển thị trang chia động từ */}
             {currentPage === 'verb-practice' && (
                 <VerbPracticePage onBack={() => setCurrentPage('home')} />
             )}
-
         </div>
     );
-};
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+}; // Kết thúc component App
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
