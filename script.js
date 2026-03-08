@@ -3993,10 +3993,18 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
         setEditingWord(null);
     };
 
-    const restoreEdit = (word) => {
-        const originalInfo = dbData?.TUVUNG_DB?.[word] || { reading: '', meaning: '' };
+   const restoreEdit = (word) => {
+        // Lấy từ ORIGINAL_TUVUNG_DB (nếu đã từng sửa) hoặc TUVUNG_DB (nếu chưa sửa bao giờ)
+        const originalInfo = dbData?.ORIGINAL_TUVUNG_DB?.[word] || dbData?.TUVUNG_DB?.[word] || { reading: '', meaning: '' };
+        
+        // Trả Hán việt về trạng thái tự động ghép chữ
         const originalHanviet = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
-        setEditForm({ reading: originalInfo.reading || '', meaning: originalInfo.meaning || '', hanviet: originalHanviet });
+        
+        setEditForm({ 
+            reading: originalInfo.reading || '', 
+            meaning: originalInfo.meaning || '', 
+            hanviet: originalHanviet 
+        });
     };
 
     return (
@@ -4744,12 +4752,24 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                         </>
                     ) : (
                         <div className="space-y-5">
-                            {/* Minna */}
+                           {/* Minna */}
                             <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
                                 <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
                                 <div className="flex items-center gap-2">
                                     <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
-                                    <input type="number" placeholder="..." value={minnaLesson} onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={minnaLesson} 
+                                        onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} 
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && minnaLesson) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
                                 </div>
                             </div>
 
@@ -4761,7 +4781,19 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                                         <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
                                     </select>
                                     <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-                                    <input type="number" placeholder="..." value={mimiPart} onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={mimiPart} 
+                                        onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} 
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && mimiPart) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
                                 </div>
                             </div>
 
@@ -4773,7 +4805,19 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                                         <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
                                     </select>
                                     <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-                                    <input type="number" placeholder="..." value={tangoPart} onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={tangoPart} 
+                                        onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} 
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && tangoPart) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
                                 </div>
                             </div>
 
@@ -5093,17 +5137,20 @@ const App = () => {
 
    // --- CÁC HÀM XỬ LÝ DỮ LIỆU ---
     const handleSaveVocab = (word, newReading, newMeaning, newHanviet) => {
-        // 1. Cập nhật customVocabData (cho PreviewList)
         setCustomVocabData(prev => ({
             ...prev,
             [word]: { reading: newReading, meaning: newMeaning, hanviet: newHanviet }
         }));
 
-        // 2. Cập nhật trực tiếp vào dbData để Flashcard & Game nhận diện ngay lập tức
         setDbData(prevDb => {
             if (!prevDb) return prevDb;
+            
+            // BÍ QUYẾT Ở ĐÂY: Lưu lại con trỏ đến dữ liệu JSON gốc trước khi ghi đè lần đầu tiên
+            const originalTuvung = prevDb.ORIGINAL_TUVUNG_DB || prevDb.TUVUNG_DB;
+
             return {
                 ...prevDb,
+                ORIGINAL_TUVUNG_DB: originalTuvung, // Giữ lại bản nguyên thủy
                 TUVUNG_DB: {
                     ...prevDb.TUVUNG_DB,
                     [word]: {
