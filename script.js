@@ -635,7 +635,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         </div>
     );
 };
-const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) => {
+const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, config }) => {
     const [queue, setQueue] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
@@ -2084,7 +2084,7 @@ const KanjiAnimationContainer = ({ char, dbData, onClose }) => {
     );
 };
 // --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
-const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
+const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab, config }) => {
     const [editingWord, setEditingWord] = useState(null);
     const [editForm, setEditForm] = useState({ reading: '', meaning: '', hanviet: '' });
     
@@ -3838,6 +3838,7 @@ const App = () => {
                 dbData={dbData}
                 customVocabData={customVocabData}
                 onSaveVocab={handleSaveVocab}
+                    config={config}
             />
             {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
@@ -3879,9 +3880,10 @@ const App = () => {
     onClose={() => setIsEssayOpen(false)}
     text={config.text}
     dbData={dbData}
-config={config}
+
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
+        config={config}
 />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
