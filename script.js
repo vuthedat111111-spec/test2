@@ -582,85 +582,75 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const [queue, setQueue] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
-    const [status, setStatus] = useState('idle');
+    const [status, setStatus] = useState('idle'); // idle, correct, wrong, retyping
     const [finished, setFinished] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState('');
+    const [initialTotal, setInitialTotal] = useState(0); // Tổng số chữ ban đầu để tính tiến trình
+    const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0); // Số câu đúng ngay lần đầu
 
-    // --- BỘ CHUYỂN ĐỔI ROMAJI -> KANA THỜI GIAN THỰC ---
-    const convertToKana = (text) => {
-        const mapping = {
-            'a': 'あ', 'i': 'い', 'u': 'う', 'e': 'え', 'o': 'お',
-            'ka': 'か', 'ki': 'き', 'ku': 'く', 'ke': 'け', 'ko': 'こ',
-            'sa': 'さ', 'shi': 'し', 'si': 'し', 'su': 'す', 'se': 'せ', 'so': 'そ',
-            'ta': 'た', 'chi': 'ち', 'ti': 'ち', 'tsu': 'つ', 'tu': 'つ', 'te': 'て', 'to': 'と',
-            'na': 'な', 'ni': 'ni', 'nu': 'ぬ', 'ne': 'ね', 'no': 'の',
-            'ha': 'は', 'hi': 'ひ', 'fu': 'ふ', 'hu': 'ふ', 'he': 'へ', 'ho': 'ほ',
-            'ma': 'ま', 'mi': 'み', 'mu': 'む', 'me': 'め', 'mo': 'も',
-            'ya': 'や', 'yu': 'ゆ', 'yo': 'よ',
-            'ra': 'ら', 'ri': 'り', 'ru': 'る', 're': 'れ', 'ro': 'ろ',
-            'wa': 'わ', 'wo': 'を', 'nn': 'ん', 'n ': 'ん',
-            'ga': 'が', 'gi': 'ぎ', 'gu': 'ぐ', 'ge': 'げ', 'go': 'ご',
-            'za': 'ざ', 'ji': 'じ', 'zu': 'ず', 'ze': 'ぜ', 'zo': 'ぞ',
-            'da': 'だ', 'di': 'ぢ', 'du': 'づ', 'de': 'で', 'do': 'ど',
-            'ba': 'ば', 'bi': 'び', 'bu': 'ぶ', 'be': 'べ', 'bo': 'ぼ',
-            'pa': 'ぱ', 'pi': 'ぴ', 'pu': 'ぷ', 'pe': 'ぺ', 'po': 'ぽ',
-            'kya': 'きゃ', 'kyu': 'きゅ', 'kyo': 'きょ',
-            'sha': 'しゃ', 'shu': 'しゅ', 'sho': 'しょ',
-            'cha': 'ちゃ', 'chu': 'ちゅ', 'cho': 'ちょ',
-            'nya': 'にゃ', 'nyu': 'にゅ', 'nyo': 'にょ',
-            'hya': 'ひゃ', 'hyu': 'ひゅ', 'hyo': 'ひょ',
-            'mya': 'みゃ', 'myu': 'みゅ', 'myo': 'みょ',
-            'rya': 'りゃ', 'ryu': 'りゅ', 'ryo': 'りょ',
-            'gya': 'ぎゃ', 'gyu': 'ぎゅ', 'gyo': 'ぎょ',
-            'bya': 'びゃ', 'byu': 'びュ', 'byo': 'びょ',
-            'pya': 'ぴゃ', 'pyu': 'ぴゅ', 'pyo': 'ぴょ'
+    // --- BỘ CHUYỂN ĐỔI KANA CHUẨN ---
+    const convertToKana = (rawText, isKatakanaTarget) => {
+        const hiraMap = {
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'ni','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'cho','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
         };
 
-        let result = text.toLowerCase();
-        
-        // Xử lý sokuon (âm ngắt - gấp đôi phụ âm như 'kk', 'ss'...)
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => {
-            return p1 === 'n' ? match : 'っ' + p1;
-        });
+        const toKata = (hira) => {
+            return hira.split('').map(c => {
+                const code = c.charCodeAt(0);
+                return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c;
+            }).join('');
+        };
 
-        // Chuyển đổi các cụm từ dài trước (3 ký tự), sau đó đến ngắn (1 ký tự)
-        const keys = Object.keys(mapping).sort((a, b) => b.length - a.length);
+        let result = rawText.toLowerCase();
+        // Âm ngắt
+        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
+        
+        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
         for (let key of keys) {
-            result = result.split(key).join(mapping[key]);
+            result = result.split(key).join(hiraMap[key]);
         }
-        return result;
+        result = result.replace(/n(?![aeiouy])/g, 'ん');
+
+        return isKatakanaTarget ? toKata(result) : result;
     };
+
+    // Kiểm tra xem mục tiêu có chứa Katakana không để đổi bộ gõ
+    const checkIsKatakana = (target) => /[\u30A0-\u30FF]/.test(target);
 
     const handleInputChange = (e) => {
         const val = e.target.value;
-        // Nếu là chế độ từ vựng, tự động chuyển Romaji sang Kana ngay lập tức
         if (mode === 'vocab') {
-            setUserInput(convertToKana(val));
+            const target = queue[currentIndex] || '';
+            setUserInput(convertToKana(val, checkIsKatakana(target)));
         } else {
             setUserInput(val);
         }
     };
 
-    // --- LOGIC HỌC TẬP ---
+    // --- KHỞI TẠO VÀ RESET ---
     useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen]);
-
-    useEffect(() => {
-        if (isOpen && text && dbData) {
-            let items = [];
-            if (mode === 'vocab') {
-                items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
-            } else {
-                items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
-            }
-            setQueue(items.sort(() => Math.random() - 0.5));
-            setCurrentIndex(0);
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            // Reset toàn bộ trạng thái khi mở modal
             setFinished(false);
+            setCurrentIndex(0);
             setUserInput('');
             setStatus('idle');
+            setCorrectFirstTimeCount(0);
+
+            if (text && dbData) {
+                let items = [];
+                if (mode === 'vocab') {
+                    items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
+                } else {
+                    items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
+                }
+                const shuffled = items.sort(() => Math.random() - 0.5);
+                setQueue(shuffled);
+                setInitialTotal(shuffled.length);
+            }
+        } else {
+            document.body.style.overflow = 'unset';
         }
     }, [isOpen, text, mode, dbData]);
 
@@ -674,36 +664,33 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     }, [finished, isOpen, triggerConfetti]);
 
     const checkAnswer = () => {
+        if (status === 'correct') return;
         const currentItem = queue[currentIndex];
         const inputClean = removeAccents(userInput.trim().toLowerCase());
-        let target = '';
-        
-        if (mode === 'kanji') {
-            target = dbData.KANJI_DB[currentItem]?.sound || '';
-        } else {
-            target = dbData.TUVUNG_DB[currentItem]?.reading || '';
-        }
-
+        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
         const targetClean = removeAccents(target.toLowerCase());
 
+        // Nếu đang trong trạng thái gõ lại (Retyping)
         if (status === 'retyping' || status === 'wrong') {
             if (inputClean === targetClean) {
                 goToNext();
             } else {
                 setStatus('wrong');
-                setTimeout(() => setStatus('retyping'), 500);
+                setTimeout(() => setStatus('retyping'), 400);
             }
             return;
         }
 
+        // Kiểm tra lần đầu
         if (inputClean === targetClean) {
             setStatus('correct');
+            setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
+            // Sai: Hiện đáp án, yêu cầu gõ lại và đẩy xuống cuối queue
             setCorrectAnswer(target);
             setStatus('wrong');
-            const newQueue = [...queue, currentItem];
-            setQueue(newQueue);
+            setQueue(prev => [...prev, currentItem]); // Đẩy xuống cuối để học lại
             setTimeout(() => setStatus('retyping'), 500);
         }
     };
@@ -723,29 +710,38 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
     const currentItem = queue[currentIndex];
     const info = mode === 'kanji' ? dbData.KANJI_DB[currentItem] : dbData.TUVUNG_DB[currentItem];
+    const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
 
     return (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in">
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
             <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
                 
                 {!finished ? (
                     <>
-                        <div className="w-full flex justify-between items-center mb-8">
-                            <span className="text-[10px] font-black text-zinc-300 uppercase tracking-widest">Tự luận - {mode === 'kanji' ? 'Âm Hán' : 'Cách đọc'}</span>
-                            <span className="text-[10px] font-black text-zinc-400 bg-zinc-50 px-2 py-1 rounded-lg border border-zinc-100">
-                                {currentIndex + 1} / {queue.length}
-                            </span>
+                        {/* Progress Bar - Chỉ tăng khi đúng lần đầu */}
+                        <div className="w-full mb-6">
+                            <div className="flex justify-between items-end mb-2">
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Tiến trình chuẩn</span>
+                                <span className="text-[10px] font-black text-zinc-900 bg-zinc-100 px-2 py-1 rounded-lg">
+                                    {correctFirstTimeCount} / {initialTotal}
+                                </span>
+                            </div>
+                            <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
+                            </div>
                         </div>
 
+                        {/* Câu hỏi */}
                         <div className={`flex flex-col items-center text-center mb-8 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
                             <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>
                                 {currentItem}
                             </h2>
-                            {mode === 'vocab' && (
-                                <p className="text-lg font-medium text-zinc-400 italic">"{info?.meaning}"</p>
-                            )}
+                            <p className="text-lg font-medium text-zinc-400 italic">
+                                {mode === 'vocab' ? `"${info?.meaning}"` : `(${info?.meaning})`}
+                            </p>
                         </div>
 
+                        {/* Input */}
                         <div className="w-full space-y-4">
                             <input 
                                 type="text"
@@ -753,7 +749,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                                 value={userInput}
                                 onChange={handleInputChange}
                                 onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                                placeholder={status === 'retyping' ? "Gõ lại đáp án đúng..." : "Nhập đáp án..."}
+                                placeholder={status === 'retyping' ? "Gõ lại đúng để tiếp tục..." : "Nhập đáp án..."}
                                 className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${
                                     status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
                                     status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 
@@ -763,25 +759,29 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
                             {(status === 'retyping' || status === 'wrong') && (
                                 <div className="animate-in slide-in-from-top-2 duration-300 text-center">
-                                    <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng là:</p>
-                                    <div className="inline-block px-4 py-2 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg">
+                                    <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
+                                    <div className="inline-block px-4 py-2 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">
                                         {correctAnswer}
                                     </div>
                                 </div>
                             )}
 
-                            <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">
-                                {status === 'retyping' ? 'Bắt buộc gõ lại chính xác' : 'Nhấn Enter để kiểm tra'}
+                            <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest">
+                                {status === 'retyping' ? 'Gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
                             </p>
                         </div>
                         
-                        <button onClick={onClose} className="mt-8 text-zinc-300 hover:text-red-400 text-[10px] font-black uppercase tracking-[0.2em]">Thoát</button>
+                        <button onClick={onClose} className="mt-8 text-zinc-300 hover:text-red-400 text-[10px] font-black uppercase tracking-[0.2em] transition-colors">Thoát bài học</button>
                     </>
                 ) : (
+                    /* Màn hình hoàn thành */
                     <div className="text-center py-4 animate-in zoom-in-95 duration-500">
                         <div className="text-6xl mb-6">🏆</div>
                         <h3 className="text-2xl font-black text-zinc-800 mb-1 uppercase tracking-tight">HOÀN THÀNH</h3>
-                        <p className="text-zinc-400 text-sm mb-10 font-medium">Bạn đã làm chủ được {queue.length} nội dung tự luận.</p>
+                        <p className="text-zinc-400 text-sm mb-10 font-medium leading-relaxed">
+                            Bạn đã hoàn thành bài thi tự luận!<br/>
+                            Chính xác ngay lần đầu: <b>{correctFirstTimeCount}/{initialTotal}</b>
+                        </p>
                         
                         <div className="flex flex-col gap-3 w-full">
                             <button onClick={() => { onClose(); onSwitchMode('game'); }} className="w-full py-4 bg-zinc-900 text-white font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-[11px] tracking-widest flex items-center justify-center gap-2">
@@ -790,7 +790,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                             <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-[11px] tracking-widest flex items-center justify-center gap-2">
                                 ÔN TẬP FLASHCARD
                             </button>
-                            <button onClick={onClose} className="w-full py-3 text-zinc-400 font-bold text-[10px] uppercase tracking-widest mt-2">Đóng</button>
+                            <button onClick={onClose} className="w-full py-3 text-zinc-400 font-bold text-[10px] uppercase tracking-widest mt-2 hover:text-zinc-900">Quay về trang chủ</button>
                         </div>
                     </div>
                 )}
