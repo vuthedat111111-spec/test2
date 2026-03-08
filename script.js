@@ -3581,23 +3581,22 @@ useEffect(() => {
     );
 };
 // =========================================================================
-// ĐẠI DỰ ÁN: CHIA ĐỘNG TỪ TÙY CHỈNH BẰNG KAMIYA-CODEC (THÔNG MINH)
+// ĐẠI DỰ ÁN: CHIA ĐỘNG TỪ TÙY CHỈNH BẰNG KAMIYA-CODEC (HOÀN CHỈNH 100%)
 // =========================================================================
 
 const VerbPracticePage = ({ onBack }) => {
     const { useState, useEffect, useMemo, useCallback } = React;
     
     const [kamiya, setKamiya] = useState(null);
-    const [gameState, setGameState] = useState('loading'); // loading, setup, playing_typing, playing_time, playing_suffix, finished
+    const [gameState, setGameState] = useState('loading'); // loading, setup, playing_typing, playing_time_attack, playing_suffix, finished
     
     // --- STATE SETUP ---
     const [setup, setSetup] = useState({
         mode: 'typing', // typing, time_attack, suffix
-        text: '', // Dữ liệu người dùng nhập
+        text: '', 
         forms: { 'Te': true, 'Negative': false, 'Ta': false, 'Dictionary': false, 'Volitional': false, 'Potential': false, 'Passive': false, 'Causative': false }
     });
 
-    // --- DICTIONARY ---
     const FORM_LABELS = {
         'Te': 'Thể て (Te)', 'Negative': 'Thể ない (Phủ định)', 'Ta': 'Thể た (Quá khứ)', 'Dictionary': 'Thể từ điển',
         'Volitional': 'Thể ý chí', 'Potential': 'Thể khả năng', 'Passive': 'Thể bị động', 'Causative': 'Thể sai khiến'
@@ -3613,19 +3612,11 @@ const VerbPracticePage = ({ onBack }) => {
         });
     }, []);
 
-    // ========================================================================
-    // 2. BỘ PHÂN TÍCH TỪ VỰNG THÔNG MINH (SMART VERB PARSER)
-    // Chuyển đổi từ vựng người dùng nhập thành định dạng chuẩn cho Kamiya
-    // ========================================================================
-    // ========================================================================
-    // 2. BỘ PHÂN TÍCH TỪ VỰNG THÔNG MINH (PHIÊN BẢN CHỐNG NGOẠI LỆ)
-    // ========================================================================
+    // 2. BỘ PHÂN TÍCH TỪ VỰNG THÔNG MINH
     const parseVerb = (rawWord) => {
         let text = rawWord.trim();
         if (!text) return null;
 
-        // 1. Nhóm 3 (Bất quy tắc & Từ ghép)
-        // Xử lý luôn cả từ ghép như: 勉強する, 持ってくる...
         if (text.endsWith('する') || text.endsWith('します')) {
             const base = text.replace(/する$|します$/, '');
             return { word: base + 'する', type: 'vs-i' };
@@ -3635,24 +3626,19 @@ const VerbPracticePage = ({ onBack }) => {
             return { word: base + '来る', type: 'vk' };
         }
 
-        // 2. NGOẠI LỆ ĐẶC BIỆT KINH ĐIỂN
-        // 行く (Iku) - Chia thể Te là 行って
         if (text === '行く' || text === 'いく' || text === '行きます' || text === 'いきます') {
             return { word: '行く', type: 'v5k-s' };
         }
-        // ある (Aru) - Chia thể Nai là ない
         if (text === 'ある' || text === 'あります') {
             return { word: 'ある', type: 'v5r-i' }; 
         }
 
-        // 3. TÔN KÍNH NGỮ (Kuego - Ngoại lệ thể Masu)
         const honorifics = ['いらっしゃる', 'なさる', 'くださる', 'おっしゃる', 'ござる'];
         if (honorifics.some(h => text === h || text === h.slice(0, -1) + 'います')) {
              const base = honorifics.find(h => text.startsWith(h.slice(0, -1)));
              return { word: base, type: 'v5aru' };
         }
 
-        // 4. NGƯỜI DÙNG NHẬP THỂ "MASU" (Cách tốt nhất để không bao giờ sai)
         if (text.endsWith('ます')) {
             const stem = text.slice(0, -2);
             const lastChar = stem.slice(-1);
@@ -3660,40 +3646,28 @@ const VerbPracticePage = ({ onBack }) => {
             
             const godanMap = {'い':'う', 'き':'く', 'ぎ':'ぐ', 'し':'す', 'ち':'つ', 'に':'ぬ', 'び':'ぶ', 'み':'む', 'り':'る'};
             if (godanMap[lastChar]) {
-                // Đuôi [i] -> Nhóm 1
                 const dictForm = baseStem + godanMap[lastChar];
                 const typeMap = {'う':'v5u','く':'v5k','ぐ':'v5g','す':'v5s','つ':'v5t','ぬ':'v5n','ぶ':'v5b','む':'v5m','る':'v5r'};
                 return { word: dictForm, type: typeMap[godanMap[lastChar]] };
             } else {
-                // Đuôi [e] hoặc 1 âm tiết -> Nhóm 2
                 return { word: stem + 'る', type: 'v1' };
             }
         }
 
-        // 5. NGƯỜI DÙNG NHẬP THỂ TỪ ĐIỂN (Cần check blacklist)
         const lastChar = text.slice(-1);
         if (lastChar === 'る') {
-            // DANH SÁCH ĐEN: Động từ Nhóm 1 nhưng tận cùng bằng E-ru/I-ru
             const godanExceptions = [
                 '帰る', '入る', '走る', '切る', '知る', '要る', '喋る', '減る', 
                 '焦る', '限る', '蹴る', '滑る', '握る', '練る', '散る', '交じる', '嘲る'
             ];
-            
-            // Nếu nằm trong danh sách đen -> Ép nó thành Nhóm 1
-            if (godanExceptions.some(ex => text.endsWith(ex))) {
-                return { word: text, type: 'v5r' };
-            }
-            // Mặc định đuôi 'ru' còn lại là Nhóm 2
+            if (godanExceptions.some(ex => text.endsWith(ex))) return { word: text, type: 'v5r' };
             return { word: text, type: 'v1' }; 
         }
 
-        // Các đuôi còn lại (U, Ku, Gu, Su, Mu, Nu, Bu) mặc định là Nhóm 1
         const godanTypes = {'う':'v5u','く':'v5k','ぐ':'v5g','す':'v5s','つ':'v5t','ぬ':'v5n','ぶ':'v5b','む':'v5m'};
-        if (godanTypes[lastChar]) {
-            return { word: text, type: godanTypes[lastChar] }; 
-        }
+        if (godanTypes[lastChar]) return { word: text, type: godanTypes[lastChar] }; 
 
-        return null; // Trả về null nếu gõ bậy
+        return null;
     };
 
     // --- GAMEPLAY STATES ---
@@ -3703,27 +3677,25 @@ const VerbPracticePage = ({ onBack }) => {
     const [timeLeft, setTimeLeft] = useState(60);
     const [status, setStatus] = useState('idle');
     const [userInput, setUserInput] = useState('');
+    const [streak, setStreak] = useState(0);
 
-    // 3. BẮT ĐẦU TẠO BÀI HỌC TỪ DỮ LIỆU NHẬP
+    // 3. HÀM START GAME (Đã fix lỗi bị cắt cụt)
     const startGame = () => {
         const activeForms = Object.keys(setup.forms).filter(k => setup.forms[k]);
         if (activeForms.length === 0) return alert("Vui lòng chọn ít nhất 1 Thể để luyện tập!");
         if (!setup.text.trim()) return alert("Vui lòng nhập ít nhất 1 động từ!");
 
-        // Tách chuỗi nhập vào thành mảng các từ
         const rawWords = setup.text.split(/[\n,;、。]+/).map(w => w.trim()).filter(w => w);
         let parsedVerbs = [];
-        let invalidWords = [];
 
+        // Lặp mảng an toàn
         rawWords.forEach(w => {
             const parsed = parseVerb(w);
             if (parsed) parsedVerbs.push(parsed);
-            else invalidWords.push(w);
         });
 
         if (parsedVerbs.length === 0) return alert("Không tìm thấy động từ tiếng Nhật hợp lệ nào trong ô nhập!");
 
-        // Sinh mảng câu hỏi
         let questions = [];
         parsedVerbs.forEach(v => {
             activeForms.forEach(form => {
@@ -3744,7 +3716,6 @@ const VerbPracticePage = ({ onBack }) => {
 
         questions = questions.sort(() => Math.random() - 0.5); 
         
-        // Mode Time attack cho nhiều câu hơn, mode thường lấy tối đa 30 câu
         if(setup.mode === 'time_attack') questions = questions.slice(0, 100); 
         else questions = questions.slice(0, 30); 
 
@@ -3752,10 +3723,11 @@ const VerbPracticePage = ({ onBack }) => {
         setCurrentIndex(0);
         setScore(0);
         setTimeLeft(60);
+        setStreak(0);
         setGameState(`playing_${setup.mode}`);
     };
 
-    // Tạo đáp án nhiễu
+    // 4. TẠO ĐÁP ÁN NHIỄU CHO TRẮC NGHIỆM
     const generateOptions = (question) => {
         const options = [question.answer];
         const distractorForms = ['Te', 'Negative', 'Past', 'Passive', 'Potential'].sort(() => Math.random() - 0.5);
@@ -3780,7 +3752,7 @@ const VerbPracticePage = ({ onBack }) => {
     const currentQ = queue[currentIndex];
     const optionsMemo = useMemo(() => currentQ ? generateOptions(currentQ) : [], [currentQ]);
 
-    // Đồng hồ đếm ngược Time Attack
+    // 5. TIME ATTACK TIMER
     useEffect(() => {
         if (gameState === 'playing_time_attack' && timeLeft > 0) {
             const timer = setInterval(() => setTimeLeft(t => t - 1), 1000);
@@ -3790,7 +3762,7 @@ const VerbPracticePage = ({ onBack }) => {
         }
     }, [gameState, timeLeft]);
 
-    // Xử lý nộp đáp án
+    // 6. XỬ LÝ NỘP ĐÁP ÁN
     const handleAnswer = (input) => {
         if (status !== 'idle') return;
         const cleanInput = input.trim().replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -3799,6 +3771,7 @@ const VerbPracticePage = ({ onBack }) => {
         if (cleanInput === cleanAnswer) {
             setStatus('correct');
             setScore(s => s + 1);
+            setStreak(s => s + 1);
             setTimeout(() => {
                 setStatus('idle');
                 setUserInput('');
@@ -3807,20 +3780,28 @@ const VerbPracticePage = ({ onBack }) => {
             }, 500);
         } else {
             setStatus('wrong');
+            setStreak(0);
             setTimeout(() => {
                 setStatus('idle');
                 setUserInput('');
-                if (setup.mode !== 'time_attack') setQueue(prev => [...prev, currentQ]); // Gõ sai thì học lại
+                if (setup.mode !== 'time_attack') setQueue(prev => [...prev, currentQ]); // Học lại nếu gõ sai
                 if (currentIndex < queue.length - 1) setCurrentIndex(c => c + 1);
                 else setGameState('finished');
             }, setup.mode === 'time_attack' ? 500 : 1500);
         }
     };
 
+    const triggerConfetti = useCallback(() => {
+        if (typeof confetti !== 'undefined') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+    }, []);
+
+    useEffect(() => { if (gameState === 'finished') triggerConfetti(); }, [gameState, triggerConfetti]);
 
     // ==========================================
-    // RENDER: GIAO DIỆN SETUP
+    // RENDER UI
     // ==========================================
+    if (gameState === 'loading') return <div className="min-h-screen flex items-center justify-center bg-zinc-50"><div className="animate-spin w-8 h-8 border-4 border-zinc-900 border-t-transparent rounded-full"></div></div>;
+
     if (gameState === 'setup') {
         return (
             <div className="min-h-screen bg-zinc-50 flex justify-center py-10 px-4 animate-in fade-in">
@@ -3834,12 +3815,8 @@ const VerbPracticePage = ({ onBack }) => {
                     </div>
 
                     <div className="p-8 space-y-8 overflow-y-auto custom-scrollbar">
-                        
-                        {/* 1. KHUNG NHẬP LIỆU (TÍNH NĂNG MỚI) */}
                         <div>
-                            <div className="flex justify-between items-end mb-3">
-                                <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest">1. Nhập động từ cần luyện</h3>
-                            </div>
+                            <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">1. Nhập động từ cần luyện</h3>
                             <textarea 
                                 value={setup.text}
                                 onChange={(e) => setSetup({...setup, text: e.target.value})}
@@ -3847,11 +3824,10 @@ const VerbPracticePage = ({ onBack }) => {
                                 className="w-full h-32 p-4 bg-zinc-50 border border-zinc-200 rounded-2xl resize-none text-lg text-zinc-800 focus:border-zinc-900 focus:bg-white outline-none transition-colors"
                             />
                             <div className="flex gap-2 mt-2">
-                                <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] font-bold">💡 Mẹo: Nhập Thể ます (VD: 帰ります) để máy nhận diện chính xác 100% nhóm từ.</span>
+                                <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] font-bold">💡 Mẹo: Nhập Thể ます (VD: 帰ります) để máy nhận diện 100% nhóm từ.</span>
                             </div>
                         </div>
 
-                        {/* 2. CHỌN CHẾ ĐỘ */}
                         <div>
                             <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">2. Chế độ luyện tập</h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -3869,7 +3845,6 @@ const VerbPracticePage = ({ onBack }) => {
                             </div>
                         </div>
 
-                        {/* 3. CHỌN THỂ */}
                         <div>
                             <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">3. Chọn Thể (Form)</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -3893,9 +3868,6 @@ const VerbPracticePage = ({ onBack }) => {
         );
     }
 
-    // ==========================================
-    // RENDER: GAMEPLAY CÁC CHẾ ĐỘ
-    // ==========================================
     if (gameState.startsWith('playing_')) {
         const isTyping = setup.mode === 'typing';
         const isTimeAttack = setup.mode === 'time_attack';
@@ -3905,16 +3877,13 @@ const VerbPracticePage = ({ onBack }) => {
         let suffixes = optionsMemo;
         if (isSuffix) {
             let commonLen = 0;
-            while (commonLen < currentQ.verb.length && currentQ.verb[commonLen] === currentQ.answer[commonLen]) {
-                commonLen++;
-            }
+            while (commonLen < currentQ.verb.length && currentQ.verb[commonLen] === currentQ.answer[commonLen]) commonLen++;
             stem = currentQ.verb.substring(0, commonLen) || currentQ.verb.charAt(0); 
             suffixes = optionsMemo.map(opt => opt.replace(stem, '') || opt); 
         }
 
         return (
             <div className="min-h-screen bg-zinc-900 flex flex-col items-center justify-center p-4 selection:bg-transparent">
-                
                 <button onClick={() => setGameState('setup')} className="absolute top-6 left-6 text-white/50 hover:text-white font-bold flex items-center gap-2">
                     ✕ Đổi cấu hình
                 </button>
@@ -3930,15 +3899,15 @@ const VerbPracticePage = ({ onBack }) => {
                             <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
                                 <div className="h-full bg-white transition-all duration-300" style={{ width: `${(currentIndex / queue.length) * 100}%` }}></div>
                             </div>
-                            <div className="text-center mt-2 text-[10px] font-bold text-white/50 tracking-widest uppercase">
-                                CÂU {currentIndex + 1} / {queue.length}
+                            <div className="flex justify-between mt-2 text-[10px] font-bold text-white/50 uppercase tracking-widest">
+                                <span>CÂU {currentIndex + 1} / {queue.length}</span>
+                                <span className={streak > 3 ? 'text-orange-400 animate-pulse' : ''}>{streak} Combo 🔥</span>
                             </div>
                         </div>
                     )}
                 </div>
 
                 <div className={`w-full max-w-md bg-white rounded-[2.5rem] p-8 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ${status === 'wrong' ? 'animate-shake border-4 border-red-500' : 'border-4 border-transparent'}`}>
-                    
                     <div className="bg-zinc-100 text-zinc-600 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
                         Chuyển sang: {currentQ.formLabel}
                     </div>
@@ -3949,12 +3918,10 @@ const VerbPracticePage = ({ onBack }) => {
                         <h2 className="text-7xl font-['Klee_One'] font-black text-zinc-900 mb-10">{currentQ.verb}</h2>
                     )}
 
-                    {/* MODE 1: GÕ PHÍM */}
                     {isTyping && (
                         <div className="w-full">
                             <input 
-                                type="text" autoFocus
-                                value={userInput}
+                                type="text" autoFocus value={userInput}
                                 onChange={(e) => setUserInput(convertToKana(e.target.value, false))} 
                                 onKeyDown={(e) => e.key === 'Enter' && handleAnswer(userInput)}
                                 placeholder="Gõ Romaji..."
@@ -3968,12 +3935,10 @@ const VerbPracticePage = ({ onBack }) => {
                         </div>
                     )}
 
-                    {/* MODE 2: TIME ATTACK */}
                     {isTimeAttack && (
                         <div className="grid grid-cols-2 gap-3 w-full">
                             {optionsMemo.map((opt, i) => (
-                                <button 
-                                    key={i} onClick={() => handleAnswer(opt)} disabled={status !== 'idle'}
+                                <button key={i} onClick={() => handleAnswer(opt)} disabled={status !== 'idle'}
                                     className={`p-4 text-xl font-bold font-['Klee_One'] rounded-2xl border-2 transition-all active:scale-95 ${
                                         status !== 'idle' && opt === currentQ.answer ? 'bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]' :
                                         status === 'wrong' && userInput === opt ? 'bg-red-500 border-red-500 text-white' : 'bg-white border-zinc-200 hover:border-zinc-900 text-zinc-900'
@@ -3983,12 +3948,10 @@ const VerbPracticePage = ({ onBack }) => {
                         </div>
                     )}
 
-                    {/* MODE 3: NỐI ĐUÔI */}
                     {isSuffix && (
                         <div className="grid grid-cols-2 gap-3 w-full">
                             {suffixes.map((suf, i) => (
-                                <button 
-                                    key={i} onClick={() => handleAnswer(stem + suf)} disabled={status !== 'idle'}
+                                <button key={i} onClick={() => handleAnswer(stem + suf)} disabled={status !== 'idle'}
                                     className={`p-4 text-2xl font-bold rounded-2xl border-2 transition-all active:scale-95 ${
                                         status !== 'idle' && (stem+suf) === currentQ.answer ? 'bg-zinc-900 border-zinc-900 text-white' :
                                         status === 'wrong' && userInput === (stem+suf) ? 'bg-red-50 border-red-500 text-red-500' : 'bg-zinc-50 border-zinc-200 hover:border-zinc-400 text-zinc-900'
@@ -3999,9 +3962,7 @@ const VerbPracticePage = ({ onBack }) => {
                     )}
                 </div>
                 
-                <div className="absolute bottom-10 font-black text-white/30 text-2xl tracking-widest uppercase">
-                    ĐIỂM: {score}
-                </div>
+                <div className="absolute bottom-10 font-black text-white/30 text-2xl tracking-widest uppercase">ĐIỂM: {score}</div>
             </div>
         );
     }
