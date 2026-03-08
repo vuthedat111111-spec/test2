@@ -1986,7 +1986,7 @@ return () => document.removeEventListener("mousedown", handleClickOutside);
         handleChange('text', cleaned); 
     };
 
-    // --- 5. XỬ LÝ NHẬP LIỆU (ĐÃ FIX LỖI IME) ---
+
     // --- 5. XỬ LÝ NHẬP LIỆU (REAL-TIME FILTER) ---
     const handleInputText = (e) => {
         const rawInput = e.target.value;
@@ -2332,21 +2332,27 @@ const handleLoadMinna = async () => {
         }
     };
 
-    // --- LOGIC ONBLUR: LÀM SẠCH & XÓA TRÙNG LẶP TỰ ĐỘNG ---
+   // --- LOGIC ONBLUR: LÀM SẠCH & XÓA TRÙNG LẶP TỰ ĐỘNG ---
     const handleBlurText = () => {
         if (!localText) return;
         
         let cleaned = localText;
-        cleaned = cleaned.replace(/[ \t]+/g, ' '); 
-        cleaned = cleaned.replace(/(\n\s*){2,}/g, '\n'); 
-        cleaned = cleaned.trim();
+
         if (mode === 'vocab') {
+            // Chế độ TỪ VỰNG: Giữ lại xuống dòng để phân tách từ
+            cleaned = cleaned.replace(/[ \t]+/g, ' '); 
+            cleaned = cleaned.replace(/(\n\s*){2,}/g, '\n'); 
+            cleaned = cleaned.trim();
             const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             cleaned = [...new Set(lines)].join('\n');
             if (cleaned.length > 0) cleaned += '\n'; 
         } else {
+            // Chế độ KANJI: Xóa SẠCH mọi dấu cách (thường, Nhật), tab và dấu xuống dòng
+            cleaned = cleaned.replace(/[\s\u3000]+/g, '');
+            // Sau khi các chữ đứng sát nhau, thực hiện xóa trùng lặp
             cleaned = getUniqueChars(cleaned);
         }
+
         if (cleaned !== localText) {
             setLocalText(cleaned);
             onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
@@ -4648,16 +4654,24 @@ const StudySetupModal = ({
 
     const handleBlurText = () => {
         if (!localText) return;
-        let cleaned = localText.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
+        
+        let cleaned = localText;
+
         if (mode === 'vocab') {
+            // Chế độ TỪ VỰNG
+            cleaned = cleaned.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
             const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             cleaned = [...new Set(lines)].join('\n');
             if (cleaned.length > 0) cleaned += '\n'; 
         } else {
+            // Chế độ KANJI: Xóa SẠCH khoảng trắng, dấu xuống dòng
+            cleaned = cleaned.replace(/[\s\u3000]+/g, '');
             cleaned = getUniqueChars(cleaned);
         }
+
         if (cleaned !== localText) {
-            setLocalText(cleaned); onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
+            setLocalText(cleaned); 
+            onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
         }
     };
 
@@ -4733,7 +4747,7 @@ const StudySetupModal = ({
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
