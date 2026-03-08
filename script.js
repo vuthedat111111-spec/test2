@@ -4296,7 +4296,7 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                         else if (e.key === 'Enter') { e.preventDefault(); handleSelect(searchResults[activeIndex]); }
                     }
                 }}
-                placeholder={mode === 'vocab' ? "Tra cứu từ vựng..." : "Tra cứu theo âm Hán Việt..."} 
+                placeholder={mode === 'vocab' ? "Nhập 1 chữ hán để tìm TỪ VỰNG đi kèm..." : "Nhập âm Hán Việt để tìm KANJI..."} 
                 className="w-full pl-10 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all"
             />
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
@@ -4368,11 +4368,12 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
         </div>
     );
 };
-// --- 2. MODAL THIẾT LẬP BÀI HỌC (100% ĐEN/TRẮNG/XÁM) ---
+// --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TÍCH HỢP LOGIC BỘ LỌC + GIAO DIỆN MONOCHROME) ---
 const StudySetupModal = ({ 
     isOpen, onClose, onStart, targetAction, 
     config, onChange, mode, setPracticeMode, dbData, srsData 
 }) => {
+    // --- 1. STATE QUẢN LÝ TÌM KIẾM & THƯ VIỆN ---
     const [localText, setLocalText] = useState(config.text);
     const [isLibraryOpen, setIsLibraryOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -4385,32 +4386,134 @@ const StudySetupModal = ({
     const [tangoPart, setTangoPart] = useState('');
     const [tangoLevel, setTangoLevel] = useState('N3');
 
+    // --- 2. STATE & REF CHO BỘ LỌC VÀ NHẬP LIỆU ---
+    const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
+    const filterRef = useRef(null);
+    const isComposing = useRef(false); // Xử lý lỗi gõ tiếng Nhật (IME)
+
+    const [filterOptions, setFilterOptions] = useState({
+        hiragana: true,
+        katakana: true,
+        kanji: true,
+        removeDuplicates: false 
+    });
+
+    // Khóa cuộn trang khi mở Modal & Đồng bộ Text
     useEffect(() => {
         if (isOpen) {
             setLocalText(config.text);
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
+            setIsFilterMenuOpen(false); // Đóng bộ lọc khi tắt modal
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, config.text]);
 
+    // Click ra ngoài để đóng menu bộ lọc
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setIsFilterMenuOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     if (!isOpen) return null;
 
-    // --- CÁC HÀM XỬ LÝ TEXT ---
-    const handleInputText = (e) => {
-        const val = e.target.value;
-        setLocalText(val);
-        onChange({ ...config, text: val.replace(/[a-zA-Z]/g, '') });
+    // ==========================================
+    // LOGIC NHẬP LIỆU & BỘ LỌC (GIỮ NGUYÊN 100%)
+    // ==========================================
+    const getAllowedRegexString = (options, allowLatin = false) => {
+        let ranges = "\\s;"; 
+        if (allowLatin) ranges += "a-zA-Z"; 
+        if (options.hiragana) ranges += "\\u3040-\\u309F";
+        if (options.katakana) ranges += "\\u30A0-\\u30FF";
+        if (options.kanji)    ranges += "\\u4E00-\\u9FAF\\u3400-\\u4DBF\\u2E80-\\u2FDF\\uF900-\\uFAFF\\u3005"; 
+        return ranges;
     };
 
-    const handleCleanText = () => {
+    const getUniqueChars = (str) => Array.from(new Set(str)).join('');
+
+    const handleFilterChange = (key) => {
+        const newOptions = { ...filterOptions, [key]: !filterOptions[key] };
+        setFilterOptions(newOptions);
+        
+        let newText = localText;
+        if (['hiragana', 'katakana', 'kanji'].includes(key) && filterOptions[key] === true) {
+            const allowedString = getAllowedRegexString(newOptions, true); 
+            const regex = new RegExp(`[^${allowedString}]`, 'g');
+            newText = newText.replace(regex, '');
+        }
+        if (newOptions.removeDuplicates) newText = getUniqueChars(newText);
+        
+        setLocalText(newText);
+        onChange({ ...config, text: newText.replace(/[a-zA-Z]/g, '') });
+    };
+
+    const handleRemoveLatinManual = () => {
         if (!localText) return;
         let cleaned = localText.replace(/[a-zA-Z]/g, '').replace(/[\n\r]+/g, '').replace(/[ 　\t]+/g, '').trim();
         setLocalText(cleaned);
-        onChange({ ...config, text: cleaned });
+        onChange({ ...config, text: cleaned }); 
+        setIsFilterMenuOpen(false); // Đóng menu sau khi bấm
     };
 
+    const handleInputText = (e) => {
+        const rawInput = e.target.value;
+        if (isComposing.current) {
+            setLocalText(rawInput);
+            return;
+        }
+        const allowedString = getAllowedRegexString(filterOptions, true);
+        const blockRegex = new RegExp(`[^${allowedString}]`, 'g');
+        let validForInput = rawInput.replace(blockRegex, '');
+        if (filterOptions.removeDuplicates) validForInput = getUniqueChars(validForInput);
+
+        setLocalText(validForInput);
+        onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
+    };
+
+    const handleCompositionStart = () => { isComposing.current = true; };
+    const handleCompositionEnd = (e) => {
+        isComposing.current = false;
+        const rawInput = e.target.value;
+        const allowedString = getAllowedRegexString(filterOptions, true);
+        const blockRegex = new RegExp(`[^${allowedString}]`, 'g');
+        let validForInput = rawInput.replace(blockRegex, '');
+        if (filterOptions.removeDuplicates) validForInput = getUniqueChars(validForInput);
+
+        setLocalText(validForInput);
+        onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
+    };
+
+    const handleBlurText = () => {
+        if (!localText) return;
+        let cleaned = localText.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
+        if (filterOptions.removeDuplicates) cleaned = getUniqueChars(cleaned);
+
+        if (cleaned !== localText) {
+            setLocalText(cleaned);
+            onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
+        }
+    };
+
+    // Tạo Placeholder động
+    const getDynamicPlaceholder = () => {
+        if (mode === 'vocab') return "Nhập từ vựng...\nVí dụ:\n日本語\n先生";
+        const labels = [];
+        if (filterOptions.kanji) labels.push("漢字");        
+        if (filterOptions.hiragana) labels.push("ひらがな"); 
+        if (filterOptions.katakana) labels.push("カタカナ"); 
+        if (labels.length === 0) return "Vui lòng chọn ít nhất 1 loại chữ...";
+        return labels.join(", ");
+    };
+
+    // ==========================================
+    // LOGIC CÁC NÚT TIỆN ÍCH KHÁC
+    // ==========================================
     const handleShuffle = () => {
         if (!config.text) return;
         let newContent = "";
@@ -4433,7 +4536,6 @@ const StudySetupModal = ({
         onChange({ ...config, text: newContent });
     };
 
-    // --- HÀM XỬ LÝ KHI CHỌN KẾT QUẢ TỪ SEARCH BAR ---
     const handleSelectFromResult = (item) => {
         let newText = "";
         if (mode === 'vocab') {
@@ -4458,7 +4560,6 @@ const StudySetupModal = ({
         onChange({ ...config, text: newText });
     };
 
-    // --- HÀM TẢI DỮ LIỆU THƯ VIỆN ---
     const fetchAndSetData = async (url) => {
         setIsLoading(true); setProgress(20);
         try {
@@ -4572,7 +4673,7 @@ const StudySetupModal = ({
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Tango</span>
-                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none bg-white">
+                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-300 rounded-xl text-sm font-bold outline-none bg-white">
                                             <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
                                         </select>
                                         <input type="number" placeholder="Phần..." value={tangoPart} onChange={e => setTangoPart(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none w-16" />
@@ -4585,7 +4686,9 @@ const StudySetupModal = ({
                 </div>
             )}
 
-            {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
+            {/* ========================================== */}
+            {/* BẢNG CHÍNH - GIAO DIỆN SETUP               */}
+            {/* ========================================== */}
             <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
                 
                 {/* Header: Đổi chế độ */}
@@ -4607,7 +4710,7 @@ const StudySetupModal = ({
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
                 </div>
 
-                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5">
+                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative">
                     
                     {/* Component SearchBar Độc lập */}
                     <SearchBar 
@@ -4620,8 +4723,12 @@ const StudySetupModal = ({
                     {/* Textarea Nhập liệu */}
                     <div className="relative">
                         <textarea 
-                            value={localText} onChange={handleInputText} 
-                            placeholder={mode === 'vocab' ? "Ví dụ:\n日本語\n先生" : "Ví dụ: 日本語"} 
+                            value={localText} 
+                            onChange={handleInputText} 
+                            onCompositionStart={handleCompositionStart}
+                            onCompositionEnd={handleCompositionEnd}
+                            onBlur={handleBlurText}
+                            placeholder={getDynamicPlaceholder()} 
                             className="w-full h-40 p-5 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-2xl font-['Klee_One'] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar" 
                         />
                         {localText && (
@@ -4631,20 +4738,70 @@ const StudySetupModal = ({
                         )}
                     </div>
 
-                    {/* Tiện ích (Thư viện, Xáo trộn, Làm sạch) */}
+                    {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
                     <div className="grid grid-cols-3 gap-3">
                         <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                           
                             <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
                         </button>
                         <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                          
                             <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
                         </button>
-                        <button onClick={handleCleanText} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l5.37-5.38"/></svg>
-                            <span className="text-[10px] font-bold uppercase tracking-widest">Làm sạch</span>
-                        </button>
+                        
+                        {/* NÚT BỘ LỌC (MỚI THAY THẾ CHO NÚT LÀM SẠCH) */}
+                        <div className="relative" ref={filterRef}>
+                            <button 
+                                onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} 
+                                className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group ${isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}
+                            >
+                            
+                                <span className="text-[10px] font-bold uppercase tracking-widest">Bộ lọc</span>
+                            </button>
+
+                            {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
+                            {isFilterMenuOpen && (
+                                <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
+                                    <div className="mb-3 pb-2 border-b border-gray-100">
+                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Tùy chọn lọc</span>
+                                    </div>
+                                    <div className="space-y-3">
+                                        {/* Các Checkbox chỉ hiện ở Kanji Mode */}
+                                        {mode !== 'vocab' && (
+                                            <>
+                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                                    <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                                    Kanji & Bộ thủ
+                                                </label>
+                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                                    <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                                    Hiragana
+                                                </label>
+                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                                    <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                                    Katakana
+                                                </label>
+                                                <hr className="border-gray-100 my-2"/>
+                                            </>
+                                        )}
+
+                                        {/* Lọc Trùng Lặp (Hiện ở cả 2 mode) */}
+                                        <label className={`flex items-center gap-3 text-xs font-bold cursor-pointer transition-colors ${filterOptions.removeDuplicates ? 'text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}>
+                                            <input type="checkbox" checked={filterOptions.removeDuplicates} onChange={() => handleFilterChange('removeDuplicates')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                            Xóa chữ trùng lặp
+                                        </label>
+                                        
+                                        <hr className="border-gray-100"/>
+                                        
+                                        {/* Nút Làm Sạch Chữ Latinh */}
+                                        <button onClick={handleRemoveLatinManual} className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 text-[10px] font-black rounded-xl transition-all uppercase tracking-widest active:scale-95">
+                                            Xóa chữ Latinh
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                 </div>
 
@@ -4655,7 +4812,7 @@ const StudySetupModal = ({
                             if (!config.text || config.text.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
                             onStart(targetAction);
                         }}
-                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
                         BẮT ĐẦU {targetAction === 'flashcard' ? 'HỌC THẺ' : 'LÀM BÀI TẬP'}
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
