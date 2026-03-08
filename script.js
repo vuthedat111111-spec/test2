@@ -4505,7 +4505,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                             
                             {/* Lấy toàn bộ Kanji */}
                             <div className="border-t border-gray-100 pt-5">
-                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy toàn bộ</label>
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy toàn bộ (Theo cấp độ)</label>
                                 <div className="grid grid-cols-5 gap-2">
                                     {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
                                         <button key={`all-${lvl}`} onClick={() => fetchAndSetData(`./data/kanji${lvl.toLowerCase()}.json`)} className="py-2.5 border border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
@@ -4733,7 +4733,7 @@ const StudySetupModal = ({
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
@@ -4744,17 +4744,18 @@ const StudySetupModal = ({
                     {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
                     <div className="grid grid-cols-3 gap-3">
                         <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                         
+                          
                             <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
                         </button>
                         
                         <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                         
+                           
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
                         </button>
                         
                         <div className="relative" ref={filterRef}>
                             <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
-                              
+                               
                             </button>
 
                             {isFilterMenuOpen && mode !== 'vocab' && (
@@ -4799,7 +4800,7 @@ const StudySetupModal = ({
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
-                        BẮT ĐẦU {targetAction === 'flashcard' ? 'HỌC FLASHCARD' : 'CHẾ ĐỘ HỌC'}
+                        BẮT ĐẦU {targetAction === 'flashcard' ? 'HỌC THẺ' : 'LÀM BÀI TẬP'}
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
@@ -4818,6 +4819,7 @@ const App = () => {
 
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
+    
     
     const [dbData, setDbData] = useState(null);
     const [isDbLoaded, setIsDbLoaded] = useState(false);
