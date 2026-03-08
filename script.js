@@ -2080,7 +2080,7 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
     return (
         <>
             <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-gray-200">
+                <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] md:max-h-[85vh] animate-in zoom-in-95 duration-300 border border-gray-200">
                     
                     {/* Header */}
                     <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
@@ -3414,16 +3414,16 @@ useEffect(() => {
                     {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
     <div className="grid grid-cols-3 gap-3">
         <button onClick={() => setIsLibraryOpen(true)} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-            <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
+            <span className="text-sm font-bold uppercase tracking-widest">Thư viện</span>
         </button>
         
         <button onClick={handleShuffle} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-            <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
+            <span className="text-sm font-bold uppercase tracking-widest">Xáo trộn</span>
         </button>
         
         <div className="relative" ref={filterRef}>
             <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full flex items-center justify-center py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
-                <span className="text-[10px] font-bold uppercase tracking-widest">Bộ lọc</span>
+                <span className="text-sm font-bold uppercase tracking-widest">Bộ lọc</span>
             </button>
 
                             {isFilterMenuOpen && mode !== 'vocab' && (
