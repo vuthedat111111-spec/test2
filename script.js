@@ -4455,14 +4455,6 @@ const StudySetupModal = ({
         onChange({ ...config, text: newText.replace(/[a-zA-Z]/g, '') });
     };
 
-    const handleRemoveLatinManual = () => {
-        if (!localText) return;
-        let cleaned = localText.replace(/[a-zA-Z]/g, '').replace(/[\n\r]+/g, '').replace(/[ 　\t]+/g, '').trim();
-        setLocalText(cleaned);
-        onChange({ ...config, text: cleaned }); 
-        setIsFilterMenuOpen(false); // Đóng menu sau khi bấm
-    };
-
     const handleInputText = (e) => {
         const rawInput = e.target.value;
         if (isComposing.current) {
@@ -4491,11 +4483,37 @@ const StudySetupModal = ({
         onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
     };
 
+    // --- LOGIC ONBLUR: LÀM SẠCH & XÓA TRÙNG LẶP TỰ ĐỘNG ---
     const handleBlurText = () => {
         if (!localText) return;
-        let cleaned = localText.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
-        if (filterOptions.removeDuplicates) cleaned = getUniqueChars(cleaned);
+        
+        let cleaned = localText;
+        
+        // 1. Chuyển các khoảng trắng/tab liên tiếp thành 1 dấu cách (trừ dấu xuống dòng)
+        cleaned = cleaned.replace(/[ \t]+/g, ' '); 
+        
+        // 2. Chuyển nhiều dòng trống liên tiếp (Enter thừa) thành 1 dòng duy nhất
+        cleaned = cleaned.replace(/(\n\s*){2,}/g, '\n'); 
+        
+        // 3. Xóa khoảng trắng ở đầu và cuối văn bản
+        cleaned = cleaned.trim();
 
+        // 4. Lọc trùng lặp thông minh tự động (Ngay cả khi không bật checkbox lọc trùng, 
+        // ở chế độ Flashcard/Game cũng không nên để trùng)
+        if (mode === 'vocab') {
+            // Chế độ TỪ VỰNG: Tách theo dòng, xóa dòng trống
+            const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            // Dùng Set để xóa các DÒNG (Từ vựng) trùng lặp hoàn toàn
+            cleaned = [...new Set(lines)].join('\n');
+            
+            // Đảm bảo kết thúc bằng 1 dấu xuống dòng để gõ tiếp cho dễ
+            if (cleaned.length > 0) cleaned += '\n'; 
+        } else {
+            // Chế độ KANJI: Dùng hàm getUniqueChars để xóa các KÝ TỰ trùng lặp
+            cleaned = getUniqueChars(cleaned);
+        }
+
+        // Cập nhật State nếu có sự thay đổi
         if (cleaned !== localText) {
             setLocalText(cleaned);
             onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
@@ -4743,25 +4761,32 @@ const StudySetupModal = ({
                     {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
                     <div className="grid grid-cols-3 gap-3">
                         <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                           
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
                             <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
                         </button>
                         <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                          
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                             <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
                         </button>
                         
                         {/* NÚT BỘ LỌC (MỚI THAY THẾ CHO NÚT LÀM SẠCH) */}
                         <div className="relative" ref={filterRef}>
                             <button 
+                                disabled={mode === 'vocab'} // Khóa nút khi ở chế độ từ vựng
                                 onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} 
-                                className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group ${isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}
+                                className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group 
+                                    ${mode === 'vocab' 
+                                        ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' // Trạng thái bị khóa
+                                        : isFilterMenuOpen 
+                                            ? 'bg-gray-100 border-gray-900 text-gray-900' 
+                                            : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'
+                                    }`}
                             >
-                            
+                                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={mode === 'vocab' ? "text-gray-300" : isFilterMenuOpen ? "text-gray-900" : "text-gray-400 group-hover:text-gray-900"}><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
                                 <span className="text-[10px] font-bold uppercase tracking-widest">Bộ lọc</span>
                             </button>
 
-                        {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
+                            {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
                             {isFilterMenuOpen && mode !== 'vocab' && (
                                 <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
                                     <div className="mb-3 pb-2 border-b border-gray-100">
@@ -4788,7 +4813,7 @@ const StudySetupModal = ({
                     </div>
                 </div>
 
-              {/* Footer: Nút Bắt đầu */}
+                {/* Footer: Nút Bắt đầu */}
                 <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
                         onClick={() => {
@@ -4824,6 +4849,9 @@ const StudySetupModal = ({
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
+
+            </div>
+        </div>
     );
 };
 const App = () => {
