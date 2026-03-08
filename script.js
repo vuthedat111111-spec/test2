@@ -4287,7 +4287,7 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                     }
                 }}
                 placeholder={mode === 'vocab' ? "Nhập 1 chữ hán để tìm TỪ VỰNG đi kèm..." : "Nhập âm Hán Việt để tìm KANJI..."} 
-                className="w-full pl-10 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all"
+                className="w-full pl-10 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-[16px] focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all"
             />
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
 
@@ -4358,14 +4358,9 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
         </div>
     );
 };
-// --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TÍCH HỢP LOGIC BỘ LỌC + GIAO DIỆN MONOCHROME) ---
-const StudySetupModal = ({ 
-    isOpen, onClose, onStart, targetAction, 
-    config, onChange, mode, setPracticeMode, dbData, srsData 
-}) => {
-    // --- 1. STATE QUẢN LÝ TÌM KIẾM & THƯ VIỆN ---
-    const [localText, setLocalText] = useState(config.text);
-    const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+
+// --- COMPONENT: THƯ VIỆN CHỌN NHANH (100% ĐEN - TRẮNG - XÁM) ---
+const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
 
@@ -4376,36 +4371,234 @@ const StudySetupModal = ({
     const [tangoPart, setTangoPart] = useState('');
     const [tangoLevel, setTangoLevel] = useState('N3');
 
-    // --- 2. STATE & REF CHO BỘ LỌC VÀ NHẬP LIỆU ---
+    if (!isOpen) return null;
+
+    // --- HÀM TẢI DỮ LIỆU CHUNG ---
+    const fetchAndSetData = async (url) => {
+        setIsLoading(true); setProgress(20);
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Lỗi");
+            const isJsonArray = url.includes('minna') || url.includes('mimi') || url.includes('tango');
+            let resultText = "";
+            if (isJsonArray) {
+                const data = await response.json();
+                if (!Array.isArray(data) || data.length === 0) {
+                    alert("File dữ liệu bị lỗi hoặc rỗng!");
+                    setIsLoading(false); return;
+                }
+                resultText = data.join('\n');
+            } else {
+                const rawText = await response.text();
+                resultText = rawText.replace(/["\n\r\s,\[\]]/g, '');
+            }
+            setProgress(100);
+            setTimeout(() => {
+                onSelectData(resultText); // Trả dữ liệu về cho component cha
+                setIsLoading(false); 
+                onClose(); // Đóng modal
+            }, 400);
+        } catch (error) { 
+            alert("Lỗi tải dữ liệu!"); 
+            setIsLoading(false); 
+        }
+    };
+
+    // --- HÀM TẢI RANDOM KANJI ---
+    const loadRandomKanji = async (level) => {
+        if (!randomCount || randomCount <= 0) return alert("Vui lòng nhập số lượng!");
+        setIsLoading(true); setProgress(20);
+        try {
+            const response = await fetch(`./data/kanji${level.toLowerCase()}.json`);
+            const rawText = await response.text();
+            const cleanText = rawText.replace(/["\n\r\s]/g, '');
+            const allChars = Array.from(cleanText);
+            const unstudiedChars = allChars.filter(char => !srsData[char]);
+            const studiedChars = allChars.filter(char => srsData[char]);
+            
+            let count = randomCount > 50 ? 50 : randomCount;
+            let selectedPool = "";
+            
+            if (unstudiedChars.length >= count) {
+                selectedPool = unstudiedChars.sort(() => Math.random() - 0.5).slice(0, count).join('');
+            } else {
+                const neededMore = count - unstudiedChars.length;
+                const extraFromStudied = studiedChars.sort(() => Math.random() - 0.5).slice(0, neededMore);
+                selectedPool = unstudiedChars.join('') + extraFromStudied.join('');
+            }
+            const finalResult = [...selectedPool].sort(() => Math.random() - 0.5).join('');
+            
+            setProgress(100);
+            setTimeout(() => {
+                onSelectData(finalResult);
+                setIsLoading(false); 
+                onClose();
+            }, 400);
+        } catch (error) { setIsLoading(false); }
+    };
+
+    // --- HÀM TẢI TỪ VỰNG THÔNG MINH ---
+    const handleSmartLoadVocabulary = () => {
+        if (minnaLesson) {
+            let valid = minnaLesson < 1 ? 1 : (minnaLesson > 50 ? 50 : minnaLesson);
+            fetchAndSetData(`./data/tuvung/minna/minna${valid}.json`);
+        } else if (mimiPart) {
+            const limits = { N3: 12, N2: 13, N1: 14 };
+            let valid = mimiPart < 1 ? 1 : (mimiPart > limits[mimiLevel] ? limits[mimiLevel] : mimiPart);
+            fetchAndSetData(`./data/tuvung/mimikara/${mimiLevel.toLowerCase()}/mimi${mimiLevel.toLowerCase()}p${valid}.json`);
+        } else if (tangoPart) {
+            const limits = { N3: 12, N2: 12, N1: 14 };
+            let valid = tangoPart < 1 ? 1 : (tangoPart > limits[tangoLevel] ? limits[tangoLevel] : tangoPart);
+            fetchAndSetData(`./data/tuvung/tango/${tangoLevel.toLowerCase()}/tango${tangoLevel.toLowerCase()}p${valid}.json`);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+            
+            {/* LOADING OVERLAY BÊN TRONG MODAL */}
+            {isLoading && (
+                <div className="absolute inset-0 z-[400] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md rounded-3xl">
+                    <div className="text-center">
+                        <span className="text-xs font-bold text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">Đang nạp dữ liệu... {progress}%</span>
+                        <div className="w-48 bg-gray-200 rounded-full h-1.5 overflow-hidden mx-auto">
+                            <div className="bg-gray-900 h-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden cursor-default border border-gray-200 animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
+                <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                    <h3 className="font-bold text-sm uppercase tracking-wider text-gray-900">
+                        {mode === 'kanji' ? '📚 THƯ VIỆN KANJI' : '📚 THƯ VIỆN TỪ VỰNG'}
+                    </h3>
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-900 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">✕</button>
+                </div>
+                
+                <div className="p-6 space-y-6">
+                    {mode === 'kanji' ? (
+                        <>
+                            {/* Lấy ngẫu nhiên */}
+                            <div>
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
+                                <div className="flex gap-3 items-center mb-4">
+                                    <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" />
+                                    <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
+                                </div>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
+                                        <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 bg-white text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Bộ thủ & Bảng chữ cái */}
+                            <div className="border-t border-gray-100 pt-5">
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
+                                    <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Hiragana</button>
+                                    <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Katakana</button>
+                                </div>
+                            </div>
+                            
+                            {/* Lấy toàn bộ Kanji */}
+                            <div className="border-t border-gray-100 pt-5">
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy toàn bộ (Theo cấp độ)</label>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
+                                        <button key={`all-${lvl}`} onClick={() => fetchAndSetData(`./data/kanji${lvl.toLowerCase()}.json`)} className="py-2.5 border border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="space-y-5">
+                            {/* Minna */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
+                                    <input type="number" placeholder="..." value={minnaLesson} onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                </div>
+                            </div>
+
+                            {/* Mimi */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Mimikara</label>
+                                <div className="flex items-center gap-2">
+                                    <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white">
+                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                    </select>
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+                                    <input type="number" placeholder="..." value={mimiPart} onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                </div>
+                            </div>
+
+                            {/* Tango */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Tango</label>
+                                <div className="flex items-center gap-2">
+                                    <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white">
+                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                    </select>
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+                                    <input type="number" placeholder="..." value={tangoPart} onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" />
+                                </div>
+                            </div>
+
+                            <div className="pt-4 border-t border-gray-100">
+                                <button
+                                    onClick={handleSmartLoadVocabulary}
+                                    disabled={!minnaLesson && !mimiPart && !tangoPart}
+                                    className={`w-full py-3.5 font-bold text-xs rounded-xl shadow-sm active:scale-95 transition-all uppercase tracking-widest flex items-center justify-center gap-2 
+                                        ${(!minnaLesson && !mimiPart && !tangoPart)
+                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                            : 'bg-gray-900 hover:bg-black text-white'
+                                        }`}
+                                >
+                                    TẢI DỮ LIỆU
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TINH GỌN VÀ GỌI LIBRARY MODAL) ---
+const StudySetupModal = ({ 
+    isOpen, onClose, onStart, targetAction, 
+    config, onChange, mode, setPracticeMode, dbData, srsData 
+}) => {
+    const [localText, setLocalText] = useState(config.text);
+    const [isLibraryOpen, setIsLibraryOpen] = useState(false); // Quản lý mở Thư viện
+
     const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
     const filterRef = useRef(null);
-    const isComposing = useRef(false); // Xử lý lỗi gõ tiếng Nhật (IME)
+    const isComposing = useRef(false);
 
     const [filterOptions, setFilterOptions] = useState({
-        hiragana: true,
-        katakana: true,
-        kanji: true,
-        removeDuplicates: false 
+        hiragana: true, katakana: true, kanji: true, removeDuplicates: false 
     });
 
-    // Khóa cuộn trang khi mở Modal & Đồng bộ Text
     useEffect(() => {
         if (isOpen) {
             setLocalText(config.text);
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
-            setIsFilterMenuOpen(false); // Đóng bộ lọc khi tắt modal
+            setIsFilterMenuOpen(false); 
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, config.text]);
 
-    // Click ra ngoài để đóng menu bộ lọc
     useEffect(() => {
         function handleClickOutside(event) {
-            if (filterRef.current && !filterRef.current.contains(event.target)) {
-                setIsFilterMenuOpen(false);
-            }
+            if (filterRef.current && !filterRef.current.contains(event.target)) setIsFilterMenuOpen(false);
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -4413,9 +4606,7 @@ const StudySetupModal = ({
 
     if (!isOpen) return null;
 
-    // ==========================================
-    // LOGIC NHẬP LIỆU & BỘ LỌC (GIỮ NGUYÊN 100%)
-    // ==========================================
+    // --- CÁC HÀM XỬ LÝ NHẬP LIỆU & BỘ LỌC CHUNG ---
     const getAllowedRegexString = (options, allowLatin = false) => {
         let ranges = "\\s;"; 
         if (allowLatin) ranges += "a-zA-Z"; 
@@ -4430,359 +4621,144 @@ const StudySetupModal = ({
     const handleFilterChange = (key) => {
         const newOptions = { ...filterOptions, [key]: !filterOptions[key] };
         setFilterOptions(newOptions);
-        
         let newText = localText;
-        if (['hiragana', 'katakana', 'kanji'].includes(key) && filterOptions[key] === true) {
-            const allowedString = getAllowedRegexString(newOptions, true); 
-            const regex = new RegExp(`[^${allowedString}]`, 'g');
-            newText = newText.replace(regex, '');
+        if (mode === 'kanji') {
+            if (['hiragana', 'katakana', 'kanji'].includes(key) && filterOptions[key] === true) {
+                const regex = new RegExp(`[^${getAllowedRegexString(newOptions, true)}]`, 'g');
+                newText = newText.replace(regex, '');
+            }
+            if (newOptions.removeDuplicates) newText = getUniqueChars(newText);
         }
-        if (newOptions.removeDuplicates) newText = getUniqueChars(newText);
-        
-        setLocalText(newText);
-        onChange({ ...config, text: newText.replace(/[a-zA-Z]/g, '') });
+        setLocalText(newText); onChange({ ...config, text: newText.replace(/[a-zA-Z]/g, '') });
     };
 
     const handleInputText = (e) => {
         const rawInput = e.target.value;
-        if (isComposing.current) {
-            setLocalText(rawInput);
-            return;
+        if (isComposing.current) return setLocalText(rawInput);
+        let validForInput = rawInput;
+        if (mode === 'kanji') {
+            validForInput = rawInput.replace(new RegExp(`[^${getAllowedRegexString(filterOptions, true)}]`, 'g'), '');
+            if (filterOptions.removeDuplicates) validForInput = getUniqueChars(validForInput);
         }
-        const allowedString = getAllowedRegexString(filterOptions, true);
-        const blockRegex = new RegExp(`[^${allowedString}]`, 'g');
-        let validForInput = rawInput.replace(blockRegex, '');
-        if (filterOptions.removeDuplicates) validForInput = getUniqueChars(validForInput);
-
-        setLocalText(validForInput);
-        onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
+        setLocalText(validForInput); onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
     };
 
     const handleCompositionStart = () => { isComposing.current = true; };
-    const handleCompositionEnd = (e) => {
-        isComposing.current = false;
-        const rawInput = e.target.value;
-        const allowedString = getAllowedRegexString(filterOptions, true);
-        const blockRegex = new RegExp(`[^${allowedString}]`, 'g');
-        let validForInput = rawInput.replace(blockRegex, '');
-        if (filterOptions.removeDuplicates) validForInput = getUniqueChars(validForInput);
+    const handleCompositionEnd = (e) => { isComposing.current = false; handleInputText(e); };
 
-        setLocalText(validForInput);
-        onChange({ ...config, text: validForInput.replace(/[a-zA-Z]/g, '') });
-    };
-
-    // --- LOGIC ONBLUR: LÀM SẠCH & XÓA TRÙNG LẶP TỰ ĐỘNG ---
     const handleBlurText = () => {
         if (!localText) return;
-        
-        let cleaned = localText;
-        
-        // 1. Chuyển các khoảng trắng/tab liên tiếp thành 1 dấu cách (trừ dấu xuống dòng)
-        cleaned = cleaned.replace(/[ \t]+/g, ' '); 
-        
-        // 2. Chuyển nhiều dòng trống liên tiếp (Enter thừa) thành 1 dòng duy nhất
-        cleaned = cleaned.replace(/(\n\s*){2,}/g, '\n'); 
-        
-        // 3. Xóa khoảng trắng ở đầu và cuối văn bản
-        cleaned = cleaned.trim();
-
-        // 4. Lọc trùng lặp thông minh tự động (Ngay cả khi không bật checkbox lọc trùng, 
-        // ở chế độ Flashcard/Game cũng không nên để trùng)
+        let cleaned = localText.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
         if (mode === 'vocab') {
-            // Chế độ TỪ VỰNG: Tách theo dòng, xóa dòng trống
             const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            // Dùng Set để xóa các DÒNG (Từ vựng) trùng lặp hoàn toàn
             cleaned = [...new Set(lines)].join('\n');
-            
-            // Đảm bảo kết thúc bằng 1 dấu xuống dòng để gõ tiếp cho dễ
             if (cleaned.length > 0) cleaned += '\n'; 
         } else {
-            // Chế độ KANJI: Dùng hàm getUniqueChars để xóa các KÝ TỰ trùng lặp
             cleaned = getUniqueChars(cleaned);
         }
-
-        // Cập nhật State nếu có sự thay đổi
         if (cleaned !== localText) {
-            setLocalText(cleaned);
-            onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
+            setLocalText(cleaned); onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
         }
     };
 
-   // Tạo Placeholder động
     const getDynamicPlaceholder = () => {
-        if (mode === 'vocab') {
-            return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
-        }
-        
+        if (mode === 'vocab') return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
         const labels = [];
         if (filterOptions.kanji) labels.push("漢字");        
         if (filterOptions.hiragana) labels.push("ひらがな"); 
         if (filterOptions.katakana) labels.push("カタカナ"); 
-        
-        if (labels.length === 0) {
-            return "Vui lòng chọn 1 loại chữ trong BỘ LỌC";
-        }
-        
+        if (labels.length === 0) return "Vui lòng chọn 1 loại chữ trong BỘ LỌC";
         return "Nhập thủ công\n" + labels.join("、");
     };
 
-    // ==========================================
-    // LOGIC CÁC NÚT TIỆN ÍCH KHÁC
-    // ==========================================
     const handleShuffle = () => {
         if (!config.text) return;
         let newContent = "";
         if (mode === 'vocab') {
             const lines = config.text.split(/[\n;]+/).filter(line => line.trim() !== '');
-            for (let i = lines.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [lines[i], lines[j]] = [lines[j], lines[i]];
-            }
-            newContent = lines.join('\n');
+            newContent = lines.sort(() => Math.random() - 0.5).join('\n');
         } else {
-            const arr = [...config.text];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            newContent = arr.join('');
+            newContent = [...config.text].sort(() => Math.random() - 0.5).join('');
         }
-        setLocalText(newContent);
-        onChange({ ...config, text: newContent });
-    };
-
-    const handleSelectFromResult = (item) => {
-        let newText = "";
-        if (mode === 'vocab') {
-            const separator = config.text.length > 0 && !config.text.endsWith('\n') ? '\n' : '';
-            newText = config.text + separator + item.char + '\n';
-            newText = [...new Set(newText.split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n';
-        } else {
-            newText = Array.from(new Set(config.text + item.char)).join('');
-        }
-        setLocalText(newText);
-        onChange({ ...config, text: newText });
-    };
-
-    const handleSelectAllFromResult = (items) => {
-        const wordsToAdd = items.map(item => item.char).join('\n');
-        let currentText = localText || "";
-        if (currentText.length > 0 && !currentText.endsWith('\n')) currentText += '\n';
-        let newText = currentText + wordsToAdd + '\n';
-        newText = [...new Set(newText.split('\n').map(l => l.trim()).filter(l => l))].join('\n') + '\n';
-        
-        setLocalText(newText);
-        onChange({ ...config, text: newText });
-    };
-
-    const fetchAndSetData = async (url) => {
-        setIsLoading(true); setProgress(20);
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("Lỗi");
-            const isJsonArray = url.includes('minna') || url.includes('mimi') || url.includes('tango');
-            let resultText = "";
-            if (isJsonArray) {
-                const data = await response.json();
-                resultText = data.join('\n');
-            } else {
-                const rawText = await response.text();
-                resultText = rawText.replace(/["\n\r\s,\[\]]/g, '');
-            }
-            setProgress(100);
-            setTimeout(() => {
-                setLocalText(resultText); onChange({ ...config, text: resultText });
-                setIsLoading(false); setIsLibraryOpen(false);
-            }, 400);
-        } catch (error) { alert("Lỗi tải dữ liệu!"); setIsLoading(false); }
-    };
-
-    const loadRandomKanji = async (level) => {
-        setIsLoading(true); setProgress(20);
-        try {
-            const response = await fetch(`./data/kanji${level.toLowerCase()}.json`);
-            const rawText = await response.text();
-            const cleanText = rawText.replace(/["\n\r\s]/g, '');
-            const allChars = Array.from(cleanText);
-            const unstudiedChars = allChars.filter(char => !srsData[char]);
-            const studiedChars = allChars.filter(char => srsData[char]);
-            let count = randomCount > 50 ? 50 : (randomCount || 10);
-            let selectedPool = "";
-            if (unstudiedChars.length >= count) {
-                selectedPool = unstudiedChars.sort(() => Math.random() - 0.5).slice(0, count).join('');
-            } else {
-                const neededMore = count - unstudiedChars.length;
-                const extraFromStudied = studiedChars.sort(() => Math.random() - 0.5).slice(0, neededMore);
-                selectedPool = unstudiedChars.join('') + extraFromStudied.join('');
-            }
-            const finalResult = [...selectedPool].sort(() => Math.random() - 0.5).join('');
-            setProgress(100);
-            setTimeout(() => {
-                setLocalText(finalResult); onChange({ ...config, text: finalResult });
-                setIsLoading(false); setIsLibraryOpen(false);
-            }, 400);
-        } catch (error) { setIsLoading(false); }
+        setLocalText(newContent); onChange({ ...config, text: newContent });
     };
 
     return (
         <div className="fixed inset-0 z-[300] flex justify-center items-end sm:items-center bg-gray-900/80 backdrop-blur-sm animate-in fade-in duration-200">
             
-            {/* LOADING OVERLAY */}
-            {isLoading && (
-                <div className="fixed inset-0 z-[400] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md">
-                    <div className="w-64 p-6 bg-white rounded-2xl shadow-2xl border border-gray-200 text-center">
-                        <span className="text-xs font-bold text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">Đang xử lý... {progress}%</span>
-                        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-                            <div className="bg-gray-900 h-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* GỌI MODAL THƯ VIỆN Ở ĐÂY */}
+            <LibraryModal 
+                isOpen={isLibraryOpen}
+                onClose={() => setIsLibraryOpen(false)}
+                mode={mode}
+                dbData={dbData}
+                srsData={srsData}
+                onSelectData={(newText) => {
+                    setLocalText(newText);
+                    onChange({ ...config, text: newText });
+                }}
+            />
 
-            {/* MODAL THƯ VIỆN (ĐEN TRẮNG XÁM) */}
-            {isLibraryOpen && (
-                <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in" onClick={() => setIsLibraryOpen(false)}>
-                    <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden cursor-default border border-gray-200 animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
-                        <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                            <h3 className="font-bold text-sm uppercase tracking-wider text-gray-800">Thư viện dữ liệu</h3>
-                            <button onClick={() => setIsLibraryOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors">✕</button>
-                        </div>
-                        <div className="p-6 space-y-6">
-                            {mode === 'kanji' ? (
-                                <>
-                                    <div>
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
-                                        <div className="flex gap-3 items-center mb-4">
-                                            <input type="number" min="1" max="50" value={randomCount} onChange={e => setRandomCount(e.target.value)} className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold focus:border-gray-900 outline-none" />
-                                            <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
-                                        </div>
-                                        <div className="grid grid-cols-5 gap-2">
-                                            {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
-                                                <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95 text-gray-700">{lvl}</button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="border-t border-gray-100 pt-5">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
-                                        <div className="grid grid-cols-3 gap-2">
-                                            <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Bộ thủ</button>
-                                            <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Hiragana</button>
-                                            <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-100 text-gray-700 transition-colors">Katakana</button>
-                                        </div>
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Minna</span>
-                                        <input type="number" placeholder="Bài..." value={minnaLesson} onChange={e => setMinnaLesson(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/minna/minna${minnaLesson || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Mimi</span>
-                                        <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-2.5 border border-gray-200 rounded-xl text-sm font-bold outline-none bg-white">
-                                            <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-                                        </select>
-                                        <input type="number" placeholder="Phần..." value={mimiPart} onChange={e => setMimiPart(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none w-16" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/mimikara/${mimiLevel.toLowerCase()}/mimi${mimiLevel.toLowerCase()}p${mimiPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-20 text-xs font-bold text-gray-500 uppercase tracking-widest">Tango</span>
-                                        <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-2.5 border border-gray-300 rounded-xl text-sm font-bold outline-none bg-white">
-                                            <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-                                        </select>
-                                        <input type="number" placeholder="Phần..." value={tangoPart} onChange={e => setTangoPart(e.target.value)} className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm font-bold focus:border-gray-900 outline-none w-16" />
-                                        <button onClick={() => fetchAndSetData(`./data/tuvung/tango/${tangoLevel.toLowerCase()}/tango${tangoLevel.toLowerCase()}p${tangoPart || 1}.json`)} className="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-black active:scale-95 transition-all">Tải</button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* ========================================== */}
-            {/* BẢNG CHÍNH - GIAO DIỆN SETUP               */}
-            {/* ========================================== */}
+            {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
             <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
                 
                 {/* Header: Đổi chế độ */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50">
                     <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
-                        <button 
-                            onClick={() => { setPracticeMode('kanji'); setLocalText(''); onChange({ ...config, text: '' }); }}
-                            className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
-                        >
-                            KANJI
-                        </button>
-                        <button 
-                            onClick={() => { setPracticeMode('vocab'); setLocalText(''); onChange({ ...config, text: '' }); }}
-                            className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
-                        >
-                            TỪ VỰNG
-                        </button>
+                        <button onClick={() => { setPracticeMode('kanji'); setLocalText(''); onChange({ ...config, text: '' }); }} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
+                        <button onClick={() => { setPracticeMode('vocab'); setLocalText(''); onChange({ ...config, text: '' }); }} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
                     </div>
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
                 </div>
 
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative">
                     
-                    {/* Component SearchBar Độc lập */}
+                    {/* Thanh tìm kiếm */}
                     <SearchBar 
-                        mode={mode} 
-                        dbData={dbData} 
-                        onSelectResult={handleSelectFromResult} 
-                        onSelectAll={handleSelectAllFromResult} 
+                        mode={mode} dbData={dbData} 
+                        onSelectResult={(item) => {
+                            let newText = mode === 'vocab' 
+                                ? [...new Set((config.text + (config.text && !config.text.endsWith('\n') ? '\n' : '') + item.char + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n'
+                                : Array.from(new Set(config.text + item.char)).join('');
+                            setLocalText(newText); onChange({ ...config, text: newText });
+                        }} 
+                        onSelectAll={(items) => {
+                            let newText = [...new Set((localText + (localText && !localText.endsWith('\n') ? '\n' : '') + items.map(item => item.char).join('\n') + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n';
+                            setLocalText(newText); onChange({ ...config, text: newText });
+                        }} 
                     />
 
-                   {/* Textarea Nhập liệu */}
+                    {/* Textarea Nhập liệu */}
                     <div className="relative">
                         <textarea 
-                            value={localText} 
-                            onChange={handleInputText} 
-                            onCompositionStart={handleCompositionStart}
-                            onCompositionEnd={handleCompositionEnd}
-                            onBlur={handleBlurText}
+                            value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
-                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-gray-500 hover:text-gray-900 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">
-                                Xóa hết
-                            </button>
+                            <button onClick={() => { setLocalText(''); onChange({ ...config, text: '' }); }} className="absolute bottom-4 right-4 text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">Xóa hết</button>
                         )}
                     </div>
 
                     {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
                     <div className="grid grid-cols-3 gap-3">
                         <button onClick={() => setIsLibraryOpen(true)} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                         
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
                             <span className="text-[10px] font-bold uppercase tracking-widest">Thư viện</span>
                         </button>
+                        
                         <button onClick={handleShuffle} className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-                           
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400 group-hover:text-gray-900"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                             <span className="text-[10px] font-bold uppercase tracking-widest">Xáo trộn</span>
                         </button>
                         
-                        {/* NÚT BỘ LỌC (MỚI THAY THẾ CHO NÚT LÀM SẠCH) */}
                         <div className="relative" ref={filterRef}>
-                            <button 
-                                disabled={mode === 'vocab'} // Khóa nút khi ở chế độ từ vựng
-                                onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} 
-                                className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group 
-                                    ${mode === 'vocab' 
-                                        ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' // Trạng thái bị khóa
-                                        : isFilterMenuOpen 
-                                            ? 'bg-gray-100 border-gray-900 text-gray-900' 
-                                            : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'
-                                    }`}
-                            >
-                             
+                            <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
+                                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={mode === 'vocab' ? "text-gray-300" : isFilterMenuOpen ? "text-gray-900" : "text-gray-400 group-hover:text-gray-900"}><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
                                 <span className="text-[10px] font-bold uppercase tracking-widest">Bộ lọc</span>
                             </button>
 
-                            {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
                             {isFilterMenuOpen && mode !== 'vocab' && (
                                 <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
                                     <div className="mb-3 pb-2 border-b border-gray-100">
@@ -4790,22 +4766,18 @@ const StudySetupModal = ({
                                     </div>
                                     <div className="space-y-3">
                                         <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                            Kanji & Bộ thủ
+                                            <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Kanji & Bộ thủ
                                         </label>
                                         <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                            Hiragana
+                                            <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Hiragana
                                         </label>
                                         <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                            Katakana
+                                            <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Katakana
                                         </label>
                                     </div>
                                 </div>
                             )}
                         </div>
-
                     </div>
                 </div>
 
@@ -4813,31 +4785,19 @@ const StudySetupModal = ({
                 <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
                         onClick={() => {
-                            // 1. DỌN DẸP SẠCH SẼ TRƯỚC KHI CHẠY (Giống hệt logic Blur)
                             let finalContent = localText || "";
                             finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
-                            
                             if (mode === 'vocab') {
                                 const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
                                 finalContent = [...new Set(lines)].join('\n');
-                            } else {
-                                finalContent = getUniqueChars(finalContent);
-                            }
+                            } else { finalContent = getUniqueChars(finalContent); }
 
-                            // Cập nhật lại config chuẩn nhất
                             const cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
-                            setLocalText(finalContent);
-                            onChange({ ...config, text: cleanLatinh });
+                            setLocalText(finalContent); onChange({ ...config, text: cleanLatinh });
 
-                            // 2. KIỂM TRA RỖNG VÀ BẮT ĐẦU
-                            if (!cleanLatinh || cleanLatinh.trim().length === 0) {
-                                return alert("Bạn chưa nhập dữ liệu để học!");
-                            }
+                            if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
                             
-                            // Đợi state cập nhật xong xíu rồi mở game
-                            setTimeout(() => {
-                                onStart(targetAction);
-                            }, 50);
+                            setTimeout(() => onStart(targetAction), 50);
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
@@ -4845,7 +4805,6 @@ const StudySetupModal = ({
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
-
             </div>
         </div>
     );
