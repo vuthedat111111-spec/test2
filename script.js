@@ -817,7 +817,7 @@ const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, o
     if (mode === 'vocab') {
         // === TỪ VỰNG ===
         const vocabInfo = dbData?.TUVUNG_DB?.[currentChar] || {};
-        const hanviet = currentChar.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
+        const hanviet = vocabInfo.hanviet || currentChar.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
 
         const renderVocabFace = (options) => (
             <div className="flex-1 flex flex-col items-center justify-center w-full transform -translate-y-3 px-2">
@@ -3940,19 +3940,17 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
-// --- COMPONENT MỚI: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
+// --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
 const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
     const [editingWord, setEditingWord] = useState(null);
     const [editForm, setEditForm] = useState({ reading: '', meaning: '', hanviet: '' });
 
-    // Ngăn cuộn trang
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'unset';
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
 
-    // Xử lý dữ liệu
     const { needsEdit, ready, kanjiList } = React.useMemo(() => {
         if (mode === 'kanji') {
             const chars = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => c);
@@ -3963,7 +3961,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
             const complete = [];
 
             words.forEach(word => {
-                // Ưu tiên lấy từ customVocabData (đã sửa), nếu không có thì lấy từ DB gốc
                 const info = customVocabData[word] || dbData?.TUVUNG_DB?.[word] || {};
                 const hanvietStr = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
                 
@@ -3974,7 +3971,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                     hanviet: info.hanviet || hanvietStr
                 };
 
-                // Phân loại: Thiếu nghĩa HOẶC thiếu cách đọc -> Cho lên đầu
                 if (!wordData.meaning || !wordData.reading) {
                     missing.push(wordData);
                 } else {
@@ -3987,19 +3983,16 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
 
     if (!isOpen) return null;
 
-    // Bắt đầu sửa
     const startEdit = (item) => {
         setEditingWord(item.word);
         setEditForm({ reading: item.reading, meaning: item.meaning, hanviet: item.hanviet });
     };
 
-    // Lưu sửa
     const saveEdit = () => {
         onSaveVocab(editingWord, editForm.reading, editForm.meaning, editForm.hanviet);
         setEditingWord(null);
     };
 
-    // Khôi phục mặc định
     const restoreEdit = (word) => {
         const originalInfo = dbData?.TUVUNG_DB?.[word] || { reading: '', meaning: '' };
         const originalHanviet = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
@@ -4022,7 +4015,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                 {/* Body (List) */}
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
                     {mode === 'kanji' ? (
-                        // GIAO DIỆN KANJI
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
                             <div className="flex flex-wrap gap-2">
@@ -4038,9 +4030,7 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                             </div>
                         </div>
                     ) : (
-                        // GIAO DIỆN TỪ VỰNG
                         <div className="space-y-8">
-                            {/* PHẦN 1: CẦN BỔ SUNG (ƯU TIÊN) */}
                             {needsEdit.length > 0 && (
                                 <div>
                                     <div className="flex items-center gap-2 mb-4">
@@ -4051,7 +4041,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                         {needsEdit.map((item, i) => (
                                             <div key={i} className="border-2 border-gray-900 rounded-xl p-4 bg-gray-50/50 shadow-sm relative">
                                                 {editingWord === item.word ? (
-                                                    // FORM CHỈNH SỬA
                                                     <div className="space-y-3">
                                                         <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
                                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -4075,7 +4064,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    // HIỂN THỊ CẢNH BÁO THIẾU
                                                     <div className="flex justify-between items-center">
                                                         <div className="flex flex-col">
                                                             <span className="text-xl font-bold text-gray-900">{item.word}</span>
@@ -4095,7 +4083,6 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                 </div>
                             )}
 
-                            {/* PHẦN 2: ĐÃ ĐẦY ĐỦ */}
                             {ready.length > 0 && (
                                 <div>
                                     <div className="flex items-center gap-2 mb-4">
@@ -4104,16 +4091,54 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {ready.map((item, i) => (
-                                            <div key={i} className="border border-gray-200 rounded-xl p-3 flex justify-between items-center group hover:border-gray-900 transition-colors bg-white">
-                                                <div className="flex flex-col min-w-0 flex-1">
-                                                    <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
-                                                    <span className="text-[11px] text-gray-500 truncate mt-0.5">
-                                                        {item.reading} • {item.meaning}
-                                                    </span>
-                                                </div>
-                                                <button onClick={() => startEdit(item)} className="p-1.5 text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors ml-2 opacity-0 group-hover:opacity-100">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                                </button>
+                                            <div 
+                                                key={i} 
+                                                className={`border rounded-xl p-4 bg-white transition-colors group ${
+                                                    editingWord === item.word 
+                                                        ? 'sm:col-span-2 border-2 border-gray-900 shadow-sm' 
+                                                        : 'border-gray-200 hover:border-gray-900'
+                                                }`}
+                                            >
+                                                {editingWord === item.word ? (
+                                                    <div className="space-y-3">
+                                                        <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
+                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
+                                                                <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
+                                                                <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
+                                                                <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex gap-2 justify-end mt-2">
+                                                            <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
+                                                            <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
+                                                            <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex justify-between items-center h-full">
+                                                        <div className="flex flex-col min-w-0 flex-1">
+                                                            <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
+                                                            <span className="text-[11px] text-gray-500 truncate mt-0.5 font-medium">
+                                                                {item.hanviet && `[${item.hanviet}] `}
+                                                                {item.reading} • {item.meaning}
+                                                            </span>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => startEdit(item)} 
+                                                            className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors ml-2 cursor-pointer z-10 block"
+                                                        >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -4123,10 +4148,10 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                     )}
                 </div>
 
-                {/* Footer Buttons */}
+                {/* Footer */}
                 <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
                     <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all">Quay lại</button>
-                   <button 
+                    <button 
                         onClick={() => onStart(targetAction)} 
                         className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
@@ -5066,15 +5091,33 @@ const App = () => {
         });
     }, []);
 
-    // --- CÁC HÀM XỬ LÝ DỮ LIỆU ---
+   // --- CÁC HÀM XỬ LÝ DỮ LIỆU ---
     const handleSaveVocab = (word, newReading, newMeaning, newHanviet) => {
+        // 1. Cập nhật customVocabData (cho PreviewList)
         setCustomVocabData(prev => ({
             ...prev,
             [word]: { reading: newReading, meaning: newMeaning, hanviet: newHanviet }
         }));
+
+        // 2. Cập nhật trực tiếp vào dbData để Flashcard & Game nhận diện ngay lập tức
+        setDbData(prevDb => {
+            if (!prevDb) return prevDb;
+            return {
+                ...prevDb,
+                TUVUNG_DB: {
+                    ...prevDb.TUVUNG_DB,
+                    [word]: {
+                        ...(prevDb.TUVUNG_DB?.[word] || {}),
+                        reading: newReading,
+                        meaning: newMeaning,
+                        hanviet: newHanviet
+                    }
+                }
+            };
+        });
+        
         setEditingVocab(null); 
     };
-
     const updateSRSProgress = (char, quality) => {
         const newProgress = calculateSRS(srsData[char], quality);
         const newData = { ...srsData, [char]: newProgress };
