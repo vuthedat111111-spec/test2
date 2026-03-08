@@ -4095,7 +4095,7 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                 </div>
                             )}
 
-                            {/* PHẦN 2: ĐÃ ĐẦY ĐỦ */}
+                           {/* PHẦN 2: ĐÃ ĐẦY ĐỦ */}
                             {ready.length > 0 && (
                                 <div>
                                     <div className="flex items-center gap-2 mb-4">
@@ -4104,23 +4104,58 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {ready.map((item, i) => (
-                                            <div key={i} className="border border-gray-200 rounded-xl p-3 flex justify-between items-center group hover:border-gray-900 transition-colors bg-white">
-                                                <div className="flex flex-col min-w-0 flex-1">
-                                                    <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
-                                                    <span className="text-[11px] text-gray-500 truncate mt-0.5">
-                                                        {item.reading} • {item.meaning}
-                                                    </span>
-                                                </div>
-                                                <button onClick={() => startEdit(item)} className="p-1.5 text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors ml-2 opacity-0 group-hover:opacity-100">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                                </button>
+                                            <div 
+                                                key={i} 
+                                                className={`border rounded-xl p-4 bg-white transition-colors group ${
+                                                    editingWord === item.word 
+                                                        ? 'sm:col-span-2 border-2 border-gray-900 shadow-sm' 
+                                                        : 'border-gray-200 hover:border-gray-900'
+                                                }`}
+                                            >
+                                                {editingWord === item.word ? (
+                                                    // NẾU BẤM SỬA -> HIỆN FORM CHỈNH SỬA
+                                                    <div className="space-y-3">
+                                                        <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
+                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
+                                                                <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
+                                                                <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
+                                                                <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex gap-2 justify-end mt-2">
+                                                            <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
+                                                            <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
+                                                            <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    // NẾU KHÔNG BẤM SỬA -> HIỆN GIAO DIỆN BÌNH THƯỜNG
+                                                    <div className="flex justify-between items-center h-full">
+                                                        <div className="flex flex-col min-w-0 flex-1">
+                                                            <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
+                                                            <span className="text-[11px] text-gray-500 truncate mt-0.5 font-medium">
+                                                                {item.hanviet && `[${item.hanviet}] `}
+                                                                {item.reading} • {item.meaning}
+                                                            </span>
+                                                        </div>
+                                                        <button onClick={() => startEdit(item)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors ml-2 opacity-100 md:opacity-0 group-hover:opacity-100">
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             )}
-                        </div>
-                    )}
                 </div>
 
                 {/* Footer Buttons */}
