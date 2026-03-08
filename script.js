@@ -336,7 +336,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
                                     PHƯƠNG PHÁP HỌC
                                 </h4>
                                 <p className="text-sm leading-relaxed text-justify text-gray-500 border-l-2 border-gray-200 pl-3 ml-2">
-                                    Hệ thống sử dụng thuật toán <strong className="text-gray-900">Lặp lại ngắt quãng</strong> (Spaced Repetition) tích hợp vào <b>FLASHCARD</b>. Thay vì học nhồi nhét, hệ thống sẽ tính toán <strong className="text-gray-900">"thời điểm lãng quên"</strong> của não bộ để nhắc bạn ôn lại đúng lúc bạn sắp quên.
+                                    Hệ thống sử dụng thuật toán <strong className="text-gray-900">Lặp lại ngắt quãng</strong> (Spaced Repetition) tích hợp vào <b>FLASHCARD KANJI</b>. Thay vì học nhồi nhét, hệ thống sẽ tính toán <strong className="text-gray-900">"thời điểm lãng quên"</strong> của não bộ để nhắc bạn ôn lại đúng lúc bạn sắp quên.
                                 </p>
                             </div>
 
@@ -428,7 +428,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
                             {/* TIẾN ĐỘ HỌC TẬP */}
                             {levelProgress.length > 0 && (
                                 <div>
-                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tiến độ JLPT</h4>
+                                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tiến độ KANJI</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {levelProgress.map((item) => {
                                             const style = levelColors[item.level] || levelColors.N5;
@@ -2937,7 +2937,6 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
     const [tangoPart, setTangoPart] = useState('');
     const [tangoLevel, setTangoLevel] = useState('N3');
     const isKanjiEssay = mode === 'kanji' && targetAction === 'essay';
-    
     if (!isOpen) return null;
 
     // Hàm tự động đưa con số về min (1) hoặc max (50)
@@ -3084,7 +3083,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
                             {/* Bộ thủ & Bảng chữ cái */}
                             <div className="border-t border-gray-100 pt-5">
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
-                                <div className="grid grid-cols-3 gap-2">
+                               <div className="grid grid-cols-3 gap-2">
     <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
     
     {/* Nút Hiragana đã thêm logic khóa */}
@@ -3510,7 +3509,7 @@ useEffect(() => {
             }
         }
     }
-
+    // ==========================================
 
     setLocalText(cleanLatinh); 
     onChange({ ...config, text: cleanLatinh });
