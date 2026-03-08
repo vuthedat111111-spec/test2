@@ -2352,7 +2352,15 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
     const notifRef = useRef(null);
-
+    
+React.useEffect(() => {
+        if (isDocsModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isDocsModalOpen]);
     const notifications = [
         { 
             id: 1, 
@@ -2553,7 +2561,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
                             </div>
-                            <span className="font-bold tracking-tight text-zinc-900">Phá Đảo Tiếng Nhật</span>
+                            <span className="font-bold tracking-tight text-zinc-900">Tiktok</span>
                         </a>
                         
                         {/* 2 Nút này chỉ hiện trên Mobile (md:hidden) */}
