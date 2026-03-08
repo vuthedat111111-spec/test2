@@ -50,71 +50,7 @@ const calculateSRS = (currentData, quality) => {
     };
   }
 };
-// --- HÀM LOGIC: CHIA ĐỘNG TỪ TỪ THỂ MASU ---
-const conjugateVerb = (word, targetForm) => {
-    const cleanWord = word.trim();
-    if (!cleanWord.endsWith('ます')) return cleanWord; // Nếu không kết thúc bằng masu thì giữ nguyên
 
-    const base = cleanWord.slice(0, -2); // Bỏ chữ ます (VD: 食べ)
-    const lastChar = base.slice(-1);     // Lấy chữ cái cuối cùng trước ます (VD: べ)
-    const stem = base.slice(0, -1);      // Phần thân gốc (VD: 食)
-
-    // 1. NGOẠI LỆ (Nhóm 3 & Đặc biệt)
-    if (cleanWord === 'します') {
-        if (targetForm === 'ru') return 'する';
-        if (targetForm === 'nai') return 'しない';
-        if (targetForm === 'te') return 'して';
-        if (targetForm === 'ta') return 'した';
-    }
-    if (cleanWord === '来ます' || cleanWord === 'きます') {
-        const p = cleanWord === '来ます' ? '来' : 'き'; 
-        if (targetForm === 'ru') return p === '来' ? '来る' : 'くる';
-        if (targetForm === 'nai') return p === '来' ? '来ない' : 'こない';
-        if (targetForm === 'te') return p === '来' ? '来て' : 'きて';
-        if (targetForm === 'ta') return p === '来' ? '来た' : 'きた';
-    }
-    if (cleanWord === '行きます' || cleanWord === 'いきます') {
-        const p = cleanWord.replace('きます', '');
-        if (targetForm === 'ru') return p + 'いく';
-        if (targetForm === 'nai') return p + 'いかない';
-        if (targetForm === 'te') return p + 'いって';
-        if (targetForm === 'ta') return p + 'いった';
-    }
-
-    // 2. KIỂM TRA NHÓM 2
-    // Danh sách các từ Nhóm 2 ngoại lệ (đuôi i nhưng thuộc nhóm 2)
-    const group2Exceptions = ['見','み','起','おき','借','かり','降','おり','浴','あび','居','い','着','き'];
-    const isGroup2Exception = group2Exceptions.some(ex => base.endsWith(ex));
-    // Cột E
-    const eColumn = ['え','け','せ','て','ね','へ','め','れ','べ','げ','ぜ','で','ぺ'];
-    const isGroup2 = eColumn.includes(lastChar) || isGroup2Exception || base.length === 1;
-
-    if (isGroup2) {
-        if (targetForm === 'ru') return base + 'る';
-        if (targetForm === 'nai') return base + 'ない';
-        if (targetForm === 'te') return base + 'て';
-        if (targetForm === 'ta') return base + 'た';
-    }
-
-    // 3. XỬ LÝ NHÓM 1
-    const iToU = { 'い':'う', 'き':'く', 'し':'す', 'ち':'つ', 'に':'ぬ', 'ひ':'ふ', 'み':'む', 'り':'る', 'ぎ':'ぐ', 'び':'ぶ' };
-    const iToA = { 'い':'わ', 'き':'か', 'し':'さ', 'ち':'た', 'に':'な', 'ひ':'は', 'み':'ま', 'り':'ら', 'ぎ':'が', 'び':'ば' };
-    const teTaForm = {
-        'い':'って', 'ち':'って', 'り':'って',
-        'み':'んで', 'に':'んで', 'び':'んで',
-        'き':'いて', 'ぎ':'いで',
-        'し':'して'
-    };
-
-    if (targetForm === 'ru') return stem + (iToU[lastChar] || lastChar);
-    if (targetForm === 'nai') return stem + (iToA[lastChar] || lastChar) + 'ない';
-    
-    const teFormStr = teTaForm[lastChar] || '';
-    if (targetForm === 'te') return stem + teFormStr;
-    if (targetForm === 'ta') return stem + teFormStr.replace('て', 'た').replace('で', 'だ');
-
-    return cleanWord;
-};
 // --- FETCH DATA FROM GITHUB (ĐÃ SỬA: TẢI THÊM N5-N1) --- 
 const fetchDataFromGithub = async () => {
   try { 
@@ -642,8 +578,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
         </div>
     );
 };
-// --- COMPONENT: GAME TỰ LUẬN ---
-const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, config }) => {
+const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) => {
     const [queue, setQueue] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
@@ -654,8 +589,11 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
     const [wrongDetected, setWrongDetected] = useState(false);
 
+    // --- HÀM KHỞI ĐỘNG BÀI HỌC ---
     const initLesson = () => {
-        if (!text) return;
+        if (!text || !dbData) return;
+        
+        // BƯỚC QUAN TRỌNG: Reset sạch sành sanh trạng thái cũ trước khi nạp bài mới
         setFinished(false); 
         setCurrentIndex(0);
         setUserInput('');
@@ -666,11 +604,9 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
 
         let items = [];
         if (mode === 'vocab') {
-            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData?.TUVUNG_DB?.[w]);
-        } else if (mode === 'verb') {
-            items = text.split('\n').map(w => w.trim()).filter(w => w.endsWith('ます'));
+            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
         } else {
-            items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData?.KANJI_DB?.[c]);
+            items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
         }
         
         const shuffled = items.sort(() => Math.random() - 0.5);
@@ -678,6 +614,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
         setInitialTotal(shuffled.length);
     };
 
+    // --- BỘ CHUYỂN ĐỔI KANA ---
     const convertToKana = (rawText, isKatakanaTarget) => {
         const hiraMap = {
             'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
@@ -695,7 +632,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
 
     const handleInputChange = (e) => {
         const val = e.target.value;
-        if (mode === 'vocab' || mode === 'verb') {
+        if (mode === 'vocab') {
             const target = queue[currentIndex] || '';
             setUserInput(convertToKana(val, checkIsKatakana(target)));
         } else {
@@ -709,9 +646,9 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
             initLesson();
         } else {
             document.body.style.overflow = 'unset';
-            setFinished(false);
+            setFinished(false); // Đảm bảo đóng lại là reset pháo hoa
         }
-    }, [isOpen, mode]);
+    }, [isOpen, mode]); // Reset khi mode thay đổi hoặc mở lại
 
     const triggerConfetti = React.useCallback(() => {
         if (typeof confetti === 'undefined') return;
@@ -725,16 +662,13 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
         const currentItem = queue[currentIndex];
         let finalInput = userInput.trim();
 
-        if ((mode === 'vocab' || mode === 'verb') && finalInput.endsWith('n')) {
-            const isKata = checkIsKatakana(currentItem || '');
+        if (mode === 'vocab' && finalInput.endsWith('n')) {
+            const isKata = checkIsKatakana(dbData.TUVUNG_DB[currentItem]?.reading || '');
             finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
         }
 
-        // TÍNH TOÁN TARGET DỰA TRÊN CHẾ ĐỘ (FIX LỖI ENTER)
-        let target = '';
-        if (mode === 'kanji') target = dbData?.KANJI_DB[currentItem]?.sound || '';
-        else if (mode === 'vocab') target = dbData?.TUVUNG_DB[currentItem]?.reading || '';
-        else if (mode === 'verb') target = conjugateVerb(currentItem, config?.verbForm);
+        // FIX LỖI: Lấy target từ currentItem thay vì currentIndex
+        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
         
         let isCorrect = false;
         if (mode === 'kanji') {
@@ -754,7 +688,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            setCorrectAnswer(target);
+            setCorrectAnswer(target); // Đã có chữ nhờ fix logic target ở trên
             setStatus('wrong');
             setWrongDetected(true);
             setQueue(prev => [...prev, currentItem]);
@@ -774,43 +708,42 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
 
     if (!isOpen || queue.length === 0) return null;
     const currentItem = queue[currentIndex];
-    const info = mode === 'kanji' ? dbData?.KANJI_DB[currentItem] : dbData?.TUVUNG_DB[currentItem];
+    const info = mode === 'kanji' ? dbData.KANJI_DB[currentItem] : dbData.TUVUNG_DB[currentItem];
     const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
 
     return (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-gray-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
             {!finished ? (
-                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border border-gray-200 relative">
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
                     <div className="w-full mb-8">
                         <div className="flex justify-between items-center mb-5">
-                            <span className="text-[11px] font-black text-gray-900 bg-gray-100 px-3 py-1.5 rounded-xl border border-gray-200 shadow-sm">
+                            <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
                                 {correctFirstTimeCount} / {initialTotal}
                             </span>
-                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-50 border border-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition-all active:scale-90 shadow-sm">
+                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
-                        <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-gray-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
+                        <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
                         </div>
                     </div>
 
-                    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-gray-900 mb-3`}>{currentItem}</h2>
-                        {mode === 'vocab' && info?.meaning && (
-                            <p className="text-lg font-medium text-gray-400 italic leading-snug px-2">"{info.meaning}"</p>
-                        )}
-                        {mode === 'verb' && (
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2 border-b border-gray-200 pb-1">Hãy chia từ này</p>
-                        )}
-                    </div>
+    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+    <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>{currentItem}</h2>
+    
+    {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
+    {mode === 'vocab' && (
+        <p className="text-lg font-medium text-zinc-400 italic leading-snug px-2">"{info?.meaning}"</p>
+    )}
+</div>
 
                     <div className="w-full space-y-4">
                         <input 
                             type="text" autoFocus value={userInput} onChange={handleInputChange}
                             onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'verb' ? "Nhập thể động từ..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc..."))}
-                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-gray-200 focus:border-gray-900 bg-white shadow-inner'}`}
+                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
+                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
                         />
                         {(status === 'retyping' || status === 'wrong') && (
                             <div className="animate-in slide-in-from-top-2 duration-300 text-center">
@@ -818,22 +751,20 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode, con
                                 <div className="inline-block px-5 py-2.5 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">{correctAnswer}</div>
                             </div>
                         )}
-                        <p className="text-[9px] text-gray-400 text-center font-bold uppercase tracking-widest pt-2">
+                        <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">
                             {status === 'retyping' ? 'Bắt buộc gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
                         </p>
                     </div>
                 </div>
             ) : (
-                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border border-gray-200 animate-in zoom-in-95">
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
                     <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
-                    <h3 className="text-lg font-black text-gray-900 mb-1 uppercase">XUẤT SẮC!</h3>
-                    <p className="text-gray-500 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
+                    <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
+                    <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
                     <div className="space-y-2">
-                        {mode !== 'verb' && (
-                            <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-gray-900 hover:bg-black text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors uppercase tracking-widest">Ôn Flashcard</button>
-                        )}
-                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-xl font-black text-[11px] transition-all active:scale-95 uppercase tracking-widest">Học lại từ đầu</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border border-gray-200 text-gray-500 hover:text-red-600 hover:border-red-200 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">Thoát</button>
+                        <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN FLASHCARD</button>
+                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -2622,20 +2553,22 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-      {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (ĐÃ MỞ KHÓA) */}
-<div onClick={() => onOpenSetup('verb')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-indigo-100 text-indigo-600 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-        Mới
+       {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (BỊ KHÓA) */}
+<div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
+    {/* Nhãn "Sắp ra mắt" */}
+    <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+        Sắp ra mắt
     </div>
     
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+    <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
+        {/* Icon mũi tên biến đổi (biểu tượng cho chia động từ) */}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 16v-2.38C4 11.5 5.97 10.5 7 10h10v-3l3 4-3 4v-3H7c-.45 0-.82.16-1 .5V16H4z"></path>
             <path d="M20 8v2.38C20 12.5 18.03 13.5 17 14H7v3l-3-4 3-4v3h10c.45 0 .82-.16 1-.5V8h2z"></path>
         </svg>
     </div>
-    <h3 className="text-xl font-bold mb-1">CHIA ĐỘNG TỪ</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
+    <h3 className="text-xl font-bold mb-1 text-zinc-400">CHIA ĐỘNG TỪ</h3>
+    <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
 </div>
 
     {/* THẺ TÍNH NĂNG MỚI: LUYỆN JLPT (BỊ KHÓA) */}
@@ -3335,241 +3268,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
         </div>
     );
 };
-// --- COMPONENT: THIẾT LẬP CHIA ĐỘNG TỪ (MONOCHROME + HIRAGANA INPUT) ---
-const VerbSetupModal = ({ isOpen, onClose, onStart, config, onChange, onOpenGuide }) => {
-    const [localText, setLocalText] = useState(config.text);
-    const [targetForm, setTargetForm] = useState(config.verbForm || 'te');
 
-    useEffect(() => {
-        if (isOpen) {
-            setLocalText(config.text);
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen, config.text]);
-
-    // Hàm chuyển Romaji sang Hiragana (Dùng chung cho input)
-    const convertRomajiToKana = (rawText) => {
-        const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
-        };
-        let result = rawText.toLowerCase();
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
-        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
-        return result;
-    };
-
-    const handleInput = (e) => {
-        const val = e.target.value;
-        const lines = val.split('\n');
-        const convertedLines = lines.map(line => {
-            // Chỉ convert phần chữ romaji ở cuối dòng để tránh lag
-            const words = line.split(' ');
-            words[words.length - 1] = convertRomajiToKana(words[words.length - 1]);
-            return words.join(' ');
-        });
-        setLocalText(convertedLines.join('\n'));
-    };
-
-    if (!isOpen) return null;
-
-    const forms = [
-        { id: 'te', label: 'Thể TE (〜て)' },
-        { id: 'ta', label: 'Thể TA (〜た)' },
-        { id: 'nai', label: 'Thể NAI (〜ない)' },
-        { id: 'ru', label: 'Thể TỪ ĐIỂN (〜る)' },
-    ];
-
-    return (
-        <div className="fixed inset-0 z-[300] flex justify-center items-end sm:items-center bg-gray-900/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300 border border-gray-200">
-                
-                {/* Header */}
-                <div className="p-4 border-b border-gray-100 bg-gray-50 flex flex-col gap-3">
-                    <div className="flex justify-between items-center">
-                        <h3 className="font-black text-sm uppercase tracking-wider text-gray-900">Chia Động Từ</h3>
-                        <button onClick={onClose} className="w-8 h-8 rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 transition-colors shadow-sm flex items-center justify-center">✕</button>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        {forms.map(f => (
-                            <button 
-                                key={f.id} onClick={() => setTargetForm(f.id)}
-                                className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border ${targetForm === f.id ? 'bg-gray-900 text-white border-gray-900 shadow-md' : 'bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-900'}`}
-                            >
-                                {f.label}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Input */}
-                <div className="p-6 flex-1 overflow-y-auto space-y-4 bg-white">
-                    <div className="bg-gray-50 text-gray-600 p-3 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 border border-gray-200">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        Bắt buộc nhập đuôi MASU (VD: 食べます)
-                    </div>
-                    
-                    <div className="relative">
-                        <textarea 
-                            value={localText} 
-                            onChange={handleInput} 
-                            placeholder="Nhập động từ (mỗi từ 1 dòng)...&#10;行きます&#10;食べます&#10;します" 
-                            className="w-full h-[150px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
-                            style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
-                        />
-                        {localText && (
-                            <button onClick={() => setLocalText('')} className="absolute bottom-4 right-4 text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors">Xóa hết</button>
-                        )}
-                    </div>
-                    
-                    {/* 3 Nút Tiện ích */}
-                    <div className="grid grid-cols-3 gap-3">
-                        <button onClick={() => alert("Thư viện đang được xây dựng!")} className="py-4 rounded-2xl bg-white border border-gray-200 text-gray-700 hover:border-gray-900 hover:shadow-md text-[10px] font-bold uppercase tracking-widest transition-all">Thư viện</button>
-                        <button onClick={() => alert("Tính năng chọn nhóm động từ sắp ra mắt!")} className="py-4 rounded-2xl bg-white border border-gray-200 text-gray-700 hover:border-gray-900 hover:shadow-md text-[10px] font-bold uppercase tracking-widest transition-all">Tùy chỉnh</button>
-                        <button onClick={onOpenGuide} className="py-4 rounded-2xl bg-gray-100 border border-gray-200 text-gray-900 hover:bg-gray-200 hover:shadow-md text-[10px] font-black uppercase tracking-widest transition-all">Hướng dẫn</button>
-                    </div>
-                </div>
-
-                {/* Footer */}
-                <div className="p-5 border-t border-gray-100 bg-white">
-                    <button 
-                        onClick={() => {
-                            const cleaned = localText.split('\n').map(l => l.trim()).filter(l => l && l.endsWith('ます')).join('\n');
-                            if (!cleaned) return alert("Vui lòng nhập ít nhất 1 động từ kết thúc bằng ます!");
-                            onChange({ ...config, text: cleaned, verbForm: targetForm });
-                            onStart('preview_verb');
-                        }}
-                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
-                    >
-                        Tiếp tục
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-// --- COMPONENT: XEM TRƯỚC DANH SÁCH CHIA ĐỘNG TỪ (MONOCHROME) ---
-const VerbPreviewModal = ({ isOpen, onClose, onStart, text, targetForm }) => {
-    if (!isOpen) return null;
-
-    const words = text.split('\n').filter(w => w);
-    const formLabels = { ru: 'Thể Từ Điển', ta: 'Thể TA', nai: 'Thể NAI', te: 'Thể TE' };
-
-    return (
-        <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-300 border border-gray-200">
-                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <div>
-                        <h2 className="text-lg font-black text-gray-900 uppercase">Danh sách chia từ</h2>
-                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">Mục tiêu: <span className="text-gray-900">{formLabels[targetForm]}</span></p>
-                    </div>
-                    <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-colors">✕</button>
-                </div>
-
-                <div className="p-6 flex-1 overflow-y-auto space-y-3 bg-white custom-scrollbar">
-                    {words.map((word, i) => (
-                        <div key={i} className="flex items-center justify-between p-4 border border-gray-200 rounded-2xl hover:border-gray-900 hover:shadow-sm transition-all group bg-gray-50/50">
-                            <span className="text-xl font-bold text-gray-600 font-['Klee_One']">{word}</span>
-                            <div className="px-3">
-                                <svg className="w-5 h-5 text-gray-300 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </div>
-                            <span className="text-xl font-black text-gray-900 font-['Klee_One']">{conjugateVerb(word, targetForm)}</span>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
-                    <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-colors">Quay lại</button>
-                    <button onClick={() => onStart('essay_verb')} className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2">
-                        BẮT ĐẦU LUYỆN
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-// --- COMPONENT: BẢNG HƯỚNG DẪN CHIA ĐỘNG TỪ ---
-const VerbGuideModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-    return (
-        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
-            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-300 border border-gray-200" onClick={e => e.stopPropagation()}>
-                
-                <div className="px-6 py-4 border-b border-gray-200 bg-gray-900 flex justify-between items-center text-white">
-                    <div>
-                        <h2 className="text-lg font-black uppercase tracking-widest">Quy Tắc Chia Động Từ</h2>
-                        <p className="text-[10px] font-medium text-gray-400 mt-0.5 uppercase tracking-widest">Từ thể MASU (～ます)</p>
-                    </div>
-                    <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">✕</button>
-                </div>
-
-                <div className="p-6 flex-1 overflow-y-auto space-y-8 bg-white custom-scrollbar">
-                    
-                    {/* Quy tắc Thể Từ Điển & NAI */}
-                    <div>
-                        <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b-2 border-gray-900 pb-2 mb-4">1. Thể Từ Điển (る) & Thể Phủ Định (ない)</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4">
-                                <h4 className="font-bold text-gray-800 text-xs uppercase mb-2">Nhóm 1 (Trừ ます)</h4>
-                                <ul className="text-sm text-gray-600 space-y-2">
-                                    <li>• <strong className="text-gray-900">Thể る:</strong> Đổi cột <span className="bg-gray-200 px-1 rounded">い</span> thành cột <span className="bg-gray-200 px-1 rounded">う</span><br/><span className="text-xs italic">VD: 書きます ➔ 書く (kaki ➔ kaku)</span></li>
-                                    <li>• <strong className="text-gray-900">Thể ない:</strong> Đổi cột <span className="bg-gray-200 px-1 rounded">い</span> thành cột <span className="bg-gray-200 px-1 rounded">あ</span> + ない<br/><span className="text-xs italic">VD: 書きます ➔ 書かない (kaki ➔ kaka-nai)<br/>*Lưu ý: います ➔ わない</span></li>
-                                </ul>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4">
-                                    <h4 className="font-bold text-gray-800 text-xs uppercase mb-2">Nhóm 2 (Bỏ ます)</h4>
-                                    <p className="text-sm text-gray-600">+ Thêm <strong className="text-gray-900">る</strong> hoặc <strong className="text-gray-900">ない</strong> trực tiếp.<br/><span className="text-xs italic">VD: 食べます ➔ 食べる / 食べない</span></p>
-                                </div>
-                                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4">
-                                    <h4 className="font-bold text-gray-800 text-xs uppercase mb-2">Nhóm 3</h4>
-                                    <p className="text-sm text-gray-600">します ➔ <strong className="text-gray-900">する / しない</strong><br/>来ます ➔ <strong className="text-gray-900">来る (くる) / 来ない (こない)</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Quy tắc Thể TE / TA */}
-                    <div>
-                        <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b-2 border-gray-900 pb-2 mb-4">2. Thể TE (て) & Thể Quá Khứ (た)</h3>
-                        <p className="text-xs text-gray-500 mb-3 italic">Cách chia giống hệt nhau, chỉ thay "te/de" bằng "ta/da". Nhóm 2 và 3 chỉ cần bỏ ます thêm て/た.</p>
-                        <div className="bg-gray-900 text-white rounded-2xl overflow-hidden">
-                            <div className="bg-black/50 p-3 text-xs font-bold uppercase tracking-widest text-center border-b border-gray-700">Quy tắc biến âm Nhóm 1</div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-700">
-                                <div className="bg-gray-900 p-4 text-center">
-                                    <div className="text-lg font-black mb-1">い・ち・り</div>
-                                    <div className="text-2xl font-black text-gray-400">➔ って</div>
-                                </div>
-                                <div className="bg-gray-900 p-4 text-center">
-                                    <div className="text-lg font-black mb-1">み・に・び</div>
-                                    <div className="text-2xl font-black text-gray-400">➔ んで</div>
-                                </div>
-                                <div className="bg-gray-900 p-4 text-center">
-                                    <div className="text-lg font-black mb-1">き <span className="text-xs font-normal">/</span> ぎ</div>
-                                    <div className="text-2xl font-black text-gray-400">➔ いて <span className="text-xs font-normal">/</span> いで</div>
-                                </div>
-                                <div className="bg-gray-900 p-4 text-center relative">
-                                    <div className="text-lg font-black mb-1">し</div>
-                                    <div className="text-2xl font-black text-gray-400">➔ して</div>
-                                </div>
-                            </div>
-                            <div className="p-3 bg-red-500/10 text-red-400 text-xs text-center border-t border-gray-700">
-                                * Ngoại lệ duy nhất: 行きます (ikimasu) ➔ <strong className="text-white">行って / 行った</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    );
-};
 // --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TINH GỌN VÀ GỌI LIBRARY MODAL) ---
 const StudySetupModal = ({ 
     isOpen, onClose, onStart, targetAction, 
@@ -3891,9 +3590,7 @@ const App = () => {
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
     const [isPreviewListOpen, setIsPreviewListOpen] = useState(false);
     const [isEssayOpen, setIsEssayOpen] = useState(false);
-    const [isVerbSetupOpen, setIsVerbSetupOpen] = useState(false);
-const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
-    const [isVerbGuideOpen, setIsVerbGuideOpen] = useState(false);
+    
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
 
@@ -3976,25 +3673,22 @@ const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-   const handleStartLearning = (target) => {
-    if (target === 'verb') {
-        setIsVerbSetupOpen(true);
-    } else if (target === 'preview') {
-        setSetupConfig(prev => ({ ...prev, isOpen: false }));
-        setIsPreviewListOpen(true); 
-    } else if (target === 'preview_verb') {
-        setIsVerbSetupOpen(false);
-        setIsVerbPreviewOpen(true);
-    } else {
-        setSetupConfig({ isOpen: false, targetAction: null });
-        setIsPreviewListOpen(false);
-        setIsVerbPreviewOpen(false); // Thêm dòng này
-        
-        if (target === 'flashcard') setIsFlashcardOpen(true);
-        if (target === 'game') setIsLearnGameOpen(true);
-        if (target === 'essay' || target === 'essay_verb') setIsEssayOpen(true);
-    }
-};
+   // --- HÀM KHỞI ĐỘNG HỌC (ĐÃ FIX LỖI NHÁY MÀN HÌNH) ---
+    const handleStartLearning = (target) => {
+        if (target === 'preview') {
+            // Mở bảng danh sách xem trước ngay lập tức
+            setSetupConfig(prev => ({ ...prev, isOpen: false }));
+            setIsPreviewListOpen(true); 
+        } else {
+            // Mở thẳng flashcard hoặc game ngay lập tức
+            setSetupConfig({ isOpen: false, targetAction: null });
+            setIsPreviewListOpen(false);
+            
+            if (target === 'flashcard') setIsFlashcardOpen(true);
+            if (target === 'game') setIsLearnGameOpen(true);
+            if (target === 'essay') setIsEssayOpen(true);
+        }
+    };
 
     // --- HIỂN THỊ LOADING ---
     if (!isDbLoaded) {
@@ -4009,20 +3703,11 @@ const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-           {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
+            {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
             <LandingPage 
                 srsData={srsData}
                 onOpenReviewList={() => setIsReviewListOpen(true)}
-                onOpenSetup={(target) => {
-                    // FIX LỖI: Chuyển hướng đúng bảng Setup
-                    if (target === 'verb') {
-                        setIsVerbSetupOpen(true);
-                        setPracticeMode('verb'); // Báo cho hệ thống biết đang học động từ
-                    } else {
-                        if (practiceMode === 'verb') setPracticeMode('kanji'); // Reset lại nếu trước đó học động từ
-                        setSetupConfig({ isOpen: true, targetAction: target });
-                    }
-                }}
+                onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
             />
 
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
@@ -4095,27 +3780,7 @@ const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
     text={config.text}
     dbData={dbData}
     mode={practiceMode}
-config={config}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
-/>
-        <VerbSetupModal 
-    isOpen={isVerbSetupOpen}
-    onClose={() => setIsVerbSetupOpen(false)}
-    onStart={handleStartLearning}
-    config={config}
-    onChange={setConfig}
-        onOpenGuide={() => setIsVerbGuideOpen(true)}
-/>
-<VerbGuideModal isOpen={isVerbGuideOpen} onClose={() => setIsVerbGuideOpen(false)} />
-<VerbPreviewModal 
-    isOpen={isVerbPreviewOpen}
-    onClose={() => {
-        setIsVerbPreviewOpen(false);
-        setIsVerbSetupOpen(true);
-    }}
-    onStart={handleStartLearning}
-    text={config.text}
-    targetForm={config.verbForm}
 />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
