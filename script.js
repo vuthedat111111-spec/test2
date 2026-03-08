@@ -3940,10 +3940,27 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
         </div>
     );
 };
+// --- COMPONENT TRUNG GIAN ĐỂ FETCH SVG CHO PREVIEW LIST ---
+const KanjiAnimationContainer = ({ char, dbData, onClose }) => {
+    const { paths, fullSvg } = useKanjiSvg(char);
+    return (
+        <KanjiAnimationModal 
+            char={char}
+            paths={paths}
+            fullSvg={fullSvg}
+            dbData={dbData}
+            isOpen={true}
+            onClose={onClose}
+        />
+    );
+};
 // --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
 const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
     const [editingWord, setEditingWord] = useState(null);
     const [editForm, setEditForm] = useState({ reading: '', meaning: '', hanviet: '' });
+    
+    // --- STATE MỚI CHO HOẠT HỌA KANJI ---
+    const [animChar, setAnimChar] = useState(null);
 
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -3993,182 +4010,190 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
         setEditingWord(null);
     };
 
-   const restoreEdit = (word) => {
-        // Lấy từ ORIGINAL_TUVUNG_DB (nếu đã từng sửa) hoặc TUVUNG_DB (nếu chưa sửa bao giờ)
+    const restoreEdit = (word) => {
         const originalInfo = dbData?.ORIGINAL_TUVUNG_DB?.[word] || dbData?.TUVUNG_DB?.[word] || { reading: '', meaning: '' };
-        
-        // Trả Hán việt về trạng thái tự động ghép chữ
         const originalHanviet = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
-        
-        setEditForm({ 
-            reading: originalInfo.reading || '', 
-            meaning: originalInfo.meaning || '', 
-            hanviet: originalHanviet 
-        });
+        setEditForm({ reading: originalInfo.reading || '', meaning: originalInfo.meaning || '', hanviet: originalHanviet });
     };
 
     return (
-        <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-gray-200">
-                
-                {/* Header */}
-                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <div>
-                        <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Danh sách cần học</h2>
-                        <p className="text-xs text-gray-500 font-medium">Kiểm tra lại dữ liệu trước khi bắt đầu</p>
-                    </div>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">✕</button>
-                </div>
-
-                {/* Body (List) */}
-                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
-                    {mode === 'kanji' ? (
+        <>
+            <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-gray-200">
+                    
+                    {/* Header */}
+                    <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                         <div>
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
-                            <div className="flex flex-wrap gap-2">
-                                {kanjiList.map((char, i) => {
-                                    const info = dbData?.KANJI_DB?.[char] || {};
-                                    return (
-                                        <div key={i} className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-gray-900 transition-colors group">
-                                            <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none">{char}</span>
-                                            <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-gray-900">{info.sound || '---'}</span>
-                                        </div>
-                                    )
-                                })}
-                            </div>
+                            <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Danh sách cần học</h2>
+                            <p className="text-xs text-gray-500 font-medium">Kiểm tra lại dữ liệu trước khi bắt đầu</p>
                         </div>
-                    ) : (
-                        <div className="space-y-8">
-                            {needsEdit.length > 0 && (
-                                <div>
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <span className="w-2 h-2 rounded-full bg-gray-900 animate-pulse"></span>
-                                        <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest">Cần bổ sung ({needsEdit.length})</h3>
-                                    </div>
-                                    <div className="space-y-3">
-                                        {needsEdit.map((item, i) => (
-                                            <div key={i} className="border-2 border-gray-900 rounded-xl p-4 bg-gray-50/50 shadow-sm relative">
-                                                {editingWord === item.word ? (
-                                                    <div className="space-y-3">
-                                                        <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
-                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
-                                                                <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
-                                                            </div>
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
-                                                                <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
-                                                            </div>
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
-                                                                <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex gap-2 justify-end mt-2">
-                                                            <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
-                                                            <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
-                                                            <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex justify-between items-center">
-                                                        <div className="flex flex-col">
-                                                            <span className="text-xl font-bold text-gray-900">{item.word}</span>
-                                                            <span className="text-xs text-gray-500 font-medium italic mt-1">
-                                                                {item.hanviet && `[${item.hanviet}] `}
-                                                                <span className={item.reading ? "" : "text-gray-400"}>{item.reading || '(Thiếu cách đọc)'}</span>
-                                                                {" • "}
-                                                                <span className={item.meaning ? "" : "text-gray-400"}>{item.meaning || '(Thiếu ý nghĩa)'}</span>
-                                                            </span>
-                                                        </div>
-                                                        <button onClick={() => startEdit(item)} className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-black transition-all">SỬA</button>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                        <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">✕</button>
+                    </div>
 
-                            {ready.length > 0 && (
-                                <div>
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <span className="w-2 h-2 rounded-full bg-gray-300"></span>
-                                        <h3 className="text-sm font-black text-gray-500 uppercase tracking-widest">Đã đầy đủ ({ready.length})</h3>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {ready.map((item, i) => (
+                    {/* Body (List) */}
+                    <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
+                        {mode === 'kanji' ? (
+                            <div>
+                                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {kanjiList.map((char, i) => {
+                                        const info = dbData?.KANJI_DB?.[char] || {};
+                                        return (
                                             <div 
                                                 key={i} 
-                                                className={`border rounded-xl p-4 bg-white transition-colors group ${
-                                                    editingWord === item.word 
-                                                        ? 'sm:col-span-2 border-2 border-gray-900 shadow-sm' 
-                                                        : 'border-gray-200 hover:border-gray-900'
-                                                }`}
+                                                onClick={() => setAnimChar(char)} // BẤM ĐỂ MỞ HOẠT HỌA
+                                                className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
+                                                title="Bấm để xem nét vẽ"
                                             >
-                                                {editingWord === item.word ? (
-                                                    <div className="space-y-3">
-                                                        <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
-                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
-                                                                <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
-                                                            </div>
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
-                                                                <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
-                                                            </div>
-                                                            <div>
-                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
-                                                                <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex gap-2 justify-end mt-2">
-                                                            <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
-                                                            <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
-                                                            <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex justify-between items-center h-full">
-                                                        <div className="flex flex-col min-w-0 flex-1">
-                                                            <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
-                                                            <span className="text-[11px] text-gray-500 truncate mt-0.5 font-medium">
-                                                                {item.hanviet && `[${item.hanviet}] `}
-                                                                {item.reading} • {item.meaning}
-                                                            </span>
-                                                        </div>
-                                                        <button 
-                                                            onClick={() => startEdit(item)} 
-                                                            className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors ml-2 cursor-pointer z-10 block"
-                                                        >
-                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                                        </button>
-                                                    </div>
-                                                )}
+                                                {/* ĐỔI MÀU CHỮ THÀNH XANH DƯƠNG KHI HOVER */}
+                                                <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
+                                                <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
                                             </div>
-                                        ))}
-                                    </div>
+                                        )
+                                    })}
                                 </div>
-                            )}
-                        </div>
-                    )}
-                </div>
+                            </div>
+                        ) : (
+                            <div className="space-y-8">
+                                {/* PHẦN 1: CẦN BỔ SUNG */}
+                                {needsEdit.length > 0 && (
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <span className="w-2 h-2 rounded-full bg-gray-900 animate-pulse"></span>
+                                            <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest">Cần bổ sung ({needsEdit.length})</h3>
+                                        </div>
+                                        <div className="space-y-3">
+                                            {needsEdit.map((item, i) => (
+                                                <div key={i} className="border-2 border-gray-900 rounded-xl p-4 bg-gray-50/50 shadow-sm relative">
+                                                    {editingWord === item.word ? (
+                                                        <div className="space-y-3">
+                                                            <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
+                                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
+                                                                    <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
+                                                                </div>
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
+                                                                    <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                                </div>
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
+                                                                    <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex gap-2 justify-end mt-2">
+                                                                <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
+                                                                <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
+                                                                <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="flex flex-col">
+                                                                <span className="text-xl font-bold text-gray-900">{item.word}</span>
+                                                                <span className="text-xs text-gray-500 font-medium italic mt-1">
+                                                                    {item.hanviet && `[${item.hanviet}] `}
+                                                                    <span className={item.reading ? "" : "text-gray-400"}>{item.reading || '(Thiếu cách đọc)'}</span>
+                                                                    {" • "}
+                                                                    <span className={item.meaning ? "" : "text-gray-400"}>{item.meaning || '(Thiếu ý nghĩa)'}</span>
+                                                                </span>
+                                                            </div>
+                                                            <button onClick={() => startEdit(item)} className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-black transition-all">SỬA</button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
 
-                {/* Footer */}
-                <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
-                    <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all">Quay lại</button>
-                    <button 
-                        onClick={() => onStart(targetAction)} 
-                        className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
-                    >
-                        BẮT ĐẦU HỌC NGAY
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
+                                {/* PHẦN 2: ĐÃ ĐẦY ĐỦ */}
+                                {ready.length > 0 && (
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                                            <h3 className="text-sm font-black text-gray-500 uppercase tracking-widest">Đã đầy đủ ({ready.length})</h3>
+                                        </div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            {ready.map((item, i) => (
+                                                <div 
+                                                    key={i} 
+                                                    className={`border rounded-xl p-4 bg-white transition-colors group ${
+                                                        editingWord === item.word 
+                                                            ? 'sm:col-span-2 border-2 border-gray-900 shadow-sm' 
+                                                            : 'border-gray-200 hover:border-gray-900'
+                                                    }`}
+                                                >
+                                                    {editingWord === item.word ? (
+                                                        <div className="space-y-3">
+                                                            <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
+                                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
+                                                                    <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
+                                                                </div>
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
+                                                                    <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                                </div>
+                                                                <div>
+                                                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
+                                                                    <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex gap-2 justify-end mt-2">
+                                                                <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
+                                                                <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
+                                                                <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex justify-between items-center h-full">
+                                                            <div className="flex flex-col min-w-0 flex-1">
+                                                                <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
+                                                                <span className="text-[11px] text-gray-500 truncate mt-0.5 font-medium">
+                                                                    {item.hanviet && `[${item.hanviet}] `}
+                                                                    {item.reading} • {item.meaning}
+                                                                </span>
+                                                            </div>
+                                                            <button onClick={() => startEdit(item)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors ml-2 opacity-100 md:opacity-0 group-hover:opacity-100">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
+                        <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all">Quay lại</button>
+                        <button 
+                            onClick={() => onStart(targetAction)} 
+                            className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                        >
+                            BẮT ĐẦU HỌC NGAY
+                            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {/* Component Hoạt Họa Gọi Tách Rời Phía Ngoài (z-index cao hơn) */}
+            {animChar && (
+                <KanjiAnimationContainer 
+                    char={animChar} 
+                    dbData={dbData} 
+                    onClose={() => setAnimChar(null)} 
+                />
+            )}
+        </>
     );
 };
 // --- COMPONENT: KANJI MỖI NGÀY (10 CHỮ THỦ CÔNG - CHỮ ĐEN TO - LOOP VÔ TẬN) ---
