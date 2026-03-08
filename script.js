@@ -2271,7 +2271,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden" style={{ opacity: 1, transform: 'none' }}>
                             {dueCharsCount > 0 && (
                                 <div className="absolute top-6 right-6 bg-red-500 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full animate-pulse uppercase tracking-wider">
-                                    Cần ôn {dueCharsCount} Kanji
+                                    Cần ôn
                                 </div>
                             )}
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
