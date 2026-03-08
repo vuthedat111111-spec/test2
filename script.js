@@ -4196,9 +4196,9 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
         </>
     );
 };
-// --- COMPONENT: KANJI MỖI NGÀY (10 CHỮ THỦ CÔNG - CHỮ ĐEN TO - LOOP VÔ TẬN) ---
+// --- COMPONENT: KANJI MỖI NGÀY (ĐÃ FIX LỖI KHÔNG KHỚP CHỮ VÀ NGHĨA) ---
 const KanjiOfTheDay = () => {
-    // 1. DANH SÁCH 10 KANJI (Bạn có thể tự do sửa chữ, âm Hán và ý nghĩa ở đây)
+    // 1. DANH SÁCH 10 KANJI
     const KANJI_LIST = React.useMemo(() => [
         { char: '禅', sound: 'THIỀN', meaning: 'Thiền định, tĩnh tâm.' },
         { char: '道', sound: 'ĐẠO', meaning: 'Con đường, đạo lý.' },
@@ -4208,19 +4208,18 @@ const KanjiOfTheDay = () => {
         { char: '静', sound: 'TĨNH', meaning: 'Yên lặng, thanh tĩnh.' },
         { char: '志', sound: 'CHÍ', meaning: 'Ý chí, quyết tâm.' },
         { char: '悟', sound: 'NGỘ', meaning: 'Giác ngộ, thức tỉnh' },
-        { char: '学', sound: 'KHÔNG', meaning: 'Học hành, học tập.' },
+        { char: '学', sound: 'HỌC', meaning: 'Học hành, học tập.' }, // Đã sửa lại âm Hán Việt chuẩn
         { char: '忍', sound: 'NHẪN', meaning: 'Nhẫn nại, kiên tâm.' }
     ], []);
 
-    // 2. STATE LƯU TRỮ
-    const [currentKanji, setCurrentKanji] = useState(KANJI_LIST[0]); // Mặc định hiển thị chữ đầu tiên
+    // 2. STATE LƯU TRỮ (Sửa lỗi: Chọn ngẫu nhiên ngay lúc khởi tạo state)
+    const [currentKanji, setCurrentKanji] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * KANJI_LIST.length);
+        return KANJI_LIST[randomIndex];
+    }); 
     const [replayKey, setReplayKey] = useState(0);
 
-    // 3. CHỌN NGẪU NHIÊN 1 TỪ KHI LOAD TRANG
-    useEffect(() => {
-        const randomIndex = Math.floor(Math.random() * KANJI_LIST.length);
-        setCurrentKanji(KANJI_LIST[randomIndex]);
-    }, [KANJI_LIST]);
+    // XÓA BỎ useEffect() chọn ngẫu nhiên gây lỗi ở đây
 
     // Gọi hàm SVG để lấy tọa độ nét vẽ dựa trên chữ đã chọn
     const { paths } = useKanjiSvg(currentKanji.char);
@@ -4289,7 +4288,6 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
-
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP (Theo chuẩn HTML gốc) ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const featuresRef = useRef(null);
@@ -4343,7 +4341,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                     {/* KHỐI TEXT BÊN TRÁI */}
                     <div style={{ opacity: 1, transform: 'none' }} className="animate-in slide-in-from-left-8 duration-700">
                         <div className="inline-block px-3 py-1 mb-5 border border-zinc-200 rounded-full bg-zinc-50">
-                            <span className="text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bắt đầu hành trình của bạn</span>
+                            <span className="text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bước tiếp hành trình của bạn</span>
                         </div>
                         
                         {/* Font chữ đã được thu nhỏ lại vừa vặn hơn */}
@@ -5105,7 +5103,8 @@ const StudySetupModal = ({
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
-                        TIẾP TỤC >
+                        TIẾP TỤC
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         
                     </button>
                 </div>
