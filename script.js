@@ -589,6 +589,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
     const [wrongDetected, setWrongDetected] = useState(false);
 
+    // --- HÀM KHỞI ĐỘNG BÀI HỌC ---
     const initLesson = () => {
         if (!text || !dbData) return;
         let items = [];
@@ -606,13 +607,41 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         setCorrectFirstTimeCount(0);
         setWrongDetected(false);
         setCorrectAnswer('');
-        setFinished(false);
+        setFinished(false); // Reset pháo hoa
     };
 
+    // --- BỘ CHUYỂN ĐỔI KANA CHUẨN (ĐÃ FIX LỖI CHO & THIẾU CHỮ) ---
     const convertToKana = (rawText, isKatakanaTarget) => {
         const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'ni','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'ri','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'ကို','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'cho','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+            'a':'あ','i':'い','u':'う','e':'え','o':'お',
+            'ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ',
+            'sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ',
+            'ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と',
+            'na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の',
+            'ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ',
+            'ma':'ま','mi':'み','mu':'む','me':'め','mo':'も',
+            'ya':'や','yu':'ゆ','yo':'よ',
+            'ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ',
+            'wa':'わ','wo':'を','nn':'ん',
+            'ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご',
+            'za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ',
+            'da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど',
+            'ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ',
+            'pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ',
+            'kya':'きゃ','kyu':'きゅ','kyo':'きょ',
+            'sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ',
+            'cha':'ちゃ','chu':'ちゅ','cho':'ちょ', // ĐÃ FIX LỖI TẠI ĐÂY
+            'tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ',
+            'nya':'にゃ','nyu':'にゅ','nyo':'にょ',
+            'hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ',
+            'mya':'みゃ','myu':'みゅ','myo':'みょ',
+            'rya':'りゃ','ryu':'りゅ','ryo':'りょ',
+            'gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ',
+            'ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ',
+            'bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ',
+            'fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
         };
+
         const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
         let result = rawText.toLowerCase();
         result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
@@ -630,7 +659,8 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             const target = queue[currentIndex] || '';
             setUserInput(convertToKana(val, checkIsKatakana(target)));
         } else {
-            setUserInput(val);
+            // TỰ ĐỘNG VIẾT HOA HẾT Ở CHẾ ĐỘ KANJI
+            setUserInput(val.toUpperCase());
         }
     };
 
@@ -654,21 +684,32 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         if (status === 'correct' || finished) return;
         const currentItem = queue[currentIndex];
         let finalInput = userInput.trim();
-        if (finalInput.endsWith('n')) {
-            const isKata = checkIsKatakana(mode === 'kanji' ? '' : (dbData.TUVUNG_DB[currentItem]?.reading || ''));
+
+        // Xử lý chữ n cuối cùng cho từ vựng
+        if (mode === 'vocab' && finalInput.endsWith('n')) {
+            const isKata = checkIsKatakana(dbData.TUVUNG_DB[currentItem]?.reading || '');
             finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
         }
-        const inputClean = removeAccents(finalInput.toLowerCase());
-        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
-        const targetClean = removeAccents(target.toLowerCase());
+
+        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentIndex]?.reading || '');
+        
+        let isCorrect = false;
+        if (mode === 'kanji') {
+            // KIỂM TRA CHÍNH XÁC CẢ DẤU (KHÔNG DÙNG removeAccents)
+            isCorrect = finalInput.toUpperCase() === target.toUpperCase();
+        } else {
+            // Từ vựng vẫn dùng removeAccents để hỗ trợ gõ linh hoạt nếu cần, 
+            // nhưng do convertToKana đã ra tiếng Nhật nên so sánh sẽ khớp 100%.
+            isCorrect = removeAccents(finalInput.toLowerCase()) === removeAccents((dbData.TUVUNG_DB[currentItem]?.reading || '').toLowerCase());
+        }
 
         if (status === 'retyping' || status === 'wrong') {
-            if (inputClean === targetClean) goToNext();
+            if (isCorrect) goToNext();
             else { setStatus('wrong'); setTimeout(() => setStatus('retyping'), 400); }
             return;
         }
 
-        if (inputClean === targetClean) {
+        if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
