@@ -771,229 +771,6 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         </div>
     );
 };
-// ======================================================================
-// THÊM MỚI: COMPONENT LUYỆN CHIA ĐỘNG TỪ (DÙNG KAMIYA)
-// ======================================================================
-const ConjugationGameModal = ({ isOpen, onClose, text, onSwitchMode }) => {
-    const { useState, useEffect, useCallback, useRef } = React;
-    const [queue, setQueue] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [userInput, setUserInput] = useState('');
-    const [status, setStatus] = useState('idle'); 
-    const [finished, setFinished] = useState(false);
-    const [correctAnswer, setCorrectAnswer] = useState('');
-    const [initialTotal, setInitialTotal] = useState(0); 
-    const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
-    const [wrongDetected, setWrongDetected] = useState(false);
-
-    // Danh sách các thể muốn luyện tập
-    const FORMS = [
-        { id: 'Te', name: 'Thể Te (て)', type: 'basic' },
-        { id: 'Ta', name: 'Thể Quá khứ (た)', type: 'basic' },
-        { id: 'Negative', name: 'Thể Phủ định (ない)', type: 'basic' },
-        { id: 'Conditional', name: 'Thể Điều kiện (ば)', type: 'basic' },
-        { id: 'Volitional', name: 'Thể Ý chí (よう)', type: 'basic' },
-        { id: 'Tara', name: 'Thể Điều kiện (たら)', type: 'basic' },
-        { id: 'Masu', name: 'Thể Lịch sự (ます)', type: 'aux' },
-        { id: 'Potential', name: 'Thể Khả năng (える/られる)', type: 'aux' },
-        { id: 'ReruRareru', name: 'Thể Bị động (れる/られる)', type: 'aux' },
-        { id: 'SeruSaseru', name: 'Thể Sai khiến (せる/させる)', type: 'aux' },
-        { id: 'Tai', name: 'Thể Mong muốn (たい)', type: 'aux' }
-    ];
-
-    const initLesson = () => {
-        if (!text || typeof window.kamiya === 'undefined') return;
-        
-        setFinished(false); 
-        setCurrentIndex(0);
-        setUserInput('');
-        setStatus('idle');
-        setCorrectFirstTimeCount(0);
-        setWrongDetected(false);
-        setCorrectAnswer('');
-
-        const words = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
-        let generatedQueue = [];
-
-        words.forEach(word => {
-            // Lấy ngẫu nhiên 3 thể cho mỗi động từ để luyện
-            const shuffledForms = [...FORMS].sort(() => Math.random() - 0.5).slice(0, 3);
-            
-            shuffledForms.forEach(form => {
-                try {
-                    let answers = [];
-                    if (form.type === 'basic') {
-                        answers = window.kamiya.conjugate(word, form.id);
-                        // Kamiya đôi khi trả về mảng có cả gốc từ, ta cần đảm bảo lấy chuỗi dài nhất (dạng đầy đủ)
-                        if (form.id === 'Negative') answers.push(answers[0] + 'ない');
-                        if (form.id === 'Conditional') answers.push(answers[0] + 'ば');
-                        if (form.id === 'Volitional') answers.push(answers[0] + 'う');
-                    } else {
-                        answers = window.kamiya.conjugateAuxiliaries(word, [form.id], 'Dictionary');
-                    }
-                    
-                    if (answers && answers.length > 0) {
-                        generatedQueue.push({
-                            verb: word,
-                            formName: form.name,
-                            targets: answers // Mảng các đáp án được chấp nhận
-                        });
-                    }
-                } catch (e) {
-                    console.warn("Kamiya không thể chia từ:", word, form.id);
-                }
-            });
-        });
-
-        if (generatedQueue.length === 0) {
-            alert("Không tạo được câu hỏi. Hãy chắc chắn bạn nhập Động từ ở thể từ điển (Hiragana)!");
-            onClose();
-            return;
-        }
-
-        const shuffled = generatedQueue.sort(() => Math.random() - 0.5);
-        setQueue(shuffled);
-        setInitialTotal(shuffled.length);
-    };
-
-    // Bộ chuyển đổi Romaji -> Kana (Tái sử dụng)
-    const convertToKana = (rawText) => {
-        const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
-        };
-        let result = rawText.toLowerCase();
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
-        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
-        return result;
-    };
-
-    const handleInputChange = (e) => {
-        const val = e.target.value;
-        setUserInput(convertToKana(val));
-    };
-
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-            initLesson();
-        } else {
-            document.body.style.overflow = 'unset';
-            setFinished(false);
-        }
-    }, [isOpen]);
-
-    const triggerConfetti = useCallback(() => {
-        if (typeof confetti === 'undefined') return;
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
-    }, []);
-
-    useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen]);
-
-    const checkAnswer = () => {
-        if (status === 'correct' || finished) return;
-        const currentItem = queue[currentIndex];
-        let finalInput = userInput.trim();
-
-        if (finalInput.endsWith('n')) {
-            finalInput = finalInput.slice(0, -1) + 'ん';
-        }
-
-        // Kamiya trả về mảng các đáp án có thể đúng, ta lấy chuỗi dài nhất làm đáp án hiển thị
-        const displayAnswer = currentItem.targets.reduce((a, b) => a.length > b.length ? a : b, "");
-        const isCorrect = currentItem.targets.includes(finalInput);
-
-        if (status === 'retyping' || status === 'wrong') {
-            if (isCorrect) goToNext();
-            else { setStatus('wrong'); setTimeout(() => setStatus('retyping'), 400); }
-            return;
-        }
-
-        if (isCorrect) {
-            setStatus('correct');
-            if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
-            setTimeout(() => goToNext(), 600);
-        } else {
-            setCorrectAnswer(displayAnswer); 
-            setStatus('wrong');
-            setWrongDetected(true);
-            setQueue(prev => [...prev, currentItem]); // Nhét lại vào cuối hàng đợi
-            setTimeout(() => setStatus('retyping'), 500);
-        }
-    };
-
-    const goToNext = () => {
-        if (currentIndex < queue.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-            setUserInput('');
-            setStatus('idle');
-            setCorrectAnswer('');
-            setWrongDetected(false);
-        } else { setFinished(true); }
-    };
-
-    if (!isOpen || queue.length === 0) return null;
-    const currentItem = queue[currentIndex];
-    const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
-
-    return (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
-            {!finished ? (
-                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
-                    <div className="w-full mb-8">
-                        <div className="flex justify-between items-center mb-5">
-                            <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
-                                {correctFirstTimeCount} / {initialTotal}
-                            </span>
-                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
-                        </div>
-                        <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
-                        </div>
-                    </div>
-
-                    <div className={`flex flex-col items-center text-center mb-8 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">{currentItem.verb}</h2>
-                        <div className="bg-indigo-50 text-indigo-600 px-4 py-1.5 rounded-full text-sm font-black uppercase tracking-widest border border-indigo-100">
-                            {currentItem.formName}
-                        </div>
-                    </div>
-
-                    <div className="w-full space-y-4">
-                        <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange}
-                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : "Nhập đáp án bằng romaji..."}
-                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
-                        />
-                        {(status === 'retyping' || status === 'wrong') && (
-                            <div className="animate-in slide-in-from-top-2 duration-300 text-center">
-                                <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
-                                <div className="inline-block px-5 py-2.5 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">{correctAnswer}</div>
-                            </div>
-                        )}
-                        <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">
-                            {status === 'retyping' ? 'Bắt buộc gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
-                        </p>
-                    </div>
-                </div>
-            ) : (
-                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
-                    <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
-                    <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
-                    <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài tập chia động từ.</p>
-                    <div className="space-y-2">
-                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] transition-all shadow-lg active:scale-95">LUYỆN LẠI</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
 // --- BƯỚC 4: FLASHCARD MODAL (FIXED UI TỪ VỰNG) ---
 const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, onSrsRestore, mode }) => { 
     const [originalQueue, setOriginalQueue] = React.useState([]);
@@ -2776,16 +2553,22 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-      {/* ĐÃ MỞ KHÓA: CHIA ĐỘNG TỪ */}
-<div onClick={() => onOpenSetup('conjugation')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+       {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (BỊ KHÓA) */}
+<div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
+    {/* Nhãn "Sắp ra mắt" */}
+    <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+        Sắp ra mắt
+    </div>
+    
+    <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
+        {/* Icon mũi tên biến đổi (biểu tượng cho chia động từ) */}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 16v-2.38C4 11.5 5.97 10.5 7 10h10v-3l3 4-3 4v-3H7c-.45 0-.82.16-1 .5V16H4z"></path>
             <path d="M20 8v2.38C20 12.5 18.03 13.5 17 14H7v3l-3-4 3-4v3h10c.45 0 .82-.16 1-.5V8h2z"></path>
         </svg>
     </div>
-    <h3 className="text-xl font-bold mb-1">CHIA ĐỘNG TỪ</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
+    <h3 className="text-xl font-bold mb-1 text-zinc-400">CHIA ĐỘNG TỪ</h3>
+    <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
 </div>
 
     {/* THẺ TÍNH NĂNG MỚI: LUYỆN JLPT (BỊ KHÓA) */}
@@ -3626,7 +3409,6 @@ useEffect(() => {
     };
 
     const getDynamicPlaceholder = () => {
-        if (targetAction === 'conjugation') return "Nhập ĐỘNG TỪ ở thể từ điển bằng Hiragana\n(Ví dụ: たべる, のむ, する)\nPhân cách bằng dấu xuống dòng";
         if (mode === 'vocab') return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
         const labels = [];
         if (filterOptions.kanji) labels.push("漢字");        
@@ -3787,12 +3569,8 @@ useEffect(() => {
 
     if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
     
-   if (targetAction === 'conjugation') {
-    onStart('conjugation'); // Vào game luôn!
-} else {
     // ĐÓNG TẠM BẢNG SETUP, BÁO LÊN APP ĐỂ MỞ PREVIEW LIST
     onStart('preview'); 
-}
 }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
@@ -3812,7 +3590,7 @@ const App = () => {
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
     const [isPreviewListOpen, setIsPreviewListOpen] = useState(false);
     const [isEssayOpen, setIsEssayOpen] = useState(false);
-    const [isConjugationOpen, setIsConjugationOpen] = useState(false);
+    
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
 
@@ -3909,7 +3687,6 @@ const App = () => {
             if (target === 'flashcard') setIsFlashcardOpen(true);
             if (target === 'game') setIsLearnGameOpen(true);
             if (target === 'essay') setIsEssayOpen(true);
-            if (target === 'conjugation') setIsConjugationOpen(true);
         }
     };
 
@@ -4005,11 +3782,6 @@ const App = () => {
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
-        <ConjugationGameModal 
-        isOpen={isConjugationOpen}
-        onClose={() => setIsConjugationOpen(false)}
-        text={config.text}
-    />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
