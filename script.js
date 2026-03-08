@@ -592,56 +592,33 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     // --- HÀM KHỞI ĐỘNG BÀI HỌC ---
     const initLesson = () => {
         if (!text || !dbData) return;
-        let items = [];
-        if (mode === 'vocab') {
-            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
-        } else {
-            items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
-        }
-        const shuffled = items.sort(() => Math.random() - 0.5);
-        setQueue(shuffled);
-        setInitialTotal(shuffled.length);
+        
+        // BƯỚC QUAN TRỌNG: Reset sạch sành sanh trạng thái cũ trước khi nạp bài mới
+        setFinished(false); 
         setCurrentIndex(0);
         setUserInput('');
         setStatus('idle');
         setCorrectFirstTimeCount(0);
         setWrongDetected(false);
         setCorrectAnswer('');
-        setFinished(false); // Reset pháo hoa
+
+        let items = [];
+        if (mode === 'vocab') {
+            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
+        } else {
+            items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
+        }
+        
+        const shuffled = items.sort(() => Math.random() - 0.5);
+        setQueue(shuffled);
+        setInitialTotal(shuffled.length);
     };
 
-    // --- BỘ CHUYỂN ĐỔI KANA CHUẨN (ĐÃ FIX LỖI CHO & THIẾU CHỮ) ---
+    // --- BỘ CHUYỂN ĐỔI KANA ---
     const convertToKana = (rawText, isKatakanaTarget) => {
         const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お',
-            'ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ',
-            'sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ',
-            'ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と',
-            'na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の',
-            'ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ',
-            'ma':'ま','mi':'み','mu':'む','me':'め','mo':'も',
-            'ya':'や','yu':'ゆ','yo':'よ',
-            'ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ',
-            'wa':'わ','wo':'を','nn':'ん',
-            'ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご',
-            'za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ',
-            'da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど',
-            'ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ',
-            'pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ',
-            'kya':'きゃ','kyu':'きゅ','kyo':'きょ',
-            'sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ',
-            'cha':'ちゃ','chu':'ちゅ','cho':'ちょ', // ĐÃ FIX LỖI TẠI ĐÂY
-            'tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ',
-            'nya':'にゃ','nyu':'にゅ','nyo':'にょ',
-            'hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ',
-            'mya':'みゃ','myu':'みゅ','myo':'みょ',
-            'rya':'りゃ','ryu':'りゅ','ryo':'りょ',
-            'gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ',
-            'ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ',
-            'bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ',
-            'fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'đo','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
         };
-
         const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
         let result = rawText.toLowerCase();
         result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
@@ -659,7 +636,6 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             const target = queue[currentIndex] || '';
             setUserInput(convertToKana(val, checkIsKatakana(target)));
         } else {
-            // TỰ ĐỘNG VIẾT HOA HẾT Ở CHẾ ĐỘ KANJI
             setUserInput(val.toUpperCase());
         }
     };
@@ -670,37 +646,35 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             initLesson();
         } else {
             document.body.style.overflow = 'unset';
+            setFinished(false); // Đảm bảo đóng lại là reset pháo hoa
         }
-    }, [isOpen, text, mode, dbData]);
+    }, [isOpen, mode]); // Reset khi mode thay đổi hoặc mở lại
 
     const triggerConfetti = React.useCallback(() => {
         if (typeof confetti === 'undefined') return;
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
     }, []);
 
-    useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen, triggerConfetti]);
+    useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen]);
 
     const checkAnswer = () => {
         if (status === 'correct' || finished) return;
         const currentItem = queue[currentIndex];
         let finalInput = userInput.trim();
 
-        // Xử lý chữ n cuối cùng cho từ vựng
         if (mode === 'vocab' && finalInput.endsWith('n')) {
             const isKata = checkIsKatakana(dbData.TUVUNG_DB[currentItem]?.reading || '');
             finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
         }
 
-        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentIndex]?.reading || '');
+        // FIX LỖI: Lấy target từ currentItem thay vì currentIndex
+        let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
         
         let isCorrect = false;
         if (mode === 'kanji') {
-            // KIỂM TRA CHÍNH XÁC CẢ DẤU (KHÔNG DÙNG removeAccents)
             isCorrect = finalInput.toUpperCase() === target.toUpperCase();
         } else {
-            // Từ vựng vẫn dùng removeAccents để hỗ trợ gõ linh hoạt nếu cần, 
-            // nhưng do convertToKana đã ra tiếng Nhật nên so sánh sẽ khớp 100%.
-            isCorrect = removeAccents(finalInput.toLowerCase()) === removeAccents((dbData.TUVUNG_DB[currentItem]?.reading || '').toLowerCase());
+            isCorrect = removeAccents(finalInput.toLowerCase()) === removeAccents(target.toLowerCase());
         }
 
         if (status === 'retyping' || status === 'wrong') {
@@ -714,7 +688,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            setCorrectAnswer(target);
+            setCorrectAnswer(target); // Đã có chữ nhờ fix logic target ở trên
             setStatus('wrong');
             setWrongDetected(true);
             setQueue(prev => [...prev, currentItem]);
@@ -3233,7 +3207,18 @@ const StudySetupModal = ({
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, config.text]);
-
+useEffect(() => {
+        if (isOpen) {
+            // KHÓA CUỘN NỀN KHI MỞ BẢNG CHỌN BÀI
+            document.body.style.overflow = 'hidden';
+            setLocalText(config.text);
+        } else {
+            // MỞ LẠI KHI ĐÓNG
+            document.body.style.overflow = 'unset';
+            setIsFilterMenuOpen(false); 
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen, config.text]);
     useEffect(() => {
         function handleClickOutside(event) {
             if (filterRef.current && !filterRef.current.contains(event.target)) setIsFilterMenuOpen(false);
