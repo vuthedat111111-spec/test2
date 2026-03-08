@@ -3163,7 +3163,7 @@ const App = () => {
                 }}
             />
 
-            <EditVocabModal 
+            <EditVocabModal  
                 isOpen={!!editingVocab}
                 onClose={() => setEditingVocab(null)}
                 data={editingVocab}
