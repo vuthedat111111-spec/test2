@@ -3782,7 +3782,7 @@ const App = () => {
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
-            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */}
+            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
                 isOpen={isReviewListOpen}
                 onClose={() => setIsReviewListOpen(false)}
