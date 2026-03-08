@@ -582,39 +582,46 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const [queue, setQueue] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
-    const [status, setStatus] = useState('idle'); // idle, correct, wrong, retyping
+    const [status, setStatus] = useState('idle'); 
     const [finished, setFinished] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState('');
-    const [initialTotal, setInitialTotal] = useState(0); // Tổng số chữ ban đầu để tính tiến trình
-    const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0); // Số câu đúng ngay lần đầu
+    const [initialTotal, setInitialTotal] = useState(0); 
+    const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
+    const [wrongDetected, setWrongDetected] = useState(false);
 
-    // --- BỘ CHUYỂN ĐỔI KANA CHUẨN ---
+    const initLesson = () => {
+        if (!text || !dbData) return;
+        let items = [];
+        if (mode === 'vocab') {
+            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
+        } else {
+            items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
+        }
+        const shuffled = items.sort(() => Math.random() - 0.5);
+        setQueue(shuffled);
+        setInitialTotal(shuffled.length);
+        setCurrentIndex(0);
+        setUserInput('');
+        setStatus('idle');
+        setCorrectFirstTimeCount(0);
+        setWrongDetected(false);
+        setCorrectAnswer('');
+        setFinished(false);
+    };
+
     const convertToKana = (rawText, isKatakanaTarget) => {
         const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'ni','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'cho','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'ni','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'ri','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'ကို','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'cho','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
         };
-
-        const toKata = (hira) => {
-            return hira.split('').map(c => {
-                const code = c.charCodeAt(0);
-                return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c;
-            }).join('');
-        };
-
+        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
         let result = rawText.toLowerCase();
-        // Âm ngắt
         result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-        
         const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-        for (let key of keys) {
-            result = result.split(key).join(hiraMap[key]);
-        }
-        result = result.replace(/n(?![aeiouy])/g, 'ん');
-
+        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
+        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
         return isKatakanaTarget ? toKata(result) : result;
     };
 
-    // Kiểm tra xem mục tiêu có chứa Katakana không để đổi bộ gõ
     const checkIsKatakana = (target) => /[\u30A0-\u30FF]/.test(target);
 
     const handleInputChange = (e) => {
@@ -627,28 +634,10 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         }
     };
 
-    // --- KHỞI TẠO VÀ RESET ---
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
-            // Reset toàn bộ trạng thái khi mở modal
-            setFinished(false);
-            setCurrentIndex(0);
-            setUserInput('');
-            setStatus('idle');
-            setCorrectFirstTimeCount(0);
-
-            if (text && dbData) {
-                let items = [];
-                if (mode === 'vocab') {
-                    items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
-                } else {
-                    items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
-                }
-                const shuffled = items.sort(() => Math.random() - 0.5);
-                setQueue(shuffled);
-                setInitialTotal(shuffled.length);
-            }
+            initLesson();
         } else {
             document.body.style.overflow = 'unset';
         }
@@ -659,38 +648,35 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
     }, []);
 
-    useEffect(() => {
-        if (finished && isOpen) triggerConfetti();
-    }, [finished, isOpen, triggerConfetti]);
+    useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen, triggerConfetti]);
 
     const checkAnswer = () => {
-        if (status === 'correct') return;
+        if (status === 'correct' || finished) return;
         const currentItem = queue[currentIndex];
-        const inputClean = removeAccents(userInput.trim().toLowerCase());
+        let finalInput = userInput.trim();
+        if (finalInput.endsWith('n')) {
+            const isKata = checkIsKatakana(mode === 'kanji' ? '' : (dbData.TUVUNG_DB[currentItem]?.reading || ''));
+            finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
+        }
+        const inputClean = removeAccents(finalInput.toLowerCase());
         let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
         const targetClean = removeAccents(target.toLowerCase());
 
-        // Nếu đang trong trạng thái gõ lại (Retyping)
         if (status === 'retyping' || status === 'wrong') {
-            if (inputClean === targetClean) {
-                goToNext();
-            } else {
-                setStatus('wrong');
-                setTimeout(() => setStatus('retyping'), 400);
-            }
+            if (inputClean === targetClean) goToNext();
+            else { setStatus('wrong'); setTimeout(() => setStatus('retyping'), 400); }
             return;
         }
 
-        // Kiểm tra lần đầu
         if (inputClean === targetClean) {
             setStatus('correct');
-            setCorrectFirstTimeCount(prev => prev + 1);
+            if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            // Sai: Hiện đáp án, yêu cầu gõ lại và đẩy xuống cuối queue
             setCorrectAnswer(target);
             setStatus('wrong');
-            setQueue(prev => [...prev, currentItem]); // Đẩy xuống cuối để học lại
+            setWrongDetected(true);
+            setQueue(prev => [...prev, currentItem]);
             setTimeout(() => setStatus('retyping'), 500);
         }
     };
@@ -701,100 +687,68 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             setUserInput('');
             setStatus('idle');
             setCorrectAnswer('');
-        } else {
-            setFinished(true);
-        }
+            setWrongDetected(false);
+        } else { setFinished(true); }
     };
 
     if (!isOpen || queue.length === 0) return null;
-
     const currentItem = queue[currentIndex];
     const info = mode === 'kanji' ? dbData.KANJI_DB[currentItem] : dbData.TUVUNG_DB[currentItem];
     const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
 
     return (
         <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
-            <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
-                
-                {!finished ? (
-                    <>
-                        {/* Progress Bar - Chỉ tăng khi đúng lần đầu */}
-                        <div className="w-full mb-6">
-                            <div className="flex justify-between items-end mb-2">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Tiến trình chuẩn</span>
-                                <span className="text-[10px] font-black text-zinc-900 bg-zinc-100 px-2 py-1 rounded-lg">
-                                    {correctFirstTimeCount} / {initialTotal}
-                                </span>
-                            </div>
-                            <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                                <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
-                            </div>
-                        </div>
-
-                        {/* Câu hỏi */}
-                        <div className={`flex flex-col items-center text-center mb-8 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                            <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>
-                                {currentItem}
-                            </h2>
-                            <p className="text-lg font-medium text-zinc-400 italic">
-                                {mode === 'vocab' ? `"${info?.meaning}"` : `(${info?.meaning})`}
-                            </p>
-                        </div>
-
-                        {/* Input */}
-                        <div className="w-full space-y-4">
-                            <input 
-                                type="text"
-                                autoFocus
-                                value={userInput}
-                                onChange={handleInputChange}
-                                onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                                placeholder={status === 'retyping' ? "Gõ lại đúng để tiếp tục..." : "Nhập đáp án..."}
-                                className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${
-                                    status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
-                                    status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 
-                                    'border-zinc-100 focus:border-zinc-900 bg-zinc-50'
-                                }`}
-                            />
-
-                            {(status === 'retyping' || status === 'wrong') && (
-                                <div className="animate-in slide-in-from-top-2 duration-300 text-center">
-                                    <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
-                                    <div className="inline-block px-4 py-2 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">
-                                        {correctAnswer}
-                                    </div>
-                                </div>
-                            )}
-
-                            <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest">
-                                {status === 'retyping' ? 'Gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
-                            </p>
-                        </div>
-                        
-                        <button onClick={onClose} className="mt-8 text-zinc-300 hover:text-red-400 text-[10px] font-black uppercase tracking-[0.2em] transition-colors">Thoát bài học</button>
-                    </>
-                ) : (
-                    /* Màn hình hoàn thành */
-                    <div className="text-center py-4 animate-in zoom-in-95 duration-500">
-                        <div className="text-6xl mb-6">🏆</div>
-                        <h3 className="text-2xl font-black text-zinc-800 mb-1 uppercase tracking-tight">HOÀN THÀNH</h3>
-                        <p className="text-zinc-400 text-sm mb-10 font-medium leading-relaxed">
-                            Bạn đã hoàn thành bài thi tự luận!<br/>
-                            Chính xác ngay lần đầu: <b>{correctFirstTimeCount}/{initialTotal}</b>
-                        </p>
-                        
-                        <div className="flex flex-col gap-3 w-full">
-                            <button onClick={() => { onClose(); onSwitchMode('game'); }} className="w-full py-4 bg-zinc-900 text-white font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-[11px] tracking-widest flex items-center justify-center gap-2">
-                                CHUYỂN SANG CHẾ ĐỘ HỌC
+            {!finished ? (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+                    <div className="w-full mb-8">
+                        <div className="flex justify-between items-center mb-5">
+                            <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
+                                {correctFirstTimeCount} / {initialTotal}
+                            </span>
+                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
-                            <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl shadow-xl active:scale-95 transition-all uppercase text-[11px] tracking-widest flex items-center justify-center gap-2">
-                                ÔN TẬP FLASHCARD
-                            </button>
-                            <button onClick={onClose} className="w-full py-3 text-zinc-400 font-bold text-[10px] uppercase tracking-widest mt-2 hover:text-zinc-900">Quay về trang chủ</button>
+                        </div>
+                        <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
                         </div>
                     </div>
-                )}
-            </div>
+
+                    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                        <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>{currentItem}</h2>
+                        <p className="text-lg font-medium text-zinc-400 italic leading-snug px-2">{mode === 'vocab' ? `"${info?.meaning}"` : `(${info?.meaning})`}</p>
+                    </div>
+
+                    <div className="w-full space-y-4">
+                        <input 
+                            type="text" autoFocus value={userInput} onChange={handleInputChange}
+                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
+                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
+                        />
+                        {(status === 'retyping' || status === 'wrong') && (
+                            <div className="animate-in slide-in-from-top-2 duration-300 text-center">
+                                <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
+                                <div className="inline-block px-5 py-2.5 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">{correctAnswer}</div>
+                            </div>
+                        )}
+                        <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">
+                            {status === 'retyping' ? 'Bắt buộc gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
+                    <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
+                    <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
+                    <div className="space-y-2">
+                        <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN FLASHCARD</button>
+                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
