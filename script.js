@@ -3757,28 +3757,30 @@ const VerbPracticePage = ({ onBack }) => {
         setGameState(`playing_${setup.mode}`);
     };
 
-    // 4. TẠO ĐÁP ÁN NHIỄU CHO TRẮC NGHIỆM
+   // 4. TẠO ĐÁP ÁN NHIỄU CHO TRẮC NGHIỆM
     const generateOptions = (question) => {
         const options = [question.answer];
-        const distractorForms = ['Te', 'Negative', 'Past', 'Passive', 'Potential'].sort(() => Math.random() - 0.5);
+        // Sửa in hoa (Te, Negative) thành chữ thường (te, negative, ...)
+        const distractorForms = ['te', 'negative', 'past', 'passive', 'potential'].sort(() => Math.random() - 0.5);
         
+        const conjugateFn = kamiya.conjugate || kamiya.default?.conjugate;
+
         distractorForms.forEach(df => {
             if (options.length >= 4) return;
             try {
-                const wrongAns = kamiya.conjugate(question.verb, question.type, [df])[0];
+                const wrongAns = conjugateFn(question.verb, question.type, [df])[0];
                 if (!options.includes(wrongAns) && wrongAns) options.push(wrongAns);
             } catch(e){}
         });
 
         if (options.length < 4) {
             try {
-                const wrongTypeAns = kamiya.conjugate(question.verb, 'v1', [question.formId])[0];
+                const wrongTypeAns = conjugateFn(question.verb, 'v1', [question.formId])[0];
                 if (!options.includes(wrongTypeAns) && wrongTypeAns) options.push(wrongTypeAns);
             } catch(e){}
         }
         return options.sort(() => Math.random() - 0.5);
     };
-
     const currentQ = queue[currentIndex];
     const optionsMemo = useMemo(() => currentQ ? generateOptions(currentQ) : [], [currentQ]);
 
