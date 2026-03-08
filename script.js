@@ -729,10 +729,14 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                         </div>
                     </div>
 
-                    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>{currentItem}</h2>
-                        <p className="text-lg font-medium text-zinc-400 italic leading-snug px-2">{mode === 'vocab' ? `"${info?.meaning}"` : `(${info?.meaning})`}</p>
-                    </div>
+    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+    <h2 className={`${mode === 'kanji' ? "text-8xl font-['Klee_One']" : "text-5xl font-bold font-sans"} text-zinc-800 mb-3`}>{currentItem}</h2>
+    
+    {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
+    {mode === 'vocab' && (
+        <p className="text-lg font-medium text-zinc-400 italic leading-snug px-2">"{info?.meaning}"</p>
+    )}
+</div>
 
                     <div className="w-full space-y-4">
                         <input 
