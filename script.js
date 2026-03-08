@@ -2344,24 +2344,26 @@ const handleLoadMinna = async () => {
         }
     };
 
-    // --- 6. XỬ LÝ RỜI TAY ---
+    // --- LOGIC ONBLUR: LÀM SẠCH & XÓA TRÙNG LẶP TỰ ĐỘNG ---
     const handleBlurText = () => {
         if (!localText) return;
-        let cleaned = localText; 
+        
+        let cleaned = localText;
         cleaned = cleaned.replace(/[ \t]+/g, ' '); 
         cleaned = cleaned.replace(/(\n\s*){2,}/g, '\n'); 
         cleaned = cleaned.trim();
-
-        if (filterOptions.removeDuplicates) {
+        if (mode === 'vocab') {
+            const lines = cleaned.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            cleaned = [...new Set(lines)].join('\n');
+            if (cleaned.length > 0) cleaned += '\n'; 
+        } else {
             cleaned = getUniqueChars(cleaned);
         }
-
         if (cleaned !== localText) {
             setLocalText(cleaned);
-            handleChange('text', cleaned.replace(/[a-zA-Z]/g, ''));
+            onChange({ ...config, text: cleaned.replace(/[a-zA-Z]/g, '') });
         }
     };
-
     // --- CÁC HÀM TIỆN ÍCH KHÁC ---
     const handleSmartLoad = (content, type = null) => {
         if (!content) return;
@@ -4759,44 +4761,25 @@ const StudySetupModal = ({
                                 <span className="text-[10px] font-bold uppercase tracking-widest">Bộ lọc</span>
                             </button>
 
-                            {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
-                            {isFilterMenuOpen && (
+                        {/* DROPDOWN MENU BỘ LỌC ĐEN TRẮNG */}
+                            {isFilterMenuOpen && mode !== 'vocab' && (
                                 <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
                                     <div className="mb-3 pb-2 border-b border-gray-100">
-                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Tùy chọn lọc</span>
+                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Cho phép nhập</span>
                                     </div>
                                     <div className="space-y-3">
-                                        {/* Các Checkbox chỉ hiện ở Kanji Mode */}
-                                        {mode !== 'vocab' && (
-                                            <>
-                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                                    <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                                    Kanji & Bộ thủ
-                                                </label>
-                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                                    <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                                    Hiragana
-                                                </label>
-                                                <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                                    <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                                    Katakana
-                                                </label>
-                                                <hr className="border-gray-100 my-2"/>
-                                            </>
-                                        )}
-
-                                        {/* Lọc Trùng Lặp (Hiện ở cả 2 mode) */}
-                                        <label className={`flex items-center gap-3 text-xs font-bold cursor-pointer transition-colors ${filterOptions.removeDuplicates ? 'text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}>
-                                            <input type="checkbox" checked={filterOptions.removeDuplicates} onChange={() => handleFilterChange('removeDuplicates')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
-                                            Xóa chữ trùng lặp
+                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                            <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                            Kanji & Bộ thủ
                                         </label>
-                                        
-                                        <hr className="border-gray-100"/>
-                                        
-                                        {/* Nút Làm Sạch Chữ Latinh */}
-                                        <button onClick={handleRemoveLatinManual} className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 text-[10px] font-black rounded-xl transition-all uppercase tracking-widest active:scale-95">
-                                            Xóa chữ Latinh
-                                        </button>
+                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                            <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                            Hiragana
+                                        </label>
+                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                                            <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/>
+                                            Katakana
+                                        </label>
                                     </div>
                                 </div>
                             )}
@@ -4805,12 +4788,35 @@ const StudySetupModal = ({
                     </div>
                 </div>
 
-                {/* Footer: Nút Bắt đầu */}
+              {/* Footer: Nút Bắt đầu */}
                 <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
                         onClick={() => {
-                            if (!config.text || config.text.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
-                            onStart(targetAction);
+                            // 1. DỌN DẸP SẠCH SẼ TRƯỚC KHI CHẠY (Giống hệt logic Blur)
+                            let finalContent = localText || "";
+                            finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
+                            
+                            if (mode === 'vocab') {
+                                const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                                finalContent = [...new Set(lines)].join('\n');
+                            } else {
+                                finalContent = getUniqueChars(finalContent);
+                            }
+
+                            // Cập nhật lại config chuẩn nhất
+                            const cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
+                            setLocalText(finalContent);
+                            onChange({ ...config, text: cleanLatinh });
+
+                            // 2. KIỂM TRA RỖNG VÀ BẮT ĐẦU
+                            if (!cleanLatinh || cleanLatinh.trim().length === 0) {
+                                return alert("Bạn chưa nhập dữ liệu để học!");
+                            }
+                            
+                            // Đợi state cập nhật xong xíu rồi mở game
+                            setTimeout(() => {
+                                onStart(targetAction);
+                            }, 50);
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
@@ -4818,9 +4824,6 @@ const StudySetupModal = ({
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
-
-            </div>
-        </div>
     );
 };
 const App = () => {
