@@ -3510,7 +3510,7 @@ useEffect(() => {
             }
         }
     }
-    // ==========================================
+
 
     setLocalText(cleanLatinh); 
     onChange({ ...config, text: cleanLatinh });
