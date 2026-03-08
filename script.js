@@ -2926,7 +2926,7 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
 };
 
 // --- COMPONENT: THƯ VIỆN CHỌN NHANH (100% ĐEN - TRẮNG - XÁM) ---
-const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) => {
+const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, targetAction }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
 
@@ -2936,7 +2936,8 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
     const [mimiLevel, setMimiLevel] = useState('N3');
     const [tangoPart, setTangoPart] = useState('');
     const [tangoLevel, setTangoLevel] = useState('N3');
-
+    const isKanjiEssay = mode === 'kanji' && targetAction === 'essay';
+    
     if (!isOpen) return null;
 
     // Hàm tự động đưa con số về min (1) hoặc max (50)
@@ -3084,10 +3085,34 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData }) 
                             <div className="border-t border-gray-100 pt-5">
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
                                 <div className="grid grid-cols-3 gap-2">
-                                    <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
-                                    <button onClick={() => fetchAndSetData('./data/hiragana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Hiragana</button>
-                                    <button onClick={() => fetchAndSetData('./data/katakana.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Katakana</button>
-                                </div>
+    <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
+    
+    {/* Nút Hiragana đã thêm logic khóa */}
+    <button 
+        onClick={() => fetchAndSetData('./data/hiragana.json')} 
+        disabled={isKanjiEssay}
+        className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${
+            isKanjiEssay 
+                ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' 
+                : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'
+        }`}
+    >
+        Hiragana
+    </button>
+    
+    {/* Nút Katakana đã thêm logic khóa */}
+    <button 
+        onClick={() => fetchAndSetData('./data/katakana.json')} 
+        disabled={isKanjiEssay}
+        className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${
+            isKanjiEssay 
+                ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' 
+                : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'
+        }`}
+    >
+        Katakana
+    </button>
+</div>
                             </div>
                             
                             {/* Lấy toàn bộ Kanji */}
@@ -3361,6 +3386,7 @@ useEffect(() => {
                 isOpen={isLibraryOpen}
                 onClose={() => setIsLibraryOpen(false)}
                 mode={mode}
+                targetAction={targetAction}
                 dbData={dbData}
                 srsData={srsData}
                 onSelectData={(newText) => {
@@ -3451,22 +3477,49 @@ useEffect(() => {
                {/* Footer: Nút Tiếp Tục */}
                 <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
-                        onClick={() => {
-                            let finalContent = localText || "";
-                            finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
-                            if (mode === 'vocab') {
-                                const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                                finalContent = [...new Set(lines)].join('\n');
-                            } else { finalContent = getUniqueChars(finalContent); }
+                       onClick={() => {
+    let finalContent = localText || "";
+    finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
+    
+    if (mode === 'vocab') {
+        const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        finalContent = [...new Set(lines)].join('\n');
+    } else { 
+        finalContent = getUniqueChars(finalContent); 
+    }
 
-                            const cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
-                            setLocalText(finalContent); onChange({ ...config, text: cleanLatinh });
+    let cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
 
-                            if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
-                            
-                            // ĐÓNG TẠM BẢNG SETUP, BÁO LÊN APP ĐỂ MỞ PREVIEW LIST
-                            onStart('preview'); 
-                        }}
+    // ==========================================
+    // THÊM MỚI: XỬ LÝ LỌC KANA CHO TỰ LUẬN KANJI
+    // ==========================================
+    if (mode === 'kanji' && targetAction === 'essay') {
+        // Regex nhận diện Hiragana và Katakana
+        const kanaRegex = /[\u3040-\u309F\u30A0-\u30FF]/g;
+        const hasKana = kanaRegex.test(cleanLatinh);
+        const onlyKanji = cleanLatinh.replace(kanaRegex, ''); // Xóa hết Kana, chỉ giữ Kanji
+
+        if (hasKana) {
+            if (onlyKanji.trim().length === 0) {
+                // Nếu xóa Kana xong mà chuỗi rỗng => Tức là người dùng CHỈ nhập Kana
+                alert("Chế độ Tự Luận không hỗ trợ kiểm tra Bảng chữ cái.\nVui lòng nhập Kanji!");
+                return; // Chặn không cho đi tiếp
+            } else {
+                // Nếu nhập lẫn lộn => Tự động bỏ qua Kana, giữ lại Kanji
+                cleanLatinh = onlyKanji;
+            }
+        }
+    }
+    // ==========================================
+
+    setLocalText(cleanLatinh); 
+    onChange({ ...config, text: cleanLatinh });
+
+    if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
+    
+    // ĐÓNG TẠM BẢNG SETUP, BÁO LÊN APP ĐỂ MỞ PREVIEW LIST
+    onStart('preview'); 
+}}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
                         TIẾP TỤC
