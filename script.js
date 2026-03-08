@@ -2952,7 +2952,33 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
         setRandomCount(val);
         return val;
     };
-    
+    const validateMinnaLesson = () => {
+        if (minnaLesson === '') return;
+        let val = parseInt(minnaLesson);
+        if (isNaN(val) || val < 1) setMinnaLesson(1);
+        else if (val > 50) setMinnaLesson(50); // Minna có 50 bài
+        else setMinnaLesson(val);
+    };
+
+    const validateMimiPart = () => {
+        if (mimiPart === '') return;
+        const limits = { N3: 12, N2: 13, N1: 14 }; // Giới hạn số phần Mimikara
+        const max = limits[mimiLevel];
+        let val = parseInt(mimiPart);
+        if (isNaN(val) || val < 1) setMimiPart(1);
+        else if (val > max) setMimiPart(max);
+        else setMimiPart(val);
+    };
+
+    const validateTangoPart = () => {
+        if (tangoPart === '') return;
+        const limits = { N3: 12, N2: 12, N1: 14 }; // Giới hạn số phần Tango
+        const max = limits[tangoLevel];
+        let val = parseInt(tangoPart);
+        if (isNaN(val) || val < 1) setTangoPart(1);
+        else if (val > max) setTangoPart(max);
+        else setTangoPart(val);
+    };
     // --- HÀM TẢI DỮ LIỆU CHUNG ---
     const fetchAndSetData = async (url) => {
         setIsLoading(true); setProgress(20);
@@ -3126,74 +3152,101 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
                         </>
                     ) : (
                         <div className="space-y-5">
-                           {/* Minna */}
-                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
-                                    <input 
-                                        type="number" 
-                                        placeholder="..." 
-                                        value={minnaLesson} 
-                                        onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} 
-                                        onKeyDown={(e) => { 
-                                            if (e.key === 'Enter' && minnaLesson) {
-                                                e.preventDefault();
-                                                handleSmartLoadVocabulary();
-                                            } 
-                                        }}
-                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-                                    />
-                                </div>
-                            </div>
+    {/* Minna */}
+    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
+        <div className="flex items-center gap-2">
+            <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
+            <input 
+                type="number" 
+                placeholder="..." 
+                value={minnaLesson} 
+                onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} 
+                onBlur={validateMinnaLesson} // <-- Tự sửa lỗi khi bấm ra ngoài
+                onKeyDown={(e) => { 
+                    if (e.key === 'Enter' && minnaLesson) {
+                        e.preventDefault();
+                        handleSmartLoadVocabulary();
+                    } 
+                }}
+                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+            />
+        </div>
+    </div>
 
-                            {/* Mimi */}
-                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Mimikara</label>
-                                <div className="flex items-center gap-2">
-                                    <select value={mimiLevel} onChange={e => setMimiLevel(e.target.value)} className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white">
-                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-                                    </select>
-                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-                                    <input 
-                                        type="number" 
-                                        placeholder="..." 
-                                        value={mimiPart} 
-                                        onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} 
-                                        onKeyDown={(e) => { 
-                                            if (e.key === 'Enter' && mimiPart) {
-                                                e.preventDefault();
-                                                handleSmartLoadVocabulary();
-                                            } 
-                                        }}
-                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-                                    />
-                                </div>
-                            </div>
+    {/* Mimi */}
+    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Mimikara</label>
+        <div className="flex items-center gap-2">
+            <select 
+                value={mimiLevel} 
+                onChange={e => { 
+                    const newLevel = e.target.value;
+                    setMimiLevel(newLevel);
+                    // Tự động kéo giới hạn xuống nếu đổi sang cấp độ có ít bài hơn
+                    if (mimiPart !== '') {
+                        const limits = { N3: 12, N2: 13, N1: 14 };
+                        if (parseInt(mimiPart) > limits[newLevel]) setMimiPart(limits[newLevel]);
+                    }
+                }} 
+                className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
+            >
+                <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+            </select>
+            <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+            <input 
+                type="number" 
+                placeholder="..." 
+                value={mimiPart} 
+                onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} 
+                onBlur={validateMimiPart} // <-- Tự sửa lỗi khi bấm ra ngoài
+                onKeyDown={(e) => { 
+                    if (e.key === 'Enter' && mimiPart) {
+                        e.preventDefault();
+                        handleSmartLoadVocabulary();
+                    } 
+                }}
+                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+            />
+        </div>
+    </div>
 
-                            {/* Tango */}
-                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Tango</label>
-                                <div className="flex items-center gap-2">
-                                    <select value={tangoLevel} onChange={e => setTangoLevel(e.target.value)} className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white">
-                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-                                    </select>
-                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-                                    <input 
-                                        type="number" 
-                                        placeholder="..." 
-                                        value={tangoPart} 
-                                        onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} 
-                                        onKeyDown={(e) => { 
-                                            if (e.key === 'Enter' && tangoPart) {
-                                                e.preventDefault();
-                                                handleSmartLoadVocabulary();
-                                            } 
-                                        }}
-                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-                                    />
-                                </div>
-                            </div>
+    {/* Tango */}
+    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Tango</label>
+        <div className="flex items-center gap-2">
+            <select 
+                value={tangoLevel} 
+                onChange={e => { 
+                    const newLevel = e.target.value;
+                    setTangoLevel(newLevel);
+                    // Tự động kéo giới hạn xuống nếu đổi sang cấp độ có ít bài hơn
+                    if (tangoPart !== '') {
+                        const limits = { N3: 12, N2: 12, N1: 14 };
+                        if (parseInt(tangoPart) > limits[newLevel]) setTangoPart(limits[newLevel]);
+                    }
+                }} 
+                className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
+            >
+                <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+            </select>
+            <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+            <input 
+                type="number" 
+                placeholder="..." 
+                value={tangoPart} 
+                onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} 
+                onBlur={validateTangoPart} // <-- Tự sửa lỗi khi bấm ra ngoài
+                onKeyDown={(e) => { 
+                    if (e.key === 'Enter' && tangoPart) {
+                        e.preventDefault();
+                        handleSmartLoadVocabulary();
+                    } 
+                }}
+                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+            />
+        </div>
+    </div>
 
                             <div className="pt-4 border-t border-gray-100">
                                 <button
