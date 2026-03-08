@@ -5105,8 +5105,8 @@ const StudySetupModal = ({
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
-                        TIẾP TỤC
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        TIẾP TỤC >
+                        
                     </button>
                 </div>
             </div>
