@@ -3841,7 +3841,7 @@ TÀI LIỆU HỌC TẬP
 const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
     const [reading, setReading] = useState('');
     const [meaning, setMeaning] = useState('');
-    const [hanviet, setHanviet] = useState(''); // <--- 1. Thêm State Hán Việt
+    const [hanviet, setHanviet] = useState(''); 
 
     useEffect(() => {
         if (isOpen) {
@@ -3935,6 +3935,207 @@ const EditVocabModal = ({ isOpen, onClose, data, onSave, dbData }) => {
                             Lưu thay đổi
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+// --- COMPONENT MỚI: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
+const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
+    const [editingWord, setEditingWord] = useState(null);
+    const [editForm, setEditForm] = useState({ reading: '', meaning: '', hanviet: '' });
+
+    // Ngăn cuộn trang
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    // Xử lý dữ liệu
+    const { needsEdit, ready, kanjiList } = React.useMemo(() => {
+        if (mode === 'kanji') {
+            const chars = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => c);
+            return { kanjiList: chars, needsEdit: [], ready: [] };
+        } else {
+            const words = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
+            const missing = [];
+            const complete = [];
+
+            words.forEach(word => {
+                // Ưu tiên lấy từ customVocabData (đã sửa), nếu không có thì lấy từ DB gốc
+                const info = customVocabData[word] || dbData?.TUVUNG_DB?.[word] || {};
+                const hanvietStr = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
+                
+                const wordData = {
+                    word,
+                    reading: info.reading || '',
+                    meaning: info.meaning || '',
+                    hanviet: info.hanviet || hanvietStr
+                };
+
+                // Phân loại: Thiếu nghĩa HOẶC thiếu cách đọc -> Cho lên đầu
+                if (!wordData.meaning || !wordData.reading) {
+                    missing.push(wordData);
+                } else {
+                    complete.push(wordData);
+                }
+            });
+            return { kanjiList: [], needsEdit: missing, ready: complete };
+        }
+    }, [text, mode, dbData, customVocabData]);
+
+    if (!isOpen) return null;
+
+    // Bắt đầu sửa
+    const startEdit = (item) => {
+        setEditingWord(item.word);
+        setEditForm({ reading: item.reading, meaning: item.meaning, hanviet: item.hanviet });
+    };
+
+    // Lưu sửa
+    const saveEdit = () => {
+        onSaveVocab(editingWord, editForm.reading, editForm.meaning, editForm.hanviet);
+        setEditingWord(null);
+    };
+
+    // Khôi phục mặc định
+    const restoreEdit = (word) => {
+        const originalInfo = dbData?.TUVUNG_DB?.[word] || { reading: '', meaning: '' };
+        const originalHanviet = word.split('').map(c => dbData?.KANJI_DB?.[c]?.sound || '').filter(s => s).join(' ');
+        setEditForm({ reading: originalInfo.reading || '', meaning: originalInfo.meaning || '', hanviet: originalHanviet });
+    };
+
+    return (
+        <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-gray-200">
+                
+                {/* Header */}
+                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                    <div>
+                        <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Danh sách cần học</h2>
+                        <p className="text-xs text-gray-500 font-medium">Kiểm tra lại dữ liệu trước khi bắt đầu</p>
+                    </div>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500 transition-colors">✕</button>
+                </div>
+
+                {/* Body (List) */}
+                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
+                    {mode === 'kanji' ? (
+                        // GIAO DIỆN KANJI
+                        <div>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
+                            <div className="flex flex-wrap gap-2">
+                                {kanjiList.map((char, i) => {
+                                    const info = dbData?.KANJI_DB?.[char] || {};
+                                    return (
+                                        <div key={i} className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-gray-900 transition-colors group">
+                                            <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none">{char}</span>
+                                            <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-gray-900">{info.sound || '---'}</span>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    ) : (
+                        // GIAO DIỆN TỪ VỰNG
+                        <div className="space-y-8">
+                            {/* PHẦN 1: CẦN BỔ SUNG (ƯU TIÊN) */}
+                            {needsEdit.length > 0 && (
+                                <div>
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="w-2 h-2 rounded-full bg-gray-900 animate-pulse"></span>
+                                        <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest">Cần bổ sung ({needsEdit.length})</h3>
+                                    </div>
+                                    <div className="space-y-3">
+                                        {needsEdit.map((item, i) => (
+                                            <div key={i} className="border-2 border-gray-900 rounded-xl p-4 bg-gray-50/50 shadow-sm relative">
+                                                {editingWord === item.word ? (
+                                                    // FORM CHỈNH SỬA
+                                                    <div className="space-y-3">
+                                                        <div className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-2">{item.word}</div>
+                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Âm Hán Việt</label>
+                                                                <input type="text" value={editForm.hanviet} onChange={e => setEditForm({...editForm, hanviet: e.target.value.toUpperCase()})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm font-bold uppercase"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Cách đọc</label>
+                                                                <input type="text" value={editForm.reading} onChange={e => setEditForm({...editForm, reading: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] font-bold text-gray-500 uppercase">Ý nghĩa</label>
+                                                                <input type="text" value={editForm.meaning} onChange={e => setEditForm({...editForm, meaning: e.target.value})} className="w-full mt-1 p-2 border border-gray-300 rounded focus:border-gray-900 outline-none text-sm"/>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex gap-2 justify-end mt-2">
+                                                            <button onClick={() => restoreEdit(item.word)} className="px-3 py-1.5 text-[10px] font-bold text-gray-600 bg-gray-200 rounded hover:bg-gray-300 uppercase transition-all">Khôi phục</button>
+                                                            <button onClick={() => setEditingWord(null)} className="px-3 py-1.5 text-[10px] font-bold text-gray-500 border border-gray-300 rounded hover:bg-gray-100 uppercase transition-all">Hủy</button>
+                                                            <button onClick={saveEdit} className="px-5 py-1.5 text-[10px] font-bold text-white bg-gray-900 rounded hover:bg-black uppercase transition-all">Lưu</button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    // HIỂN THỊ CẢNH BÁO THIẾU
+                                                    <div className="flex justify-between items-center">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xl font-bold text-gray-900">{item.word}</span>
+                                                            <span className="text-xs text-gray-500 font-medium italic mt-1">
+                                                                {item.hanviet && `[${item.hanviet}] `}
+                                                                <span className={item.reading ? "" : "text-gray-400"}>{item.reading || '(Thiếu cách đọc)'}</span>
+                                                                {" • "}
+                                                                <span className={item.meaning ? "" : "text-gray-400"}>{item.meaning || '(Thiếu ý nghĩa)'}</span>
+                                                            </span>
+                                                        </div>
+                                                        <button onClick={() => startEdit(item)} className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-black transition-all">SỬA</button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* PHẦN 2: ĐÃ ĐẦY ĐỦ */}
+                            {ready.length > 0 && (
+                                <div>
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                                        <h3 className="text-sm font-black text-gray-500 uppercase tracking-widest">Đã đầy đủ ({ready.length})</h3>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {ready.map((item, i) => (
+                                            <div key={i} className="border border-gray-200 rounded-xl p-3 flex justify-between items-center group hover:border-gray-900 transition-colors bg-white">
+                                                <div className="flex flex-col min-w-0 flex-1">
+                                                    <span className="text-lg font-bold text-gray-900 truncate">{item.word}</span>
+                                                    <span className="text-[11px] text-gray-500 truncate mt-0.5">
+                                                        {item.reading} • {item.meaning}
+                                                    </span>
+                                                </div>
+                                                <button onClick={() => startEdit(item)} className="p-1.5 text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors ml-2 opacity-0 group-hover:opacity-100">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
+                    <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all">Quay lại</button>
+                    <button 
+                        onClick={() => {
+                            onClose();
+                            setTimeout(() => onStart(targetAction), 50);
+                        }} 
+                        className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                    >
+                        BẮT ĐẦU HỌC NGAY
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -4792,7 +4993,7 @@ const StudySetupModal = ({
                     </div>
                 </div>
 
-                {/* Footer: Nút Bắt đầu */}
+               {/* Footer: Nút Tiếp Tục */}
                 <div className="p-5 border-t border-gray-100 bg-white">
                     <button 
                         onClick={() => {
@@ -4808,12 +5009,13 @@ const StudySetupModal = ({
 
                             if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
                             
-                            setTimeout(() => onStart(targetAction), 50);
+                            // ĐÓNG TẠM BẢNG SETUP, BÁO LÊN APP ĐỂ MỞ PREVIEW LIST
+                            onStart('preview'); 
                         }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
-                        BẮT ĐẦU {targetAction === 'flashcard' ? 'HỌC THẺ' : 'LÀM BÀI TẬP'}
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        TIẾP TỤC
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>
@@ -4825,6 +5027,7 @@ const App = () => {
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
     const [isLearnGameOpen, setIsLearnGameOpen] = useState(false);
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
+    const [isPreviewListOpen, setIsPreviewListOpen] = useState(false);
     
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
@@ -4887,13 +5090,21 @@ const App = () => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-    // --- HÀM KHỞI ĐỘNG HỌC ---
+   // --- HÀM KHỞI ĐỘNG HỌC ---
     const handleStartLearning = (target) => {
-        setSetupConfig({ isOpen: false, targetAction: null }); // Đóng bảng Setup
-        setTimeout(() => {
-            if (target === 'flashcard') setIsFlashcardOpen(true);
-            if (target === 'game') setIsLearnGameOpen(true);
-        }, 100);
+        if (target === 'preview') {
+            // Mở bảng danh sách xem trước
+            setSetupConfig(prev => ({ ...prev, isOpen: false })); // Đóng setup
+            setTimeout(() => setIsPreviewListOpen(true), 100);
+        } else {
+            // Mở thẳng flashcard hoặc game
+            setSetupConfig({ isOpen: false, targetAction: null });
+            setIsPreviewListOpen(false); // Đóng bảng list
+            setTimeout(() => {
+                if (target === 'flashcard') setIsFlashcardOpen(true);
+                if (target === 'game') setIsLearnGameOpen(true);
+            }, 100);
+        }
     };
 
     // --- HIỂN THỊ LOADING ---
@@ -4929,7 +5140,22 @@ const App = () => {
                 dbData={dbData}
                 srsData={srsData}
             />
-
+{/* MODAL MỚI: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
+            <PreviewListModal
+                isOpen={isPreviewListOpen}
+                onClose={() => {
+                    // Khi bấm Quay Lại, đóng Preview và mở lại Setup
+                    setIsPreviewListOpen(false);
+                    setTimeout(() => setSetupConfig(prev => ({ ...prev, isOpen: true })), 100);
+                }}
+                onStart={handleStartLearning}
+                targetAction={setupConfig.targetAction}
+                text={config.text}
+                mode={practiceMode}
+                dbData={dbData}
+                customVocabData={customVocabData}
+                onSaveVocab={handleSaveVocab}
+            />
             {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
                 isOpen={isFlashcardOpen} 
