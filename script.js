@@ -2296,7 +2296,7 @@ const KanjiOfTheDay = () => {
     }, [paths, currentKanji.char]);
 
     return (
-        <div className="hidden lg:flex w-full max-w-[400px] mx-auto ml-auto aspect-square bg-[#f8f8f9] rounded-3xl border border-zinc-200 shadow-sm flex-col p-7 transition-transform hover:-translate-y-1 duration-300">
+        <div className="flex lg:flex w-full max-w-[400px] mx-auto ml-auto aspect-square bg-[#f8f8f9] rounded-3xl border border-zinc-200 shadow-sm flex-col p-7 transition-transform hover:-translate-y-1 duration-300">
             
             {/* TRÊN CÙNG: TIÊU ĐỀ */}
             <div className="w-full text-center">
@@ -2533,9 +2533,22 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             </a>
                         </div>
                         
-                        <button className="md:hidden p-2 text-zinc-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu w-6 h-6"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
-                        </button>
+                       <div className="md:hidden relative flex items-center" ref={notifRef}>
+    <button onClick={handleToggleNotif} className="relative p-2 text-zinc-500 outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+        {hasNewNotif && (
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
+        )}
+    </button>
+    {isNotifOpen && (
+        /* Giữ nguyên phần dropdown nội dung thông báo như code cũ của bạn */
+        <div className="absolute top-full right-0 mt-3 w-[calc(100vw-2rem)] ..."> 
+            {/* Copy y hệt nội dung thông báo cũ vào đây */}
+        </div>
+    )}
+</div>
                     </div>
                 </div>
             </nav>
@@ -2547,7 +2560,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                     {/* KHỐI TEXT BÊN TRÁI */}
                     <div style={{ opacity: 1, transform: 'none' }} className="animate-in slide-in-from-left-8 duration-700">
                         <div className="inline-block px-3 py-1 mb-5 border border-zinc-200 rounded-full bg-zinc-50">
-                            <span className="text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bước tiếp hành trình của bạn</span>
+                            <span className="hidden md:inline-block text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bước tiếp hành trình của bạn</span>
                         </div>
                         
                         <h1 className="text-3xl md:text-[4rem] font-bold tracking-tight leading-[1.05] mb-6 text-zinc-900">
@@ -2555,7 +2568,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             <span className="text-zinc-400 font-light italic font-serif">nơi đó có con đường</span>
                         </h1>
                         
-                        <p className="text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
+                        <p className="hidden md:block text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
                             <span className="font-jp">日本語を勉強しましょう。</span>
                         </p>
                         
@@ -2628,23 +2641,16 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
 
             {/* FOOTER */}
             <footer className="bg-white border-t border-zinc-100 py-12 relative z-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <a 
-                        href="https://www.tiktok.com/@phadaotiengnhat" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="flex items-center gap-2 group hover:opacity-80 transition-all cursor-pointer"
-                        title="Theo dõi TikTok Phá Đảo Tiếng Nhật"
-                    >
-                        <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
-                            </svg>
-                        </div>
-                        <span className="font-bold tracking-tight text-zinc-900">Phá Đảo Tiếng Nhật</span>
-                    </a>
-                    <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật.</p>
-                </div>
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div className="flex flex-col items-center md:flex-row gap-4 md:gap-6">
+        <a href="https://www.tiktok.com/@phadaotiengnhat" ...>...</a>
+
+        {/* Thêm 2 nút này - Chỉ hiện trên Mobile (md:hidden) */}
+        <button onClick={() => setIsDocsModalOpen(true)} className="md:hidden text-sm font-bold text-zinc-600">Tài liệu</button>
+        <a href="https://zalo.me/g/jeflei549" className="md:hidden text-sm font-bold text-zinc-600">Nhóm học tập</a>
+    </div>
+    <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật.</p>
+</div>
             </footer>
 
             {/* --- UI POPUP TÀI LIỆU --- */}
