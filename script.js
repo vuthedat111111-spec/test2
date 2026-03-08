@@ -3606,16 +3606,31 @@ const VerbPracticePage = ({ onBack }) => {
     const [gameState, setGameState] = useState('loading'); // loading, setup, playing_typing, playing_time_attack, playing_suffix, finished
     
     // --- STATE SETUP ---
-    const [setup, setSetup] = useState({
-        mode: 'typing', // typing, time_attack, suffix
-        text: '', 
-        forms: { 'Te': true, 'Negative': false, 'Ta': false, 'Dictionary': false, 'Volitional': false, 'Potential': false, 'Passive': false, 'Causative': false }
-    });
+   const [setup, setSetup] = useState({
+    mode: 'typing',
+    text: '', 
+    forms: { 
+        'te': true, // Viết thường
+        'negative': false, 
+        'past': false, 
+        'dictionary': false, 
+        'volitional': false, 
+        'potential': false, 
+        'passive': false, 
+        'causative': false 
+    }
+});
 
     const FORM_LABELS = {
-        'Te': 'Thể て (Te)', 'Negative': 'Thể ない (Phủ định)', 'Ta': 'Thể た (Quá khứ)', 'Dictionary': 'Thể từ điển',
-        'Volitional': 'Thể ý chí', 'Potential': 'Thể khả năng', 'Passive': 'Thể bị động', 'Causative': 'Thể sai khiến'
-    };
+    'te': 'Thể て (Te)',
+    'negative': 'Thể ない (Phủ định)',
+    'past': 'Thể た (Quá khứ)', 
+    'dictionary': 'Thể từ điển',
+    'volitional': 'Thể ý chí',
+    'potential': 'Thể khả năng',
+    'passive': 'Thể bị động',
+    'causative': 'Thể sai khiến'
+};
 
     // 1. TẢI THƯ VIỆN KAMIYA-CODEC TỪ CDN
     useEffect(() => {
