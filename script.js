@@ -2078,7 +2078,7 @@ const KanjiOfTheDay = () => {
         { char: '志', sound: 'CHÍ', meaning: 'Ý chí, quyết tâm.' },
         { char: '悟', sound: 'NGỘ', meaning: 'Giác ngộ, thức tỉnh' },
         { char: '学', sound: 'HỌC', meaning: 'Học hành, học tập.' }, // Đã sửa lại âm Hán Việt chuẩn
-        { char: '忍', sound: 'NHẪN', meaning: 'Nhẫn nại, kiên tâm.' }
+        { char: '忍', sound: 'NHẪN', meaning: 'Nhẫn nại, kiên nhẫn.' }
     ], []);
 
     // 2. STATE LƯU TRỮ (Sửa lỗi: Chọn ngẫu nhiên ngay lúc khởi tạo state)
@@ -2157,14 +2157,68 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
+
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP (Theo chuẩn HTML gốc) ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const featuresRef = useRef(null);
 
-    // --- 1. STATE QUẢN LÝ BẬT/TẮT POPUP TÀI LIỆU ---
+    // --- 1. STATE QUẢN LÝ POPUP TÀI LIỆU ---
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
 
-    // Khóa cuộn trang khi mở Popup
+    // --- 2. STATE VÀ DATA CHO HỆ THỐNG THÔNG BÁO ---
+    const [isNotifOpen, setIsNotifOpen] = useState(false);
+    const notifRef = useRef(null);
+
+    // BẠN THÊM/SỬA THÔNG BÁO Ở ĐÂY NHÉ:
+    // Mẹo: Khi có thông báo mới, hãy tạo 1 block mới lên ĐẦU mảng và TĂNG số 'id' lên (3, 4, 5...)
+    // (Nếu không có thông báo nào, chỉ cần để trống: const notifications = [];)
+    const notifications = [
+        { 
+            id: 1, 
+            title: 'Giao diện web mới', 
+            date: '08/03/2026', 
+            content: 'Mình đang nâng cấp trang web, sắp tới còn rất nhiều tính năng mới. Các bạn đón chờ nhé!'
+        }
+    ];
+
+    // Lấy danh sách ID đã đọc từ bộ nhớ máy người dùng
+    const [readNotifIds, setReadNotifIds] = useState(() => {
+        const saved = localStorage.getItem('phadao_read_notifs');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // Nhớ những tin chưa đọc từ lúc vừa vào web (Để giữ chấm xanh bên trong bảng mượt mà)
+    const [sessionUnreadIds] = useState(() => {
+        return notifications.map(n => n.id).filter(id => !readNotifIds.includes(id));
+    });
+
+    // Nếu có ID nào trong thông báo mà chưa nằm trong danh sách đã đọc -> Bật chấm đỏ ở chuông
+    const hasNewNotif = notifications.some(n => !readNotifIds.includes(n.id));
+
+    // Hàm xử lý khi bấm vào quả chuông
+    const handleToggleNotif = () => {
+        setIsNotifOpen(!isNotifOpen);
+        
+        // Nếu người dùng mở bảng ra và đang có tin mới -> Lưu vào máy là "Đã đọc tất cả"
+        if (!isNotifOpen && hasNewNotif) {
+            const allIds = notifications.map(n => n.id);
+            setReadNotifIds(allIds);
+            localStorage.setItem('phadao_read_notifs', JSON.stringify(allIds));
+        }
+    };
+
+    // Đóng popup thông báo khi click ra ngoài vùng của nó
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (notifRef.current && !notifRef.current.contains(event.target)) {
+                setIsNotifOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    // Khóa cuộn trang khi mở Popup Tài liệu
     useEffect(() => {
         if (isDocsModalOpen) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'unset';
@@ -2191,22 +2245,98 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
             <nav className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-zinc-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
+                        {/* Logo */}
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                             <div className="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold font-jp">学</div>
                             <span className="text-xl font-bold tracking-tight">PHÁ ĐẢO<span className="font-light"> TIẾNG NHẬT</span></span>
                         </div>
                         
-                        <div className="hidden md:flex items-center gap-8">
-                            {/* --- 2. SỬA THÀNH NÚT BẤM ĐỂ MỞ TÀI LIỆU --- */}
+                        {/* Menu PC */}
+                        <div className="hidden md:flex items-center gap-5">
+                            
+                            {/* Nút Tài Liệu */}
                             <button 
                                 onClick={() => setIsDocsModalOpen(true)}
-                                className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer outline-none"
+                                className="text-sm font-bold text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer outline-none px-2 py-1 rounded-lg hover:bg-zinc-50"
                             >
                                 Tài liệu
                             </button>
 
-                            <div className="h-4 w-px bg-zinc-200"></div>
-                            <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-white rounded-full text-sm font-medium hover:bg-zinc-800 transition-colors">
+                            {/* --- CỤM CHUÔNG THÔNG BÁO --- */}
+                            <div className="relative flex items-center" ref={notifRef}>
+                                <button 
+                                    onClick={handleToggleNotif} 
+                                    className="relative p-2 text-zinc-500 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-100 outline-none"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                                    </svg>
+                                    
+                                    {/* Chấm đỏ báo tin mới (Sẽ tự biến mất khi bấm mở) */}
+                                    {hasNewNotif && (
+                                        <span className="absolute top-1.5 right-2 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
+                                    )}
+                                </button>
+
+                                {/* BẢNG DROPDOWN THÔNG BÁO */}
+                                {isNotifOpen && (
+                                    <div className="absolute top-full right-0 mt-3 w-80 bg-white border border-zinc-200 rounded-2xl shadow-[0_10px_40px_rgb(0,0,0,0.1)] z-50 animate-in fade-in zoom-in-95 duration-200 overflow-hidden origin-top-right">
+                                        
+                                        {/* Header Dropdown */}
+                                        <div className="px-4 py-3 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+                                            <span className="font-black text-sm text-zinc-800 uppercase tracking-wide">Thông báo</span>
+                                        </div>
+
+                                        {/* Body Dropdown */}
+                                        <div className="max-h-[350px] overflow-y-auto custom-scrollbar p-1.5 space-y-1">
+                                            {notifications.length > 0 ? (
+                                                notifications.map(notif => {
+                                                    // Kiểm tra tin mới dựa trên dữ liệu lưu tạm lúc đầu (session)
+                                                    const isNew = sessionUnreadIds.includes(notif.id);
+                                                    
+                                                    return (
+                                                        <div key={notif.id} className={`p-3 rounded-xl transition-colors ${isNew ? 'bg-blue-50/50 hover:bg-blue-50' : 'hover:bg-zinc-50'}`}>
+                                                            <div className="flex gap-3">
+                                                                {/* Cột trái: Icon chấm tròn */}
+                                                                <div className="mt-1">
+                                                                    {isNew ? (
+                                                                        <div className="w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.6)]"></div>
+                                                                    ) : (
+                                                                        <div className="w-2 h-2 rounded-full bg-zinc-300"></div>
+                                                                    )}
+                                                                </div>
+                                                                {/* Cột phải: Nội dung */}
+                                                                <div className="flex-1">
+                                                                    <h4 className={`text-sm mb-0.5 ${isNew ? 'font-bold text-zinc-900' : 'font-semibold text-zinc-700'}`}>
+                                                                        {notif.title}
+                                                                    </h4>
+                                                                    <p className="text-[10px] text-zinc-400 font-medium mb-1.5">{notif.date}</p>
+                                                                    <p className="text-xs text-zinc-600 leading-relaxed">
+                                                                        {notif.content}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })
+                                            ) : (
+                                                // Màn hình trống (Empty State)
+                                                <div className="py-10 flex flex-col items-center text-center">
+                                                    <div className="w-12 h-12 bg-zinc-50 rounded-full flex items-center justify-center mb-3 text-zinc-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.26 3.27A6.6 6.6 0 0 1 12 3a6 6 0 0 1 6 6v7h4l-3.21 3.21A2 2 0 0 1 17 21H7a2 2 0 0 1-1.93-1.46"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="m2 2 20 20"/></svg>
+                                                    </div>
+                                                    <span className="text-sm font-bold text-zinc-700 mb-1">Trống trơn!</span>
+                                                    <span className="text-xs text-zinc-400">Bạn chưa có thông báo nào.</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="h-4 w-px bg-zinc-200 mx-2"></div>
+                            
+                            <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 transition-transform active:scale-95 shadow-sm">
                                 <span>Tham gia Nhóm</span>
                             </a>
                         </div>
@@ -2245,7 +2375,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                         </div>
                     </div>
 
-                    {/* KHỐI KANJI BÊN PHẢI ĐÃ LÀM Ở BƯỚC 1 */}
+                    {/* KHỐI KANJI BÊN PHẢI */}
                     <KanjiOfTheDay dbData={dbData} />
 
                 </div>
@@ -2299,20 +2429,29 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
             {/* FOOTER */}
             <footer className="bg-white border-t border-zinc-100 py-12 relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-zinc-900 rounded-full flex items-center justify-center text-white text-xs font-bold font-jp">学</div>
-                        <span className="font-bold tracking-tight">Phá Đảo Tiếng Nhật</span>
-                    </div>
+                    <a 
+                        href="https://www.tiktok.com/@phadaotiengnhat" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center gap-2 group hover:opacity-80 transition-all cursor-pointer"
+                        title="Theo dõi TikTok Phá Đảo Tiếng Nhật"
+                    >
+                        <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                            </svg>
+                        </div>
+                        <span className="font-bold tracking-tight text-zinc-900">Phá Đảo Tiếng Nhật</span>
+                    </a>
                     <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
             </footer>
 
-            {/* --- 3. UI POPUP TÀI LIỆU --- */}
+            {/* --- UI POPUP TÀI LIỆU --- */}
             {isDocsModalOpen && (
                 <div className="fixed inset-0 z-[500] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsDocsModalOpen(false)}>
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-gray-200 flex flex-col max-h-[80vh]" onClick={e => e.stopPropagation()}>
                         
-                        {/* Header của Popup */}
                         <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                             <h3 className="text-sm font-bold text-gray-700 uppercase flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600">
@@ -2325,10 +2464,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                             </button>
                         </div>
 
-                        {/* Danh sách tài liệu */}
                         <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar">
-
-                            {/* Bộ sách luyện đề */}
                             <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -2337,10 +2473,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Sách luyện đề JLPT (N5-N1)</p>
                                     <p className="text-[10px] text-gray-400">15 quyển</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                             
-                            {/* 2139 kanji */}
                             <a href="https://drive.google.com/file/d/1Q3bbd3Aao7R71wemjESHddbvmXWYe542/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -2349,10 +2483,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">2139 Hán tự (N5-N1)</p>
                                     <p className="text-[10px] text-gray-400">PDF • 797 KB</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
 
-                            {/* quy tắc chuyển âm */}
                             <a href="https://drive.google.com/file/d/17L2ufF9P0GfLrhzE_yCsAqjXYSYrhTxU/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -2361,10 +2493,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Quy tắc chuyển âm</p>
                                     <p className="text-[10px] text-gray-400">PDF • 128 KB</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
 
-                            {/* Flashcard Kanji */}
                             <a href="https://quizlet.com/join/mE5CzMyT7?i=4yxqkk&x=1bqt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -2373,10 +2503,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Flashcard 2139 kanji N5-N1</p>
                                     <p className="text-[10px] text-gray-400">147 học phần</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
 
-                            {/* Flashcard từ vựng */}
                             <a href="https://quizlet.com/join/nuE9y8xHf?i=4yxqkk&x=1bqt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -2385,10 +2513,8 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Flashcard từ vựng N5-N1</p>
                                     <p className="text-[10px] text-gray-400">354 học phần</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
 
-                            {/* nhóm học tập */}
                             <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                                 <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -2402,12 +2528,9 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                     <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Thêm nhiều tài liệu khác...</p>
                                     <p className="text-[10px] text-gray-400">tham gia nhóm học tập</p>
                                 </div>
-                                <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
-
                         </div>
 
-                        {/* Nút đóng màu đen */}
                         <div className="p-4 pt-2 bg-white">
                             <button 
                                 onClick={() => setIsDocsModalOpen(false)}
@@ -2416,7 +2539,6 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
                                 ĐÓNG
                             </button>
                         </div>
-
                     </div>
                 </div>
             )}
