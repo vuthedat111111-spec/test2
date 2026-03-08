@@ -1,35 +1,7 @@
 const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
-
-// --- BỘ CHUYỂN ĐỔI KANA ---
-
-    const convertToKana = (rawText, isKatakanaTarget) => {
-
-        const hiraMap = {
-
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
-
-        };
-
-        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
-
-        let result = rawText.toLowerCase();
-
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-
-        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-
-        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
-
-        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
-
-        return isKatakanaTarget ? toKata(result) : result;
-
-    };
-
-
-const { useState, useEffect, useMemo, useRef } = React;
+    const { useState, useEffect, useMemo, useRef } = React;
 
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
@@ -642,7 +614,20 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         setInitialTotal(shuffled.length);
     };
 
-    
+    // --- BỘ CHUYỂN ĐỔI KANA ---
+    const convertToKana = (rawText, isKatakanaTarget) => {
+        const hiraMap = {
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+        };
+        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
+        let result = rawText.toLowerCase();
+        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
+        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
+        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
+        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
+        return isKatakanaTarget ? toKata(result) : result;
+    };
+
     const checkIsKatakana = (target) => /[\u30A0-\u30FF]/.test(target);
 
     const handleInputChange = (e) => {
@@ -2366,7 +2351,7 @@ const KanjiOfTheDay = () => {
 };
 
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData, onNavigateToVerb }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -2568,19 +2553,22 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-     <div onClick={onNavigateToVerb} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-indigo-100 text-indigo-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider animate-pulse">
-        MỚI
+       {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (BỊ KHÓA) */}
+<div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
+    {/* Nhãn "Sắp ra mắt" */}
+    <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+        Sắp ra mắt
     </div>
     
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+    <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
+        {/* Icon mũi tên biến đổi (biểu tượng cho chia động từ) */}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 16v-2.38C4 11.5 5.97 10.5 7 10h10v-3l3 4-3 4v-3H7c-.45 0-.82.16-1 .5V16H4z"></path>
             <path d="M20 8v2.38C20 12.5 18.03 13.5 17 14H7v3l-3-4 3-4v3h10c.45 0 .82-.16 1-.5V8h2z"></path>
         </svg>
     </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
-    <p className="text-sm font-medium text-zinc-500 mb-4 uppercase tracking-wide">3 Chế độ phản xạ</p>
+    <h3 className="text-xl font-bold mb-1 text-zinc-400">CHIA ĐỘNG TỪ</h3>
+    <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
 </div>
 
     {/* THẺ TÍNH NĂNG MỚI: LUYỆN JLPT (BỊ KHÓA) */}
@@ -3595,432 +3583,6 @@ useEffect(() => {
         </div>
     );
 };
-// =========================================================================
-// ĐẠI DỰ ÁN: CHIA ĐỘNG TỪ TÙY CHỈNH BẰNG KAMIYA-CODEC (HOÀN CHỈNH 100%)
-// =========================================================================
-
-const VerbPracticePage = ({ onBack }) => {
-    const { useState, useEffect, useMemo, useCallback } = React;
-    
-    const [kamiya, setKamiya] = useState(null);
-    const [gameState, setGameState] = useState('loading'); // loading, setup, playing_typing, playing_time_attack, playing_suffix, finished
-    
-    // --- STATE SETUP ---
-   const [setup, setSetup] = useState({
-    mode: 'typing',
-    text: '', 
-    forms: { 
-        'te': true, // Viết thường
-        'negative': false, 
-        'past': false, 
-        'dictionary': false, 
-        'volitional': false, 
-        'potential': false, 
-        'passive': false, 
-        'causative': false 
-    }
-});
-
-    const FORM_LABELS = {
-    'te': 'Thể て (Te)',
-    'negative': 'Thể ない (Phủ định)',
-    'past': 'Thể た (Quá khứ)', 
-    'dictionary': 'Thể từ điển',
-    'volitional': 'Thể ý chí',
-    'potential': 'Thể khả năng',
-    'passive': 'Thể bị động',
-    'causative': 'Thể sai khiến'
-};
-
-    // 1. TẢI THƯ VIỆN KAMIYA-CODEC NỘI BỘ
-    useEffect(() => {
-        // Trỏ trực tiếp vào file bạn vừa up lên Github
-        import('./kamiya-codec.js').then(module => {
-            setKamiya(module);
-            setGameState('setup');
-        }).catch(err => {
-            console.error("Lỗi import:", err);
-            alert("Không tải được bộ chia động từ!");
-        });
-    }, []);
-
-    // 2. BỘ PHÂN TÍCH TỪ VỰNG THÔNG MINH
-    const parseVerb = (rawWord) => {
-        let text = rawWord.trim();
-        if (!text) return null;
-
-        if (text.endsWith('する') || text.endsWith('します')) {
-            const base = text.replace(/する$|します$/, '');
-            return { word: base + 'する', type: 'vs-i' };
-        }
-        if (text.endsWith('来る') || text.endsWith('くる') || text.endsWith('来ます') || text.endsWith('きます')) {
-            const base = text.replace(/来る$|くる$|来ます$|きます$/, '');
-            return { word: base + '来る', type: 'vk' };
-        }
-
-        if (text === '行く' || text === 'いく' || text === '行きます' || text === 'いきます') {
-            return { word: '行く', type: 'v5k-s' };
-        }
-        if (text === 'ある' || text === 'あります') {
-            return { word: 'ある', type: 'v5r-i' }; 
-        }
-
-        const honorifics = ['いらっしゃる', 'なさる', 'くださる', 'おっしゃる', 'ござる'];
-        if (honorifics.some(h => text === h || text === h.slice(0, -1) + 'います')) {
-             const base = honorifics.find(h => text.startsWith(h.slice(0, -1)));
-             return { word: base, type: 'v5aru' };
-        }
-
-        if (text.endsWith('ます')) {
-            const stem = text.slice(0, -2);
-            const lastChar = stem.slice(-1);
-            const baseStem = stem.slice(0, -1);
-            
-            const godanMap = {'い':'う', 'き':'く', 'ぎ':'ぐ', 'し':'す', 'ち':'つ', 'に':'ぬ', 'び':'ぶ', 'み':'む', 'り':'る'};
-            if (godanMap[lastChar]) {
-                const dictForm = baseStem + godanMap[lastChar];
-                const typeMap = {'う':'v5u','く':'v5k','ぐ':'v5g','す':'v5s','つ':'v5t','ぬ':'v5n','ぶ':'v5b','む':'v5m','る':'v5r'};
-                return { word: dictForm, type: typeMap[godanMap[lastChar]] };
-            } else {
-                return { word: stem + 'る', type: 'v1' };
-            }
-        }
-
-        const lastChar = text.slice(-1);
-        if (lastChar === 'る') {
-            const godanExceptions = [
-                '帰る', '入る', '走る', '切る', '知る', '要る', '喋る', '減る', 
-                '焦る', '限る', '蹴る', '滑る', '握る', '練る', '散る', '交じる', '嘲る'
-            ];
-            if (godanExceptions.some(ex => text.endsWith(ex))) return { word: text, type: 'v5r' };
-            return { word: text, type: 'v1' }; 
-        }
-
-        const godanTypes = {'う':'v5u','く':'v5k','ぐ':'v5g','す':'v5s','つ':'v5t','ぬ':'v5n','ぶ':'v5b','む':'v5m'};
-        if (godanTypes[lastChar]) return { word: text, type: godanTypes[lastChar] }; 
-
-        return null;
-    };
-
-    // --- GAMEPLAY STATES ---
-    const [queue, setQueue] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(60);
-    const [status, setStatus] = useState('idle');
-    const [userInput, setUserInput] = useState('');
-    const [streak, setStreak] = useState(0);
-
-    // 3. HÀM START GAME (Đã fix lỗi bị cắt cụt)
-    const startGame = () => {
-        const activeForms = Object.keys(setup.forms).filter(k => setup.forms[k]);
-        if (activeForms.length === 0) return alert("Vui lòng chọn ít nhất 1 Thể để luyện tập!");
-        if (!setup.text.trim()) return alert("Vui lòng nhập ít nhất 1 động từ!");
-
-        const rawWords = setup.text.split(/[\n,;、。]+/).map(w => w.trim()).filter(w => w);
-        let parsedVerbs = [];
-
-        // Lặp mảng an toàn
-        rawWords.forEach(w => {
-            const parsed = parseVerb(w);
-            if (parsed) parsedVerbs.push(parsed);
-        });
-
-        if (parsedVerbs.length === 0) return alert("Không tìm thấy động từ tiếng Nhật hợp lệ nào trong ô nhập!");
-
-        let questions = [];
-        parsedVerbs.forEach(v => {
-            activeForms.forEach(form => {
-                try {
-                    const result = kamiya.conjugate(v.word, v.type, [form]);
-                    if (result && result.length > 0) {
-                        questions.push({
-                            verb: v.word,
-                            formId: form,
-                            formLabel: FORM_LABELS[form],
-                            answer: result[0],
-                            type: v.type
-                        });
-                    }
-                } catch (e) { console.warn("Lỗi chia từ:", v.word, e); }
-            });
-        });
-
-        questions = questions.sort(() => Math.random() - 0.5); 
-        
-        if(setup.mode === 'time_attack') questions = questions.slice(0, 100); 
-        else questions = questions.slice(0, 30); 
-
-        setQueue(questions);
-        setCurrentIndex(0);
-        setScore(0);
-        setTimeLeft(60);
-        setStreak(0);
-        setGameState(`playing_${setup.mode}`);
-    };
-
-   // 4. TẠO ĐÁP ÁN NHIỄU CHO TRẮC NGHIỆM
-    const generateOptions = (question) => {
-        const options = [question.answer];
-        // Sửa in hoa (Te, Negative) thành chữ thường (te, negative, ...)
-        const distractorForms = ['te', 'negative', 'past', 'passive', 'potential'].sort(() => Math.random() - 0.5);
-        
-        const conjugateFn = kamiya.conjugate || kamiya.default?.conjugate;
-
-        distractorForms.forEach(df => {
-            if (options.length >= 4) return;
-            try {
-                const wrongAns = conjugateFn(question.verb, question.type, [df])[0];
-                if (!options.includes(wrongAns) && wrongAns) options.push(wrongAns);
-            } catch(e){}
-        });
-
-        if (options.length < 4) {
-            try {
-                const wrongTypeAns = conjugateFn(question.verb, 'v1', [question.formId])[0];
-                if (!options.includes(wrongTypeAns) && wrongTypeAns) options.push(wrongTypeAns);
-            } catch(e){}
-        }
-        return options.sort(() => Math.random() - 0.5);
-    };
-    const currentQ = queue[currentIndex];
-    const optionsMemo = useMemo(() => currentQ ? generateOptions(currentQ) : [], [currentQ]);
-
-    // 5. TIME ATTACK TIMER
-    useEffect(() => {
-        if (gameState === 'playing_time_attack' && timeLeft > 0) {
-            const timer = setInterval(() => setTimeLeft(t => t - 1), 1000);
-            return () => clearInterval(timer);
-        } else if (timeLeft === 0 && gameState === 'playing_time_attack') {
-            setGameState('finished');
-        }
-    }, [gameState, timeLeft]);
-
-    // 6. XỬ LÝ NỘP ĐÁP ÁN
-    const handleAnswer = (input) => {
-        if (status !== 'idle') return;
-        const cleanInput = input.trim().replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        const cleanAnswer = currentQ.answer.replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-        if (cleanInput === cleanAnswer) {
-            setStatus('correct');
-            setScore(s => s + 1);
-            setStreak(s => s + 1);
-            setTimeout(() => {
-                setStatus('idle');
-                setUserInput('');
-                if (currentIndex < queue.length - 1) setCurrentIndex(c => c + 1);
-                else setGameState('finished');
-            }, 500);
-        } else {
-            setStatus('wrong');
-            setStreak(0);
-            setTimeout(() => {
-                setStatus('idle');
-                setUserInput('');
-                if (setup.mode !== 'time_attack') setQueue(prev => [...prev, currentQ]); // Học lại nếu gõ sai
-                if (currentIndex < queue.length - 1) setCurrentIndex(c => c + 1);
-                else setGameState('finished');
-            }, setup.mode === 'time_attack' ? 500 : 1500);
-        }
-    };
-
-    const triggerConfetti = useCallback(() => {
-        if (typeof confetti !== 'undefined') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
-    }, []);
-
-    useEffect(() => { if (gameState === 'finished') triggerConfetti(); }, [gameState, triggerConfetti]);
-
-    // ==========================================
-    // RENDER UI
-    // ==========================================
-    if (gameState === 'loading') return <div className="min-h-screen flex items-center justify-center bg-zinc-50"><div className="animate-spin w-8 h-8 border-4 border-zinc-900 border-t-transparent rounded-full"></div></div>;
-
-    if (gameState === 'setup') {
-        return (
-            <div className="min-h-screen bg-zinc-50 flex justify-center py-10 px-4 animate-in fade-in">
-                <div className="bg-white w-full max-w-2xl rounded-3xl shadow-xl border border-zinc-200 overflow-hidden flex flex-col">
-                    <div className="p-6 border-b border-zinc-100 bg-zinc-900 flex justify-between items-center">
-                        <button onClick={onBack} className="text-zinc-400 hover:text-white transition-colors font-bold text-sm flex items-center gap-2">
-                            ← Quay lại
-                        </button>
-                        <h2 className="text-white font-black tracking-widest uppercase">Cấu hình Động Từ</h2>
-                        <div className="w-10"></div>
-                    </div>
-
-                    <div className="p-8 space-y-8 overflow-y-auto custom-scrollbar">
-                        <div>
-                            <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">1. Nhập động từ cần luyện</h3>
-                            <textarea 
-                                value={setup.text}
-                                onChange={(e) => setSetup({...setup, text: e.target.value})}
-                                placeholder="Nhập động từ (Mỗi từ 1 dòng hoặc cách nhau dấu phẩy)&#10;Ví dụ:&#10;食べる&#10;飲みます&#10;帰る"
-                                className="w-full h-32 p-4 bg-zinc-50 border border-zinc-200 rounded-2xl resize-none text-lg text-zinc-800 focus:border-zinc-900 focus:bg-white outline-none transition-colors"
-                            />
-                            <div className="flex gap-2 mt-2">
-                                <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] font-bold">💡 Mẹo: Nhập Thể ます (VD: 帰ります) để máy nhận diện 100% nhóm từ.</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">2. Chế độ luyện tập</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                {[
-                                    { id: 'typing', name: 'Gõ Phím', desc: 'Luyện phản xạ gõ' },
-                                    { id: 'time_attack', name: 'Sinh Tử', desc: '60s Trắc nghiệm' },
-                                    { id: 'suffix', name: 'Nối Đuôi', desc: 'Nhìn quen mặt chữ' }
-                                ].map(m => (
-                                    <button key={m.id} onClick={() => setSetup({...setup, mode: m.id})}
-                                        className={`p-4 rounded-2xl border-2 text-left transition-all ${setup.mode === m.id ? 'border-zinc-900 bg-zinc-50 shadow-md' : 'border-zinc-100 hover:border-zinc-300'}`}>
-                                        <div className="font-bold text-zinc-900 mb-1">{m.name}</div>
-                                        <div className="text-[10px] text-zinc-500 uppercase">{m.desc}</div>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">3. Chọn Thể (Form)</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                                {Object.entries(FORM_LABELS).map(([k, label]) => (
-                                    <label key={k} className={`flex items-center gap-2 p-3 border rounded-xl cursor-pointer transition-all ${setup.forms[k] ? 'border-zinc-900 bg-zinc-50' : 'border-zinc-100 hover:bg-zinc-50'}`}>
-                                        <input type="checkbox" checked={setup.forms[k]} onChange={() => setSetup({...setup, forms: {...setup.forms, [k]: !setup.forms[k]}})} className="accent-zinc-900 w-4 h-4" />
-                                        <span className="text-xs font-bold text-zinc-700">{label}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="p-6 border-t border-zinc-100 bg-white">
-                        <button onClick={startGame} className="w-full py-4 bg-zinc-900 hover:bg-black text-white font-black tracking-widest uppercase rounded-2xl shadow-lg active:scale-[0.98] transition-all">
-                            TẠO BÀI HỌC NGAY
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    if (gameState.startsWith('playing_')) {
-        const isTyping = setup.mode === 'typing';
-        const isTimeAttack = setup.mode === 'time_attack';
-        const isSuffix = setup.mode === 'suffix';
-
-        let stem = currentQ.verb;
-        let suffixes = optionsMemo;
-        if (isSuffix) {
-            let commonLen = 0;
-            while (commonLen < currentQ.verb.length && currentQ.verb[commonLen] === currentQ.answer[commonLen]) commonLen++;
-            stem = currentQ.verb.substring(0, commonLen) || currentQ.verb.charAt(0); 
-            suffixes = optionsMemo.map(opt => opt.replace(stem, '') || opt); 
-        }
-
-        return (
-            <div className="min-h-screen bg-zinc-900 flex flex-col items-center justify-center p-4 selection:bg-transparent">
-                <button onClick={() => setGameState('setup')} className="absolute top-6 left-6 text-white/50 hover:text-white font-bold flex items-center gap-2">
-                    ✕ Đổi cấu hình
-                </button>
-
-                <div className="absolute top-10 flex flex-col items-center w-full max-w-sm">
-                    {isTimeAttack ? (
-                        <div className="flex flex-col items-center">
-                            <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Thời gian</span>
-                            <span className={`text-5xl font-black ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-white'}`}>{timeLeft}s</span>
-                        </div>
-                    ) : (
-                        <div className="w-full px-4">
-                            <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
-                                <div className="h-full bg-white transition-all duration-300" style={{ width: `${(currentIndex / queue.length) * 100}%` }}></div>
-                            </div>
-                            <div className="flex justify-between mt-2 text-[10px] font-bold text-white/50 uppercase tracking-widest">
-                                <span>CÂU {currentIndex + 1} / {queue.length}</span>
-                                <span className={streak > 3 ? 'text-orange-400 animate-pulse' : ''}>{streak} Combo 🔥</span>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                <div className={`w-full max-w-md bg-white rounded-[2.5rem] p-8 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ${status === 'wrong' ? 'animate-shake border-4 border-red-500' : 'border-4 border-transparent'}`}>
-                    <div className="bg-zinc-100 text-zinc-600 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-                        Chuyển sang: {currentQ.formLabel}
-                    </div>
-
-                    {isSuffix ? (
-                        <h2 className="text-8xl font-['Klee_One'] font-black text-zinc-900 mb-10 border-b-4 border-dashed border-zinc-200 pb-2">{stem} <span className="text-zinc-200">?</span></h2>
-                    ) : (
-                        <h2 className="text-7xl font-['Klee_One'] font-black text-zinc-900 mb-10">{currentQ.verb}</h2>
-                    )}
-
-                    {isTyping && (
-                        <div className="w-full">
-                            <input 
-                                type="text" autoFocus value={userInput}
-                                onChange={(e) => setUserInput(convertToKana(e.target.value, false))} 
-                                onKeyDown={(e) => e.key === 'Enter' && handleAnswer(userInput)}
-                                placeholder="Gõ Romaji..."
-                                className={`w-full text-center text-2xl p-4 font-bold rounded-2xl border-2 outline-none transition-colors ${status === 'correct' ? 'bg-green-50 border-green-500 text-green-700' : status === 'wrong' ? 'bg-red-50 border-red-500 text-red-700' : 'bg-zinc-50 border-zinc-200 focus:border-zinc-900'}`}
-                            />
-                            {status === 'wrong' && (
-                                <div className="mt-4 bg-red-100 text-red-700 p-3 rounded-xl text-sm font-bold animate-in slide-in-from-bottom-2">
-                                    Đáp án đúng: <span className="text-xl">{currentQ.answer}</span>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {isTimeAttack && (
-                        <div className="grid grid-cols-2 gap-3 w-full">
-                            {optionsMemo.map((opt, i) => (
-                                <button key={i} onClick={() => handleAnswer(opt)} disabled={status !== 'idle'}
-                                    className={`p-4 text-xl font-bold font-['Klee_One'] rounded-2xl border-2 transition-all active:scale-95 ${
-                                        status !== 'idle' && opt === currentQ.answer ? 'bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]' :
-                                        status === 'wrong' && userInput === opt ? 'bg-red-500 border-red-500 text-white' : 'bg-white border-zinc-200 hover:border-zinc-900 text-zinc-900'
-                                    }`}
-                                >{opt}</button>
-                            ))}
-                        </div>
-                    )}
-
-                    {isSuffix && (
-                        <div className="grid grid-cols-2 gap-3 w-full">
-                            {suffixes.map((suf, i) => (
-                                <button key={i} onClick={() => handleAnswer(stem + suf)} disabled={status !== 'idle'}
-                                    className={`p-4 text-2xl font-bold rounded-2xl border-2 transition-all active:scale-95 ${
-                                        status !== 'idle' && (stem+suf) === currentQ.answer ? 'bg-zinc-900 border-zinc-900 text-white' :
-                                        status === 'wrong' && userInput === (stem+suf) ? 'bg-red-50 border-red-500 text-red-500' : 'bg-zinc-50 border-zinc-200 hover:border-zinc-400 text-zinc-900'
-                                    }`}
-                                >+{suf}</button>
-                            ))}
-                        </div>
-                    )}
-                </div>
-                
-                <div className="absolute bottom-10 font-black text-white/30 text-2xl tracking-widest uppercase">ĐIỂM: {score}</div>
-            </div>
-        );
-    }
-
-    if (gameState === 'finished') {
-        return (
-            <div className="min-h-screen bg-zinc-900 flex flex-col items-center justify-center p-4 animate-in fade-in">
-                <div className="bg-white p-10 rounded-[3rem] text-center max-w-sm w-full animate-in zoom-in-95">
-                    <div className="text-6xl mb-4 animate-bounce">🏆</div>
-                    <h2 className="text-2xl font-black text-zinc-900 uppercase tracking-widest mb-2">Hoàn thành</h2>
-                    <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px] mb-8">
-                        ĐIỂM CỦA BẠN: <span className="text-2xl text-zinc-900">{score}</span>
-                    </p>
-                    <button onClick={() => setGameState('setup')} className="w-full py-4 bg-zinc-900 text-white font-black uppercase tracking-widest rounded-2xl hover:bg-black active:scale-95 transition-all">
-                        Tạo bài học mới
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    return null;
-};
-
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -4028,7 +3590,7 @@ const App = () => {
     const [isReviewListOpen, setIsReviewListOpen] = useState(false);
     const [isPreviewListOpen, setIsPreviewListOpen] = useState(false);
     const [isEssayOpen, setIsEssayOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState('home');
+    
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
 
@@ -4138,117 +3700,110 @@ const App = () => {
         );
     }
 
-   return (
+    return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
-            {/* Chỉ hiển thị Home nếu page là home */}
-            {currentPage === 'home' && (
-                <>
-                    <LandingPage 
-                        srsData={srsData}
-                        onOpenReviewList={() => setIsReviewListOpen(true)}
-                        onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
-                        onNavigateToVerb={() => setCurrentPage('verb-practice')} // Fix lỗi điều hướng
-                        dbData={dbData}
-                    />
+            
+            {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
+            <LandingPage 
+                srsData={srsData}
+                onOpenReviewList={() => setIsReviewListOpen(true)}
+                onOpenSetup={(target) => setSetupConfig({ isOpen: true, targetAction: target })}
+            />
 
-                    <StudySetupModal 
-                        isOpen={setupConfig.isOpen}
-                        onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
-                        targetAction={setupConfig.targetAction}
-                        onStart={handleStartLearning}
-                        config={config}
-                        onChange={setConfig}
-                        mode={practiceMode}
-                        setPracticeMode={handleModeSwitch}
-                        dbData={dbData}
-                        srsData={srsData}
-                    />
+            {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
+            <StudySetupModal 
+                isOpen={setupConfig.isOpen}
+                onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
+                targetAction={setupConfig.targetAction}
+                onStart={handleStartLearning}
+                config={config}
+                onChange={setConfig}
+                mode={practiceMode}
+                setPracticeMode={handleModeSwitch}
+                dbData={dbData}
+                srsData={srsData}
+            />
+{/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
+            <PreviewListModal
+                isOpen={isPreviewListOpen}
+                onClose={() => {
+                    // Khi bấm Quay Lại, đóng Preview và mở lại Setup ngay lập tức
+                    setIsPreviewListOpen(false);
+                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                }}
+                onStart={handleStartLearning}
+                targetAction={setupConfig.targetAction}
+                text={config.text}
+                mode={practiceMode}
+                dbData={dbData}
+                customVocabData={customVocabData}
+                onSaveVocab={handleSaveVocab}
+            />
+            {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
+            <FlashcardModal 
+                isOpen={isFlashcardOpen} 
+                onClose={() => setIsFlashcardOpen(false)} 
+                text={config.text} 
+                dbData={dbData} 
+                onSrsUpdate={updateSRSProgress}
+                srsData={srsData} 
+                mode={practiceMode}
+                onSrsRestore={(char, oldData) => {
+                    const newData = { ...srsData, [char]: oldData };
+                    setSrsData(newData);
+                    localStorage.setItem('phadao_srs_data', JSON.stringify(newData));
+                }}
+            />
 
-                    <PreviewListModal
-                        isOpen={isPreviewListOpen}
-                        onClose={() => {
-                            setIsPreviewListOpen(false);
-                            setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                        }}
-                        onStart={handleStartLearning}
-                        targetAction={setupConfig.targetAction}
-                        text={config.text}
-                        mode={practiceMode}
-                        dbData={dbData}
-                        customVocabData={customVocabData}
-                        onSaveVocab={handleSaveVocab}
-                    />
+            <LearnGameModal 
+                isOpen={isLearnGameOpen}
+                onClose={() => setIsLearnGameOpen(false)}
+                text={config.text}
+                dbData={dbData}
+                mode={practiceMode}
+                onSwitchToFlashcard={() => {
+                    setIsLearnGameOpen(false);
+                    setIsFlashcardOpen(true); 
+                }}
+            />
 
-                    <FlashcardModal 
-                        isOpen={isFlashcardOpen} 
-                        onClose={() => setIsFlashcardOpen(false)} 
-                        text={config.text} 
-                        dbData={dbData} 
-                        onSrsUpdate={updateSRSProgress}
-                        srsData={srsData} 
-                        mode={practiceMode}
-                        onSrsRestore={(char, oldData) => {
-                            const newData = { ...srsData, [char]: oldData };
-                            setSrsData(newData);
-                            localStorage.setItem('phadao_srs_data', JSON.stringify(newData));
-                        }}
-                    />
-
-                    <LearnGameModal 
-                        isOpen={isLearnGameOpen}
-                        onClose={() => setIsLearnGameOpen(false)}
-                        text={config.text}
-                        dbData={dbData}
-                        mode={practiceMode}
-                        onSwitchToFlashcard={() => {
-                            setIsLearnGameOpen(false);
-                            setIsFlashcardOpen(true); 
-                        }}
-                    />
-
-                    <EditVocabModal  
-                        isOpen={!!editingVocab}
-                        onClose={() => setEditingVocab(null)}
-                        data={editingVocab}
-                        onSave={handleSaveVocab}
-                        dbData={dbData}
-                    />
-
-                    <EssayGameModal 
-                        isOpen={isEssayOpen}
-                        onClose={() => setIsEssayOpen(false)}
-                        text={config.text}
-                        dbData={dbData}
-                        mode={practiceMode}
-                        onSwitchMode={(target) => handleStartLearning(target)}
-                    />
-
-                    <ReviewListModal 
-                        isOpen={isReviewListOpen}
-                        onClose={() => setIsReviewListOpen(false)}
-                        srsData={srsData}
-                        dbData={dbData}
-                        onResetSRS={handleResetAllSRS}
-                        onLoadChars={(chars) => {
-                            if (practiceMode === 'vocab') {
-                                setTextCache(prev => ({ ...prev, vocab: config.text }));
-                            }
-                            setPracticeMode('kanji');
-                            setConfig({ text: chars });
-                            setIsReviewListOpen(false);
-                            setTimeout(() => setIsFlashcardOpen(true), 100);
-                        }}
-                    />
-                </>
-            )}
-
-            {/* Hiển thị trang chia động từ */}
-            {currentPage === 'verb-practice' && (
-                <VerbPracticePage onBack={() => setCurrentPage('home')} />
-            )}
+            <EditVocabModal  
+                isOpen={!!editingVocab}
+                onClose={() => setEditingVocab(null)}
+                data={editingVocab}
+                onSave={handleSaveVocab}
+                dbData={dbData}
+            />
+    <EssayGameModal 
+    isOpen={isEssayOpen}
+    onClose={() => setIsEssayOpen(false)}
+    text={config.text}
+    dbData={dbData}
+    mode={practiceMode}
+    onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
+/>
+            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
+            <ReviewListModal 
+    isOpen={isReviewListOpen}
+    onClose={() => setIsReviewListOpen(false)}
+    srsData={srsData}
+    dbData={dbData}
+    onResetSRS={handleResetAllSRS}
+    onLoadChars={(chars) => {
+        // === FIX LỖI: Tự động lưu cache và chuyển sang chế độ Kanji ===
+        if (practiceMode === 'vocab') {
+            setTextCache(prev => ({ ...prev, vocab: config.text }));
+        }
+        setPracticeMode('kanji'); // Ép sang chế độ Kanji
+        setConfig({ text: chars }); // Đưa danh sách chữ cần ôn vào
+        
+        setIsReviewListOpen(false);
+        // Tự động mở flashcard ngay lập tức
+        setTimeout(() => setIsFlashcardOpen(true), 100);
+    }}
+/>
         </div>
     );
-}; // Kết thúc component App
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+};
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
