@@ -3632,13 +3632,15 @@ const VerbPracticePage = ({ onBack }) => {
     'causative': 'Thể sai khiến'
 };
 
-    // 1. TẢI THƯ VIỆN KAMIYA-CODEC TỪ CDN
+    // 1. TẢI THƯ VIỆN KAMIYA-CODEC NỘI BỘ
     useEffect(() => {
-        import('https://esm.sh/kamiya-codec').then(module => {
+        // Trỏ trực tiếp vào file bạn vừa up lên Github
+        import('./kamiya-codec.js').then(module => {
             setKamiya(module);
             setGameState('setup');
         }).catch(err => {
-            alert("Lỗi khi tải thư viện kamiya-codec. Cần có kết nối mạng!");
+            console.error("Lỗi import:", err);
+            alert("Không tải được bộ chia động từ!");
         });
     }, []);
 
