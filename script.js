@@ -51,15 +51,16 @@ const calculateSRS = (currentData, quality) => {
   }
 };
 
-// --- FETCH DATA FROM GITHUB (ĐÃ SỬA: TẢI THÊM N5-N1) --- 
+// --- FETCH DATA FROM GITHUB --- 
 const fetchDataFromGithub = async () => {
   try { 
-    // 1. Tải các file cơ sở dữ liệu chính (THÊM tuvungg.json)
-    const [dbResponse, onkunResponse, vocabResponse, tuvungResponse] = await Promise.all([
+    // 1. Tải các file cơ sở dữ liệu chính (THÊM dongtu_dacbiet.json)
+    const [dbResponse, onkunResponse, vocabResponse, tuvungResponse, exceptionResponse] = await Promise.all([
       fetch('./data/kanji_db.json'),
       fetch('./data/onkun.json'),
       fetch('./data/vocab.json'),
-      fetch('./data/tuvungg.json')
+      fetch('./data/tuvungg.json'),
+      fetch('./data/dongtu_dacbiet.json') // <-- File mới thêm
     ]);
 
     // 2. Tải thêm 5 file danh sách cấp độ (N5 -> N1)
@@ -77,10 +78,16 @@ const fetchDataFromGithub = async () => {
     if (onkunResponse.ok) onkunDb = await onkunResponse.json();
     if (vocabResponse.ok) vocabDb = await vocabResponse.json();
 
-    // Xử lý file Từ vựng (MỚI)
+    // Xử lý file Từ vựng
     let tuvungDb = {};
     if (tuvungResponse && tuvungResponse.ok) {
         tuvungDb = await tuvungResponse.json();
+    }
+
+    // Xử lý file Động từ đặc biệt (MỚI)
+    let exceptionDb = {};
+    if (exceptionResponse && exceptionResponse.ok) {
+        exceptionDb = await exceptionResponse.json();
     }
 
     // Xử lý 5 file cấp độ
@@ -94,8 +101,8 @@ const fetchDataFromGithub = async () => {
         }
     }
 
-    // Trả về dữ liệu gộp (THÊM TUVUNG_DB)
-    return { ...kanjiDb, ONKUN_DB: onkunDb, VOCAB_DB: vocabDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels }; 
+    // Trả về dữ liệu gộp (Thêm EXCEPTION_VERBS)
+    return { ...kanjiDb, ONKUN_DB: onkunDb, VOCAB_DB: vocabDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels, EXCEPTION_VERBS: exceptionDb }; 
   } catch (error) {
     console.error("Lỗi tải dữ liệu hệ thống:", error);
     return null;
@@ -190,9 +197,6 @@ const fetchDataFromGithub = async () => {
     return state;
     };
 
-// ==========================================
-// 🚀 VERB ENGINE - BỘ XỬ LÝ ĐỘNG TỪ
-// ==========================================
 const VerbEngine = {
     // 1. Bảng chuyển đổi Hiragana (Dùng cho Nhóm 1)
     HIRA_MAP: {
@@ -202,39 +206,39 @@ const VerbEngine = {
         'e': ['え','け','げ','せ','ぜ','て','で','ね','へ','べ','ぺ','め','れ'],
         'o': ['お','こ','ご','そ','ぞ','と','ど','の','ほ','ぼ','ぽ','も','ろ']
     },
-    EXCEPTIONS: {
-        "帰ります": { group: 1, vru: "帰る" },
-        "入ります": { group: 1, vru: "入る" },
-        "走ります": { group: 1, vru: "走る" },
-        "切ります": { group: 1, vru: "切る" },
-        "知ります": { group: 1, vru: "知る" },
-        "要ります": { group: 1, vru: "要る" },
-        "減ります": { group: 1, vru: "減る" },
-        "焦ります": { group: 1, vru: "焦る" },
-        "限ります": { group: 1, vru: "限る" },
-        "蹴ります": { group: 1, vru: "蹴る" },
-        "滑ります": { group: 1, vru: "滑る" },
-        "握ります": { group: 1, vru: "握る" },
-        "練ります": { group: 1, vru: "練る" },
-        "交ります": { group: 1, vru: "交る" }
-    },
+
+    // (ĐÃ XÓA BIẾN EXCEPTIONS Ở ĐÂY VÌ ĐÃ CÓ JSON)
+
     shiftHira: (char, toColumn) => {
         const idx = VerbEngine.HIRA_MAP['i'].indexOf(char);
         return idx !== -1 ? VerbEngine.HIRA_MAP[toColumn][idx] : char;
     },
-    parseVmasu: (vmasu) => {
+
+    // 3. HÀM PARSE VMASU (Cập nhật thêm tham số dbData)
+    parseVmasu: (vmasu, dbData) => { // <--- Thêm dbData vào đây
         if (!vmasu.endsWith("ます")) return null;
         if (!/[\u4E00-\u9FAF]/.test(vmasu)) return { error: "Yêu cầu nhập Kanji, không nhập nguyên Hiragana." };
+
         const stem = vmasu.slice(0, -2);
         const lastChar = stem.slice(-1);
+
+        // A. Check Nhóm 3
         if (vmasu === "来ます") return { vmasu, stem, lastChar, group: 3, vru: "来る" };
         if (stem.endsWith("し")) return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
-        if (VerbEngine.EXCEPTIONS[vmasu]) return { vmasu, stem, lastChar, ...VerbEngine.EXCEPTIONS[vmasu] };
-        if (VerbEngine.HIRA_MAP['e'].includes(lastChar)) return { vmasu, stem, lastChar, group: 2, vru: stem + "る" };
-        else if (VerbEngine.HIRA_MAP['i'].includes(lastChar)) {
+
+        // B. Check Ngoại lệ Nhóm 1 (Đọc từ file JSON qua dbData)
+        if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
+            return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
+        }
+
+        // C. Phân loại theo vần
+        if (VerbEngine.HIRA_MAP['e'].includes(lastChar)) {
+            return { vmasu, stem, lastChar, group: 2, vru: stem + "る" };
+        } else if (VerbEngine.HIRA_MAP['i'].includes(lastChar)) {
             const uChar = VerbEngine.shiftHira(lastChar, 'u');
             return { vmasu, stem, lastChar, group: 1, vru: stem.slice(0, -1) + uChar };
         }
+
         return null;
     },
     deriveMasuReading: (vruReading, group) => {
@@ -3707,7 +3711,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         if (!isOpen) return;
         const lines = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
         const results = lines.map(line => {
-            const parsed = VerbEngine.parseVmasu(line);
+            const parsed = VerbEngine.parseVmasu(line, dbData);
             if (!parsed || parsed.error) return { vmasu: line, error: parsed?.error || "Đuôi động từ không hợp lệ (Phải là ~ます)" };
             const dbInfo = dbData?.TUVUNG_DB?.[parsed.vru];
             let reading = "";
