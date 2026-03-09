@@ -4099,16 +4099,16 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             {!finished ? (
                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 flex flex-col items-center border-4 border-zinc-100 relative">
                     
-                   
+                    {/* NHÃN TÊN THỂ HIỂN THỊ TRÊN CÙNG */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
+                        {formLabels[targetForm] || targetForm}
+                    </div>
+
                     <div className="w-full mb-8 mt-2">
                         <div className="flex justify-between items-center mb-5">
                             <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
                                 {correctFirstTimeCount} / {initialTotal}
                             </span>
-                {/* ĐÃ CHUYỂN NHÃN TÊN THỂ XUỐNG ĐÂY */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
-            {formLabels[targetForm] || targetForm}
-        </div>
                             <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
