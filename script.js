@@ -3645,20 +3645,22 @@ useEffect(() => {
         </select>
     </div>
 )}
-                    {/* Thanh tìm kiếm */}
-                    <SearchBar 
-                        mode={mode} dbData={dbData} 
-                        onSelectResult={(item) => {
-                            let newText = mode === 'vocab' 
-                                ? [...new Set((config.text + (config.text && !config.text.endsWith('\n') ? '\n' : '') + item.char + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n'
-                                : Array.from(new Set(config.text + item.char)).join('');
-                            setLocalText(newText); onChange({ ...config, text: newText });
-                        }} 
-                        onSelectAll={(items) => {
-                            let newText = [...new Set((localText + (localText && !localText.endsWith('\n') ? '\n' : '') + items.map(item => item.char).join('\n') + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n';
-                            setLocalText(newText); onChange({ ...config, text: newText });
-                        }} 
-                    />
+                   {/* Thanh tìm kiếm (Ẩn khi ở chế độ chia động từ) */}
+{targetAction !== 'conjugate' && (
+    <SearchBar 
+        mode={mode} dbData={dbData} 
+        onSelectResult={(item) => {
+            let newText = mode === 'vocab' 
+                ? [...new Set((config.text + (config.text && !config.text.endsWith('\n') ? '\n' : '') + item.char + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n'
+                : Array.from(new Set(config.text + item.char)).join('');
+            setLocalText(newText); onChange({ ...config, text: newText });
+        }} 
+        onSelectAll={(items) => {
+            let newText = [...new Set((localText + (localText && !localText.endsWith('\n') ? '\n' : '') + items.map(item => item.char).join('\n') + '\n').split('\n').map(l=>l.trim()).filter(l=>l))].join('\n') + '\n';
+            setLocalText(newText); onChange({ ...config, text: newText });
+        }} 
+    />
+)}
 
                     {/* Textarea Nhập liệu */}
                     <div className="relative">
