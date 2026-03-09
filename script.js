@@ -3703,7 +3703,7 @@ useEffect(() => {
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
@@ -3805,24 +3805,20 @@ useEffect(() => {
         </div>
     );
 };
-const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm }) => {
+// Thêm hàm convert mini này ngay trên component để tránh lỗi không nhập được
+const convertToKanaLocal = (rawText) => {
+    const hiraMap = { 'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー' };
+    let result = rawText.toLowerCase();
+    result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
+    const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
+    for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
+    return result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
+};
+
+const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, onUpdateText, dbData, targetForm }) => {
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
     const [manualReadings, setManualReadings] = React.useState({});
-
-    // Từ điển nhãn hiển thị cho các Thể
-    const formLabels = { 
-        "Te": "Thể Te (て)", 
-        "Ta": "Thể Ta (た)", 
-        "Nai": "Thể Nai (ない)", 
-        "Dictionary": "Thể Từ Điển (る)",
-        "Ba": "Thể Điều Kiện (ば)",
-        "Volitional": "Thể Ý Chí (よう)",
-        "Imperative": "Thể Mệnh Lệnh (ろ/え)",
-        "Potential": "Thể Khả Năng",
-        "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến",
-        "Tai": "Thể Mong Muốn (~たい)"
-    };
+    const [fixedVerbs, setFixedVerbs] = React.useState({}); // State lưu từ vựng đang được sửa
 
     React.useEffect(() => {
         if (!isOpen) return;
@@ -3837,6 +3833,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         });
         setParsedVerbs(results);
         setManualReadings({});
+        setFixedVerbs({});
     }, [isOpen, text, dbData]);
 
     if (!isOpen) return null;
@@ -3853,65 +3850,92 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         onStart(finalData, targetForm);
     };
 
+    // Hàm cập nhật từ sai lên TextBox gốc
+    const handleFixVerb = (oldVerb) => {
+        const newVerb = fixedVerbs[oldVerb] || "";
+        if (!newVerb.trim()) return;
+        
+        const lines = text.split('\n');
+        const newLines = lines.map(l => l.trim() === oldVerb ? newVerb.trim() : l);
+        onUpdateText(newLines.join('\n')); // Gọi hàm cập nhật
+    };
+
     return (
         <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 border border-gray-200">
                 <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                     <div>
                         <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Chuẩn bị chia động từ</h2>
-                        <p className="text-xs text-gray-500 font-medium">Bổ sung Hiragana nếu hệ thống không tìm thấy</p>
+                        <p className="text-xs text-gray-500 font-medium">Kiểm tra và bổ sung thông tin trước khi bắt đầu</p>
                     </div>
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500">✕</button>
                 </div>
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
-                        // Tính toán trực tiếp kết quả chia để hiển thị ra UI
                         const currentReading = item.reading || manualReadings[item.vmasu];
                         const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
 
                         return (
-                            <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
-                                <div className="flex flex-col">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-xl font-bold text-gray-900">{item.vmasu}</span>
-                                        {!item.error && (
-                                            <span className="px-2 py-0.5 bg-gray-900 text-white text-[10px] font-black rounded uppercase">Nhóm {item.group}</span>
-                                        )}
-                                    </div>
+                            <div key={idx} className={`p-4 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-300 bg-amber-50' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'}`}>
+                                
+                                {/* TRÁI: Động từ gốc & Nhóm / Lỗi */}
+                                <div className="flex flex-col min-w-[100px]">
+                                    <span className="text-xl font-bold text-gray-900">{item.vmasu}</span>
                                     {item.error ? (
-                                        <span className="text-xs text-red-600 font-medium mt-1">{item.error}</span>
+                                        <span className="text-[11px] font-medium text-red-500 mt-1">{item.error}</span>
                                     ) : (
-                                        <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
-                                            {formLabels[targetForm] || targetForm}: 
-                                            <strong className="text-indigo-600 font-bold text-[14px]">
-                                                {conjugatedResult}
-                                            </strong>
-                                        </span>
+                                        <span className="text-[11px] font-medium text-gray-400 mt-0.5">nhóm {item.group}</span>
                                     )}
                                 </div>
-                                {!item.error && (
-                                    <div className="w-full sm:w-auto">
-                                        {item.reading ? (
-                                            <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
-                                                Sẵn sàng
-                                            </div>
-                                        ) : (
-                                            <div className="flex flex-col gap-1 w-full sm:w-48">
-                                                <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
+
+                                {/* PHẢI: Logic hiển thị tùy trạng thái */}
+                                {item.error ? (
+                                    /* TRẠNG THÁI LỖI: Ô nhập liệu để sửa từ */
+                                    <div className="flex-1 w-full sm:max-w-[250px] flex gap-2">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Sửa thành thể ~ます"
+                                            value={fixedVerbs[item.vmasu] !== undefined ? fixedVerbs[item.vmasu] : item.vmasu}
+                                            onChange={(e) => setFixedVerbs({...fixedVerbs, [item.vmasu]: e.target.value})}
+                                            onKeyDown={(e) => e.key === 'Enter' && handleFixVerb(item.vmasu)}
+                                            className="w-full p-2 border border-red-300 focus:border-red-500 rounded-lg outline-none text-sm font-bold text-gray-900"
+                                        />
+                                        <button 
+                                            onClick={() => handleFixVerb(item.vmasu)}
+                                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors whitespace-nowrap"
+                                        >
+                                            Lưu
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {/* THIẾU CÁCH ĐỌC: Ô nhập Hiragana */}
+                                        {!item.reading && !manualReadings[item.vmasu] ? (
+                                            <div className="flex-1 w-full sm:max-w-[200px]">
                                                 <input 
                                                     type="text" 
-                                                    placeholder="VD: たべます" 
+                                                    placeholder="Nhập Hiragana..." 
                                                     value={manualReadings[item.vmasu] || ''}
                                                     onChange={(e) => {
-                                                        const kana = convertToKana(e.target.value, false);
+                                                        const kana = convertToKanaLocal(e.target.value);
                                                         setManualReadings(prev => ({...prev, [item.vmasu]: kana}));
                                                     }}
-                                                    className="w-full p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white"
+                                                    className="w-full p-2.5 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white text-sm text-center"
                                                 />
                                             </div>
+                                        ) : (
+                                            /* HỢP LỆ: Mũi tên và kết quả (Xanh lá) */
+                                            <div className="flex items-center gap-3 sm:gap-6 flex-1 justify-end w-full sm:w-auto mt-2 sm:mt-0">
+                                                <svg className="w-5 h-5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M5 12h14"></path>
+                                                    <path d="m12 5 7 7-7 7"></path>
+                                                </svg>
+                                                <span className="text-2xl font-bold text-emerald-600 text-right">
+                                                    {conjugatedResult}
+                                                </span>
+                                            </div>
                                         )}
-                                    </div>
+                                    </>
                                 )}
                             </div>
                         );
@@ -3920,7 +3944,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                 <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
                     <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100">Quay lại</button>
                     <button onClick={handleStart} disabled={!canStart} className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'}`}>
-                        {hasErrors ? "CÓ LỖI TỪ VỰNG" : missingReadings.length > 0 ? `CÒN THIẾU ${missingReadings.length} CÁCH ĐỌC` : "VÀO TỰ LUẬN"}
+                        {hasErrors ? "CẦN SỬA LỖI TỪ VỰNG" : missingReadings.length > 0 ? `CÒN THIẾU ${missingReadings.length} CÁCH ĐỌC` : "VÀO TỰ LUẬN"}
                     </button>
                 </div>
             </div>
@@ -4259,21 +4283,27 @@ const App = () => {
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
         <VerbPreviewListModal 
-                isOpen={isVerbPreviewOpen}
-                onClose={() => {
-                    setIsVerbPreviewOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                }}
-                text={config.text}
-                dbData={dbData}
-                targetForm={verbTargetForm}
-                onStart={(finalData, targetF) => {
-                    setIsVerbPreviewOpen(false);
-                    setVerbPracticeData(finalData);
-                    setVerbTargetForm(targetF);
-                    setIsVerbEssayOpen(true);
-                }}
-            />
+    isOpen={isVerbPreviewOpen}
+    onClose={() => {
+        setIsVerbPreviewOpen(false);
+        setSetupConfig(prev => ({ ...prev, isOpen: true }));
+    }}
+    text={config.text}
+    // ------ ĐOẠN THÊM VÀO ------
+    onUpdateText={(newText) => {
+        setConfig(prev => ({ ...prev, text: newText }));
+        setTextCache(prev => ({ ...prev, vocab: newText })); // Cập nhật luôn vào cache
+    }}
+    // ---------------------------
+    dbData={dbData}
+    targetForm={verbTargetForm}
+    onStart={(finalData, targetF) => {
+        setIsVerbPreviewOpen(false);
+        setVerbPracticeData(finalData);
+        setVerbTargetForm(targetF);
+        setIsVerbEssayOpen(true);
+    }}
+/>
 
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
