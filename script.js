@@ -3703,7 +3703,7 @@ useEffect(() => {
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
@@ -3865,60 +3865,57 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                 </div>
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
-    // Tính toán trực tiếp kết quả chia để hiển thị ra UI
-    const currentReading = item.reading || manualReadings[item.vmasu];
-    const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
+                        // Tính toán trực tiếp kết quả chia để hiển thị ra UI
+                        const currentReading = item.reading || manualReadings[item.vmasu];
+                        const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
 
-    return (
-        <div key={idx} className={`p-4 rounded-xl border flex items-center justify-between gap-4 transition-colors ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-300 bg-amber-50' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'}`}>
-            
-            {/* TRÁI: Động từ gốc & Nhóm */}
-            <div className="flex flex-col min-w-[100px]">
-                <span className="text-xl font-bold text-gray-900">{item.vmasu}</span>
-                {!item.error && (
-                    <span className="text-[11px] font-medium text-gray-400 uppercase mt-0.5">nhóm {item.group}</span>
-                )}
-            </div>
-
-            {/* PHẢI: Xử lý theo 3 trạng thái (Lỗi / Thiếu cách đọc / Sẵn sàng) */}
-            {item.error ? (
-                <span className="text-xs text-red-600 font-medium text-right flex-1">{item.error}</span>
-            ) : (
-                <>
-                    {/* Nếu thiếu Hiragana -> Hiện ô nhập */}
-                    {!item.reading && !manualReadings[item.vmasu] ? (
-                        <div className="flex-1 max-w-[200px]">
-                            <input 
-                                type="text" 
-                                placeholder="Nhập Hiragana..." 
-                                value={manualReadings[item.vmasu] || ''}
-                                onChange={(e) => {
-                                    const kana = convertToKana(e.target.value, false);
-                                    setManualReadings(prev => ({...prev, [item.vmasu]: kana}));
-                                }}
-                                className="w-full p-2.5 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white text-sm text-center"
-                            />
-                        </div>
-                    ) : (
-                        /* Nếu đã sẵn sàng -> Hiện Mũi tên => Kết quả (Màu xanh) */
-                        <div className="flex items-center gap-3 sm:gap-6 flex-1 justify-end">
-                            {/* Icon Mũi tên */}
-                            <svg className="w-5 h-5 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="m12 5 7 7-7 7"></path>
-                            </svg>
-                            
-                            {/* Chữ kết quả chia */}
-                            <span className="text-2xl font-bold text-emerald-600 text-right">
-                                {conjugatedResult}
-                            </span>
-                        </div>
-                    )}
-                </>
-            )}
-        </div>
-    );
-})}
+                        return (
+                            <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
+                                <div className="flex flex-col">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xl font-bold text-gray-900">{item.vmasu}</span>
+                                        {!item.error && (
+                                            <span className="px-2 py-0.5 bg-gray-900 text-white text-[10px] font-black rounded uppercase">Nhóm {item.group}</span>
+                                        )}
+                                    </div>
+                                    {item.error ? (
+                                        <span className="text-xs text-red-600 font-medium mt-1">{item.error}</span>
+                                    ) : (
+                                        <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
+                                            {formLabels[targetForm] || targetForm}: 
+                                            <strong className="text-indigo-600 font-bold text-[14px]">
+                                                {conjugatedResult}
+                                            </strong>
+                                        </span>
+                                    )}
+                                </div>
+                                {!item.error && (
+                                    <div className="w-full sm:w-auto">
+                                        {item.reading ? (
+                                            <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
+                                                Sẵn sàng
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-col gap-1 w-full sm:w-48">
+                                                <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
+                                                <input 
+                                                    type="text" 
+                                                    placeholder="VD: たべます" 
+                                                    value={manualReadings[item.vmasu] || ''}
+                                                    onChange={(e) => {
+                                                        const kana = convertToKana(e.target.value, false);
+                                                        setManualReadings(prev => ({...prev, [item.vmasu]: kana}));
+                                                    }}
+                                                    className="w-full p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
                 <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
                     <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100">Quay lại</button>
