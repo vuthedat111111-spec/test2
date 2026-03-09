@@ -300,6 +300,50 @@ const VerbEngine = {
         }
         return stemReading;
     }
+    conjugateWithKanji: (parsedData, targetForm) => {
+        const stem = parsedData.stem; // Ví dụ: 食べ, 飲み, 勉強し
+        const lastChar = parsedData.lastChar; // Ví dụ: べ, み, し
+
+        if (targetForm === "Te" || targetForm === "Ta") {
+            const suffix = targetForm === "Te" ? "て" : "た";
+            const suffixD = targetForm === "Te" ? "で" : "だ";
+
+            if (parsedData.group === 3) {
+                if (parsedData.vmasu === "来ます") return "来" + suffix;
+                return stem + suffix; // します -> して, 勉強します -> 勉強して
+            }
+            if (parsedData.group === 2) {
+                return stem + suffix; // 食べ -> 食べて
+            }
+            if (parsedData.group === 1) {
+                if (parsedData.vmasu === "行きます") return "行っ" + suffix;
+
+                if (['い', 'ち', 'り'].includes(lastChar)) return stem.slice(0, -1) + "っ" + suffix;
+                if (['み', 'に', 'び'].includes(lastChar)) return stem.slice(0, -1) + "ん" + suffixD;
+                if (['き'].includes(lastChar)) return stem.slice(0, -1) + "い" + suffix;
+                if (['ぎ'].includes(lastChar)) return stem.slice(0, -1) + "い" + suffixD;
+                if (['し'].includes(lastChar)) return stem + suffix;
+            }
+        }
+
+        if (targetForm === "Nai") {
+            if (parsedData.group === 3) {
+                if (parsedData.vmasu === "来ます") return "来ない";
+                return stem.slice(0, -1) + "しない"; // 勉強し -> 勉強しない
+            }
+            if (parsedData.group === 2) return stem + "ない"; // 食べ -> 食べない
+            if (parsedData.group === 1) {
+                const aChar = VerbEngine.shiftHira(lastChar, 'a');
+                return stem.slice(0, -1) + aChar + "ない"; // 飲み -> 飲まない
+            }
+        }
+
+        if (targetForm === "Dictionary") {
+             return parsedData.vru; // Thể từ điển đã có sẵn lúc parse
+        }
+
+        return stem;
+    }
 };
 
 // --- COMPONENT: BẢNG LỊCH TRÌNH ÔN TẬP (UI MONOCHROME HIỆN ĐẠI) ---
@@ -3759,7 +3803,11 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                 {item.error ? (
                                     <span className="text-xs text-red-600 font-medium mt-1">{item.error}</span>
                                 ) : (
-                                    <span className="text-[11px] text-gray-500 font-medium mt-1">Từ điển: {item.vru}</span>
+                                    <span className="text-[11px] text-gray-500 font-medium mt-1">
+                                        {targetForm === "Te" ? "Thể Te" : 
+                                         targetForm === "Ta" ? "Thể Ta" : 
+                                         targetForm === "Nai" ? "Thể Nai" : "Từ điển"}: <span className="font-bold text-gray-700">{VerbEngine.conjugateWithKanji(item, targetForm)}</span>
+                                    </span>
                                 )}
                             </div>
                             {!item.error && (
