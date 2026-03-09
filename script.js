@@ -3808,7 +3808,8 @@ useEffect(() => {
 const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm, onUpdateText }) => {
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
     const [manualReadings, setManualReadings] = React.useState({});
-    const [fixingVerbs, setFixingVerbs] = React.useState({}); // State lưu giá trị đang sửa
+    const [tempReadings, setTempReadings] = React.useState({}); // State lưu tạm thời cho ô nhập
+    const [fixingVerbs, setFixingVerbs] = React.useState({}); 
 
     // Từ điển nhãn hiển thị cho các Thể
     const formLabels = { 
@@ -3838,6 +3839,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         });
         setParsedVerbs(results);
         setManualReadings({});
+        setTempReadings({}); // Reset dữ liệu tạm khi mở lại bảng
     }, [isOpen, text, dbData]);
 
     if (!isOpen) return null;
@@ -3854,27 +3856,27 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         onStart(finalData, targetForm);
     };
 
-    // HÀM XỬ LÝ LƯU TỪ SỬA LỖI
+    // Hàm xử lý khi sửa từ sai
     const handleFixVmasu = (oldWord, newWord) => {
         if (!newWord || !newWord.trim()) return;
-        
-        // 1. Lấy danh sách từ hiện tại
         let words = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w);
-        
-        // 2. Thay thế từ cũ bằng từ mới
         words = words.map(w => w === oldWord ? newWord.trim() : w);
-        
-        // 3. Gửi lên component cha để cập nhật vào textarea (mỗi từ 1 dòng)
         if (onUpdateText) {
             onUpdateText(words.join('\n') + '\n');
         }
-        
-        // Xóa khỏi state fixing
         setFixingVerbs(prev => {
             const next = {...prev};
             delete next[oldWord];
             return next;
         });
+    };
+
+    // Hàm xử lý khi bấm Lưu cách đọc Hiragana
+    const handleSaveReading = (vmasu) => {
+        const val = tempReadings[vmasu];
+        if (val && val.trim() !== '') {
+            setManualReadings(prev => ({...prev, [vmasu]: val.trim()}));
+        }
     };
 
     return (
@@ -3893,7 +3895,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                         const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
 
                         return (
-                            <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
+                            <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!currentReading) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
                                 <div className="flex flex-col w-full">
                                     <div className="flex items-center gap-2">
                                         <span className={`text-xl font-bold ${item.error ? 'text-red-700 line-through opacity-60' : 'text-gray-900'}`}>{item.vmasu}</span>
@@ -3902,7 +3904,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                         )}
                                     </div>
 
-                                    {/* GIAO DIỆN KHI CÓ LỖI (CHƯA ĐÚNG THỂ MASU) */}
+                                    {/* CÓ LỖI: HIỂN THỊ Ô SỬA LỖI MASU */}
                                     {item.error ? (
                                         <div className="flex flex-col gap-2 mt-2 w-full">
                                             <span className="text-xs text-red-600 font-medium">{item.error}</span>
@@ -3913,11 +3915,11 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                                     value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
                                                     onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
                                                     onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-sm outline-none focus:border-red-500 font-bold text-gray-900 bg-white"
+                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-sm outline-none focus:border-red-500 font-bold text-gray-900 bg-white min-w-0"
                                                 />
                                                 <button 
                                                     onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all"
+                                                    className="px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all flex-shrink-0"
                                                 >
                                                     LƯU
                                                 </button>
@@ -3933,26 +3935,35 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                     )}
                                 </div>
 
-                                {/* GIAO DIỆN KHI KHÔNG CÓ LỖI NHƯNG THIẾU HIRAGANA */}
+                                {/* KHÔNG CÓ LỖI: HIỂN THỊ SẴN SÀNG HOẶC NHẬP HIRAGANA */}
                                 {!item.error && (
-                                    <div className="w-full sm:w-auto">
-                                        {item.reading ? (
-                                            <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2">
+                                    <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-end">
+                                        {currentReading ? (
+                                            // FIX: Chữ "Sẵn sàng" nằm trên 1 hàng nhờ whitespace-nowrap
+                                            <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
                                                 Sẵn sàng
                                             </div>
                                         ) : (
-                                            <div className="flex flex-col gap-1 w-full sm:w-48">
+                                            // FIX: Thêm UI nút LƯU cho ô nhập Hiragana
+                                            <div className="flex flex-col gap-1 w-full sm:w-auto">
                                                 <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="VD: たべます" 
-                                                    value={manualReadings[item.vmasu] || ''}
-                                                    onChange={(e) => {
-                                                        setManualReadings(prev => ({...prev, [item.vmasu]: e.target.value}));
-                                                    }}
-                                                    className="w-full p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white"
-                                                />
+                                                <div className="flex gap-2 w-full sm:w-64">
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="VD: たべます" 
+                                                        value={tempReadings[item.vmasu] !== undefined ? tempReadings[item.vmasu] : ''}
+                                                        onChange={(e) => setTempReadings(prev => ({...prev, [item.vmasu]: e.target.value}))}
+                                                        onKeyDown={(e) => e.key === 'Enter' && handleSaveReading(item.vmasu)}
+                                                        className="flex-1 p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0"
+                                                    />
+                                                    <button 
+                                                        onClick={() => handleSaveReading(item.vmasu)}
+                                                        className="px-4 py-2 bg-amber-500 text-white rounded-lg text-xs font-bold hover:bg-amber-600 active:scale-95 transition-all flex-shrink-0"
+                                                    >
+                                                        LƯU
+                                                    </button>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
