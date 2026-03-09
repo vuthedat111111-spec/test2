@@ -4097,7 +4097,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     return (
         <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
             {!finished ? (
-                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+               <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 flex flex-col items-center border-4 border-zinc-100 relative">
                     
                     {/* NHÃN TÊN THỂ HIỂN THỊ TRÊN CÙNG */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
@@ -4119,7 +4119,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                     </div>
 
                     <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <h2 className="text-3xl font-bold font-sans text-zinc-800 mb-3">{currentItem.vmasu}</h2>
+                        <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">{currentItem.vmasu}</h2>
                         {/* ĐÃ XÓA Ý NGHĨA Ở ĐÂY NHƯ YÊU CẦU */}
                     </div>
 
