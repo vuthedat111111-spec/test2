@@ -3983,50 +3983,82 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
     );
 };
 const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
-    // Đã chuẩn hóa lại tên state cho gọn gàng
+    const [queue, setQueue] = React.useState([]);
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const [userInput, setUserInput] = React.useState('');
-    const [status, setStatus] = React.useState('idle');
+    const [status, setStatus] = React.useState('idle'); 
     const [finished, setFinished] = React.useState(false);
     const [correctAnswer, setCorrectAnswer] = React.useState('');
-    
-    const currentItem = verbsData?.[currentIndex];
-    const targetConjugation = React.useMemo(() => {
-        if (!currentItem) return "";
-        return VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
-    }, [currentItem, targetForm]);
+    const [initialTotal, setInitialTotal] = React.useState(0); 
+    const [correctFirstTimeCount, setCorrectFirstTimeCount] = React.useState(0);
+    const [wrongDetected, setWrongDetected] = React.useState(false);
+
+    const formLabels = { 
+        "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
+        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)", 
+        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)", 
+        "Potential": "Thể Khả Năng (える/られる)", "Passive": "Thể Bị Động (れる/られる)", 
+        "Causative": "Thể Sai Khiến (せる/させる)", "Tai": "Thể Mong Muốn (たい)"
+    };
+
+    // --- KHỞI TẠO BÀI HỌC GIỐNG HỆT TỰ LUẬN TỪ VỰNG ---
+    const initLesson = React.useCallback(() => {
+        if (!verbsData || verbsData.length === 0) return;
+        
+        setFinished(false); 
+        setCurrentIndex(0);
+        setUserInput('');
+        setStatus('idle');
+        setCorrectFirstTimeCount(0);
+        setWrongDetected(false);
+        setCorrectAnswer('');
+
+        const shuffled = [...verbsData].sort(() => Math.random() - 0.5);
+        setQueue(shuffled);
+        setInitialTotal(shuffled.length);
+    }, [verbsData]);
 
     React.useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
-            setCurrentIndex(0);
-            setStatus('idle');
-            setUserInput('');
-            setFinished(false);
+            initLesson();
         } else {
             document.body.style.overflow = 'unset';
+            setFinished(false);
         }
-    }, [isOpen]);
+    }, [isOpen, initLesson]);
 
-    // ĐÃ FIX: Cơ chế chống "đơ" bàn phím
+    const triggerConfetti = React.useCallback(() => {
+        if (typeof confetti === 'undefined') return;
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+    }, []);
+
+    React.useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen, triggerConfetti]);
+
     const handleInputChange = (e) => {
         const val = e.target.value;
         try {
-            // Thử gọi hàm chuyển đổi Kana (nếu hàm này tồn tại ở Global)
             if (typeof convertToKana === 'function') {
-                setUserInput(convertToKana(val, false));
+                setUserInput(convertToKana(val, false)); // Không phải katakana
             } else {
-                setUserInput(val); // Fallback: Gõ bình thường nếu mất hàm
+                setUserInput(val);
             }
         } catch (err) {
-            setUserInput(val); // Fallback: Gõ bình thường nếu hàm bị lỗi
+            setUserInput(val);
         }
     };
 
     const checkAnswer = () => {
         if (status === 'correct' || finished) return;
+        const currentItem = queue[currentIndex];
         let finalInput = userInput.trim();
-        if (finalInput.endsWith('n')) finalInput = finalInput.slice(0, -1) + 'ん';
+
+        if (finalInput.endsWith('n')) {
+            finalInput = finalInput.slice(0, -1) + 'ん';
+        }
+
+        // Lấy đáp án đúng để so sánh
+        const targetConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
         const isCorrect = finalInput === targetConjugation;
 
         if (status === 'retyping' || status === 'wrong') {
@@ -4037,84 +4069,87 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
         if (isCorrect) {
             setStatus('correct');
+            if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            setCorrectAnswer(targetConjugation);
+            setCorrectAnswer(targetConjugation); 
             setStatus('wrong');
+            setWrongDetected(true);
+            setQueue(prev => [...prev, currentItem]); // Đẩy từ sai xuống cuối hàng đợi
             setTimeout(() => setStatus('retyping'), 500);
         }
     };
 
     const goToNext = () => {
-        if (currentIndex < verbsData.length - 1) {
+        if (currentIndex < queue.length - 1) {
             setCurrentIndex(prev => prev + 1);
             setUserInput('');
             setStatus('idle');
             setCorrectAnswer('');
-        } else {
-            setFinished(true);
-        }
+            setWrongDetected(false);
+        } else { setFinished(true); }
     };
 
-    if (!isOpen || !verbsData || verbsData.length === 0) return null;
-
-    const formLabels = { 
-        "Te": "Thể Te", 
-        "Ta": "Thể Ta", 
-        "Nai": "Thể Nai", 
-        "Dictionary": "Thể Từ Điển",
-        "Ba": "Thể Điều Kiện",
-        "Volitional": "Thể Ý Chí",
-        "Imperative": "Thể Mệnh Lệnh",
-        "Potential": "Thể Khả Năng",
-        "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến",
-        "Tai": "Thể Mong Muốn"
-    };
+    if (!isOpen || queue.length === 0) return null;
+    const currentItem = queue[currentIndex];
+    const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
 
     return (
         <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
             {!finished ? (
                 <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm overflow-hidden p-8 flex flex-col items-center border-4 border-zinc-100 relative">
                     
-                    {/* ĐÃ FIX: Thêm nút X để thoát ở góc phải */}
-                    <button onClick={onClose} className="absolute top-5 right-5 text-zinc-400 hover:text-red-500 transition-colors p-1.5 bg-zinc-50 hover:bg-red-50 rounded-full shadow-sm active:scale-90">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-
-                    <div className="w-full mb-8 flex justify-between items-center">
-                        <span className="text-[11px] font-black text-white bg-indigo-600 px-3 py-1.5 rounded-xl shadow-sm uppercase tracking-widest">{formLabels[targetForm] || targetForm}</span>
-                        {/* Đẩy bộ đếm lùi sang trái một chút để tránh đè lên nút X */}
-                        <span className="text-[11px] font-black text-zinc-400 mr-8">{currentIndex + 1} / {verbsData.length}</span>
+                    {/* NHÃN TÊN THỂ HIỂN THỊ TRÊN CÙNG */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
+                        {formLabels[targetForm] || targetForm}
                     </div>
 
-                    <div className={`flex flex-col items-center text-center mb-8 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        {/* ĐÃ FIX: Giảm cỡ chữ chính từ text-5xl xuống text-4xl */}
-                        <h2 className="text-4xl font-bold font-sans text-zinc-800">{currentItem.vmasu}</h2>
-                        {/* ĐÃ FIX: Xóa nhãn Nhóm động từ ở đây */}
+                    <div className="w-full mb-8 mt-2">
+                        <div className="flex justify-between items-center mb-5">
+                            <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
+                                {correctFirstTimeCount} / {initialTotal}
+                            </span>
+                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                        <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
+                        </div>
+                    </div>
+
+                    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                        <h2 className="text-3xl font-bold font-sans text-zinc-800 mb-3">{currentItem.vmasu}</h2>
+                        {/* ĐÃ XÓA Ý NGHĨA Ở ĐÂY NHƯ YÊU CẦU */}
                     </div>
 
                     <div className="w-full space-y-4">
                         <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange} onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : "Nhập Hiragana..."}
-                            // ĐÃ FIX: Giảm cỡ chữ ô input (text-2xl -> text-lg), giảm padding (p-4 -> p-3.5)
-                            className={`w-full p-3.5 text-center text-lg font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50 focus:bg-white'}`}
+                            type="text" autoFocus value={userInput} onChange={handleInputChange}
+                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : "Nhập cách đọc..."}
+                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
                         />
                         {(status === 'retyping' || status === 'wrong') && (
                             <div className="animate-in slide-in-from-top-2 duration-300 text-center">
                                 <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
-                                <div className="inline-block px-5 py-2.5 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg">{correctAnswer}</div>
+                                <div className="inline-block px-5 py-2.5 bg-red-600 text-white rounded-xl font-black text-lg shadow-lg shadow-red-200">{correctAnswer}</div>
                             </div>
                         )}
-                        <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">Nhấn Enter để kiểm tra</p>
+                        <p className="text-[9px] text-zinc-300 text-center font-bold uppercase tracking-widest pt-2">
+                            {status === 'retyping' ? 'Bắt buộc gõ lại từ bị sai' : 'Nhấn Enter để kiểm tra'}
+                        </p>
                     </div>
                 </div>
             ) : (
-                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl animate-in zoom-in-95">
-                    <div className="text-5xl mb-4">🏆</div>
-                    <h3 className="text-lg font-black text-gray-800 mb-6 uppercase">Hoàn thành chia động từ!</h3>
-                    <button onClick={onClose} className="w-full py-3.5 bg-gray-900 hover:bg-black text-white font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 shadow-md">THOÁT</button>
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
+                    <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
+                    <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
+                    <div className="space-y-2">
+                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                    </div>
                 </div>
             )}
         </div>
