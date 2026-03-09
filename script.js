@@ -3560,15 +3560,21 @@ useEffect(() => {
         }
     };
 
-    const getDynamicPlaceholder = () => {
-        if (mode === 'vocab') return "Nhập thủ công TỪ VỰNG\n(từ vựng phân cách bằng dấu xuống dòng)";
-        const labels = [];
-        if (filterOptions.kanji) labels.push("漢字");        
-        if (filterOptions.hiragana) labels.push("ひらがな"); 
-        if (filterOptions.katakana) labels.push("カタカナ"); 
-        if (labels.length === 0) return "Vui lòng chọn 1 loại chữ trong BỘ LỌC";
-        return "Nhập thủ công\n" + labels.join("、");
-    };
+   const getDynamicPlaceholder = () => {
+    // 1. Thêm điều kiện kiểm tra nếu đang ở tính năng Chia động từ
+    if (targetAction === 'conjugate') {
+        return "Động từ phân cách bằng dấu xuống dòng\n(bắt buộc nhập thể masu và kèm kanji)\nvd: 食べます";
+    }
+
+    // 2. Các trường hợp còn lại (Từ vựng, Kanji) giữ nguyên
+    if (mode === 'vocab') return "Nhập thủ công TỪ VỰNG\n(phân cách bằng dấu xuống dòng)";
+    const labels = [];
+    if (filterOptions.kanji) labels.push("漢字");        
+    if (filterOptions.hiragana) labels.push("ひらがな"); 
+    if (filterOptions.katakana) labels.push("カタカナ"); 
+    if (labels.length === 0) return "Vui lòng chọn 1 loại chữ trong BỘ LỌC";
+    return "Nhập thủ công\n" + labels.join("、");
+};
 
     const handleShuffle = () => {
         if (!config.text) return;
@@ -3629,7 +3635,6 @@ useEffect(() => {
 {/* Thêm phần chọn Thể với UI Dropdown Custom */}
 {targetAction === 'conjugate' && (
     <div className="mb-6 relative z-[60]" ref={formDropdownRef}>
-        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 block">Cấu hình: Thể cần chia</label>
         
         {/* Nút bấm mở Dropdown */}
         <button 
