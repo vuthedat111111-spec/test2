@@ -207,40 +207,33 @@ const VerbEngine = {
         'o': ['お','こ','ご','そ','ぞ','と','ど','の','ほ','ぼ','ぽ','も','ろ']
     },
 
-    // (ĐÃ XÓA BIẾN EXCEPTIONS Ở ĐÂY VÌ ĐÃ CÓ JSON)
-
     shiftHira: (char, toColumn) => {
         const idx = VerbEngine.HIRA_MAP['i'].indexOf(char);
         return idx !== -1 ? VerbEngine.HIRA_MAP[toColumn][idx] : char;
     },
 
-    // 3. HÀM PARSE VMASU (Cập nhật thêm tham số dbData)
-    parseVmasu: (vmasu, dbData) => { // <--- Thêm dbData vào đây
+    // 2. PARSE VMASU (Giữ nguyên của bạn)
+    parseVmasu: (vmasu, dbData) => { 
         if (!vmasu.endsWith("ます")) return null;
         if (!/[\u4E00-\u9FAF]/.test(vmasu)) return { error: "Yêu cầu nhập Kanji, không nhập nguyên Hiragana." };
 
         const stem = vmasu.slice(0, -2);
         const lastChar = stem.slice(-1);
 
-        // A. Check Nhóm 3
         if (vmasu === "来ます") return { vmasu, stem, lastChar, group: 3, vru: "来る" };
         if (stem.endsWith("し")) return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
-
-        // B. Check Ngoại lệ Nhóm 1 (Đọc từ file JSON qua dbData)
         if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
             return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
         }
-
-        // C. Phân loại theo vần
         if (VerbEngine.HIRA_MAP['e'].includes(lastChar)) {
             return { vmasu, stem, lastChar, group: 2, vru: stem + "る" };
         } else if (VerbEngine.HIRA_MAP['i'].includes(lastChar)) {
             const uChar = VerbEngine.shiftHira(lastChar, 'u');
             return { vmasu, stem, lastChar, group: 1, vru: stem.slice(0, -1) + uChar };
         }
-
         return null;
     },
+
     deriveMasuReading: (vruReading, group) => {
         if (!vruReading) return "";
         if (vruReading === "くる") return "きます";
@@ -256,46 +249,97 @@ const VerbEngine = {
         }
         return "";
     },
+
+    // 3. TÍCH HỢP LOGIC CHIA 11 THỂ TỪ SOURCE TYPESCRIPT
     conjugate: (vmasuReading, parsedData, targetForm) => {
-        const stemReading = vmasuReading.slice(0, -2);
-        const lastCharReading = stemReading.slice(-1);
-        if (targetForm === "Te" || targetForm === "Ta") {
-            const suffix = targetForm === "Te" ? "て" : "た";
-            const suffixD = targetForm === "Te" ? "で" : "だ";
-            if (parsedData.group === 3) {
-                if (vmasuReading === "きます") return "き" + suffix;
-                return stemReading + suffix;
-            }
-            if (parsedData.group === 2) return stemReading + suffix;
-            if (parsedData.group === 1) {
-                if (parsedData.vmasu === "行きます") return "いっ" + suffix;
-                if (['い', 'ち', 'り'].includes(lastCharReading)) return stemReading.slice(0, -1) + "っ" + suffix;
-                if (['み', 'に', 'び'].includes(lastCharReading)) return stemReading.slice(0, -1) + "ん" + suffixD;
-                if (['き'].includes(lastCharReading)) return stemReading.slice(0, -1) + "い" + suffix;
-                if (['ぎ'].includes(lastCharReading)) return stemReading.slice(0, -1) + "い" + suffixD;
-                if (['し'].includes(lastCharReading)) return stemReading + suffix;
+        const stemReading = vmasuReading.slice(0, -2); // Bỏ 'ます'
+        const lastCharI = stemReading.slice(-1); // Chữ cái cuối (Cột i)
+
+        // Khôi phục về thể từ điển (V-ru) để dễ chia
+        let vruReading = "";
+        let tailU = "";
+        let stemBase = "";
+
+        if (parsedData.group === 3) {
+            if (vmasuReading === "きます") vruReading = "くる";
+            else vruReading = stemReading.slice(0, -1) + "する";
+        } else if (parsedData.group === 2) {
+            vruReading = stemReading + "る";
+            stemBase = stemReading;
+        } else if (parsedData.group === 1) {
+            tailU = VerbEngine.shiftHira(lastCharI, 'u');
+            vruReading = stemReading.slice(0, -1) + tailU;
+            stemBase = stemReading.slice(0, -1);
+        }
+
+        // --- CHIA NHÓM 3 ---
+        if (parsedData.group === 3) {
+            const isKuru = vmasuReading === "きます";
+            const sSuru = stemReading.slice(0, -1); 
+
+            switch (targetForm) {
+                case "Te": return isKuru ? "きて" : sSuru + "して";
+                case "Ta": return isKuru ? "きた" : sSuru + "した";
+                case "Nai": return isKuru ? "こない" : sSuru + "しない";
+                case "Dictionary": return vruReading;
+                case "Ba": return isKuru ? "くれば" : sSuru + "すれば";
+                case "Volitional": return isKuru ? "こよう" : sSuru + "しよう";
+                case "Imperative": return isKuru ? "こい" : sSuru + "しろ";
+                case "Potential": return isKuru ? "こられる" : sSuru + "できる";
+                case "Passive": return isKuru ? "こられる" : sSuru + "される";
+                case "Causative": return isKuru ? "こさせる" : sSuru + "させる";
+                case "Tai": return isKuru ? "きたい" : sSuru + "したい";
+                default: return stemReading;
             }
         }
-        if (targetForm === "Nai") {
-            if (parsedData.group === 3) {
-                if (vmasuReading === "きます") return "こない";
-                return stemReading.slice(0, -1) + "しない";
-            }
-            if (parsedData.group === 2) return stemReading + "ない";
-            if (parsedData.group === 1) {
-                const aChar = VerbEngine.shiftHira(lastCharReading, 'a');
-                return stemReading.slice(0, -1) + aChar + "ない";
+
+        // --- CHIA NHÓM 2 ---
+        if (parsedData.group === 2) {
+            switch (targetForm) {
+                case "Te": return stemBase + "て";
+                case "Ta": return stemBase + "た";
+                case "Nai": return stemBase + "ない";
+                case "Dictionary": return vruReading;
+                case "Ba": return stemBase + "れば";
+                case "Volitional": return stemBase + "よう";
+                case "Imperative": return stemBase + "ろ";
+                case "Potential": return stemBase + "られる";
+                case "Passive": return stemBase + "られる";
+                case "Causative": return stemBase + "させる";
+                case "Tai": return stemBase + "たい";
+                default: return stemReading;
             }
         }
-        if (targetForm === "Dictionary") {
-             if (parsedData.group === 3) {
-                if (vmasuReading === "きます") return "くる";
-                return stemReading.slice(0, -1) + "する";
+
+        // --- CHIA NHÓM 1 ---
+        if (parsedData.group === 1) {
+            // Nhóm Te / Ta (Âm ngắt, âm mũi...)
+            if (targetForm === "Te" || targetForm === "Ta") {
+                const sTe = targetForm === "Te" ? "て" : "た";
+                const sDe = targetForm === "Te" ? "で" : "だ";
+
+                if (vruReading === "いく") return stemBase + "っ" + sTe; // Ngoại lệ: Iku
+                if (["う", "つ", "る"].includes(tailU)) return stemBase + "っ" + sTe;
+                if (["む", "ぶ", "ぬ"].includes(tailU)) return stemBase + "ん" + sDe;
+                if (tailU === "く") return stemBase + "い" + sTe;
+                if (tailU === "ぐ") return stemBase + "い" + sDe;
+                if (tailU === "す") return stemBase + "し" + sTe;
             }
-            if (parsedData.group === 2) return stemReading + "る";
-            if (parsedData.group === 1) {
-                const uChar = VerbEngine.shiftHira(lastCharReading, 'u');
-                return stemReading.slice(0, -1) + uChar;
+
+            // Các nhóm còn lại (Sử dụng shift Hiragana)
+            const shift = (vowel) => VerbEngine.shiftHira(lastCharI, vowel);
+
+            switch (targetForm) {
+                case "Nai": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "ない";
+                case "Dictionary": return vruReading;
+                case "Ba": return stemBase + shift('e') + "ば";
+                case "Volitional": return stemBase + shift('o') + "う";
+                case "Imperative": return stemBase + shift('e');
+                case "Potential": return stemBase + shift('e') + "る";
+                case "Passive": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "れる";
+                case "Causative": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "せる";
+                case "Tai": return stemBase + shift('i') + "たい";
+                default: return stemReading;
             }
         }
         return stemReading;
@@ -3572,12 +3616,19 @@ useEffect(() => {
         <select 
             value={verbTargetForm} 
             onChange={e => setVerbTargetForm(e.target.value)}
-            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-gray-900 outline-none"
+            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-gray-900 outline-none custom-scrollbar"
         >
             <option value="Te">Thể Te (て)</option>
             <option value="Ta">Thể Ta (た)</option>
             <option value="Nai">Thể Nai (ない)</option>
             <option value="Dictionary">Thể Từ Điển (V-ru)</option>
+            <option value="Ba">Thể Điều Kiện (ば)</option>
+            <option value="Volitional">Thể Ý Chí (よう)</option>
+            <option value="Imperative">Thể Mệnh Lệnh (ろ/え)</option>
+            <option value="Potential">Thể Khả Năng (える/られる)</option>
+            <option value="Passive">Thể Bị Động (れる/られる)</option>
+            <option value="Causative">Thể Sai Khiến (せる/させる)</option>
+            <option value="Tai">Thể Mong Muốn (たい)</option>
         </select>
     </div>
 )}
@@ -3864,7 +3915,19 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
     if (!isOpen || !verbsData || verbsData.length === 0) return null;
 
-    const formLabels = { "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", "Dictionary": "Thể Từ Điển (る)" };
+   const formLabels = { 
+    "Te": "Thể Te (て)", 
+    "Ta": "Thể Ta (た)", 
+    "Nai": "Thể Nai (ない)", 
+    "Dictionary": "Thể Từ Điển (る)",
+    "Ba": "Thể Điều Kiện (ば)",
+    "Volitional": "Thể Ý Chí (よう)",
+    "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+    "Potential": "Thể Khả Năng",
+    "Passive": "Thể Bị Động",
+    "Causative": "Thể Sai Khiến",
+    "Tai": "Thể Mong Muốn (~たい)"
+};
 
     return (
         <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
