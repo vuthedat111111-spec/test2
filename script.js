@@ -3703,7 +3703,7 @@ useEffect(() => {
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[16px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
+                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all custom-scrollbar leading-relaxed" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
@@ -3805,9 +3805,10 @@ useEffect(() => {
         </div>
     );
 };
-const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm }) => {
+const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm, onUpdateText }) => {
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
     const [manualReadings, setManualReadings] = React.useState({});
+    const [fixingVerbs, setFixingVerbs] = React.useState({}); // State lưu giá trị đang sửa
 
     // Từ điển nhãn hiển thị cho các Thể
     const formLabels = { 
@@ -3853,33 +3854,75 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         onStart(finalData, targetForm);
     };
 
+    // HÀM XỬ LÝ LƯU TỪ SỬA LỖI
+    const handleFixVmasu = (oldWord, newWord) => {
+        if (!newWord || !newWord.trim()) return;
+        
+        // 1. Lấy danh sách từ hiện tại
+        let words = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w);
+        
+        // 2. Thay thế từ cũ bằng từ mới
+        words = words.map(w => w === oldWord ? newWord.trim() : w);
+        
+        // 3. Gửi lên component cha để cập nhật vào textarea (mỗi từ 1 dòng)
+        if (onUpdateText) {
+            onUpdateText(words.join('\n') + '\n');
+        }
+        
+        // Xóa khỏi state fixing
+        setFixingVerbs(prev => {
+            const next = {...prev};
+            delete next[oldWord];
+            return next;
+        });
+    };
+
     return (
         <div className="fixed inset-0 z-[400] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 border border-gray-200">
                 <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                     <div>
                         <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Chuẩn bị chia động từ</h2>
-                        <p className="text-xs text-gray-500 font-medium">Bổ sung Hiragana nếu hệ thống không tìm thấy</p>
+                        <p className="text-xs text-gray-500 font-medium">Bổ sung Hiragana hoặc sửa lỗi nếu hệ thống không tìm thấy</p>
                     </div>
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500">✕</button>
                 </div>
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
-                        // Tính toán trực tiếp kết quả chia để hiển thị ra UI
                         const currentReading = item.reading || manualReadings[item.vmasu];
                         const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
 
                         return (
                             <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!item.reading && !manualReadings[item.vmasu]) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col w-full">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-xl font-bold text-gray-900">{item.vmasu}</span>
+                                        <span className={`text-xl font-bold ${item.error ? 'text-red-700 line-through opacity-60' : 'text-gray-900'}`}>{item.vmasu}</span>
                                         {!item.error && (
                                             <span className="px-2 py-0.5 bg-gray-900 text-white text-[10px] font-black rounded uppercase">Nhóm {item.group}</span>
                                         )}
                                     </div>
+
+                                    {/* GIAO DIỆN KHI CÓ LỖI (CHƯA ĐÚNG THỂ MASU) */}
                                     {item.error ? (
-                                        <span className="text-xs text-red-600 font-medium mt-1">{item.error}</span>
+                                        <div className="flex flex-col gap-2 mt-2 w-full">
+                                            <span className="text-xs text-red-600 font-medium">{item.error}</span>
+                                            <div className="flex gap-2 w-full sm:w-72">
+                                                <input 
+                                                    type="text" 
+                                                    placeholder="Sửa thành thể Masu..."
+                                                    value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
+                                                    onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
+                                                    onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-sm outline-none focus:border-red-500 font-bold text-gray-900 bg-white"
+                                                />
+                                                <button 
+                                                    onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                    className="px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all"
+                                                >
+                                                    LƯU
+                                                </button>
+                                            </div>
+                                        </div>
                                     ) : (
                                         <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
                                             {formLabels[targetForm] || targetForm}: 
@@ -3889,6 +3932,8 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                         </span>
                                     )}
                                 </div>
+
+                                {/* GIAO DIỆN KHI KHÔNG CÓ LỖI NHƯNG THIẾU HIRAGANA */}
                                 {!item.error && (
                                     <div className="w-full sm:w-auto">
                                         {item.reading ? (
@@ -3904,8 +3949,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                                     placeholder="VD: たべます" 
                                                     value={manualReadings[item.vmasu] || ''}
                                                     onChange={(e) => {
-                                                        const kana = convertToKana(e.target.value, false);
-                                                        setManualReadings(prev => ({...prev, [item.vmasu]: kana}));
+                                                        setManualReadings(prev => ({...prev, [item.vmasu]: e.target.value}));
                                                     }}
                                                     className="w-full p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white"
                                                 />
@@ -4258,7 +4302,7 @@ const App = () => {
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
-        <VerbPreviewListModal 
+      <VerbPreviewListModal 
                 isOpen={isVerbPreviewOpen}
                 onClose={() => {
                     setIsVerbPreviewOpen(false);
@@ -4267,6 +4311,14 @@ const App = () => {
                 text={config.text}
                 dbData={dbData}
                 targetForm={verbTargetForm}
+                
+          
+                onUpdateText={(newText) => {
+                    setConfig({ ...config, text: newText });
+                    setTextCache(prev => ({ ...prev, vocab: newText }));
+                }}
+            
+
                 onStart={(finalData, targetF) => {
                     setIsVerbPreviewOpen(false);
                     setVerbPracticeData(finalData);
