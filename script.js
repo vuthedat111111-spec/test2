@@ -4062,9 +4062,20 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             finalInput = finalInput.slice(0, -1) + 'ん';
         }
 
-        // Lấy đáp án đúng để so sánh
+        // Lấy đáp án đúng để so sánh (Thể ngắn mặc định)
         const targetConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
-        const isCorrect = finalInput === targetConjugation;
+        
+        // Mảng chứa các đáp án hợp lệ
+        let acceptableAnswers = [targetConjugation];
+
+        // CHỈ cho phép nhập thêm đuôi ~ます với 3 thể: Khả năng, Bị động, Sai khiến
+        if (["Potential", "Passive", "Causative"].includes(targetForm)) {
+            // Các thể này luôn kết thúc bằng る, ta chỉ cần bỏ る thêm ます (VD: たべられる -> たべられます)
+            acceptableAnswers.push(targetConjugation.slice(0, -1) + 'ます');
+        }
+
+        // Đúng nếu input của người dùng khớp với 1 trong các đáp án hợp lệ
+        const isCorrect = acceptableAnswers.includes(finalInput);
 
         if (status === 'retyping' || status === 'wrong') {
             if (isCorrect) goToNext();
