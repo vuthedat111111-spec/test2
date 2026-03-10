@@ -3852,6 +3852,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
     const [tempReadings, setTempReadings] = React.useState({}); 
     const [fixingVerbs, setFixingVerbs] = React.useState({}); 
+    const [editingValidVerb, setEditingValidVerb] = React.useState(null);
 
     const formLabels = { 
         "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
@@ -3902,6 +3903,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
             delete next[oldWord];
             return next;
         });
+        setEditingValidVerb(null);
     };
 
     const handleSaveReading = (vmasu) => {
@@ -3998,21 +4000,68 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                 {!item.error && (
                                     <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-end">
                                         {currentReading ? (
-                                            <div className="flex items-center gap-2">
-                                                <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
-                                                    Sẵn sàng
-                                                </div>
-                                                {!item.reading && globalVerbReadings[item.vmasu] && (
+                                            editingValidVerb === item.vmasu ? (
+                                                // --- FORM NHẬP TỪ MỚI KHI BẤM VÀO CÁI BÚT ---
+                                                <div className="flex gap-2 w-full sm:w-64">
+                                                    <input 
+                                                        type="text" 
+                                                        autoFocus
+                                                        placeholder="Sửa từ vựng..." 
+                                                        value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
+                                                        onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
+                                                        onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                        className="flex-1 p-2 border-2 border-gray-300 focus:border-gray-900 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-sm"
+                                                    />
                                                     <button 
-                                                        onClick={() => handleEditReading(item.vmasu)}
-                                                        className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
-                                                        title="Sửa cách đọc"
+                                                        onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                        className="px-3 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-black active:scale-95 transition-all flex-shrink-0"
                                                     >
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        LƯU
                                                     </button>
-                                                )}
-                                            </div>
+                                                    <button 
+                                                        onClick={() => {
+                                                            setEditingValidVerb(null);
+                                                            setFixingVerbs(prev => { const next = {...prev}; delete next[item.vmasu]; return next; });
+                                                        }}
+                                                        className="px-2 py-2 bg-gray-200 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-300 transition-all flex-shrink-0"
+                                                    >
+                                                        HỦY
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                // --- TRẠNG THÁI HIỂN THỊ NÚT "SẴN SÀNG" VÀ CÁC NÚT SỬA ---
+                                                <div className="flex items-center gap-2">
+                                                    <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
+                                                        Sẵn sàng
+                                                    </div>
+                                                    
+                                                    {/* NÚT BÚT SỬA MỚI: Dành cho từ vựng đã có sẵn trong DB */}
+                                                    {item.reading && (
+                                                        <button 
+                                                            onClick={() => {
+                                                                setEditingValidVerb(item.vmasu);
+                                                                setFixingVerbs({...fixingVerbs, [item.vmasu]: item.vmasu});
+                                                            }}
+                                                            className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
+                                                            title="Đổi từ vựng khác"
+                                                        >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    )}
+
+                                                    {/* NÚT BÚT SỬA CŨ: Chỉ hiện khi là từ do người dùng tự gõ Hiragana bổ sung */}
+                                                    {!item.reading && globalVerbReadings[item.vmasu] && (
+                                                        <button 
+                                                            onClick={() => handleEditReading(item.vmasu)}
+                                                            className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
+                                                            title="Sửa cách đọc Hiragana"
+                                                        >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            )
                                         ) : (
                                             <div className="flex flex-col gap-1 w-full sm:w-auto">
                                                 <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
