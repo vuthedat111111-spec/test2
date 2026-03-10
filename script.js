@@ -285,10 +285,12 @@ const VerbEngine = {
                 case "Ba": return isKuru ? "くれば" : sSuru + "すれば";
                 case "Volitional": return isKuru ? "こよう" : sSuru + "しよう";
                 case "Imperative": return isKuru ? "こい" : sSuru + "しろ";
+                case "Prohibitive": return vruReading + "な";
                 case "Potential": return isKuru ? "こられる" : sSuru + "できる";
                 case "Passive": return isKuru ? "こられる" : sSuru + "される";
                 case "Causative": return isKuru ? "こさせる" : sSuru + "させる";
-                case "Tai": return isKuru ? "きたい" : sSuru + "したい";
+                case "CausativePassive": return isKuru ? "こさせられる" : sSuru + "させられる";
+                
                 default: return stemReading;
             }
         }
@@ -303,10 +305,12 @@ const VerbEngine = {
                 case "Ba": return stemBase + "れば";
                 case "Volitional": return stemBase + "よう";
                 case "Imperative": return stemBase + "ろ";
+                case "Prohibitive": return vruReading + "な";
                 case "Potential": return stemBase + "られる";
                 case "Passive": return stemBase + "られる";
                 case "Causative": return stemBase + "させる";
-                case "Tai": return stemBase + "たい";
+                case "CausativePassive": return stemBase + "させられる";
+                
                 default: return stemReading;
             }
         }
@@ -338,7 +342,11 @@ const VerbEngine = {
                 case "Potential": return stemBase + shift('e') + "る";
                 case "Passive": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "れる";
                 case "Causative": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "せる";
-                case "Tai": return stemBase + shift('i') + "たい";
+                case "CausativePassive": {
+                    const aCol = tailU === "う" ? "わ" : shift('a');
+                    return stemBase + aCol + (tailU === "す" ? "せられる" : "される");
+                }
+                case "Prohibitive": return vruReading + "な";
                 default: return stemReading;
             }
         }
@@ -3648,8 +3656,9 @@ useEffect(() => {
                 {[
                     { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
                     { id: "Dictionary", label: "Thể Từ Điển (V-ru)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
-                    { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
-                    { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, { id: "Tai", label: "Thể Mong Muốn (たい)" }
+                    { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
+                    { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
+                    { id: "CausativePassive", label: "Bị Động Sai Khiến (される)" }
                 ].find(opt => opt.id === verbTargetForm)?.label || 'Chọn thể...'}
             </span>
             <svg className={`w-5 h-5 text-indigo-400 group-hover:text-indigo-600 transition-transform duration-300 ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
@@ -3661,8 +3670,9 @@ useEffect(() => {
                 {[
                     { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
                     { id: "Dictionary", label: "Thể Từ Điển (V-ru)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
-                    { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
-                    { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, { id: "Tai", label: "Thể Mong Muốn (たい)" }
+                    { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
+                    { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
+                    { id: "CausativePassive", label: "Bị Động Sai Khiến (される)" }
                 ].map(opt => (
                     <button
                         key={opt.id}
@@ -3816,7 +3826,7 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
         "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
         "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến", "Tai": "Thể Mong Muốn (~たい)"
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
     };
 
     React.useEffect(() => {
@@ -4001,10 +4011,10 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
     const formLabels = { 
         "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
-        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)", 
-        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)", 
-        "Potential": "Thể Khả Năng (える/られる)", "Passive": "Thể Bị Động (れる/られる)", 
-        "Causative": "Thể Sai Khiến (せる/させる)", "Tai": "Thể Mong Muốn (たい)"
+        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
+        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+        "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
     };
 
     // --- KHỞI TẠO BÀI HỌC GIỐNG HỆT TỰ LUẬN TỪ VỰNG ---
@@ -4061,8 +4071,8 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
         // Mảng chứa các đáp án hợp lệ
         let acceptableAnswers = [targetConjugation];
 
-        // CHỈ cho phép nhập thêm đuôi ~ます với 3 thể: Khả năng, Bị động, Sai khiến
-        if (["Potential", "Passive", "Causative"].includes(targetForm)) {
+      
+        if (["Potential", "Passive", "Causative", "CausativePassive"].includes(targetForm)) {
             // Các thể này luôn kết thúc bằng る, ta chỉ cần bỏ る thêm ます (VD: たべられる -> たべられます)
             acceptableAnswers.push(targetConjugation.slice(0, -1) + 'ます');
         }
