@@ -3478,57 +3478,34 @@ const StudySetupModal = ({
     const [filterOptions, setFilterOptions] = useState({
         hiragana: true, katakana: true, kanji: true, removeDuplicates: false 
     });
-// --- FIX KHÓA NỀN CỐ ĐỊNH (KHÔNG BỊ TUỘT KHI ĐỔI MODE) ---
-useEffect(() => {
-    if (isOpen) {
-        // Lưu vị trí cuộn hiện tại
-        const scrollY = window.scrollY;
-        
-        // Khóa nền cho cả PC và Mobile
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
-        
-        // Đồng bộ dữ liệu local khi mở lên
-        setLocalText(config.text);
-    } else {
-        // Khi đóng Modal mới thực hiện mở khóa
-        const scrollY = document.body.style.top;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        
-        // Quay lại vị trí cũ
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-    
-    // Lưu ý quan trọng: Dependency Array CHỈ có [isOpen]
-    // Tuyệt đối không thêm [mode] hay [config.text] vào đây
-}, [isOpen]);
+// --- 1. ĐỒNG BỘ DỮ LIỆU (Tách riêng để không ảnh hưởng khóa nền) ---
     useEffect(() => {
         if (isOpen) {
             setLocalText(config.text);
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-            setIsFilterMenuOpen(false); 
         }
-        return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, config.text]);
-useEffect(() => {
+
+    // --- 2. FIX KHÓA NỀN CỐ ĐỊNH (Chỉ chạy khi bật/tắt Modal) ---
+    useEffect(() => {
         if (isOpen) {
-            // KHÓA CUỘN NỀN KHI MỞ BẢNG CHỌN BÀI
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
             document.body.style.overflow = 'hidden';
-            setLocalText(config.text);
         } else {
-            // MỞ LẠI KHI ĐÓNG
-            document.body.style.overflow = 'unset';
-            setIsFilterMenuOpen(false); 
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            setIsFilterMenuOpen(false); // Reset menu lọc
+            
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
         }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen, config.text]);
+    }, [isOpen]);
    useEffect(() => {
         function handleClickOutside(event) {
             if (filterRef.current && !filterRef.current.contains(event.target)) setIsFilterMenuOpen(false);
@@ -4428,13 +4405,13 @@ const App = () => {
         // Nếu đang ở màn chia động từ và bấm tiếp tục
         if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
-            setTimeout(() => setIsVerbPreviewOpen(true), 50); // Thêm nhịp nghỉ
+            setIsVerbPreviewOpen(true);
             return;
         }
         
         if (target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
-            setTimeout(() => setIsPreviewListOpen(true), 50); // Thêm nhịp nghỉ
+            setIsPreviewListOpen(true);
         } else {
             setSetupConfig({ isOpen: false, targetAction: null });
             setIsPreviewListOpen(false);
@@ -4491,9 +4468,7 @@ const App = () => {
                 isOpen={isPreviewListOpen}
                 onClose={() => {
                     setIsPreviewListOpen(false);
-                    setTimeout(() => {
-                        setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                    }, 50);
+                   setSetupConfig(prev => ({ ...prev, isOpen: true }));
                 }}
                 onStart={handleStartLearning}
                 targetAction={setupConfig.targetAction}
@@ -4550,9 +4525,7 @@ const App = () => {
                 isOpen={isVerbPreviewOpen}
                 onClose={() => {
                     setIsVerbPreviewOpen(false);
-                    setTimeout(() => {
-                        setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                    }, 50);
+                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
                 }}
                 text={config.text}
                 dbData={dbData}
