@@ -3882,7 +3882,7 @@ React.useEffect(() => {
     React.useEffect(() => {
         if (!isOpen) return;
         const lines = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
-        const results = lines.map(line => {
+        let results = lines.map(line => {
             const parsed = VerbEngine.parseVmasu(line, dbData);
             if (!parsed || parsed.error) return { vmasu: line, error: parsed?.error || "Đuôi động từ không hợp lệ (Phải là ~ます)" };
             const dbInfo = dbData?.TUVUNG_DB?.[parsed.vru];
@@ -3890,9 +3890,21 @@ React.useEffect(() => {
             if (dbInfo && dbInfo.reading) reading = VerbEngine.deriveMasuReading(dbInfo.reading, parsed.group);
             return { ...parsed, reading };
         });
+
+        // --- THÊM LOGIC SẮP XẾP TẠI ĐÂY ---
+        results.sort((a, b) => {
+            const getPriority = (item) => {
+                if (item.error) return 1; // Mức ưu tiên 1: Từ bị lỗi -> Lên trên cùng
+                const hasReading = item.reading || globalVerbReadings[item.vmasu];
+                if (!hasReading) return 2; // Mức ưu tiên 2: Từ thiếu Hiragana -> Ở giữa
+                return 3; // Mức ưu tiên 3: Từ đã Sẵn sàng -> Đẩy xuống cuối
+            };
+            return getPriority(a) - getPriority(b);
+        });
+
         setParsedVerbs(results);
-        setTempReadings({}); 
-    }, [isOpen, text, dbData]);
+   
+    }, [isOpen, text, dbData, globalVerbReadings]); 
 
     if (!isOpen) return null;
 
@@ -3922,7 +3934,18 @@ React.useEffect(() => {
         });
         setEditingValidVerb(null);
     };
-
+// --- THÊM HÀM XÓA TỪ KHỎI DANH SÁCH ---
+    const handleRemoveVerb = (wordToRemove) => {
+        // Lọc bỏ từ cần xóa
+        let words = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && w !== wordToRemove);
+        if (onUpdateText) {
+            onUpdateText(words.join('\n') + (words.length > 0 ? '\n' : ''));
+        }
+        // Dọn dẹp rác trong state (nếu có)
+        setFixingVerbs(prev => { const next = {...prev}; delete next[wordToRemove]; return next; });
+        setTempReadings(prev => { const next = {...prev}; delete next[wordToRemove]; return next; });
+        setGlobalVerbReadings(prev => { const next = {...prev}; delete next[wordToRemove]; return next; });
+    };
     const handleSaveReading = (vmasu) => {
         const val = tempReadings[vmasu];
         if (val && val.trim() !== '') {
@@ -3987,20 +4010,28 @@ React.useEffect(() => {
                                     {item.error ? (
                                         <div className="flex flex-col gap-2 mt-2 w-full">
                                             <span className="text-xs text-red-600 font-medium">{item.error}</span>
-                                            <div className="flex gap-2 w-full sm:w-72">
+                                            <div className="flex gap-2 w-full sm:w-84">
                                                 <input 
                                                     type="text" 
                                                     placeholder="Sửa thành thể Masu..."
                                                     value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
                                                     onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
                                                     onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-sm outline-none focus:border-red-500 font-bold text-gray-900 bg-white min-w-0"
+                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-[16px] outline-none focus:border-red-500 font-bold text-gray-900 bg-white min-w-0"
                                                 />
                                                 <button 
                                                     onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all flex-shrink-0"
+                                                    className="px-3 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all flex-shrink-0"
                                                 >
                                                     LƯU
+                                                </button>
+                                                {/* NÚT XÓA TỪ */}
+                                                <button 
+                                                    onClick={() => handleRemoveVerb(item.vmasu)}
+                                                    className="p-2 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition-colors flex-shrink-0 active:scale-95"
+                                                    title="Loại bỏ từ này"
+                                                >
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                 </button>
                                             </div>
                                         </div>
@@ -4027,7 +4058,7 @@ React.useEffect(() => {
                                                         value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
                                                         onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
                                                         onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                        className="flex-1 p-2 border-2 border-gray-300 focus:border-gray-900 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-sm"
+                                                        className="flex-1 p-2 border-2 border-gray-300 focus:border-gray-900 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-[16px]"
                                                     />
                                                     <button 
                                                         onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
@@ -4089,7 +4120,7 @@ React.useEffect(() => {
                                                         value={tempReadings[item.vmasu] !== undefined ? tempReadings[item.vmasu] : ''}
                                                         onChange={(e) => setTempReadings(prev => ({...prev, [item.vmasu]: e.target.value}))}
                                                         onKeyDown={(e) => e.key === 'Enter' && handleSaveReading(item.vmasu)}
-                                                        className="flex-1 p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0"
+                                                        className="flex-1 p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-[16px]"
                                                     />
                                                     <button 
                                                         onClick={() => handleSaveReading(item.vmasu)}
@@ -4108,8 +4139,12 @@ React.useEffect(() => {
                 </div>
                 <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-3">
                     <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100">Quay lại</button>
-                    <button onClick={handleStart} disabled={!canStart} className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'}`}>
-                        {hasErrors ? "CÓ LỖI TỪ VỰNG" : missingReadings.length > 0 ? `CÒN THIẾU ${missingReadings.length} CÁCH ĐỌC` : "VÀO TỰ LUẬN"}
+                    <button 
+                        onClick={handleStart} 
+                        disabled={!canStart} 
+                        className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'}`}
+                    >
+                        VÀO TỰ LUẬN
                     </button>
                 </div>
             </div>
