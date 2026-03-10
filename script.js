@@ -2782,22 +2782,8 @@ React.useEffect(() => {
                         </div>
 
                     </div>
-    
-    <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
-        {/* Icon bài thi trắc nghiệm (biểu tượng cho luyện đề JLPT) */}
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-            <path d="M12 11h4"></path>
-            <path d="M12 16h4"></path>
-            <path d="M8 11h.01"></path>
-            <path d="M8 16h.01"></path>
-        </svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-400">LUYỆN JLPT</h3>
-    <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Thi thử, làm đề N5-N1</p>
-</div>
-                    </div>
+
+  
                 </div>
             </section>
 
