@@ -3807,7 +3807,6 @@ useEffect(() => {
 };
 const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm, onUpdateText }) => {
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
-    const [manualReadings, setManualReadings] = React.useState({});
     const [tempReadings, setTempReadings] = React.useState({}); // State lưu tạm thời cho ô nhập
     const [fixingVerbs, setFixingVerbs] = React.useState({}); 
 
@@ -3838,20 +3837,20 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
             return { ...parsed, reading };
         });
         setParsedVerbs(results);
-        setManualReadings({});
-        setTempReadings({}); // Reset dữ liệu tạm khi mở lại bảng
+     
+        setTempReadings({}); 
     }, [isOpen, text, dbData]);
 
     if (!isOpen) return null;
 
     const hasErrors = parsedVerbs.some(v => v.error);
-    const missingReadings = parsedVerbs.filter(v => !v.error && (!v.reading && !manualReadings[v.vmasu]));
+    const missingReadings = parsedVerbs.filter(v => !v.error && (!v.reading && !globalVerbReadings[v.vmasu]));
     const canStart = !hasErrors && missingReadings.length === 0;
 
     const handleStart = () => {
         const finalData = parsedVerbs.map(v => ({
             ...v,
-            finalReading: v.reading || manualReadings[v.vmasu]
+            finalReading: v.reading || globalVerbReadings[v.vmasu]
         }));
         onStart(finalData, targetForm);
     };
@@ -3875,8 +3874,18 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
     const handleSaveReading = (vmasu) => {
         const val = tempReadings[vmasu];
         if (val && val.trim() !== '') {
-            setManualReadings(prev => ({...prev, [vmasu]: val.trim()}));
+            setGlobalVerbReadings(prev => ({...prev, [vmasu]: val.trim()}));
         }
+    };
+    const handleEditReading = (vmasu) => {
+        // Đưa giá trị đã lưu sai vào lại ô nhập tạm thời để sửa
+        setTempReadings(prev => ({...prev, [vmasu]: globalVerbReadings[vmasu]}));
+        // Xóa khỏi bộ nhớ chính để ép giao diện hiện lại ô nhập
+        setGlobalVerbReadings(prev => {
+            const next = {...prev};
+            delete next[vmasu];
+            return next;
+        });
     };
 
     return (
@@ -3891,9 +3900,8 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                 </div>
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
-                        const currentReading = item.reading || manualReadings[item.vmasu];
-                        const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
-
+                        const currentReading = item.reading || globalVerbReadings[item.vmasu];
+      　　　　　　　　　  const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
                         return (
                             <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!currentReading) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
                                 <div className="flex flex-col w-full">
@@ -3939,12 +3947,24 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                                 {!item.error && (
                                     <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-end">
                                         {currentReading ? (
-                                            // FIX: Chữ "Sẵn sàng" nằm trên 1 hàng nhờ whitespace-nowrap
-                                            <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
-                                                Sẵn sàng
-                                            </div>
-                                        ) : (
+    // FIX: Chữ "Sẵn sàng" nằm trên 1 hàng nhờ whitespace-nowrap
+    <div className="flex items-center gap-2">
+        <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
+            Sẵn sàng
+        </div>
+        {/* NÚT SỬA: CHỈ HIỂN THỊ VỚI NHỮNG TỪ KHÔNG CÓ DATA SẴN (!item.reading) */}
+        {!item.reading && globalVerbReadings[item.vmasu] && (
+            <button 
+                onClick={() => handleEditReading(item.vmasu)}
+                className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
+                title="Sửa cách đọc"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+            </button>
+        )}
+    </div>
+) : (
                                             // FIX: Thêm UI nút LƯU cho ô nhập Hiragana
                                             <div className="flex flex-col gap-1 w-full sm:w-auto">
                                                 <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
@@ -4166,6 +4186,7 @@ const App = () => {
     const [isVerbEssayOpen, setIsVerbEssayOpen] = useState(false);
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState('Te');
+    const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
@@ -4394,6 +4415,8 @@ const App = () => {
                     setVerbTargetForm(targetF);
                     setIsVerbEssayOpen(true);
                 }}
+　　　　　　　　　　　globalVerbReadings={globalVerbReadings}
+  　　　　　　　      setGlobalVerbReadings={setGlobalVerbReadings}
             />
 
             <VerbEssayGameModal
