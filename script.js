@@ -2717,6 +2717,8 @@ React.useEffect(() => {
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
+                        
+                        {/* 1. CHẾ ĐỘ HỌC */}
                         <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
@@ -2724,6 +2726,8 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+
+                        {/* 2. FLASHCARD */}
                         <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
@@ -2731,6 +2735,8 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+
+                        {/* 3. TỰ LUẬN */}
                         <div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
@@ -2739,26 +2745,19 @@ React.useEffect(() => {
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
 
-    　　　　　　　　　　　  {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (ĐÃ MỞ KHÓA) */}
+                        {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                            
                             <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20 animate-pulse">
                                 MỚI
                             </div>
-
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M8 3L4 7l4 4"/>
-                                    <path d="M4 7h16"/>
-                                    <path d="m16 21 4-4-4-4"/>
-                                    <path d="M20 17H4"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
                         </div>
 
-                        {/* THẺ LỊCH TRÌNH HỌC */}
+                        {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             {dueCharsCount > 0 && (
                                 <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-md">Cần ôn</div>
@@ -2769,12 +2768,20 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-    {/* THẺ TÍNH NĂNG MỚI: LUYỆN JLPT (BỊ KHÓA) */}
-<div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
-    {/* Nhãn "Sắp ra mắt" */}
-    <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-        Sắp ra mắt
-    </div>
+
+                        {/* 6. LUYỆN JLPT */}
+                        <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
+                            <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                Sắp ra mắt
+                            </div>
+                            <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-400">LUYỆN JLPT</h3>
+                            <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Thi thử, làm đề N5-N1</p>
+                        </div>
+
+                    </div>
     
     <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
         {/* Icon bài thi trắc nghiệm (biểu tượng cho luyện đề JLPT) */}
