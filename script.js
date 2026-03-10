@@ -3965,16 +3965,17 @@ React.useEffect(() => {
 
             // Nếu đúng chuẩn thì mới cho lưu
             setGlobalVerbReadings(prev => ({...prev, [vmasu]: cleanVal}));
+            setTempReadings(prev => {
+                const next = {...prev};
+                delete next[vmasu];
+                return next;
+            });
         }
     };
 
     const handleEditReading = (vmasu) => {
+       
         setTempReadings(prev => ({...prev, [vmasu]: globalVerbReadings[vmasu]}));
-        setGlobalVerbReadings(prev => {
-            const next = {...prev};
-            delete next[vmasu];
-            return next;
-        });
     };
 
     return (
@@ -4047,7 +4048,8 @@ React.useEffect(() => {
 
                                 {!item.error && (
                                     <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-end">
-                                        {currentReading ? (
+                                      {/* ĐIỀU KIỆN MỚI: Có cách đọc VÀ không nằm trong danh sách đang sửa */}
+                                        {currentReading && tempReadings[item.vmasu] === undefined ? (
                                             editingValidVerb === item.vmasu ? (
                                                 // --- FORM NHẬP TỪ MỚI KHI BẤM VÀO CÁI BÚT ---
                                                 <div className="flex gap-2 w-full sm:w-64">
@@ -4062,18 +4064,9 @@ React.useEffect(() => {
                                                     />
                                                     <button 
                                                         onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                        className="px-3 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-black active:scale-95 transition-all flex-shrink-0"
+                                                        className="px-4 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-black active:scale-95 transition-all flex-shrink-0"
                                                     >
                                                         LƯU
-                                                    </button>
-                                                    <button 
-                                                        onClick={() => {
-                                                            setEditingValidVerb(null);
-                                                            setFixingVerbs(prev => { const next = {...prev}; delete next[item.vmasu]; return next; });
-                                                        }}
-                                                        className="px-2 py-2 bg-gray-200 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-300 transition-all flex-shrink-0"
-                                                    >
-                                                        HỦY
                                                     </button>
                                                 </div>
                                             ) : (
@@ -4113,7 +4106,7 @@ React.useEffect(() => {
                                         ) : (
                                             <div className="flex flex-col gap-1 w-full sm:w-auto">
                                                 <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
-                                                <div className="flex gap-2 w-full sm:w-64">
+                                                <div className="flex gap-2 w-full sm:w-72">
                                                     <input 
                                                         type="text" 
                                                         placeholder="VD: たべます" 
