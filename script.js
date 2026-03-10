@@ -212,46 +212,46 @@ const VerbEngine = {
         return idx !== -1 ? VerbEngine.HIRA_MAP[toColumn][idx] : char;
     },
 
-    // 2. PARSE VMASU (Giữ nguyên của bạn)
-    parseVmasu: (vmasu, dbData) => { 
+   parseVmasu: (vmasu, dbData) => { 
         if (!vmasu.endsWith("ます")) return null;
-        if (!/[\u4E00-\u9FAF]/.test(vmasu)) return { error: "Yêu cầu nhập Kanji, không nhập nguyên Hiragana." };
 
         const stem = vmasu.slice(0, -2);
         const lastChar = stem.slice(-1);
 
-        if (vmasu === "来ます") return { vmasu, stem, lastChar, group: 3, vru: "来る" };
-       // 3. PHÂN BIỆT THÔNG MINH NHÓM 1 VÀ NHÓM 3 (Bao gồm Động từ ghép)
+        // 1. Kiểm tra danh sách ngoại lệ trước
+        if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
+            return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
+        }
+
+        // 2. Bộ lọc thông minh: Cho phép Kanji, Katakana, hoặc động từ đuôi します (như がっかりします)
+        const hasKanji = /[\u4E00-\u9FAF]/.test(vmasu);
+        const hasKatakana = /[\u30A0-\u30FF]/.test(vmasu);
+        if (!hasKanji && !hasKatakana && !vmasu.endsWith("します")) {
+            return { error: "Yêu cầu nhập Kanji, không nhập nguyên Hiragana." };
+        }
+
+        if (vmasu === "来ます" || vmasu === "きます") return { vmasu, stem, lastChar, group: 3, vru: "くる" };
+        
+        // 3. PHÂN BIỆT THÔNG MINH NHÓM 1 VÀ NHÓM 3
         if (stem.endsWith("し")) {
-            // Tập hợp các đuôi Động từ ghép / Động từ dài thuộc NHÓM 1
+            // Danh sách bảo vệ động từ ghép Nhóm 1
             const group1Suffixes = [
                 "出し", "返し", "直し", "落とし", "渡し", "通し", 
                 "越し", "超し", "尽くし", "指し", "逃し", "壊し", 
                 "隠し", "残し", "こぼし", "殺し", "外し", "増やし", "減らし"
             ];
-
-            // Kiểm tra xem từ hiện tại có chứa đuôi Nhóm 1 ở trên không
             const isGroup1 = group1Suffixes.some(suffix => stem.endsWith(suffix));
 
-            // Nếu KHÔNG PHẢI Nhóm 1, VÀ chứa Katakana -> Chắc chắn là Nhóm 3
-            if (!isGroup1 && hasKatakana) {
+            // Đếm số lượng chữ Kanji
+            const kanjiCount = (stem.match(/[\u4E00-\u9FAF]/g) || []).length;
+
+            // BẮT NHÓM 3 NẾU: Không thuộc danh sách bảo vệ VÀ (Có Katakana HOẶC Có từ 2 Kanji trở lên HOẶC Thuần Hiragana dài)
+            if (!isGroup1 && (hasKatakana || kanjiCount >= 2 || (!hasKanji && stem.length > 2))) {
                 return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
             }
-            
-            // Xử lý riêng cho chữ Hán:
-            // Đếm số lượng Kanji trong stem (phần trước ます)
-            const kanjiCount = (stem.match(/[\u4E00-\u9FAF]/g) || []).length;
-            
-            // Nhóm 3 thường có 2 Kanji trở lên (勉強, 運転). Nhóm 1 thường chỉ có 1 Kanji (話, 貸).
-            if (!isGroup1 && kanjiCount >= 2) {
-                 return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
-            }
+        }
 
-            // Các trường hợp còn lại (như 話し, hoặc isGroup1 = true như 言い返し) sẽ tự trôi xuống logic Nhóm 1 bên dưới!
-        }
-        if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
-            return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
-        }
+        // 4. Logic chia Nhóm 2 và Nhóm 1 cơ bản
         if (VerbEngine.HIRA_MAP['e'].includes(lastChar)) {
             return { vmasu, stem, lastChar, group: 2, vru: stem + "る" };
         } else if (VerbEngine.HIRA_MAP['i'].includes(lastChar)) {
