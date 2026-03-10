@@ -3907,7 +3907,22 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
     const handleSaveReading = (vmasu) => {
         const val = tempReadings[vmasu];
         if (val && val.trim() !== '') {
-            setGlobalVerbReadings(prev => ({...prev, [vmasu]: val.trim()}));
+            const cleanVal = val.trim();
+
+            // 1. Kiểm tra nếu người dùng nhập Kanji
+            if (/[\u4E00-\u9FAF]/.test(cleanVal)) {
+                alert("Vui lòng CHỈ NHẬP HIRAGANA, không nhập Kanji vào ô này!");
+                return; // Chặn lại, không cho lưu
+            }
+
+            // 2. Kiểm tra nếu không kết thúc bằng ます
+            if (!cleanVal.endsWith("ます")) {
+                alert("Vui lòng nhập đúng thể V-masu (phải có đuôi ~ます)!\nVí dụ: たべます");
+                return; // Chặn lại, không cho lưu
+            }
+
+            // Nếu đúng chuẩn thì mới cho lưu
+            setGlobalVerbReadings(prev => ({...prev, [vmasu]: cleanVal}));
         }
     };
 
