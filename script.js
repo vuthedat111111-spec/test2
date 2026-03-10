@@ -221,7 +221,13 @@ const VerbEngine = {
         const lastChar = stem.slice(-1);
 
         if (vmasu === "来ます") return { vmasu, stem, lastChar, group: 3, vru: "来る" };
-        if (stem.endsWith("し")) return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
+        if (stem.endsWith("し")) {
+
+            if (stem.length > 2) {
+                return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
+            }
+          
+        }
         if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
             return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
         }
