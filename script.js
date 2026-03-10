@@ -3604,7 +3604,7 @@ useEffect(() => {
    const getDynamicPlaceholder = () => {
     // 1. Thêm điều kiện kiểm tra nếu đang ở tính năng Chia động từ
     if (targetAction === 'conjugate') {
-        return "Động từ phân cách bằng dấu xuống dòng\n(bắt buộc nhập thể masu và kèm kanji)\nvd: 食べます";
+        return "phân cách bằng dấu xuống dòng\n(nhập thể masu và kèm kanji)\nvd: 食べます";
     }
 
     // 2. Các trường hợp còn lại (Từ vựng, Kanji) giữ nguyên
@@ -3861,7 +3861,24 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
         "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
         "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ"
     };
-
+React.useEffect(() => {
+        if (isOpen) {
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
+    }, [isOpen]);
     React.useEffect(() => {
         if (!isOpen) return;
         const lines = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
