@@ -4424,18 +4424,17 @@ const App = () => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-   // --- HÀM KHỞI ĐỘNG HỌC (ĐÃ CẬP NHẬT CHIA ĐỘNG TỪ) ---
-    const handleStartLearning = (target) => {
+   const handleStartLearning = (target) => {
         // Nếu đang ở màn chia động từ và bấm tiếp tục
         if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
-            setIsVerbPreviewOpen(true);
+            setTimeout(() => setIsVerbPreviewOpen(true), 50); // Thêm nhịp nghỉ
             return;
         }
         
         if (target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
-            setIsPreviewListOpen(true); 
+            setTimeout(() => setIsPreviewListOpen(true), 50); // Thêm nhịp nghỉ
         } else {
             setSetupConfig({ isOpen: false, targetAction: null });
             setIsPreviewListOpen(false);
@@ -4491,9 +4490,10 @@ const App = () => {
             <PreviewListModal
                 isOpen={isPreviewListOpen}
                 onClose={() => {
-                    // Khi bấm Quay Lại, đóng Preview và mở lại Setup ngay lập tức
                     setIsPreviewListOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                    setTimeout(() => {
+                        setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                    }, 50);
                 }}
                 onStart={handleStartLearning}
                 targetAction={setupConfig.targetAction}
@@ -4550,7 +4550,9 @@ const App = () => {
                 isOpen={isVerbPreviewOpen}
                 onClose={() => {
                     setIsVerbPreviewOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                    setTimeout(() => {
+                        setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                    }, 50);
                 }}
                 text={config.text}
                 dbData={dbData}
