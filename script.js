@@ -233,10 +233,20 @@ const VerbEngine = {
             // Kiểm tra xem từ hiện tại có chứa đuôi Nhóm 1 ở trên không
             const isGroup1 = group1Suffixes.some(suffix => stem.endsWith(suffix));
 
-            // Nếu KHÔNG PHẢI Nhóm 1, VÀ (dài hơn 2 ký tự HOẶC chứa Katakana) -> Chắc chắn là Nhóm 3
-            if (!isGroup1 && (stem.length > 2 || hasKatakana)) {
+            // Nếu KHÔNG PHẢI Nhóm 1, VÀ chứa Katakana -> Chắc chắn là Nhóm 3
+            if (!isGroup1 && hasKatakana) {
                 return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
             }
+            
+            // Xử lý riêng cho chữ Hán:
+            // Đếm số lượng Kanji trong stem (phần trước ます)
+            const kanjiCount = (stem.match(/[\u4E00-\u9FAF]/g) || []).length;
+            
+            // Nhóm 3 thường có 2 Kanji trở lên (勉強, 運転). Nhóm 1 thường chỉ có 1 Kanji (話, 貸).
+            if (!isGroup1 && kanjiCount >= 2) {
+                 return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
+            }
+
             // Các trường hợp còn lại (như 話し, hoặc isGroup1 = true như 言い返し) sẽ tự trôi xuống logic Nhóm 1 bên dưới!
         }
         if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
