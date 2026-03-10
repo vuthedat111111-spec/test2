@@ -54,13 +54,11 @@ const calculateSRS = (currentData, quality) => {
 // --- FETCH DATA FROM GITHUB --- 
 const fetchDataFromGithub = async () => {
   try { 
-    // 1. Tải các file cơ sở dữ liệu chính (THÊM dongtu_dacbiet.json)
-    const [dbResponse, onkunResponse, vocabResponse, tuvungResponse, exceptionResponse] = await Promise.all([
+    // 1. Tải các file cơ sở dữ liệu chính (Đã gỡ bỏ onkun.json và vocab.json)
+    const [dbResponse, tuvungResponse, exceptionResponse] = await Promise.all([
       fetch('./data/kanji_db.json'),
-      fetch('./data/onkun.json'),
-      fetch('./data/vocab.json'),
       fetch('./data/tuvungg.json'),
-      fetch('./data/dongtu_dacbiet.json') // <-- File mới thêm
+      fetch('./data/dongtu_dacbiet.json')
     ]);
 
     // 2. Tải thêm 5 file danh sách cấp độ (N5 -> N1)
@@ -69,14 +67,10 @@ const fetchDataFromGithub = async () => {
     const levelResponses = await Promise.all(levelPromises);
 
     let kanjiDb = null;
-    let onkunDb = null;
-    let vocabDb = null;
     let kanjiLevels = {}; 
 
-    // Xử lý DB chính
+    // Xử lý DB chính (Kanji)
     if (dbResponse.ok) kanjiDb = await dbResponse.json();
-    if (onkunResponse.ok) onkunDb = await onkunResponse.json();
-    if (vocabResponse.ok) vocabDb = await vocabResponse.json();
 
     // Xử lý file Từ vựng
     let tuvungDb = {};
@@ -84,7 +78,7 @@ const fetchDataFromGithub = async () => {
         tuvungDb = await tuvungResponse.json();
     }
 
-    // Xử lý file Động từ đặc biệt (MỚI)
+    // Xử lý file Động từ đặc biệt
     let exceptionDb = {};
     if (exceptionResponse && exceptionResponse.ok) {
         exceptionDb = await exceptionResponse.json();
@@ -101,8 +95,8 @@ const fetchDataFromGithub = async () => {
         }
     }
 
-    // Trả về dữ liệu gộp (Thêm EXCEPTION_VERBS)
-    return { ...kanjiDb, ONKUN_DB: onkunDb, VOCAB_DB: vocabDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels, EXCEPTION_VERBS: exceptionDb }; 
+    // Trả về dữ liệu gộp (Đã gỡ bỏ ONKUN_DB và VOCAB_DB)
+    return { ...kanjiDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels, EXCEPTION_VERBS: exceptionDb }; 
   } catch (error) {
     console.error("Lỗi tải dữ liệu hệ thống:", error);
     return null;
