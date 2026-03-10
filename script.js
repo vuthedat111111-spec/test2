@@ -3660,10 +3660,10 @@ useEffect(() => {
                 {/* Lấy tên hiển thị dựa trên value đang chọn */}
                 {[
                     { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
-                    { id: "Dictionary", label: "Thể Từ Điển (V-ru)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
+                    { id: "Dictionary", label: "Thể Từ Điển (る)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
                     { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
                     { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
-                    { id: "CausativePassive", label: "Bị Động Sai Khiến (される)" }
+                    { id: "CausativePassive", label: "Bị Động Sai Khiến (させられる)" }
                 ].find(opt => opt.id === verbTargetForm)?.label || 'Chọn thể...'}
             </span>
             <svg className={`w-5 h-5 text-indigo-400 group-hover:text-indigo-600 transition-transform duration-300 ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
@@ -3674,10 +3674,10 @@ useEffect(() => {
             <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-[0_10px_40px_rgb(0,0,0,0.1)] max-h-56 overflow-y-auto custom-scrollbar p-2 animate-in fade-in zoom-in-95 duration-200">
                 {[
                     { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
-                    { id: "Dictionary", label: "Thể Từ Điển (V-ru)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
+                    { id: "Dictionary", label: "Thể Từ Điển (る)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
                     { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
                     { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
-                    { id: "CausativePassive", label: "Bị Động Sai Khiến (される)" }
+                    { id: "CausativePassive", label: "Bị Động Sai Khiến (させられる)" }
                 ].map(opt => (
                     <button
                         key={opt.id}
@@ -3827,11 +3827,11 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
     const [fixingVerbs, setFixingVerbs] = React.useState({}); 
 
     const formLabels = { 
-        "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
-        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
-        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+        "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
+        "Dictionary": "Thể Từ Điển", "Ba": "Thể Điều Kiện",
+        "Volitional": "Thể Ý Chí", "Imperative": "Thể Mệnh Lệnh",
         "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ"
     };
 
     React.useEffect(() => {
@@ -4020,11 +4020,11 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     const [wrongDetected, setWrongDetected] = React.useState(false);
 
     const formLabels = { 
-        "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
-        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
-        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+        "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
+        "Dictionary": "Thể Từ Điển", "Ba": "Thể Điều Kiện",
+        "Volitional": "Thể Ý Chí", "Imperative": "Thể Mệnh Lệnh",
         "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ"
     };
 
     // --- KHỞI TẠO BÀI HỌC GIỐNG HỆT TỰ LUẬN TỪ VỰNG ---
@@ -4102,9 +4102,9 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            // Format lại đáp án hiển thị nếu có 2 cách viết
+            
             const displayAnswer = baseAnswers.length > 1 
-                ? `[${baseAnswers[0]}] hoặc [${baseAnswers[1]}]` 
+                ? `${baseAnswers[0]} / ${baseAnswers[1]}` 
                 : baseAnswers[0];
                 
             setCorrectAnswer(displayAnswer); 
