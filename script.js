@@ -221,12 +221,23 @@ const VerbEngine = {
         const lastChar = stem.slice(-1);
 
         if (vmasu === "来ます") return { vmasu, stem, lastChar, group: 3, vru: "来る" };
+       // 3. PHÂN BIỆT THÔNG MINH NHÓM 1 VÀ NHÓM 3 (Bao gồm Động từ ghép)
         if (stem.endsWith("し")) {
+            // Tập hợp các đuôi Động từ ghép / Động từ dài thuộc NHÓM 1
+            const group1Suffixes = [
+                "出し", "返し", "直し", "落とし", "渡し", "通し", 
+                "越し", "超し", "尽くし", "指し", "逃し", "壊し", 
+                "隠し", "残し", "こぼし", "殺し", "外し", "増やし", "減らし"
+            ];
 
-            if (stem.length > 2) {
+            // Kiểm tra xem từ hiện tại có chứa đuôi Nhóm 1 ở trên không
+            const isGroup1 = group1Suffixes.some(suffix => stem.endsWith(suffix));
+
+            // Nếu KHÔNG PHẢI Nhóm 1, VÀ (dài hơn 2 ký tự HOẶC chứa Katakana) -> Chắc chắn là Nhóm 3
+            if (!isGroup1 && (stem.length > 2 || hasKatakana)) {
                 return { vmasu, stem, lastChar, group: 3, vru: stem.slice(0, -1) + "する" };
             }
-          
+            // Các trường hợp còn lại (như 話し, hoặc isGroup1 = true như 言い返し) sẽ tự trôi xuống logic Nhóm 1 bên dưới!
         }
         if (dbData && dbData.EXCEPTION_VERBS && dbData.EXCEPTION_VERBS[vmasu]) {
             return { vmasu, stem, lastChar, ...dbData.EXCEPTION_VERBS[vmasu] };
