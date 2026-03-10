@@ -2742,8 +2742,7 @@ React.useEffect(() => {
     　　　　　　　　　　　  {/* THẺ TÍNH NĂNG MỚI: CHIA ĐỘNG TỪ (ĐÃ MỞ KHÓA) */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             
-                            {/* THÊM NHÃN "MỚI" MÀU XANH Ở ĐÂY */}
-                            <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20">
+                            <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20 animate-pulse">
                                 MỚI
                             </div>
 
@@ -2756,8 +2755,10 @@ React.useEffect(() => {
                                 </svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Luyện tập ngữ pháp</p>
                         </div>
+
+                        {/* THẺ LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             {dueCharsCount > 0 && (
                                 <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-md">Cần ôn</div>
