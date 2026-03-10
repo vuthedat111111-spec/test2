@@ -344,7 +344,12 @@ const VerbEngine = {
                 case "Causative": return stemBase + (tailU === "う" ? "わ" : shift('a')) + "せる";
                 case "CausativePassive": {
                     const aCol = tailU === "う" ? "わ" : shift('a');
-                    return stemBase + aCol + (tailU === "す" ? "せられる" : "される");
+                    if (tailU === "す") {
+                        return stemBase + aCol + "せられる";
+                    } else {
+                  
+                        return stemBase + aCol + "せられる / " + stemBase + aCol + "される";
+                    }
                 }
                 case "Prohibitive": return vruReading + "な";
                 default: return stemReading;
@@ -3901,7 +3906,12 @@ const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetFo
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
                         const currentReading = item.reading || globalVerbReadings[item.vmasu];
-                        const conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
+                        let conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
+                        
+                        // Cắt bỏ phần dạng rút gọn, chỉ giữ lại dạng đầy đủ (phần trước dấu " / ")
+                        if (conjugatedResult.includes(" / ")) {
+                            conjugatedResult = conjugatedResult.split(" / ")[0];
+                        }
 
                         return (
                             <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!currentReading) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
@@ -4065,19 +4075,20 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             finalInput = finalInput.slice(0, -1) + 'ん';
         }
 
-        // Lấy đáp án đúng để so sánh (Thể ngắn mặc định)
+        // Lấy đáp án đúng từ Engine (Có thể chứa " / " nếu có 2 cách chia)
         const targetConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
         
-        // Mảng chứa các đáp án hợp lệ
-        let acceptableAnswers = [targetConjugation];
+        // Tách ra thành mảng nếu có nhiều đáp án (VD: Nhóm 1 Bị động sai khiến)
+        let baseAnswers = targetConjugation.split(" / ");
+        let acceptableAnswers = [...baseAnswers];
 
-      
+        // Cho phép nhập thêm đuôi ~ます với các thể kết thúc bằng る
         if (["Potential", "Passive", "Causative", "CausativePassive"].includes(targetForm)) {
-            // Các thể này luôn kết thúc bằng る, ta chỉ cần bỏ る thêm ます (VD: たべられる -> たべられます)
-            acceptableAnswers.push(targetConjugation.slice(0, -1) + 'ます');
+            // Duyệt qua từng đáp án ngắn, bỏ る thêm ます
+            const politeForms = baseAnswers.map(ans => ans.slice(0, -1) + 'ます');
+            acceptableAnswers = [...acceptableAnswers, ...politeForms];
         }
 
-        // Đúng nếu input của người dùng khớp với 1 trong các đáp án hợp lệ
         const isCorrect = acceptableAnswers.includes(finalInput);
 
         if (status === 'retyping' || status === 'wrong') {
@@ -4091,10 +4102,15 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            setCorrectAnswer(targetConjugation); 
+            // Format lại đáp án hiển thị nếu có 2 cách viết
+            const displayAnswer = baseAnswers.length > 1 
+                ? `[${baseAnswers[0]}] hoặc [${baseAnswers[1]}]` 
+                : baseAnswers[0];
+                
+            setCorrectAnswer(displayAnswer); 
             setStatus('wrong');
             setWrongDetected(true);
-            setQueue(prev => [...prev, currentItem]); // Đẩy từ sai xuống cuối hàng đợi
+            setQueue(prev => [...prev, currentItem]);
             setTimeout(() => setStatus('retyping'), 500);
         }
     };
