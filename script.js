@@ -3666,17 +3666,19 @@ useEffect(() => {
             <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
         </div>
     ) : (
-        // Nếu là Chia động từ thì hiển thị Tiêu đề thay vì nút chọn
-        <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 16v-2.38C4 11.5 5.97 10.5 7 10h10v-3l3 4-3 4v-3H7c-.45 0-.82.16-1 .5V16H4z"></path>
-                    <path d="M20 8v2.38C20 12.5 18.03 13.5 17 14H7v3l-3-4 3-4v3h10c.45 0 .82-.16 1-.5V8h2z"></path>
-                </svg>
-            </div>
-            <h3 className="font-black text-gray-900 uppercase tracking-widest text-sm">CHIA ĐỘNG TỪ</h3>
+       // Nếu là Chia động từ thì hiển thị Tiêu đề thay vì nút chọn
+    <div className="flex items-center gap-2">
+        <div className="w-8 h-8 bg-gray-100 text-gray-900 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 3L4 7l4 4"/>
+                <path d="M4 7h16"/>
+                <path d="m16 21 4-4-4-4"/>
+                <path d="M20 17H4"/>
+            </svg>
         </div>
-    )}
+        <h3 className="font-black text-gray-900 uppercase tracking-widest text-sm">CHIA ĐỘNG TỪ</h3>
+    </div>
+)}
     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
 </div>
 
