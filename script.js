@@ -4419,20 +4419,25 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         const currentItem = queue[currentIndex];
         setSelectedOpt(optId);
 
-        if (optId === currentItem.correctFormId) {
+        // Tự động chia thử động từ theo cái nút mà người dùng vừa bấm
+        const chosenConjKanji = VerbEngine.conjugate(currentItem.vmasu, currentItem, optId).split(" / ")[0];
+
+        // Nếu kết quả chia ra GIỐNG HỆT chữ đang hiện trên màn hình => CHÍNH XÁC!
+        const isCorrect = chosenConjKanji === currentItem.conjKanji;
+
+        if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
             setStatus('wrong');
             setWrongDetected(true);
-            // Đẩy câu làm sai xuống cuối hàng chờ
             setQueue(prev => [...prev, currentItem]);
             setTimeout(() => {
                 setStatus('idle');
                 setSelectedOpt(null);
-                setWrongDetected(false); // Reset cờ sai cho lượt đánh tiếp theo
-            }, 1500); // Dừng 1.5s để người dùng nhìn đáp án đúng
+                setWrongDetected(false); 
+            }, 1500); 
         }
     };
 
@@ -4486,12 +4491,16 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                             
                             // Tô màu khi có kết quả
                             if (status !== 'idle') {
-                                if (optId === currentItem.correctFormId) {
-                                    btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]"; // Đáp án đúng luôn hiện xanh
+                                // Kiểm tra xem nút này có sinh ra kết quả đúng không (để tô xanh)
+                                const optConjKanji = VerbEngine.conjugate(currentItem.vmasu, currentItem, optId).split(" / ")[0];
+                                const isThisOptCorrect = optConjKanji === currentItem.conjKanji;
+
+                                if (isThisOptCorrect) {
+                                    btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]"; 
                                 } else if (optId === selectedOpt && status === 'wrong') {
-                                    btnStyle = "bg-red-500 border-red-500 text-white animate-shake"; // Nút bấm sai hiện đỏ và rung
+                                    btnStyle = "bg-red-500 border-red-500 text-white animate-shake"; 
                                 } else {
-                                    btnStyle = "bg-white border-zinc-100 text-zinc-300 opacity-50"; // Các nút còn lại mờ đi
+                                    btnStyle = "bg-white border-zinc-100 text-zinc-300 opacity-50"; 
                                 }
                             }
 
