@@ -4493,16 +4493,34 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         setInitialTotal(shuffled.length);
     }, [verbsData, selectedForms]);
 
+    // 1. Quản lý việc khởi tạo bài học
     React.useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
             initLesson();
         } else {
-            document.body.style.overflow = 'unset';
             setFinished(false);
         }
     }, [isOpen, initLesson]);
 
+    // 2. Xử lý khóa nền tuyệt đối (Chống cuộn trên cả PC và Mobile)
+    React.useEffect(() => {
+        if (isOpen) {
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
+    }, [isOpen]);
     const triggerConfetti = React.useCallback(() => {
         if (typeof confetti === 'undefined') return;
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
