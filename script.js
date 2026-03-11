@@ -4259,13 +4259,23 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     }, [verbsData]);
 
     React.useEffect(() => {
+        let rafId;
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
+            // Dùng requestAnimationFrame thay vì setTimeout để đảm bảo mượt mà tuyệt đối
+            rafId = requestAnimationFrame(() => {
+                document.body.style.overflow = 'hidden';
+            });
             initLesson();
         } else {
             document.body.style.overflow = 'unset';
             setFinished(false);
         }
+        
+        // Hàm dọn dẹp
+        return () => { 
+            if (rafId) cancelAnimationFrame(rafId);
+            document.body.style.overflow = 'unset'; 
+        };
     }, [isOpen, initLesson]);
 
     const triggerConfetti = React.useCallback(() => {
