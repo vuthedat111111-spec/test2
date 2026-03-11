@@ -4395,9 +4395,16 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                         </div>
                     </div>
 
-                    <div className={`flex flex-col items-center text-center mb-10 transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">{currentItem.vmasu}</h2>
-                        {/* ĐÃ XÓA Ý NGHĨA Ở ĐÂY NHƯ YÊU CẦU */}
+                   <div className={`flex flex-col items-center text-center mb-10 w-full transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                        <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
+                            {currentItem.vmasu}
+                        </h2>
+                        {/* HIỂN THỊ HIRAGANA (Ẩn đi nếu từ gốc đã là Hiragana hoàn toàn) */}
+                        {currentItem.finalReading && currentItem.finalReading !== currentItem.vmasu && (
+                            <span className="text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg">
+                                {currentItem.finalReading}
+                            </span>
+                        )}
                     </div>
 
                     <div className="w-full space-y-4">
