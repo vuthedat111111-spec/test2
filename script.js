@@ -4036,12 +4036,8 @@ React.useEffect(() => {
                                                     </button>
                                                 </div>
                                             ) : (
-                                                // --- TRẠNG THÁI HIỂN THỊ NÚT "SẴN SÀNG" VÀ CÁC NÚT SỬA ---
-                                                <div className="flex items-center gap-2">
-                                                    <div className="px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5"/></svg>
-                                                        Sẵn sàng
-                                                    </div>
+                                          
+                                                
                                                     
                                                     {/* NÚT BÚT SỬA MỚI: Dành cho từ vựng đã có sẵn trong DB */}
                                                     {item.reading && (
