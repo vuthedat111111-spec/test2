@@ -192,17 +192,6 @@ const fetchDataFromGithub = async () => {
     };
 
 const VerbEngine = {
-    // --- HÀM TỰ ĐỘNG BẺ LÁI SANG NHÓM 2 CHO CÁC TỪ NGOẠI LỆ ---
-    getActualGroup: (reading, parsedGroup) => {
-        if (!reading) return parsedGroup;
-        const group2Exceptions = [
-            "います", "みます", "きます", "にます", "おきます", "かります", 
-            "あびます", "できます", "おちます", "たります", "すぎます", 
-            "おります", "かえりみます", "しんじます", "かんじます", "ぞんじます", "きんじます"
-        ];
-        if (group2Exceptions.includes(reading)) return 2;
-        return parsedGroup;
-    },
     // 1. Bảng chuyển đổi Hiragana (Dùng cho Nhóm 1)
     HIRA_MAP: {
         'i': ['い','き','ぎ','し','じ','ち','ぢ','に','ひ','び','ぴ','み','り'],
@@ -296,20 +285,20 @@ const VerbEngine = {
         let tailU = "";
         let stemBase = "";
 
-        if (currentGroup === 3) {
+        if (parsedData.group === 3) {
             if (vmasuReading === "きます") vruReading = "くる";
             else vruReading = stemReading.slice(0, -1) + "する";
-        } else if (currentGroup === 2) {
+        } else if (parsedData.group === 2) {
             vruReading = stemReading + "る";
             stemBase = stemReading;
-        } else if (currentGroup === 1) {
+        } else if (parsedData.group === 1) {
             tailU = VerbEngine.shiftHira(lastCharI, 'u');
             vruReading = stemReading.slice(0, -1) + tailU;
             stemBase = stemReading.slice(0, -1);
         }
 
         // --- CHIA NHÓM 3 ---
-        if (currentGroup === 3) {
+        if (parsedData.group === 3) {
             const isKuru = vmasuReading === "きます";
             const sSuru = stemReading.slice(0, -1); 
 
@@ -332,7 +321,7 @@ const VerbEngine = {
         }
 
         // --- CHIA NHÓM 2 ---
-        if (currentGroup === 2) {
+        if (parsedData.group === 2) {
             switch (targetForm) {
                 case "Te": return stemBase + "て";
                 case "Ta": return stemBase + "た";
@@ -352,7 +341,7 @@ const VerbEngine = {
         }
 
         // --- CHIA NHÓM 1 ---
-        if (currentGroup === 1) {
+        if (parsedData.group === 1) {
             // Nhóm Te / Ta (Âm ngắt, âm mũi...)
             if (targetForm === "Te" || targetForm === "Ta") {
                 const sTe = targetForm === "Te" ? "て" : "た";
@@ -3856,18 +3845,6 @@ React.useEffect(() => {
         else document.body.style.overflow = 'unset';
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
-    // --- TỪ ĐIỂN CÁC TỪ ĐỒNG ÂM KHÁC NGHĨA KÈM NÚT LỰA CHỌN ---
-    const AMBIGUOUS_VERBS = {
-        "開きます": ["あきます", "ひらきます"],
-        "空きます": ["あきます", "すきます"],
-        "弾きます": ["ひきます", "はじきます"],
-        "解きます": ["ときます", "ほどきます"],
-        "包みます": ["つつみます", "くるみます"],
-        "被ります": ["かぶります", "こうむります"],
-        "潜ります": ["もぐります", "くぐります"],
-        "避けます": ["さけます", "よけます"],
-        "降ります": ["ふります", "おります"]
-    };
     React.useEffect(() => {
         if (!isOpen) return;
         const lines = Array.from(new Set(text.split(/[\n;]+/).map(w => w.trim()).filter(w => w)));
@@ -3981,8 +3958,7 @@ React.useEffect(() => {
                     {parsedVerbs.map((item, idx) => {
                         const currentReading = item.reading || globalVerbReadings[item.vmasu];
                         let conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
-                        const displayGroup = VerbEngine.getActualGroup(currentReading, item.group);
-                        const ambiguousOptions = AMBIGUOUS_VERBS[item.vmasu];
+                        
                         // Cắt bỏ phần dạng rút gọn, chỉ giữ lại dạng đầy đủ (phần trước dấu " / ")
                         if (conjugatedResult.includes(" / ")) {
                             conjugatedResult = conjugatedResult.split(" / ")[0];
@@ -3994,7 +3970,7 @@ React.useEffect(() => {
                                     <div className="flex items-center gap-2">
                                         <span className={`text-xl font-bold ${item.error ? 'text-red-700 line-through opacity-60' : 'text-gray-900'}`}>{item.vmasu}</span>
                                         {!item.error && (
-                                            <span className="px-2 py-0.5 bg-gray-900 text-white text-[10px] font-black rounded uppercase">Nhóm {displayGroup}</span>
+                                            <span className="px-2 py-0.5 bg-gray-900 text-white text-[10px] font-black rounded uppercase">Nhóm {item.group}</span>
                                         )}
                                     </div>
 
@@ -4093,24 +4069,7 @@ React.useEffect(() => {
                                                     )}
                                                 </div>
                                             )
-                                        ) : ambiguousOptions ? (
-                                            // === UI HIỂN THỊ NÚT BẤM CHO TỪ NHIỀU CÁCH ĐỌC ===
-                                            <div className="flex flex-col gap-1 w-full sm:w-auto">
-                                                <label className="text-[10px] font-bold text-amber-600 uppercase">Chọn cách đọc & ý nghĩa đúng</label>
-                                                <div className="flex gap-2 w-full">
-                                                    {ambiguousOptions.map(opt => (
-                                                        <button 
-                                                            key={opt}
-                                                            onClick={() => setGlobalVerbReadings(prev => ({...prev, [item.vmasu]: opt}))}
-                                                            className="flex-1 px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-lg text-sm font-bold border border-amber-300 transition-colors shadow-sm active:scale-95"
-                                                        >
-                                                            {opt}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
                                         ) : (
-                                            // === UI Ô NHẬP LIỆU BÌNH THƯỜNG ===
                                             <div className="flex flex-col gap-1 w-full sm:w-auto">
                                                 <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
                                                 <div className="flex gap-2 w-full sm:w-72">
