@@ -3743,48 +3743,82 @@ const StudySetupModal = ({
             </>
         )}
 
-        {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
+        {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ (UI MỚI) */}
         {verbPracticeMode === 'quiz' && (
-            <div className="bg-white border-2 border-indigo-50 rounded-2xl p-4">
-                <div className="flex justify-between items-end mb-3">
-                    <label className="text-[11px] font-black text-gray-500 uppercase tracking-widest">Chọn các thể muốn kiểm tra</label>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${verbSelectedForms.length >= 4 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600 animate-pulse'}`}>
-                        Đã chọn: {verbSelectedForms.length}/12 (Tối thiểu 4)
-                    </span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {[
-                        { id: "Te", name: "Te (て)" }, { id: "Ta", name: "Ta (た)" }, { id: "Nai", name: "Nai (ない)" },
-                        { id: "Dictionary", name: "Từ Điển (る)" }, { id: "Ba", name: "Điều Kiện (ば)" }, { id: "Volitional", name: "Ý Chí (よう)" },
-                        { id: "Imperative", name: "Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", name: "Cấm Chỉ (な)" }, { id: "Potential", name: "Khả Năng (える)" },
-                        { id: "Passive", name: "Bị Động (れる)" }, { id: "Causative", name: "Sai Khiến (せる)" }, 
-                        { id: "CausativePassive", name: "BĐ Sai Khiến" }
-                    ].map(opt => {
-                        const isSelected = verbSelectedForms.includes(opt.id);
-                        return (
-                            <button
-                                key={opt.id}
-                                onClick={() => {
-                                    if (isSelected) {
-                                        setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
-                                    } else {
-                                        setVerbSelectedForms(prev => [...prev, opt.id]);
-                                    }
-                                }}
-                                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border-2 active:scale-95 ${
-                                    isSelected 
-                                    ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-200' 
-                                    : 'bg-white border-gray-100 text-gray-500 hover:border-indigo-300 hover:text-indigo-600'
-                                }`}
+            <div className="relative">
+                {/* Nút bấm để mở Dropdown */}
+                <button 
+                    onClick={() => setIsFormDropdownOpen(!isFormDropdownOpen)}
+                    className={`w-full p-4 bg-white border-2 rounded-2xl flex justify-between items-center transition-all shadow-sm group ${verbSelectedForms.length >= 4 ? 'border-indigo-100 hover:border-indigo-300' : 'border-red-200 hover:border-red-300'}`}
+                >
+                    <div className="flex flex-col items-start text-left">
+                        <span className="text-indigo-700 font-bold flex items-center gap-2">
+                            <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                            {verbSelectedForms.length === 0 
+                                ? "Chưa chọn thể nào..." 
+                                : `Đã chọn ${verbSelectedForms.length} thể để kiểm tra`}
+                        </span>
+                        <span className={`text-[10px] mt-1.5 ${verbSelectedForms.length >= 4 ? 'text-gray-400 font-medium' : 'text-red-500 font-bold'}`}>
+                            * Chú ý: Cần chọn tối thiểu 4 thể
+                        </span>
+                    </div>
+                    <svg className={`w-5 h-5 transition-transform duration-300 flex-shrink-0 ${verbSelectedForms.length >= 4 ? 'text-indigo-400' : 'text-red-400'} ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                {/* Khung Dropdown Danh sách 12 Thể */}
+                {isFormDropdownOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.12)] p-3 z-50 animate-in fade-in zoom-in-95 duration-200">
+                        
+                        {/* Grid 3 cột */}
+                        <div className="grid grid-cols-3 gap-2">
+                            {[
+                                { id: "Te", name: "Te (て)" }, { id: "Ta", name: "Ta (た)" }, { id: "Nai", name: "Nai (ない)" },
+                                { id: "Dictionary", name: "Từ Điển (る)" }, { id: "Ba", name: "Điều Kiện (ば)" }, { id: "Volitional", name: "Ý Chí (よう)" },
+                                { id: "Imperative", name: "Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", name: "Cấm Chỉ (な)" }, { id: "Potential", name: "Khả Năng (える)" },
+                                { id: "Passive", name: "Bị Động (れる)" }, { id: "Causative", name: "Sai Khiến (せる)" }, { id: "CausativePassive", name: "BĐ Sai Khiến" }
+                            ].map(opt => {
+                                const isSelected = verbSelectedForms.includes(opt.id);
+                                return (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => {
+                                            if (isSelected) {
+                                                setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
+                                            } else {
+                                                setVerbSelectedForms(prev => [...prev, opt.id]);
+                                            }
+                                        }}
+                                        className={`px-1 py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all border-2 active:scale-95 flex items-center justify-center text-center leading-tight ${
+                                            isSelected 
+                                            ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-200' 
+                                            : 'bg-gray-50 border-gray-100 text-gray-500 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50'
+                                        }`}
+                                    >
+                                        {opt.name}
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Thanh công cụ: Chọn tất cả / Bỏ chọn tất cả */}
+                        <div className="flex justify-between items-center border-t border-gray-100 mt-3 pt-3 px-1">
+                            <button 
+                                onClick={() => setVerbSelectedForms([])} 
+                                className="text-[11px] font-bold text-gray-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50"
                             >
-                                {opt.name}
+                                Bỏ chọn tất cả
                             </button>
-                        );
-                    })}
-                </div>
+                            <button 
+                                onClick={() => setVerbSelectedForms(["Te", "Ta", "Nai", "Dictionary", "Ba", "Volitional", "Imperative", "Prohibitive", "Potential", "Passive", "Causative", "CausativePassive"])} 
+                                className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors px-2 py-1 rounded hover:bg-indigo-50"
+                            >
+                                Chọn tất cả
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         )}
-
     </div>
 )}
                    {/* Thanh tìm kiếm (Ẩn khi ở chế độ chia động từ) */}
