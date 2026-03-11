@@ -3873,7 +3873,7 @@ const StudySetupModal = ({
         </div>
     );
 };
-const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm, onUpdateText, globalVerbReadings, setGlobalVerbReadings }) => {
+const VerbPreviewListModal = ({ isOpen, onClose, onStart, text, dbData, targetForm, onUpdateText, globalVerbReadings, setGlobalVerbReadings, verbPracticeMode }) => {
     const [parsedVerbs, setParsedVerbs] = React.useState([]);
     const [tempReadings, setTempReadings] = React.useState({}); 
     const [fixingVerbs, setFixingVerbs] = React.useState({}); 
@@ -4003,12 +4003,17 @@ React.useEffect(() => {
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
                         const currentReading = item.reading || globalVerbReadings[item.vmasu];
-                        let conjugatedResult = currentReading ? VerbEngine.conjugate(currentReading, item, targetForm) : "...";
-                        
-                        // Cắt bỏ phần dạng rút gọn, chỉ giữ lại dạng đầy đủ (phần trước dấu " / ")
-                        if (conjugatedResult.includes(" / ")) {
-                            conjugatedResult = conjugatedResult.split(" / ")[0];
-                        }
+  let conjugatedResult = "...";
+if (currentReading) {
+    if (verbPracticeMode === 'quiz') {
+        conjugatedResult = "Sẽ random thể khi vào game";
+    } else {
+        conjugatedResult = VerbEngine.conjugate(currentReading, item, targetForm);
+        if (conjugatedResult.includes(" / ")) {
+            conjugatedResult = conjugatedResult.split(" / ")[0];
+        }
+    }
+}
 
                         return (
                             <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!currentReading) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
@@ -4146,7 +4151,7 @@ React.useEffect(() => {
                         disabled={!canStart} 
                         className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'}`}
                     >
-                        VÀO TỰ LUẬN
+                        {verbPracticeMode === 'quiz' ? 'VÀO TRẮC NGHIỆM' : 'VÀO TỰ LUẬN'}
                     </button>
                 </div>
             </div>
@@ -4334,6 +4339,186 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
         </div>
     );
 };
+// --- COMPONENT MỚI: GAME TRẮC NGHIỆM CHIA ĐỘNG TỪ ---
+const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
+    const [queue, setQueue] = React.useState([]);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [status, setStatus] = React.useState('idle'); 
+    const [finished, setFinished] = React.useState(false);
+    const [initialTotal, setInitialTotal] = React.useState(0); 
+    const [correctFirstTimeCount, setCorrectFirstTimeCount] = React.useState(0);
+    const [wrongDetected, setWrongDetected] = React.useState(false);
+    const [selectedOpt, setSelectedOpt] = React.useState(null);
+
+    const formLabels = { 
+        "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
+        "Dictionary": "Thể Từ Điển", "Ba": "Thể Điều Kiện",
+        "Volitional": "Thể Ý Chí", "Imperative": "Thể Mệnh Lệnh",
+        "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ"
+    };
+
+    const initLesson = React.useCallback(() => {
+        if (!verbsData || verbsData.length === 0 || !selectedForms || selectedForms.length < 4) return;
+        
+        setFinished(false); 
+        setCurrentIndex(0);
+        setStatus('idle');
+        setCorrectFirstTimeCount(0);
+        setWrongDetected(false);
+        setSelectedOpt(null);
+
+        // Tạo câu hỏi cho từng động từ
+        const generatedQueue = verbsData.map(v => {
+            // 1. Chọn ngẫu nhiên 1 thể đúng từ danh sách đã tick
+            const correctFormId = selectedForms[Math.floor(Math.random() * selectedForms.length)];
+            
+            // 2. Chia động từ (Kanji và Hiragana)
+            const conjKanji = VerbEngine.conjugate(v.vmasu, v, correctFormId).split(" / ")[0];
+            const conjKana = VerbEngine.conjugate(v.finalReading, v, correctFormId).split(" / ")[0];
+
+            // 3. Tạo 3 đáp án sai (Lấy từ các thể đã tick, loại bỏ thể đúng)
+            const distractors = selectedForms.filter(f => f !== correctFormId)
+                                             .sort(() => Math.random() - 0.5)
+                                             .slice(0, 3);
+            
+            // 4. Trộn 4 đáp án
+            const options = [correctFormId, ...distractors].sort(() => Math.random() - 0.5);
+
+            return { ...v, correctFormId, conjKanji, conjKana, options };
+        });
+
+        const shuffled = generatedQueue.sort(() => Math.random() - 0.5);
+        setQueue(shuffled);
+        setInitialTotal(shuffled.length);
+    }, [verbsData, selectedForms]);
+
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            initLesson();
+        } else {
+            document.body.style.overflow = 'unset';
+            setFinished(false);
+        }
+    }, [isOpen, initLesson]);
+
+    const triggerConfetti = React.useCallback(() => {
+        if (typeof confetti === 'undefined') return;
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+    }, []);
+
+    React.useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen, triggerConfetti]);
+
+    const checkAnswer = (optId) => {
+        if (status !== 'idle') return;
+        
+        const currentItem = queue[currentIndex];
+        setSelectedOpt(optId);
+
+        if (optId === currentItem.correctFormId) {
+            setStatus('correct');
+            if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
+            setTimeout(() => goToNext(), 600);
+        } else {
+            setStatus('wrong');
+            setWrongDetected(true);
+            // Đẩy câu làm sai xuống cuối hàng chờ
+            setQueue(prev => [...prev, currentItem]);
+            setTimeout(() => {
+                setStatus('idle');
+                setSelectedOpt(null);
+                setWrongDetected(false); // Reset cờ sai cho lượt đánh tiếp theo
+            }, 1500); // Dừng 1.5s để người dùng nhìn đáp án đúng
+        }
+    };
+
+    const goToNext = () => {
+        if (currentIndex < queue.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+            setStatus('idle');
+            setSelectedOpt(null);
+            setWrongDetected(false);
+        } else {
+            setFinished(true);
+        }
+    };
+
+    if (!isOpen || queue.length === 0) return null;
+    const currentItem = queue[currentIndex];
+    const progressVisual = (correctFirstTimeCount / initialTotal) * 100;
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
+            {!finished ? (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+                    <div className="w-full mb-8">
+                        <div className="flex justify-between items-center mb-5">
+                            <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
+                                {correctFirstTimeCount} / {initialTotal}
+                            </span>
+                            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all active:scale-90 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                        <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-zinc-900 transition-all duration-500" style={{ width: `${progressVisual}%` }}></div>
+                        </div>
+                    </div>
+
+                    {/* HIỂN THỊ CÂU HỎI KANJI & KANA */}
+                    <div className="flex flex-col items-center text-center mb-10 w-full">
+                        <h2 className="text-6xl font-['Klee_One'] text-zinc-800 mb-2 leading-tight">
+                            {currentItem.conjKanji}
+                        </h2>
+                        <span className="text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg">
+                            {currentItem.conjKana}
+                        </span>
+                    </div>
+
+                    {/* 4 NÚT ĐÁP ÁN */}
+                    <div className="grid grid-cols-2 gap-3 w-full">
+                        {currentItem.options.map(optId => {
+                            let btnStyle = "bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300";
+                            
+                            // Tô màu khi có kết quả
+                            if (status !== 'idle') {
+                                if (optId === currentItem.correctFormId) {
+                                    btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]"; // Đáp án đúng luôn hiện xanh
+                                } else if (optId === selectedOpt && status === 'wrong') {
+                                    btnStyle = "bg-red-500 border-red-500 text-white animate-shake"; // Nút bấm sai hiện đỏ và rung
+                                } else {
+                                    btnStyle = "bg-white border-zinc-100 text-zinc-300 opacity-50"; // Các nút còn lại mờ đi
+                                }
+                            }
+
+                            return (
+                                <button
+                                    key={optId}
+                                    onClick={() => checkAnswer(optId)}
+                                    disabled={status !== 'idle'}
+                                    className={`h-16 rounded-xl border-2 font-bold text-sm transition-all active:scale-95 flex items-center justify-center text-center px-2 leading-tight ${btnStyle}`}
+                                >
+                                    {formLabels[optId]}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
+                    <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
+                    <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi trắc nghiệm.</p>
+                    <div className="space-y-2">
+                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -4343,6 +4528,7 @@ const App = () => {
     const [isEssayOpen, setIsEssayOpen] = useState(false);
     const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
     const [isVerbEssayOpen, setIsVerbEssayOpen] = useState(false);
+    const [isVerbQuizOpen, setIsVerbQuizOpen] = useState(false);
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState('Te');
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
@@ -4555,32 +4741,37 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
-      <VerbPreviewListModal 
-                isOpen={isVerbPreviewOpen}
-                onClose={() => {
-                    setIsVerbPreviewOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
-                }}
-                text={config.text}
-                dbData={dbData}
-                targetForm={verbTargetForm}
-                
-          
-                onUpdateText={(newText) => {
-                    setConfig({ ...config, text: newText });
-                    setTextCache(prev => ({ ...prev, vocab: newText }));
-                }}
-            
+     <VerbPreviewListModal 
+    isOpen={isVerbPreviewOpen}
+    onClose={() => {
+        setIsVerbPreviewOpen(false);
+        setSetupConfig(prev => ({ ...prev, isOpen: true }));
+    }}
+    text={config.text}
+    dbData={dbData}
+    targetForm={verbTargetForm}
+    verbPracticeMode={verbPracticeMode} // <-- Truyền mode xuống
+    
+    onUpdateText={(newText) => {
+        setConfig({ ...config, text: newText });
+        setTextCache(prev => ({ ...prev, vocab: newText }));
+    }}
 
-                onStart={(finalData, targetF) => {
-                    setIsVerbPreviewOpen(false);
-                    setVerbPracticeData(finalData);
-                    setVerbTargetForm(targetF);
-                    setIsVerbEssayOpen(true);
-                }}
-　　　　　　　　　　　globalVerbReadings={globalVerbReadings}
-  　　　　　　　      setGlobalVerbReadings={setGlobalVerbReadings}
-            />
+    onStart={(finalData, targetF) => {
+        setIsVerbPreviewOpen(false);
+        setVerbPracticeData(finalData);
+        setVerbTargetForm(targetF);
+        
+        // KIỂM TRA MODE ĐỂ MỞ ĐÚNG GAME
+        if (verbPracticeMode === 'quiz') {
+            setIsVerbQuizOpen(true);
+        } else {
+            setIsVerbEssayOpen(true);
+        }
+    }}
+    globalVerbReadings={globalVerbReadings}
+    setGlobalVerbReadings={setGlobalVerbReadings}
+/>
 
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
@@ -4588,6 +4779,12 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
                 verbsData={verbPracticeData}
                 targetForm={verbTargetForm}
             />
+                    <VerbQuizGameModal
+    isOpen={isVerbQuizOpen}
+    onClose={() => setIsVerbQuizOpen(false)}
+    verbsData={verbPracticeData}
+    selectedForms={verbSelectedForms}
+/>
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
