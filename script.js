@@ -246,15 +246,19 @@ const VerbEngine = {
         }
 
         // 4. Logic chia Nhóm 2 và Nhóm 1 cơ bản
-        if (VerbEngine.HIRA_MAP['e'].includes(lastChar)) {
+        const isKanjiLastChar = /[\u4E00-\u9FAF]/.test(lastChar); // Kiểm tra xem sát nách ます có phải Kanji không (VD: 寝, 見, 出)
+
+        if (VerbEngine.HIRA_MAP['e'].includes(lastChar) || isKanjiLastChar) {
+            // NẾU thuộc cột 'e' HOẶC là Kanji -> Chắc chắn là Nhóm 2
             return { vmasu, stem, lastChar, group: 2, vru: stem + "る" };
         } else if (VerbEngine.HIRA_MAP['i'].includes(lastChar)) {
+            // NẾU thuộc cột 'i' -> Nhóm 1
             const uChar = VerbEngine.shiftHira(lastChar, 'u');
             return { vmasu, stem, lastChar, group: 1, vru: stem.slice(0, -1) + uChar };
         }
+        
         return null;
     },
-
     deriveMasuReading: (vruReading, group) => {
         if (!vruReading) return "";
         if (vruReading === "くる") return "きます";
