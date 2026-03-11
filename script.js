@@ -347,7 +347,7 @@ const VerbEngine = {
                 const sTe = targetForm === "Te" ? "て" : "た";
                 const sDe = targetForm === "Te" ? "で" : "だ";
 
-                if (vruReading === "いく") return stemBase + "っ" + sTe; // Ngoại lệ: Iku
+                if (vruReading === "行く") return stemBase + "っ" + sTe; // Ngoại lệ: Iku
                 if (["う", "つ", "る"].includes(tailU)) return stemBase + "っ" + sTe;
                 if (["む", "ぶ", "ぬ"].includes(tailU)) return stemBase + "ん" + sDe;
                 if (tailU === "く") return stemBase + "い" + sTe;
