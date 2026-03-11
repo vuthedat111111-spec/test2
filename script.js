@@ -3743,7 +3743,7 @@ const StudySetupModal = ({
             </>
         )}
 
-        {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ (UI MỚI) */}
+       {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
         {verbPracticeMode === 'quiz' && (
             <div className="relative">
                 {/* Nút bấm để mở Dropdown */}
@@ -3758,11 +3758,23 @@ const StudySetupModal = ({
                                 ? "Chưa chọn thể nào..." 
                                 : `Đã chọn ${verbSelectedForms.length} thể để kiểm tra`}
                         </span>
-                        <span className={`text-[10px] mt-1.5 ${verbSelectedForms.length >= 4 ? 'text-gray-400 font-medium' : 'text-red-500 font-bold'}`}>
-                            * Chú ý: Cần chọn tối thiểu 4 thể
-                        </span>
+                        
+                        {/* CHỈ HIỆN KHI CHƯA CHỌN ĐỦ 4 THỂ */}
+                        {verbSelectedForms.length < 4 && (
+                            <span className="text-[10px] mt-1.5 text-red-500 font-bold animate-pulse">
+                                * Chú ý: Cần chọn tối thiểu 4 thể
+                            </span>
+                        )}
                     </div>
-                    <svg className={`w-5 h-5 transition-transform duration-300 flex-shrink-0 ${verbSelectedForms.length >= 4 ? 'text-indigo-400' : 'text-red-400'} ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+
+                    {/* NÚT "CHỌN" THAY CHO MŨI TÊN KHI MỞ */}
+                    {isFormDropdownOpen ? (
+                        <div className="px-4 py-2 bg-indigo-600 text-white text-[10px] font-black rounded-xl shadow-md uppercase tracking-widest active:scale-95 transition-transform">
+                            CHỌN
+                        </div>
+                    ) : (
+                        <svg className={`w-5 h-5 flex-shrink-0 ${verbSelectedForms.length >= 4 ? 'text-indigo-400' : 'text-red-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    )}
                 </button>
 
                 {/* Khung Dropdown Danh sách 12 Thể */}
@@ -3781,7 +3793,8 @@ const StudySetupModal = ({
                                 return (
                                     <button
                                         key={opt.id}
-                                        onClick={() => {
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Ngăn không cho click lan ra ngoài gây đóng popup
                                             if (isSelected) {
                                                 setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
                                             } else {
@@ -3798,22 +3811,6 @@ const StudySetupModal = ({
                                     </button>
                                 );
                             })}
-                        </div>
-
-                        {/* Thanh công cụ: Chọn tất cả / Bỏ chọn tất cả */}
-                        <div className="flex justify-between items-center border-t border-gray-100 mt-3 pt-3 px-1">
-                            <button 
-                                onClick={() => setVerbSelectedForms([])} 
-                                className="text-[11px] font-bold text-gray-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50"
-                            >
-                                Bỏ chọn tất cả
-                            </button>
-                            <button 
-                                onClick={() => setVerbSelectedForms(["Te", "Ta", "Nai", "Dictionary", "Ba", "Volitional", "Imperative", "Prohibitive", "Potential", "Passive", "Causative", "CausativePassive"])} 
-                                className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors px-2 py-1 rounded hover:bg-indigo-50"
-                            >
-                                Chọn tất cả
-                            </button>
                         </div>
                     </div>
                 )}
