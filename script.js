@@ -3681,9 +3681,10 @@ const StudySetupModal = ({
         </div>
     ) : (
        /* GIAO DIỆN MỚI CHO CHIA ĐỘNG TỪ TẠI ĐÂY */
-        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
-            <button onClick={() => setVerbPracticeMode('essay')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỰ LUẬN</button>
-            <button onClick={() => setVerbPracticeMode('quiz')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TRẮC NGHIỆM</button>
+        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 w-full overflow-x-auto custom-scrollbar">
+            <button onClick={() => setVerbPracticeMode('essay')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỰ LUẬN</button>
+            <button onClick={() => setVerbPracticeMode('quiz')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TRẮC NGHIỆM</button>
+            <button onClick={() => setVerbPracticeMode('reflex')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'reflex' ? 'bg-white text-red-600 shadow-sm border border-red-200' : 'text-gray-500 hover:text-red-500'}`}>⚡ PHẢN XẠ</button>
         </div>
     )}
     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
@@ -3744,7 +3745,7 @@ const StudySetupModal = ({
         )}
 
       {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
-        {verbPracticeMode === 'quiz' && (
+        {(verbPracticeMode === 'quiz' || verbPracticeMode === 'reflex') && (
             <div className="relative">
                 {/* Nút bấm để mở Dropdown */}
                 <button 
@@ -3897,10 +3898,10 @@ const StudySetupModal = ({
     // ==========================================
     //  XỬ LÝ LỌC KANA CHO TỰ LUẬN KANJI
     // ==========================================
- // KIỂM TRA ĐIỀU KIỆN TRẮC NGHIỆM ĐỘNG TỪ
-    if (targetAction === 'conjugate' && verbPracticeMode === 'quiz') {
+ // KIỂM TRA ĐIỀU KIỆN TRẮC NGHIỆM / PHẢN XẠ ĐỘNG TỪ
+    if (targetAction === 'conjugate' && (verbPracticeMode === 'quiz' || verbPracticeMode === 'reflex')) {
         if (verbSelectedForms.length < 4) {
-            alert("Vui lòng chọn ít nhất 4 thể động từ để làm bài trắc nghiệm!");
+            alert("Vui lòng chọn ít nhất 4 thể động từ!");
             return;
         }
     }
@@ -4603,6 +4604,238 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
+// --- COMPONENT MỚI: GAME PHẢN XẠ CHIA ĐỘNG TỪ ---
+const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
+    const [queue, setQueue] = React.useState([]);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [status, setStatus] = React.useState('idle'); 
+    const [finished, setFinished] = React.useState(false);
+    const [score, setScore] = React.useState(0);
+    const [selectedOpt, setSelectedOpt] = React.useState(null);
+    const [gameOverReason, setGameOverReason] = React.useState(null); // 'win', 'wrong', 'timeout'
+
+    // Timer states
+    const [timeLeft, setTimeLeft] = React.useState(10);
+    const [timeLimit, setTimeLimit] = React.useState(10);
+
+    const formLabels = { 
+        "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
+        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
+        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+        "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
+    };
+
+    // Hàm tính thời gian đếm ngược dựa trên điểm số
+    const calculateTimeLimit = (currentScore) => {
+        if (currentScore < 10) return 10;
+        if (currentScore < 15) return 7;
+        if (currentScore < 20) return 5;
+        if (currentScore < 25) return 4;
+        return 3;
+    };
+
+    const initLesson = React.useCallback(() => {
+        if (!verbsData || verbsData.length === 0 || !selectedForms || selectedForms.length < 4) return;
+        
+        setFinished(false); 
+        setCurrentIndex(0);
+        setStatus('idle');
+        setScore(0);
+        setSelectedOpt(null);
+        setGameOverReason(null);
+        setTimeLimit(10);
+        setTimeLeft(10);
+
+        // Sinh sẵn 50 câu hỏi
+        let generatedQueue = [];
+        for (let i = 0; i < 50; i++) {
+            const verb = verbsData[Math.floor(Math.random() * verbsData.length)];
+            const formsForThisQ = [...selectedForms].sort(() => Math.random() - 0.5).slice(0, 4);
+            const targetFormId = formsForThisQ[0]; 
+
+            const options = formsForThisQ.map(formId => {
+                return {
+                    id: formId,
+                    textKanji: VerbEngine.conjugate(verb.vmasu, verb, formId).split(" / ")[0],
+                    textKana: VerbEngine.conjugate(verb.finalReading, verb, formId).split(" / ")[0]
+                }
+            }).sort(() => Math.random() - 0.5);
+
+            generatedQueue.push({ verb, targetFormId, options });
+        }
+        setQueue(generatedQueue);
+    }, [verbsData, selectedForms]);
+
+    // Xử lý khóa nền
+    React.useEffect(() => {
+        let rafId;
+        if (isOpen) {
+            rafId = requestAnimationFrame(() => { document.body.style.overflow = 'hidden'; });
+            initLesson();
+        } else {
+            document.body.style.overflow = 'unset';
+            setFinished(false);
+        }
+        return () => { 
+            if (rafId) cancelAnimationFrame(rafId);
+            document.body.style.overflow = 'unset'; 
+        };
+    }, [isOpen, initLesson]);
+
+    // Xử lý đếm ngược thời gian
+    React.useEffect(() => {
+        if (!isOpen || finished || status !== 'idle') return;
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    setStatus('wrong');
+                    setTimeout(() => {
+                        setGameOverReason('timeout');
+                        setFinished(true);
+                    }, 800);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [isOpen, finished, status, currentIndex]);
+
+    const checkAnswer = (optId) => {
+        if (status !== 'idle') return;
+        const currentItem = queue[currentIndex];
+        setSelectedOpt(optId);
+
+        if (optId === currentItem.targetFormId) {
+            setStatus('correct');
+            const newScore = score + 1;
+            setScore(newScore);
+            
+            if (newScore >= 50) {
+                setTimeout(() => { setGameOverReason('win'); setFinished(true); }, 600);
+            } else {
+                setTimeout(() => {
+                    const nextTimeLimit = calculateTimeLimit(newScore);
+                    setTimeLimit(nextTimeLimit);
+                    setTimeLeft(nextTimeLimit);
+                    setCurrentIndex(prev => prev + 1);
+                    setStatus('idle');
+                    setSelectedOpt(null);
+                }, 600);
+            }
+        } else {
+            setStatus('wrong');
+            setTimeout(() => { 
+                setGameOverReason('wrong'); 
+                setFinished(true); 
+            }, 1000);
+        }
+    };
+
+    if (!isOpen || queue.length === 0) return null;
+    const currentItem = queue[currentIndex];
+
+    // Tính % thanh thời gian
+    const timePercent = (timeLeft / timeLimit) * 100;
+    let timeColorClass = "bg-green-500";
+    if (timePercent <= 50) timeColorClass = "bg-amber-500";
+    if (timePercent <= 25) timeColorClass = "bg-red-500";
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
+            {!finished ? (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+                    
+                    {/* THANH ĐẾM NGƯỢC THỜI GIAN */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-zinc-900 text-lg font-black px-6 h-10 rounded-full shadow-md flex items-center justify-center border-4 border-zinc-100 gap-2">
+                        <svg className={`w-5 h-5 ${timeLeft <= 3 ? 'text-red-500 animate-pulse' : 'text-zinc-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span className={timeLeft <= 3 ? 'text-red-500 animate-pulse' : ''}>{timeLeft}s</span>
+                    </div>
+
+                    <div className="w-full mb-8 mt-4">
+                        <div className="flex justify-between items-center mb-3">
+                            <span className="text-[11px] font-black text-zinc-900 uppercase tracking-widest">
+                                Câu {currentIndex + 1} / 50
+                            </span>
+                            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:text-red-500 transition-all shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                        <div className="w-full h-2.5 bg-zinc-100 rounded-full overflow-hidden">
+                            <div className={`h-full transition-all duration-1000 ease-linear ${timeColorClass}`} style={{ width: `${timePercent}%` }}></div>
+                        </div>
+                    </div>
+
+                    {/* HIỂN THỊ CÂU HỎI (TÊN THỂ CẦN TÌM) */}
+                    <div className={`flex flex-col items-center text-center mb-10 w-full transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                        <span className="text-sm font-bold text-zinc-400 mb-1">Hãy chọn:</span>
+                        <h2 className="text-3xl font-black font-sans text-indigo-600 mb-2 uppercase tracking-wide">
+                            {formLabels[currentItem.targetFormId]}
+                        </h2>
+                        <span className="text-xs font-bold text-zinc-500 bg-zinc-50 px-3 py-1 rounded-md border border-zinc-100">
+                            của động từ: <span className="text-zinc-800">{currentItem.verb.vmasu}</span>
+                        </span>
+                    </div>
+
+                    {/* 4 NÚT ĐÁP ÁN KANJI */}
+                    <div className="grid grid-cols-2 gap-3 w-full">
+                        {currentItem.options.map(opt => {
+                            let btnStyle = "bg-white border-zinc-200 text-zinc-800 hover:bg-zinc-50 hover:border-indigo-300 hover:shadow-md";
+                            
+                            if (status !== 'idle') {
+                                const isSelected = opt.id === selectedOpt;
+                                if (status === 'correct' && isSelected) {
+                                    btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)] scale-105"; 
+                                } else if (status === 'wrong' && isSelected) {
+                                    btnStyle = "bg-red-500 border-red-500 text-white animate-shake"; 
+                                } else {
+                                    btnStyle = "bg-white border-zinc-100 text-zinc-300 opacity-50"; 
+                                }
+                            }
+
+                            return (
+                                <button
+                                    key={opt.id}
+                                    onClick={() => checkAnswer(opt.id)}
+                                    disabled={status !== 'idle'}
+                                    className={`h-20 rounded-2xl border-2 transition-all active:scale-95 flex flex-col items-center justify-center text-center px-1 ${btnStyle}`}
+                                >
+                                    <span className="text-2xl font-bold font-sans mb-0.5">{opt.textKanji}</span>
+                                    {/* <span className="text-[10px] font-medium opacity-80">{opt.textKana}</span> */}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            ) : (
+                // MÀN HÌNH KẾT THÚC GAME
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[320px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4">
+                        {gameOverReason === 'win' ? '🏆' : gameOverReason === 'timeout' ? '⏰' : '💥'}
+                    </div>
+                    
+                    <h3 className={`text-2xl font-black mb-2 uppercase ${gameOverReason === 'win' ? 'text-green-600' : 'text-red-600'}`}>
+                        {gameOverReason === 'win' ? 'PHÁ ĐẢO!' : gameOverReason === 'timeout' ? 'HẾT GIỜ!' : 'SAI RỒI!'}
+                    </h3>
+                    
+                    <div className="bg-zinc-50 rounded-xl p-4 mb-6 border border-zinc-100">
+                        <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-1">Chuỗi phản xạ</p>
+                        <p className="text-4xl font-black text-zinc-900">{score} <span className="text-lg text-zinc-400">/ 50</span></p>
+                    </div>
+
+                    <div className="space-y-3">
+                        <button onClick={() => initLesson()} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">CHƠI LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -4613,6 +4846,7 @@ const App = () => {
     const [isVerbPreviewOpen, setIsVerbPreviewOpen] = useState(false);
     const [isVerbEssayOpen, setIsVerbEssayOpen] = useState(false);
     const [isVerbQuizOpen, setIsVerbQuizOpen] = useState(false);
+    const [isVerbReflexOpen, setIsVerbReflexOpen] = useState(false);
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState('Te');
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
@@ -4720,6 +4954,10 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
             if (target === 'flashcard') setIsFlashcardOpen(true);
             if (target === 'game') setIsLearnGameOpen(true);
             if (target === 'essay') setIsEssayOpen(true);
+            // KIỂM TRA MỞ GAME ĐỘNG TỪ TỪ PREVIEW LIST
+            if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
+            else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
+            else if (target === 'conjugate') setIsVerbEssayOpen(true);
         }
     };
     // --- HIỂN THỊ LOADING ---
@@ -4869,6 +5107,12 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     verbsData={verbPracticeData}
     selectedForms={verbSelectedForms}
 />
+        <VerbReflexGameModal
+                isOpen={isVerbReflexOpen}
+                onClose={() => setIsVerbReflexOpen(false)}
+                verbsData={verbPracticeData}
+                selectedForms={verbSelectedForms}
+            />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
