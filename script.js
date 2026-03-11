@@ -3117,44 +3117,51 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
     );
 };
 
-// --- COMPONENT: THƯ VIỆN CHỌN NHANH (100% ĐEN - TRẮNG - XÁM) ---
+// --- COMPONENT: THƯ VIỆN CHỌN NHANH (ĐÃ TÍCH HỢP THƯ VIỆN ĐỘNG TỪ) ---
 const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, targetAction }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
 
     const [randomCount, setRandomCount] = useState(10);
+    const [randomVerbCount, setRandomVerbCount] = useState(10); // State riêng cho số lượng động từ
+
     const [minnaLesson, setMinnaLesson] = useState('');
     const [mimiPart, setMimiPart] = useState('');
     const [mimiLevel, setMimiLevel] = useState('N3');
     const [tangoPart, setTangoPart] = useState('');
     const [tangoLevel, setTangoLevel] = useState('N3');
     const isKanjiEssay = mode === 'kanji' && targetAction === 'essay';
+    
     if (!isOpen) return null;
 
-    // Hàm tự động đưa con số về min (1) hoặc max (50)
+    // --- CÁC HÀM VALIDATE SỐ LƯỢNG ---
     const validateRandomCount = () => {
         let val = parseInt(randomCount);
-        if (isNaN(val) || val < 1) {
-            setRandomCount(1);
-            return 1;
-        } else if (val > 50) {
-            setRandomCount(50);
-            return 50;
-        }
+        if (isNaN(val) || val < 1) { setRandomCount(1); return 1; } 
+        else if (val > 50) { setRandomCount(50); return 50; }
         setRandomCount(val);
         return val;
     };
+
+    const validateRandomVerbCount = () => {
+        let val = parseInt(randomVerbCount);
+        if (isNaN(val) || val < 1) { setRandomVerbCount(1); return 1; } 
+        else if (val > 50) { setRandomVerbCount(50); return 50; }
+        setRandomVerbCount(val);
+        return val;
+    };
+
     const validateMinnaLesson = () => {
         if (minnaLesson === '') return;
         let val = parseInt(minnaLesson);
         if (isNaN(val) || val < 1) setMinnaLesson(1);
-        else if (val > 50) setMinnaLesson(50); // Minna có 50 bài
+        else if (val > 50) setMinnaLesson(50); 
         else setMinnaLesson(val);
     };
 
     const validateMimiPart = () => {
         if (mimiPart === '') return;
-        const limits = { N3: 12, N2: 13, N1: 14 }; // Giới hạn số phần Mimikara
+        const limits = { N3: 12, N2: 13, N1: 14 }; 
         const max = limits[mimiLevel];
         let val = parseInt(mimiPart);
         if (isNaN(val) || val < 1) setMimiPart(1);
@@ -3164,21 +3171,25 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
 
     const validateTangoPart = () => {
         if (tangoPart === '') return;
-        const limits = { N3: 12, N2: 12, N1: 14 }; // Giới hạn số phần Tango
+        const limits = { N3: 12, N2: 12, N1: 14 }; 
         const max = limits[tangoLevel];
         let val = parseInt(tangoPart);
         if (isNaN(val) || val < 1) setTangoPart(1);
         else if (val > max) setTangoPart(max);
         else setTangoPart(val);
     };
+
     // --- HÀM TẢI DỮ LIỆU CHUNG ---
     const fetchAndSetData = async (url) => {
         setIsLoading(true); setProgress(20);
         try {
             const response = await fetch(url);
             if (!response.ok) throw new Error("Lỗi");
-            const isJsonArray = url.includes('minna') || url.includes('mimi') || url.includes('tango');
+            
+            // Nhận diện file JSON chứa mảng (từ vựng hoặc động từ)
+            const isJsonArray = url.includes('minna') || url.includes('mimi') || url.includes('tango') || url.includes('dongtu');
             let resultText = "";
+            
             if (isJsonArray) {
                 const data = await response.json();
                 if (!Array.isArray(data) || data.length === 0) {
@@ -3190,11 +3201,13 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
                 const rawText = await response.text();
                 resultText = rawText.replace(/["\n\r\s,\[\]]/g, '');
             }
+            
             setProgress(100);
             setTimeout(() => {
-                onSelectData(resultText); // Trả dữ liệu về cho component cha
+                // Tự động xuống dòng cuối cho chế độ text (tránh lỗi nối chữ)
+                onSelectData(resultText + (isJsonArray ? '\n' : '')); 
                 setIsLoading(false); 
-                onClose(); // Đóng modal
+                onClose(); 
             }, 400);
         } catch (error) { 
             alert("Lỗi tải dữ liệu!"); 
@@ -3202,10 +3215,9 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
         }
     };
 
-   const loadRandomKanji = async (level) => {
-        // Tự động kiểm tra và lấy con số đã chuẩn hóa
+    // --- HÀM TẢI KANJI NGẪU NHIÊN ---
+    const loadRandomKanji = async (level) => {
         const finalCount = validateRandomCount(); 
-        
         setIsLoading(true); setProgress(20);
         try {
             const response = await fetch(`./data/kanji${level.toLowerCase()}.json`);
@@ -3215,9 +3227,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
             const unstudiedChars = allChars.filter(char => !srsData[char]);
             const studiedChars = allChars.filter(char => srsData[char]);
             
-            // Sử dụng finalCount đã được chuẩn hóa (1-50)
             let count = finalCount; 
-            
             let selectedPool = "";
             if (unstudiedChars.length >= count) {
                 selectedPool = unstudiedChars.sort(() => Math.random() - 0.5).slice(0, count).join('');
@@ -3236,7 +3246,37 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
             }, 400);
         } catch (error) { setIsLoading(false); }
     };
-    // --- HÀM TẢI TỪ VỰNG THÔNG MINH ---
+
+    // --- HÀM TẢI ĐỘNG TỪ NGẪU NHIÊN ---
+    const loadRandomVerbs = async (level) => {
+        const finalCount = validateRandomVerbCount(); 
+        setIsLoading(true); setProgress(20);
+        try {
+            const response = await fetch(`./data/dongtu/dongtu${level.toLowerCase()}.json`);
+            if (!response.ok) throw new Error("Không tìm thấy file");
+            
+            const data = await response.json();
+            if (!Array.isArray(data) || data.length === 0) {
+                alert("File dữ liệu bị lỗi hoặc rỗng!");
+                setIsLoading(false); return;
+            }
+            
+            // Xáo trộn và lấy đúng số lượng
+            const selectedPool = data.sort(() => Math.random() - 0.5).slice(0, finalCount);
+            const finalResult = selectedPool.join('\n');
+            
+            setProgress(100);
+            setTimeout(() => {
+                onSelectData(finalResult + '\n');
+                setIsLoading(false); 
+                onClose();
+            }, 400);
+        } catch (error) { 
+            alert(`Chưa có dữ liệu động từ cho cấp độ ${level}!`);
+            setIsLoading(false); 
+        }
+    };
+
     const handleSmartLoadVocabulary = () => {
         if (minnaLesson) {
             let valid = minnaLesson < 1 ? 1 : (minnaLesson > 50 ? 50 : minnaLesson);
@@ -3255,7 +3295,6 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
     return (
         <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
             
-            {/* LOADING OVERLAY BÊN TRONG MODAL */}
             {isLoading && (
                 <div className="absolute inset-0 z-[400] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md rounded-3xl">
                     <div className="text-center">
@@ -3270,69 +3309,73 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
             <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden cursor-default border border-gray-200 animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
                 <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                     <h3 className="font-bold text-sm uppercase tracking-wider text-gray-900">
-                        {mode === 'kanji' ? '📚 THƯ VIỆN KANJI' : '📚 THƯ VIỆN TỪ VỰNG'}
+                        {targetAction === 'conjugate' ? '📚 THƯ VIỆN ĐỘNG TỪ' : mode === 'kanji' ? '📚 THƯ VIỆN KANJI' : '📚 THƯ VIỆN TỪ VỰNG'}
                     </h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-900 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">✕</button>
                 </div>
                 
                 <div className="p-6 space-y-6">
-                    {mode === 'kanji' ? (
+                    {targetAction === 'conjugate' ? (
                         <>
-                            {/* Lấy ngẫu nhiên */}
+                            {/* --- GIAO DIỆN THƯ VIỆN ĐỘNG TỪ --- */}
                             <div>
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
                                 <div className="flex gap-3 items-center mb-4">
-                                   <input 
-    type="number" 
-    value={randomCount} 
-    onChange={e => setRandomCount(e.target.value)} 
-    onBlur={validateRandomCount} // Tự động về 1 hoặc 50 khi click ra ngoài
-    className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" 
-/>
-                                    <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
+                                    <input 
+                                        type="number" 
+                                        value={randomVerbCount} 
+                                        onChange={e => setRandomVerbCount(e.target.value)} 
+                                        onBlur={validateRandomVerbCount}
+                                        className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" 
+                                    />
+                                    <span className="text-xs font-bold text-gray-500">động từ</span>
                                 </div>
                                 <div className="grid grid-cols-5 gap-2">
                                     {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
-                                        <button key={lvl} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 bg-white text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
+                                        <button key={`verb-${lvl}`} onClick={() => loadRandomVerbs(lvl)} className="py-2.5 border border-gray-200 bg-white text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Bộ thủ & Bảng chữ cái */}
+                            <div className="border-t border-gray-100 pt-5">
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Danh sách đặc biệt</label>
+                                <button onClick={() => fetchAndSetData('./data/dongtu/dongtubatquytac.json')} className="w-full py-3.5 border-2 border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95 flex items-center justify-center gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    ĐỘNG TỪ BẤT QUY TẮC (N5-N4)
+                                </button>
+                            </div>
+                        </>
+                    ) : mode === 'kanji' ? (
+                        <>
+                            {/* --- GIAO DIỆN THƯ VIỆN KANJI --- */}
+                            <div>
+                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy ngẫu nhiên</label>
+                                <div className="flex gap-3 items-center mb-4">
+                                   <input 
+                                        type="number" 
+                                        value={randomCount} 
+                                        onChange={e => setRandomCount(e.target.value)} 
+                                        onBlur={validateRandomCount}
+                                        className="w-20 p-2.5 text-center border border-gray-300 rounded-lg font-bold text-gray-900 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all" 
+                                    />
+                                    <span className="text-xs font-bold text-gray-500">chữ mới chưa học</span>
+                                </div>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
+                                        <button key={`kanji-${lvl}`} onClick={() => loadRandomKanji(lvl)} className="py-2.5 border border-gray-200 bg-white text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white rounded-xl font-bold text-xs transition-all active:scale-95">{lvl}</button>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="border-t border-gray-100 pt-5">
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Bộ thủ & Bảng chữ cái</label>
                                <div className="grid grid-cols-3 gap-2">
-    <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
-    
-    {/* Nút Hiragana đã thêm logic khóa */}
-    <button 
-        onClick={() => fetchAndSetData('./data/hiragana.json')} 
-        disabled={isKanjiEssay}
-        className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${
-            isKanjiEssay 
-                ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' 
-                : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'
-        }`}
-    >
-        Hiragana
-    </button>
-    
-    {/* Nút Katakana đã thêm logic khóa */}
-    <button 
-        onClick={() => fetchAndSetData('./data/katakana.json')} 
-        disabled={isKanjiEssay}
-        className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${
-            isKanjiEssay 
-                ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' 
-                : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'
-        }`}
-    >
-        Katakana
-    </button>
-</div>
+                                    <button onClick={() => fetchAndSetData('./data/bothu.json')} className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all active:scale-95">Bộ thủ</button>
+                                    <button onClick={() => fetchAndSetData('./data/hiragana.json')} disabled={isKanjiEssay} className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${isKanjiEssay ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'}`}>Hiragana</button>
+                                    <button onClick={() => fetchAndSetData('./data/katakana.json')} disabled={isKanjiEssay} className={`py-2.5 border rounded-xl text-xs font-bold transition-all ${isKanjiEssay ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed opacity-50' : 'border-gray-200 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95'}`}>Katakana</button>
+                                </div>
                             </div>
                             
-                            {/* Lấy toàn bộ Kanji */}
                             <div className="border-t border-gray-100 pt-5">
                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 block">Lấy toàn bộ (Theo cấp độ)</label>
                                 <div className="grid grid-cols-5 gap-2">
@@ -3343,102 +3386,101 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
                             </div>
                         </>
                     ) : (
+                        // --- GIAO DIỆN THƯ VIỆN TỪ VỰNG ---
                         <div className="space-y-5">
-    {/* Minna */}
-    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
-        <div className="flex items-center gap-2">
-            <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
-            <input 
-                type="number" 
-                placeholder="..." 
-                value={minnaLesson} 
-                onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} 
-                onBlur={validateMinnaLesson} // <-- Tự sửa lỗi khi bấm ra ngoài
-                onKeyDown={(e) => { 
-                    if (e.key === 'Enter' && minnaLesson) {
-                        e.preventDefault();
-                        handleSmartLoadVocabulary();
-                    } 
-                }}
-                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-            />
-        </div>
-    </div>
+                            {/* Minna */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Minna No Nihongo</label>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Bài</span>
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={minnaLesson} 
+                                        onChange={e => { setMinnaLesson(e.target.value); if(e.target.value) {setMimiPart(''); setTangoPart('');} }} 
+                                        onBlur={validateMinnaLesson} 
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && minnaLesson) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
+                                </div>
+                            </div>
 
-    {/* Mimi */}
-    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Mimikara</label>
-        <div className="flex items-center gap-2">
-            <select 
-                value={mimiLevel} 
-                onChange={e => { 
-                    const newLevel = e.target.value;
-                    setMimiLevel(newLevel);
-                    // Tự động kéo giới hạn xuống nếu đổi sang cấp độ có ít bài hơn
-                    if (mimiPart !== '') {
-                        const limits = { N3: 12, N2: 13, N1: 14 };
-                        if (parseInt(mimiPart) > limits[newLevel]) setMimiPart(limits[newLevel]);
-                    }
-                }} 
-                className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
-            >
-                <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-            </select>
-            <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-            <input 
-                type="number" 
-                placeholder="..." 
-                value={mimiPart} 
-                onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} 
-                onBlur={validateMimiPart} // <-- Tự sửa lỗi khi bấm ra ngoài
-                onKeyDown={(e) => { 
-                    if (e.key === 'Enter' && mimiPart) {
-                        e.preventDefault();
-                        handleSmartLoadVocabulary();
-                    } 
-                }}
-                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-            />
-        </div>
-    </div>
+                            {/* Mimikara */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Mimikara</label>
+                                <div className="flex items-center gap-2">
+                                    <select 
+                                        value={mimiLevel} 
+                                        onChange={e => { 
+                                            const newLevel = e.target.value;
+                                            setMimiLevel(newLevel);
+                                            if (mimiPart !== '') {
+                                                const limits = { N3: 12, N2: 13, N1: 14 };
+                                                if (parseInt(mimiPart) > limits[newLevel]) setMimiPart(limits[newLevel]);
+                                            }
+                                        }} 
+                                        className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
+                                    >
+                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                    </select>
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={mimiPart} 
+                                        onChange={e => { setMimiPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setTangoPart('');} }} 
+                                        onBlur={validateMimiPart}
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && mimiPart) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
+                                </div>
+                            </div>
 
-    {/* Tango */}
-    <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
-        <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Tango</label>
-        <div className="flex items-center gap-2">
-            <select 
-                value={tangoLevel} 
-                onChange={e => { 
-                    const newLevel = e.target.value;
-                    setTangoLevel(newLevel);
-                    // Tự động kéo giới hạn xuống nếu đổi sang cấp độ có ít bài hơn
-                    if (tangoPart !== '') {
-                        const limits = { N3: 12, N2: 12, N1: 14 };
-                        if (parseInt(tangoPart) > limits[newLevel]) setTangoPart(limits[newLevel]);
-                    }
-                }} 
-                className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
-            >
-                <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
-            </select>
-            <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
-            <input 
-                type="number" 
-                placeholder="..." 
-                value={tangoPart} 
-                onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} 
-                onBlur={validateTangoPart} // <-- Tự sửa lỗi khi bấm ra ngoài
-                onKeyDown={(e) => { 
-                    if (e.key === 'Enter' && tangoPart) {
-                        e.preventDefault();
-                        handleSmartLoadVocabulary();
-                    } 
-                }}
-                className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
-            />
-        </div>
-    </div>
+                            {/* Tango */}
+                            <div className="flex items-center justify-between group hover:bg-gray-50 p-2 rounded-xl transition-colors border border-transparent hover:border-gray-200">
+                                <label className="text-xs font-bold text-gray-700 uppercase tracking-wide">Tango</label>
+                                <div className="flex items-center gap-2">
+                                    <select 
+                                        value={tangoLevel} 
+                                        onChange={e => { 
+                                            const newLevel = e.target.value;
+                                            setTangoLevel(newLevel);
+                                            if (tangoPart !== '') {
+                                                const limits = { N3: 12, N2: 12, N1: 14 };
+                                                if (parseInt(tangoPart) > limits[newLevel]) setTangoPart(limits[newLevel]);
+                                            }
+                                        }} 
+                                        className="p-1 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none bg-white"
+                                    >
+                                        <option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+                                    </select>
+                                    <span className="text-gray-400 font-bold text-[10px] uppercase">Phần</span>
+                                    <input 
+                                        type="number" 
+                                        placeholder="..." 
+                                        value={tangoPart} 
+                                        onChange={e => { setTangoPart(e.target.value); if(e.target.value) {setMinnaLesson(''); setMimiPart('');} }} 
+                                        onBlur={validateTangoPart}
+                                        onKeyDown={(e) => { 
+                                            if (e.key === 'Enter' && tangoPart) {
+                                                e.preventDefault();
+                                                handleSmartLoadVocabulary();
+                                            } 
+                                        }}
+                                        className="w-14 text-center font-bold border-b-2 border-gray-200 focus:border-gray-900 text-gray-900 outline-none bg-transparent transition-all text-base pb-0.5" 
+                                    />
+                                </div>
+                            </div>
 
                             <div className="pt-4 border-t border-gray-100">
                                 <button
