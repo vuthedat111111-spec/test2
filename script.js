@@ -3684,7 +3684,7 @@ const StudySetupModal = ({
         <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 w-full overflow-x-auto custom-scrollbar">
             <button onClick={() => setVerbPracticeMode('essay')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỰ LUẬN</button>
             <button onClick={() => setVerbPracticeMode('quiz')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TRẮC NGHIỆM</button>
-            <button onClick={() => setVerbPracticeMode('reflex')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'reflex' ? 'bg-white text-red-600 shadow-sm border border-red-200' : 'text-gray-500 hover:text-red-500'}`}>⚡ PHẢN XẠ</button>
+            <button onClick={() => setVerbPracticeMode('reflex')} className={`flex-1 min-w-[90px] px-2 py-2 rounded-lg text-xs font-bold transition-all ${verbPracticeMode === 'reflex' ? 'bg-white text-red-600 shadow-sm border border-red-200' : 'text-gray-500 hover:text-red-500'}`}>PHẢN XẠ</button>
         </div>
     )}
     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm">✕</button>
@@ -3760,12 +3760,12 @@ const StudySetupModal = ({
                                 : `Đã chọn ${verbSelectedForms.length} thể động từ`}
                         </span>
                         
-                        {/* CHỈ HIỆN CHÚ Ý KHI CHƯA CHỌN ĐỦ */}
-                        {verbSelectedForms.length < (verbPracticeMode === 'reflex' ? 5 : 4) && (
-                            <span className="text-[10px] mt-1.5 text-red-500 font-bold">
-                                * Chú ý: Cần chọn tối thiểu {verbPracticeMode === 'reflex' ? 5 : 4} thể
-                            </span>
-                        )}
+                        {/* CHỈ HIỆN CHÚ Ý KHI ĐANG MỞ BẢNG VÀ CHƯA CHỌN ĐỦ */}
+{isFormDropdownOpen && verbSelectedForms.length < (verbPracticeMode === 'reflex' ? 5 : 4) && (
+    <span className="text-[10px] mt-1.5 text-red-500 font-bold">
+        * Chú ý: Cần chọn tối thiểu {verbPracticeMode === 'reflex' ? 5 : 4} thể
+    </span>
+)}
                     </div>
 
                     <svg className={`w-5 h-5 transition-transform duration-300 flex-shrink-0 ${verbSelectedForms.length >= (verbPracticeMode === 'reflex' ? 5 : 4) ? 'text-indigo-400' : 'text-red-400'} ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
@@ -4221,7 +4221,7 @@ React.useEffect(() => {
                         disabled={!canStart} 
                         className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'}`}
                     >
-                        {verbPracticeMode === 'quiz' ? 'VÀO TRẮC NGHIỆM' : verbPracticeMode === 'reflex' ? 'VÀO PHẢN XẠ ⚡' : 'VÀO TỰ LUẬN'}
+                        {verbPracticeMode === 'quiz' ? 'VÀO TRẮC NGHIỆM' : verbPracticeMode === 'reflex' ? 'VÀO PHẢN XẠ' : 'VÀO TỰ LUẬN'}
                     </button>
                 </div>
             </div>
@@ -4652,22 +4652,40 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         setTimeLimit(10);
         setTimeLeft(10);
 
+        const ALL_FORMS = ["Te", "Ta", "Nai", "Dictionary", "Ba", "Volitional", "Imperative", "Prohibitive", "Potential", "Passive", "Causative", "CausativePassive"];
+
         // Sinh sẵn 50 câu hỏi
         let generatedQueue = [];
         for (let i = 0; i < 50; i++) {
             const verb = verbsData[Math.floor(Math.random() * verbsData.length)];
-            const formsForThisQ = [...selectedForms].sort(() => Math.random() - 0.5).slice(0, 4);
-            const targetFormId = formsForThisQ[0]; 
+            const correctFormId = selectedForms[Math.floor(Math.random() * selectedForms.length)];
+            const conjKanji = VerbEngine.conjugate(verb.vmasu, verb, correctFormId).split(" / ")[0];
 
-            const options = formsForThisQ.map(formId => {
+            // --- THUẬT TOÁN LỌC TRÙNG LẶP ---
+            const isValidDistractor = (formId) => {
+                if (formId === correctFormId) return false;
+                const testKanji = VerbEngine.conjugate(verb.vmasu, verb, formId).split(" / ")[0];
+                return testKanji !== conjKanji;
+            };
+
+            let pool = selectedForms.filter(isValidDistractor);
+            if (pool.length < 3) {
+                const extras = ALL_FORMS.filter(f => !pool.includes(f) && isValidDistractor(f));
+                pool = [...pool, ...extras];
+            }
+
+            const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+            const chosenForms = [correctFormId, ...distractors].sort(() => Math.random() - 0.5);
+
+            const options = chosenForms.map(formId => {
                 return {
                     id: formId,
                     textKanji: VerbEngine.conjugate(verb.vmasu, verb, formId).split(" / ")[0],
                     textKana: VerbEngine.conjugate(verb.finalReading, verb, formId).split(" / ")[0]
                 }
-            }).sort(() => Math.random() - 0.5);
+            });
 
-            generatedQueue.push({ verb, targetFormId, options });
+            generatedQueue.push({ verb, targetFormId: correctFormId, options });
         }
         setQueue(generatedQueue);
     }, [verbsData, selectedForms]);
