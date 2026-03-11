@@ -3706,11 +3706,11 @@ const StudySetupModal = ({
                     <span className="text-indigo-700 flex items-center gap-2">
                         <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         {[
-                            { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
-                            { id: "Dictionary", label: "Thể Từ Điển (る)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
-                            { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
-                            { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
-                            { id: "CausativePassive", label: "Bị Động Sai Khiến (させられる)" }
+                            { id: "Te", label: "Thể Te" }, { id: "Ta", label: "Thể Ta" }, { id: "Nai", label: "Thể Nai" },
+                            { id: "Dictionary", label: "Thể Từ Điển" }, { id: "Ba", label: "Thể Điều Kiện" }, { id: "Volitional", label: "Thể Ý Chí" },
+                            { id: "Imperative", label: "Thể Mệnh Lệnh" }, { id: "Prohibitive", label: "Thể Cấm Chỉ" }, { id: "Potential", label: "Thể Khả Năng" },
+                            { id: "Passive", label: "Thể Bị Động" }, { id: "Causative", label: "Thể Sai Khiến" }, 
+                            { id: "CausativePassive", label: "Bị Động Sai Khiến" }
                         ].find(opt => opt.id === verbTargetForm)?.label || 'Chọn thể...'}
                     </span>
                     <svg className={`w-5 h-5 text-indigo-400 group-hover:text-indigo-600 transition-transform duration-300 ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
@@ -3719,11 +3719,11 @@ const StudySetupModal = ({
                 {isFormDropdownOpen && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-[0_10px_40px_rgb(0,0,0,0.1)] max-h-56 overflow-y-auto custom-scrollbar p-2 animate-in fade-in zoom-in-95 duration-200">
                         {[
-                            { id: "Te", label: "Thể Te (て)" }, { id: "Ta", label: "Thể Ta (た)" }, { id: "Nai", label: "Thể Nai (ない)" },
-                            { id: "Dictionary", label: "Thể Từ Điển (る)" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí (よう)" },
-                            { id: "Imperative", label: "Thể Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", label: "Thể Cấm Chỉ (な)" }, { id: "Potential", label: "Thể Khả Năng (える/られる)" },
-                            { id: "Passive", label: "Thể Bị Động (れる/られる)" }, { id: "Causative", label: "Thể Sai Khiến (せる/させる)" }, 
-                            { id: "CausativePassive", label: "Bị Động Sai Khiến (させられる)" }
+                            { id: "Te", label: "Thể Te" }, { id: "Ta", label: "Thể Ta" }, { id: "Nai", label: "Thể Nai" },
+                            { id: "Dictionary", label: "Thể Từ Điển" }, { id: "Ba", label: "Thể Điều Kiện (ば)" }, { id: "Volitional", label: "Thể Ý Chí" },
+                            { id: "Imperative", label: "Thể Mệnh Lệnh" }, { id: "Prohibitive", label: "Thể Cấm Chỉ" }, { id: "Potential", label: "Thể Khả Năng" },
+                            { id: "Passive", label: "Thể Bị Động" }, { id: "Causative", label: "Thể Sai Khiến" }, 
+                            { id: "CausativePassive", label: "Bị Động Sai Khiến" }
                         ].map(opt => (
                             <button
                                 key={opt.id}
@@ -3744,13 +3744,13 @@ const StudySetupModal = ({
             </>
         )}
 
-      {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
+      {/* NẾU LÀ TRẮC NGHIỆM / PHẢN XẠ: MULTI-SELECT CHỌN NHIỀU THỂ */}
         {(verbPracticeMode === 'quiz' || verbPracticeMode === 'reflex') && (
             <div className="relative">
                 {/* Nút bấm để mở Dropdown */}
                 <button 
                     onClick={() => setIsFormDropdownOpen(!isFormDropdownOpen)}
-                    className="w-full p-4 bg-white border-2 border-indigo-100 hover:border-indigo-300 rounded-2xl flex justify-between items-center transition-all shadow-sm group"
+                    className={`w-full p-4 bg-white border-2 hover:border-indigo-300 rounded-2xl flex justify-between items-center transition-all shadow-sm group ${verbSelectedForms.length >= (verbPracticeMode === 'reflex' ? 5 : 4) ? 'border-indigo-100' : 'border-red-200'}`}
                 >
                     <div className="flex flex-col items-start text-left">
                         <span className="text-indigo-700 font-bold flex items-center gap-2">
@@ -3760,22 +3760,20 @@ const StudySetupModal = ({
                                 : `Đã chọn ${verbSelectedForms.length} thể động từ`}
                         </span>
                         
-                        {/* CHỈ HIỆN CHÚ Ý KHI ĐANG MỞ BẢNG VÀ CHƯA CHỌN ĐỦ */}
-                        {isFormDropdownOpen && verbSelectedForms.length < 4 && (
+                        {/* CHỈ HIỆN CHÚ Ý KHI CHƯA CHỌN ĐỦ */}
+                        {verbSelectedForms.length < (verbPracticeMode === 'reflex' ? 5 : 4) && (
                             <span className="text-[10px] mt-1.5 text-red-500 font-bold">
-                                * Chú ý: Cần chọn tối thiểu 4 thể
+                                * Chú ý: Cần chọn tối thiểu {verbPracticeMode === 'reflex' ? 5 : 4} thể
                             </span>
                         )}
                     </div>
 
-                    <svg className={`w-5 h-5 text-indigo-400 transition-transform duration-300 flex-shrink-0 ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg className={`w-5 h-5 transition-transform duration-300 flex-shrink-0 ${verbSelectedForms.length >= (verbPracticeMode === 'reflex' ? 5 : 4) ? 'text-indigo-400' : 'text-red-400'} ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
 
                 {/* Khung Dropdown Danh sách 12 Thể */}
                 {isFormDropdownOpen && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.12)] p-3 z-50 animate-in fade-in zoom-in-95 duration-200">
-                        
-                        {/* Grid 3 cột */}
                         <div className="grid grid-cols-3 gap-2">
                             {[
                                 { id: "Te", name: "Thể Te" }, { id: "Ta", name: "Thể Ta" }, { id: "Nai", name: "Thể Nai" },
@@ -3789,11 +3787,8 @@ const StudySetupModal = ({
                                         key={opt.id}
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            if (isSelected) {
-                                                setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
-                                            } else {
-                                                setVerbSelectedForms(prev => [...prev, opt.id]);
-                                            }
+                                            if (isSelected) setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
+                                            else setVerbSelectedForms(prev => [...prev, opt.id]);
                                         }}
                                         className={`px-1 py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all border-2 active:scale-95 flex items-center justify-center text-center leading-tight ${
                                             isSelected 
@@ -3881,62 +3876,72 @@ const StudySetupModal = ({
 
                {/* Footer: Nút Tiếp Tục */}
                 <div className="p-5 border-t border-gray-100 bg-white">
-                    <button 
-                       onClick={() => {
-    let finalContent = localText || "";
-    finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
-    
-    if (mode === 'vocab') {
-        const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-        finalContent = [...new Set(lines)].join('\n');
-    } else { 
-        finalContent = getUniqueChars(finalContent); 
-    }
+                   <button 
+                        onClick={() => {
+                            let finalContent = localText || "";
+                            finalContent = finalContent.replace(/[ \t]+/g, ' ').replace(/(\n\s*){2,}/g, '\n').trim();
+                            
+                            if (mode === 'vocab') {
+                                const lines = finalContent.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                                finalContent = [...new Set(lines)].join('\n');
+                            } else { 
+                                finalContent = getUniqueChars(finalContent); 
+                            }
 
-    let cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
+                            let cleanLatinh = finalContent.replace(/[a-zA-Z]/g, '');
 
-    // ==========================================
-    //  XỬ LÝ LỌC KANA CHO TỰ LUẬN KANJI
-    // ==========================================
- // KIỂM TRA ĐIỀU KIỆN TRẮC NGHIỆM / PHẢN XẠ ĐỘNG TỪ
-    if (targetAction === 'conjugate' && (verbPracticeMode === 'quiz' || verbPracticeMode === 'reflex')) {
-        if (verbSelectedForms.length < 4) {
-            alert("Vui lòng chọn ít nhất 4 thể động từ!");
-            return;
-        }
-    }
-    if (mode === 'kanji' && targetAction === 'essay') {
-        // Regex nhận diện Hiragana và Katakana
-        const kanaRegex = /[\u3040-\u309F\u30A0-\u30FF]/g;
-        const hasKana = kanaRegex.test(cleanLatinh);
-        const onlyKanji = cleanLatinh.replace(kanaRegex, ''); // Xóa hết Kana, chỉ giữ Kanji
+                            // ==========================================
+                            //  KIỂM TRA ĐIỀU KIỆN CHIA ĐỘNG TỪ
+                            // ==========================================
+                            if (targetAction === 'conjugate') {
+                                const minForms = verbPracticeMode === 'reflex' ? 5 : 4;
+                                
+                                // 1. Kiểm tra số lượng THỂ
+                                if ((verbPracticeMode === 'quiz' || verbPracticeMode === 'reflex') && verbSelectedForms.length < minForms) {
+                                    alert(`Vui lòng chọn ít nhất ${minForms} thể động từ cho chế độ này!`);
+                                    return;
+                                }
 
-        if (hasKana) {
-            if (onlyKanji.trim().length === 0) {
-                // Nếu xóa Kana xong mà chuỗi rỗng => Tức là người dùng CHỈ nhập Kana
-                alert("Chế độ Tự Luận không hỗ trợ kiểm tra Bảng chữ cái.\nVui lòng nhập Kanji!");
-                return; // Chặn không cho đi tiếp
-            } else {
-                // Nếu nhập lẫn lộn => Tự động bỏ qua Kana, giữ lại Kanji
-                cleanLatinh = onlyKanji;
-            }
-        }
-    }
-    // ==========================================
+                                // 2. Kiểm tra số lượng ĐỘNG TỪ (Chỉ áp dụng cho Phản xạ)
+                                if (verbPracticeMode === 'reflex') {
+                                    // Đếm số dòng (mỗi dòng là 1 động từ)
+                                    const verbCount = cleanLatinh.split('\n').map(l => l.trim()).filter(l => l.length > 0).length;
+                                    if (verbCount < 10) {
+                                        alert(`⚡ Chế độ Phản Xạ yêu cầu nhập ít nhất 10 động từ.\nBạn mới nhập ${verbCount} từ.`);
+                                        return;
+                                    }
+                                }
+                            }
+                            
+                            // XỬ LÝ LỌC KANA CHO TỰ LUẬN KANJI
+                            if (mode === 'kanji' && targetAction === 'essay') {
+                                const kanaRegex = /[\u3040-\u309F\u30A0-\u30FF]/g;
+                                const hasKana = kanaRegex.test(cleanLatinh);
+                                const onlyKanji = cleanLatinh.replace(kanaRegex, '');
 
-    setLocalText(cleanLatinh); 
-    onChange({ ...config, text: cleanLatinh });
+                                if (hasKana) {
+                                    if (onlyKanji.trim().length === 0) {
+                                        alert("Chế độ Tự Luận không hỗ trợ kiểm tra Bảng chữ cái.\nVui lòng nhập Kanji!");
+                                        return; 
+                                    } else {
+                                        cleanLatinh = onlyKanji;
+                                    }
+                                }
+                            }
+                            // ==========================================
 
-    if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
-    
-    // ĐÓNG TẠM BẢNG SETUP, BÁO LÊN APP ĐỂ MỞ PREVIEW LIST
-    onStart('preview'); 
-}}
+                            setLocalText(cleanLatinh); 
+                            onChange({ ...config, text: cleanLatinh });
+
+                            if (!cleanLatinh || cleanLatinh.trim().length === 0) return alert("Bạn chưa nhập dữ liệu để học!");
+                            
+                            // VƯỢT QUA HẾT ĐIỀU KIỆN THÌ VÀO PREVIEW
+                            onStart('preview'); 
+                        }}
                         className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-2xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
                     >
                         TIẾP TỤC
                         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                        
                     </button>
                 </div>
             </div>
@@ -4074,9 +4079,9 @@ React.useEffect(() => {
                     {parsedVerbs.map((item, idx) => {
                         const currentReading = item.reading || globalVerbReadings[item.vmasu];
                         
-                        // CHỈ CHIA THỂ KHI KHÔNG PHẢI LÀ TRẮC NGHIỆM
+                        // CHỈ CHIA THỂ KHI LÀ TỰ LUẬN
                         let conjugatedResult = "...";
-                        if (currentReading && verbPracticeMode !== 'quiz') {
+                        if (currentReading && verbPracticeMode === 'essay') {
                             conjugatedResult = VerbEngine.conjugate(currentReading, item, targetForm);
                             if (conjugatedResult.includes(" / ")) {
                                 conjugatedResult = conjugatedResult.split(" / ")[0];
@@ -4122,8 +4127,8 @@ React.useEffect(() => {
                                             </div>
                                         </div>
                                     ) : (
-                                        /* ĐÃ ẨN ĐI NẾU LÀ TRẮC NGHIỆM */
-                                        verbPracticeMode !== 'quiz' && (
+                                        /* CHỈ HIỆN KHI LÀ TỰ LUẬN */
+                                        verbPracticeMode === 'essay' && (
                                             <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
                                                 {formLabels[targetForm] || targetForm}: 
                                                 <strong className="text-indigo-600 font-bold text-[14px]">
@@ -4619,11 +4624,11 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
     const [timeLimit, setTimeLimit] = React.useState(10);
 
     const formLabels = { 
-        "Te": "Thể Te (て)", "Ta": "Thể Ta (た)", "Nai": "Thể Nai (ない)", 
-        "Dictionary": "Thể Từ Điển (る)", "Ba": "Thể Điều Kiện (ば)",
-        "Volitional": "Thể Ý Chí (よう)", "Imperative": "Thể Mệnh Lệnh (ろ/え)",
+        "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai ", 
+        "Dictionary": "Thể Từ Điển", "Ba": "Thể Điều Kiện",
+        "Volitional": "Thể Ý Chí", "Imperative": "Thể Mệnh Lệnh",
         "Potential": "Thể Khả Năng", "Passive": "Thể Bị Động",
-        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ (な)"
+        "Causative": "Thể Sai Khiến", "CausativePassive": "Bị Động Sai Khiến", "Prohibitive": "Thể Cấm Chỉ"
     };
 
     // Hàm tính thời gian đếm ngược dựa trên điểm số
@@ -4772,13 +4777,11 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                     {/* HIỂN THỊ CÂU HỎI (TÊN THỂ CẦN TÌM) */}
                     <div className={`flex flex-col items-center text-center mb-10 w-full transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        <span className="text-sm font-bold text-zinc-400 mb-1">Hãy chọn:</span>
+                        
                         <h2 className="text-3xl font-black font-sans text-indigo-600 mb-2 uppercase tracking-wide">
                             {formLabels[currentItem.targetFormId]}
                         </h2>
-                        <span className="text-xs font-bold text-zinc-500 bg-zinc-50 px-3 py-1 rounded-md border border-zinc-100">
-                            của động từ: <span className="text-zinc-800">{currentItem.verb.vmasu}</span>
-                        </span>
+                        
                     </div>
 
                     {/* 4 NÚT ĐÁP ÁN KANJI */}
