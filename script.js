@@ -4216,7 +4216,7 @@ React.useEffect(() => {
                         disabled={!canStart} 
                         className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 ${canStart ? 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]' : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'}`}
                     >
-                        {verbPracticeMode === 'quiz' ? 'VÀO TRẮC NGHIỆM' : 'VÀO TỰ LUẬN'}
+                        {verbPracticeMode === 'quiz' ? 'VÀO TRẮC NGHIỆM' : verbPracticeMode === 'reflex' ? 'VÀO PHẢN XẠ ⚡' : 'VÀO TỰ LUẬN'}
                     </button>
                 </div>
             </div>
@@ -5063,38 +5063,37 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     mode={practiceMode}
     onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
 />
-     <VerbPreviewListModal 
-    isOpen={isVerbPreviewOpen}
-    onClose={() => {
-        setIsVerbPreviewOpen(false);
-        setSetupConfig(prev => ({ ...prev, isOpen: true }));
-    }}
-    text={config.text}
-    dbData={dbData}
-    targetForm={verbTargetForm}
-    verbPracticeMode={verbPracticeMode} // <-- Truyền mode xuống
-    
-    onUpdateText={(newText) => {
-        setConfig({ ...config, text: newText });
-        setTextCache(prev => ({ ...prev, vocab: newText }));
-    }}
-
-    onStart={(finalData, targetF) => {
-        setIsVerbPreviewOpen(false);
-        setVerbPracticeData(finalData);
-        setVerbTargetForm(targetF);
-        
-        // KIỂM TRA MODE ĐỂ MỞ ĐÚNG GAME
-        if (verbPracticeMode === 'quiz') {
-            setIsVerbQuizOpen(true);
-        } else {
-            setIsVerbEssayOpen(true);
-        }
-    }}
-    globalVerbReadings={globalVerbReadings}
-    setGlobalVerbReadings={setGlobalVerbReadings}
-/>
-
+    <VerbPreviewListModal 
+                isOpen={isVerbPreviewOpen}
+                onClose={() => {
+                    setIsVerbPreviewOpen(false);
+                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                }}
+                text={config.text}
+                dbData={dbData}
+                targetForm={verbTargetForm}
+                verbPracticeMode={verbPracticeMode}
+                onUpdateText={(newText) => {
+                    setConfig({ ...config, text: newText });
+                    setTextCache(prev => ({ ...prev, vocab: newText }));
+                }}
+                onStart={(finalData, targetF) => {
+                    setIsVerbPreviewOpen(false);
+                    setVerbPracticeData(finalData);
+                    setVerbTargetForm(targetF);
+                    
+                    // KIỂM TRA MODE ĐỂ MỞ ĐÚNG GAME (Đoạn này rất quan trọng)
+                    if (verbPracticeMode === 'quiz') {
+                        setIsVerbQuizOpen(true);
+                    } else if (verbPracticeMode === 'reflex') {
+                        setIsVerbReflexOpen(true);
+                    } else {
+                        setIsVerbEssayOpen(true);
+                    }
+                }}
+                globalVerbReadings={globalVerbReadings}
+                setGlobalVerbReadings={setGlobalVerbReadings}
+            />
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
                 onClose={() => setIsVerbEssayOpen(false)}
