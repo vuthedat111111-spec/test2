@@ -4351,7 +4351,7 @@ const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (t
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
-
+  
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
     // Bộ nhớ tạm để lưu text của 2 chế độ
