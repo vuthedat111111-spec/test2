@@ -3680,7 +3680,7 @@ const StudySetupModal = ({
             <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
         </div>
     ) : (
-       {/* Header: Đổi chế độ (Đã fix lỗi đè nút đóng) */}
+      
 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
     {targetAction !== 'conjugate' ? (
         <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
