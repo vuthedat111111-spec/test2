@@ -3743,38 +3743,31 @@ const StudySetupModal = ({
             </>
         )}
 
-       {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
+      {/* NẾU LÀ TRẮC NGHIỆM: MULTI-SELECT CHỌN NHIỀU THỂ */}
         {verbPracticeMode === 'quiz' && (
             <div className="relative">
                 {/* Nút bấm để mở Dropdown */}
                 <button 
                     onClick={() => setIsFormDropdownOpen(!isFormDropdownOpen)}
-                    className={`w-full p-4 bg-white border-2 rounded-2xl flex justify-between items-center transition-all shadow-sm group ${verbSelectedForms.length >= 4 ? 'border-indigo-100 hover:border-indigo-300' : 'border-red-200 hover:border-red-300'}`}
+                    className="w-full p-4 bg-white border-2 border-indigo-100 hover:border-indigo-300 rounded-2xl flex justify-between items-center transition-all shadow-sm group"
                 >
                     <div className="flex flex-col items-start text-left">
                         <span className="text-indigo-700 font-bold flex items-center gap-2">
                             <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                             {verbSelectedForms.length === 0 
-                                ? "Chưa chọn thể nào..." 
-                                : `Đã chọn ${verbSelectedForms.length} thể để kiểm tra`}
+                                ? "Chọn thể động từ..." 
+                                : `Đã chọn ${verbSelectedForms.length} thể động từ`}
                         </span>
                         
-                        {/* CHỈ HIỆN KHI CHƯA CHỌN ĐỦ 4 THỂ */}
-                        {verbSelectedForms.length < 4 && (
-                            <span className="text-[10px] mt-1.5 text-red-500 font-bold animate-pulse">
+                        {/* CHỈ HIỆN CHÚ Ý KHI ĐANG MỞ BẢNG VÀ CHƯA CHỌN ĐỦ */}
+                        {isFormDropdownOpen && verbSelectedForms.length < 4 && (
+                            <span className="text-[10px] mt-1.5 text-red-500 font-bold">
                                 * Chú ý: Cần chọn tối thiểu 4 thể
                             </span>
                         )}
                     </div>
 
-                    {/* NÚT "CHỌN" THAY CHO MŨI TÊN KHI MỞ */}
-                    {isFormDropdownOpen ? (
-                        <div className="px-4 py-2 bg-indigo-600 text-white text-[10px] font-black rounded-xl shadow-md uppercase tracking-widest active:scale-95 transition-transform">
-                            CHỌN
-                        </div>
-                    ) : (
-                        <svg className={`w-5 h-5 flex-shrink-0 ${verbSelectedForms.length >= 4 ? 'text-indigo-400' : 'text-red-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                    )}
+                    <svg className={`w-5 h-5 text-indigo-400 transition-transform duration-300 flex-shrink-0 ${isFormDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
 
                 {/* Khung Dropdown Danh sách 12 Thể */}
@@ -3794,7 +3787,7 @@ const StudySetupModal = ({
                                     <button
                                         key={opt.id}
                                         onClick={(e) => {
-                                            e.stopPropagation(); // Ngăn không cho click lan ra ngoài gây đóng popup
+                                            e.stopPropagation();
                                             if (isSelected) {
                                                 setVerbSelectedForms(prev => prev.filter(f => f !== opt.id));
                                             } else {
