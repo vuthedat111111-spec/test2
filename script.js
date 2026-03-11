@@ -299,7 +299,7 @@ const VerbEngine = {
 
         // --- CHIA NHÓM 3 ---
         if (parsedData.group === 3) {
-            const isKuru = vmasuReading === "きます";
+            const isKuru = vmasuReading === "きます" || vmasuReading === "来ます";
             const sSuru = stemReading.slice(0, -1); 
 
             switch (targetForm) {
