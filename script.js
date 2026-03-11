@@ -4493,12 +4493,12 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         } else {
             setStatus('wrong');
             setWrongDetected(true);
-            setQueue(prev => [...prev, currentItem]);
+            setQueue(prev => [...prev, currentItem]); // Xếp từ bị sai xuống cuối danh sách
+            
+            // Đợi 1 giây để hiển thị màu đỏ, sau đó tự động chuyển sang câu tiếp theo
             setTimeout(() => {
-                setStatus('idle');
-                setSelectedOpt(null);
-                setWrongDetected(false); 
-            }, 1500); 
+                goToNext(); 
+            }, 600); 
         }
     };
 
@@ -4537,7 +4537,7 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                     {/* HIỂN THỊ CÂU HỎI KANJI & KANA */}
                     <div className="flex flex-col items-center text-center mb-10 w-full">
-                        <h2 className="text-6xl font-['Klee_One'] text-zinc-800 mb-2 leading-tight">
+                        <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
                             {currentItem.conjKanji}
                         </h2>
                         <span className="text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg">
@@ -4545,22 +4545,23 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                         </span>
                     </div>
 
-                    {/* 4 NÚT ĐÁP ÁN */}
+                  {/* 4 NÚT ĐÁP ÁN */}
                     <div className="grid grid-cols-2 gap-3 w-full">
                         {currentItem.options.map(optId => {
                             let btnStyle = "bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300";
                             
                             // Tô màu khi có kết quả
                             if (status !== 'idle') {
-                                // Kiểm tra xem nút này có sinh ra kết quả đúng không (để tô xanh)
-                                const optConjKanji = VerbEngine.conjugate(currentItem.vmasu, currentItem, optId).split(" / ")[0];
-                                const isThisOptCorrect = optConjKanji === currentItem.conjKanji;
+                                const isSelected = optId === selectedOpt;
 
-                                if (isThisOptCorrect) {
+                                if (status === 'correct' && isSelected) {
+                                    // Chọn đúng thì tô xanh nút đó
                                     btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)]"; 
-                                } else if (optId === selectedOpt && status === 'wrong') {
+                                } else if (status === 'wrong' && isSelected) {
+                                    // Chọn sai thì CHỈ TÔ ĐỎ NÚT VỪA CHỌN (Không hiện đáp án đúng nữa)
                                     btnStyle = "bg-red-500 border-red-500 text-white animate-shake"; 
                                 } else {
+                                    // Các nút còn lại mờ đi
                                     btnStyle = "bg-white border-zinc-100 text-zinc-300 opacity-50"; 
                                 }
                             }
