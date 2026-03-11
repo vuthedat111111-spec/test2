@@ -287,6 +287,7 @@ const VerbEngine = {
 
         if (parsedData.group === 3) {
             if (vmasuReading === "きます") vruReading = "くる";
+            else if (vmasuReading === "来ます") vruReading = "来る"; 
             else vruReading = stemReading.slice(0, -1) + "する";
         } else if (parsedData.group === 2) {
             vruReading = stemReading + "る";
@@ -299,25 +300,27 @@ const VerbEngine = {
 
         // --- CHIA NHÓM 3 ---
         if (parsedData.group === 3) {
-            const isKuru = vmasuReading === "きます" || vmasuReading === "来ます";
+            const isKuruKanji = vmasuReading === "来ます";
+            const isKuruKana = vmasuReading === "きます";
             const sSuru = stemReading.slice(0, -1); 
 
             switch (targetForm) {
-                case "Te": return isKuru ? "きて" : sSuru + "して";
-                case "Ta": return isKuru ? "きた" : sSuru + "した";
-                case "Nai": return isKuru ? "こない" : sSuru + "しない";
-                case "Dictionary": return vruReading;
-                case "Ba": return isKuru ? "くれば" : sSuru + "すれば";
-                case "Volitional": return isKuru ? "こよう" : sSuru + "しよう";
-                case "Imperative": return isKuru ? "こい" : sSuru + "しろ";
-                case "Prohibitive": return vruReading + "な";
-                case "Potential": return isKuru ? "こられる" : sSuru + "できる";
-                case "Passive": return isKuru ? "こられる" : sSuru + "される";
-                case "Causative": return isKuru ? "こさせる" : sSuru + "させる";
-                case "CausativePassive": return isKuru ? "こさせられる" : sSuru + "させられる";
+                case "Te": return isKuruKanji ? "来て" : isKuruKana ? "きて" : sSuru + "して";
+                case "Ta": return isKuruKanji ? "来た" : isKuruKana ? "きた" : sSuru + "した";
+                case "Nai": return isKuruKanji ? "来ない" : isKuruKana ? "こない" : sSuru + "しない";
+                case "Dictionary": return isKuruKanji ? "来る" : isKuruKana ? "くる" : vruReading;
+                case "Ba": return isKuruKanji ? "来れば" : isKuruKana ? "くれば" : sSuru + "すれば";
+                case "Volitional": return isKuruKanji ? "来よう" : isKuruKana ? "こよう" : sSuru + "しよう";
+                case "Imperative": return isKuruKanji ? "来い" : isKuruKana ? "こい" : sSuru + "しろ";
+                case "Prohibitive": return isKuruKanji ? "来るな" : isKuruKana ? "くるな" : vruReading + "な";
+                case "Potential": return isKuruKanji ? "来られる" : isKuruKana ? "こられる" : sSuru + "できる";
+                case "Passive": return isKuruKanji ? "来られる" : isKuruKana ? "こられる" : sSuru + "される";
+                case "Causative": return isKuruKanji ? "来させる" : isKuruKana ? "こさせる" : sSuru + "させる";
+                case "CausativePassive": return isKuruKanji ? "来させられる" : isKuruKana ? "こさせられる" : sSuru + "させられる";
                 
                 default: return stemReading;
             }
+        
         }
 
         // --- CHIA NHÓM 2 ---
