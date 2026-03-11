@@ -3777,10 +3777,10 @@ const StudySetupModal = ({
                         {/* Grid 3 cột */}
                         <div className="grid grid-cols-3 gap-2">
                             {[
-                                { id: "Te", name: "Te (て)" }, { id: "Ta", name: "Ta (た)" }, { id: "Nai", name: "Nai (ない)" },
-                                { id: "Dictionary", name: "Từ Điển (る)" }, { id: "Ba", name: "Điều Kiện (ば)" }, { id: "Volitional", name: "Ý Chí (よう)" },
-                                { id: "Imperative", name: "Mệnh Lệnh (ろ/え)" }, { id: "Prohibitive", name: "Cấm Chỉ (な)" }, { id: "Potential", name: "Khả Năng (える)" },
-                                { id: "Passive", name: "Bị Động (れる)" }, { id: "Causative", name: "Sai Khiến (せる)" }, { id: "CausativePassive", name: "BĐ Sai Khiến" }
+                                { id: "Te", name: "Thể Te" }, { id: "Ta", name: "Thể Ta" }, { id: "Nai", name: "Thể Nai" },
+                                { id: "Dictionary", name: "Từ Điển" }, { id: "Ba", name: "Điều Kiện" }, { id: "Volitional", name: "Ý Chí" },
+                                { id: "Imperative", name: "Mệnh Lệnh" }, { id: "Prohibitive", name: "Cấm Chỉ" }, { id: "Potential", name: "Khả Năng" },
+                                { id: "Passive", name: "Bị Động" }, { id: "Causative", name: "Sai Khiến" }, { id: "CausativePassive", name: "Bị Sai Khiến" }
                             ].map(opt => {
                                 const isSelected = verbSelectedForms.includes(opt.id);
                                 return (
@@ -4072,17 +4072,15 @@ React.useEffect(() => {
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-4">
                     {parsedVerbs.map((item, idx) => {
                         const currentReading = item.reading || globalVerbReadings[item.vmasu];
-  let conjugatedResult = "...";
-if (currentReading) {
-    if (verbPracticeMode === 'quiz') {
-        conjugatedResult = "Sẽ random thể khi vào game";
-    } else {
-        conjugatedResult = VerbEngine.conjugate(currentReading, item, targetForm);
-        if (conjugatedResult.includes(" / ")) {
-            conjugatedResult = conjugatedResult.split(" / ")[0];
-        }
-    }
-}
+                        
+                        // CHỈ CHIA THỂ KHI KHÔNG PHẢI LÀ TRẮC NGHIỆM
+                        let conjugatedResult = "...";
+                        if (currentReading && verbPracticeMode !== 'quiz') {
+                            conjugatedResult = VerbEngine.conjugate(currentReading, item, targetForm);
+                            if (conjugatedResult.includes(" / ")) {
+                                conjugatedResult = conjugatedResult.split(" / ")[0];
+                            }
+                        }
 
                         return (
                             <div key={idx} className={`p-4 rounded-xl border-2 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between ${item.error ? 'border-red-200 bg-red-50' : (!currentReading) ? 'border-amber-400 bg-amber-50 shadow-sm' : 'border-gray-100 bg-white'}`}>
@@ -4123,45 +4121,7 @@ if (currentReading) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
-                                            {formLabels[targetForm] || targetForm}: 
-                                            <strong className="text-indigo-600 font-bold text-[14px]">
-                                                {conjugatedResult}
-                                            </strong>
-                                        </span>
-                                    )}
-                                </div>
-
-                                {item.error ? (
-                                        <div className="flex flex-col gap-2 mt-2 w-full">
-                                            <span className="text-xs text-red-600 font-medium">{item.error}</span>
-                                            <div className="flex gap-2 w-full sm:w-84">
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="Sửa thành thể Masu..."
-                                                    value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
-                                                    onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
-                                                    onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="flex-1 p-2 border-2 border-red-300 rounded-lg text-[16px] outline-none focus:border-red-500 font-bold text-gray-900 bg-white min-w-0"
-                                                />
-                                                <button 
-                                                    onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
-                                                    className="px-3 py-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 active:scale-95 transition-all flex-shrink-0"
-                                                >
-                                                    LƯU
-                                                </button>
-                                                {/* NÚT XÓA TỪ */}
-                                                <button 
-                                                    onClick={() => handleRemoveVerb(item.vmasu)}
-                                                    className="p-2 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition-colors flex-shrink-0 active:scale-95"
-                                                    title="Loại bỏ từ này"
-                                                >
-                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        /* CHỈ HIỆN DÒNG NÀY KHI LÀ CHẾ ĐỘ TỰ LUẬN (KHÔNG PHẢI QUIZ) */
+                                        /* ĐÃ ẨN ĐI NẾU LÀ TRẮC NGHIỆM */
                                         verbPracticeMode !== 'quiz' && (
                                             <span className="text-[12px] text-gray-500 font-medium mt-1 flex items-center gap-1.5">
                                                 {formLabels[targetForm] || targetForm}: 
@@ -4171,6 +4131,79 @@ if (currentReading) {
                                             </span>
                                         )
                                     )}
+                                </div>
+
+                                {!item.error && (
+                                    <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-end">
+                                        {currentReading && tempReadings[item.vmasu] === undefined ? (
+                                            editingValidVerb === item.vmasu ? (
+                                                // --- FORM NHẬP TỪ MỚI KHI BẤM VÀO CÁI BÚT ---
+                                                <div className="flex gap-2 w-full sm:w-64">
+                                                    <input 
+                                                        type="text" 
+                                                        autoFocus
+                                                        placeholder="Sửa từ vựng..." 
+                                                        value={fixingVerbs[item.vmasu] !== undefined ? fixingVerbs[item.vmasu] : item.vmasu}
+                                                        onChange={(e) => setFixingVerbs({...fixingVerbs, [item.vmasu]: e.target.value})}
+                                                        onKeyDown={(e) => e.key === 'Enter' && handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                        className="flex-1 p-2 border-2 border-gray-300 focus:border-gray-900 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-[16px]"
+                                                    />
+                                                    <button 
+                                                        onClick={() => handleFixVmasu(item.vmasu, fixingVerbs[item.vmasu] || item.vmasu)}
+                                                        className="px-4 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-black active:scale-95 transition-all flex-shrink-0"
+                                                    >
+                                                        LƯU
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-2">
+                                                    {item.reading && (
+                                                        <button 
+                                                            onClick={() => {
+                                                                setEditingValidVerb(item.vmasu);
+                                                                setFixingVerbs({...fixingVerbs, [item.vmasu]: item.vmasu});
+                                                            }}
+                                                            className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
+                                                            title="Đổi từ vựng khác"
+                                                        >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    )}
+
+                                                    {!item.reading && globalVerbReadings[item.vmasu] && (
+                                                        <button 
+                                                            onClick={() => handleEditReading(item.vmasu)}
+                                                            className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-200 border border-gray-200 rounded-lg transition-colors shadow-sm"
+                                                            title="Sửa cách đọc Hiragana"
+                                                        >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            )
+                                        ) : (
+                                            <div className="flex flex-col gap-1 w-full sm:w-auto">
+                                                <label className="text-[10px] font-bold text-amber-600 uppercase">Nhập Hiragana V-masu</label>
+                                                <div className="flex gap-2 w-full sm:w-72">
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="VD: たべます" 
+                                                        value={tempReadings[item.vmasu] !== undefined ? tempReadings[item.vmasu] : ''}
+                                                        onChange={(e) => setTempReadings(prev => ({...prev, [item.vmasu]: e.target.value}))}
+                                                        onKeyDown={(e) => e.key === 'Enter' && handleSaveReading(item.vmasu)}
+                                                        className="flex-1 p-2 border-2 border-amber-300 focus:border-amber-500 rounded-lg outline-none font-bold text-gray-900 bg-white min-w-0 text-[16px]"
+                                                    />
+                                                    <button 
+                                                        onClick={() => handleSaveReading(item.vmasu)}
+                                                        className="px-4 py-2 bg-amber-500 text-white rounded-lg text-xs font-bold hover:bg-amber-600 active:scale-95 transition-all flex-shrink-0"
+                                                    >
+                                                        LƯU
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
