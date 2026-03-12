@@ -2542,9 +2542,101 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
+// --- COMPONENT: MODAL MỜI CAFE (MONOCHROME & 2D ICON) ---
+const DonateModal = ({ isOpen, onClose }) => {
+    const [copied, setCopied] = React.useState(false);
 
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    // THÔNG TIN TÀI KHOẢN CỦA BẠN (Sửa lại link ảnh và STK)
+    const bankInfo = {
+        bankName: "MB BANK",
+        accountName: "VU THE DAT",
+        accountNumber: "99931082002",
+        qrCodeUrl: "https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg?text=QR+Code" // Thay bằng link ảnh thật
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(bankInfo.accountNumber);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-200" onClick={e => e.stopPropagation()}>
+                
+                {/* Header */}
+                <div className="p-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+                    <h3 className="text-sm font-black text-zinc-900 uppercase flex items-center gap-2 tracking-widest">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                        MỜI CAFE
+                    </h3>
+                    <button onClick={onClose} className="text-zinc-400 hover:text-zinc-900 transition-colors p-1.5 hover:bg-zinc-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="p-6 flex flex-col items-center text-center bg-white">
+                    <p className="text-xs text-zinc-500 mb-6 font-medium leading-relaxed flex flex-col items-center gap-2">
+                        <span>Nếu dự án giúp ích cho bạn, hãy ủng hộ mình một ly cafe để duy trì website nhé!</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-300"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    </p>
+
+                    {/* QR Code Box */}
+                    <div className="w-48 h-48 bg-zinc-50 rounded-2xl border border-zinc-200 shadow-sm mb-6 flex items-center justify-center p-2">
+                        <img src={bankInfo.qrCodeUrl} alt="QR Code" className="w-full h-full object-contain rounded-xl mix-blend-multiply" />
+                    </div>
+
+                    {/* Bank Info */}
+                    <div className="w-full bg-zinc-50 rounded-2xl p-4 border border-zinc-200 space-y-3">
+                        <div>
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Ngân hàng</p>
+                            <p className="font-black text-zinc-900">{bankInfo.bankName}</p>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Chủ tài khoản</p>
+                            <p className="font-bold text-zinc-700">{bankInfo.accountName}</p>
+                        </div>
+                        <div className="pt-1 border-t border-zinc-200/60">
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-2 mt-1">Số tài khoản</p>
+                            <div className="flex items-center justify-center gap-2">
+                                <p className="font-black text-zinc-900 text-xl tracking-wider">{bankInfo.accountNumber}</p>
+                                <button 
+                                    onClick={handleCopy}
+                                    className="p-2 text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-100 transition-all active:scale-95"
+                                    title="Copy số tài khoản"
+                                >
+                                    {copied ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-900"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-5 bg-zinc-50 border-t border-zinc-100">
+                    <button onClick={onClose} className="w-full py-4 bg-zinc-900 hover:bg-black text-white font-black rounded-xl shadow-md transition-transform active:scale-95 text-xs uppercase tracking-widest">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
+    const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -2785,10 +2877,12 @@ React.useEffect(() => {
                 </div>
             </section>
 
-            {/* FOOTER: THÊM MỤC TÀI LIỆU VÀ NHÓM TRÊN MOBILE */}
+            {/* FOOTER */}
             <footer className="bg-white border-t border-zinc-100 py-12 relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex flex-col items-center md:flex-row gap-4 md:gap-6">
+                        
+                        {/* 1. Nút Tiktok */}
                         <a href="https://www.tiktok.com/@phadaotiengnhat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group">
                             <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
@@ -2796,14 +2890,29 @@ React.useEffect(() => {
                             <span className="font-bold tracking-tight text-zinc-900">Tiktok</span>
                         </a>
                         
-                        {/* 2 Nút này chỉ hiện trên Mobile (md:hidden) */}
-                        <button onClick={() => setIsDocsModalOpen(true)} className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Tài liệu</button>
+                        {/* Vách ngăn mờ (Chỉ hiện trên PC) */}
+                        <div className="h-4 w-px bg-zinc-200 hidden md:block"></div>
+                        
+                        {/* 2. Nút Mời Cafe (Mới thêm) */}
+                        <button onClick={() => setIsDonateModalOpen(true)} className="flex items-center gap-2 group text-zinc-600 hover:text-zinc-900 transition-colors active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-rotate-12 transition-transform"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                            <span className="font-bold tracking-tight text-sm">Mời cafe</span>
+                        </button>
+                        
+                        {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
+                        <button onClick={() => setIsDocsModalOpen(true)} className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest mt-2">Tài liệu</button>
                         <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
                     </div>
-                    <p className="text-sm text-zinc-500">© 2026 Phá Đảo Tiếng Nhật.</p>
+                    <p className="text-sm text-zinc-500 font-medium">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
             </footer>
 
+            {/* Gọi DonateModal ở ngay dưới Footer */}
+            <DonateModal 
+                isOpen={isDonateModalOpen} 
+                onClose={() => setIsDonateModalOpen(false)} 
+            />
+                    
             {/* MODAL TÀI LIỆU (Giữ nguyên) */}
              {isDocsModalOpen && (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
