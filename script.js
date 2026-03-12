@@ -2542,7 +2542,8 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
-// --- COMPONENT: MODAL MỜI CAFE (BẢN TỐI GIẢN NHẤT) ---
+
+// --- COMPONENT: MODAL MỜI CAFE (BẢN TỐI GIẢN - CÓ NÚT "LẦN SAU NHÉ") ---
 const DonateModal = ({ isOpen, onClose }) => {
     const [copied, setCopied] = React.useState(false);
 
@@ -2570,11 +2571,11 @@ const DonateModal = ({ isOpen, onClose }) => {
 
                 {/* QR Code */}
                 <div className="w-44 h-44 bg-white border border-zinc-200 rounded-xl p-1 mb-4 shadow-sm">
-                    {/* TODO: Gắn link ảnh thật của bạn vào thuộc tính src dưới đây */}
+              
                     <img src="https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg" alt="QR Code" className="w-full h-full object-contain rounded-lg" />
                 </div>
 
-                {/* Nút MB Bank (Bấm vào để Copy) */}
+         
                 <div 
                     onClick={handleCopy}
                     className="w-full bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl p-3 mb-4 flex items-center justify-between cursor-pointer transition-all active:scale-95 group"
@@ -2593,10 +2594,10 @@ const DonateModal = ({ isOpen, onClose }) => {
                     </div>
                 </div>
 
-                {/* Nút đóng "Lần sau nhé" */}
+      
                 <button 
                     onClick={onClose} 
-                    className="text-[11px] font-bold text-zinc-400 hover:text-zinc-800 transition-colors uppercase tracking-widest py-1 active:scale-95"
+                    className="w-full py-3.5 bg-gray-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest mt-1"
                 >
                     Lần sau nhé
                 </button>
@@ -2605,6 +2606,7 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+            
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
@@ -4938,16 +4940,16 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                             return (
                                 <button
-                                    key={optId}
+                                    key={opt.id}
                                     onClick={(e) => {
-                                        e.currentTarget.blur();
-                                        checkAnswer(optId);
+                                        e.currentTarget.blur(); // Ép bỏ focus ngay khi chạm
+                                        checkAnswer(opt.id);
                                     }}
                                     disabled={status !== 'idle'}
-                                    className={`h-16 rounded-xl border-2 font-bold text-sm transition-all active:scale-95 flex items-center justify-center text-center px-2 leading-tight outline-none focus:outline-none ${btnStyle}`}
-                                    style={{ WebkitTapHighlightColor: 'transparent' }} 
+                                    className={`h-20 rounded-2xl border-2 transition-all active:scale-95 flex flex-col items-center justify-center text-center px-1 outline-none focus:outline-none ${btnStyle}`}
+                                    style={{ WebkitTapHighlightColor: 'transparent' }} // Tắt chớp xanh mặc định của mobile
                                 >
-                                    {formLabels[optId]}
+                                    <span className="text-2xl font-bold font-sans mb-0.5">{opt.textKanji}</span>
                                 </button>
                             );
                         })}
