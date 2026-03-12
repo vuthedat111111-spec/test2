@@ -2542,7 +2542,7 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
-// --- COMPONENT: MODAL MỜI CAFE (MONOCHROME & 2D ICON) ---
+// --- COMPONENT: MODAL MỜI CAFE (BẢN MINI) ---
 const DonateModal = ({ isOpen, onClose }) => {
     const [copied, setCopied] = React.useState(false);
 
@@ -2554,82 +2554,54 @@ const DonateModal = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    // THÔNG TIN TÀI KHOẢN CỦA BẠN (Sửa lại link ảnh và STK)
-    const bankInfo = {
-        bankName: "MB BANK",
-        accountName: "VU THE DAT",
-        accountNumber: "99931082002",
-        qrCodeUrl: "https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg?text=QR+Code" // Thay bằng link ảnh thật
-    };
-
     const handleCopy = () => {
-        navigator.clipboard.writeText(bankInfo.accountNumber);
+        navigator.clipboard.writeText("99931082002");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
     return (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-200" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+          
+            <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-[280px] overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-100 relative p-6 flex flex-col items-center" onClick={e => e.stopPropagation()}>
                 
-                {/* Header */}
-                <div className="p-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
-                    <h3 className="text-sm font-black text-zinc-900 uppercase flex items-center gap-2 tracking-widest">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
-                        MỜI CAFE
-                    </h3>
-                    <button onClick={onClose} className="text-zinc-400 hover:text-zinc-900 transition-colors p-1.5 hover:bg-zinc-200 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
+           
+                <button onClick={onClose} className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-900 bg-zinc-50 hover:bg-zinc-200 rounded-full p-1.5 transition-colors active:scale-90">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+
+                <div className="w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                </div>
+                <p className="text-sm font-bold text-zinc-800 mb-5 text-center leading-snug">
+                    Mời mình một ly cafe để tiếp tục duy trì dự án nhé!
+                </p>
+
+              
+                <div className="w-40 h-40 bg-white border border-zinc-200 rounded-xl p-1 mb-5 shadow-sm">
+        
+                    <img src="https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg" alt="QR Code" className="w-full h-full object-contain rounded-lg" />
                 </div>
 
-                {/* Body */}
-                <div className="p-6 flex flex-col items-center text-center bg-white">
-                    <p className="text-xs text-zinc-500 mb-6 font-medium leading-relaxed flex flex-col items-center gap-2">
-                        <span>Nếu dự án giúp ích cho bạn, hãy ủng hộ mình một ly cafe để duy trì website nhé!</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-300"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                    </p>
-
-                    {/* QR Code Box */}
-                    <div className="w-48 h-48 bg-zinc-50 rounded-2xl border border-zinc-200 shadow-sm mb-6 flex items-center justify-center p-2">
-                        <img src={bankInfo.qrCodeUrl} alt="QR Code" className="w-full h-full object-contain rounded-xl mix-blend-multiply" />
+            
+                <div 
+                    onClick={handleCopy}
+                    className="w-full bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl p-3 flex items-center justify-between cursor-pointer transition-all active:scale-95 group"
+                    title="Bấm để copy số tài khoản"
+                >
+                    <div className="flex flex-col items-start">
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">MB BANK</span>
+                        <span className="text-sm font-black text-zinc-900 tracking-wider">99931082002</span>
                     </div>
-
-                    {/* Bank Info */}
-                    <div className="w-full bg-zinc-50 rounded-2xl p-4 border border-zinc-200 space-y-3">
-                        <div>
-                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Ngân hàng</p>
-                            <p className="font-black text-zinc-900">{bankInfo.bankName}</p>
-                        </div>
-                        <div>
-                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Chủ tài khoản</p>
-                            <p className="font-bold text-zinc-700">{bankInfo.accountName}</p>
-                        </div>
-                        <div className="pt-1 border-t border-zinc-200/60">
-                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-2 mt-1">Số tài khoản</p>
-                            <div className="flex items-center justify-center gap-2">
-                                <p className="font-black text-zinc-900 text-xl tracking-wider">{bankInfo.accountNumber}</p>
-                                <button 
-                                    onClick={handleCopy}
-                                    className="p-2 text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-100 transition-all active:scale-95"
-                                    title="Copy số tài khoản"
-                                >
-                                    {copied ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-900"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                    )}
-                                </button>
-                            </div>
-                        </div>
+                    <div className="text-zinc-400 group-hover:text-zinc-900 transition-colors">
+                        {copied ? (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-green-500 animate-in zoom-in"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        ) : (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        )}
                     </div>
                 </div>
 
-                <div className="p-5 bg-zinc-50 border-t border-zinc-100">
-                    <button onClick={onClose} className="w-full py-4 bg-zinc-900 hover:bg-black text-white font-black rounded-xl shadow-md transition-transform active:scale-95 text-xs uppercase tracking-widest">
-                        Đóng
-                    </button>
-                </div>
             </div>
         </div>
     );
