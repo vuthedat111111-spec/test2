@@ -2542,7 +2542,7 @@ const KanjiOfTheDay = () => {
         </div>
     );
 };
-// --- COMPONENT: MODAL MỜI CAFE (BẢN MINI) ---
+// --- COMPONENT: MODAL MỜI CAFE (BẢN TỐI GIẢN NHẤT) ---
 const DonateModal = ({ isOpen, onClose }) => {
     const [copied, setCopied] = React.useState(false);
 
@@ -2562,35 +2562,26 @@ const DonateModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
-          
-            <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-[280px] overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-100 relative p-6 flex flex-col items-center" onClick={e => e.stopPropagation()}>
+            <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-[280px] overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-100 p-6 flex flex-col items-center" onClick={e => e.stopPropagation()}>
                 
-           
-                <button onClick={onClose} className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-900 bg-zinc-50 hover:bg-zinc-200 rounded-full p-1.5 transition-colors active:scale-90">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-
-                <div className="w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
-                </div>
                 <p className="text-sm font-bold text-zinc-800 mb-5 text-center leading-snug">
                     Mời mình một ly cafe để tiếp tục duy trì dự án nhé!
                 </p>
 
-              
-                <div className="w-40 h-40 bg-white border border-zinc-200 rounded-xl p-1 mb-5 shadow-sm">
-        
+                {/* QR Code */}
+                <div className="w-44 h-44 bg-white border border-zinc-200 rounded-xl p-1 mb-4 shadow-sm">
+                    {/* TODO: Gắn link ảnh thật của bạn vào thuộc tính src dưới đây */}
                     <img src="https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg" alt="QR Code" className="w-full h-full object-contain rounded-lg" />
                 </div>
 
-            
+                {/* Nút MB Bank (Bấm vào để Copy) */}
                 <div 
                     onClick={handleCopy}
-                    className="w-full bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl p-3 flex items-center justify-between cursor-pointer transition-all active:scale-95 group"
+                    className="w-full bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl p-3 mb-4 flex items-center justify-between cursor-pointer transition-all active:scale-95 group"
                     title="Bấm để copy số tài khoản"
                 >
                     <div className="flex flex-col items-start">
-                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">MB BANK</span>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">MB Bank</span>
                         <span className="text-sm font-black text-zinc-900 tracking-wider">99931082002</span>
                     </div>
                     <div className="text-zinc-400 group-hover:text-zinc-900 transition-colors">
@@ -2601,6 +2592,14 @@ const DonateModal = ({ isOpen, onClose }) => {
                         )}
                     </div>
                 </div>
+
+                {/* Nút đóng "Lần sau nhé" */}
+                <button 
+                    onClick={onClose} 
+                    className="text-[11px] font-bold text-zinc-400 hover:text-zinc-800 transition-colors uppercase tracking-widest py-1 active:scale-95"
+                >
+                    Lần sau nhé
+                </button>
 
             </div>
         </div>
@@ -4939,13 +4938,16 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                             return (
                                 <button
-                                    key={opt.id}
-                                    onClick={() => checkAnswer(opt.id)}
+                                    key={optId}
+                                    onClick={(e) => {
+                                        e.currentTarget.blur();
+                                        checkAnswer(optId);
+                                    }}
                                     disabled={status !== 'idle'}
-                                    className={`h-20 rounded-2xl border-2 transition-all active:scale-95 flex flex-col items-center justify-center text-center px-1 ${btnStyle}`}
+                                    className={`h-16 rounded-xl border-2 font-bold text-sm transition-all active:scale-95 flex items-center justify-center text-center px-2 leading-tight outline-none focus:outline-none ${btnStyle}`}
+                                    style={{ WebkitTapHighlightColor: 'transparent' }} 
                                 >
-                                    <span className="text-2xl font-bold font-sans mb-0.5">{opt.textKanji}</span>
-                                    {/* <span className="text-[10px] font-medium opacity-80">{opt.textKana}</span> */}
+                                    {formLabels[optId]}
                                 </button>
                             );
                         })}
