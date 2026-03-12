@@ -4923,11 +4923,12 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                     </div>
 
                     {/* 4 NÚT ĐÁP ÁN KANJI */}
-                    <div className="grid grid-cols-2 gap-3 w-full">
-                        {currentItem.options.map(opt => {
-                            let btnStyle = "bg-white border-zinc-200 text-zinc-800 hover:bg-zinc-50 hover:border-indigo-300 hover:shadow-md";
-                            
-                            if (status !== 'idle') {
+    <div className="grid grid-cols-2 gap-3 w-full">
+        {currentItem.options.map(opt => {
+       
+            let btnStyle = "bg-white border-zinc-200 text-zinc-800 md:hover:bg-zinc-50 md:hover:border-indigo-300 md:hover:shadow-md";
+            
+            if (status !== 'idle') {
                                 const isSelected = opt.id === selectedOpt;
                                 if (status === 'correct' && isSelected) {
                                     btnStyle = "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.5)] scale-105"; 
@@ -4938,11 +4939,12 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                                 }
                             }
 
-                            return (
-                                <button
-                                    key={opt.id}
-                                    onClick={(e) => {
-                                        e.currentTarget.blur(); // Ép bỏ focus ngay khi chạm
+                           return (
+                <button
+                   
+                    key={`${currentIndex}-${opt.id}`}
+                    onClick={(e) => {
+                                        e.currentTarget.blur(); 
                                         checkAnswer(opt.id);
                                     }}
                                     disabled={status !== 'idle'}
