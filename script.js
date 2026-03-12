@@ -1903,15 +1903,15 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
 };
 
     if (!isOpen) return null;
-    if (gameState === 'loading') return null;
+   
 
     const visualPercent = queue.length > 0 ? (currentIndex / queue.length) * 100 : 0;
 
     return (
         <div className="fixed inset-0 z-[500] flex flex-col items-center justify-center bg-gray-900/95 backdrop-blur-xl p-4 animate-in fade-in select-none">
             
-            {/* --- TRƯỜNG HỢP 1: KẾT THÚC (FINISHED SCREEN) --- */}
-            {gameState === 'finished' ? (
+            {/* --- CHỜ 1 FRAME RỒI MỚI HIỂN THỊ ĐỂ NỀN ĐEN KHÔNG BỊ GIẬT --- */}
+            {gameState === 'loading' ? null : gameState === 'finished' ? (
                 <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
                     <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
                     <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">XUẤT SẮC!</h3>
