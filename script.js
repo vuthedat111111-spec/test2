@@ -5095,13 +5095,20 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
             setIsPreviewListOpen(false);
             setIsVerbPreviewOpen(false);
             
-            if (target === 'flashcard') setIsFlashcardOpen(true);
-            if (target === 'game') setIsLearnGameOpen(true);
-            if (target === 'essay') setIsEssayOpen(true);
-            // KIỂM TRA MỞ GAME ĐỘNG TỪ TỪ PREVIEW LIST
-            if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
-            else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
-            else if (target === 'conjugate') setIsVerbEssayOpen(true);
+            // FIX LỖI: Chuyển đổi thành cấu trúc if - else if để đảm bảo
+            // hệ thống CHỈ MỞ 1 BẢNG DUY NHẤT, không bị mở trùng lặp
+            if (target === 'flashcard') {
+                setIsFlashcardOpen(true);
+            } else if (target === 'game') {
+                setIsLearnGameOpen(true);
+            } else if (target === 'essay') {
+                setIsEssayOpen(true);
+            } else if (target === 'conjugate') {
+                // CHỈ mở game động từ khi target thực sự là 'conjugate'
+                if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
+                else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
+                else setIsVerbEssayOpen(true);
+            }
         }
     };
     // --- HIỂN THỊ LOADING ---
