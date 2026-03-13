@@ -1,6 +1,28 @@
 const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
+// --- BỘ GIẢI MÃ TELEX (FIX LỖI BÀN PHÍM TIẾNG VIỆT) ---
+const fixTelex = (str) => {
+    const telexMap = {
+        'á':'as','à':'af','ả':'ar','ã':'ax','ạ':'aj',
+        'é':'es','è':'ef','ẻ':'er','ẽ':'ex','ẹ':'ej',
+        'í':'is','ì':'if','ỉ':'ir','ĩ':'ix','ị':'ij',
+        'ó':'os','ò':'of','ỏ':'or','õ':'ox','ọ':'oj',
+        'ú':'us','ù':'uf','ủ':'ur','ũ':'ux','ụ':'uj',
+        'ý':'ys','ỳ':'yf','ỷ':'yr','ỹ':'yx','ỵ':'yj',
+        'â':'aa','ấ':'aas','ầ':'aaf','ẩ':'aar','ẫ':'aax','ậ':'aaj',
+        'ă':'aw','ắ':'aws','ằ':'awf','ẳ':'awr','ẵ':'awx','ặ':'awj',
+        'ê':'ee','ế':'ees','ề':'eef','ể':'eer','ễ':'eex','ệ':'eej',
+        'ô':'oo','ố':'oos','ồ':'oof','ổ':'oor','ỗ':'oox','ộ':'ooj',
+        'ơ':'ow','ớ':'ows','ờ':'owf','ở':'owr','ỡ':'owx','ợ':'owj',
+        'ư':'uw','ứ':'uws','ừ':'uwf','ử':'uwr','ữ':'uwx','ự':'uwj',
+        'đ':'dd',
+        'Á':'As','À':'Af','Ả':'Ar','Ã':'Ax','Ạ':'Aj',
+        'Â':'Aa','Ê':'Ee','Ô':'Oo','Ơ':'Ow','Ư':'Uw','Đ':'Dd'
+    };
+    // Tách chuỗi và map các ký tự tiếng Việt trở lại phím gõ Romaji
+    return str.normalize("NFC").split('').map(c => telexMap[c] || c).join('');
+};
     const { useState, useEffect, useMemo, useRef } = React;
 
 const calculateSRS = (currentData, quality) => {
