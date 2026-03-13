@@ -818,6 +818,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const [initialTotal, setInitialTotal] = useState(0); 
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
     const [wrongDetected, setWrongDetected] = useState(false);
+    const isComposing = React.useRef(false);
 
     // --- HÀM KHỞI ĐỘNG BÀI HỌC ---
     const initLesson = () => {
@@ -850,9 +851,13 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
     const handleInputChange = (e) => {
         const val = e.target.value;
+        // Nếu Unikey đang ghép chữ, giữ nguyên không dịch
+        if (isComposing.current) {
+            setUserInput(val);
+            return;
+        }
         if (mode === 'vocab') {
             const target = queue[currentIndex] || '';
-            // Giải mã lỗi Telex trước khi chuyển sang Kana
             const fixedVal = fixTelex(val);
             setUserInput(convertToKana(fixedVal, checkIsKatakana(target)));
         } else {
@@ -880,19 +885,23 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const checkAnswer = () => {
         if (status === 'correct' || finished) return;
         const currentItem = queue[currentIndex];
-        let finalInput = userInput.trim();
-
-        if (mode === 'vocab' && finalInput.endsWith('n')) {
-            const isKata = checkIsKatakana(dbData.TUVUNG_DB[currentItem]?.reading || '');
-            finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
-        }
-
-        // FIX LỖI: Lấy target từ currentItem thay vì currentIndex
         let target = mode === 'kanji' ? (dbData.KANJI_DB[currentItem]?.sound || '') : (dbData.TUVUNG_DB[currentItem]?.reading || '');
         
+        // Ép dịch lại một lần nữa trước khi chấm điểm (Bảo hiểm khi gõ quá nhanh)
+        let finalInput = userInput;
+        if (mode === 'vocab') {
+            finalInput = convertToKana(fixTelex(userInput), checkIsKatakana(target)).trim();
+            if (finalInput.endsWith('n')) {
+                const isKata = checkIsKatakana(target);
+                finalInput = finalInput.slice(0, -1) + (isKata ? 'ン' : 'ん');
+            }
+        } else {
+            finalInput = finalInput.trim().toUpperCase();
+        }
+
         let isCorrect = false;
         if (mode === 'kanji') {
-            isCorrect = finalInput.toUpperCase() === target.toUpperCase();
+            isCorrect = finalInput === target.toUpperCase();
         } else {
             isCorrect = removeAccents(finalInput.toLowerCase()) === removeAccents(target.toLowerCase());
         }
@@ -908,7 +917,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            setCorrectAnswer(target); // Đã có chữ nhờ fix logic target ở trên
+            setCorrectAnswer(target);
             setStatus('wrong');
             setWrongDetected(true);
             setQueue(prev => [...prev, currentItem]);
@@ -960,11 +969,17 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
                     <div className="w-full space-y-4">
                         <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange}
-                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
-                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
-                        />
+    type="text" autoFocus value={userInput} onChange={handleInputChange}
+    // THÊM 2 DÒNG NÀY VÀO INPUT
+    onCompositionStart={() => isComposing.current = true}
+    onCompositionEnd={(e) => {
+        isComposing.current = false;
+        handleInputChange(e);
+    }}
+    onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+    placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
+    className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
+/>
                         {(status === 'retyping' || status === 'wrong') && (
                             <div className="animate-in slide-in-from-top-2 duration-300 text-center">
                                 <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
@@ -4357,6 +4372,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     const [initialTotal, setInitialTotal] = React.useState(0); 
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = React.useState(0);
     const [wrongDetected, setWrongDetected] = React.useState(false);
+    const isComposing = React.useRef(false);
 
     const formLabels = { 
         "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
@@ -4412,7 +4428,10 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
     const handleInputChange = (e) => {
         const val = e.target.value;
-        // Giải mã lỗi Telex trước khi chuyển sang Kana
+        if (isComposing.current) {
+            setUserInput(val);
+            return;
+        }
         const fixedVal = fixTelex(val);
         setUserInput(convertToKana(fixedVal, false)); 
     };
@@ -4420,32 +4439,28 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     const checkAnswer = () => {
         if (status === 'correct' || finished) return;
         const currentItem = queue[currentIndex];
-        let finalInput = userInput.trim();
+        
+        // Ép dịch lại một lần nữa trước khi chấm điểm
+        let finalInput = convertToKana(fixTelex(userInput), false).trim();
 
         if (finalInput.endsWith('n')) {
             finalInput = finalInput.slice(0, -1) + 'ん';
         }
 
-        // 1. Tạo tập đáp án thuần HIRAGANA (Dùng để chấm điểm VÀ hiển thị khi sai)
         const kanaConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
         const kanaAnswers = kanaConjugation.split(" / ");
 
-        // 2. Tạo tập đáp án chứa KANJI (Chỉ dùng để chấm điểm, cho phép user nhập Kanji)
         const kanjiConjugation = VerbEngine.conjugate(currentItem.vmasu, currentItem, targetForm);
         const kanjiAnswers = kanjiConjugation.split(" / ");
 
-        // 3. Gộp cả Kana và Kanji vào danh sách các đáp án được chấp nhận
         let baseAcceptableAnswers = [...kanaAnswers, ...kanjiAnswers];
         let acceptableAnswers = [...baseAcceptableAnswers];
 
-        // 4. Mở rộng đáp án: Cho phép nhập thêm đuôi ~ます với các thể kết thúc bằng る
         if (["Potential", "Passive", "Causative", "CausativePassive"].includes(targetForm)) {
-            // Lấy tất cả đáp án (cả Kanji lẫn Kana) bỏ chữ 'る' và thêm 'ます'
             const politeForms = baseAcceptableAnswers.map(ans => ans.slice(0, -1) + 'ます');
             acceptableAnswers = [...acceptableAnswers, ...politeForms];
         }
 
-        // Kiểm tra xem input của user có nằm trong tập đáp án được chấp nhận không
         const isCorrect = acceptableAnswers.includes(finalInput);
 
         if (status === 'retyping' || status === 'wrong') {
@@ -4459,7 +4474,6 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            // 5. XỬ LÝ HIỂN THỊ KHI SAI: Chỉ lấy mảng kanaAnswers để show ra màn hình
             const displayAnswer = kanaAnswers.length > 1 
                 ? `${kanaAnswers[0]} / ${kanaAnswers[1]}` 
                 : kanaAnswers[0];
@@ -4523,11 +4537,17 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
                     <div className="w-full space-y-4">
                         <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange}
-                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : "Nhập cách đọc..."}
-                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
-                        />
+    type="text" autoFocus value={userInput} onChange={handleInputChange}
+    // THÊM 2 DÒNG NÀY
+    onCompositionStart={() => isComposing.current = true}
+    onCompositionEnd={(e) => {
+        isComposing.current = false;
+        handleInputChange(e);
+    }}
+    onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+    placeholder={status === 'retyping' ? "Gõ lại chính xác..." : "Nhập cách đọc..."}
+    className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
+/>
                         {(status === 'retyping' || status === 'wrong') && (
                             <div className="animate-in slide-in-from-top-2 duration-300 text-center">
                                 <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
