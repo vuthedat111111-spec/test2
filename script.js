@@ -4400,20 +4400,26 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             finalInput = finalInput.slice(0, -1) + 'ん';
         }
 
-        // Lấy đáp án đúng từ Engine (Có thể chứa " / " nếu có 2 cách chia)
-        const targetConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
-        
-        // Tách ra thành mảng nếu có nhiều đáp án (VD: Nhóm 1 Bị động sai khiến)
-        let baseAnswers = targetConjugation.split(" / ");
-        let acceptableAnswers = [...baseAnswers];
+        // 1. Tạo tập đáp án thuần HIRAGANA (Dùng để chấm điểm VÀ hiển thị khi sai)
+        const kanaConjugation = VerbEngine.conjugate(currentItem.finalReading, currentItem, targetForm);
+        const kanaAnswers = kanaConjugation.split(" / ");
 
-        // Cho phép nhập thêm đuôi ~ます với các thể kết thúc bằng る
+        // 2. Tạo tập đáp án chứa KANJI (Chỉ dùng để chấm điểm, cho phép user nhập Kanji)
+        const kanjiConjugation = VerbEngine.conjugate(currentItem.vmasu, currentItem, targetForm);
+        const kanjiAnswers = kanjiConjugation.split(" / ");
+
+        // 3. Gộp cả Kana và Kanji vào danh sách các đáp án được chấp nhận
+        let baseAcceptableAnswers = [...kanaAnswers, ...kanjiAnswers];
+        let acceptableAnswers = [...baseAcceptableAnswers];
+
+        // 4. Mở rộng đáp án: Cho phép nhập thêm đuôi ~ます với các thể kết thúc bằng る
         if (["Potential", "Passive", "Causative", "CausativePassive"].includes(targetForm)) {
-            // Duyệt qua từng đáp án ngắn, bỏ る thêm ます
-            const politeForms = baseAnswers.map(ans => ans.slice(0, -1) + 'ます');
+            // Lấy tất cả đáp án (cả Kanji lẫn Kana) bỏ chữ 'る' và thêm 'ます'
+            const politeForms = baseAcceptableAnswers.map(ans => ans.slice(0, -1) + 'ます');
             acceptableAnswers = [...acceptableAnswers, ...politeForms];
         }
 
+        // Kiểm tra xem input của user có nằm trong tập đáp án được chấp nhận không
         const isCorrect = acceptableAnswers.includes(finalInput);
 
         if (status === 'retyping' || status === 'wrong') {
@@ -4427,10 +4433,10 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
             setTimeout(() => goToNext(), 600);
         } else {
-            
-            const displayAnswer = baseAnswers.length > 1 
-                ? `${baseAnswers[0]} / ${baseAnswers[1]}` 
-                : baseAnswers[0];
+            // 5. XỬ LÝ HIỂN THỊ KHI SAI: Chỉ lấy mảng kanaAnswers để show ra màn hình
+            const displayAnswer = kanaAnswers.length > 1 
+                ? `${kanaAnswers[0]} / ${kanaAnswers[1]}` 
+                : kanaAnswers[0];
                 
             setCorrectAnswer(displayAnswer); 
             setStatus('wrong');
