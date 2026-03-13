@@ -2625,10 +2625,10 @@ React.useEffect(() => {
     }, [isDocsModalOpen]);
     const notifications = [
         { 
-            id: 1, 
-            title: 'Giao diện web mới', 
-            date: '08/03/2026', 
-            content: 'Mình đang nâng cấp trang web, sắp tới còn rất nhiều tính năng mới. Các bạn đón chờ nhé!'
+            id: 3, 
+            title: '🔥 TÍNH NĂNG MỚI', 
+            date: '12/03/2026', 
+            content: 'Luyện chia động từ cực gắt! Trải nghiệm ngay 3 chế độ: Tự Luận, Trắc Nghiệm và Phản Xạ siêu tốc. Vào ngay mục "CHIA ĐỘNG TỪ" ở trang chủ để test trình độ nhé!'
         }
     ];
 
@@ -2730,7 +2730,7 @@ React.useEffect(() => {
                                 {isNotifOpen && <NotificationDropdown />}
                             </div>
                             <div className="h-4 w-px bg-zinc-200 mx-2"></div>
-                            <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 shadow-sm">Tham gia Nhóm</a>
+                            <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 shadow-sm">Tham gia Nhóm</a>
                         </div>
                         
                         {/* NÚT MOBILE: ĐÃ THAY 3 GẠCH BẰNG CHUÔNG */}
@@ -2874,7 +2874,7 @@ React.useEffect(() => {
                         
                         {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
                         <button onClick={() => setIsDocsModalOpen(true)} className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest mt-2">Tài liệu</button>
-                        <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
+                        <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
                     </div>
                     <p className="text-sm text-zinc-500 font-medium">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
@@ -2970,7 +2970,7 @@ TÀI LIỆU HỌC TẬP
                 </a>
 
                 {/* nhóm học tập */}
-                <a href="https://zalo.me/g/jeflei549" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
+                <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     {/* Đã đổi: bg-blue -> bg-orange */}
                     <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         {/* Đã đổi: Icon File -> Icon Nhóm người */}
