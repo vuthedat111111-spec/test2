@@ -852,7 +852,9 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         const val = e.target.value;
         if (mode === 'vocab') {
             const target = queue[currentIndex] || '';
-            setUserInput(convertToKana(val, checkIsKatakana(target)));
+            // Giải mã lỗi Telex trước khi chuyển sang Kana
+            const fixedVal = fixTelex(val);
+            setUserInput(convertToKana(fixedVal, checkIsKatakana(target)));
         } else {
             setUserInput(val.toUpperCase());
         }
@@ -4410,7 +4412,9 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
 
     const handleInputChange = (e) => {
         const val = e.target.value;
-        setUserInput(convertToKana(val, false)); 
+        // Giải mã lỗi Telex trước khi chuyển sang Kana
+        const fixedVal = fixTelex(val);
+        setUserInput(convertToKana(fixedVal, false)); 
     };
 
     const checkAnswer = () => {
