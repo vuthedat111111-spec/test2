@@ -967,54 +967,37 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         </div>
     );
 };
-// --- COMPONENT GAME: MƯA KANJI (SURVIVAL) - BẢN CẬP NHẬT VỠ TAN & NHẬP CÓ DẤU ---
+// --- COMPONENT GAME: MƯA KANJI (SURVIVAL TRẮC NGHIỆM) ---
 const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
     const [score, setScore] = useState(0);
     const [lives, setLives] = useState(5);
     const [combo, setCombo] = useState(0);
     const [fallingItems, setFallingItems] = useState([]);
-    const [userInput, setUserInput] = useState('');
     const [gameStatus, setGameStatus] = useState('loading'); // 'loading', 'playing', 'gameover'
     const [kanjiPool, setKanjiPool] = useState([]);
-    const [inputError, setInputError] = useState(false); // State quản lý viền đỏ khi nhập sai
+    const [wrongOpt, setWrongOpt] = useState(null); // Nút bị bấm sai
 
     const spawnIntervalRef = useRef(null);
-    const fallSpeedRef = useRef(7); 
+    const fallSpeedRef = useRef(12); // TỐC ĐỘ RƠI CHẬM LÚC ĐẦU (12 giây)
     const idCounterRef = useRef(0);
 
-    // CSS Animations siêu mượt (Đã thêm hiệu ứng vỡ tan)
+    // CSS Animations siêu mượt (Vỡ tan, rơi, và vạch kẻ đỏ)
     const gameStyles = `
         @keyframes fallDown {
-            0% { transform: translateY(-100px); opacity: 0; }
-            5% { opacity: 1; transform: translateY(-50px); }
-            90% { opacity: 1; color: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
-            100% { transform: translateY(calc(100vh - 180px)); opacity: 0; color: #ef4444; filter: drop-shadow(0 0 20px #ef4444); }
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            50% { transform: translateX(8px); }
-            75% { transform: translateX(-8px); }
+            0% { transform: translateY(-80px); opacity: 1; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+            80% { color: inherit; filter: drop-shadow(0 0 15px currentColor); }
+            100% { transform: translateY(calc(100vh - 240px)); opacity: 1; color: #ef4444; filter: drop-shadow(0 0 20px #ef4444); }
         }
         @keyframes shatterAnim {
-            0% { 
-                transform: translate(-50%, -50%) rotate(0deg) scale(1); 
-                opacity: 1; 
-                filter: drop-shadow(0 0 10px #fff); 
-            }
-            100% { 
-                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot)) scale(0); 
-                opacity: 0; 
-                filter: drop-shadow(0 0 20px #ef4444); 
-                color: #ef4444; 
-            }
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 1; filter: drop-shadow(0 0 10px #fff); }
+            100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot)) scale(0); opacity: 0; filter: drop-shadow(0 0 20px #ef4444); color: #ef4444; }
         }
         .kanji-falling {
             animation: fallDown var(--speed) linear forwards;
             will-change: transform;
         }
         .kanji-exploding {
-            opacity: 0 !important; /* Ẩn chữ gốc ngay lập tức khi nổ */
+            opacity: 0 !important;
             pointer-events: none;
         }
         .kanji-particle {
@@ -1023,23 +1006,41 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
             color: #fff;
             font-family: 'Klee One', sans-serif;
             pointer-events: none;
-            animation: shatterAnim 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            animation: shatterAnim 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
             z-index: 100;
         }
-        .screen-shake {
-            animation: shake 0.3s ease-in-out;
+        .deadline-line {
+            position: absolute;
+            bottom: 180px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(to right, #ef4444, #ef4444 10px, transparent 10px, transparent 20px);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+            z-index: 10;
         }
-        .input-shake {
-            animation: shake 0.3s ease-in-out;
-            border-color: #ef4444 !important;
-            background-color: rgba(239, 68, 68, 0.2) !important;
-            color: #ef4444 !important;
+        .danger-zone {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 180px;
+            background: linear-gradient(to bottom, rgba(239,68,68,0.15), rgba(24,24,27,1) 80%);
+            z-index: 5;
         }
     `;
 
     // 1. Lọc và chuẩn bị Kanji Pool
     useEffect(() => {
         if (!isOpen) return;
+        
+        // Khóa nền
+        const scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+
         if (text && dbData && dbData.KANJI_DB) {
             const chars = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB[c]);
             if (chars.length > 0) {
@@ -1049,16 +1050,24 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
                 setLives(5);
                 setCombo(0);
                 setFallingItems([]);
-                setUserInput('');
-                setInputError(false);
-                fallSpeedRef.current = 7;
+                fallSpeedRef.current = 12; // Reset tốc độ chậm
                 idCounterRef.current = 0;
             } else {
                 alert("Không có Kanji hợp lệ để chơi!");
                 onClose();
             }
         }
-    }, [isOpen, text, dbData]);
+
+        return () => {
+            // Mở khóa nền khi đóng
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        };
+    }, [isOpen, text, dbData, onClose]);
 
     // 2. Vòng lặp thả Kanji (Game Loop)
     useEffect(() => {
@@ -1066,16 +1075,27 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
 
         const spawnKanji = () => {
             const randomChar = kanjiPool[Math.floor(Math.random() * kanjiPool.length)];
-            const hanviet = dbData.KANJI_DB[randomChar]?.sound || '';
-            const meaning = dbData.KANJI_DB[randomChar]?.meaning || '';
+            const hanviet = (dbData.KANJI_DB[randomChar]?.sound || '').toUpperCase().trim();
             
+            // Lấy 3 đáp án sai từ Pool
+            const distractors = kanjiPool
+                .filter(k => k !== randomChar)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3)
+                .map(k => (dbData.KANJI_DB[k]?.sound || '').toUpperCase().trim());
+            
+            // Nếu Pool quá ít Kanji, thêm đáp án giả
+            while (distractors.length < 3) {
+                distractors.push(['ĐẠI', 'TIỂU', 'HỌC', 'NHÂN', 'MỘC'][Math.floor(Math.random() * 5)]);
+            }
+
+            const options = [hanviet, ...distractors].sort(() => Math.random() - 0.5);
+
             const newItem = {
                 id: idCounterRef.current++,
                 char: randomChar,
-                // BẮT BUỘC NHẬP CÓ DẤU: Không dùng removeAccents nữa, chỉ toLowerCase và trim
-                target: hanviet.toLowerCase().trim(),
-                originalHanviet: hanviet,
-                meaning: meaning,
+                target: hanviet,
+                options: options,
                 xPos: 10 + Math.random() * 80, 
                 speed: fallSpeedRef.current,
                 isExploding: false
@@ -1088,13 +1108,17 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
 
         spawnIntervalRef.current = setInterval(() => {
             spawnKanji();
+            // Tốc độ nhanh dần (giảm thời gian rơi đi 0.1s mỗi lần)
             if (fallSpeedRef.current > 3.5) {
-                fallSpeedRef.current -= 0.05; 
+                fallSpeedRef.current -= 0.1; 
             }
-        }, 2000); 
+        }, 2500); // Thả 1 chữ mỗi 2.5 giây
 
         return () => clearInterval(spawnIntervalRef.current);
     }, [gameStatus, kanjiPool]);
+
+    // Lấy Kanji đang ở thấp nhất (Mục tiêu hiện tại)
+    const targetItem = fallingItems.find(item => !item.isExploding);
 
     // --- HÀM TẠO HIỆU ỨNG VỠ TAN CHỮ KANJI ---
     const triggerShatterEffect = (itemId, char) => {
@@ -1108,7 +1132,6 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        // Tạo 8 mảnh vỡ
         for (let i = 0; i < 8; i++) {
             const particle = document.createElement('div');
             particle.innerText = char;
@@ -1116,75 +1139,50 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
             particle.style.left = `${centerX}px`;
             particle.style.top = `${centerY}px`;
             
-            // Hướng văng ra ngẫu nhiên
             particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 300}px`);
             particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 300}px`);
             particle.style.setProperty('--rot', `${(Math.random() - 0.5) * 720}deg`);
             
-            // Dùng clip-path để cắt chữ gốc thành các mảnh vỡ ngẫu nhiên
             const clipX = Math.random() * 50;
             const clipY = Math.random() * 50;
             particle.style.clipPath = `polygon(${clipX}% ${clipY}%, ${clipX + 50}% ${clipY}%, ${clipX + 50}% ${clipY + 50}%, ${clipX}% ${clipY + 50}%)`;
 
             container.appendChild(particle);
-            
-            // Dọn dẹp DOM sau khi nổ xong
             setTimeout(() => particle.remove(), 600);
         }
     };
 
-    // 3. Xử lý khi Gõ và ấn ENTER
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && gameStatus === 'playing') {
-            const cleanVal = userInput.toLowerCase().trim();
-            if (!cleanVal) return;
+    // 3. Xử lý khi Bấm chọn đáp án trắc nghiệm
+    const handleOptionClick = (selectedOpt) => {
+        if (gameStatus !== 'playing' || !targetItem) return;
 
-            // Tìm chữ khớp với input có dấu
-            const matchedIndex = fallingItems.findIndex(item => !item.isExploding && item.target === cleanVal);
+        if (selectedOpt === targetItem.target) {
+            // TÌM THẤY -> CHỌN ĐÚNG
+            setScore(prev => prev + 10 + (combo * 2));
+            setCombo(prev => prev + 1);
 
-            if (matchedIndex !== -1) {
-                // TÌM THẤY -> GÕ ĐÚNG
-                const matchedItem = fallingItems[matchedIndex];
-                
-                setUserInput(''); // Xóa input
-                setInputError(false); // Xóa lỗi nếu có
-                setScore(prev => prev + 10 + (combo * 2));
-                setCombo(prev => prev + 1);
+            triggerShatterEffect(targetItem.id, targetItem.char);
 
-                // Kích hoạt nổ vỡ vụn
-                triggerShatterEffect(matchedItem.id, matchedItem.char);
+            // Ẩn chữ Kanji hiện tại
+            setFallingItems(prev => prev.map(item => 
+                item.id === targetItem.id ? { ...item, isExploding: true } : item
+            ));
 
-                // Đánh dấu item là đang nổ để ẩn đi
-                setFallingItems(prev => prev.map(item => 
-                    item.id === matchedItem.id ? { ...item, isExploding: true } : item
-                ));
+            // Xóa hẳn khỏi mảng
+            setTimeout(() => {
+                setFallingItems(prev => prev.filter(item => item.id !== targetItem.id));
+            }, 400);
 
-                // Xóa hẳn phần tử khỏi mảng
-                setTimeout(() => {
-                    setFallingItems(prev => prev.filter(item => item.id !== matchedItem.id));
-                }, 400);
-
-            } else {
-                // KHÔNG TÌM THẤY -> GÕ SAI
-                setUserInput(''); // Xóa hết chữ để người dùng nhập lại
-                setCombo(0); // Cắt combo
-                setInputError(true); // Kích hoạt CSS đỏ + rung lắc
-                
-                // Rung nhẹ màn hình game
-                const gameContainer = document.getElementById('kanji-rain-container');
-                if (gameContainer) {
-                    gameContainer.classList.remove('screen-shake');
-                    void gameContainer.offsetWidth; // Trigger reflow
-                    gameContainer.classList.add('screen-shake');
-                }
-
-                // Tắt trạng thái lỗi sau 400ms để lần sau sai còn rung tiếp
-                setTimeout(() => setInputError(false), 400);
-            }
+        } else {
+            // CHỌN SAI
+            setCombo(0); // Mất combo, KHÔNG rung lắc
+            setWrongOpt(selectedOpt); // Lưu nút bị sai để nháy đỏ
+            
+            setTimeout(() => setWrongOpt(null), 300); // Tắt đỏ sau 0.3s
         }
     };
 
-    // 4. Xử lý Kanji rơi chạm đáy (Trừ mạng)
+    // 4. Xử lý Kanji rơi CHẠM VẠCH ĐỎ (Trừ mạng)
     const handleAnimationEnd = (item) => {
         if (item.isExploding || gameStatus !== 'playing') return; 
         
@@ -1198,14 +1196,9 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
         });
         setCombo(0); 
         
+        // Hiệu ứng nổ đỏ khi chạm đáy
+        triggerShatterEffect(item.id, item.char);
         setFallingItems(prev => prev.filter(i => i.id !== item.id));
-
-        const gameContainer = document.getElementById('kanji-rain-container');
-        if (gameContainer) {
-            gameContainer.classList.remove('screen-shake');
-            void gameContainer.offsetWidth;
-            gameContainer.classList.add('screen-shake');
-        }
     };
 
     if (!isOpen) return null;
@@ -1215,7 +1208,7 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
             <style>{gameStyles}</style>
 
             {/* HEADER: HIỂN THỊ ĐIỂM & MẠNG */}
-            <div className="flex justify-between items-center p-6 w-full max-w-4xl mx-auto z-10">
+            <div className="flex justify-between items-center p-6 w-full max-w-4xl mx-auto z-20">
                 <div className="flex flex-col">
                     <span className="text-zinc-400 text-[10px] font-black uppercase tracking-widest">Điểm số</span>
                     <span className="text-4xl font-black text-white leading-none">{score}</span>
@@ -1232,58 +1225,81 @@ const KanjiRainGameModal = ({ isOpen, onClose, text, dbData }) => {
                 </div>
             </div>
 
+            {/* VẠCH KẺ RANH GIỚI (DEADLINE) */}
+            <div className="deadline-line"></div>
+            <div className="danger-zone"></div>
+
             {/* GAME AREA */}
-            <div className="flex-1 relative w-full max-w-4xl mx-auto">
-                {gameStatus === 'playing' && fallingItems.map(item => (
-                    <div 
-                        key={item.id}
-                        id={`falling-kanji-${item.id}`}
-                        onAnimationEnd={() => handleAnimationEnd(item)}
-                        className={`absolute flex flex-col items-center ${item.isExploding ? 'kanji-exploding' : 'kanji-falling'}`}
-                        style={{ 
-                            left: `${item.xPos}%`, 
-                            '--speed': `${item.speed}s`,
-                        }}
-                    >
-                        <span className="text-6xl font-black font-['Klee_One'] leading-none">{item.char}</span>
-                    </div>
-                ))}
+            <div className="flex-1 relative w-full max-w-4xl mx-auto z-10">
+                {gameStatus === 'playing' && fallingItems.map(item => {
+                    const isTarget = targetItem && targetItem.id === item.id;
+                    
+                    return (
+                        <div 
+                            key={item.id}
+                            id={`falling-kanji-${item.id}`}
+                            onAnimationEnd={() => handleAnimationEnd(item)}
+                            className={`absolute flex flex-col items-center ${item.isExploding ? 'kanji-exploding' : 'kanji-falling'} transition-colors duration-300`}
+                            style={{ 
+                                left: `${item.xPos}%`, 
+                                '--speed': `${item.speed}s`,
+                                color: isTarget ? '#fcd34d' : '#ffffff', // Chữ mục tiêu sẽ có màu Vàng sáng
+                            }}
+                        >
+                            <span className={`text-[5.5rem] font-black font-['Klee_One'] leading-none ${isTarget ? 'scale-110 drop-shadow-[0_0_15px_rgba(252,211,77,0.8)]' : ''}`}>
+                                {item.char}
+                            </span>
+                            {/* Mũi tên nhỏ chỉ vào chữ mục tiêu */}
+                            {isTarget && (
+                                <svg className="w-6 h-6 text-amber-300 animate-bounce mt-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="4"><path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            )}
+                        </div>
+                    );
+                })}
 
                 {/* MÀN HÌNH GAME OVER */}
                 {gameStatus === 'gameover' && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm z-50 animate-in fade-in">
-                        <div className="bg-white rounded-3xl p-8 flex flex-col items-center max-w-sm w-full text-center shadow-2xl animate-in zoom-in-95">
+                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/90 backdrop-blur-md z-50 animate-in fade-in">
+                        <div className="bg-white rounded-3xl p-8 flex flex-col items-center max-w-sm w-full text-center shadow-2xl animate-in zoom-in-95 border-4 border-red-50">
                             <span className="text-6xl mb-4">💥</span>
                             <h2 className="text-3xl font-black text-zinc-900 mb-1 uppercase tracking-tight">KẾT THÚC</h2>
-                            <p className="text-zinc-500 font-bold mb-6">Điểm của bạn: <span className="text-indigo-600 text-2xl">{score}</span></p>
+                            <p className="text-zinc-500 font-bold mb-6">Điểm của bạn: <span className="text-red-500 text-2xl">{score}</span></p>
                             
-                            <button onClick={() => setGameStatus('loading')} className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black uppercase text-xs tracking-widest shadow-lg hover:bg-indigo-700 active:scale-95 mb-3 transition-all">Chơi lại</button>
+                            <button onClick={() => setGameStatus('loading')} className="w-full py-4 bg-gray-900 text-white rounded-xl font-black uppercase text-xs tracking-widest shadow-lg hover:bg-black active:scale-95 mb-3 transition-all">Chơi lại</button>
                             <button onClick={onClose} className="w-full py-4 bg-zinc-100 text-zinc-500 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-zinc-200 active:scale-95 transition-all">Thoát</button>
                         </div>
                     </div>
                 )}
             </div>
 
-            {/* VÙNG NHẬP LIỆU BÊN DƯỚI */}
-            <div className="w-full bg-zinc-900 border-t border-zinc-800 p-6 z-20 pb-12 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-                <div className="max-w-md mx-auto relative">
-                    <label className="text-center block text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-3">
-                        Gõ Âm Hán Việt (có dấu) và ấn ENTER
-                    </label>
-                    <input 
-                        type="text" 
-                        autoFocus
-                        disabled={gameStatus !== 'playing'}
-                        value={userInput}
-                        onChange={(e) => setUserInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder={gameStatus === 'playing' ? "ĐẠI..." : ""}
-                        className={`w-full text-center text-2xl font-bold p-4 rounded-2xl outline-none transition-all uppercase ${
-                            inputError 
-                                ? 'input-shake' 
-                                : 'bg-zinc-800 border-2 border-zinc-700 text-white focus:border-indigo-500'
-                        }`}
-                    />
+            {/* VÙNG ĐÁP ÁN TRẮC NGHIỆM BÊN DƯỚI */}
+            <div className="w-full h-[180px] bg-zinc-900 border-t-2 border-zinc-800 p-4 z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] relative">
+                <div className="max-w-xl mx-auto h-full flex flex-col justify-center">
+                    
+                    {targetItem ? (
+                        <div className="grid grid-cols-2 gap-3">
+                            {targetItem.options.map((opt, idx) => {
+                                const isWrong = wrongOpt === opt;
+                                return (
+                                    <button 
+                                        key={idx}
+                                        onClick={() => handleOptionClick(opt)}
+                                        className={`py-5 rounded-2xl font-black text-lg transition-all active:scale-95 uppercase tracking-widest border-b-4 
+                                            ${isWrong ? 'bg-red-500 text-white border-red-700' : 'bg-zinc-800 text-white border-zinc-950 hover:bg-zinc-700'}
+                                        `}
+                                    >
+                                        {opt}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 gap-3 opacity-50 pointer-events-none">
+                            {[1,2,3,4].map(i => (
+                                <div key={i} className="py-5 bg-zinc-800 rounded-2xl border-b-4 border-zinc-950 text-center font-bold text-zinc-600">...</div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
