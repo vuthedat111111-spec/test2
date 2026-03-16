@@ -4622,38 +4622,48 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         const currentItem = queue[currentIndex];
         setSelectedOpt(optId);
 
-        // Tự động chia thử động từ theo cái nút mà người dùng vừa bấm
+      
         const chosenConjKanji = VerbEngine.conjugate(currentItem.vmasu, currentItem, optId).split(" / ")[0];
 
-        // Nếu kết quả chia ra GIỐNG HỆT chữ đang hiện trên màn hình => CHÍNH XÁC!
+       
         const isCorrect = chosenConjKanji === currentItem.conjKanji;
 
         if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
-            setTimeout(() => goToNext(), 600);
+            
+            setTimeout(() => {
+                
+                setCurrentIndex(prevIndex => {
+                    if (prevIndex < queue.length - 1) {
+                        setStatus('idle');
+                        setSelectedOpt(null);
+                        setWrongDetected(false);
+                        return prevIndex + 1;
+                    } else {
+                        setFinished(true);
+                        return prevIndex;
+                    }
+                });
+            }, 600);
         } else {
             setStatus('wrong');
             setWrongDetected(true);
-            setQueue(prev => [...prev, currentItem]); // Xếp từ bị sai xuống cuối danh sách
+            setQueue(prev => [...prev, currentItem]); 
             
-            // Đợi 1 giây để hiển thị màu đỏ, sau đó tự động chuyển sang câu tiếp theo
+           
             setTimeout(() => {
-                goToNext(); 
+            
+              
+                setCurrentIndex(prevIndex => prevIndex + 1);
+                setStatus('idle');
+                setSelectedOpt(null);
+                setWrongDetected(false);
             }, 600); 
         }
     };
 
-    const goToNext = () => {
-        if (currentIndex < queue.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-            setStatus('idle');
-            setSelectedOpt(null);
-            setWrongDetected(false);
-        } else {
-            setFinished(true);
-        }
-    };
+
 
     if (!isOpen || queue.length === 0) return null;
     const currentItem = queue[currentIndex];
