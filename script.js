@@ -5094,76 +5094,77 @@ const KanjiPrintModal = ({ isOpen, onClose, text, dbData }) => {
                         </div>
                     </div>
 
-                    {/* Vùng in thực tế (Sẽ hiển thị đầy đủ trên PDF) */}
+                  {/* Vùng in thực tế (Sẽ hiển thị đầy đủ trên PDF) */}
                     <div id="print-root" className="w-full flex flex-col gap-8 print:gap-0 bg-transparent print:bg-white">
                         {pages.map((pageChars, pageIndex) => (
                             <div 
                                 key={pageIndex} 
-                                className="a4-page bg-white w-[210mm] h-[297mm] shadow-2xl relative overflow-hidden flex flex-col"
+                                className="a4-page bg-white w-[210mm] h-[297mm] shadow-2xl relative overflow-hidden flex flex-col box-border"
                             >
-                                {/* Header Trang */}
-                                <div className="h-[15mm] border-b-[3px] border-gray-900 flex justify-between items-end px-8 pb-2">
-                                    <span className="text-xl font-black uppercase tracking-[0.2em] text-gray-900">Phá Đảo Tiếng Nhật</span>
-                                    <span className="text-sm font-bold text-gray-500">Trang {pageIndex + 1}/{pages.length}</span>
+                                {/* Header Trang: Thiết kế tối giản, sang trọng */}
+                                <div className="h-[15mm] border-b-[2px] border-gray-800 flex justify-between items-end px-8 pb-3">
+                                    <span className="text-[18px] font-black uppercase tracking-[0.25em] text-gray-900">Phá Đảo Tiếng Nhật</span>
+                                    <span className="text-[12px] font-bold text-gray-400 uppercase tracking-widest">Trang {pageIndex + 1} / {pages.length}</span>
                                 </div>
 
-                                {/* Body Trang (Chia đều 5 hàng) */}
+                                {/* Body Trang (Chia đều 5 hàng, chiều cao 20% mỗi hàng) */}
                                 <div className="flex-1 flex flex-col">
                                     {pageChars.map((char) => {
                                         const dbInfo = dbData?.KANJI_DB?.[char] || {};
                                         const onkunInfo = dbData?.ONKUN_DB?.[char] || {};
                                         const hanviet = dbInfo.sound || "---";
                                         const meaning = dbInfo.meaning || onkunInfo.meanings?.[0] || "---";
-                                        const onReading = onkunInfo.readings_on?.join('、') || "---";
-                                        const kunReading = onkunInfo.readings_kun?.join('、') || "---";
+                                        // Nối âm On/Kun bằng dấu chấm giữa chuẩn Nhật, loại bỏ dấu chấm/gạch nối thừa
+                                        const onReading = onkunInfo.readings_on?.join(' ・ ') || "---";
+                                        const kunReading = onkunInfo.readings_kun?.map(k => k.replace(/[!\-\.]/g, '')).join(' ・ ') || "---";
                                         const vocabs = getVocabExamples(char);
 
                                         return (
-                                            <div key={char} className="flex border-b border-dashed border-gray-300 h-[20%]">
+                                            <div key={char} className="flex border-b-[1.5px] border-gray-200 h-[20%] box-border">
                                                 
-                                                {/* 1. Ô KANJI (Rộng 30%) */}
-                                                <div className="w-[30%] border-r border-dashed border-gray-300 flex flex-col items-center justify-center px-4 py-2">
-                                                    <div className="w-24 h-24 relative flex items-center justify-center border-2 border-gray-200 rounded mb-2 bg-gray-50/50 print-ready-svg">
-                                                        {/* Lưới định vị */}
-                                                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
-                                                            <div className="w-full h-px bg-gray-400 absolute"></div>
-                                                            <div className="h-full w-px bg-gray-400 absolute"></div>
+                                                {/* 1. Ô KANJI (Tỷ lệ 25%): Ô kẻ chữ thập chuẩn vở tập viết */}
+                                                <div className="w-[25%] border-r-[1.5px] border-gray-200 flex flex-col items-center justify-center px-2 py-3">
+                                                    <div className="w-[22mm] h-[22mm] relative flex items-center justify-center border-[1.5px] border-gray-300 rounded bg-gray-50/40 print-ready-svg shrink-0 mb-3">
+                                                        {/* Lưới định vị chữ thập nét đứt */}
+                                                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-40">
+                                                            <div className="w-full h-[1px] border-t border-dashed border-gray-500 absolute"></div>
+                                                            <div className="h-full w-[1px] border-l border-dashed border-gray-500 absolute"></div>
                                                         </div>
                                                         {/* SVG Render */}
-                                                        <svg viewBox="0 0 109 109" className="w-[85%] h-[85%] relative z-10" dangerouslySetInnerHTML={{ __html: svgCache[char] || '' }} />
+                                                        <svg viewBox="0 0 109 109" className="w-[80%] h-[80%] relative z-10" dangerouslySetInnerHTML={{ __html: svgCache[char] || '' }} />
                                                     </div>
-                                                    <div className="text-center w-full">
-                                                        <div className="text-lg font-black uppercase tracking-widest text-gray-900">{hanviet}</div>
-                                                        <div className="text-xs font-bold text-gray-500 italic truncate w-full">{meaning}</div>
-                                                    </div>
-                                                </div>
-
-                                                {/* 2. Ô ÂM ON/KUN (Rộng 35%) */}
-                                                <div className="w-[35%] border-r border-dashed border-gray-300 p-4 flex flex-col justify-center gap-3">
-                                                    <div>
-                                                        <span className="inline-block bg-gray-900 text-white text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-1">Onyomi (Âm Ôn)</span>
-                                                        <div className="text-base font-bold text-gray-800 font-jp leading-snug line-clamp-2">{onReading}</div>
-                                                    </div>
-                                                    <div>
-                                                        <span className="inline-block border border-gray-400 text-gray-600 text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-1">Kunyomi (Âm Cún)</span>
-                                                        <div className="text-base font-bold text-gray-800 font-jp leading-snug line-clamp-2">{kunReading}</div>
+                                                    <div className="text-center w-full px-2">
+                                                        <div className="text-[14px] font-black uppercase tracking-[0.15em] text-gray-900 leading-tight mb-0.5">{hanviet}</div>
+                                                        <div className="text-[11px] font-semibold text-gray-500 italic truncate w-full">{meaning}</div>
                                                     </div>
                                                 </div>
 
-                                                {/* 3. Ô TỪ VỰNG (Rộng 35%) */}
-                                                <div className="w-[35%] p-4 flex flex-col justify-center">
-                                                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-200 pb-1 mb-2">Từ vựng đi kèm</div>
-                                                    <div className="space-y-2">
+                                                {/* 2. Ô ÂM ON/KUN (Tỷ lệ 30%): Gọn gàng, phân cấp rõ ràng */}
+                                                <div className="w-[30%] border-r-[1.5px] border-gray-200 px-6 flex flex-col justify-center gap-4">
+                                                    <div>
+                                                        <div className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Onyomi (Âm Ôn)</div>
+                                                        <div className="text-[14px] font-bold text-gray-800 font-jp leading-snug break-words">{onReading}</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Kunyomi (Âm Cún)</div>
+                                                        <div className="text-[14px] font-bold text-gray-800 font-jp leading-snug break-words">{kunReading}</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* 3. Ô TỪ VỰNG (Tỷ lệ 45%): Rộng rãi nhất để không bị rớt dòng xấu */}
+                                                <div className="w-[45%] px-6 py-4 flex flex-col justify-center">
+                                                    <div className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-3 border-b-[1.5px] border-gray-100 pb-1">Từ vựng đi kèm</div>
+                                                    <div className="space-y-3">
                                                         {vocabs.length > 0 ? vocabs.map((v, vIdx) => (
-                                                            <div key={vIdx} className="flex flex-col leading-tight">
-                                                                <div className="flex items-baseline gap-1.5">
-                                                                    <span className="text-base font-black text-gray-900 font-jp">{v.word}</span>
-                                                                    <span className="text-[10px] text-gray-500 font-bold font-jp">({v.reading})</span>
+                                                            <div key={vIdx} className="flex flex-col leading-none">
+                                                                <div className="flex items-baseline gap-2 mb-1.5">
+                                                                    <span className="text-[16px] font-black text-gray-900 font-jp">{v.word}</span>
+                                                                    <span className="text-[11px] text-gray-500 font-bold font-jp">({v.reading})</span>
                                                                 </div>
-                                                                <span className="text-xs text-gray-600 font-medium truncate">{v.meaning}</span>
+                                                                <span className="text-[12px] text-gray-700 font-medium truncate">{v.meaning}</span>
                                                             </div>
                                                         )) : (
-                                                            <div className="text-xs text-gray-400 italic">Chưa có ví dụ</div>
+                                                            <div className="text-[12px] text-gray-400 italic">Chưa có ví dụ</div>
                                                         )}
                                                     </div>
                                                 </div>
@@ -5174,12 +5175,14 @@ const KanjiPrintModal = ({ isOpen, onClose, text, dbData }) => {
                                 </div>
 
                                 {/* Footer Trang (Bản quyền) */}
-                                <div className="h-[10mm] flex items-center px-8 text-[10px] font-bold text-gray-400 italic">
+                                <div className="h-[12mm] flex items-center justify-center text-[10px] font-bold text-gray-400 uppercase tracking-widest opacity-80">
                                     Bản quyền thuộc về Phá Đảo Tiếng Nhật - phadaotiengnhat.com
                                 </div>
                             </div>
                         ))}
                     </div>
+
+                            //het trang in
                 </div>
             )}
         </div>
