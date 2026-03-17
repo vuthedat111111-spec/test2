@@ -75,3 +75,43 @@ body {
 }
 .exit-left { transform: translateX(-150%) rotate(-15deg); opacity: 0; transition: all 0.4s ease-in; }
 .exit-right { transform: translateX(150%) rotate(15deg); opacity: 0; transition: all 0.4s ease-in; }
+
+/* --- CONFIG CHO BẢN IN A4 --- */
+.print-only {
+  display: none;
+}
+
+.a4-paper {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  margin: 0 auto;
+  padding: 10mm;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+@media print {
+  body > *:not(#print-root) {
+    display: none !important;
+  }
+  
+  #print-root, .print-only {
+    display: block !important;
+  }
+
+  .a4-paper {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+
+  .kanji-print-row {
+    page-break-inside: avoid;
+  }
+  
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+}
