@@ -54,11 +54,12 @@ const calculateSRS = (currentData, quality) => {
 // --- FETCH DATA FROM GITHUB --- 
 const fetchDataFromGithub = async () => {
   try { 
-    // 1. Tải các file cơ sở dữ liệu chính (Đã gỡ bỏ onkun.json và vocab.json)
-    const [dbResponse, tuvungResponse, exceptionResponse] = await Promise.all([
+    // 1. Tải các file cơ sở dữ liệu chính (Thêm onkun.json)
+    const [dbResponse, tuvungResponse, exceptionResponse, onkunResponse] = await Promise.all([
       fetch('./data/kanji_db.json'),
       fetch('./data/tuvungg.json'),
-      fetch('./data/dongtu_dacbiet.json')
+      fetch('./data/dongtu_dacbiet.json'),
+      fetch('./data/onkun.json') // <--- ĐÃ THÊM
     ]);
 
     // 2. Tải thêm 5 file danh sách cấp độ (N5 -> N1)
@@ -69,22 +70,18 @@ const fetchDataFromGithub = async () => {
     let kanjiDb = null;
     let kanjiLevels = {}; 
 
-    // Xử lý DB chính (Kanji)
     if (dbResponse.ok) kanjiDb = await dbResponse.json();
 
-    // Xử lý file Từ vựng
     let tuvungDb = {};
-    if (tuvungResponse && tuvungResponse.ok) {
-        tuvungDb = await tuvungResponse.json();
-    }
+    if (tuvungResponse && tuvungResponse.ok) tuvungDb = await tuvungResponse.json();
 
-    // Xử lý file Động từ đặc biệt
     let exceptionDb = {};
-    if (exceptionResponse && exceptionResponse.ok) {
-        exceptionDb = await exceptionResponse.json();
-    }
+    if (exceptionResponse && exceptionResponse.ok) exceptionDb = await exceptionResponse.json();
 
-    // Xử lý 5 file cấp độ
+    // Xử lý file ONKUN
+    let onkunDb = {};
+    if (onkunResponse && onkunResponse.ok) onkunDb = await onkunResponse.json();
+
     for (let i = 0; i < levels.length; i++) {
         const lvlKey = levels[i].toUpperCase();
         if (levelResponses[i].ok) {
@@ -95,8 +92,7 @@ const fetchDataFromGithub = async () => {
         }
     }
 
-    // Trả về dữ liệu gộp (Đã gỡ bỏ ONKUN_DB và VOCAB_DB)
-    return { ...kanjiDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels, EXCEPTION_VERBS: exceptionDb }; 
+    return { ...kanjiDb, TUVUNG_DB: tuvungDb, KANJI_LEVELS: kanjiLevels, EXCEPTION_VERBS: exceptionDb, ONKUN_DB: onkunDb }; 
   } catch (error) {
     console.error("Lỗi tải dữ liệu hệ thống:", error);
     return null;
@@ -2235,8 +2231,12 @@ const StaticStrokeOrder = ({ paths }) => {
 const KanjiPrintRow = ({ char, dbData }) => {
     const { paths } = useKanjiSvg(char);
     const info = dbData?.KANJI_DB?.[char] || {};
+    const onkunInfo = dbData?.ONKUN_DB?.[char] || {};
     
-    const vocabList = useMemo(() => {
+    const onyomi = onkunInfo.readings_on && onkunInfo.readings_on.length > 0 ? onkunInfo.readings_on.join(", ") : "---";
+    const kunyomi = onkunInfo.readings_kun && onkunInfo.readings_kun.length > 0 ? onkunInfo.readings_kun.join(", ") : "---";
+
+    const vocabList = React.useMemo(() => {
         if (!dbData?.TUVUNG_DB) return [];
         const matches = [];
         for (const [word, vInfo] of Object.entries(dbData.TUVUNG_DB)) {
@@ -2259,13 +2259,13 @@ const KanjiPrintRow = ({ char, dbData }) => {
                     </div>
                 </div>
                 <div className="mt-auto space-y-1">
-                    <div className="text-[10px]">
+                    <div className="text-[10px] mt-1">
                         <span className="font-bold bg-black text-white px-1.5 py-0.5 rounded mr-1">ON</span>
-                        <span className="font-medium text-gray-800">{info.onyomi || "---"}</span>
+                        <span className="font-medium text-gray-800">{onyomi}</span>
                     </div>
-                    <div className="text-[10px]">
+                    <div className="text-[10px] mt-1">
                         <span className="font-bold border border-black text-black px-1.5 py-0.5 rounded mr-1">KUN</span>
-                        <span className="font-medium text-gray-800">{info.kunyomi || "---"}</span>
+                        <span className="font-medium text-gray-800">{kunyomi}</span>
                     </div>
                 </div>
             </div>
@@ -2304,17 +2304,17 @@ const PrintableA4Sheet = ({ kanjiString, dbData, onClose }) => {
     return (
         <div id="print-root" className="fixed inset-0 z-[2000] bg-gray-200 overflow-y-auto print:bg-white">
             <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white p-4 rounded-2xl shadow-2xl z-50 flex gap-4 items-center no-print">
-                <span className="text-sm font-bold">Tổng: {chars.length} chữ ({chunkedPages.length} trang A4)</span>
+                <span className="text-sm font-bold">Tổng: {chars.length} chữ ({chunkedPages.length} trang)</span>
                 <button onClick={() => window.print()} className="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-xl font-black text-sm uppercase tracking-widest transition-all">🖨️ IN NGAY</button>
                 <button onClick={onClose} className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-xl font-bold text-sm uppercase">ĐÓNG</button>
-                <span className="absolute -bottom-6 left-0 text-xs text-gray-500 w-full text-center font-bold">Đợi vài giây cho nét vẽ tải xong rồi hẵng in nhé!</span>
+                <span className="absolute -bottom-6 left-0 text-xs text-gray-500 w-full text-center font-bold drop-shadow-md">Vui lòng chờ vài giây để tải xong nét vẽ trước khi in!</span>
             </div>
             <div className="pt-24 pb-10 flex flex-col gap-8 print:pt-0 print:pb-0 print:gap-0">
                 {chunkedPages.map((pageChars, pageIndex) => (
                     <div key={pageIndex} className="a4-paper relative">
                         <div className="border-b-4 border-black pb-2 mb-4 flex justify-between items-end">
                             <h2 className="text-2xl font-black uppercase tracking-tighter">Phá Đảo Tiếng Nhật</h2>
-                            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Tài liệu luyện Kanji (Trang {pageIndex + 1})</span>
+                            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Luyện viết Kanji (Trang {pageIndex + 1})</span>
                         </div>
                         {pageChars.map((char, i) => (
                             <KanjiPrintRow key={i} char={char} dbData={dbData} />
@@ -2413,11 +2413,10 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                                         return (
                                             <div 
                                                 key={i} 
-                                                onClick={() => setAnimChar(char)} // BẤM ĐỂ MỞ HOẠT HỌA
+                                                onClick={() => setAnimChar(char)}
                                                 className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
                                                 title="Bấm để xem nét vẽ"
                                             >
-                                                {/* ĐỔI MÀU CHỮ THÀNH XANH DƯƠNG KHI HOVER */}
                                                 <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
                                                 <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
                                             </div>
@@ -2543,7 +2542,7 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                         )}
                     </div>
 
-                    {/* Footer có thêm nút IN */}
+                    {/* Footer có thêm nút IN TÀI LIỆU */}
                     <div className="p-5 border-t border-gray-200 bg-gray-50 flex gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
                         <button onClick={onClose} className="px-4 sm:px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all flex-shrink-0">Quay lại</button>
                         
@@ -2564,7 +2563,10 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </button>
                     </div>
-{/* Gọi Component In ở đây */}
+                </div>
+            </div>
+
+            {/* Gọi Component In ở đây */}
             {isPrinting && (
                 <PrintableA4Sheet 
                     kanjiString={text} 
@@ -2572,6 +2574,7 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                     onClose={() => setIsPrinting(false)} 
                 />
             )}
+
             {/* Component Hoạt Họa Gọi Tách Rời Phía Ngoài (z-index cao hơn) */}
             {animChar && (
                 <KanjiAnimationContainer 
