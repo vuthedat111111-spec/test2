@@ -2823,12 +2823,12 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
                         </div>
-                                     {/* NÚT MỚI: TẠO TÀI LIỆU KANJI (Nằm bên cạnh Chia động từ) */}
+                                     {/* 6. TẠO PDF KANJI */}
 <div onClick={() => onOpenSetup('kanjidoc')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
     <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
     </div>
-    <h3 className="text-xl font-bold mb-1">TẠO PDF KANJI</h3>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">TẠO PDF KANJI</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">In tài liệu luyện viết</p>
 </div>
 
@@ -5010,202 +5010,178 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
-// --- COMPONENT: TẠO FILE PDF KANJI ---
-const KanjiPdfGeneratorModal = ({ isOpen, onClose, text, dbData }) => {
-    const [status, setStatus] = React.useState('idle'); // idle, loading, generating, done
-    const [progress, setProgress] = React.useState(0);
-    const [svgCache, setSvgCache] = React.useState({});
-    const printRef = React.useRef(null);
 
+// --- COMPONENT: XEM TRƯỚC VÀ IN PDF KANJI ---
+const KanjiPrintModal = ({ isOpen, onClose, text, dbData }) => {
+    const [status, setStatus] = React.useState('loading'); // loading, ready
+    const [svgCache, setSvgCache] = React.useState({});
+    
+    // Lọc ra danh sách Kanji duy nhất có trong dữ liệu
     const kanjiList = React.useMemo(() => {
         return Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData?.KANJI_DB?.[c] || dbData?.ONKUN_DB?.[c]);
     }, [text, dbData]);
 
-    // 1. Tải toàn bộ SVG của các chữ Kanji trước khi in
+    // Tải SVG cho toàn bộ Kanji trong danh sách
     React.useEffect(() => {
-        if (isOpen && kanjiList.length > 0 && status === 'idle') {
+        if (isOpen && kanjiList.length > 0) {
             setStatus('loading');
             const fetchAllSvgs = async () => {
                 const cache = {};
-                for (let i = 0; i < kanjiList.length; i++) {
-                    const char = kanjiList[i];
+                for (let char of kanjiList) {
                     const result = await fetchKanjiData(char);
                     if (result.success) {
-                        // Lọc lấy nội dung bên trong <svg>...</svg>
                         const match = result.svg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i);
                         if (match) cache[char] = match[1];
                     }
-                    setProgress(Math.round(((i + 1) / kanjiList.length) * 50)); // 50% tiến trình cho việc tải nét
                 }
                 setSvgCache(cache);
-                setStatus('generating');
+                setStatus('ready');
             };
             fetchAllSvgs();
         }
-    }, [isOpen, kanjiList, status]);
+    }, [isOpen, kanjiList]);
 
-    // 2. Hàm tìm từ vựng ví dụ cho Kanji
+    // Hàm lấy 3 từ vựng ví dụ
     const getVocabExamples = (char) => {
         if (!dbData?.TUVUNG_DB) return [];
         const examples = [];
         for (const [word, info] of Object.entries(dbData.TUVUNG_DB)) {
             if (word.includes(char)) {
                 examples.push({ word, reading: info.reading, meaning: info.meaning });
-                if (examples.length >= 3) break; // Lấy tối đa 3 từ vựng đi kèm để vừa PDF
+                if (examples.length >= 3) break;
             }
         }
         return examples;
     };
 
-    // 3. Hàm xuất PDF
-    React.useEffect(() => {
-        if (status === 'generating' && printRef.current) {
-            const generatePdf = async () => {
-                try {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF('p', 'mm', 'a4');
-                    const pages = printRef.current.querySelectorAll('.a4-page');
-                    
-                    for (let i = 0; i < pages.length; i++) {
-                        const canvas = await html2canvas(pages[i], {
-                            scale: 2, // Scale 2 để nét chữ không bị vỡ khi in
-                            useCORS: true,
-                            logging: false,
-                            backgroundColor: '#ffffff'
-                        });
-                        
-                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                        if (i > 0) doc.addPage();
-                        
-                        // A4 size: 210 x 297 mm
-                        doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
-                        setProgress(50 + Math.round(((i + 1) / pages.length) * 50));
-                    }
-                    
-                    doc.save(`Tai_Lieu_Kanji_${new Date().getTime()}.pdf`);
-                    setStatus('done');
-                } catch (error) {
-                    console.error("Lỗi xuất PDF:", error);
-                    alert("Có lỗi xảy ra khi tạo PDF.");
-                    onClose();
-                }
-            };
-            generatePdf();
-        }
-    }, [status]);
-
     if (!isOpen || kanjiList.length === 0) return null;
 
-    // Chia mảng thành các trang (5 chữ / trang)
+    // Phân trang: 5 Kanji / 1 trang A4
     const CHUNK_SIZE = 5;
     const pages = [];
     for (let i = 0; i < kanjiList.length; i += CHUNK_SIZE) {
         pages.push(kanjiList.slice(i, i + CHUNK_SIZE));
     }
 
+    const handlePrint = () => {
+        window.print();
+    };
+
     return (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-gray-900/90 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[1000] flex items-start justify-center bg-gray-900/90 backdrop-blur-sm p-4 sm:p-8 overflow-y-auto custom-scrollbar">
             
-            {/* UI Hiển thị Trạng Thái Loading */}
-            <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl relative z-10 animate-in zoom-in">
-                <h3 className="text-xl font-black text-gray-900 uppercase tracking-widest mb-2">Đang tạo tài liệu</h3>
-                <p className="text-sm text-gray-500 font-medium mb-6">
-                    {status === 'loading' ? 'Đang tải hoạt họa nét vẽ...' : status === 'generating' ? 'Đang biên dịch tệp PDF...' : 'Hoàn tất!'}
-                </p>
-                <div className="w-full bg-gray-100 rounded-full h-2.5 mb-2 overflow-hidden">
-                    <div className="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+            {status === 'loading' ? (
+                <div className="bg-white rounded-3xl p-8 text-center shadow-2xl m-auto animate-in zoom-in">
+                    <div className="w-12 h-12 border-4 border-gray-100 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
+                    <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest">Đang tạo bản xem trước...</h3>
+                    <p className="text-xs text-gray-500 mt-2">Đang tải cấu trúc nét vẽ Kanji</p>
                 </div>
-                <p className="text-xs font-bold text-indigo-600 mb-6">{progress}%</p>
-                
-                {status === 'done' && (
-                    <button onClick={onClose} className="w-full py-3.5 bg-gray-900 text-white font-black rounded-xl active:scale-95 transition-all">ĐÓNG</button>
-                )}
-            </div>
-
-            {/* BẢN TEMPLATE A4 ẨN (Để html2canvas chụp lại) */}
-            <div className="absolute top-0 left-0 opacity-0 pointer-events-none -z-50 h-0 overflow-hidden" ref={printRef}>
-                {pages.map((pageChars, pageIndex) => (
-                    <div key={`page-${pageIndex}`} className="a4-page bg-white" style={{ width: '794px', height: '1123px', boxSizing: 'border-box', position: 'relative' }}>
-                        
-                        {/* Header của trang */}
-                        <div className="h-[40px] border-b-2 border-gray-800 flex items-center justify-between px-6 bg-gray-50">
-                            <span className="font-bold text-gray-600 text-sm tracking-widest uppercase">Phá Đảo Tiếng Nhật</span>
-                            <span className="font-bold text-gray-600 text-sm">Trang {pageIndex + 1}/{pages.length}</span>
+            ) : (
+                <div className="w-full flex flex-col items-center max-w-[210mm]">
+                    
+                    {/* Bảng điều khiển nổi (Sẽ bị ẩn khi in nhờ class print-hide) */}
+                    <div className="print-hide sticky top-0 z-50 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-gray-200 w-full mb-6 flex justify-between items-center animate-in slide-in-from-top-4">
+                        <div>
+                            <h2 className="text-lg font-black text-gray-900 uppercase tracking-wide">Bản in Kanji</h2>
+                            <p className="text-xs font-bold text-gray-500">{kanjiList.length} chữ • {pages.length} trang</p>
                         </div>
-
-                        {/* Các hàng Kanji (20% chiều cao mỗi hàng) */}
-                        <div className="flex flex-col h-[1043px]"> 
-                            {pageChars.map((char, index) => {
-                                const dbInfo = dbData?.KANJI_DB?.[char] || {};
-                                const onkunInfo = dbData?.ONKUN_DB?.[char] || {};
-                                const hanviet = dbInfo.sound || "---";
-                                const meaning = dbInfo.meaning || onkunInfo.meanings?.[0] || "---";
-                                const onReading = onkunInfo.readings_on?.join(', ') || "---";
-                                const kunReading = onkunInfo.readings_kun?.join(', ') || "---";
-                                const vocabs = getVocabExamples(char);
-
-                                return (
-                                    <div key={char} className="flex flex-1 border-b border-gray-300 w-full" style={{ height: '20%' }}>
-                                        
-                                        {/* CỘT 1: Chữ Kanji + SVG (30%) */}
-                                        <div className="w-[30%] border-r border-gray-300 flex flex-col items-center justify-center p-2 relative">
-                                            <div className="w-28 h-28 relative flex items-center justify-center border border-dashed border-gray-200 rounded-lg mb-2">
-                                                {/* Line kẻ ô mờ */}
-                                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                    <div className="w-full h-px bg-gray-200 absolute"></div>
-                                                    <div className="h-full w-px bg-gray-200 absolute"></div>
-                                                </div>
-                                                {/* Render tĩnh SVG */}
-                                                <svg viewBox="0 0 109 109" className="w-[90%] h-[90%] relative z-10" dangerouslySetInnerHTML={{ __html: svgCache[char] || '' }} />
-                                            </div>
-                                            <div className="text-center w-full px-2">
-                                                <div className="text-lg font-black uppercase text-gray-900 tracking-widest">{hanviet}</div>
-                                                <div className="text-xs font-semibold text-gray-600 italic line-clamp-1">{meaning}</div>
-                                            </div>
-                                        </div>
-
-                                        {/* CỘT 2: Âm On / Kun (35%) */}
-                                        <div className="w-[35%] border-r border-gray-300 p-4 flex flex-col justify-center">
-                                            <div className="mb-4">
-                                                <div className="inline-block bg-gray-800 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1 uppercase">Onyomi</div>
-                                                <div className="text-lg font-bold text-gray-800 font-jp leading-tight line-clamp-2">{onReading}</div>
-                                            </div>
-                                            <div>
-                                                <div className="inline-block bg-gray-200 text-gray-700 text-[10px] font-bold px-2 py-0.5 rounded mb-1 uppercase">Kunyomi</div>
-                                                <div className="text-lg font-bold text-gray-800 font-jp leading-tight line-clamp-2">{kunReading}</div>
-                                            </div>
-                                        </div>
-
-                                        {/* CỘT 3: Từ vựng đi kèm (35%) */}
-                                        <div className="w-[35%] p-4 flex flex-col justify-center">
-                                            <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-100 pb-1">Từ vựng đi kèm</div>
-                                            <div className="space-y-2">
-                                                {vocabs.length > 0 ? vocabs.map((v, vIdx) => (
-                                                    <div key={vIdx} className="flex flex-col">
-                                                        <div className="flex items-end gap-2">
-                                                            <span className="text-base font-black text-gray-900 font-jp">{v.word}</span>
-                                                            <span className="text-[10px] text-gray-500 font-bold mb-0.5 font-jp">{v.reading}</span>
-                                                        </div>
-                                                        <span className="text-xs text-gray-600 font-medium truncate">{v.meaning}</span>
-                                                    </div>
-                                                )) : (
-                                                    <div className="text-sm text-gray-400 italic">Chưa có từ vựng</div>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                );
-                            })}
-                        </div>
-
-                        {/* Footer Bản quyền (Góc dưới trái) */}
-                        <div className="absolute bottom-2 left-6 text-[10px] font-bold text-gray-400 italic">
-                            Bản quyền thuộc về Phá Đảo Tiếng Nhật - phadaotiengnhat.com
+                        <div className="flex gap-2">
+                            <button onClick={onClose} className="px-4 py-2 bg-gray-100 text-gray-600 font-bold rounded-xl text-xs hover:bg-gray-200 transition-colors uppercase">Hủy</button>
+                            <button onClick={handlePrint} className="px-6 py-2 bg-indigo-600 text-white font-black rounded-xl text-xs hover:bg-indigo-700 transition-colors uppercase shadow-md flex items-center gap-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path strokeLinecap="round" strokeLinejoin="round" d="M6 14h12v8H6z"/></svg>
+                                In tài liệu
+                            </button>
                         </div>
                     </div>
-                ))}
-            </div>
+
+                    {/* Vùng in thực tế (Sẽ hiển thị đầy đủ trên PDF) */}
+                    <div id="print-root" className="w-full flex flex-col gap-8 print:gap-0 bg-transparent print:bg-white">
+                        {pages.map((pageChars, pageIndex) => (
+                            <div 
+                                key={pageIndex} 
+                                className="a4-page bg-white w-[210mm] h-[297mm] shadow-2xl relative overflow-hidden flex flex-col"
+                            >
+                                {/* Header Trang */}
+                                <div className="h-[15mm] border-b-[3px] border-gray-900 flex justify-between items-end px-8 pb-2">
+                                    <span className="text-xl font-black uppercase tracking-[0.2em] text-gray-900">Phá Đảo Tiếng Nhật</span>
+                                    <span className="text-sm font-bold text-gray-500">Trang {pageIndex + 1}/{pages.length}</span>
+                                </div>
+
+                                {/* Body Trang (Chia đều 5 hàng) */}
+                                <div className="flex-1 flex flex-col">
+                                    {pageChars.map((char) => {
+                                        const dbInfo = dbData?.KANJI_DB?.[char] || {};
+                                        const onkunInfo = dbData?.ONKUN_DB?.[char] || {};
+                                        const hanviet = dbInfo.sound || "---";
+                                        const meaning = dbInfo.meaning || onkunInfo.meanings?.[0] || "---";
+                                        const onReading = onkunInfo.readings_on?.join('、') || "---";
+                                        const kunReading = onkunInfo.readings_kun?.join('、') || "---";
+                                        const vocabs = getVocabExamples(char);
+
+                                        return (
+                                            <div key={char} className="flex border-b border-dashed border-gray-300 h-[20%]">
+                                                
+                                                {/* 1. Ô KANJI (Rộng 30%) */}
+                                                <div className="w-[30%] border-r border-dashed border-gray-300 flex flex-col items-center justify-center px-4 py-2">
+                                                    <div className="w-24 h-24 relative flex items-center justify-center border-2 border-gray-200 rounded mb-2 bg-gray-50/50 print-ready-svg">
+                                                        {/* Lưới định vị */}
+                                                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
+                                                            <div className="w-full h-px bg-gray-400 absolute"></div>
+                                                            <div className="h-full w-px bg-gray-400 absolute"></div>
+                                                        </div>
+                                                        {/* SVG Render */}
+                                                        <svg viewBox="0 0 109 109" className="w-[85%] h-[85%] relative z-10" dangerouslySetInnerHTML={{ __html: svgCache[char] || '' }} />
+                                                    </div>
+                                                    <div className="text-center w-full">
+                                                        <div className="text-lg font-black uppercase tracking-widest text-gray-900">{hanviet}</div>
+                                                        <div className="text-xs font-bold text-gray-500 italic truncate w-full">{meaning}</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* 2. Ô ÂM ON/KUN (Rộng 35%) */}
+                                                <div className="w-[35%] border-r border-dashed border-gray-300 p-4 flex flex-col justify-center gap-3">
+                                                    <div>
+                                                        <span className="inline-block bg-gray-900 text-white text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-1">Onyomi (Âm Ôn)</span>
+                                                        <div className="text-base font-bold text-gray-800 font-jp leading-snug line-clamp-2">{onReading}</div>
+                                                    </div>
+                                                    <div>
+                                                        <span className="inline-block border border-gray-400 text-gray-600 text-[9px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mb-1">Kunyomi (Âm Cún)</span>
+                                                        <div className="text-base font-bold text-gray-800 font-jp leading-snug line-clamp-2">{kunReading}</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* 3. Ô TỪ VỰNG (Rộng 35%) */}
+                                                <div className="w-[35%] p-4 flex flex-col justify-center">
+                                                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-200 pb-1 mb-2">Từ vựng đi kèm</div>
+                                                    <div className="space-y-2">
+                                                        {vocabs.length > 0 ? vocabs.map((v, vIdx) => (
+                                                            <div key={vIdx} className="flex flex-col leading-tight">
+                                                                <div className="flex items-baseline gap-1.5">
+                                                                    <span className="text-base font-black text-gray-900 font-jp">{v.word}</span>
+                                                                    <span className="text-[10px] text-gray-500 font-bold font-jp">({v.reading})</span>
+                                                                </div>
+                                                                <span className="text-xs text-gray-600 font-medium truncate">{v.meaning}</span>
+                                                            </div>
+                                                        )) : (
+                                                            <div className="text-xs text-gray-400 italic">Chưa có ví dụ</div>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Footer Trang (Bản quyền) */}
+                                <div className="h-[10mm] flex items-center px-8 text-[10px] font-bold text-gray-400 italic">
+                                    Bản quyền thuộc về Phá Đảo Tiếng Nhật - phadaotiengnhat.com
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -5310,14 +5286,13 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     };
 
    const handleStartLearning = (target) => {
-        // Nếu đang ở màn chia động từ và bấm tiếp tục
-        if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
-            setSetupConfig(prev => ({ ...prev, isOpen: false }));
-            setIsVerbPreviewOpen(true);
-            return;
-        }
-        
-        if (target === 'preview') {
+    if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
+        setSetupConfig(prev => ({ ...prev, isOpen: false }));
+        setIsVerbPreviewOpen(true);
+        return;
+    }
+    
+    if (target === 'preview') {
         setSetupConfig(prev => ({ ...prev, isOpen: false }));
         setIsPreviewListOpen(true);
     } else {
@@ -5335,8 +5310,8 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
             if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
             else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
             else setIsVerbEssayOpen(true);
-        } else if (target === 'kanjidoc') { // <--- THÊM DÒNG NÀY
-            setIsKanjiDocOpen(true); 
+        } else if (target === 'kanjidoc') { // <--- XỬ LÝ NÚT IN TẠI ĐÂY
+            setIsKanjiDocOpen(true);
         }
     }
 };
@@ -5492,7 +5467,7 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
                 verbsData={verbPracticeData}
                 selectedForms={verbSelectedForms}
             />
-                    <KanjiPdfGeneratorModal 
+                  <KanjiPrintModal 
     isOpen={isKanjiDocOpen}
     onClose={() => setIsKanjiDocOpen(false)}
     text={config.text}
