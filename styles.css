@@ -75,43 +75,44 @@ body {
 }
 .exit-left { transform: translateX(-150%) rotate(-15deg); opacity: 0; transition: all 0.4s ease-in; }
 .exit-right { transform: translateX(150%) rotate(15deg); opacity: 0; transition: all 0.4s ease-in; }
-
-/* --- CONFIG CHO BẢN IN A4 --- */
-.print-only {
-  display: none;
-}
-
-.a4-paper {
-  width: 210mm;
-  min-height: 297mm;
-  background: white;
-  margin: 0 auto;
-  padding: 10mm;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-}
-
+/* --- CẤU HÌNH IN ẤN (PDF EXPORT) --- */
 @media print {
+  /* Ẩn toàn bộ giao diện web thông thường */
   body > *:not(#print-root) {
     display: none !important;
   }
   
-  #print-root, .print-only {
+  /* Chỉ hiện thị khu vực in */
+  #print-root {
     display: block !important;
-  }
-
-  .a4-paper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
     margin: 0;
-    box-shadow: none;
-    page-break-after: always;
+    padding: 0;
   }
 
-  .kanji-print-row {
-    page-break-inside: avoid;
-  }
-  
+  /* Cấu hình trang A4 */
   @page {
-    size: A4;
+    size: A4 portrait;
     margin: 10mm;
   }
+
+  .print-page {
+    page-break-after: always;
+    width: 100%;
+    background: white;
+  }
+  
+  /* Tránh in nền bị mất màu */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Ẩn khu vực in khi đang dùng web bình thường */
+#print-root {
+  display: none;
 }
