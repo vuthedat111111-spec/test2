@@ -75,47 +75,43 @@ body {
 }
 .exit-left { transform: translateX(-150%) rotate(-15deg); opacity: 0; transition: all 0.4s ease-in; }
 .exit-right { transform: translateX(150%) rotate(15deg); opacity: 0; transition: all 0.4s ease-in; }
-/* --- CẤU HÌNH IN ẤN (PRINT) --- */
-@media print {
-  body * {
-    visibility: hidden; /* Ẩn toàn bộ web */
-  }
-  #print-root, #print-root * {
-    visibility: visible; /* Chỉ hiện vùng cần in */
-  }
-  #print-root {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-  .print-hide {
-    display: none !important; /* Ẩn các nút bấm trong vùng in */
-  }
-  .a4-page {
-    margin: 0 !important;
-    box-shadow: none !important;
-    page-break-after: always;
-    break-after: page;
-  }
-  @page {
-    size: A4;
-    margin: 0; /* Xóa margin mặc định của trình duyệt để lấp đầy trang */
-  }
+
+/* --- CONFIG CHO BẢN IN A4 --- */
+.print-only {
+  display: none;
 }
 
-/* --- HIỂN THỊ TĨNH CHO SVG KANJIVG KHI IN --- */
-.print-ready-svg .stroke-anim-path {
-  animation: none !important;
-  stroke-dasharray: none !important;
-  stroke-dashoffset: 0 !important;
-  opacity: 1 !important;
-  stroke-width: 3px !important;
+.a4-paper {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  margin: 0 auto;
+  padding: 10mm;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
-.print-ready-svg .stroke-number {
-  animation: none !important;
-  opacity: 0.8 !important;
-  fill: #dc2626 !important; /* Màu đỏ cho số thứ tự nét để dễ nhìn */
-  font-size: 8px !important;
-  font-weight: bold;
+
+@media print {
+  body > *:not(#print-root) {
+    display: none !important;
+  }
+  
+  #print-root, .print-only {
+    display: block !important;
+  }
+
+  .a4-paper {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+
+  .kanji-print-row {
+    page-break-inside: avoid;
+  }
+  
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
 }
