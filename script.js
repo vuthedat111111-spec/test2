@@ -2227,8 +2227,38 @@ const classifyKanjiByLevel = (text, dbData) => {
     return result;
 };
 
+// --- BẮT ĐẦU CODE PHÂN LOẠI VÀ COPY KANJI PRO ---
+const classifyKanjiByLevel = (text, dbData) => {
+    const result = { N5: [], N4: [], N3: [], N2: [], N1: [], Other: [] };
+    if (!text || !dbData?.KANJI_LEVELS) return result;
+
+    const uniqueChars = Array.from(new Set(text.replace(/[\n\s]/g, '')));
+
+    uniqueChars.forEach(char => {
+        if (dbData.KANJI_LEVELS.N5?.includes(char)) result.N5.push(char);
+        else if (dbData.KANJI_LEVELS.N4?.includes(char)) result.N4.push(char);
+        else if (dbData.KANJI_LEVELS.N3?.includes(char)) result.N3.push(char);
+        else if (dbData.KANJI_LEVELS.N2?.includes(char)) result.N2.push(char);
+        else if (dbData.KANJI_LEVELS.N1?.includes(char)) result.N1.push(char);
+        else if (dbData.KANJI_DB?.[char]) result.Other.push(char); 
+    });
+
+    return result;
+};
+
 const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
     const classifiedData = React.useMemo(() => classifyKanjiByLevel(text, dbData), [text, dbData]);
+    
+    // State lưu trữ ID của vùng vừa được copy để hiện chữ "Đã Copy!"
+    const [copiedId, setCopiedId] = React.useState(null);
+
+    // Hàm xử lý Copy đa năng
+    const handleCopy = (content, id, e) => {
+        e.stopPropagation(); // Ngăn sự kiện click bị trùng chéo
+        navigator.clipboard.writeText(content);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 1500); // Ẩn thông báo sau 1.5 giây
+    };
     
     const levelStyles = {
         N5: 'bg-green-50 text-green-700 border-green-200',
@@ -2240,7 +2270,7 @@ const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 pb-10">
             {Object.keys(classifiedData).map(level => {
                 const chars = classifiedData[level];
                 if (chars.length === 0) return null;
@@ -2255,18 +2285,59 @@ const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
                                 {chars.length} chữ
                             </span>
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        
+                        {/* Lưới hiển thị dạng Card */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                             {chars.map((char, idx) => {
                                 const info = dbData?.KANJI_DB?.[char] || {};
+                                const sound = info.sound || '---';
+                                const meaning = info.meaning || '---';
+                                
                                 return (
-                                    <div 
-                                        key={idx} 
-                                        onClick={() => setAnimChar(char)} 
-                                        className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
-                                        title="Bấm để xem nét vẽ"
-                                    >
-                                        <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
-                                        <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
+                                    <div key={idx} className="relative flex flex-col border border-gray-200 rounded-xl bg-white shadow-sm overflow-hidden group hover:border-gray-900 hover:shadow-md transition-all">
+                                        
+                                        {/* Nút xem hoạt họa nét vẽ (Góc trên bên phải) */}
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setAnimChar(char); }}
+                                            className="absolute top-1.5 right-1.5 w-6 h-6 flex items-center justify-center bg-white border border-gray-200 rounded-md text-gray-400 hover:text-blue-500 hover:border-blue-200 opacity-0 group-hover:opacity-100 transition-all z-10 shadow-sm"
+                                            title="Xem nét vẽ"
+                                        >
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                        </button>
+
+                                        {/* VÙNG 1: CHỮ KANJI (Bấm để copy chữ) */}
+                                        <div 
+                                            onClick={(e) => handleCopy(char, `char-${char}`, e)}
+                                            className="flex-1 py-5 flex items-center justify-center bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors relative"
+                                            title="Bấm để sao chép chữ Hán"
+                                        >
+                                            <span className="text-4xl font-['Klee_One'] text-gray-900 leading-none">{char}</span>
+                                            
+                                            {/* Hiệu ứng Đã Copy */}
+                                            {copiedId === `char-${char}` && (
+                                                <div className="absolute inset-0 flex items-center justify-center bg-gray-900/90 text-white text-[10px] font-bold tracking-widest uppercase animate-in fade-in">
+                                                    Đã Copy!
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* VÙNG 2: HÁN VIỆT & Ý NGHĨA (Bấm để copy 2 dòng) */}
+                                        <div 
+                                            onClick={(e) => handleCopy(`${sound}\n${meaning}`, `info-${char}`, e)}
+                                            className="p-2.5 border-t border-gray-100 flex flex-col items-center text-center cursor-pointer hover:bg-gray-50 transition-colors relative"
+                                            title="Bấm để sao chép Âm Hán & Ý nghĩa"
+                                        >
+                                            <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest mb-1">{sound}</span>
+                                            <span className="text-[10px] font-medium text-gray-500 truncate w-full">{meaning}</span>
+                                            
+                                            {/* Hiệu ứng Đã Copy */}
+                                            {copiedId === `info-${char}` && (
+                                                <div className="absolute inset-0 flex items-center justify-center bg-gray-900/90 text-white text-[10px] font-bold tracking-widest uppercase animate-in fade-in">
+                                                    Đã Copy!
+                                                </div>
+                                            )}
+                                        </div>
+
                                     </div>
                                 )
                             })}
@@ -2277,7 +2348,7 @@ const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
         </div>
     );
 };
-// --- KẾT THÚC CODE PHÂN LOẠI KANJI ---
+// --- KẾT THÚC CODE PHÂN LOẠI VÀ COPY KANJI PRO ---
 // --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
 const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
     const [editingWord, setEditingWord] = useState(null);
