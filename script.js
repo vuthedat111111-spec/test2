@@ -2608,7 +2608,7 @@ const DonateModal = ({ isOpen, onClose }) => {
 };
             
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData, onOpenKanjiDict }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2840,15 +2840,7 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
 </div>
-{/* 7. TỪ ĐIỂN KANJI (TÍNH NĂNG MỚI) */}
-                        <div onClick={onOpenKanjiDict} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                {/* Icon cuốn sách từ điển */}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
-                            </div>
-                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TỪ ĐIỂN KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tra cứu nhanh N5-N1</p>
-                        </div>
+
                         {/* 7. LUYỆN JLPT */}
                         <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
                             <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -5005,166 +4997,6 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
-// --- COMPONENT MỚI: TỪ ĐIỂN KANJI (HỖ TRỢ PHÂN LOẠI TỰ ĐỘNG) ---
-const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
-    const [activeLevel, setActiveLevel] = useState('N5');
-    const [copiedToast, setCopiedToast] = useState(null);
-    const [inputText, setInputText] = useState('');
-
-    useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else {
-            document.body.style.overflow = 'unset';
-            setInputText(''); // Reset ô nhập liệu khi đóng
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen]);
-
-    // Logic bóc tách và phân loại Kanji từ ô nhập liệu tự động (Real-time)
-    const processedKanji = React.useMemo(() => {
-        if (!dbData || !dbData.KANJI_LEVELS || !inputText.trim()) return null;
-
-        // Lọc bỏ khoảng trắng, dấu câu và chỉ lấy các chữ độc nhất
-        const uniqueChars = Array.from(new Set(inputText.replace(/\s/g, '')));
-        
-        // Tạo khung chứa kết quả
-        const result = { N5: [], N4: [], N3: [], N2: [], N1: [], 'Ngoài list': [] };
-
-        uniqueChars.forEach(char => {
-            // Nếu là Kanji có trong Database
-            if (dbData.KANJI_DB[char]) {
-                if (dbData.KANJI_LEVELS.N5?.includes(char)) result.N5.push(char);
-                else if (dbData.KANJI_LEVELS.N4?.includes(char)) result.N4.push(char);
-                else if (dbData.KANJI_LEVELS.N3?.includes(char)) result.N3.push(char);
-                else if (dbData.KANJI_LEVELS.N2?.includes(char)) result.N2.push(char);
-                else if (dbData.KANJI_LEVELS.N1?.includes(char)) result.N1.push(char);
-                else result['Ngoài list'].push(char);
-            }
-        });
-
-        return result;
-    }, [inputText, dbData]);
-
-    if (!isOpen || !dbData || !dbData.KANJI_LEVELS) return null;
-
-    const handleCopy = (text, type) => {
-        navigator.clipboard.writeText(text);
-        setCopiedToast(`Đã sao chép ${type}: ${text.replace(/\n/g, ' - ')}`);
-        setTimeout(() => setCopiedToast(null), 2000);
-    };
-
-    // Tách riêng UI của thẻ Kanji để dùng lại cho gọn code
-    const renderKanjiCard = (char) => {
-        const info = dbData.KANJI_DB[char] || { sound: '---', meaning: '---' };
-        const copyDetails = `${info.sound}\n${info.meaning}`; // Format copy: THỰC \n ăn
-
-        return (
-            <div key={char} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col hover:border-indigo-300 hover:shadow-md transition-all group">
-                <div 
-                    onClick={() => handleCopy(char, 'Kanji')}
-                    className="py-6 flex items-center justify-center cursor-pointer bg-white group-hover:bg-indigo-50/30 transition-colors active:bg-indigo-100"
-                    title="Bấm để sao chép chữ Kanji"
-                >
-                    <span className="text-5xl font-['Klee_One'] text-gray-800">{char}</span>
-                </div>
-                <div 
-                    onClick={() => handleCopy(copyDetails, 'Nghĩa')}
-                    className="p-3 bg-gray-50 border-t border-gray-100 cursor-pointer hover:bg-gray-100 transition-colors active:bg-gray-200 flex flex-col items-center text-center"
-                    title="Bấm để sao chép Âm Hán & Nghĩa"
-                >
-                    <span className="text-sm font-black text-indigo-700 uppercase tracking-widest mb-0.5">{info.sound}</span>
-                    <span className="text-[11px] font-medium text-gray-500 leading-tight">{info.meaning}</span>
-                </div>
-            </div>
-        );
-    };
-
-    return (
-        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
-            <div className="bg-white w-full max-w-5xl rounded-[2rem] shadow-2xl overflow-hidden flex flex-col h-[90vh] animate-in zoom-in-95 border border-gray-200 relative" onClick={e => e.stopPropagation()}>
-                
-                {/* HEADER */}
-                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <div>
-                        <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight">Phân loại & Tra cứu Kanji</h2>
-                        <p className="text-xs text-gray-500 font-medium">Bấm vào mặt chữ để copy Kanji, bấm vào dưới để copy Âm & Nghĩa</p>
-                    </div>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm">✕</button>
-                </div>
-
-                {/* KHU VỰC NHẬP LIỆU */}
-                <div className="p-4 border-b border-gray-100 bg-white relative">
-                    <textarea 
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Dán một đoạn văn bản tiếng Nhật hoặc list Kanji vào đây, hệ thống sẽ tự động bóc tách..."
-                        className="w-full h-24 p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 transition-all custom-scrollbar"
-                    />
-                    {inputText && (
-                        <button 
-                            onClick={() => setInputText('')} 
-                            className="absolute bottom-6 right-6 text-[10px] font-bold text-red-500 hover:text-red-700 uppercase bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm transition-colors"
-                        >
-                            Xóa hết
-                        </button>
-                    )}
-                </div>
-
-                {/* KHU VỰC HIỂN THỊ */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 p-6">
-                    
-                    {/* NẾU CÓ DỮ LIỆU NHẬP VÀO -> HIỂN THỊ PHÂN LOẠI */}
-                    {processedKanji ? (
-                        <div className="space-y-8">
-                            {['N5', 'N4', 'N3', 'N2', 'N1', 'Ngoài list'].map(level => {
-                                const chars = processedKanji[level];
-                                // Ẩn đi các nhóm không có chữ nào
-                                if (chars.length === 0) return null;
-                                
-                                return (
-                                    <div key={level} className="animate-in fade-in slide-in-from-bottom-2">
-                                        <div className="flex items-center gap-3 mb-4 border-b border-gray-200 pb-2">
-                                            <h3 className="text-lg font-black text-indigo-600 uppercase">{level}</h3>
-                                            <span className="text-xs font-bold text-gray-400 bg-gray-200 px-2 py-0.5 rounded-md">{chars.length} chữ</span>
-                                        </div>
-                                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-                                            {chars.map(char => renderKanjiCard(char))}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        /* NẾU KHÔNG CÓ DỮ LIỆU NHẬP -> HIỂN THỊ BẢNG TRA CỨU MẶC ĐỊNH NHƯ BƯỚC 1 */
-                        <div className="animate-in fade-in">
-                            <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 w-full sm:w-fit mb-6 overflow-x-auto">
-                                {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
-                                    <button 
-                                        key={lvl}
-                                        onClick={() => setActiveLevel(lvl)}
-                                        className={`flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${activeLevel === lvl ? 'bg-white text-indigo-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
-                                    >
-                                        {lvl}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-                                {(dbData.KANJI_LEVELS[activeLevel] || []).map(char => renderKanjiCard(char))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* TOAST THÔNG BÁO COPY */}
-                {copiedToast && (
-                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-xl animate-in slide-in-from-bottom-5 z-[600]">
-                        ✅ {copiedToast}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -5179,7 +5011,6 @@ const App = () => {
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState(null);
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
-    const [isKanjiDictOpen, setIsKanjiDictOpen] = useState(false);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -5314,7 +5145,6 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
-    onOpenKanjiDict={() => setIsKanjiDictOpen(true)}
     onOpenSetup={(target) => {
         setSetupConfig({ isOpen: true, targetAction: target });
         // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
@@ -5470,11 +5300,6 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
         setTimeout(() => setIsFlashcardOpen(true), 100);
     }}
 />
-        <KanjiDictionaryModal 
-                isOpen={isKanjiDictOpen}
-                onClose={() => setIsKanjiDictOpen(false)}
-                dbData={dbData}
-            />
         </div>
     );
 };
