@@ -2208,147 +2208,6 @@ const KanjiAnimationContainer = ({ char, dbData, onClose }) => {
         />
     );
 };
-// --- BẮT ĐẦU CODE PHÂN LOẠI KANJI ---
-const classifyKanjiByLevel = (text, dbData) => {
-    const result = { N5: [], N4: [], N3: [], N2: [], N1: [], Other: [] };
-    if (!text || !dbData?.KANJI_LEVELS) return result;
-
-    const uniqueChars = Array.from(new Set(text.replace(/[\n\s]/g, '')));
-
-    uniqueChars.forEach(char => {
-        if (dbData.KANJI_LEVELS.N5?.includes(char)) result.N5.push(char);
-        else if (dbData.KANJI_LEVELS.N4?.includes(char)) result.N4.push(char);
-        else if (dbData.KANJI_LEVELS.N3?.includes(char)) result.N3.push(char);
-        else if (dbData.KANJI_LEVELS.N2?.includes(char)) result.N2.push(char);
-        else if (dbData.KANJI_LEVELS.N1?.includes(char)) result.N1.push(char);
-        else if (dbData.KANJI_DB?.[char]) result.Other.push(char); 
-    });
-
-    return result;
-};
-
-// --- BẮT ĐẦU CODE PHÂN LOẠI VÀ COPY KANJI PRO ---
-const classifyKanjiByLevel = (text, dbData) => {
-    const result = { N5: [], N4: [], N3: [], N2: [], N1: [], Other: [] };
-    if (!text || !dbData?.KANJI_LEVELS) return result;
-
-    const uniqueChars = Array.from(new Set(text.replace(/[\n\s]/g, '')));
-
-    uniqueChars.forEach(char => {
-        if (dbData.KANJI_LEVELS.N5?.includes(char)) result.N5.push(char);
-        else if (dbData.KANJI_LEVELS.N4?.includes(char)) result.N4.push(char);
-        else if (dbData.KANJI_LEVELS.N3?.includes(char)) result.N3.push(char);
-        else if (dbData.KANJI_LEVELS.N2?.includes(char)) result.N2.push(char);
-        else if (dbData.KANJI_LEVELS.N1?.includes(char)) result.N1.push(char);
-        else if (dbData.KANJI_DB?.[char]) result.Other.push(char); 
-    });
-
-    return result;
-};
-
-const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
-    const classifiedData = React.useMemo(() => classifyKanjiByLevel(text, dbData), [text, dbData]);
-    
-    // State lưu trữ ID của vùng vừa được copy để hiện chữ "Đã Copy!"
-    const [copiedId, setCopiedId] = React.useState(null);
-
-    // Hàm xử lý Copy đa năng
-    const handleCopy = (content, id, e) => {
-        e.stopPropagation(); // Ngăn sự kiện click bị trùng chéo
-        navigator.clipboard.writeText(content);
-        setCopiedId(id);
-        setTimeout(() => setCopiedId(null), 1500); // Ẩn thông báo sau 1.5 giây
-    };
-    
-    const levelStyles = {
-        N5: 'bg-green-50 text-green-700 border-green-200',
-        N4: 'bg-blue-50 text-blue-700 border-blue-200',
-        N3: 'bg-amber-50 text-amber-700 border-amber-200',
-        N2: 'bg-orange-50 text-orange-700 border-orange-200',
-        N1: 'bg-red-50 text-red-700 border-red-200',
-        Other: 'bg-gray-50 text-gray-500 border-gray-200'
-    };
-
-    return (
-        <div className="space-y-6 pb-10">
-            {Object.keys(classifiedData).map(level => {
-                const chars = classifiedData[level];
-                if (chars.length === 0) return null;
-
-                return (
-                    <div key={level} className="flex flex-col gap-3">
-                        <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
-                            <span className={`px-2 py-1 rounded text-[10px] font-black border ${levelStyles[level]}`}>
-                                {level === 'Other' ? 'NGOÀI JLPT' : level}
-                            </span>
-                            <span className="text-xs font-bold text-gray-500">
-                                {chars.length} chữ
-                            </span>
-                        </div>
-                        
-                        {/* Lưới hiển thị dạng Card */}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                            {chars.map((char, idx) => {
-                                const info = dbData?.KANJI_DB?.[char] || {};
-                                const sound = info.sound || '---';
-                                const meaning = info.meaning || '---';
-                                
-                                return (
-                                    <div key={idx} className="relative flex flex-col border border-gray-200 rounded-xl bg-white shadow-sm overflow-hidden group hover:border-gray-900 hover:shadow-md transition-all">
-                                        
-                                        {/* Nút xem hoạt họa nét vẽ (Góc trên bên phải) */}
-                                        <button 
-                                            onClick={(e) => { e.stopPropagation(); setAnimChar(char); }}
-                                            className="absolute top-1.5 right-1.5 w-6 h-6 flex items-center justify-center bg-white border border-gray-200 rounded-md text-gray-400 hover:text-blue-500 hover:border-blue-200 opacity-0 group-hover:opacity-100 transition-all z-10 shadow-sm"
-                                            title="Xem nét vẽ"
-                                        >
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                                        </button>
-
-                                        {/* VÙNG 1: CHỮ KANJI (Bấm để copy chữ) */}
-                                        <div 
-                                            onClick={(e) => handleCopy(char, `char-${char}`, e)}
-                                            className="flex-1 py-5 flex items-center justify-center bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors relative"
-                                            title="Bấm để sao chép chữ Hán"
-                                        >
-                                            <span className="text-4xl font-['Klee_One'] text-gray-900 leading-none">{char}</span>
-                                            
-                                            {/* Hiệu ứng Đã Copy */}
-                                            {copiedId === `char-${char}` && (
-                                                <div className="absolute inset-0 flex items-center justify-center bg-gray-900/90 text-white text-[10px] font-bold tracking-widest uppercase animate-in fade-in">
-                                                    Đã Copy!
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* VÙNG 2: HÁN VIỆT & Ý NGHĨA (Bấm để copy 2 dòng) */}
-                                        <div 
-                                            onClick={(e) => handleCopy(`${sound}\n${meaning}`, `info-${char}`, e)}
-                                            className="p-2.5 border-t border-gray-100 flex flex-col items-center text-center cursor-pointer hover:bg-gray-50 transition-colors relative"
-                                            title="Bấm để sao chép Âm Hán & Ý nghĩa"
-                                        >
-                                            <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest mb-1">{sound}</span>
-                                            <span className="text-[10px] font-medium text-gray-500 truncate w-full">{meaning}</span>
-                                            
-                                            {/* Hiệu ứng Đã Copy */}
-                                            {copiedId === `info-${char}` && (
-                                                <div className="absolute inset-0 flex items-center justify-center bg-gray-900/90 text-white text-[10px] font-bold tracking-widest uppercase animate-in fade-in">
-                                                    Đã Copy!
-                                                </div>
-                                            )}
-                                        </div>
-
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
-// --- KẾT THÚC CODE PHÂN LOẠI VÀ COPY KANJI PRO ---
 // --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
 const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
     const [editingWord, setEditingWord] = useState(null);
@@ -2357,24 +2216,10 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
     // --- STATE MỚI CHO HOẠT HỌA KANJI ---
     const [animChar, setAnimChar] = useState(null);
 
-    // --- KHÓA NỀN TUYỆT ĐỐI ---
     React.useEffect(() => {
-        if (isOpen) {
-            const scrollY = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflow = 'hidden';
-        } else {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
-            if (scrollY) {
-                window.scrollTo(0, parseInt(scrollY || '0') * -1);
-            }
-        }
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
 
     const { needsEdit, ready, kanjiList } = React.useMemo(() => {
@@ -2441,11 +2286,26 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
 
                     {/* Body (List) */}
                     <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
-                       {mode === 'kanji' ? (
+                        {mode === 'kanji' ? (
                             <div>
                                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
-                                {/* GỌI COMPONENT MỚI TẠI ĐÂY */}
-                                <KanjiLevelStats text={text} dbData={dbData} setAnimChar={setAnimChar} />
+                                <div className="flex flex-wrap gap-2">
+                                    {kanjiList.map((char, i) => {
+                                        const info = dbData?.KANJI_DB?.[char] || {};
+                                        return (
+                                            <div 
+                                                key={i} 
+                                                onClick={() => setAnimChar(char)} // BẤM ĐỂ MỞ HOẠT HỌA
+                                                className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
+                                                title="Bấm để xem nét vẽ"
+                                            >
+                                                {/* ĐỔI MÀU CHỮ THÀNH XANH DƯƠNG KHI HOVER */}
+                                                <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
+                                                <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         ) : (
                             <div className="space-y-8">
@@ -2748,7 +2608,7 @@ const DonateModal = ({ isOpen, onClose }) => {
 };
             
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData, onOpenKanjiDict }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2980,7 +2840,15 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
 </div>
-
+{/* 7. TỪ ĐIỂN KANJI (TÍNH NĂNG MỚI) */}
+                        <div onClick={onOpenKanjiDict} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                {/* Icon cuốn sách từ điển */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TỪ ĐIỂN KANJI</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tra cứu nhanh N5-N1</p>
+                        </div>
                         {/* 7. LUYỆN JLPT */}
                         <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
                             <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -5137,6 +5005,101 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
+// --- COMPONENT MỚI: TỪ ĐIỂN KANJI THEO CẤP ĐỘ ---
+const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
+    const [activeLevel, setActiveLevel] = useState('N5');
+    const [copiedToast, setCopiedToast] = useState(null); // State để hiện thông báo đã copy
+
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen || !dbData || !dbData.KANJI_LEVELS) return null;
+
+    // Hàm xử lý Copy
+    const handleCopy = (text, type) => {
+        navigator.clipboard.writeText(text);
+        setCopiedToast(`Đã sao chép ${type}: ${text.replace(/\n/g, ' - ')}`);
+        setTimeout(() => setCopiedToast(null), 2000);
+    };
+
+    // Lấy danh sách Kanji của cấp độ hiện tại
+    const currentKanjiList = dbData.KANJI_LEVELS[activeLevel] || [];
+
+    return (
+        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full max-w-4xl rounded-[2rem] shadow-2xl overflow-hidden flex flex-col h-[85vh] animate-in zoom-in-95 border border-gray-200 relative">
+                
+                {/* HEADER */}
+                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight">Tra cứu Kanji</h2>
+                        <p className="text-xs text-gray-500 font-medium">Bấm vào chữ hoặc nghĩa để sao chép nhanh</p>
+                    </div>
+                    
+                    {/* TABS CHỌN CẤP ĐỘ */}
+                    <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 w-full sm:w-auto overflow-x-auto">
+                        {['N5', 'N4', 'N3', 'N2', 'N1'].map(lvl => (
+                            <button 
+                                key={lvl}
+                                onClick={() => setActiveLevel(lvl)}
+                                className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeLevel === lvl ? 'bg-white text-indigo-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}
+                            >
+                                {lvl}
+                            </button>
+                        ))}
+                    </div>
+                    
+                    {/* NÚT ĐÓNG (Góc phải trên cùng) */}
+                    <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm">✕</button>
+                </div>
+
+                {/* BODY (DANH SÁCH KANJI) */}
+                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar bg-zinc-50">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        {currentKanjiList.map((char, idx) => {
+                            const info = dbData.KANJI_DB[char] || { sound: '---', meaning: '---' };
+                            const copyDetails = `${info.sound}\n${info.meaning}`; // Format: THỰC \n ăn
+
+                            return (
+                                <div key={idx} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col hover:border-indigo-300 hover:shadow-md transition-all group">
+                                    
+                                    {/* PHẦN 1: MẶT CHỮ (Bấm để copy Kanji) */}
+                                    <div 
+                                        onClick={() => handleCopy(char, 'Kanji')}
+                                        className="py-6 flex items-center justify-center cursor-pointer bg-white group-hover:bg-indigo-50/30 transition-colors active:bg-indigo-100"
+                                        title="Bấm để sao chép chữ Kanji"
+                                    >
+                                        <span className="text-5xl font-['Klee_One'] text-gray-800">{char}</span>
+                                    </div>
+
+                                    {/* PHẦN 2: ÂM & NGHĨA (Bấm để copy) */}
+                                    <div 
+                                        onClick={() => handleCopy(copyDetails, 'Nghĩa')}
+                                        className="p-3 bg-gray-50 border-t border-gray-100 cursor-pointer hover:bg-gray-100 transition-colors active:bg-gray-200 flex flex-col items-center text-center"
+                                        title="Bấm để sao chép Âm Hán & Nghĩa"
+                                    >
+                                        <span className="text-sm font-black text-indigo-700 uppercase tracking-widest mb-0.5">{info.sound}</span>
+                                        <span className="text-[11px] font-medium text-gray-500 leading-tight">{info.meaning}</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* TOAST THÔNG BÁO COPY */}
+                {copiedToast && (
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-xl animate-in slide-in-from-bottom-5">
+                        ✅ {copiedToast}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -5151,6 +5114,7 @@ const App = () => {
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState(null);
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
+    const [isKanjiDictOpen, setIsKanjiDictOpen] = useState(false);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -5285,6 +5249,7 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
+    onOpenKanjiDict={() => setIsKanjiDictOpen(true)}
     onOpenSetup={(target) => {
         setSetupConfig({ isOpen: true, targetAction: target });
         // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
@@ -5440,6 +5405,11 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
         setTimeout(() => setIsFlashcardOpen(true), 100);
     }}
 />
+        <KanjiDictionaryModal 
+                isOpen={isKanjiDictOpen}
+                onClose={() => setIsKanjiDictOpen(false)}
+                dbData={dbData}
+            />
         </div>
     );
 };
