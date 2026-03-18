@@ -2286,10 +2286,24 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
     // --- STATE MỚI CHO HOẠT HỌA KANJI ---
     const [animChar, setAnimChar] = useState(null);
 
+    // --- KHÓA NỀN TUYỆT ĐỐI ---
     React.useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
-        return () => { document.body.style.overflow = 'unset'; };
+        if (isOpen) {
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
     }, [isOpen]);
 
     const { needsEdit, ready, kanjiList } = React.useMemo(() => {
