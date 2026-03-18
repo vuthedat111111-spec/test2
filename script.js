@@ -2208,6 +2208,76 @@ const KanjiAnimationContainer = ({ char, dbData, onClose }) => {
         />
     );
 };
+// --- BẮT ĐẦU CODE PHÂN LOẠI KANJI ---
+const classifyKanjiByLevel = (text, dbData) => {
+    const result = { N5: [], N4: [], N3: [], N2: [], N1: [], Other: [] };
+    if (!text || !dbData?.KANJI_LEVELS) return result;
+
+    const uniqueChars = Array.from(new Set(text.replace(/[\n\s]/g, '')));
+
+    uniqueChars.forEach(char => {
+        if (dbData.KANJI_LEVELS.N5?.includes(char)) result.N5.push(char);
+        else if (dbData.KANJI_LEVELS.N4?.includes(char)) result.N4.push(char);
+        else if (dbData.KANJI_LEVELS.N3?.includes(char)) result.N3.push(char);
+        else if (dbData.KANJI_LEVELS.N2?.includes(char)) result.N2.push(char);
+        else if (dbData.KANJI_LEVELS.N1?.includes(char)) result.N1.push(char);
+        else if (dbData.KANJI_DB?.[char]) result.Other.push(char); 
+    });
+
+    return result;
+};
+
+const KanjiLevelStats = ({ text, dbData, setAnimChar }) => {
+    const classifiedData = React.useMemo(() => classifyKanjiByLevel(text, dbData), [text, dbData]);
+    
+    const levelStyles = {
+        N5: 'bg-green-50 text-green-700 border-green-200',
+        N4: 'bg-blue-50 text-blue-700 border-blue-200',
+        N3: 'bg-amber-50 text-amber-700 border-amber-200',
+        N2: 'bg-orange-50 text-orange-700 border-orange-200',
+        N1: 'bg-red-50 text-red-700 border-red-200',
+        Other: 'bg-gray-50 text-gray-500 border-gray-200'
+    };
+
+    return (
+        <div className="space-y-6">
+            {Object.keys(classifiedData).map(level => {
+                const chars = classifiedData[level];
+                if (chars.length === 0) return null;
+
+                return (
+                    <div key={level} className="flex flex-col gap-3">
+                        <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+                            <span className={`px-2 py-1 rounded text-[10px] font-black border ${levelStyles[level]}`}>
+                                {level === 'Other' ? 'NGOÀI JLPT' : level}
+                            </span>
+                            <span className="text-xs font-bold text-gray-500">
+                                {chars.length} chữ
+                            </span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {chars.map((char, idx) => {
+                                const info = dbData?.KANJI_DB?.[char] || {};
+                                return (
+                                    <div 
+                                        key={idx} 
+                                        onClick={() => setAnimChar(char)} 
+                                        className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
+                                        title="Bấm để xem nét vẽ"
+                                    >
+                                        <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
+                                        <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+};
+// --- KẾT THÚC CODE PHÂN LOẠI KANJI ---
 // --- COMPONENT: BẢNG DANH SÁCH XEM TRƯỚC VÀ CHỈNH SỬA (MONOCHROME) ---
 const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, targetAction, customVocabData, onSaveVocab }) => {
     const [editingWord, setEditingWord] = useState(null);
@@ -2286,26 +2356,11 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
 
                     {/* Body (List) */}
                     <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-6 bg-white">
-                        {mode === 'kanji' ? (
+                       {mode === 'kanji' ? (
                             <div>
                                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tổng cộng: {kanjiList.length} chữ</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {kanjiList.map((char, i) => {
-                                        const info = dbData?.KANJI_DB?.[char] || {};
-                                        return (
-                                            <div 
-                                                key={i} 
-                                                onClick={() => setAnimChar(char)} // BẤM ĐỂ MỞ HOẠT HỌA
-                                                className="flex flex-col items-center justify-center border border-gray-200 rounded-xl p-2 w-16 h-20 bg-gray-50 hover:border-blue-500 hover:bg-blue-50 transition-colors group cursor-pointer"
-                                                title="Bấm để xem nét vẽ"
-                                            >
-                                                {/* ĐỔI MÀU CHỮ THÀNH XANH DƯƠNG KHI HOVER */}
-                                                <span className="text-3xl font-['Klee_One'] text-gray-900 leading-none group-hover:text-blue-600 transition-colors">{char}</span>
-                                                <span className="text-[9px] font-bold text-gray-500 mt-1 truncate w-full text-center group-hover:text-blue-600 transition-colors">{info.sound || '---'}</span>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
+                                {/* GỌI COMPONENT MỚI TẠI ĐÂY */}
+                                <KanjiLevelStats text={text} dbData={dbData} setAnimChar={setAnimChar} />
                             </div>
                         ) : (
                             <div className="space-y-8">
@@ -2608,7 +2663,7 @@ const DonateModal = ({ isOpen, onClose }) => {
 };
             
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenPrintKanji, dbData }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, dbData }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2721,7 +2776,7 @@ React.useEffect(() => {
                         
                         {/* Menu PC: GIỮ NGUYÊN 100% */}
                         <div className="hidden md:flex items-center gap-5">
-                            <button onClick={() => setIsDocsModalOpen(true)} className="text-sm font-bold text-zinc-600 hover:text-zinc-900 px-2 py-1 rounded-lg hover:bg-zinc-50">Tài liệu</button>
+                           
                             <div className="relative flex items-center" ref={notifRef}>
                                 <button onClick={handleToggleNotif} className="relative p-2 text-zinc-500 hover:text-zinc-900 rounded-full hover:bg-zinc-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
@@ -2810,23 +2865,14 @@ React.useEffect(() => {
 
                         {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20 animate-pulse">
-                                MỚI
-                            </div>
+                            
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
                         </div>
-{/* MỚI: TẠO FILE KANJI */}
-<div onClick={onOpenPrintKanji} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-900">TẠO FILE KANJI</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Xuất PDF in ấn</p>
-</div>
+
                         {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             {dueCharsCount > 0 && (
@@ -2838,8 +2884,19 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
+{/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
+<div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20 animate-pulse">
+     MIỄN PHÍ
+  </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
+</div>
 
-                        {/* 6. LUYỆN JLPT */}
+                        {/* 7. LUYỆN JLPT */}
                         <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
                             <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                                 Sắp ra mắt
@@ -2880,7 +2937,7 @@ React.useEffect(() => {
                         </button>
                         
                         {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
-                        <button onClick={() => setIsDocsModalOpen(true)} className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest mt-2">Tài liệu</button>
+                     
                         <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
                     </div>
                     <p className="text-sm text-zinc-500 font-medium">© 2026 Phá Đảo Tiếng Nhật.</p>
@@ -2964,17 +3021,7 @@ TÀI LIỆU HỌC TẬP
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
 
-                {/* Flashcard từ vựng */}
-                <a href="https://quizlet.com/join/nuE9y8xHf?i=4yxqkk&x=1bqt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
-                    <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">Flashcard từ vựng N5-N1</p>
-                        <p className="text-[10px] text-gray-400">354 học phần</p>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
+    
 
                 {/* nhóm học tập */}
                 <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
@@ -5005,133 +5052,6 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
-// --- COMPONENT MỚI: TẠO FILE KANJI (IN PDF) ---
-const PrintKanjiModal = ({ isOpen, onClose, dbData }) => {
-    const [inputText, setInputText] = React.useState('');
-    const [pages, setPages] = React.useState([]);
-    const [isPreviewing, setIsPreviewing] = React.useState(false);
-
-    // Xử lý tạo trang in
-    const handleGenerate = () => {
-        if (!inputText.trim() || !dbData) return;
-
-        // 1. Lọc lấy các Kanji hợp lệ (không trùng lặp)
-        const chars = Array.from(new Set(inputText.replace(/[\n\sa-zA-Z]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
-        
-        if (chars.length === 0) {
-            alert("Không tìm thấy Kanji hợp lệ trong dữ liệu!");
-            return;
-        }
-
-        // 2. Map dữ liệu lấy Âm và Nghĩa
-        const processedData = chars.map(char => {
-            const info = dbData.KANJI_DB[char];
-            return {
-                char: char,
-                sound: info.sound || '',
-                meaning: info.meaning || ''
-            };
-        });
-
-        // 3. Chia thành các trang (Mỗi trang 40 chữ: 5 cột x 8 hàng)
-        const ITEMS_PER_PAGE = 40;
-        const newPages = [];
-        for (let i = 0; i < processedData.length; i += ITEMS_PER_PAGE) {
-            newPages.push(processedData.slice(i, i + ITEMS_PER_PAGE));
-        }
-
-        setPages(newPages);
-        setIsPreviewing(true);
-    };
-
-    // Hàm gọi lệnh in của trình duyệt
-    const handlePrint = () => {
-        window.print();
-    };
-
-    if (!isOpen) return null;
-
-    // Giao diện để Render ra bản in (Bị ẩn trên web, chỉ hiện khi in hoặc ở chế độ preview)
-    const PrintTemplate = () => (
-        <div id="print-root" className={isPreviewing ? "!block static w-full max-w-[210mm] mx-auto bg-white shadow-2xl mt-4" : ""}>
-            {pages.map((page, pageIndex) => (
-                <div key={pageIndex} className="print-page w-full aspect-[1/1.414] p-8 flex flex-col bg-white relative">
-                    {/* Header in */}
-                    <div className="text-center mb-6 border-b-2 border-gray-800 pb-2">
-                        <h1 className="text-2xl font-black uppercase tracking-widest text-gray-900">Danh Sách Hán Tự</h1>
-                    </div>
-
-                    {/* Grid 5 Cột giống PDF bạn gửi */}
-                    <div className="grid grid-cols-5 gap-2 flex-1 content-start">
-                        {page.map((item, idx) => (
-                            <div key={idx} className="border border-gray-400 rounded-lg p-2 flex flex-col items-center justify-start text-center h-[3.8rem] sm:h-auto break-inside-avoid">
-                                <div className="text-5xl font-['Klee_One'] text-gray-900 mb-2 leading-none pt-2">{item.char}</div>
-                                <div className="text-xs font-black uppercase text-gray-800 mb-0.5 tracking-wider">{item.sound}</div>
-                                <div className="text-[10px] text-gray-600 font-medium leading-tight px-1">{item.meaning}</div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Footer in */}
-                    <div className="mt-auto pt-4 border-t border-gray-300 flex justify-between text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-                        <span>Biên soạn bởi Phá Đảo Tiếng Nhật</span>
-                        <span>Trang {pageIndex + 1} / {pages.length}</span>
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
-
-    return (
-        <div className="fixed inset-0 z-[600] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95">
-                
-                {/* Header Modal */}
-                <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <div>
-                        <h2 className="text-lg font-black text-gray-900 uppercase tracking-tight">Tạo File Kanji (PDF)</h2>
-                        <p className="text-xs text-gray-500 font-medium">Tạo bảng Kanji theo chuẩn Phá Đảo để in ấn</p>
-                    </div>
-                    <button onClick={() => { setIsPreviewing(false); onClose(); }} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-500">✕</button>
-                </div>
-
-                {/* Nội dung */}
-                <div className="flex-1 overflow-y-auto bg-gray-100 p-6 flex flex-col sm:flex-row gap-6">
-                    {/* Phần Nhập Liệu */}
-                    <div className="w-full sm:w-1/3 flex flex-col gap-4">
-                        <textarea 
-                            value={inputText}
-                            onChange={(e) => setInputText(e.target.value)}
-                            placeholder="Nhập hoặc dán Kanji vào đây (có thể dán cả đoạn văn, hệ thống sẽ tự lọc Kanji)..."
-                            className="w-full flex-1 min-h-[200px] p-4 rounded-xl border border-gray-200 shadow-sm focus:ring-2 focus:ring-gray-900 outline-none resize-none font-['Klee_One'] text-xl"
-                        />
-                        <button onClick={handleGenerate} disabled={!inputText} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white font-black rounded-xl shadow-lg transition-all active:scale-95 uppercase tracking-widest text-xs">
-                            Tạo Xem Trước
-                        </button>
-                    </div>
-
-                    {/* Phần Xem Trước (Preview) */}
-                    <div className="w-full sm:w-2/3 bg-gray-300 rounded-xl overflow-y-auto border-2 border-gray-200 shadow-inner flex flex-col items-center p-4 custom-scrollbar">
-                        {!isPreviewing ? (
-                            <div className="m-auto text-gray-400 font-bold uppercase tracking-widest text-xs">Bản xem trước sẽ hiện ở đây</div>
-                        ) : (
-                            <PrintTemplate />
-                        )}
-                    </div>
-                </div>
-
-                {/* Footer Modal */}
-                <div className="p-5 border-t border-gray-200 bg-white flex justify-end gap-3">
-                    <button onClick={() => setIsPreviewing(false)} className="px-6 py-3.5 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-50 transition-all">Sửa lại</button>
-                    <button onClick={handlePrint} disabled={!isPreviewing} className="px-8 py-3.5 bg-gray-900 hover:bg-black disabled:bg-gray-300 text-white font-black rounded-xl shadow-lg transition-all active:scale-95 uppercase tracking-widest flex items-center gap-2">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                        In / Lưu PDF
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -5146,7 +5066,6 @@ const App = () => {
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState(null);
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
-    const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -5288,14 +5207,8 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
             handleModeSwitch('vocab'); 
         }
     }}
-    onOpenPrintKanji={() => setIsPrintModalOpen(true)}
-        dbData={dbData}
 />
-<PrintKanjiModal 
-    isOpen={isPrintModalOpen}
-    onClose={() => setIsPrintModalOpen(false)}
-    dbData={dbData}
-/>
+
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
             <StudySetupModal 
                 isOpen={setupConfig.isOpen}
