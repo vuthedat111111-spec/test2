@@ -2874,6 +2874,18 @@ React.useEffect(() => {
                         
                         {/* Vách ngăn mờ (Chỉ hiện trên PC) */}
                         <div className="h-4 w-px bg-zinc-200 hidden md:block"></div>
+{/* 2. Nút Nhóm Facebook (Thiết kế đồng bộ với Tiktok) */}
+<a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group">
+    <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+        </svg>
+    </div>
+    <span className="font-bold tracking-tight text-zinc-900">Nhóm Facebook</span>
+</a>
+
+{/* Vách ngăn mờ 2 */}
+<div className="h-4 w-px bg-zinc-200 hidden md:block"></div>
                         
                         {/* 2. Nút Mời Cafe (Mới thêm) */}
                         <button onClick={() => setIsDonateModalOpen(true)} className="flex items-center gap-2 group text-zinc-600 hover:text-zinc-900 transition-colors active:scale-95">
