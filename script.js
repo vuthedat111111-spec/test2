@@ -2840,6 +2840,17 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
 </div>
+{/* 7. LUYỆN KAIWA */}
+<div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        MỚI
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
+</div>
 
                         {/* 7. LUYỆN JLPT */}
                         <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
@@ -4997,6 +5008,244 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
         </div>
     );
 };
+const KaiwaModal = ({ isOpen, onClose }) => {
+    const [view, setView] = React.useState('categories'); // 'categories' | 'list' | 'detail'
+    const [lessons, setLessons] = React.useState([]);
+    const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    // Tự động khóa cuộn trang nền khi mở Modal
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else {
+            document.body.style.overflow = 'unset';
+            setView('categories'); // Reset lại khi đóng
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    // --- 1. HÀM TẢI DỮ LIỆU TỪ JSON ---
+    const loadCategory = async (level) => {
+        setIsLoading(true);
+        try {
+            // Thay đổi đường dẫn này tùy theo level (sachkaiwan5, sachkaiwan4...)
+            const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
+            if (!response.ok) throw new Error("Chưa có data");
+            const data = await response.json();
+            setLessons(data);
+            setView('list');
+        } catch (error) {
+            alert(`Tính năng đang cập nhật bộ dữ liệu ${level.toUpperCase()}! Thử file mẫu N5 nhé.`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // --- VIEW 1: CHỌN DANH MỤC ---
+    const renderCategories = () => (
+        <div className="p-6 h-full flex flex-col">
+            <h2 className="text-xl font-black text-zinc-900 mb-6 uppercase tracking-tight">Chọn bộ giáo trình</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {['n5', 'n4', 'n3', 'n2'].map((lvl) => (
+                    <button 
+                        key={lvl}
+                        onClick={() => loadCategory(lvl)}
+                        className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all group flex flex-col items-start active:scale-95"
+                    >
+                        <span className="text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors uppercase">{lvl}</span>
+                        <span className="text-sm font-bold text-zinc-600 mt-2">Câu giao tiếp thực chiến</span>
+                    </button>
+                ))}
+            </div>
+            {isLoading && <p className="text-center mt-4 text-xs font-bold text-indigo-500 animate-pulse">Đang tải dữ liệu...</p>}
+        </div>
+    );
+
+    // --- VIEW 2: DANH SÁCH CÂU (CHỈ TIẾNG NHẬT) ---
+    const renderList = () => (
+        <div className="flex flex-col h-full bg-zinc-50">
+            <div className="p-4 bg-white border-b border-zinc-200 flex items-center gap-3 sticky top-0 z-10">
+                <button onClick={() => setView('categories')} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <h2 className="text-sm font-black text-zinc-900 uppercase">Danh sách câu hỏi</h2>
+            </div>
+            <div className="p-4 space-y-2 overflow-y-auto custom-scrollbar flex-1">
+                {lessons.map((lesson, idx) => (
+                    <button 
+                        key={lesson.id}
+                        onClick={() => { setCurrentLessonIdx(idx); setView('detail'); }}
+                        className="w-full p-4 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
+                    >
+                        <span className="text-lg font-bold text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors">{lesson.title}</span>
+                        <span className="text-xs font-bold text-zinc-300">#{idx + 1}</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
+
+    // --- VIEW 3: MÀN HÌNH THỰC HÀNH SHADOWING CHI TIẾT ---
+    return (
+        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full h-full sm:h-[90vh] max-w-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden relative animate-in zoom-in-95 duration-300">
+                
+                {/* Nút Đóng Tổng */}
+                <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm border border-zinc-200 text-zinc-500 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-all z-50 shadow-sm">✕</button>
+
+                {view === 'categories' && renderCategories()}
+                {view === 'list' && renderList()}
+                
+                {/* COMPONENT CHI TIẾT ĐƯỢC TÁCH RIÊNG BÊN DƯỚI ĐỂ QUẢN LÝ AUDIO */}
+                {view === 'detail' && (
+                    <KaiwaPracticeView 
+                        lesson={lessons[currentLessonIdx]} 
+                        total={lessons.length}
+                        currentIndex={currentLessonIdx}
+                        onBack={() => setView('list')}
+                        onNext={() => setCurrentLessonIdx(prev => Math.min(prev + 1, lessons.length - 1))}
+                        onPrev={() => setCurrentLessonIdx(prev => Math.max(prev - 1, 0))}
+                    />
+                )}
+            </div>
+        </div>
+    );
+};
+
+// --- COMPONENT CON: QUẢN LÝ GIAO DIỆN SHADOWING (VIEW 3) ---
+const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onNext, onPrev }) => {
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    const [showTranslation, setShowTranslation] = React.useState(false);
+    const [roleplayMode, setRoleplayMode] = React.useState('all'); // 'all' | 'hideA' | 'hideB'
+    const audioRef = React.useRef(null);
+
+    // Reset state khi đổi câu hỏi
+    React.useEffect(() => {
+        setIsPlaying(false);
+        // setShowTranslation(false); // Tuỳ chọn: Có muốn giữ nguyên trạng thái dịch khi qua câu mới ko?
+    }, [lesson]);
+
+    const toggleAudio = () => {
+        if (!audioRef.current) return;
+        if (isPlaying) audioRef.current.pause();
+        else audioRef.current.play();
+        setIsPlaying(!isPlaying);
+    };
+
+    return (
+        <div className="flex flex-col h-full bg-white relative">
+            <audio ref={audioRef} src={lesson.audioPath} onEnded={() => setIsPlaying(false)} />
+
+            {/* Header Detail */}
+            <div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center justify-between sticky top-0 z-10">
+                <button onClick={onBack} className="flex items-center gap-2 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-3 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    QUAY LẠI
+                </button>
+                <span className="text-[10px] font-black text-zinc-400 tracking-widest bg-zinc-50 px-3 py-1 rounded-full border border-zinc-200">
+                    CÂU {currentIndex + 1} / {total}
+                </span>
+                <div className="w-20"></div> {/* Spacer balance */}
+            </div>
+
+            {/* Nội dung Scroll */}
+            <div className="flex-1 overflow-y-auto p-6 pb-36 custom-scrollbar">
+                
+                {/* 1. Câu chính & Nghĩa */}
+                <div className="mb-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-3 leading-tight font-sans">{lesson.title}</h2>
+                    <p className="text-base font-medium text-zinc-500 italic">{lesson.translation}</p>
+                </div>
+
+                {/* 2. Giải thích */}
+                {lesson.explanation && (
+                    <div className="bg-zinc-50 border-l-4 border-zinc-800 p-4 rounded-r-xl mb-8">
+                        <p className="text-sm text-zinc-700 leading-relaxed font-medium">
+                            <span className="text-[10px] font-black text-zinc-900 uppercase tracking-widest block mb-1">💡 Giải thích</span>
+                            {lesson.explanation}
+                        </p>
+                    </div>
+                )}
+
+                {/* 3. Bảng điều khiển Roleplay */}
+                <div className="flex flex-wrap gap-3 justify-between items-center mb-6 pb-4 border-b border-zinc-100 sticky top-0 bg-white/90 backdrop-blur-sm z-10 py-2">
+                    <div className="flex bg-zinc-100 p-1 rounded-xl">
+                        <button onClick={() => setRoleplayMode('all')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'all' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500 hover:text-zinc-700'}`}>Nghe hết</button>
+                        <button onClick={() => setRoleplayMode('hideA')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideA' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai A</button>
+                        <button onClick={() => setRoleplayMode('hideB')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideB' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai B</button>
+                    </div>
+                    
+                    <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+                        <span className="text-xs font-bold text-zinc-600 uppercase">Dịch TV</span>
+                        <input type="checkbox" checked={showTranslation} onChange={() => setShowTranslation(!showTranslation)} className="accent-zinc-900 w-4 h-4 rounded-sm"/>
+                    </label>
+                </div>
+
+                {/* 4. Đoạn hội thoại chat */}
+                <div className="space-y-5">
+                    {lesson.dialogues.map((line, idx) => {
+                        const isHidden = (roleplayMode === 'hideA' && line.speaker === 'A') || 
+                                         (roleplayMode === 'hideB' && line.speaker === 'B');
+                        const isA = line.speaker === 'A';
+                        
+                        return (
+                            <div key={idx} className={`flex flex-col w-full ${isA ? 'items-start' : 'items-end'}`}>
+                                <span className={`text-[10px] font-black uppercase tracking-widest mb-1 px-1 ${isA ? 'text-zinc-400' : 'text-indigo-400'}`}>
+                                    Người {line.speaker}
+                                </span>
+                                <div className={`max-w-[85%] md:max-w-[75%] p-4 sm:p-5 shadow-sm border ${
+                                    isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' 
+                                        : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
+                                }`}>
+                                    <p className={`text-lg sm:text-xl font-medium leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[5px] opacity-40 select-none' : ''}`}>
+                                        {isHidden ? "（あなたが話す番です）" : line.ja}
+                                    </p>
+                                    
+                                    {showTranslation && (
+                                        <p className={`text-sm mt-3 font-medium border-t pt-2 ${
+                                            isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-300 border-zinc-700'
+                                        }`}>
+                                            {line.vi}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+
+            {/* THANH AUDIO ĐÁY (Cố định) */}
+            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-zinc-200 px-6 py-4 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+                <button onClick={onPrev} disabled={currentIndex === 0} className={`p-3 rounded-full transition-all ${currentIndex === 0 ? 'text-zinc-200 cursor-not-allowed' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900'}`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+
+                <div className="flex items-center gap-4">
+                    {/* Nút lùi 3s */}
+                    <button onClick={() => { if(audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 3); }} className="w-10 h-10 rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all" title="Lùi 3s">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H7"></path></svg>
+                    </button>
+                    
+                    {/* Nút Play to */}
+                    <button onClick={toggleAudio} className="w-16 h-16 bg-zinc-900 text-white rounded-full flex items-center justify-center hover:bg-black active:scale-95 transition-all shadow-xl">
+                        {isPlaying ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                        ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        )}
+                    </button>
+                </div>
+
+                <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-3 rounded-full transition-all ${currentIndex === total - 1 ? 'text-zinc-200 cursor-not-allowed' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900'}`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+        </div>
+    )
+}
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -5011,6 +5260,7 @@ const App = () => {
     const [verbPracticeData, setVerbPracticeData] = useState([]);
     const [verbTargetForm, setVerbTargetForm] = useState(null);
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
+    const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -5125,6 +5375,8 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
                 if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
                 else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
                 else setIsVerbEssayOpen(true);
+            } else if (target === 'kaiwa') {    // <--- THÊM MỚI Ở ĐÂY
+                setIsKaiwaOpen(true);           // <--- THÊM MỚI Ở ĐÂY
             }
         }
     };
@@ -5280,6 +5532,10 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
                 verbsData={verbPracticeData}
                 selectedForms={verbSelectedForms}
             />
+                    <KaiwaModal 
+        isOpen={isKaiwaOpen} 
+        onClose={() => setIsKaiwaOpen(false)} 
+    />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
