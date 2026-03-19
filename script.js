@@ -5052,13 +5052,15 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {[
         { id: '700caun5', title: '700 CÂU KAIWA N5', desc: 'Giao tiếp sơ cấp' }
-    ].map((item) => (
+   ].map((item) => (
         <button 
             key={item.id}
             onClick={() => loadCategory(item.id)}
-            className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all group flex flex-col items-start active:scale-95"
+            // 1. Đổi border-zinc-200 thành border-transparent (Viền tàng hình, rê chuột vào mới hiện đen)
+            className="p-6 bg-zinc-50 border border-transparent rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95"
         >
-            <span className="text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors uppercase">{item.title}</span>
+            {/* 2. Đổi text-zinc-300 thành text-zinc-900 (Chữ luôn luôn đen đậm) */}
+            <span className="text-2xl font-black text-zinc-900 uppercase">{item.title}</span>
             <span className="text-sm font-bold text-zinc-600 mt-2">{item.desc}</span>
         </button>
     ))}
