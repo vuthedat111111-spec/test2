@@ -5218,7 +5218,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     QUAY LẠI
                 </button>
                 <span className="text-[10px] font-black text-zinc-400 tracking-widest bg-zinc-50 px-3 py-1 rounded-full border border-zinc-200">
-                    CÂU {currentIndex + 1} / {total}
+                    {currentIndex + 1} / {total}
                 </span>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
@@ -5280,7 +5280,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 
                                 return (
                                     <div key={`${convIdx}-${idx}`} className={`flex flex-col w-full ${isA ? 'items-start' : 'items-end'}`}>
-                                        <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 ${isA ? 'text-zinc-400' : 'text-indigo-400'}`}>Người {line.speaker}</span>
+                                        <span className="text-[9px] font-black uppercase tracking-widest mb-1 px-1 text-zinc-400">Người {line.speaker}</span>
                                         <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border ${
                                             isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
                                         }`}>
