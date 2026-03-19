@@ -1,0 +1,24 @@
+[
+  {
+    "id": "n5_001",
+    "title": "おはようございます",
+    "translation": "Chào buổi sáng",
+    "explanation": "Dùng để chào hỏi vào buổi sáng (thường trước 11h trưa). Thể hiện sự lịch sự với người mới gặp.",
+    "audioPath": "./data/kaiwa/sachkaiwan5/n5_001.mp3",
+    "dialogues": [
+      { "speaker": "A", "ja": "おはようございます、田中さん。", "vi": "Chào buổi sáng, anh Tanaka." },
+      { "speaker": "B", "ja": "あ、おはようございます。今日もいい天気ですね。", "vi": "A, chào buổi sáng. Hôm nay thời tiết cũng đẹp nhỉ." }
+    ]
+  },
+  {
+    "id": "n5_002",
+    "title": "お疲れ様でした",
+    "translation": "Bạn đã vất vả rồi",
+    "explanation": "Câu chào kinh điển chốn công sở sau khi kết thúc công việc.",
+    "audioPath": "./data/kaiwa/sachkaiwan5/n5_002.mp3",
+    "dialogues": [
+      { "speaker": "A", "ja": "今日の仕事はこれで終わりです。お疲れ様でした。", "vi": "Công việc hôm nay đến đây là xong. Cậu đã vất vả rồi." },
+      { "speaker": "B", "ja": "お疲れ様でした。お先に失礼します。", "vi": "Anh cũng vất vả rồi. Tôi xin phép về trước ạ." }
+    ]
+  }
+]
