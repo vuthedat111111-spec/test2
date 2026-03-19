@@ -4,7 +4,7 @@
     "title": "PHẦN 1",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.m4a",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.mp3",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -30,7 +30,7 @@
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": " はい？", "vi": "Có không?" },
+          { "speaker": "A", "ja": "はい？", "vi": "Có không?" },
           { "speaker": "B", "ja": "はい。", "vi": "Có." }
         ]
       },
@@ -44,22 +44,22 @@
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "ほんとう？", "vi": "Thật không?" },
-          { "speaker": "B", "ja": "ほんとう。", "vi": "Thật." }
+          { "speaker": "A", "ja": "[本当](ほんとう)？", "vi": "Thật không?" },
+          { "speaker": "B", "ja": "[本当](ほんとう)。", "vi": "Thật." }
         ]
       },
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "[田中](たなか)さん？", "vi": "Tanaka á?" },
-          { "speaker": "B", "ja": "[田中](たなか)さん。", "vi": "Ừ, Tanaka." }
+          { "speaker": "A", "ja": "[田中](たなか)さん？", "vi": "Tanakasan á?" },
+          { "speaker": "B", "ja": "[田中](たなか)さん。", "vi": "Ừ, Tanakasan." }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "いい？", "vi": "　Được không?" },
-          { "speaker": "B", "ja": "いいよ。", "vi": "Được" }
+          { "speaker": "A", "ja": "いい？", "vi": "Được không?" },
+          { "speaker": "B", "ja": "いいよ。", "vi": "Được." }
         ]
       },
       {
@@ -73,7 +73,7 @@
         "context": "Tình huống 10",
         "dialogues": [
           { "speaker": "A", "ja": "わかった？", "vi": "Cậu đã hiểu chưa?" },
-          { "speaker": "B", "ja": "はい。わかりました。", "vi": "Dạ, em đã hiểu rồi ạ." }
+          { "speaker": "B", "ja": "はい。わかりました。", "vi": "Dạ. Em đã hiểu rồi ạ." }
         ]
       }
     ]
@@ -103,20 +103,20 @@
         "context": "Tình huống 3",
         "dialogues": [
           { "speaker": "A", "ja": "えみさん、じゃーね。", "vi": "Emi, hẹn gặp lại cậu sau." },
-          { "speaker": "B", "ja": "うん。また[明日](あした)。", "vi": "Ừ, Mai gặp lại nhé." }
+          { "speaker": "B", "ja": "うん。また[明日](あした)。", "vi": "Ừ. Mai gặp lại nhé!" }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "お[先](さき)に[失礼](しつれい)します。", "vi": "Tôi xin phép về trước." },
-          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cảm ơn anh đã vất vả làm việc. (Hẹn gặp anh ngày mai)" }
+          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cám ơn anh đã vất vả làm việc. (Hẹn gặp anh ngày mai.)" }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "あーあ。", "vi": "Ôi trời!" },
+          { "speaker": "A", "ja": "あ～あ。", "vi": "Ôi trời!" },
           { "speaker": "B", "ja": "すみません。", "vi": "Tôi xin lỗi." }
         ]
       },
@@ -137,22 +137,504 @@
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "どうもありがとうございます", "vi": "Cảm ơn chị." },
+          { "speaker": "A", "ja": "どうもありがとうございます。", "vi": "Cám ơn chị." },
           { "speaker": "B", "ja": "いいえ、どういたしまして。", "vi": "Không, không có gì." }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "いいてんきですね。", "vi": "Trời đẹp nhỉ!" },
+          { "speaker": "A", "ja": "いい[天気](てんき)ですね。", "vi": "Trời đẹp nhỉ!" },
           { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật." }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "お[元気](げんき)ですか。", "vi": "Chị có khỏe không?" },
+          { "speaker": "A", "ja": "お[元気](げんき)ですか？", "vi": "Chị có khỏe không?" },
           { "speaker": "B", "ja": "はい、[元気](げんき)です。", "vi": "Có, tôi khỏe." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "03",
+    "title": "PHẦN 3",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p3.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "[何時](なんじ)ですか？", "vi": "Mấy giờ rồi?" },
+          { "speaker": "B", "ja": "9[時](じ)です。", "vi": "9 giờ." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)ですか？", "vi": "Bây giờ là mấy giờ?" },
+          { "speaker": "B", "ja": "4[時](よじ)。", "vi": "4 giờ." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "[何時](なんじ)にねましたか？", "vi": "Anh đi ngủ lúc mấy giờ?" },
+          { "speaker": "B", "ja": "11[時半](じゅういちじはん)ぐらいです。", "vi": "Khoảng 11 giờ rưỡi." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "テストは[何時](なんじ)からですか？", "vi": "Mấy giờ bắt đầu kiểm tra?" },
+          { "speaker": "B", "ja": "10[時](じゅうじ)からですよ。", "vi": "10 giờ." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今日](きょう)は[何日](なんにち)ですか？", "vi": "Hôm nay là ngày mấy?" },
+          { "speaker": "B", "ja": "4[月](しがつ)1[日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今日](きょう)は[何曜日](なんようび)？", "vi": "Hôm nay là thứ mấy?" },
+          { "speaker": "B", "ja": "[水曜日](すいようび)だよ。", "vi": "Là thứ 4" }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh?" },
+          { "speaker": "B", "ja": "8[月](はちがつ)20[日](はつか)です。", "vi": "20 tháng 8" }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "[銀行](ぎんこう)は[何時](なんじ)から[何時](なんじ)までですか？", "vi": "Ngân hàng làm việc từ mấy giờ đến mấy giờ?" },
+          { "speaker": "B", "ja": "9[時](くじ)から3[時](さんじ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今年](ことし)は[何年](なんねん)？", "vi": "Năm nay là năm bao nhiêu?" },
+          { "speaker": "B", "ja": "2006[年](ねん)。[平成](へいせい)18[年](ねん)だよ。", "vi": "Năm 2006. Năm Bình Thành thứ 18." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "[日本](にほん)に[来](き)て、どのぐらいですか？", "vi": "Anh tới Nhật bao lâu rồi?" },
+          { "speaker": "B", "ja": "1[年](ねん)3[ヶ月](かげつ)です。", "vi": "1 năm 3 tháng." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "04",
+    "title": "PHẦN 4",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p4.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "はじめまして。[渡辺](わたなべ)です。", "vi": "Xin chào. Tôi là Watanabe." },
+          { "speaker": "B", "ja": "[田中](たなか)です。どうぞよろしく。", "vi": "Tôi là Tanaka. Rất vui được làm quen với chị." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "[鈴木](すずき)さんですか？", "vi": "Anh Suzuki phải không ạ?" },
+          { "speaker": "B", "ja": "はい、そうです。", "vi": "Vâng. Đúng vậy." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "[佐藤](さとう)さんですか？", "vi": "Anh Sato phải không ạ?" },
+          { "speaker": "B", "ja": "いいえ、[加藤](かとう)です。", "vi": "Không, tôi là Kato." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "あれは[日本語](にほんご)で[何](なん)ですか？", "vi": "Cái đó tiếng Nhật gọi là gì?" },
+          { "speaker": "B", "ja": "あれ？あ、あれは[交番](こうばん)ですよ。", "vi": "Cái đó ấy hả? À, đó là bốt cảnh sát(Kouban)." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "それはなんですか？", "vi": "Cái đấy là gì vậy?" },
+          { "speaker": "B", "ja": "デジカメです。", "vi": "Máy ảnh kỹ thuật số." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "[山田](やまだ)さんの[部屋](へや)は[何階](なんかい)ですか？", "vi": "Phòng của anh Yamada ở tầng mấy?" },
+          { "speaker": "B", "ja": "3[階](さんがい)です。", "vi": "Tầng 3." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "お[名前](なまえ)は？", "vi": "Tên anh là gì?" },
+          { "speaker": "B", "ja": "ペドロです。", "vi": "Tôi là Petro." },
+          { "speaker": "A", "ja": "お[国](くに)は？", "vi": "Anh người nước nào?" },
+          { "speaker": "B", "ja": "スペインです。", "vi": "Tôi người Tây Ban Nha." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "ノート、3[冊](さんさつ)ください。", "vi": "Cho tôi ba quyển vở." },
+          { "speaker": "B", "ja": "はい、3[冊](さんさつ)ですね。", "vi": "Vâng, 3 quyển phải không ạ?!" }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "[駅](えき)までどのぐらいですか？", "vi": "Từ đây tới ga bao xa ạ?" },
+          { "speaker": "B", "ja": "1キロぐらいです。", "vi": "Khoảng 1 cây số." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "[新宿駅](しんじゅくえき)はどこですか？", "vi": "Ga Shinzuku ở đâu ạ?" },
+          { "speaker": "B", "ja": "あそこですよ。", "vi": "Ở đằng kia." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "05",
+    "title": "PHẦN 5",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p5.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "[何才](なんさい)ですか？", "vi": "Anh bao nhiêu tuổi rồi?" },
+          { "speaker": "B", "ja": "28[才](にじゅうはっさい)です。", "vi": "Tôi 28 tuổi." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "どんな[映画](えいが)を[見](み)ますか？", "vi": "Anh xem loại phim gì?" },
+          { "speaker": "B", "ja": "コメディーをよく[見](み)ますね。", "vi": "Tôi thường xem phim hài." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "[黄色](きいろ)と[赤](あか)の[花](はな)をください。", "vi": "Cho tôi hoa màu vàng và hoa màu đỏ." },
+          { "speaker": "B", "ja": "はい、[黄色](きいろ)と[赤](あか)ですね。", "vi": "Vâng, màu vàng và màu đỏ phải không ạ?!" }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今日](きょう)は[暑](あつ)いですね。", "vi": "Hôm nay nóng thật!" },
+          { "speaker": "B", "ja": "ええ、[本当](ほんとう)に。", "vi": "Vâng, đúng vậy." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "[日本語](にほんご)の[勉強](べんきょう)はどうですか？", "vi": "Việc học tiếng Nhật của anh thế nào?" },
+          { "speaker": "B", "ja": "[漢字](かんじ)はむずかしいですが、とてもおもしろいです。", "vi": "Chữ Hán khó nhưng rất thú vị." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "いくらですか？", "vi": "Bao nhiêu ạ?" },
+          { "speaker": "B", "ja": "210[円](にひゃくじゅうえん)です。", "vi": "210 Yên." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "テスト、むずかしいですか？", "vi": "Bài kiểm tra có khó không?" },
+          { "speaker": "B", "ja": "いいえ、かんたんですよ。", "vi": "Không, đơn giản thôi." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "[鈴木](すずき)さんはどんな[人](ひと)ですか？", "vi": "Anh Suzuki là người thế nào?" },
+          { "speaker": "B", "ja": "[親切](しんせつ)な[人](ひと)ですよ。", "vi": "Anh ấy là người thân thiện." }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "このくつ、ちょっと[大](おお)きいです。", "vi": "Đôi giày này hơi to." },
+          { "speaker": "B", "ja": "じゃー、これはどうですか？", "vi": "Vậy, cái này thì thế nào ạ?" }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "これ、きれいですね。", "vi": "Cái này, đẹp thật đấy." },
+          { "speaker": "B", "ja": "ええ、とてもきれいですね。", "vi": "Vâng, rất đẹp." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "06",
+    "title": "PHẦN 6",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p6.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "はじめまして。", "vi": "Chào anh." },
+          { "speaker": "B", "ja": "はじめまして、どうぞよろしくおねがいします。", "vi": "Chào chị. Rất vui được làm quen với chị." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "どうぞ。", "vi": "Xin mời anh." },
+          { "speaker": "B", "ja": "あー、どうもすみません。いただきます。", "vi": "Ồ, cám ơn chị. Tôi xin phép." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "お[国](くに)はどちらですか？", "vi": "Anh là người nước nào?" },
+          { "speaker": "B", "ja": "[韓国](かんこく)です。", "vi": "Tôi là người Hàn Quốc." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "[日本](にほん)は、[初](はじ)めてですか？", "vi": "Anh đến Nhật Bản lần đầu à?" },
+          { "speaker": "B", "ja": "いいえ、3[回目](さんかいめ)です。", "vi": "Không, đây là lần thứ ba." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "[和食](わしょく)は[大丈夫](だいじょうぶ)ですか？", "vi": "Anh ăn được món ăn Nhật chứ?" },
+          { "speaker": "B", "ja": "はい、[大丈夫](だいじょうぶ)です。", "vi": "Vâng, được ạ." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "そろそろ[失礼](しつれい)します。", "vi": "Đến lúc tôi xin phép rồi." },
+          { "speaker": "B", "ja": "そうですか。じゃ、また。", "vi": "Vậy sao?! Vậy hẹn gặp lại chị sau." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "わ～、おいしそう。それなんですか？", "vi": "Oa, trông ngon quá! Đó là gì vậy?" },
+          { "speaker": "B", "ja": "これ？[中国](ちゅうごく)のおかし。1つどうですか？", "vi": "Cái này á? Bánh của Trung Quốc. Chị thử một cái nhé?" }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "いつ[日本](にほん)に[来](き)たんですか？", "vi": "Anh tới Nhật Bản từ bao giờ?" },
+          { "speaker": "B", "ja": "2[ヶ月](にかげつ)くらい[前](まえ)です。", "vi": "Khoảng 2 tháng trước." }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)？", "vi": "Bây giờ mấy giờ rồi?" },
+          { "speaker": "B", "ja": "えーっと、4[時](よじ)20[分](にじゅっぷん)。", "vi": "Ờ, 4 giờ 20 phút." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "こんどの[休](やす)み、どこ[行](い)くの？", "vi": "Kỳ nghỉ tới cậu đi đâu?" },
+          { "speaker": "B", "ja": "[友](とも)だちと[海](うみ)に[行](い)きます。", "vi": "Tôi sẽ đi biển với bạn." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "07",
+    "title": "PHẦN 7",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p7.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "あのー、[学校](がっこう)の[電話番号](でんわばんごう)、わかりますか？", "vi": "Ừm, anh có biết số điện thoại của trường không?" },
+          { "speaker": "B", "ja": "えーっとねー、03-3205-****", "vi": "Ờ, 03 - 3205 - ****" }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "ビデオレンタルはいくらですか？", "vi": "Thuê băng video bao nhiêu tiền ạ?" },
+          { "speaker": "B", "ja": "一[泊](いっぱく)350[円](えん)です。", "vi": "350 Yên một đêm." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "[昨日](きのう)、[携帯](けいたい)を[買](か)いました。", "vi": "Hôm qua tôi đã mua điện thoại di động." },
+          { "speaker": "B", "ja": "へー、どこで[買](か)いましたか？", "vi": "Ồ, chị mua ở đâu vậy?" }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "[田中](たなか)さんのうちはどこですか？", "vi": "Nhà anh Tanaka ở đâu?" },
+          { "speaker": "B", "ja": "[新宿](しんじゅく)です。[学校](がっこう)に[近](ちか)いです。", "vi": "Ở Shinzuku, gần trường." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "パクさんの[先生](せんせい)はどんな[人](ひと)ですか？", "vi": "Thầy giáo của anh Pak là người thế nào?" },
+          { "speaker": "B", "ja": "おもしろくてやさしい[先生](せんせい)です。", "vi": "Thầy hiền và thú vị lắm." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "[山田](やまだ)さん、しゅみは[何](なん)ですか？", "vi": "Anh Tanaka, sở thích của anh là gì?" },
+          { "speaker": "B", "ja": "しゅみ？　う〜ん、[写真](しゃしん)かな。", "vi": "Sở thích? Ừm, có lẽ là ảnh." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "[日本語](にほんご)の[授業](じゅぎょう)はどうですか？", "vi": "Giờ học tiếng Nhật thế nào?" },
+          { "speaker": "B", "ja": "とてもおもしろいと[思](おも)います。", "vi": "Tôi nghĩ là rất hay." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "この[写真](しゃしん)、[見](み)てください。ハワイの[写真](しゃしん)です。", "vi": "Hãy nhìn bức ảnh này. Ảnh chụp ở Hawai đấy." },
+          { "speaker": "B", "ja": "わー、きれいな[海](うみ)。", "vi": "Oa, biển đẹp quá!" }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "キムさんは[日本人](にほんじん)のボーイフレンドがいます。", "vi": "Kim có bạn trai người Nhật đấy." },
+          { "speaker": "B", "ja": "へー、どんな[人](ひと)ですか？", "vi": "Ồ, anh ấy là người thế nào?" },
+          { "speaker": "A", "ja": "[親切](しんせつ)な[人](ひと)です。それから、[韓国語](かんこくご)がわかります。", "vi": "Anh ấy là người thân thiện. Và anh ấy biết tiếng Hàn Quốc." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "カラオケ！カラオケ！どうですか？　1[時間](じかん)1500[円](えん)です。", "vi": "Karaoke! Karaoke! Quý khách thấy sao ạ? Một tiếng 1500 Yên." },
+          { "speaker": "B", "ja": "う〜ん。ちょっとね〜。[新宿](しんじゅく)のカラオケの[方](ほう)が[安](やす)いですね。", "vi": "Ừm. Thế thì Karaoke ở Shinzuku rẻ hơn." },
+          { "speaker": "A", "ja": "あ、そうですか。じゃ、1[時間](じかん)1300[円](えん)でどうですか？", "vi": "Ồ, vậy sao?! Vậy 1 tiếng 1300 Yên có được không ạ?" },
+          { "speaker": "B", "ja": "う〜ん。まだちょっと[高](たか)いですね〜。", "vi": "Ừm. Vẫn hơi đắt!" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "08",
+    "title": "PHẦN 8",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p8.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "[木村](きむら)さんの[彼](かれ)はどんな[人](ひと)ですか？", "vi": "Bạn trai của Kimura là người thế nào?" },
+          { "speaker": "B", "ja": "お[金持ち](かねもち)です。", "vi": "Anh ấy là người giàu có." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "[山田](やまだ)さんの[家族](かぞく)はタバコを[吸](す)いますか？", "vi": "Nhà anh Yamada có ai hút thuốc không?" },
+          { "speaker": "B", "ja": "いいえ。[誰](だれ)も[吸](す)いません。", "vi": "Không, không ai hút cả." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "ジョンさん、[今日](きょう)、どこで[昼](ひる)ごはんを[食](た)べますか？", "vi": "Anh Jonh, hôm nay ăn trưa ở đâu vậy?" },
+          { "speaker": "B", "ja": "ごめーん。もう[食](た)べちゃった。", "vi": "Xin lỗi. Tôi đã ăn mất rồi." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "[先生](せんせい)、[今何時](いまなんじ)ですか？", "vi": "Thưa thầy, bây giờ mấy giờ rồi ạ?" },
+          { "speaker": "B", "ja": "あ、[時間](じかん)ですね。じゃ、すこし[休](やす)みましょう。", "vi": "A, đến giờ rồi nhỉ. Vậy, chúng ta nghỉ một chút nhé." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "いらっしゃいませ。お2[人](ふたり)ですか？", "vi": "Kính mời quý khách. Bàn cho hai người ạ?" },
+          { "speaker": "B", "ja": "はい。", "vi": "Vâng." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "きのうのサッカー、[見](み)ましたか？", "vi": "Anh có xem trận bóng đá hôm qua không?" },
+          { "speaker": "B", "ja": "ううん、あまり[好](す)きじゃないから。", "vi": "Không, tôi không thích bóng đá lắm." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "うわー。そのくつ、かわいいね。", "vi": "Oa. Đôi giày dễ thương quá!" },
+          { "speaker": "B", "ja": "[本当](ほんとう)？ありがとう。", "vi": "Thật chứ? Cám ơn cậu." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "あれ？[山田](やまだ)さん、どこ[行](い)くの？", "vi": "Ơ? Anh Yamada, anh đi đâu vậy?" },
+          { "speaker": "B", "ja": "ちょっとそこまで。", "vi": "Tôi ra đây một chút." }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "あのー、すみません。[次](つぎ)の[電車](でんしゃ)は[何時](なんじ)に[来](き)ますか？", "vi": "Xin lỗi. Chuyến tàu tiếp theo sẽ đến lúc mấy giờ ạ?" },
+          { "speaker": "B", "ja": "あ、[今](いま)の[電車](でんしゃ)が[終電](しゅうでん)です。", "vi": "Chuyến vừa rồi là chuyến cuối rồi." },
+          { "speaker": "A", "ja": "[終電](しゅうでん)？", "vi": "Chuyến cuối?" },
+          { "speaker": "B", "ja": "ええ。[電車](でんしゃ)は[明日](あした)の[朝](あさ)まで[来](き)ません。", "vi": "Vâng. Không còn chuyến nào cho đến sáng mai." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "[田中](たなか)さんの[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh Tanaka?" },
+          { "speaker": "B", "ja": "10[月](じゅうがつ)15[日](じゅうごにち)です。", "vi": "Ngày 15 tháng 10." },
+          { "speaker": "A", "ja": "えー！[私](わたし)は17[日](じゅうしちにち)です。[近](ちか)いですね。", "vi": "Ổ! Tôi sinh ngày 17 đấy. Gần nhau nhỉ!" }
         ]
       }
     ]
