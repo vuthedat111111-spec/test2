@@ -638,5 +638,165 @@
         ]
       }
     ]
+  },
+  {
+    "id": "09",
+    "title": "PHẦN 9",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p9.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "このへんに、[駅](えき)、ありますか？", "vi": "Có nhà ga ở khu vực này không ạ?" },
+          { "speaker": "B", "ja": "ええ、すぐそこです。", "vi": "Có. Ngay ở đằng kia." }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "その[辞書](じしょ)はいくらですか？", "vi": "Cuốn từ điển đó bao nhiêu tiền ạ?" },
+          { "speaker": "B", "ja": "3000[円](えん)です。", "vi": "3000 Yên." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "このノートはだれのですか？", "vi": "Quyển vở này của ai vậy?" },
+          { "speaker": "B", "ja": "あ、それ？　サラさんのです。", "vi": "À, quyển đó á? Là của Sara." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "[山田](やまだ)さんの[部屋](へや)は[新](あたら)しいですか？", "vi": "Phòng của anh Yamada có mới không?" },
+          { "speaker": "B", "ja": "いえ、[古](ふる)いです。でもきれいです。", "vi": "Không, phòng cũ. Nhưng đẹp." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "[田中](たなか)さんの[部屋](へや)はきれいですか？", "vi": "Phòng của anh Tanaka có đẹp không?" },
+          { "speaker": "B", "ja": "いえ、きれいじゃありません。でも[新](あたら)しいです。", "vi": "Không, phòng không đẹp. Nhưng mới." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "あ～あ、[今日](きょう)は[暑](あつ)いですね。", "vi": "Chà, hôm nay nóng nhỉ!" },
+          { "speaker": "B", "ja": "そうですね～。[今日](きょう)もビールがおいしいですね。", "vi": "Đúng vậy. Hôm nay mà uống bia thì cũng ngon lắm đây!" }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "サラさんは[字](じ)がきれいですね。", "vi": "Chữ Sara đẹp thật đấy!" },
+          { "speaker": "B", "ja": "どれ？　[見](み)せて。あ、[本当](ほんとう)だ。", "vi": "Đâu? Cho tớ xem nào. Ừ, đúng thế thật." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "え、アイス～？　[寒](さむ)くないですか？", "vi": "Há, kem á? Không lạnh sao?" },
+          { "speaker": "B", "ja": "ええ、おいしいですよ。", "vi": "Không, ngon lắm!" }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "[映画](えいが)、どうでしたか？", "vi": "Bộ phim thế nào?" },
+          { "speaker": "B", "ja": "おもしろかったですよ。", "vi": "Hay lắm!" }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "これは[何](なん)ですか？", "vi": "Đây là cái gì vậy?" },
+          { "speaker": "B", "ja": "これ？　あー、これ、お[好](この)み[焼](や)き。", "vi": "Đây á? À, đây là Okonomiyaki." },
+          { "speaker": "A", "ja": "え？　お[好](この)み？", "vi": "Ơ? Okonomi?" },
+          { "speaker": "B", "ja": "うん。お[好](この)み[焼](や)き。おいしいよ。", "vi": "Ừm. Okonomiyaki. Ngon lắm đó!" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "PHẦN 10",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p10.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          { "speaker": "A", "ja": "あー、うまかった。", "vi": "Ôi, ngon thật!" },
+          { "speaker": "B", "ja": "[本当](ほんとう)、おいしかったね。", "vi": "Đúng vậy, ngon thật nhỉ!" }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          { "speaker": "A", "ja": "あー、おなかいっぱい。", "vi": "Chà, tôi no quá!" },
+          { "speaker": "B", "ja": "[私](わたし)も。", "vi": "Tôi cũng vậy." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "ごちそうさまでした。とってもおいしかったです。", "vi": "Cám ơn chị vì bữa ăn. Rất ngon." },
+          { "speaker": "B", "ja": "いいえ、どういたしまして。", "vi": "Không, không có gì." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "デザート[食](た)べますか？", "vi": "Chị có ăn tráng miệng không?" },
+          { "speaker": "B", "ja": "いいですね。", "vi": "Thật tuyệt!" }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "たくさん[食](た)べてくださいね。", "vi": "Chị ăn nhiều vào nhé!" },
+          { "speaker": "B", "ja": "はい、いただきまーす。", "vi": "Vâng, cám ơn anh." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "この[店](みせ)、サービスもいいし、[料理](りょうり)もおいしいし...。", "vi": "Cửa hàng này phục vụ tốt, thức ăn cũng ngon nữa." },
+          { "speaker": "B", "ja": "そうだね。また[来](き)たいね。", "vi": "Đúng vậy. Lần sau tôi lại muốn tới nữa." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "この[店](みせ)、どうだった？", "vi": "Cửa hàng này thế nào?" },
+          { "speaker": "B", "ja": "う～ん、[料理](りょうり)はいいけど、サービスがちょっとね...。", "vi": "Ừm, đồ ăn thì ngon nhưng phục vụ không được tốt lắm." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "これもおいしいよ。あっ、それからこれも...。", "vi": "Món này cũng ngon lắm. Á, cả món này nữa..." },
+          { "speaker": "B", "ja": "[本当](ほんとう)だ。おいしそう！", "vi": "Đúng thế thật! Trông ngon quá!" }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "これ、おいしいよ。ちょっと[食](た)べてみる？", "vi": "Món này ngon lắm. Cậu ăn thử một chút không?" },
+          { "speaker": "B", "ja": "うん、ありがとう。", "vi": "Có, cám ơn cậu." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "[豚肉](ぶたにく)はちょっと...。", "vi": "Tôi không ăn được thịt lợn..." },
+          { "speaker": "B", "ja": "あ、そうなんだ。", "vi": "À, đúng rồi." }
+        ]
+      }
+    ]
   }
 ]
