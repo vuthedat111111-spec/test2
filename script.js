@@ -5007,10 +5007,11 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
             )}
         </div>
     );
-};
-// --- COMPONENT CHÍNH: KAIWA MODAL ---
+};// ==========================================
+// COMPONENT: KAIWA MODAL (GIAO TIẾP SHADOWING)
+// ==========================================
 const KaiwaModal = ({ isOpen, onClose }) => {
-    const [view, setView] = React.useState('categories'); // 'categories' | 'list' | 'detail'
+    const [view, setView] = React.useState('categories'); 
     const [lessons, setLessons] = React.useState([]);
     const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -5041,10 +5042,8 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         }
     };
 
-    // --- VIEW 1: CHỌN DANH MỤC ---
     const renderCategories = () => (
         <div className="p-6 h-full flex flex-col overflow-y-auto">
-            {/* Đã nhúng nút X vào Header */}
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Chọn bộ giáo trình</h2>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
@@ -5066,10 +5065,8 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         </div>
     );
 
-    // --- VIEW 2: DANH SÁCH CÂU ---
     const renderList = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
-            {/* Đã nhúng nút X vào Header */}
             <div className="p-4 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
                 <div className="flex items-center gap-3">
                     <button onClick={() => setView('categories')} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
@@ -5096,19 +5093,16 @@ const KaiwaModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
-            {/* Đã bỏ 'relative' và nút X lơ lửng để sửa dứt điểm lỗi đè UI */}
             <div className="bg-white w-full h-full sm:h-[90vh] max-w-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
-                
                 {view === 'categories' && renderCategories()}
                 {view === 'list' && renderList()}
-                
                 {view === 'detail' && (
                     <KaiwaPracticeView 
                         lesson={lessons[currentLessonIdx]} 
                         total={lessons.length}
                         currentIndex={currentLessonIdx}
                         onBack={() => setView('list')}
-                        onClose={onClose} // Truyền hàm đóng sang cho View 3
+                        onClose={onClose} 
                         onNext={() => setCurrentLessonIdx(prev => Math.min(prev + 1, lessons.length - 1))}
                         onPrev={() => setCurrentLessonIdx(prev => Math.max(prev - 1, 0))}
                     />
@@ -5118,13 +5112,10 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     );
 };
 
-
-// --- COMPONENT CON: QUẢN LÝ GIAO DIỆN SHADOWING (VIEW 3) ---
 const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [showTranslation, setShowTranslation] = React.useState(false);
     const [roleplayMode, setRoleplayMode] = React.useState('all'); 
-    
     const [currentTime, setCurrentTime] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
     const [playbackRate, setPlaybackRate] = React.useState(1);
@@ -5138,17 +5129,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     }, [currentIndex]);
 
     React.useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.pause();
-        }
+        if (audioRef.current) { audioRef.current.pause(); }
         setIsPlaying(false);
         setCurrentTime(0);
     }, [lesson]);
 
     React.useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.playbackRate = playbackRate;
-        }
+        if (audioRef.current) { audioRef.current.playbackRate = playbackRate; }
     }, [playbackRate]);
 
     const toggleAudio = () => {
@@ -5175,9 +5162,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const handleSeek = (e) => {
         const time = Number(e.target.value);
         setCurrentTime(time);
-        if (audioRef.current) {
-            audioRef.current.currentTime = time;
-        }
+        if (audioRef.current) { audioRef.current.currentTime = time; }
     };
 
     const cyclePlaybackRate = () => {
@@ -5187,22 +5172,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     };
 
     return (
-        <div className="flex flex-col h-full bg-white overflow-hidden"> {/* Thêm overflow-hidden */}
-            
-            {/* AUDIO ELEMENT */}
+        <div className="flex flex-col h-full bg-white overflow-hidden relative">
             <audio 
                 key={lesson.id}
                 ref={audioRef} 
                 src={lesson.audioPath} 
+                preload="none"
                 onEnded={() => setIsPlaying(false)}
                 onLoadedMetadata={(e) => setDuration(e.target.duration)}
                 onCanPlay={() => { if(audioRef.current) audioRef.current.playbackRate = playbackRate; }}
-                onTimeUpdate={(e) => {
-                    if (!isDragging) setCurrentTime(e.target.currentTime);
-                }}
+                onTimeUpdate={(e) => { if (!isDragging) setCurrentTime(e.target.currentTime); }}
             />
 
-            {/* Header Detail - ĐÃ TÍCH HỢP NÚT X VÀO ĐÂY */}
             <div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center justify-between sticky top-0 z-10 shadow-sm">
                 <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -5214,9 +5195,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
 
-            {/* Nội dung Scroll - CÓ pb-48 CỰC LỚN ĐỂ ĐẨY NỘI DUNG LÊN TRÊN */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 sm:p-6 pb-48 custom-scrollbar">
-                
                 <div className="mb-6">
                     <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-2 leading-tight font-sans">{lesson.title}</h2>
                     <p className="text-sm sm:text-base font-medium text-zinc-500 italic">{lesson.translation}</p>
@@ -5244,13 +5223,9 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     </label>
                 </div>
 
-                {/* 4. Đoạn hội thoại chat (Hỗ trợ nhiều đoạn) */}
                 <div className="space-y-8"> 
-                    {/* Logic tương thích: Dùng 'conversations' nếu có, không thì tự bọc 'dialogues' cũ lại */}
                     {(lesson.conversations || [{ dialogues: lesson.dialogues }]).map((conv, convIdx, arr) => (
                         <div key={convIdx} className="space-y-4 relative">
-                            
-                            {/* HIỂN THỊ PHÂN CÁCH NẾU CÓ TỪ 2 ĐOẠN TRỞ LÊN */}
                             {arr.length > 1 && (
                                 <div className="flex items-center gap-4 mb-6 mt-2">
                                     <div className="h-px bg-zinc-200 flex-1"></div>
@@ -5261,7 +5236,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 </div>
                             )}
 
-                            {/* Render từng câu trong đoạn hội thoại */}
                             {conv.dialogues.map((line, idx) => {
                                 const isHidden = (roleplayMode === 'hideA' && line.speaker === 'A') || 
                                                  (roleplayMode === 'hideB' && line.speaker === 'B');
@@ -5269,22 +5243,15 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 
                                 return (
                                     <div key={`${convIdx}-${idx}`} className={`flex flex-col w-full ${isA ? 'items-start' : 'items-end'}`}>
-                                        <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 ${isA ? 'text-zinc-400' : 'text-indigo-400'}`}>
-                                            Người {line.speaker}
-                                        </span>
-                                        
+                                        <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 ${isA ? 'text-zinc-400' : 'text-indigo-400'}`}>Người {line.speaker}</span>
                                         <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border ${
-                                            isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' 
-                                                : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
+                                            isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
                                         }`}>
                                             <p className={`text-base sm:text-lg font-medium leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
                                                 {isHidden ? "（あなたが話す番です）" : line.ja}
                                             </p>
-                                            
                                             {showTranslation && (
-                                                <p className={`text-xs mt-2 font-medium border-t pt-2 ${
-                                                    isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-400 border-zinc-700'
-                                                }`}>
+                                                <p className={`text-xs mt-2 font-medium border-t pt-2 ${isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-400 border-zinc-700'}`}>
                                                     {line.vi}
                                                 </p>
                                             )}
@@ -5295,48 +5262,32 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         </div>
                     ))}
                 </div>
-            {/* THANH PLAYER MỚI CỐ ĐỊNH Ở DƯỚI (Đã thêm nút TIẾN 3 GIÂY) */}
+            </div>
+
+            {/* THANH PLAYER AUDIO Ở DƯỚI */}
             <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-zinc-200 px-4 py-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20">
-                
-                {/* Dòng 1: Thanh tiến trình (Timeline) */}
                 <div className="flex items-center gap-3 w-full">
                     <span className="text-[10px] font-bold text-zinc-400 w-8 text-right">{formatTime(currentTime)}</span>
                     <input
-                        type="range"
-                        min={0}
-                        max={duration || 100}
-                        value={currentTime}
-                        onMouseDown={() => setIsDragging(true)}
-                        onMouseUp={() => setIsDragging(false)}
-                        onTouchStart={() => setIsDragging(true)}
-                        onTouchEnd={() => setIsDragging(false)}
+                        type="range" min={0} max={duration || 100} value={currentTime}
+                        onMouseDown={() => setIsDragging(true)} onMouseUp={() => setIsDragging(false)}
+                        onTouchStart={() => setIsDragging(true)} onTouchEnd={() => setIsDragging(false)}
                         onChange={handleSeek}
                         className="flex-1 h-1.5 accent-zinc-900 bg-zinc-200 rounded-full appearance-none cursor-pointer"
                     />
                     <span className="text-[10px] font-bold text-zinc-400 w-8">{formatTime(duration)}</span>
                 </div>
-
-                {/* Dòng 2: Các nút điều khiển */}
                 <div className="flex items-center justify-between w-full">
-                    
-                    {/* Nút tốc độ */}
                     <button onClick={cyclePlaybackRate} className="w-12 py-1.5 text-[10px] font-black text-zinc-600 bg-zinc-100 rounded-md hover:bg-zinc-200 transition-colors active:scale-95 text-center">
                         {playbackRate}x
                     </button>
-
-                    {/* Cụm điều khiển trung tâm */}
                     <div className="flex items-center gap-1 sm:gap-3">
-                        {/* Nút Prev Câu */}
                         <button onClick={onPrev} disabled={currentIndex === 0} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === 0 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
-
-                        {/* Lùi 3s (Xoay ngược chiều kim đồng hồ) */}
                         <button onClick={() => { if(audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 3); }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         </button>
-                        
-                        {/* Play/Pause */}
                         <button onClick={toggleAudio} className="w-12 h-12 bg-zinc-900 text-white rounded-full flex items-center justify-center hover:bg-black active:scale-90 transition-all shadow-md mx-1">
                             {isPlaying ? (
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
@@ -5344,19 +5295,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
                             )}
                         </button>
-
-                        {/* Tiến 3s (Xoay theo chiều kim đồng hồ) */}
                         <button onClick={() => { if(audioRef.current) audioRef.current.currentTime = Math.min(duration, audioRef.current.currentTime + 3); }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                         </button>
-
-                        {/* Next Câu */}
                         <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === total - 1 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </button>
                     </div>
-                    
-                    {/* Cục Spacer để giữ Nút Play ở chính giữa màn hình */}
                     <div className="w-12"></div>
                 </div>
             </div>
