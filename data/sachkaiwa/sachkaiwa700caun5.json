@@ -1,64 +1,161 @@
 [
   {
-    "id": "n5_001",
-    "title": "お疲れ様でした",
-    "translation": "Bạn đã vất vả rồi / Cảm ơn vì công việc",
-    "explanation": "Câu chào kinh điển chốn công sở sau khi kết thúc công việc hoặc khi đồng nghiệp hoàn thành một nhiệm vụ.",
+    "id": "01",
+    "title": "SECTION 1",
+    "translation": "",
+    "explanation": "",
     "audioPath": "./data/kaiwa/sachkaiwan5/n5_001.mp3",
     "conversations": [
       {
-        "context": "Tình huống 1: Khi tan làm, chào người ở lại",
+        "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "お先に失礼します。", "vi": "Tôi xin phép về trước đây ạ." },
-          { "speaker": "B", "ja": "お疲れ様でした。気をつけてね。", "vi": "Bạn đã vất vả rồi. Về cẩn thận nhé." }
+          { "speaker": "A", "ja": "そう？", "vi": "Vậy sao?" },
+          { "speaker": "B", "ja": "そう。", "vi": "Đúng vậy." }
         ]
       },
       {
-        "context": "Tình huống 2: Khi đồng nghiệp hoàn thành xong việc",
+        "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "今日の仕事は終わりました。", "vi": "Công việc hôm nay xong rồi." },
-          { "speaker": "B", "ja": "お疲れ様でした。", "vi": "Cảm ơn anh/chị đã vất vả." }
+          { "speaker": "A", "ja": "え～、どれ？　これ？", "vi": "Ơ, cái nào? Cái này á?" },
+          { "speaker": "B", "ja": "うん。それ。", "vi": "Ừ, cái đó." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "おいしい？", "vi": "Ngon không?" },
+          { "speaker": "B", "ja": "うん。おいしいよ。", "vi": "Có. Ngon lắm." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": " はい？", "vi": "Có không?" },
+          { "speaker": "B", "ja": "はい。", "vi": "Có." }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "きれい？", "vi": "Đẹp không?" },
+          { "speaker": "B", "ja": "きれい。", "vi": "Đẹp." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "ほんとう？", "vi": "Thật không?" },
+          { "speaker": "B", "ja": "ほんとう。", "vi": "Thật." }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "田中さん？", "vi": "Tanaka á?" },
+          { "speaker": "B", "ja": "田中さん。", "vi": "Ừ, Tanaka." }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "いい？", "vi": "　Được không?" },
+          { "speaker": "B", "ja": "いいよ。", "vi": "Được" }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "ここ？", "vi": "Ở đây à?" },
+          { "speaker": "B", "ja": "うん。そこ。", "vi": "Ừ, ở đấy." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "わかった？", "vi": "Cậu đã hiểu chưa?" },
+          { "speaker": "B", "ja": "はい。わかりました。", "vi": "Dạ, em đã hiểu rồi ạ." }
         ]
       }
     ]
   },
   {
-    "id": "n5_002",
-    "title": "もう一度お願いします",
-    "translation": "Xin vui lòng nhắc lại một lần nữa",
-    "explanation": "Mẫu câu dùng khi bạn nghe không rõ hoặc chưa hiểu ý đối phương và muốn họ nói lại.",
-    "audioPath": "./data/kaiwa/sachkaiwan5/n5_002.mp3",
+    "id": "02",
+    "title": "SECTION 2",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/kaiwa/sachkaiwan5/n5_001.mp3",
     "conversations": [
       {
-        "context": "",
+        "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "先生、すみません。もう一度お願いします。", "vi": "Thưa cô, xin lỗi cô. Cô có thể nhắc lại một lần nữa được không ạ?" },
-          { "speaker": "B", "ja": "はい、いいですよ。", "vi": "Vâng, được thôi." }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "n5_003",
-    "title": "これをください",
-    "translation": "Cho tôi cái này",
-    "explanation": "Câu nói thông dụng nhất khi đi mua sắm hoặc gọi món tại nhà hàng ở Nhật Bản.",
-    "audioPath": "./data/kaiwa/sachkaiwan5/n5_003.mp3",
-    "conversations": [
-      {
-        "context": "Tình huống 1: Tại cửa hàng tiện lợi",
-        "dialogues": [
-          { "speaker": "A", "ja": "すみません、これをください。", "vi": "Xin lỗi, cho tôi lấy cái này." },
-          { "speaker": "B", "ja": "はい、かしこまりました。５００円になります。", "vi": "Vâng, tôi hiểu rồi. Của quý khách hết 500 yên ạ." }
+          { "speaker": "A", "ja": "こんにちは。", "vi": "Chào cậu." },
+          { "speaker": "B", "ja": "こんにちは。", "vi": "Chào cậu." }
         ]
       },
       {
-        "context": "Tình huống 2: Gọi món ở nhà hàng",
+        "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "ご注文はお決まりですか。", "vi": "Quý khách đã quyết định món chưa ạ?" },
-          { "speaker": "B", "ja": "はい。このラーメンと、ビールをください。", "vi": "Vâng. Cho tôi mì ramen này và một cốc bia." }
+          { "speaker": "A", "ja": "先生、おはようございます。", "vi": "Em chào thầy/cô." },
+          { "speaker": "B", "ja": "おはよう。", "vi": "Chào em." }
+        ]
+      },
+      {
+        "context": "Tình huống 3",
+        "dialogues": [
+          { "speaker": "A", "ja": "えみさん、じゃーね。", "vi": "Emi, hẹn gặp lại cậu sau." },
+          { "speaker": "B", "ja": "うん。また明日。", "vi": "Ừ, Mai gặp lại nhé." }
+        ]
+      },
+      {
+        "context": "Tình huống 4",
+        "dialogues": [
+          { "speaker": "A", "ja": "お先に失礼します。", "vi": "Tôi xin phép về trước." },
+          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cảm ơn anh đã vất vả làm việc. (Hẹn gặp anh ngày mai)" }
+        ]
+      },
+      {
+        "context": "Tình huống 5",
+        "dialogues": [
+          { "speaker": "A", "ja": "あーあ。", "vi": "Ôi trời!" },
+          { "speaker": "B", "ja": "すみません。", "vi": "Tôi xin lỗi." }
+        ]
+      },
+      {
+        "context": "Tình huống 6",
+        "dialogues": [
+          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!" },
+          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!" }
+        ]
+      },
+      {
+        "context": "Tình huống 7",
+        "dialogues": [
+          { "speaker": "A", "ja": "ただいまー。", "vi": "Anh đã về!" },
+          { "speaker": "B", "ja": "おかえりー。", "vi": "Mừng anh về nhà!" }
+        ]
+      },
+      {
+        "context": "Tình huống 8",
+        "dialogues": [
+          { "speaker": "A", "ja": "どうもありがとうございます", "vi": "Cảm ơn chị." },
+          { "speaker": "B", "ja": "いいえ、どういたしまして。", "vi": "Không, không có gì." }
+        ]
+      },
+      {
+        "context": "Tình huống 9",
+        "dialogues": [
+          { "speaker": "A", "ja": "いいてんきですね。", "vi": "Trời đẹp nhỉ!" },
+          { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật." }
+        ]
+      },
+      {
+        "context": "Tình huống 10",
+        "dialogues": [
+          { "speaker": "A", "ja": "お元気ですか。", "vi": "Chị có khỏe không?" },
+          { "speaker": "B", "ja": "はい、元気です。", "vi": "Có, tôi khỏe." }
         ]
       }
     ]
   }
+  
 ]
