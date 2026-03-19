@@ -5050,17 +5050,19 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {['n5', 'n4', 'n3', 'n2'].map((lvl) => (
-                    <button 
-                        key={lvl}
-                        onClick={() => loadCategory(lvl)}
-                        className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all group flex flex-col items-start active:scale-95"
-                    >
-                        <span className="text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors uppercase">{lvl}</span>
-                        <span className="text-sm font-bold text-zinc-600 mt-2">Câu giao tiếp thực chiến</span>
-                    </button>
-                ))}
-            </div>
+    {[
+        { id: '700caun5', title: '700 CÂU KAIWA N5', desc: 'Giao tiếp sơ cấp' }
+    ].map((item) => (
+        <button 
+            key={item.id}
+            onClick={() => loadCategory(item.id)}
+            className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all group flex flex-col items-start active:scale-95"
+        >
+            <span className="text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors uppercase">{item.title}</span>
+            <span className="text-sm font-bold text-zinc-600 mt-2">{item.desc}</span>
+        </button>
+    ))}
+</div>
             {isLoading && <p className="text-center mt-4 text-xs font-bold text-indigo-500 animate-pulse">Đang tải dữ liệu...</p>}
         </div>
     );
