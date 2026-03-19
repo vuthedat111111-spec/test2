@@ -644,7 +644,7 @@
     "title": "PHẦN 9",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p9.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p9.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -725,7 +725,7 @@
     "title": "PHẦN 10",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p10.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p10.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
