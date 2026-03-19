@@ -1,7 +1,7 @@
 [
   {
     "id": "01",
-    "title": "SECTION 1",
+    "title": "PHẦN 1",
     "translation": "",
     "explanation": "",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.m4a",
@@ -80,7 +80,7 @@
   },
   {
     "id": "02",
-    "title": "SECTION 2",
+    "title": "PHẦN 2",
     "translation": "",
     "explanation": "",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p2.mp3",
