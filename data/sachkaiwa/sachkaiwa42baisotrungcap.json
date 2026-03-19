@@ -110,7 +110,7 @@
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "お[先](さき)に[失礼](しつれい)します。", "vi": "Tôi xin phép về trước." },
-          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cám ơn anh đã vất vả làm việc. (Hẹn gặp anh ngày mai.)" }
+          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cám ơn anh đã vất vả làm việc." }
         ]
       },
       {
