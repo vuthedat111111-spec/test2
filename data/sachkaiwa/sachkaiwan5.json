@@ -1,24 +1,64 @@
 [
   {
     "id": "n5_001",
-    "title": "おはようございます",
-    "translation": "Chào buổi sáng",
-    "explanation": "Dùng để chào hỏi vào buổi sáng (thường trước 11h trưa). Thể hiện sự lịch sự với người mới gặp.",
+    "title": "お疲れ様でした",
+    "translation": "Bạn đã vất vả rồi / Cảm ơn vì công việc",
+    "explanation": "Câu chào kinh điển chốn công sở sau khi kết thúc công việc hoặc khi đồng nghiệp hoàn thành một nhiệm vụ.",
     "audioPath": "./data/kaiwa/sachkaiwan5/n5_001.mp3",
-    "dialogues": [
-      { "speaker": "A", "ja": "おはようございます、田中さん。", "vi": "Chào buổi sáng, anh Tanaka." },
-      { "speaker": "B", "ja": "あ、おはようございます。今日もいい天気ですね。", "vi": "A, chào buổi sáng. Hôm nay thời tiết cũng đẹp nhỉ." }
+    "conversations": [
+      {
+        "context": "Tình huống 1: Khi tan làm, chào người ở lại",
+        "dialogues": [
+          { "speaker": "A", "ja": "お先に失礼します。", "vi": "Tôi xin phép về trước đây ạ." },
+          { "speaker": "B", "ja": "お疲れ様でした。気をつけてね。", "vi": "Bạn đã vất vả rồi. Về cẩn thận nhé." }
+        ]
+      },
+      {
+        "context": "Tình huống 2: Khi đồng nghiệp hoàn thành xong việc",
+        "dialogues": [
+          { "speaker": "A", "ja": "今日の仕事は終わりました。", "vi": "Công việc hôm nay xong rồi." },
+          { "speaker": "B", "ja": "お疲れ様でした。", "vi": "Cảm ơn anh/chị đã vất vả." }
+        ]
+      }
     ]
   },
   {
     "id": "n5_002",
-    "title": "お疲れ様でした",
-    "translation": "Bạn đã vất vả rồi",
-    "explanation": "Câu chào kinh điển chốn công sở sau khi kết thúc công việc.",
+    "title": "もう一度お願いします",
+    "translation": "Xin vui lòng nhắc lại một lần nữa",
+    "explanation": "Mẫu câu dùng khi bạn nghe không rõ hoặc chưa hiểu ý đối phương và muốn họ nói lại.",
     "audioPath": "./data/kaiwa/sachkaiwan5/n5_002.mp3",
-    "dialogues": [
-      { "speaker": "A", "ja": "今日の仕事はこれで終わりです。お疲れ様でした。", "vi": "Công việc hôm nay đến đây là xong. Cậu đã vất vả rồi." },
-      { "speaker": "B", "ja": "お疲れ様でした。お先に失礼します。", "vi": "Anh cũng vất vả rồi. Tôi xin phép về trước ạ." }
+    "conversations": [
+      {
+        "context": "",
+        "dialogues": [
+          { "speaker": "A", "ja": "先生、すみません。もう一度お願いします。", "vi": "Thưa cô, xin lỗi cô. Cô có thể nhắc lại một lần nữa được không ạ?" },
+          { "speaker": "B", "ja": "はい、いいですよ。", "vi": "Vâng, được thôi." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5_003",
+    "title": "これをください",
+    "translation": "Cho tôi cái này",
+    "explanation": "Câu nói thông dụng nhất khi đi mua sắm hoặc gọi món tại nhà hàng ở Nhật Bản.",
+    "audioPath": "./data/kaiwa/sachkaiwan5/n5_003.mp3",
+    "conversations": [
+      {
+        "context": "Tình huống 1: Tại cửa hàng tiện lợi",
+        "dialogues": [
+          { "speaker": "A", "ja": "すみません、これをください。", "vi": "Xin lỗi, cho tôi lấy cái này." },
+          { "speaker": "B", "ja": "はい、かしこまりました。５００円になります。", "vi": "Vâng, tôi hiểu rồi. Của quý khách hết 500 yên ạ." }
+        ]
+      },
+      {
+        "context": "Tình huống 2: Gọi món ở nhà hàng",
+        "dialogues": [
+          { "speaker": "A", "ja": "ご注文はお決まりですか。", "vi": "Quý khách đã quyết định món chưa ạ?" },
+          { "speaker": "B", "ja": "はい。このラーメンと、ビールをください。", "vi": "Vâng. Cho tôi mì ramen này và một cốc bia." }
+        ]
+      }
     ]
   }
 ]
