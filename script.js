@@ -5121,12 +5121,21 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onNext, onPrev
     const [roleplayMode, setRoleplayMode] = React.useState('all'); // 'all' | 'hideA' | 'hideB'
     const audioRef = React.useRef(null);
 
-    // Reset state khi đổi câu hỏi
+   // 1. THÊM DÒNG NÀY: Tạo ref cho khung cuộn
+    const scrollRef = React.useRef(null);
+
+    // 2. THÊM ĐOẠN NÀY: Tự động cuộn lên top khi đổi câu
+    React.useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = 0;
+        }
+    }, [currentIndex]); // Mỗi khi currentIndex thay đổi sẽ chạy cái này
+
+    // Reset state khi đổi câu hỏi (Giữ nguyên của bạn)
     React.useEffect(() => {
         setIsPlaying(false);
-        // setShowTranslation(false); // Tuỳ chọn: Có muốn giữ nguyên trạng thái dịch khi qua câu mới ko?
     }, [lesson]);
-
+    
     const toggleAudio = () => {
         if (!audioRef.current) return;
         if (isPlaying) audioRef.current.pause();
@@ -5151,7 +5160,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onNext, onPrev
             </div>
 
             {/* Nội dung Scroll */}
-            <div className="flex-1 overflow-y-auto p-6 pb-36 custom-scrollbar">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 pb-36 custom-scrollbar">
                 
                 {/* 1. Câu chính & Nghĩa */}
                 <div className="mb-8">
@@ -5393,15 +5402,21 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
- {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
+{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
     onOpenSetup={(target) => {
-        setSetupConfig({ isOpen: true, targetAction: target });
-        // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
-        if (target === 'conjugate') {
-            handleModeSwitch('vocab'); 
+        // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
+        if (target === 'kaiwa') {
+            setIsKaiwaOpen(true);
+        } else {
+            // Các tính năng khác vẫn mở bảng Setup bình thường
+            setSetupConfig({ isOpen: true, targetAction: target });
+            // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
+            if (target === 'conjugate') {
+                handleModeSwitch('vocab'); 
+            }
         }
     }}
 />
