@@ -51,8 +51,8 @@
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "田中さん？", "vi": "Tanaka á?" },
-          { "speaker": "B", "ja": "田中さん。", "vi": "Ừ, Tanaka." }
+          { "speaker": "A", "ja": "[田中](たなか)さん？", "vi": "Tanaka á?" },
+          { "speaker": "B", "ja": "[田中](たなか)さん。", "vi": "Ừ, Tanaka." }
         ]
       },
       {
@@ -95,7 +95,7 @@
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "先生、おはようございます。", "vi": "Em chào thầy/cô." },
+          { "speaker": "A", "ja": "[先生](せんせい)、おはようございます。", "vi": "Em chào thầy/cô." },
           { "speaker": "B", "ja": "おはよう。", "vi": "Chào em." }
         ]
       },
@@ -103,13 +103,13 @@
         "context": "Tình huống 3",
         "dialogues": [
           { "speaker": "A", "ja": "えみさん、じゃーね。", "vi": "Emi, hẹn gặp lại cậu sau." },
-          { "speaker": "B", "ja": "うん。また明日。", "vi": "Ừ, Mai gặp lại nhé." }
+          { "speaker": "B", "ja": "うん。また[明日](あした)。", "vi": "Ừ, Mai gặp lại nhé." }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": "お先に失礼します。", "vi": "Tôi xin phép về trước." },
+          { "speaker": "A", "ja": "お[先](さき)に[失礼](しつれい)します。", "vi": "Tôi xin phép về trước." },
           { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cảm ơn anh đã vất vả làm việc. (Hẹn gặp anh ngày mai)" }
         ]
       },
@@ -151,11 +151,10 @@
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "お元気ですか。", "vi": "Chị có khỏe không?" },
-          { "speaker": "B", "ja": "はい、元気です。", "vi": "Có, tôi khỏe." }
+          { "speaker": "A", "ja": "お[元気](げんき)ですか。", "vi": "Chị có khỏe không?" },
+          { "speaker": "B", "ja": "はい、[元気](げんき)です。", "vi": "Có, tôi khỏe." }
         ]
       }
     ]
   }
-  
 ]
