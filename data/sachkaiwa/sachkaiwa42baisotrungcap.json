@@ -4,7 +4,7 @@
     "title": "PHẦN 1",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -83,7 +83,7 @@
     "title": "PHẦN 2",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p2.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p2.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -162,7 +162,7 @@
     "title": "PHẦN 3",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p3.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p3.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -182,21 +182,21 @@
         "context": "Tình huống 3",
         "dialogues": [
           { "speaker": "A", "ja": "[何時](なんじ)にねましたか？", "vi": "Anh đi ngủ lúc mấy giờ?" },
-          { "speaker": "B", "ja": "11[時半](じゅういちじはん)ぐらいです。", "vi": "Khoảng 11 giờ rưỡi." }
+          { "speaker": "B", "ja": "11[時半](じはん)ぐらいです。", "vi": "Khoảng 11 giờ rưỡi." }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "テストは[何時](なんじ)からですか？", "vi": "Mấy giờ bắt đầu kiểm tra?" },
-          { "speaker": "B", "ja": "10[時](じゅうじ)からですよ。", "vi": "10 giờ." }
+          { "speaker": "B", "ja": "10[時](じ)からですよ。", "vi": "10 giờ." }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
           { "speaker": "A", "ja": "[今日](きょう)は[何日](なんにち)ですか？", "vi": "Hôm nay là ngày mấy?" },
-          { "speaker": "B", "ja": "4[月](しがつ)1[日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
+          { "speaker": "B", "ja": "[4月](しがつ)[1日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
         ]
       },
       {
@@ -210,14 +210,14 @@
         "context": "Tình huống 7",
         "dialogues": [
           { "speaker": "A", "ja": "[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh?" },
-          { "speaker": "B", "ja": "8[月](はちがつ)20[日](はつか)です。", "vi": "20 tháng 8" }
+          { "speaker": "B", "ja": "[8月](はちがつ)[20日](はつか)です。", "vi": "20 tháng 8" }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
           { "speaker": "A", "ja": "[銀行](ぎんこう)は[何時](なんじ)から[何時](なんじ)までですか？", "vi": "Ngân hàng làm việc từ mấy giờ đến mấy giờ?" },
-          { "speaker": "B", "ja": "9[時](くじ)から3[時](さんじ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
+          { "speaker": "B", "ja": "[9時](くじ)から[3時](さんじ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
         ]
       },
       {
@@ -241,7 +241,7 @@
     "title": "PHẦN 4",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p4.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p4.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -297,8 +297,8 @@
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "ノート、3[冊](さんさつ)ください。", "vi": "Cho tôi ba quyển vở." },
-          { "speaker": "B", "ja": "はい、3[冊](さんさつ)ですね。", "vi": "Vâng, 3 quyển phải không ạ?!" }
+          { "speaker": "A", "ja": "ノート、3[冊](さつ)ください。", "vi": "Cho tôi ba quyển vở." },
+          { "speaker": "B", "ja": "はい、3[冊](さつ)ですね。", "vi": "Vâng, 3 quyển phải không ạ?!" }
         ]
       },
       {
@@ -322,13 +322,13 @@
     "title": "PHẦN 5",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p5.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p5.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
         "dialogues": [
           { "speaker": "A", "ja": "[何才](なんさい)ですか？", "vi": "Anh bao nhiêu tuổi rồi?" },
-          { "speaker": "B", "ja": "28[才](にじゅうはっさい)です。", "vi": "Tôi 28 tuổi." }
+          { "speaker": "B", "ja": "[28才](にじゅうはっさい)です。", "vi": "Tôi 28 tuổi." }
         ]
       },
       {
@@ -363,7 +363,7 @@
         "context": "Tình huống 6",
         "dialogues": [
           { "speaker": "A", "ja": "いくらですか？", "vi": "Bao nhiêu ạ?" },
-          { "speaker": "B", "ja": "210[円](にひゃくじゅうえん)です。", "vi": "210 Yên." }
+          { "speaker": "B", "ja": "210[円](えん)です。", "vi": "210 Yên." }
         ]
       },
       {
@@ -401,7 +401,7 @@
     "title": "PHẦN 6",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p6.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p6.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -480,7 +480,7 @@
     "title": "PHẦN 7",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p7.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p7.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -562,7 +562,7 @@
     "title": "PHẦN 8",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p8.mp3",
+    "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p8.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
