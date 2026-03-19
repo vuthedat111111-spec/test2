@@ -5051,7 +5051,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {[
-        { id: '700caun5', title: '700 CÂU KAIWA N5', desc: 'Giao tiếp sơ cấp' }
+        { id: '42baisotrungcap', title: '42 BÀI KAIWA', desc: 'Từ sơ cấp đến trung cấp' }
    ].map((item) => (
         <button 
             key={item.id}
