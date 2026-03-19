@@ -5124,6 +5124,30 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [duration, setDuration] = React.useState(0);
     const [playbackRate, setPlaybackRate] = React.useState(1);
     const [isDragging, setIsDragging] = React.useState(false);
+    const [showFurigana, setShowFurigana] = React.useState(false);
+
+    // Hàm phân tích cú pháp [Kanji](furigana)
+    const renderFurigana = (text, isShow) => {
+        if (!text) return null;
+        // Tách chuỗi theo định dạng [Chữ Hán](Phiên âm)
+        const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+        
+        return parts.map((part, index) => {
+            const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+            if (match) {
+                const kanji = match[1];
+                const furigana = match[2];
+                return (
+                    <ruby key={index} className="leading-loose">
+                        {kanji}
+                        {/* Ẩn hiện thẻ <rt> dựa vào nút bấm */}
+                        {isShow && <rt className="text-[10px] text-indigo-500 font-bold select-none">{furigana}</rt>}
+                    </ruby>
+                );
+            }
+            return <span key={index}>{part}</span>;
+        });
+    };
 
     const audioRef = React.useRef(null);
     const scrollRef = React.useRef(null);
@@ -5221,10 +5245,19 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         <button onClick={() => setRoleplayMode('hideB')} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideB' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai B</button>
                     </div>
                     
-                    <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
-                        <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Dịch</span>
-                        <input type="checkbox" checked={showTranslation} onChange={() => setShowTranslation(!showTranslation)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
-                    </label>
+                    <div className="flex gap-2">
+        {/* Nút Furigana */}
+        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Furigana</span>
+            <input type="checkbox" checked={showFurigana} onChange={() => setShowFurigana(!showFurigana)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+        </label>
+        
+        {/* Nút Dịch (Cũ) */}
+        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Dịch</span>
+            <input type="checkbox" checked={showTranslation} onChange={() => setShowTranslation(!showTranslation)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+        </label>
+    </div>
                 </div>
 
                 <div className="space-y-8"> 
@@ -5252,7 +5285,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                             isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
                                         }`}>
                                             <p className={`text-sm sm:text-base font-medium leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-    {isHidden ? "（あなたが話す番です）" : line.ja}
+   {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
 </p>
                                             {showTranslation && (
                                                 <p className={`text-xs mt-2 font-medium border-t pt-2 ${isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-400 border-zinc-700'}`}>
