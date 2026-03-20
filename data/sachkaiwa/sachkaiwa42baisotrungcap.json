@@ -520,7 +520,7 @@
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "[山田](やまだ)さん、しゅみは[何](なん)ですか？", "vi": "Anh Tanaka, sở thích của anh là gì?" },
+          { "speaker": "A", "ja": "[山田](やまだ)さん、しゅみは[何](なん)ですか？", "vi": "Anh Yamada, sở thích của anh là gì?" },
           { "speaker": "B", "ja": "しゅみ？　う〜ん、[写真](しゃしん)かな。", "vi": "Sở thích? Ừm, có lẽ là ảnh." }
         ]
       },
@@ -2822,7 +2822,7 @@
   ]
 },
 {
-  "id": "40",
+  "id": "37",
   "title": "PHẦN 5 - BÀI 2",
   "translation": "",
   "explanation": "",
@@ -3128,9 +3128,9 @@
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": "[風](かぜ)の[音](おto)がビュービューすごいね。", "vi": "Tiếng gió thổi vù vù mạnh thật nhỉ!" },
+        { "speaker": "A", "ja": "[風](かぜ)の[音](おと)がビュービューすごいね。", "vi": "Tiếng gió thổi vù vù mạnh thật nhỉ!" },
         { "speaker": "B", "ja": "うん、こんな[日](ひ)にハイキングなんて[最悪](さいあく)！", "vi": "Ừ, ngày thế này mà đi bộ đường dài thì thật khủng khiếp nhỉ!" },
-        { "speaker": "A", "ja": "[雨](あめ)反映でも[降](ふ)ってくれれば、[中止](ちゅうし)になるのにね。", "vi": "Nếu trời mà mưa thì đã được hoãn rồi nhỉ!" }
+        { "speaker": "A", "ja": "[雨](あめ)でも[降](ふ)ってくれれば、[中止](ちゅうし)になるのにね。", "vi": "Nếu trời mà mưa thì đã được hoãn rồi nhỉ!" }
       ]
     },
     {
