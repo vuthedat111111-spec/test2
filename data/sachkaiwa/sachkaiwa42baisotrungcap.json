@@ -809,71 +809,71 @@
     {
       "context": "Tình huống 1",
       "dialogues": [
-        { "speaker": "A", "ja": "どこ[行](い)くの？", "vi": "Cậu đi đâu vậy?" },
-        { "speaker": "B", "ja": "ちょっとそこまで。", "vi": "Tôi ra đây một chút." }
+        { "speaker": "A", "ja": "どこ[行](い)くの？", "vi": "Cậu đi đâu vậy?", "startTime": 3.58, "endTime": 5.88 },
+        { "speaker": "B", "ja": "ちょっとそこまで。", "vi": "Tôi ra đây một chút.", "startTime": 5.88, "endTime": 7.35 }
       ]
     },
     {
       "context": "Tình huống 2",
       "dialogues": [
-        { "speaker": "A", "ja": "どこ[行](い)くの？", "vi": "Cậu đi đâu vậy?" },
-        { "speaker": "B", "ja": "ちょっと、コンビニにお[弁当](べんとう)を[買](か)いに。", "vi": "Tôi đến cửa hàng tiện ích 24/24 giờ mua cơm hộp." }
+        { "speaker": "A", "ja": "どこ[行](い)くの？", "vi": "Cậu đi đâu vậy?", "startTime": 7.35, "endTime": 10.65 },
+        { "speaker": "B", "ja": "ちょっと、コンビニにお[弁当](べんとう)を[買](か)いに。", "vi": "Tôi đến cửa hàng tiện ích 24/24 giờ mua cơm hộp.", "startTime": 10.65, "endTime": 13.6 }
       ]
     },
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": "[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Chúng ta cùng ăn trưa nhé?" },
-        { "speaker": "B", "ja": "うん、いいね。[何](なに)[食](た)べたい？", "vi": "Ừm. Ý hay đấy. Anh muốn ăn gì?" }
+        { "speaker": "A", "ja": "[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Chúng ta cùng ăn trưa nhé?", "startTime": 13.6, "endTime": 17.3 },
+        { "speaker": "B", "ja": "うん、いいね。[何](なに)[食](た)べたい？", "vi": "Ừm. Ý hay đấy. Anh muốn ăn gì?", "startTime": 17.3, "endTime": 19.9 }
       ]
     },
     {
       "context": "Tình huống 4",
       "dialogues": [
-        { "speaker": "A", "ja": "[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Chúng ta cùng ăn trưa nhé?" },
-        { "speaker": "B", "ja": "あ、ごめん。もう[食](た)べちゃった。", "vi": "Á, xin lỗi. Em đã ăn mất rồi." }
+        { "speaker": "A", "ja": "[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Chúng ta cùng ăn trưa nhé?", "startTime": 19.9, "endTime": 24.32 },
+        { "speaker": "B", "ja": "あ、ごめん。もう[食](た)べちゃった。", "vi": "Á, xin lỗi. Em đã ăn mất rồi.", "startTime": 24.32, "endTime": 27.83 }
       ]
     },
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": "ねー、[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Này, chúng ta cùng ăn trưa nhé?" },
-        { "speaker": "B", "ja": "あ、ちょっと[待](ま)って。[食](た)べる[前](まえ)に[友](とも)だちに[電話](でんわ)したいんだ。", "vi": "À, chờ chút. Em muốn gọi cho bạn trước khi ăn." }
+        { "speaker": "A", "ja": "ねー、[一緒](いっしょ)にお[昼](ひる)[食](た)べない？", "vi": "Này, chúng ta cùng ăn trưa nhé?", "startTime": 27.83, "endTime": 31.7 },
+        { "speaker": "B", "ja": "あ、ちょっと[待](ま)って。[食](た)べる[前](まえ)に[友](とも)だちに[電話](でんわ)したいんだ。", "vi": "À, chờ chút. Em muốn gọi cho bạn trước khi ăn.", "startTime": 31.7, "endTime": 36.59 }
       ]
     },
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "ねー、[何](なに)か[書](か)くものある。", "vi": "Này, cậu có gì để viết không?" },
-        { "speaker": "B", "ja": "え、ペン？　それとも[紙](かみ)？", "vi": "À, bút á? Hay là giấy?" }
+        { "speaker": "A", "ja": "ねー、[何](なに)か[書](か)くものある。", "vi": "Này, cậu có gì để viết không?", "startTime": 36.59, "endTime": 41.32 },
+        { "speaker": "B", "ja": "え、ペン？　それとも[紙](かみ)？", "vi": "À, bút á? Hay là giấy?", "startTime": 41.32, "endTime": 45.02 }
       ]
     },
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "あ～、[飲](の)みすぎた。ちょっと[酔](よ)っぱらったよ。", "vi": "Ôi, tôi uống nhiều quá! Tôi hơi say rồi." },
-        { "speaker": "B", "ja": "う～ん。[眠](ねむ)くなってきた。", "vi": "Ừm, tôi thấy buồn ngủ rồi." }
+        { "speaker": "A", "ja": "あ～、[飲](の)みすぎた。ちょっと[酔](よ)っぱらったよ。", "vi": "Ôi, tôi uống nhiều quá! Tôi hơi say rồi.", "startTime": 45.02, "endTime": 51.23 },
+        { "speaker": "B", "ja": "う～ん。[眠](ねむ)くなってきた。", "vi": "Ừm, tôi thấy buồn ngủ rồi.", "startTime": 51.23, "endTime": 54.69 }
       ]
     },
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": "[山田](やまだ)さん、おいくつですか？", "vi": "Chị Yamada bao nhiêu tuổi rồi?" },
-        { "speaker": "B", "ja": "えっ！　ひみつです。[聞](き)かないで。", "vi": "Ấy! Bí mật. Đừng có hỏi!" }
+        { "speaker": "A", "ja": "[山田](やまだ)さん、おいくつですか？", "vi": "Chị Yamada bao nhiêu tuổi rồi?", "startTime": 54.69, "endTime": 59.05 },
+        { "speaker": "B", "ja": "えっ！　ひみつです。[聞](き)かないで。", "vi": "Ấy! Bí mật. Đừng có hỏi!", "startTime": 59.05, "endTime": 62.16 }
       ]
     },
     {
       "context": "Tình huống 9",
       "dialogues": [
-        { "speaker": "A", "ja": "この[漢字](かんじ)の[読](よ)みかた[教](おし)えて。", "vi": "Chỉ cho tôi cách đọc chữ Hán này với!" },
-        { "speaker": "B", "ja": "う～ん。わかんないなー。[他](ほか)の[人](ひと)に[聞](き)いて。", "vi": "Hừm, tôi không biết đâu. Cậu hỏi người khác đi!" }
+        { "speaker": "A", "ja": "この[漢字](かんじ)の[読](よ)みかた[教](おし)えて。", "vi": "Chỉ cho tôi cách đọc chữ Hán này với!", "startTime": 62.16, "endTime": 66.17 },
+        { "speaker": "B", "ja": "う～ん。わかんないなー。[他](ほか)の[人](ひと)に[聞](き)いて。", "vi": "Hừm, tôi không biết đâu. Cậu hỏi người khác đi!", "startTime": 66.17, "endTime": 72.75 }
       ]
     },
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "はい、もしもし。", "vi": "A lô." },
-        { "speaker": "B", "ja": "[危](あぶ)ないよ。[運転](うんてん)しながらは。", "vi": "Vừa lái xe vừa gọi điện nguy hiểm đó." }
+        { "speaker": "A", "ja": "はい、もしもし。", "vi": "A lô.", "startTime": 72.75, "endTime": 76.26 },
+        { "speaker": "B", "ja": "[危](あぶ)ないよ。[運転](うんてん)しながらは。", "vi": "Vừa lái xe vừa gọi điện nguy hiểm đó.", "startTime": 76.26, "endTime": 79.57 }
       ]
     }
   ]
@@ -888,71 +888,71 @@
     {
       "context": "Tình huống 1",
       "dialogues": [
-        { "speaker": "A", "ja": "[昨日](きのう)、[暑](あつ)かったね。", "vi": "Hôm qua nóng thật đấy!" },
-        { "speaker": "B", "ja": "[本当](ほんとう)。[暑](あつ)くて[暑](あつ)くて…。[寝](ね)られなかったよ。", "vi": "Đúng thế. Nóng ơi là nóng... Em chẳng thể ngủ được." }
+        { "speaker": "A", "ja": "[昨日](きのう)、[暑](あつ)かったね。", "vi": "Hôm qua nóng thật đấy!", "startTime": 1.4, "endTime": 4.97 },
+        { "speaker": "B", "ja": "[本当](ほんとう)。[暑](あつ)くて[暑](あつ)くて…。[寝](ね)られなかったよ。", "vi": "Đúng thế. Nóng ơi là nóng... Em chẳng thể ngủ được.", "startTime": 4.97, "endTime": 9.63 }
       ]
     },
     {
       "context": "Tình huống 2",
       "dialogues": [
-        { "speaker": "A", "ja": "[田中](たなか)さんの[彼女](かのじょ)ってどの[人](ひと)ですか？", "vi": "Bạn gái anh Tanaka là người nào vậy?" },
-        { "speaker": "B", "ja": "ほら、あそこで[電話](でんわ)してる[人](ひと)。", "vi": "Đấy, người đang gọi điện thoại đằng kia kìa." }
+        { "speaker": "A", "ja": "[田中](たなか)さんの[彼女](かのじょ)ってどの[人](ひと)ですか？", "vi": "Bạn gái anh Tanaka là người nào vậy?", "startTime": 9.63, "endTime": 14.42 },
+        { "speaker": "B", "ja": "ほら、あそこで[電話](でんわ)してる[人](ひと)。", "vi": "Đấy, người đang gọi điện thoại đằng kia kìa.", "startTime": 14.42, "endTime": 17.06 }
       ]
     },
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": "[今夜](こんや)[飲](の)みに[行](い)きませんか？", "vi": "Tối nay chúng ta đi uống đi!" },
-        { "speaker": "B", "ja": "いいですね。[行](い)きましょう。", "vi": "Ý hay đấy. Đi thôi!" }
+        { "speaker": "A", "ja": "[今夜](こんや)[飲](の)みに[行](い)きませんか？", "vi": "Tối nay chúng ta đi uống đi!", "startTime": 17.06, "endTime": 21.37 },
+        { "speaker": "B", "ja": "いいですね。[行](い)きましょう。", "vi": "Ý hay đấy. Đi thôi!", "startTime": 21.37, "endTime": 23.87 }
       ]
     },
     {
       "context": "Tình huống 4",
       "dialogues": [
-        { "speaker": "A", "ja": "ねー、パンを[食](た)べるの「を」って、パソコンでどう[書](か)くんですか？", "vi": "Này, đánh \" を \" trong câu \"pan wo taberu\" trên máy tính thế nào vậy?" },
-        { "speaker": "B", "ja": "ＷＯですよ。", "vi": "Đánh WO." }
+        { "speaker": "A", "ja": "ねー、パンを[食](た)べるの「を」って、パソコンでどう[書](か)くんですか？", "vi": "Này, đánh \" を \" trong câu \"pan wo taberu\" trên máy tính thế nào vậy?", "startTime": 23.87, "endTime": 30.34 },
+        { "speaker": "B", "ja": "ＷＯですよ。", "vi": "Đánh WO.", "startTime": 30.34, "endTime": 33.07 }
       ]
     },
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": "あれ？　あんまり[食](た)べないねー。", "vi": "Ơ? Em không ăn mấy nhỉ?!" },
-        { "speaker": "B", "ja": "う～ん、[今日](きょう)はおなかの[調子](ちょうし)があまり[良](よ)くないんです。", "vi": "Ừm, hôm nay bụng dạ em không được tốt lắm." }
+        { "speaker": "A", "ja": "あれ？　あんまり[食](た)べないねー。", "vi": "Ơ? Em không ăn mấy nhỉ?!", "startTime": 33.07, "endTime": 37.58 },
+        { "speaker": "B", "ja": "う～ん、[今日](きょう)はおなかの[調子](ちょうし)があまり[良](よ)くないんです。", "vi": "Ừm, hôm nay bụng dạ em không được tốt lắm.", "startTime": 37.58, "endTime": 42.43 }
       ]
     },
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "あ～、[新](あたら)しい[言葉](ことば)がたくさんある…。", "vi": "Ôi, nhiều từ mới quá..." },
-        { "speaker": "B", "ja": "[本当](ほんとう)、[頭](あたま)が[変](へん)になりそう…。", "vi": "Đúng vậy. Đầu tớ sắp vỡ tung rồi..." }
+        { "speaker": "A", "ja": "あ～、[新](あたら)しい[言葉](ことば)がたくさんある…。", "vi": "Ôi, nhiều từ mới quá...", "startTime": 42.43, "endTime": 48.32 },
+        { "speaker": "B", "ja": "[本当](ほんとう)、[頭](あたま)が[変](へん)になりそう…。", "vi": "Đúng vậy. Đầu tớ sắp vỡ tung rồi...", "startTime": 48.32, "endTime": 52.33 }
       ]
     },
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "ずいぶん[涼](すず)しくなりましたね。", "vi": "Trời mát hơn rồi nhỉ!" },
-        { "speaker": "B", "ja": "そうですね。", "vi": "Đúng thế." }
+        { "speaker": "A", "ja": "ずいぶん[涼](すず)しくなりましたね。", "vi": "Trời mát hơn rồi nhỉ!", "startTime": 52.33, "endTime": 56.75 },
+        { "speaker": "B", "ja": "そうですね。", "vi": "Đúng thế.", "startTime": 56.75, "endTime": 58.76 }
       ]
     },
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": "あれ？　ここ[携帯](けいたい)[使](つか)えないんだ。", "vi": "Ơ? Tôi không dùng di động ở đây được." },
-        { "speaker": "B", "ja": "うん。[地下](ちか)だからね。", "vi": "Ừ. Vì ở dưới lòng đất mà." }
+        { "speaker": "A", "ja": "あれ？　ここ[携帯](けいたい)[使](つか)えないんだ。", "vi": "Ơ? Tôi không dùng di động ở đây được.", "startTime": 58.76, "endTime": 63.66 },
+        { "speaker": "B", "ja": "うん。[地下](ちか)だからね。", "vi": "Ừ. Vì ở dưới lòng đất mà.", "startTime": 63.66, "endTime": 66.22 }
       ]
     },
     {
       "context": "Tình huống 9",
       "dialogues": [
-        { "speaker": "A", "ja": "[日本](にほん)に[来](き)てどれぐらいになりますか？", "vi": "Chị đến Nhật được bao lâu rồi?" },
-        { "speaker": "B", "ja": "2[年半](ねんはん)になります。", "vi": "Được 2 năm rưỡi." }
+        { "speaker": "A", "ja": "[日本](にほん)に[来](き)てどれぐらいになりますか？", "vi": "Chị đến Nhật được bao lâu rồi?", "startTime": 66.22, "endTime": 70.24 },
+        { "speaker": "B", "ja": "2[年半](ねんはん)になります。", "vi": "Được 2 năm rưỡi.", "startTime": 70.24, "endTime": 72.54 }
       ]
     },
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "[山田](やまだ)さんはどちらにお[住](す)まいですか？", "vi": "Chị Yamada, chị sống ở đâu vậy?" },
-        { "speaker": "B", "ja": "この[近所](きんじょ)に[住](す)んでいます。すぐそこです。", "vi": "Tôi sống ở gần đây. Ở ngay kia." }
+        { "speaker": "A", "ja": "[山田](やまだ)さんはどちらにお[住](す)まいですか？", "vi": "Chị Yamada, chị sống ở đâu vậy?", "startTime": 72.54, "endTime": 76.94 },
+        { "speaker": "B", "ja": "この[近所](きんじょ)に[住](す)んでいます。すぐそこです。", "vi": "Tôi sống ở gần đây. Ở ngay kia.", "startTime": 76.94, "endTime": 80.72 }
       ]
     }
   ]
@@ -967,71 +967,71 @@
     {
       "context": "Tình huống 1",
       "dialogues": [
-        { "speaker": "A", "ja": "[日本語](にほんご)すごいね。[上手](じょうず)になったね。", "vi": "Tiếng Nhật của cậu tốt thật đấy. Cậu giỏi hơn rồi." },
-        { "speaker": "B", "ja": "いやー、だんだんむずかしくなってきました。", "vi": "Không đâu, càng ngày càng khó hơn." }
+        { "speaker": "A", "ja": "[日本語](にほんご)すごいね。[上手](じょうず)になったね。", "vi": "Tiếng Nhật của cậu tốt thật đấy. Cậu giỏi hơn rồi.", "startTime": 1.77, "endTime": 5.98 },
+        { "speaker": "B", "ja": "いやー、だんだんむずかしくなってきました。", "vi": "Không đâu, càng ngày càng khó hơn.", "startTime": 5.98, "endTime": 9.84 }
       ]
     },
     {
       "context": "Tình huống 2",
       "dialogues": [
-        { "speaker": "A", "ja": "[日本語](にほんご)の[辞書](じしょ)がほしいんだ。", "vi": "Tôi muốn có từ điển tiếng Nhật." },
-        { "speaker": "B", "ja": "へー、[先生](せんせい)に[聞](き)いてから[買](か)いに[行](い)ったら？", "vi": "Ồ, vậy thì sao cậu không hỏi thầy giáo rồi đi mua?" }
+        { "speaker": "A", "ja": "[日本語](にほんご)の[辞書](じしょ)がほしいんだ。", "vi": "Tôi muốn có từ điển tiếng Nhật.", "startTime": 9.84, "endTime": 13.53 },
+        { "speaker": "B", "ja": "へー、[先生](せんせい)に[聞](き)いてから[買](か)いに[行](い)ったら？", "vi": "Ồ, vậy thì sao cậu không hỏi thầy giáo rồi đi mua?", "startTime": 13.53, "endTime": 16.71 }
       ]
     },
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": "まだ[寒](さむ)い？", "vi": "Em vẫn lạnh à?" },
-        { "speaker": "B", "ja": "うん、このストーブ、ついてますか？", "vi": "Vâng. Máy sưởi này đang bật ạ?" }
+        { "speaker": "A", "ja": "まだ[寒](さむ)い？", "vi": "Em vẫn lạnh à?", "startTime": 16.71, "endTime": 20.23 },
+        { "speaker": "B", "ja": "うん、このストーブ、ついてますか？", "vi": "Vâng. Máy sưởi này đang bật ạ?", "startTime": 20.23, "endTime": 24.12 }
       ]
     },
     {
       "context": "Tình huống 4",
       "dialogues": [
-        { "speaker": "A", "ja": "この[辺](へん)は[春](はる)になるとさくらがきれいでしょうね。", "vi": "Khu vực này, chắc đến mùa xuân là hoa anh đào đẹp lắm nhỉ!" },
-        { "speaker": "B", "ja": "ええ、みごとですよ。", "vi": "Ừ, đẹp lắm!" }
+        { "speaker": "A", "ja": "この[辺](へん)は[春](はる)になるとさくらがきれいでしょうね。", "vi": "Khu vực này, chắc đến mùa xuân là hoa anh đào đẹp lắm nhỉ!", "startTime": 24.12, "endTime": 29 },
+        { "speaker": "B", "ja": "ええ、みごとですよ。", "vi": "Ừ, đẹp lắm!", "startTime": 29, "endTime": 31.39 }
       ]
     },
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": "[大阪](おおさか)に[行](い)ったら、[知](し)らない[日本語](にほんご)をたくさん[聞](き)きました。", "vi": "Khi đến Osaka, tôi nghe được nhiều câu tiếng Nhật lạ." },
-        { "speaker": "B", "ja": "あー、それは[方言](ほうげん)ですよ。[場所](ばしょ)によって[言葉](ことば)がちがうんです。", "vi": "À, đó là phương ngữ. Tùy địa phương mà từ khác hẳn." }
+        { "speaker": "A", "ja": "[大阪](おおさか)に[行](い)ったら、[知](し)らない[日本語](にほんご)をたくさん[聞](き)きました。", "vi": "Khi đến Osaka, tôi nghe được nhiều câu tiếng Nhật lạ.", "startTime": 31.39, "endTime": 36.27 },
+        { "speaker": "B", "ja": "あー、それは[方言](ほうげん)ですよ。[場所](ばしょ)によって[言葉](ことば)がちがうんです。", "vi": "À, đó là phương ngữ. Tùy địa phương mà từ khác hẳn.", "startTime": 36.27, "endTime": 41.51 }
       ]
     },
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "わー、この[携帯](けいたい)、テレビが[見](み)られるんだ。", "vi": "Oa, có thể xem ti vi trên điện thoại di động này cơ à?!" },
-        { "speaker": "B", "ja": "うん、そうなんだ。あんまり[使](つか)わないけどね。", "vi": "Ừ, đúng thế. Tuy tôi không sử dụng tính năng này mấy." }
+        { "speaker": "A", "ja": "わー、この[携帯](けいたい)、テレビが[見](み)られるんだ。", "vi": "Oa, có thể xem ti vi trên điện thoại di động này cơ à?!", "startTime": 41.51, "endTime": 46.7 },
+        { "speaker": "B", "ja": "うん、そうなんだ。あんまり[使](つか)わないけどね。", "vi": "Ừ, đúng thế. Tuy tôi không sử dụng tính năng này mấy.", "startTime": 46.7, "endTime": 50.73 }
       ]
     },
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "あまり[飲](の)みませんね。", "vi": "Cậu không uống mấy nhỉ!" },
-        { "speaker": "B", "ja": "ええ。[私](わたし)、お[酒](さけ)、[弱](よわ)いんです。", "vi": "Vâng, tửu lượng tôi kém lắm." }
+        { "speaker": "A", "ja": "あまり[飲](の)みませんね。", "vi": "Cậu không uống mấy nhỉ!", "startTime": 50.73, "endTime": 54.97 },
+        { "speaker": "B", "ja": "ええ。[私](わたし)、お[酒](さけ)、[弱](よわ)いんです。", "vi": "Vâng, tửu lượng tôi kém lắm.", "startTime": 54.97, "endTime": 58.66 }
       ]
     },
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": "ここは[勉強](べんきょう)するところですから、[寝](ね)る[人](ひと)は[別](べつ)の[部屋](へや)へ[行](い)ってください。", "vi": "Đây là nơi học tập nên người ngủ hãy sang phòng khác." },
-        { "speaker": "B", "ja": "わかりました…。", "vi": "Em biết rồi..." }
+        { "speaker": "A", "ja": "ここは[勉強](べんきょう)するところですから、[寝](ね)る[人](ひと)は[別](べつ)の[部屋](へや)へ[行](い)ってください。", "vi": "Đây là nơi học tập nên người ngủ hãy sang phòng khác.", "startTime": 58.66, "endTime": 66 },
+        { "speaker": "B", "ja": "わかりました…。", "vi": "Em biết rồi...", "startTime": 66, "endTime": 67.82 }
       ]
     },
     {
       "context": "Tình huống 9",
       "dialogues": [
-        { "speaker": "A", "ja": "あれ？　めがね…。どこいったかな～。", "vi": "Ơ? Kính của anh...Đâu mất rồi nhỉ?!" },
-        { "speaker": "B", "ja": "ん？　めがね？　どっかで[見](み)たよ。", "vi": "Hử? Kính á? Em đã nhìn thấy ở đâu đó thì phải." }
+        { "speaker": "A", "ja": "あれ？　めがね…。どこいったかな～。", "vi": "Ơ? Kính của anh...Đâu mất rồi nhỉ?!", "startTime": 67.82, "endTime": 74.44 },
+        { "speaker": "B", "ja": "ん？　めがね？　どっかで[見](み)たよ。", "vi": "Hử? Kính á? Em đã nhìn thấy ở đâu đó thì phải.", "startTime": 74.44, "endTime": 77.72 }
       ]
     },
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "あれ？　もう[食](た)べないの？", "vi": "Ơ? Em không ăn nữa à?" },
-        { "speaker": "B", "ja": "うん。さっき[軽](かる)く[食](た)べちゃったんだ。", "vi": "Ừ. Lúc nãy em ăn nhẹ rồi." }
+        { "speaker": "A", "ja": "あれ？　もう[食](た)べないの？", "vi": "Ơ? Em không ăn nữa à?", "startTime": 77.72, "endTime": 81.6 },
+        { "speaker": "B", "ja": "うん。さっき[軽](かる)く[食](た)べちゃったんだ。", "vi": "Ừ. Lúc nãy em ăn nhẹ rồi.", "startTime": 81.6, "endTime": 85.02 }
       ]
     }
   ]
