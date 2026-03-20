@@ -5125,7 +5125,37 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [playbackRate, setPlaybackRate] = React.useState(1);
     const [isDragging, setIsDragging] = React.useState(false);
     const [showFurigana, setShowFurigana] = React.useState(false);
+    const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
+    const [activeIndex, setActiveIndex] = React.useState(-1);     
+    const lineRefs = React.useRef([]);
+// --- THÊM EFFECT NÀY ĐỂ XỬ LÝ HIGHLIGHT & TỰ CUỘN ---
+    React.useEffect(() => {
+        let foundIndex = -1;
+        let flatIdx = 0;
+        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
 
+        // Quét toàn bộ câu thoại để xem audio đang ở câu nào
+        for (const conv of convs) {
+            for (const line of conv.dialogues) {
+                if (line.startTime !== undefined && line.endTime !== undefined) {
+                    if (currentTime >= line.startTime && currentTime <= line.endTime) {
+                        foundIndex = flatIdx;
+                    }
+                }
+                flatIdx++;
+            }
+        }
+
+        // Nếu câu đang đọc thay đổi
+        if (foundIndex !== activeIndex) {
+            setActiveIndex(foundIndex);
+            
+            // Nếu bật tự cuộn và tìm thấy dòng tương ứng -> Cuộn ra giữa màn hình
+            if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
+                lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }, [currentTime, activeIndex, isAutoScroll, lesson]);
     // Hàm phân tích cú pháp [Kanji](furigana)
     const renderFurigana = (text, isShow) => {
         if (!text) return null;
@@ -5198,7 +5228,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         const nextIdx = (rates.indexOf(playbackRate) + 1) % rates.length;
         setPlaybackRate(rates[nextIdx]);
     };
-
+let globalLineIndex = 0;
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
             <audio 
@@ -5252,6 +5282,11 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     </div>
                     
                     <div className="flex gap-2">
+                    {/* --- NÚT TỰ CUỘN MỚI THÊM --- */}
+        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
+            <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-green-500 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+        </label>
         {/* Nút Furigana */}
         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
             <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Furigana</span>
@@ -5280,25 +5315,42 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             )}
 
                             {conv.dialogues.map((line, idx) => {
+                                const currentFlatIndex = globalLineIndex++; 
+                                const isActive = activeIndex === currentFlatIndex; 
+                                
                                 const isHidden = (roleplayMode === 'hideA' && line.speaker === 'A') || 
                                                  (roleplayMode === 'hideB' && line.speaker === 'B');
                                 const isA = line.speaker === 'A';
                                 
+                                let boxClass = isA 
+                                    ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' 
+                                    : 'bg-zinc-50 border-zinc-900 text-zinc-900 rounded-2xl rounded-tr-sm';
+
+                                if (isActive) {
+                                    boxClass = isA 
+                                        ? 'bg-green-50 border-[2px] border-green-500 rounded-2xl rounded-tl-sm shadow-[0_0_15px_rgba(34,197,94,0.2)]' 
+                                        : 'bg-green-50 border-[2px] border-green-500 text-zinc-900 rounded-2xl rounded-tr-sm shadow-[0_0_15px_rgba(34,197,94,0.2)]';
+                                }
+
                                 return (
-                                    <div key={`${convIdx}-${idx}`} className={`flex flex-col w-full ${isA ? 'items-start' : 'items-end'}`}>
-                                        <span className="text-[9px] font-black uppercase tracking-widest mb-1 px-1 text-zinc-400">Người {line.speaker}</span>
-                                        <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border ${
-    isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' : 'bg-zinc-50 border-zinc-900 text-zinc-900 rounded-2xl rounded-tr-sm'
-}`}>
-    <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-        {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
-    </p>
-    {showTranslation && (
-        <p className="text-sm sm:text-base mt-2 font-medium border-t pt-2 text-zinc-500 border-zinc-200">
-            {line.vi}
-        </p>
-    )}
-</div>
+                                    <div 
+                                        key={`${convIdx}-${idx}`} 
+                                        ref={(el) => (lineRefs.current[currentFlatIndex] = el)}
+                                        className={`flex flex-col w-full ${isA ? 'items-start' : 'items-end'} transition-all duration-300`}
+                                    >
+                                        <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 transition-colors ${isActive ? 'text-green-600' : 'text-zinc-400'}`}>
+                                            Người {line.speaker}
+                                        </span>
+                                        <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 ${boxClass}`}>
+                                            <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
+                                                {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
+                                            </p>
+                                            {showTranslation && (
+                                                <p className={`text-sm sm:text-base mt-2 font-medium border-t pt-2 transition-colors ${isActive ? 'text-green-700 border-green-200' : 'text-zinc-500 border-zinc-200'}`}>
+                                                    {line.vi}
+                                                </p>
+                                            )}
+                                        </div>
                                     </div>
                                 )
                             })}
