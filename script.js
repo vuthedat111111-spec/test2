@@ -5128,7 +5128,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [isDragging, setIsDragging] = React.useState(false);
     const [showFurigana, setShowFurigana] = React.useState(false);
     const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
-    const [activeIndex, setActiveIndex] = React.useState(-1);     
+    const [activeIndex, setActiveIndex] = React.useState(-1);  
+    const [showAudioWarning, setShowAudioWarning] = React.useState(false);
+    const triggerAudioWarning = () => {
+        if (!hasWarnedAudioGlobal) {
+            setShowAudioWarning(true);
+            hasWarnedAudioGlobal = true; // Đánh dấu là đã hiện
+        }
+    };
+    const closeAudioWarning = (e) => {
+        if (e) e.stopPropagation();
+        setShowAudioWarning(false);
+    };
     
     const lineRefs = React.useRef([]);
     const soundRef = React.useRef(null); // Ref chứa lõi Howler
@@ -5257,6 +5268,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         } else {
             soundRef.current.play();
             setIsPlaying(true);
+            triggerAudioWarning();
         }
     };
 
@@ -5399,6 +5411,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                                     if (!isPlaying) {
                                                         soundRef.current.play();
                                                         setIsPlaying(true);
+                                                        triggerAudioWarning();
                                                     }
                                                 }
                                             }}
@@ -5463,6 +5476,34 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="w-12"></div>
                 </div>
             </div>
+                                {/* KHUNG THÔNG BÁO ÂM THANH */}
+            {showAudioWarning && (
+                <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
+                    <div className="flex items-start gap-3">
+                        <div className="text-2xl animate-bounce mt-1">💡</div>
+                        <div className="flex flex-col flex-1">
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-[11px] font-black text-amber-400 uppercase tracking-widest">Lưu ý âm thanh</span>
+                                <button onClick={closeAudioWarning} className="text-gray-400 hover:text-white transition-colors p-1 bg-gray-800 hover:bg-gray-700 rounded-full active:scale-90">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                            
+                            {/* --- ĐÃ ĐỔI CÂU CHỮ Ở ĐÂY CHO CẢ IOS VÀ ANDROID --- */}
+                            <span className="text-[13px] leading-relaxed font-medium text-gray-200 mt-1 mb-3">
+                                Nếu không nghe thấy tiếng, hãy đảm bảo máy đã tắt <b className="text-white">Chế độ Im lặng</b> và thử <b className="text-white">tăng âm lượng</b> lên nhé!
+                            </span>
+                            {/* -------------------------------------------------- */}
+                            
+                            <button onClick={closeAudioWarning} className="w-full py-2.5 bg-white text-gray-900 text-[11px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-all shadow-sm">
+                                Đã hiểu
+                            </button>
+                        </div>
+                    </div>
+                    {/* Tam giác nhỏ trỏ xuống dưới */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
+                </div>
+            )}
         </div>
     )
 }
