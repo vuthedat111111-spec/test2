@@ -3250,7 +3250,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "[焼](や)き[肉弁当](にくべんとう)、1つください。", "vi": "Cho tôi 1 hộp cơm thịt nướng." },
         { "speaker": "B", "ja": "はい、焼]き肉ですね、450[円](えん)でーす。", "vi": "Vâng, một thịt nướng. 450 Yên." },
-        { "speaker": "A", "ja": "あの、ご[飯少](はんすく)なめでお願]いします。", "vi": "Cho tôi ít cơm thôi." }
+        { "speaker": "A", "ja": "あの、ご[飯少](はんすく)なめでお願いします。", "vi": "Cho tôi ít cơm thôi." }
       ]
     },
     {
