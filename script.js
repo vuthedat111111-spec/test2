@@ -5479,17 +5479,17 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 </div>
             </div>
                                 {/* KHUNG THÔNG BÁO ÂM THANH */}
-            {showAudioWarning && (
+           {showAudioWarning && (
                 <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
-                    <div className="flex flex-col text-center">
+                    <div className="flex flex-col">
                         
-                        {/* Tiêu đề */}
-                        <span className="text-[11px] font-black text-amber-400 uppercase tracking-widest mb-1">
+                        {/* Tiêu đề: Căn giữa (thêm text-center) */}
+                        <span className="text-center text-[11px] font-black text-amber-400 uppercase tracking-widest mb-1">
                             Lưu ý âm thanh
                         </span>
                         
-                        {/* Nội dung */}
-                        <span className="text-[13px] leading-relaxed font-medium text-gray-200 mt-1 mb-4">
+                        {/* Nội dung: Căn lề trái (thêm text-left) */}
+                        <span className="text-left text-[13px] leading-relaxed font-medium text-gray-200 mt-2 mb-4">
                             Nếu không nghe thấy tiếng, hãy đảm bảo máy đã tắt <b className="text-white">Chế độ Im lặng</b> và thử <b className="text-white">tăng âm lượng</b> lên nhé!
                         </span>
                         
