@@ -95,8 +95,8 @@
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "[先生](せんせい)、おはようございます。", "vi": "Em chào thầy/cô.", "startTime": 5.6, "endTime": 9.1 },
-          { "speaker": "B", "ja": "おはよう。", "vi": "Chào em.", "startTime": 9.1, "endTime": 10.9 }
+          { "speaker": "A", "ja": "[先生](せんせい)、おはようございます。", "vi": "Em chào thầy/cô.", "startTime": 5.6, "endTime": 9.15 },
+          { "speaker": "B", "ja": "おはよう。", "vi": "Chào em.", "startTime": 9.15, "endTime": 10.9 }
         ]
       },
       {
@@ -123,8 +123,8 @@
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!", "startTime": 27.1, "endTime": 29.65 },
-          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!", "startTime": 29.65, "endTime": 31.3 }
+          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!", "startTime": 27.1, "endTime": 29.7 },
+          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!", "startTime": 29.7, "endTime": 31.3 }
         ]
       },
       {
@@ -167,71 +167,71 @@
       {
         "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "[何時](なんじ)ですか？", "vi": "Mấy giờ rồi?" },
-          { "speaker": "B", "ja": "9[時](じ)です。", "vi": "9 giờ." }
+          { "speaker": "A", "ja": "[何時](なんじ)ですか？", "vi": "Mấy giờ rồi?", "startTime": 1.7, "endTime": 4.8 },
+          { "speaker": "B", "ja": "9[時](じ)です。", "vi": "9 giờ.", "startTime": 4.8, "endTime": 6.1 }
         ]
       },
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)ですか？", "vi": "Bây giờ là mấy giờ?" },
-          { "speaker": "B", "ja": "4[時](じ)。", "vi": "4 giờ." }
+          { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)ですか？", "vi": "Bây giờ là mấy giờ?", "startTime": 6.1, "endTime": 9.2 },
+          { "speaker": "B", "ja": "4[時](じ)。", "vi": "4 giờ.", "startTime": 9.2, "endTime": 10.5 }
         ]
       },
       {
         "context": "Tình huống 3",
         "dialogues": [
-          { "speaker": "A", "ja": "[何時](なんじ)にねましたか？", "vi": "Anh đi ngủ lúc mấy giờ?" },
-          { "speaker": "B", "ja": "11[時半](じはん)ぐらいです。", "vi": "Khoảng 11 giờ rưỡi." }
+          { "speaker": "A", "ja": "[何時](なんじ)にねましたか？", "vi": "Anh đi ngủ lúc mấy giờ?", "startTime": 10.5, "endTime": 13.8 },
+          { "speaker": "B", "ja": "11[時半](じはん)ぐらいです。", "vi": "Khoảng 11 giờ rưỡi.", "startTime": 13.8, "endTime": 15.8 }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": "テストは[何時](なんじ)からですか？", "vi": "Mấy giờ bắt đầu kiểm tra?" },
-          { "speaker": "B", "ja": "10[時](じ)からですよ。", "vi": "10 giờ." }
+          { "speaker": "A", "ja": "テストは[何時](なんじ)からですか？", "vi": "Mấy giờ bắt đầu kiểm tra?", "startTime": 15.8, "endTime": 19.2 },
+          { "speaker": "B", "ja": "10[時](じ)からですよ。", "vi": "10 giờ.", "startTime": 19.2, "endTime": 21.2 }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "[今日](きょう)は[何日](なんにち)ですか？", "vi": "Hôm nay là ngày mấy?" },
-          { "speaker": "B", "ja": "4月 [1日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
+          { "speaker": "A", "ja": "[今日](きょう)は[何日](なんにち)ですか？", "vi": "Hôm nay là ngày mấy?", "startTime": 21.2, "endTime": 24.5 },
+          { "speaker": "B", "ja": "4月 [1日](ついたち)です。", "vi": "Ngày 1 tháng 4.", "startTime": 24.5, "endTime": 26.3 }
         ]
       },
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "[今日](きょう)は[何曜日](なんようび)？", "vi": "Hôm nay là thứ mấy?" },
-          { "speaker": "B", "ja": "[水曜日](すいようび)だよ。", "vi": "Là thứ 4" }
+          { "speaker": "A", "ja": "[今日](きょう)は[何曜日](なんようび)？", "vi": "Hôm nay là thứ mấy?", "startTime": 26.3, "endTime": 29.7 },
+          { "speaker": "B", "ja": "[水曜日](すいようび)だよ。", "vi": "Là thứ 4", "startTime": 29.7, "endTime": 31.5 }
         ]
       },
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh?" },
-          { "speaker": "B", "ja": "8月[20日](はつか)です。", "vi": "20 tháng 8" }
+          { "speaker": "A", "ja": "[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh?", "startTime": 31.5, "endTime": 34.9 },
+          { "speaker": "B", "ja": "8月[20日](はつか)です。", "vi": "20 tháng 8", "startTime": 34.9, "endTime": 36.8 }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "[銀行](ぎんこう)は[何時](なんじ)から[何時](なんじ)までですか？", "vi": "Ngân hàng làm việc từ mấy giờ đến mấy giờ?" },
-          { "speaker": "B", "ja": "9[時](じ)から3[時](じ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
+          { "speaker": "A", "ja": "[銀行](ぎんこう)は[何時](なんじ)から[何時](なんじ)までですか？", "vi": "Ngân hàng làm việc từ mấy giờ đến mấy giờ?", "startTime": 36.8, "endTime": 41.5 },
+          { "speaker": "B", "ja": "9[時](じ)から3[時](じ)までです。", "vi": "Từ 9 giờ đến 3 giờ.","startTime": 41.5, "endTime": 43.6 }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "[今年](ことし)は[何年](なんねん)？", "vi": "Năm nay là năm bao nhiêu?" },
-          { "speaker": "B", "ja": "2006年。[平成](へいせい)18年だよ。", "vi": "Năm 2006. Năm Bình Thành thứ 18." }
+          { "speaker": "A", "ja": "[今年](ことし)は[何年](なんねん)？", "vi": "Năm nay là năm bao nhiêu?", "startTime": 43.6, "endTime": 46.9 },
+          { "speaker": "B", "ja": "2006年。[平成](へいせい)18年だよ。", "vi": "Năm 2006. Năm Bình Thành thứ 18.", "startTime": 46.9, "endTime": 50.2 }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "[日本](にほん)に[来](き)て、どのぐらいですか？", "vi": "Anh tới Nhật bao lâu rồi?" },
-          { "speaker": "B", "ja": "1年 3[ヶ月](かげつ)です。", "vi": "1 năm 3 tháng." }
+          { "speaker": "A", "ja": "[日本](にほん)に[来](き)て、どのぐらいですか？", "vi": "Anh tới Nhật bao lâu rồi?", "startTime": 50.2, "endTime": 54.7 },
+          { "speaker": "B", "ja": "1年 3[ヶ月](かげつ)です。", "vi": "1 năm 3 tháng.", "startTime": 54.7, "endTime": 56.8 }
         ]
       }
     ]
