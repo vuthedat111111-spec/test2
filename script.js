@@ -5481,26 +5481,23 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 {/* KHUNG THÔNG BÁO ÂM THANH */}
             {showAudioWarning && (
                 <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
-                    <div className="flex items-start gap-3">
-                        <div className="text-2xl animate-bounce mt-1">💡</div>
-                        <div className="flex flex-col flex-1">
-                            <div className="flex justify-between items-center mb-1">
-                                <span className="text-[11px] font-black text-amber-400 uppercase tracking-widest">Lưu ý âm thanh</span>
-                                <button onClick={closeAudioWarning} className="text-gray-400 hover:text-white transition-colors p-1 bg-gray-800 hover:bg-gray-700 rounded-full active:scale-90">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </button>
-                            </div>
-                            
-                            {/* --- ĐÃ ĐỔI CÂU CHỮ Ở ĐÂY CHO CẢ IOS VÀ ANDROID --- */}
-                            <span className="text-[13px] leading-relaxed font-medium text-gray-200 mt-1 mb-3">
-                                Nếu không nghe thấy tiếng, hãy đảm bảo máy đã tắt <b className="text-white">Chế độ Im lặng</b> và thử <b className="text-white">tăng âm lượng</b> lên nhé!
-                            </span>
-                            {/* -------------------------------------------------- */}
-                            
-                            <button onClick={closeAudioWarning} className="w-full py-2.5 bg-white text-gray-900 text-[11px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-all shadow-sm">
-                                Đã hiểu
-                            </button>
-                        </div>
+                    <div className="flex flex-col text-center">
+                        
+                        {/* Tiêu đề */}
+                        <span className="text-[11px] font-black text-amber-400 uppercase tracking-widest mb-1">
+                            Lưu ý âm thanh
+                        </span>
+                        
+                        {/* Nội dung */}
+                        <span className="text-[13px] leading-relaxed font-medium text-gray-200 mt-1 mb-4">
+                            Nếu không nghe thấy tiếng, hãy đảm bảo máy đã tắt <b className="text-white">Chế độ Im lặng</b> và thử <b className="text-white">tăng âm lượng</b> lên nhé!
+                        </span>
+                        
+                        {/* Nút bấm */}
+                        <button onClick={closeAudioWarning} className="w-full py-2.5 bg-white text-gray-900 text-[11px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-all shadow-sm">
+                            Đã hiểu
+                        </button>
+
                     </div>
                     {/* Tam giác nhỏ trỏ xuống dưới */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
