@@ -1160,7 +1160,7 @@
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": ここのレストラン、ランチタイムはビール200[円](にひゃくえん)なんだって。", "vi": "Nghe nói ở nhà hàng này, trong thời gian ăn trưa, bia giá 200 Yên đấy." },
+        { "speaker": "A", "ja": "ここのレストラン、ランチタイムはビール200[円](にひゃくえん)なんだって。", "vi": "Nghe nói ở nhà hàng này, trong thời gian ăn trưa, bia giá 200 Yên đấy." },
         { "speaker": "B", "ja": "へー、[知](し)らなかった。[安](やす)いですね。", "vi": "Ồ, tôi không hề biết chuyện đó. Rẻ thật đấy!" }
       ]
     },
@@ -2474,7 +2474,7 @@
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": もう、[申](もう)し[込](こ)んだ？", "vi": "Cậu đã đăng ký chưa?" },
+        { "speaker": "A", "ja": "もう、[申](もう)し[込](こ)んだ？", "vi": "Cậu đã đăng ký chưa?" },
         { "speaker": "B", "ja": "まだ。[手続](てつづ)きが[面倒](めんどう)くさいんだ。", "vi": "Chưa. Thủ tục phức tạp lắm." }
       ]
     },
@@ -2518,7 +2518,7 @@
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": この[前](まえ)の[大会](たいかい)、[拓也](たくや)、4[位](い)だって。", "vi": "Thấy bảo Takuya đứng vị trí thứ 4 trong cuộc thi lần trước đấy." },
+        { "speaker": "A", "ja": "この[前](まえ)の[大会](たいかい)、[拓也](たくや)、4[位](い)だって。", "vi": "Thấy bảo Takuya đứng vị trí thứ 4 trong cuộc thi lần trước đấy." },
         { "speaker": "B", "ja": "あ、[本当](ほんとう)〜。あいつにすれば、まあ、よくやったんじゃん？", "vi": "Thật á? Đối với cậu ta thì như vậy cũng là tàm tạm rồi còn gì." }
       ]
     },
