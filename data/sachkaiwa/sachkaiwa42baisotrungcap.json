@@ -1546,7 +1546,7 @@
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": "ね、[聞](き)いた？　[田中](たなか)さん、[宝](たから)くじで100[万円](ひゃくまんえん)[当](あ)たったそうだよ。", "vi": "Này, cậu nghe gì chưa? Tanaka trúng xổ số 1.000.000 Yên đấy." },
+        { "speaker": "A", "ja": "ね、[聞](き)いた？　[田中](たなか)さん、[宝](たから)くじで100[万円](まんえん)[当](あ)たったそうだよ。", "vi": "Này, cậu nghe gì chưa? Tanaka trúng xổ số 1.000.000 Yên đấy." },
         { "speaker": "B", "ja": "へー、おごってもらおう。", "vi": "Oa, thế thì phải bảo cậu ấy khao thôi." }
       ]
     },
@@ -1591,7 +1591,7 @@
       "context": "Tình huống 3",
       "dialogues": [
         { "speaker": "A", "ja": "お[姉](ねえ)ちゃん、[今日何時](きょうなんじ)に[帰](かえ)ってくる？", "vi": "Hôm nay mấy giờ chị về?" },
-        { "speaker": "B", "ja": "う〜ん。8[時](はちじ)ごろになるかな。", "vi": "Ừm, chắc khoảng 8 giờ." }
+        { "speaker": "B", "ja": "う〜ん。8[時](じ)ごろになるかな。", "vi": "Ừm, chắc khoảng 8 giờ." }
       ]
     },
     {
@@ -1604,7 +1604,7 @@
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": "[先生](せんせい)、3[級合格](さんきゅうごうかく)しました。", "vi": "Thưa thầy, em đỗ cấp độ 3 rồi ạ." },
+        { "speaker": "A", "ja": "[先生](せんせい)、3[級合格](きゅうごうかく)しました。", "vi": "Thưa thầy, em đỗ cấp độ 3 rồi ạ." },
         { "speaker": "B", "ja": "えっ！　すごい。おめでとう。", "vi": "Ồ! Giỏi quá! Chúc mừng em." }
       ]
     },
@@ -1663,7 +1663,7 @@
       "context": "Tình huống 2",
       "dialogues": [
         { "speaker": "A", "ja": "あ、[雨](あめ)が[降](ふ)ってる。", "vi": "Á, trời mưa." },
-        { "speaker": "B", "ja": "あ、じゃ、このかさ[貸](か)してあげる。2[本](ほん)あるから。", "vi": "À, vậy thì tớ cho cậu mượn cái ô này.Tớ có 2 cái mà." }
+        { "speaker": "B", "ja": "あ、じゃ、このかさ[貸](か)してあげる。2[本](ほん)あるから。", "vi": "À, vậy thì tớ cho cậu mượn cái ô này. Tớ có 2 cái mà." }
       ]
     },
     {
@@ -1769,7 +1769,7 @@
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "ねー、[聞](き)いて。[昨日](きのう)の[店](みせ)、ビールと[焼](や)き[鳥](とり)で4000[円](よんせんえん)もしたんだ。", "vi": "Này, nghe này. Cửa hàng hôm qua, bia và thịt gà nướng những 4000 Yên đấy." },
+        { "speaker": "A", "ja": "ねー、[聞](き)いて。[昨日](きのう)の[店](みせ)、ビールと[焼](や)き[鳥](とり)で4000[円](えん)もしたんだ。", "vi": "Này, nghe này. Cửa hàng hôm qua, bia và thịt gà nướng những 4000 Yên đấy." },
         { "speaker": "B", "ja": "え、[高](たか)い！　それってぼったくりじゃない？", "vi": "Sao, đắt quá! Cái đó gọi là chặt chém còn gì nữa!" }
       ]
     },
@@ -1893,7 +1893,7 @@
     {
       "context": "Tình huống 1",
       "dialogues": [
-        { "speaker": "A", "ja": "あ～あ、あと[半年](はんとし)で[卒業](そつぎょう)。4[月](しがつ)から[社会人](しゃかいじん)だよ。", "vi": "Ôi, chỉ còn 6 tháng nữa là tốt nghiệp.Từ tháng 4 là thành người đi làm rồi." },
+        { "speaker": "A", "ja": "あ～あ、あと[半年](はんとし)で[卒業](そつぎょう)。4[月](がつ)から[社会人](しゃかいじん)だよ。", "vi": "Ôi, chỉ còn 6 tháng nữa là tốt nghiệp.Từ tháng 4 là thành người đi làm rồi." },
         { "speaker": "B", "ja": "[本当](ほんとう)。だから[今](いま)のうちにやりたいことやっておかなくちゃね。", "vi": "Cậu nói đúng. Vì vậy, trong lúc này phải làm những gì muốn làm thôi." }
       ]
     },
