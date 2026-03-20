@@ -5115,6 +5115,8 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+
+let hasWarnedAudioGlobal = false;
 // ==========================================
 // COMPONENT: KAIWA PRACTICE VIEW (SỬ DỤNG HOWLER.JS SIÊU MƯỢT)
 // ==========================================
