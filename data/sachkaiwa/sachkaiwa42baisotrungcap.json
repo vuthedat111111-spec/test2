@@ -9,71 +9,71 @@
       {
         "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "そう？", "vi": "Vậy sao?" },
-          { "speaker": "B", "ja": "そう。", "vi": "Đúng vậy." }
+          { "speaker": "A", "ja": "そう？", "vi": "Vậy sao?", "startTime": 3.6, "endTime": 6.6 },
+          { "speaker": "B", "ja": "そう。", "vi": "Đúng vậy.", "startTime": 6.6, "endTime": 7.8 }
         ]
       },
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "え～、どれ？　これ？", "vi": "Ơ, cái nào? Cái này á?" },
-          { "speaker": "B", "ja": "うん。それ。", "vi": "Ừ, cái đó." }
+          { "speaker": "A", "ja": "え～、どれ？　これ？", "vi": "Ơ, cái nào? Cái này á?", "startTime": 7.8, "endTime": 11.8 },
+          { "speaker": "B", "ja": "うん。それ。", "vi": "Ừ, cái đó.", "startTime": 11.8, "endTime": 13.8 }
         ]
       },
       {
         "context": "Tình huống 3",
         "dialogues": [
-          { "speaker": "A", "ja": "おいしい？", "vi": "Ngon không?" },
-          { "speaker": "B", "ja": "うん。おいしいよ。", "vi": "Có. Ngon lắm." }
+          { "speaker": "A", "ja": "おいしい？", "vi": "Ngon không?", "startTime": 13.8, "endTime": 16.4 },
+          { "speaker": "B", "ja": "うん。おいしいよ。", "vi": "Có. Ngon lắm.", "startTime": 16.4, "endTime": 18.8 }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": "はい？", "vi": "Có không?" },
-          { "speaker": "B", "ja": "はい。", "vi": "Có." }
+          { "speaker": "A", "ja": "はい？", "vi": "Có không?", "startTime": 18.8, "endTime": 21.0 },
+          { "speaker": "B", "ja": "はい。", "vi": "Có.", "startTime": 21.0, "endTime": 22.4 }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "きれい？", "vi": "Đẹp không?" },
-          { "speaker": "B", "ja": "きれい。", "vi": "Đẹp." }
+          { "speaker": "A", "ja": "きれい？", "vi": "Đẹp không?", "startTime": 22.4, "endTime": 25.0 },
+          { "speaker": "B", "ja": "きれい。", "vi": "Đẹp.", "startTime": 25.0, "endTime": 26.3 }
         ]
       },
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "[本当](ほんとう)？", "vi": "Thật không?" },
-          { "speaker": "B", "ja": "[本当](ほんとう)。", "vi": "Thật." }
+          { "speaker": "A", "ja": "[本当](ほんとう)？", "vi": "Thật không?", "startTime": 26.3, "endTime": 29.2 },
+          { "speaker": "B", "ja": "[本当](ほんとう)。", "vi": "Thật.", "startTime": 29.2, "endTime": 30.5 }
         ]
       },
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "[田中](たなか)さん？", "vi": "Tanakasan á?" },
-          { "speaker": "B", "ja": "[田中](たなか)さん。", "vi": "Ừ, Tanakasan." }
+          { "speaker": "A", "ja": "[田中](たなか)さん？", "vi": "Tanakasan á?", "startTime": 30.5, "endTime": 33.8 },
+          { "speaker": "B", "ja": "[田中](たなか)さん。", "vi": "Ừ, Tanakasan.","startTime": 33.8, "endTime": 35.2 }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "いい？", "vi": "Được không?" },
-          { "speaker": "B", "ja": "いいよ。", "vi": "Được." }
+          { "speaker": "A", "ja": "いい？", "vi": "Được không?", "startTime": 35.2, "endTime": 38.2 },
+          { "speaker": "B", "ja": "いいよ。", "vi": "Được.", "startTime": 38.2, "endTime": 39.5 }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "ここ？", "vi": "Ở đây à?" },
-          { "speaker": "B", "ja": "うん。そこ。", "vi": "Ừ, ở đấy." }
+          { "speaker": "A", "ja": "ここ？", "vi": "Ở đây à?", "startTime": 39.5, "endTime": 42.3 },
+          { "speaker": "B", "ja": "うん。そこ。", "vi": "Ừ, ở đấy.", "startTime": 42.3, "endTime": 44.3 }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "わかった？", "vi": "Cậu đã hiểu chưa?" },
-          { "speaker": "B", "ja": "はい。わかりました。", "vi": "Dạ. Em đã hiểu rồi ạ." }
+          { "speaker": "A", "ja": "わかった？", "vi": "Cậu đã hiểu chưa?", "startTime": 44.3, "endTime": 47.7 },
+          { "speaker": "B", "ja": "はい。わかりました。", "vi": "Dạ. Em đã hiểu rồi ạ.", "startTime": 47.7, "endTime": 49.8 }
         ]
       }
     ]
