@@ -123,8 +123,8 @@
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!", "startTime": 27.1, "endTime": 29.7 },
-          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!", "startTime": 29.7, "endTime": 31.3 }
+          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!", "startTime": 27.1, "endTime": 29.55 },
+          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!", "startTime": 29.55, "endTime": 31.3 }
         ]
       },
       {
@@ -144,8 +144,8 @@
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "いい[天気](てんき)ですね。", "vi": "Trời đẹp nhỉ!","startTime": 42.4, "endTime": 45.5 },
-          { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật.", "startTime": 45.5, "endTime": 48.0 }
+          { "speaker": "A", "ja": "いい[天気](てんき)ですね。", "vi": "Trời đẹp nhỉ!","startTime": 42.4, "endTime": 45.35 },
+          { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật.", "startTime": 45.35, "endTime": 48.0 }
         ]
       },
       {
