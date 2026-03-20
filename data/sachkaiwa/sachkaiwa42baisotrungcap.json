@@ -2251,7 +2251,7 @@
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "あそこの[大学](だいがく)、[倍率](ばいりつ)5[倍](ばい)なんだって。", "vi": "Thấy bảo trường đại học đằng kia, tỷ lệ chọi là 1/5 đấy." },
+        { "speaker": "A", "ja": "あそこの[大学](だいがく)、[倍率5倍](ばいりつごばい)なんだって。", "vi": "Thấy bảo trường đại học đằng kia, tỷ lệ chọi là 1/5 đấy." },
         { "speaker": "B", "ja": "まー、だめもとでチャレンジしたら？", "vi": "Hừm, sao không coi như đằng nào cũng trượt mà thử sức xem sao?" }
       ]
     }
@@ -2302,7 +2302,7 @@
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "あのー、10[分](じゅっぷん)くらい[前](まえ)にカレー[注文](ちゅうもん)したんですけど…。", "vi": "Xin lỗi, tôi đã gọi cà ri khoảng 10 phút trước rồi...." },
+        { "speaker": "A", "ja": "あのー、10[分](ぷん)くらい[前](まえ)にカレー[注文](ちゅうもん)したんですけど…。", "vi": "Xin lỗi, tôi đã gọi cà ri khoảng 10 phút trước rồi...." },
         { "speaker": "B", "ja": "あ、[申](もう)し[訳](わけ)ありません。ただ[今](いま)、[見](み)てまいります。", "vi": "Ôi, xin lỗi quý khách. Tôi sẽ đi xem thế nào ngay ạ." }
       ]
     },
@@ -2395,7 +2395,7 @@
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": "[今日](きょう)、[寝過](ねす)ごしてびっくりしたよ。[起](お)きたらもう8[時](はちじ)なんだもん。", "vi": "Hôm nay tớ hoảng hồn vì ngủ quên đấy. Tỉnh dậy thì đã 8 giờ rồi." },
+        { "speaker": "A", "ja": "[今日](きょう)、[寝過](ねす)ごしてびっくりしたよ。[起](お)きたらもう8[時](じ)なんだもん。", "vi": "Hôm nay tớ hoảng hồn vì ngủ quên đấy. Tỉnh dậy thì đã 8 giờ rồi." },
         { "speaker": "B", "ja": "へー、でも、よく[間](ま)に[合](あ)ったねー。", "vi": "Thế cơ à? Nhưng mà cậu vẫn kịp giờ nhỉ!" }
       ]
     },
@@ -2461,7 +2461,7 @@
       "context": "Tình huống 6",
       "dialogues": [
         { "speaker": "A", "ja": "ＤＶＤを[買](か)いたいんだけど…。", "vi": "Em muốn mua DVD...." },
-        { "speaker": "B", "ja": "じゃー、[西新宿](にししんじゅく)のカメラ[屋](や)に[行](い)ってみたら？　[秋葉原](あきはばら)より[安](やす)いよ。", "vi": "Vậy em thử đến cửa hàng điện tử ở Nishi Shinzuku xem sao. Rẻ hơn Akihabara đấy." }
+        { "speaker": "B", "ja": "じゃー、[西新宿](にししんじゅく)のカメラ[屋](や)に[行](い)ってみたら？　[秋葉原](あきはばら)より[安](やす)いよ。", "vi": "Vậy em thử đến cửa hàng điện tử ở Nishi Shinjuku xem sao. Rẻ hơn Akihabara đấy." }
       ]
     },
     {
@@ -2561,7 +2561,7 @@
       "context": "Tình huống 9",
       "dialogues": [
         { "speaker": "A", "ja": "[車](くるま)の[免許](めんきょ)とか[持](も)ってないの？", "vi": "Cậu không có bằng lái hay cái gì giống thế à?" },
-        { "speaker": "B", "ja": "あ、[僕](ぼく)まだ[16](じゅうろく)なんです。", "vi": "Em mới 16 mà." }
+        { "speaker": "B", "ja": "あ、[僕](ぼく)まだ16なんです。", "vi": "Em mới 16 mà." }
       ]
     },
     {
@@ -2584,7 +2584,7 @@
       "context": "Tình huống 1",
       "dialogues": [
         { "speaker": "A", "ja": "[田中](たなか)さんの[結婚](けっこん)パーティー、いつでしたっけ？", "vi": "Tiệc cưới của Tanaka bao giờ ấy nhỉ?" },
-        { "speaker": "B", "ja": "えーと、[確](たし)か10[日](とおか)の[午後](ごご)3[時](さんじ)からです。", "vi": "Ờ, hình như là từ 3 giờ chiều ngày mùng 10 thì phải." }
+        { "speaker": "B", "ja": "えーと、[確](たし)か[10日](とおか)の[午後](ごご)3[時](じ)からです。", "vi": "Ờ, hình như là từ 3 giờ chiều ngày mùng 10 thì phải." }
       ]
     },
     {
@@ -2604,8 +2604,8 @@
     {
       "context": "Tình huống 4",
       "dialogues": [
-        { "speaker": "A", "ja": "[結婚式](けっこんしき)の[時](とき)、[新郎新婦](しんろうしんぷ)になんて[言](い)えばいいんですか？", "vi": "Trong lễ cưới, nên nói gì với cô dâu, chú rể?" },
-        { "speaker": "B", "ja": "そうですね、「ご[結婚](けっこん)おめでとうございます。お[幸](しあわ)せに！」が[一般的](いっぱんてき)ですね。", "vi": "Xem nào. Thường thì là câu \"Chúc mừng đám cưới của hai bạn. Chúc hai bạn hạnh phúc!\"." }
+        { "speaker": "A", "ja": "結婚[式](しき)の[時](とき)、[新郎新婦](しんろうしんぷ)になんて[言](い)えばいいんですか？", "vi": "Trong lễ cưới, nên nói gì với cô dâu, chú rể?" },
+        { "speaker": "B", "ja": "そうですね、「ご結婚おめでとうございます。お[幸](しあわ)せに！」が[一般的](いっぱんてき)ですね。", "vi": "Xem nào. Thường thì là câu \"Chúc mừng đám cưới của hai bạn. Chúc hai bạn hạnh phúc!\"." }
       ]
     },
     {
@@ -2625,7 +2625,7 @@
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "もう3[月](さんがつ)だよ。そこのカレンダーめくって。", "vi": "Đã tháng 3 rồi. Giở lịch đi." },
+        { "speaker": "A", "ja": "もう3[月](がつ)だよ。そこのカレンダーめくって。", "vi": "Đã tháng 3 rồi. Giở lịch đi." },
         { "speaker": "B", "ja": "うん、わかった。", "vi": "Vâng. Em biết rồi." }
       ]
     },
@@ -2640,7 +2640,7 @@
       "context": "Tình huống 9",
       "dialogues": [
         { "speaker": "A", "ja": "コンサートのチケット、[予約](よやく)した？", "vi": "Em đã đặt vé của buổi hòa nhạc chưa?" },
-        { "speaker": "B", "ja": "それがだめだったんだ。チケット３０[分](さんじゅっぷん)で[売](う)り[切](き)れたらしい。", "vi": "Không đặt được. Nghe nói vé đã bán hết sau 30 phút." }
+        { "speaker": "B", "ja": "それがだめだったんだ。チケット３０[分](ぷん)で[売](う)り[切](き)れたらしい。", "vi": "Không đặt được. Nghe nói vé đã bán hết sau 30 phút." }
       ]
     },
     {
@@ -2663,14 +2663,14 @@
       "context": "Tình huống 1",
       "dialogues": [
         { "speaker": "A", "ja": "[明日](あした)、[時間通](じかんどお)りに[来](き)てね。", "vi": "Mai, hãy đến đúng giờ nhé" },
-        { "speaker": "B", "ja": "[大丈夫](だいじょうぶ)、10[分前](ふんまえ)に[来](き)ますから。", "vi": "Không vấn đề gì. Tôi sẽ đến trước 10 phút." }
+        { "speaker": "B", "ja": "[大丈夫](だいじょうぶ)、10分[前](まえ)に[来](き)ますから。", "vi": "Không vấn đề gì. Tôi sẽ đến trước 10 phút." }
       ]
     },
     {
       "context": "Tình huống 2",
       "dialogues": [
         { "speaker": "A", "ja": "どこで[乗](の)り[換](か)えるんでしたっけ？", "vi": "Đổi tàu ở đâu ấy nhỉ?" },
-        { "speaker": "B", "ja": "[新宿](しんじゅく)が[便利](べんり)ですよ。", "vi": "Ở Shinzuku sẽ tiện hơn." }
+        { "speaker": "B", "ja": "[新宿](しんじゅく)が[便利](べんり)ですよ。", "vi": "Ở Shinjuku sẽ tiện hơn." }
       ]
     },
     {
@@ -2704,8 +2704,8 @@
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "6[足](た)す15はいくつ？", "vi": "Sáu cộng 15 bằng mấy?" },
-        { "speaker": "B", "ja": "6[足](た)す15は[21](にじゅういち)でしょう。", "vi": "6 cộng 15 bằng 21 còn gì." }
+        { "speaker": "A", "ja": "6[足](た)す15はいくつ？", "vi": "6 cộng 15 bằng mấy?" },
+        { "speaker": "B", "ja": "6[足](た)す15は21でしょう。", "vi": "6 cộng 15 bằng 21 còn gì." }
       ]
     },
     {
