@@ -291,7 +291,7 @@
           { "speaker": "A", "ja": "お[名前](なまえ)は？", "vi": "Tên anh là gì?", "startTime": 36.31, "endTime": 39.42 },
           { "speaker": "B", "ja": "ペドロです。", "vi": "Tôi là Petro.", "startTime": 39.42, "endTime": 40.66 },
           { "speaker": "A", "ja": "お[国](くに)は？", "vi": "Anh người nước nào?", "startTime": 40.66, "endTime": 41.71 },
-          { "speaker": "B", "ja": "スペインです。", "vi": "Tôi người Tây Ban Nha.", "startTime": 41.56, "endTime": 43.17 }
+          { "speaker": "B", "ja": "スペインです。", "vi": "Tôi người Tây Ban Nha.", "startTime": 41.71, "endTime": 43.17 }
         ]
       },
       {
