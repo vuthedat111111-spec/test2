@@ -2782,7 +2782,7 @@
       "context": "Tình huống 6",
       "dialogues": [
         { "speaker": "A", "ja": "ハックション！　ハックション！", "vi": "Hắt xì! Hắt xì!" },
-        { "speaker": "B", "ja": "あれ？　[花粉症](かふんしょう)？", "vi": "Ở? Dị ứng phấn hoa à?" },
+        { "speaker": "B", "ja": "あれ？　[花粉症](かふんしょう)？", "vi": "Ồ? Dị ứng phấn hoa à?" },
         { "speaker": "A", "ja": "ハックション！", "vi": "Hắt xì!" }
       ]
     },
@@ -2790,7 +2790,7 @@
       "context": "Tình huống 7",
       "dialogues": [
         { "speaker": "A", "ja": "[卒業](そつぎょう)したらどうするんですか？", "vi": "Tốt nghiệp xong cậu sẽ làm gì?" },
-        { "speaker": "B", "ja": "[外資系](外資系)の[会社](がいしゃ)に[就職](しゅうしょく)することが[決](き)まったんです。", "vi": "Tôi đã quyết định sẽ làm việc ở công ty nước ngoài." },
+        { "speaker": "B", "ja": "[外資系](がいしけい)の[会社](かいしゃ)に[就職](しゅうしょく)することが[決](き)まったんです。", "vi": "Tôi đã quyết định sẽ làm việc ở công ty nước ngoài." },
         { "speaker": "A", "ja": "あ、それはよかったですね。", "vi": "Ồ, thế thì tốt rồi." }
       ]
     },
@@ -2849,14 +2849,14 @@
       "dialogues": [
         { "speaker": "A", "ja": "どう？ [今日](きょう)、[焼](や)き[肉](にく)に[行](い)かない？", "vi": "Sao? Hôm nay đi ăn thịt nướng không?" },
         { "speaker": "B", "ja": "[焼](や)き[肉](にく)か〜、おととい、[食](た)べ[放題](ほうだい)で、いやっていうほど[肉](にく)を[食](た)べたんですよ。", "vi": "Thịt nướng à?! Hôm kia, ăn tự chọn, tôi ăn đến phát ngán thịt nướng rồi." },
-        { "speaker": "A", "ja": "へー、いいなー。じゃ、[今日](きょう)もそこ[行](い)かない？", "vi": "Ở, thích thật đấy. Vậy hôm nay cũng đến đó nhé?" },
+        { "speaker": "A", "ja": "へー、いいなー。じゃ、[今日](きょう)もそこ[行](い)かない？", "vi": "Ồ, thích thật đấy. Vậy hôm nay cũng đến đó nhé?" },
         { "speaker": "B", "ja": "だから！", "vi": "Đã bảo..." }
       ]
     },
     {
       "context": "Tình huống 4",
       "dialogues": [
-        { "speaker": "A", "ja": "なんだか[最近寝](さいきんね)ても[疲](つか)れが[取](と)れないんだよねー。", "vi": "Không hiểu sao dạo này ngủ cũng không hết mệt." },
+        { "speaker": "A", "ja": "なんだか最近[寝](ね)ても[疲](つか)れが[取](と)れないんだよねー。", "vi": "Không hiểu sao dạo này ngủ cũng không hết mệt." },
         { "speaker": "B", "ja": "あ、[本当](ほんとう)？ [肩揉](かたも)んであげようか。", "vi": "Ồ, thật sao? Tôi bóp vai cho cậu nhé?" },
         { "speaker": "A", "ja": "[本当](ほんとう)？ いいの？", "vi": "Thật chứ? Không ngại chứ?" }
       ]
@@ -2880,8 +2880,8 @@
     {
       "context": "Tình huống 7",
       "dialogues": [
-        { "speaker": "A", "ja": "どこの[病院](びょういん)に[入院](にゅういん)したんですか？", "vi": "Anh ấy nằm ở viện nào vậy?" },
-        { "speaker": "B", "ja": "[西新宿](にししんじゅく)の[大学病院](だいがくびょういん)みたいですよ。", "vi": "Hình như là bệnh viện của trường đại học ở Nishi Shinzuku." },
+        { "speaker": "A", "ja": "どこの[病院](びょういん)に入院したんですか？", "vi": "Anh ấy nằm ở viện nào vậy?" },
+        { "speaker": "B", "ja": "[西新宿](にししんじゅく)の大学[病院](びょういん)みたいですよ。", "vi": "Hình như là bệnh viện của trường đại học ở Nishi Shinjuku." },
         { "speaker": "A", "ja": "あ、そうですか。", "vi": "À, vậy sao?!" }
       ]
     },
@@ -2899,13 +2899,13 @@
         { "speaker": "A", "ja": "このへんに100[円](えん)ショップはありますか？", "vi": "Gần đây có cửa hàng 100 Yên không ạ?" },
         { "speaker": "B", "ja": "はい。[この道](みち)を[真](ま)っ[直](す)ぐ[行](い)くと、コンビニがあります。その[隣](となり)です。", "vi": "Có. Đi thẳng đường này thì có cửa hàng tiện ích. Cửa hàng 100 Yên ở cạnh đó." },
         { "speaker": "A", "ja": "まだ、[開](あ)いていますかね。", "vi": "Cửa hàng vẫn mở cửa chứ ạ?" },
-        { "speaker": "B", "ja": "ええ、24[時間営業](じかんえいぎょう)だから[大丈夫](だいじょうぶ)ですよ。", "vi": "Vâng, cửa hàng hoạt động 24 giờ nên không sao đâu." }
+        { "speaker": "B", "ja": "ええ、24時間[営業](えいぎょう)だから[大丈夫](だいじょうぶ)ですよ。", "vi": "Vâng, cửa hàng hoạt động 24 giờ nên không sao đâu." }
       ]
     },
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "[最近](さいきん)、[出会](出会)いがないよね。", "vi": "Gần đây, tớ chẳng gặp gỡ ai cả." },
+        { "speaker": "A", "ja": "[最近](さいきん)、[出会](であ)いがないよね。", "vi": "Gần đây, tớ chẳng gặp gỡ ai cả." },
         { "speaker": "B", "ja": "うん。[合](ごう)コンしてみる？", "vi": "Ừ, vậy thử hẹn hò theo nhóm không?" },
         { "speaker": "A", "ja": "まー、だめもとでしてみるか。", "vi": "Ờ, cứ coi như đằng nào cũng chẳng có kết quả gì mà thử vậy." }
       ]
@@ -2956,14 +2956,14 @@
       "context": "Tình huống 5",
       "dialogues": [
         { "speaker": "A", "ja": "[田中](たなか)さんの[結婚](けっこん)パーティーっていつでしたっけ？", "vi": "Tiệc cưới của Tanaka là bao giờ ấy nhỉ?" },
-        { "speaker": "B", "ja": "えー、[確](たし)か10[日](とおか)の3[時](さんじ)からです。", "vi": "Ừm, hình như là từ 3 giờ ngày mùng 10." },
-        { "speaker": "A", "ja": "え、10[日](とおか)でしたっけ？", "vi": "Ơ? Ngày mùng 10 á?" }
+        { "speaker": "B", "ja": "えー、[確](たし)か[10日](とおか)の3[時](じ)からです。", "vi": "Ừm, hình như là từ 3 giờ ngày mùng 10." },
+        { "speaker": "A", "ja": "え、10日でしたっけ？", "vi": "Ơ? Ngày mùng 10 á?" }
       ]
     },
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "[今日](きょう)、[寝過](ねす)ごしてびっくりしたよ。[起](お)きたらもう8[時](はちじ)なんだもん。", "vi": "Hôm nay tớ hoảng hồn vì ngủ quên đấy. Tỉnh dậy thì đã 8 giờ rồi." },
+        { "speaker": "A", "ja": "[今日](きょう)、[寝過](ねす)ごしてびっくりしたよ。[起](お)きたらもう8[時](じ)なんだもん。", "vi": "Hôm nay tớ hoảng hồn vì ngủ quên đấy. Tỉnh dậy thì đã 8 giờ rồi." },
         { "speaker": "B", "ja": "へー。でもよく[間](ま)に[合](あ)ったね。", "vi": "Thế à?! Nhưng cậu cũng vẫn kịp giờ nhỉ!" },
         { "speaker": "A", "ja": "うん。でも[焦](あせ)ったよ。", "vi": "Ừ. Nhưng mà cuống cuồng." }
       ]
@@ -2974,7 +2974,7 @@
         { "speaker": "A", "ja": "すごい[肩](かた)だね。こってるね。どう？", "vi": "Vai cậu cứng thật. Bị mỏi phải không? Thế nào?" },
         { "speaker": "B", "ja": "あ〜、すごく[気持](きも)ちいい。あ、もういいよ。どうもありがとう。", "vi": "Ôi, dễ chịu quá. À, thế được rồi. Cám ơn cậu." },
         { "speaker": "A", "ja": "いえいえ。", "vi": "Không có gì." },
-        { "speaker": "B", "ja": "あー、[本当気持](ほんとうきも)ちよかった。[軽](かる)くなった。", "vi": "Ôi, đúng là dễ chịu thật. Nhẹ hẳn." }
+        { "speaker": "B", "ja": "あー、[本当](ほんとう)気持ちよかった。[軽](かる)くなった。", "vi": "Ôi, đúng là dễ chịu thật. Nhẹ hẳn." }
       ]
     },
     {
@@ -2989,7 +2989,7 @@
     {
       "context": "Tình huống 9",
       "dialogues": [
-        { "speaker": "A", "ja": "あ、もう[帰](かえ)らなくちゃ。", "vi": "Á, tớ phải về thôi." },
+        { "speaker": "A", "ja": "あ、もう[帰](かえ)んなくちゃ。", "vi": "Á, tớ phải về thôi." },
         { "speaker": "B", "ja": "え、[早](はや)いね。", "vi": "Ơ, sớm thế." },
         { "speaker": "A", "ja": "うん、[今晩](こんばん)、[気](き)になる[番組](ばんぐみ)があるから。", "vi": "Ừ, tối nay có chương trình tớ muốn xem." }
       ]
@@ -3043,13 +3043,13 @@
         { "speaker": "A", "ja": "このくつ、[直](なお)りますか？", "vi": "Giày này có sửa được không?" },
         { "speaker": "B", "ja": "ええ、[大丈夫](だいじょうぶ)ですよ。[明日](あした)まででいいですか？", "vi": "Vâng, được. Đến mai có được không ạ?" },
         { "speaker": "A", "ja": "できれば、[今日](きょう)がいいんですけど。", "vi": "Nếu có thể được, thì tôi muốn sửa trong hôm nay." },
-        { "speaker": "B", "ja": "わかりました。じゃー、[夕方](ゆうがた)5[時頃](じごろ)までにやっておきます。", "vi": "Tôi hiểu rồi. Vậy, tôi sẽ làm xong trước 5 giờ chiều." }
+        { "speaker": "B", "ja": "わかりました。じゃー、[夕方](ゆうがた)5時[頃](ごろ)までにやっておきます。", "vi": "Tôi hiểu rồi. Vậy, tôi sẽ làm xong trước 5 giờ chiều." }
       ]
     },
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": "あのー、[初](はじ)めてなんですけど。（※[病院](びょういん)で）", "vi": "Đây là lần đầu tôi đến. (* Tại bệnh viện)" },
+        { "speaker": "A", "ja": "あのー、[初](はじ)めてなんですけど。", "vi": "Đây là lần đầu tôi đến." },
         { "speaker": "B", "ja": "はい。では、こちらの[問診票](もんしんひょう)にご[記入](きにゅう)ください。", "vi": "Vâng. Vậy anh hãy điền vào phiếu khám này." },
         { "speaker": "A", "ja": "あのー、[漢字](かんじ)が[難](むずか)しくて[読](よ)めないんですけど…。", "vi": "Xin lỗi, chữ Hán khó quá tôi không đọc được..." },
         { "speaker": "B", "ja": "じゃー、[質問](しつもん)を[読](よ)みますから、それに[答](こた)えてくださいね。", "vi": "Vậy, tôi sẽ đọc câu hỏi, còn anh trả lời nhé." }
@@ -3069,7 +3069,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "あのー、[定期](ていき)、[落](お)としちゃったみたいなんですけど…。", "vi": "Xin lỗi, tôi làm rơi mất vé tháng...." },
         { "speaker": "B", "ja": "いつですか？", "vi": "Anh làm rơi từ bao giờ?" },
-        { "speaker": "A", "ja": "[昨日](きのう)の[午後](ごご)3[時頃](じごろ)です。[届](とど)いてますか？", "vi": "Khoảng 3 giờ chiều hôm qua. Nó có được đưa đến đây không ạ?" },
+        { "speaker": "A", "ja": "[昨日](きのう)の[午後](ごご)3時[頃](ごろ)です。[届](とど)いてますか？", "vi": "Khoảng 3 giờ chiều hôm qua. Nó có được đưa đến đây không ạ?" },
         { "speaker": "B", "ja": "ちょっと[待](ま)ってください。[今調](いましら)べますから。", "vi": "Chờ chút. Tôi sẽ kiểm tra bây giờ." }
       ]
     },
@@ -3085,7 +3085,7 @@
       "context": "Tình huống 9",
       "dialogues": [
         { "speaker": "A", "ja": "カードでいいですか？", "vi": "Tôi thanh toán bằng thẻ được không?" },
-        { "speaker": "B", "ja": "はい。お[支払](しはら)いは…。", "vi": "Được ạ. Anh thanh toán làm...." },
+        { "speaker": "B", "ja": "はい。お[支払](しはら)いは…。", "vi": "Được ạ. Anh thanh toán..." },
         { "speaker": "A", "ja": "1[回](かい)で。", "vi": "1 lần." },
         { "speaker": "B", "ja": "では、こちらに[署名](しょめい)お[願](ねが)いします。", "vi": "Vậy mời anh ký vào đây." }
       ]
@@ -3122,7 +3122,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "お[伺](うかが)いしておりますか？", "vi": "Tôi giúp được gì không?" },
         { "speaker": "B", "ja": "えっ？ あー、あのー、[口座](こうざ)を[作](つく)りたいんですが。", "vi": "Ơ? À, tôi muốn tạo tài khoản." },
-        { "speaker": "A", "ja": "ご[新規](しんき)ですね。では、こちらの[番号札](ばんごうふだ)をお[取](お)りになってお[待](ま)ちください。", "vi": "Tài khoản mới phải không?! Vậy hãy lấy phiếu ghi số này rồi đợi." }
+        { "speaker": "A", "ja": "ご[新規](しんき)ですね。では、こちらの[番号札](ばんごうふだ)をお[取](と)りになってお[待](ま)ちください。", "vi": "Tài khoản mới phải không?! Vậy hãy lấy phiếu ghi số này rồi đợi." }
       ]
     },
     {
@@ -3138,7 +3138,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "あー、[奥歯](おくば)が[虫歯](むしば)になってますねー。[痛](いた)みますか？", "vi": "À, răng hàm bị sâu. Có đau không?" },
         { "speaker": "B", "ja": "いえ、[特](とく)には…。 ", "vi": "Không, không hề...." },
-        { "speaker": "A", "ja": "じゃ、[悪](わる)いところを[削](けず)っていきます。[痛](いた)かったら[手](て)を[上](あ)げてください。", "vi": "Vậy, tôi sẽ cạo bỏ phần bị sâu. Nếu đau thì hãy giơ tay lên." }
+        { "speaker": "A", "ja": "じゃ、[悪](わる)いところを[削](けず)っていきます。痛かったら[手](て)を[上](あ)げてください。", "vi": "Vậy, tôi sẽ cạo bỏ phần bị sâu. Nếu đau thì hãy giơ tay lên." }
       ]
     },
     {
@@ -3154,7 +3154,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "いろいろお[世話](せわ)になりました。[明日](あした)、[国](くに)に[帰](かえ)ります。", "vi": "Cám ơn cô đã luôn giúp đỡ em rất nhiều. Ngày mai em về nước." },
         { "speaker": "B", "ja": "そうですかー。[寂](さび)しくなりますねー。", "vi": "Vậy sao. Buồn quá nhỉ!" },
-        { "speaker": "A", "ja": "ぜひ、[遊](あそ)びにお[越](こ)しください。ご[案内](あんない)しますから。", "vi": "Nhất định cô phải đến chơi đấy ạ. Em sẽ dẫn cô đi tham quan." },
+        { "speaker": "A", "ja": "ぜひ、[遊](あそ)びに[来](き)てください。ご[案内](あんない)しますから。", "vi": "Nhất định cô phải đến chơi đấy ạ. Em sẽ dẫn cô đi tham quan." },
         { "speaker": "B", "ja": "うん、[行](い)く[時](とき)は[必](かなら)ず[連絡](れんらく)しますね。", "vi": "Ừ, khi nào đi, nhất định tôi sẽ liên lạc." }
       ]
     },
@@ -3164,7 +3164,7 @@
         { "speaker": "A", "ja": "[今](いま)、ピンポーンって[言](い)わなかった？", "vi": "Vừa có tiếng ping poong thì phải?" },
         { "speaker": "B", "ja": "え〜、[気](き)のせいじゃない？", "vi": "Hả, chắc chỉ là cảm giác thôi!" },
         { "speaker": "A", "ja": "ちょっと、[見](み)てきてくれない？", "vi": "Em ra xem hộ anh một chút được không?" },
-        { "speaker": "B", "ja": "も〜、[気](き)になる[人](ひと)が[自分](じぶん)で[見](み)てくれば〜？", "vi": "Thật là, sao người băn khoăn không tự đi xem đi?" }
+        { "speaker": "B", "ja": "も〜、気になる[人](ひと)が[自分](じぶん)で見てくれば〜？", "vi": "Thật là, sao người băn khoăn không tự đi xem đi?" }
       ]
     },
     {
@@ -3217,7 +3217,7 @@
         { "speaker": "A", "ja": "[警察](けいさつ)は110[番](ばん)ですよね。", "vi": "Cảnh sát là số 110 nhỉ?!" },
         { "speaker": "B", "ja": "そうですよ。", "vi": "Đúng vậy." },
         { "speaker": "A", "ja": "じゃー、[急](きゅう)に[病気](びょうき)になった[時](とき)は？", "vi": "Vậy, khi bất ngờ bị ốm thì sao?" },
-        { "speaker": "B", "ja": "[火事](かじ)の[時](とき)と[同](おな)じ119[番](ばん)です。", "vi": "Gọi số 119, cùng số với cứu hỏa." }
+        { "speaker": "B", "ja": "[火事](かじ)の[時](とき)と[同](おな)じ119番です。", "vi": "Gọi số 119, cùng số với cứu hỏa." }
       ]
     },
     {
@@ -3226,15 +3226,15 @@
         { "speaker": "A", "ja": "すみません、[宅急便](たっきゅうびん)、お[願](ねが)いしたいんですけど。", "vi": "Xin lỗi, tôi muốn sử dụng dịch vụ chuyển hàng đến nhà." },
         { "speaker": "B", "ja": "はい、じゃ、このふと[枠](わく)の[中](なか)に[必要事項](ひつようじこう)を[書](か)いてください。", "vi": "Vâng. Vậy, xin hãy điền những thông tin cần thiết vào khung này." },
         { "speaker": "A", "ja": "あの、ガラスが[入](はい)っているんですが。", "vi": "Ừm, có thủy tinh trong này." },
-        { "speaker": "B", "ja": "それでは[壊](こわ)れ[物](もの)のところに〇をつけてください。", "vi": "Vậy hãy đánh dấu tròn vào phần đồ dễ vỡ." }
+        { "speaker": "B", "ja": "それでは[壊](こわ)れ[物](もの)のところにまるをつけてください。", "vi": "Vậy hãy đánh dấu tròn vào phần đồ dễ vỡ." }
       ]
     },
     {
       "context": "Tình huống 4",
       "dialogues": [
         { "speaker": "A", "ja": "はい、104の[田中](たなか)です。", "vi": "Vâng, Tanaka số 104 nghe ạ." },
-        { "speaker": "B", "ja": "すみません、[新宿区役所](しんじゅくくやくしょ)の[電話番号](でんわばんごう)が[知](し)りたいんですが。", "vi": "Xin lỗi, tôi muốn biết số điện thoại của ủy ban nhân dân quận Shinzuku." },
-        { "speaker": "A", "ja": "はい、[新宿区役所](しんじゅくくやくしょ)ですね。それではテープでご[案内](あんない)させていただきます。ご[利用](りよう)ありがとうございました。", "vi": "Vâng, ủy ban nhân dân quận Shinzuku ạ. Vậy tôi xin phép được chỉ dẫn bằng băng ghi âm. Cám ơn quý khách đã sử dụng dịch vụ." }
+        { "speaker": "B", "ja": "すみません、[新宿区役所](しんじゅくくやくしょ)の[電話番号](でんわばんごう)が[知](し)りたいんですが。", "vi": "Xin lỗi, tôi muốn biết số điện thoại của ủy ban nhân dân quận Shinjuku." },
+        { "speaker": "A", "ja": "はい、新宿区役所ですね。それではテープでご[案内](あんない)させていただきます。ご[利用](りよう)ありがとうございました。", "vi": "Vâng, ủy ban nhân dân quận Shinjuku ạ. Vậy tôi xin phép được chỉ dẫn bằng băng ghi âm. Cám ơn quý khách đã sử dụng dịch vụ." }
       ]
     },
     {
@@ -3242,15 +3242,15 @@
       "dialogues": [
         { "speaker": "A", "ja": "すみません、[今日](きょう)シャンプーとカットしたいんですが…。", "vi": "Xin lỗi, hôm nay tôi muốn gội và cắt." },
         { "speaker": "B", "ja": "はい、[何時](なんじ)ごろの[予約](よやく)がよろしいでしょうか。", "vi": "Vâng, quý khách đặt hẹn lúc mấy giờ ạ?" },
-        { "speaker": "A", "ja": "そうですね、じゃ、3[時](さんじ)でお[願](ねが)いします。", "vi": "Để tôi xem, cho tôi lúc 3 giờ." }
+        { "speaker": "A", "ja": "そうですね、じゃ、3[時](じ)でお[願](ねが)いします。", "vi": "Để tôi xem, cho tôi lúc 3 giờ." }
       ]
     },
     {
       "context": "Tình huống 6",
       "dialogues": [
         { "speaker": "A", "ja": "[焼](や)き[肉弁当](にくべんとう)、1つください。", "vi": "Cho tôi 1 hộp cơm thịt nướng." },
-        { "speaker": "B", "ja": "はい、[焼](や)き[肉](にく)ですね、450[円](えん)でーす。", "vi": "Vâng, một thịt nướng. 450 Yên." },
-        { "speaker": "A", "ja": "あの、ご[飯少](はんすく)なめでお[願](ねが)いします。", "vi": "Cho tôi ít cơm thôi." }
+        { "speaker": "B", "ja": "はい、焼]き肉ですね、450[円](えん)でーす。", "vi": "Vâng, một thịt nướng. 450 Yên." },
+        { "speaker": "A", "ja": "あの、ご[飯少](はんすく)なめでお願]いします。", "vi": "Cho tôi ít cơm thôi." }
       ]
     },
     {
@@ -3266,7 +3266,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "このバースデーケーキをください。", "vi": "Cho tôi chiếc bánh sinh nhật này." },
         { "speaker": "B", "ja": "はい、ありがとうございます。ろうそくをつけますか？", "vi": "Vâng, cám ơn quý khách. Quý khách có lấy nến không ạ?" },
-        { "speaker": "A", "ja": "はい、じゃ、[大](おお)きいのを4[本](ほん)と[小](ちい)さいのを3[本](ほん)で。", "vi": "Có. Vậy, cho tôi 4 cây lớn và 3 cây nhỏ." }
+        { "speaker": "A", "ja": "はい、じゃ、[大](おお)きいのを4[本](ほん)と[小](ちい)さいのを3[本](ぼん)で。", "vi": "Có. Vậy, cho tôi 4 cây lớn và 3 cây nhỏ." }
       ]
     },
     {
@@ -3300,7 +3300,7 @@
       "context": "Tình huống 1",
       "dialogues": [
         { "speaker": "A", "ja": "すみません、こちらではお[米](こめ)、[配達](はいたつ)してもらえますか？", "vi": "Xin lỗi, ở đây có giao đến nhà gạo không ạ?" },
-        { "speaker": "B", "ja": "はい、５キロから[配達](はいたつ)します。", "vi": "Có chúng tôi giao từ 5 cân trở lên." },
+        { "speaker": "B", "ja": "はい、５キロから配達します。", "vi": "Có chúng tôi giao từ 5 cân trở lên." },
         { "speaker": "A", "ja": "じゃ、お[願](ねが)いします。", "vi": "Vậy làm ơn giao cho tôi." }
       ]
     },
@@ -3310,7 +3310,7 @@
         { "speaker": "A", "ja": "[低](てい)カロリーで[健康](けんこう)にいい[食](た)べ[物](もの)ってなんでしょうか？", "vi": "Loại thức ăn nào ít ca lo, tốt cho sức khỏe?" },
         { "speaker": "B", "ja": "そうですね～、こんにゃくとか[豆腐](とうふ)とか…。 ", "vi": "Để tôi xem nào. Là củ nhược, đậu phụ...." },
         { "speaker": "A", "ja": "なんだか、[値段](ねだん)の[安](やす)いものばかりですね。", "vi": "Toàn những thứ rẻ tiền nhỉ!" },
-        { "speaker": "B", "ja": "そうそう、ぜいたくしなくても[健康](けんこう)になれるんだよね。", "vi": "Đúng vậy, không cần tốn kém cũng tốt cho sức khỏe." }
+        { "speaker": "B", "ja": "そうそう、ぜいたくしなくても健康になれるんだよね。", "vi": "Đúng vậy, không cần tốn kém cũng tốt cho sức khỏe." }
       ]
     },
     {
@@ -3341,7 +3341,7 @@
       "context": "Tình huống 6",
       "dialogues": [
         { "speaker": "A", "ja": "デジカメで[撮](と)った[写真](しゃしん)、プリントしたいんだけど。", "vi": "Tôi muốn in ảnh chụp bằng máy ảnh kỹ thuật số." },
-        { "speaker": "B", "ja": "[写真屋](しゃしんや)さんにデジカメを[持](も)って[行](い)けば、してくれますよ。", "vi": "Cứ mang máy ảnh đến hiệu ảnh là họ sẽ rửa cho." },
+        { "speaker": "B", "ja": "写真[屋](や)さんにデジカメを[持](も)って[行](い)けば、してくれますよ。", "vi": "Cứ mang máy ảnh đến hiệu ảnh là họ sẽ rửa cho." },
         { "speaker": "A", "ja": "へ～、そうなんだ。", "vi": "Ồ, ra là thế." }
       ]
     },
@@ -3367,7 +3367,7 @@
       "dialogues": [
         { "speaker": "A", "ja": "ケーキ[教室](きょうしつ)に[申](もう)し[込](こ)みたいんです。", "vi": "Tôi muốn đăng ký lớp học làm bánh ga tô." },
         { "speaker": "B", "ja": "え～、すごい！　でも、どうして。", "vi": "Ổ, thế cơ á! Nhưng tại sao?" },
-        { "speaker": "A", "ja": "[日本語](にほんご)も[覚](おぼ)えらられるし、ケーキ[作](つく)りも[上手](じょうず)になるからです。", "vi": "Vì có thể nhớ tiếng Nhật và cũng sẽ làm được bánh ga tô ngon." },
+        { "speaker": "A", "ja": "[日本語](にほんご)も[覚](おぼ)えられるし、ケーキ[作](つく)りも[上手](じょうず)になるからです。", "vi": "Vì có thể nhớ tiếng Nhật và cũng sẽ làm được bánh ga tô ngon." },
         { "speaker": "B", "ja": "それは、[一石二鳥](いっせきにちょう)ってことですね。", "vi": "Đó là một mũi tên trúng hai đích nhỉ." }
       ]
     },
