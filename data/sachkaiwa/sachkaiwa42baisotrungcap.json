@@ -1075,7 +1075,7 @@
       "context": "Tình huống 5",
       "dialogues": [
         { "speaker": "A", "ja": "あ、リサさん、ひさしぶり。[今](いま)、[何](なに)をしているんですか？", "vi": "A, Lisa, lâu không gặp chị. Bây giờ chị đang làm gì?" },
-        { "speaker": "B", "ja": "[新宿](しんじゅく)で[英語](えいご)を[教](おし)えています。", "vi": "Tôi đang dạy tiếng Anh ở Shinzuku." }
+        { "speaker": "B", "ja": "[新宿](しんじゅく)で[英語](えいご)を[教](おし)えています。", "vi": "Tôi đang dạy tiếng Anh ở Shinjuku." }
       ]
     },
     {
@@ -1147,7 +1147,7 @@
       "context": "Tình huống 4",
       "dialogues": [
         { "speaker": "A", "ja": "[山田](やまだ)さんのお[別](わか)れ[会](かい)、[何時](なんじ)からだっけ？", "vi": "Tiệc chia tay anh/chị Yamada từ mấy giờ ấy nhỉ?" },
-        { "speaker": "B", "ja": "[明日](あした)の8[時](はちじ)だと[思](おも)うけど。", "vi": "Tôi nghĩ là 8 giờ ngày mai." }
+        { "speaker": "B", "ja": "[明日](あした)の8[時](じ)だと[思](おも)うけど。", "vi": "Tôi nghĩ là 8 giờ ngày mai." }
       ]
     },
     {
@@ -1160,7 +1160,7 @@
     {
       "context": "Tình huống 6",
       "dialogues": [
-        { "speaker": "A", "ja": "ここのレストラン、ランチタイムはビール200[円](にひゃくえん)なんだって。", "vi": "Nghe nói ở nhà hàng này, trong thời gian ăn trưa, bia giá 200 Yên đấy." },
+        { "speaker": "A", "ja": "ここのレストラン、ランチタイムはビール200[円](えん)なんだって。", "vi": "Nghe nói ở nhà hàng này, trong thời gian ăn trưa, bia giá 200 Yên đấy." },
         { "speaker": "B", "ja": "へー、[知](し)らなかった。[安](やす)いですね。", "vi": "Ồ, tôi không hề biết chuyện đó. Rẻ thật đấy!" }
       ]
     },
@@ -1268,7 +1268,7 @@
       "context": "Tình huống 10",
       "dialogues": [
         { "speaker": "A", "ja": "[明日](あした)の[飲](の)み[会](かい)、[来](こ)られる？", "vi": "Mai cậu có đến được không?" },
-        { "speaker": "B", "ja": "うん、ちょっと[遅](おそ)れて[行](い)くよ。", "vi": "Có, tớ đến muộn một chút." }
+        { "speaker": "B", "ja": "うん、ちょっと[遅](おく)れて[行](い)くよ。", "vi": "Có, tớ đến muộn một chút." }
       ]
     }
   ]
@@ -1425,7 +1425,7 @@
     {
       "context": "Tình huống 10",
       "dialogues": [
-        { "speaker": "A", "ja": "かっこいい、その[携帯](けいたい)！", "vi": "Cái di động đó trông được đấy!" },
+        { "speaker": "A", "ja": "かっこいい、その[携帯](けいたい)！", "vi": "Cái điện thoại di động đó trông được đấy!" },
         { "speaker": "B", "ja": "ありがとう。[昨日](きのう)[買](か)ったばっかりなんだ。", "vi": "Cám ơn cậu. Tôi vừa mua hôm qua." }
       ]
     }
