@@ -865,7 +865,7 @@
     {
       "context": "Tình huống 9",
       "dialogues": [
-        { "speaker": "A", "ja": この[漢字](かんじ)の[読](よ)みかた[教](おし)えて。", "vi": "Chỉ cho tôi cách đọc chữ Hán này với!" },
+        { "speaker": "A", "ja": "この[漢字](かんじ)の[読](よ)みかた[教](おし)えて。", "vi": "Chỉ cho tôi cách đọc chữ Hán này với!" },
         { "speaker": "B", "ja": "う～ん。わかんないなー。[他](ほか)の[人](ひと)に[聞](き)いて。", "vi": "Hừm, tôi không biết đâu. Cậu hỏi người khác đi!" }
       ]
     },
@@ -981,7 +981,7 @@
     {
       "context": "Tình huống 3",
       "dialogues": [
-        { "speaker": "A", "ja": まだ[寒](さむ)い？", "vi": "Em vẫn lạnh à?" },
+        { "speaker": "A", "ja": "まだ[寒](さむ)い？", "vi": "Em vẫn lạnh à?" },
         { "speaker": "B", "ja": "うん、このストーブ、ついてますか？", "vi": "Vâng. Máy sưởi này đang bật ạ?" }
       ]
     },
@@ -1525,7 +1525,7 @@
     {
       "context": "Tình huống 5",
       "dialogues": [
-        { "speaker": "A", "ja": あれ？　[今日](きょう)、お[弁当](べんとう)？　[自分](じぶん)で[作](つく)ったの？", "vi": "Ơ? Hôm nay mang cơm hộp à? Tự cậu nấu à?" },
+        { "speaker": "A", "ja": "あれ？　[今日](きょう)、お[弁当](べんとう)？　[自分](じぶん)で[作](つく)ったの？", "vi": "Ơ? Hôm nay mang cơm hộp à? Tự cậu nấu à?" },
         { "speaker": "B", "ja": "いや、[彼女](かのじょ)に[作](つく)ってもらいました。", "vi": "Không, bạn gái tớ nấu cho đấy." }
       ]
     },
@@ -2021,7 +2021,7 @@
     {
       "context": "Tình huống 8",
       "dialogues": [
-        { "speaker": "A", "ja": どうしたの？　[勉強](べんきょう)に[集中](しゅうちゅう)できてないようだけど。", "vi": "Có chuyện gì vậy? Em có vẻ không tập trung học." },
+        { "speaker": "A", "ja": "どうしたの？　[勉強](べんきょう)に[集中](しゅうちゅう)できてないようだけど。", "vi": "Có chuyện gì vậy? Em có vẻ không tập trung học." },
         { "speaker": "B", "ja": "はい、[気](き)になることがあって…。", "vi": "Vâng, em có chuyện phải nghĩ ngợi...." }
       ]
     },
