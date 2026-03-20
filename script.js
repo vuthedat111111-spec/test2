@@ -5141,7 +5141,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <ruby key={index} className="leading-loose">
                         {kanji}
                         {/* Ẩn hiện thẻ <rt> dựa vào nút bấm */}
-                        {isShow && <rt className="text-[10px] text-indigo-500 font-bold select-none">{furigana}</rt>}
+                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{furigana}</rt>}
                     </ruby>
                 );
             }
@@ -5290,14 +5290,14 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                         <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border ${
                                             isA ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' : 'bg-zinc-900 border-zinc-900 text-white rounded-2xl rounded-tr-sm'
                                         }`}>
-                                            <p className={`text-sm sm:text-base font-medium leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-   {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
+                                           <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
+    {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
 </p>
-                                            {showTranslation && (
-                                                <p className={`text-xs mt-2 font-medium border-t pt-2 ${isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-400 border-zinc-700'}`}>
-                                                    {line.vi}
-                                                </p>
-                                            )}
+{showTranslation && (
+    <p className={`text-sm sm:text-base mt-2 font-medium border-t pt-2 ${isA ? 'text-zinc-500 border-zinc-200' : 'text-zinc-400 border-zinc-700'}`}>
+        {line.vi}
+    </p>
+)}
                                         </div>
                                     </div>
                                 )
