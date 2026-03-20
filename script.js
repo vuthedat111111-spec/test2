@@ -5128,11 +5128,10 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
     const [activeIndex, setActiveIndex] = React.useState(-1);     
     const lineRefs = React.useRef([]);
-// --- EFFECT XỬ LÝ HIGHLIGHT, TỰ CUỘN & TẮT ÂM THANH THEO VAI ---
+// --- EFFECT 1: XỬ LÝ HIGHLIGHT & TỰ CUỘN (Dùng cho Giao diện - UI) ---
     React.useEffect(() => {
         let foundIndex = -1;
         let flatIdx = 0;
-        let currentSpeaker = null; // Biến mới để biết ai đang nói
         const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
 
         // Quét toàn bộ câu thoại để xem audio đang ở câu nào
@@ -5141,35 +5140,77 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 if (line.startTime !== undefined && line.endTime !== undefined) {
                     if (currentTime >= line.startTime && currentTime <= line.endTime) {
                         foundIndex = flatIdx;
-                        currentSpeaker = line.speaker; // Ghi nhận nhân vật đang nói
                     }
                 }
                 flatIdx++;
             }
         }
 
-        // 1. Logic bôi xanh và tự cuộn
+        // Logic bôi xanh và tự cuộn
         if (foundIndex !== activeIndex) {
             setActiveIndex(foundIndex);
-            
             if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
                 lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
+    }, [currentTime, activeIndex, isAutoScroll, lesson]);
 
-        // 2. LOGIC TẮT ÂM THANH (MUTE) THEO VAI
-        if (audioRef.current) {
-            if (
-                (roleplayMode === 'hideA' && currentSpeaker === 'A') ||
-                (roleplayMode === 'hideB' && currentSpeaker === 'B')
-            ) {
-                audioRef.current.muted = true; // Tắt tiếng nhân vật bị ẩn
-            } else {
-                audioRef.current.muted = false; // Mở lại tiếng bình thường
+
+    // --- EFFECT 2: XỬ LÝ TẮT ÂM THANH SIÊU TỐC CHO ĐIỆN THOẠI (Chạy 60fps) ---
+    React.useEffect(() => {
+        let animationFrameId;
+        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
+
+        const checkAudioMute = () => {
+            if (audioRef.current && isPlaying) {
+                // Lấy thời gian thực tế của phần cứng audio (chính xác từng mili-giây)
+                const actualTime = audioRef.current.currentTime;
+                
+                // MẸO QUAN TRỌNG: CỘNG THÊM 0.15s (Lookahead)
+                // Giúp hệ thống "đón đầu" và tắt tiếng NGAY TRƯỚC KHI giọng nhân vật kịp cất lên trên mobile
+                const lookaheadTime = actualTime + 0.15; 
+                
+                let currentSpeaker = null;
+
+                for (const conv of convs) {
+                    for (const line of conv.dialogues) {
+                        if (line.startTime !== undefined && line.endTime !== undefined) {
+                            // Kiểm tra xem thời gian thực (đã cộng trừ hao) có rơi vào khoảng thoại không
+                            if (lookaheadTime >= line.startTime && actualTime <= line.endTime) {
+                                currentSpeaker = line.speaker;
+                                break;
+                            }
+                        }
+                    }
+                    if (currentSpeaker) break;
+                }
+
+                // Tắt/Mở tiếng ngay lập tức dựa vào người đang nói
+                if (
+                    (roleplayMode === 'hideA' && currentSpeaker === 'A') ||
+                    (roleplayMode === 'hideB' && currentSpeaker === 'B')
+                ) {
+                    audioRef.current.muted = true;
+                } else {
+                    audioRef.current.muted = false;
+                }
             }
+            // Gọi vòng lặp liên tục siêu tốc
+            animationFrameId = requestAnimationFrame(checkAudioMute);
+        };
+
+        if (isPlaying) {
+            animationFrameId = requestAnimationFrame(checkAudioMute);
+        } else if (audioRef.current) {
+            // Khi người dùng bấm Pause, trả lại âm thanh bình thường để tránh lỗi
+            audioRef.current.muted = false; 
         }
-        
-    }, [currentTime, activeIndex, isAutoScroll, lesson, roleplayMode]);
+
+        return () => {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        };
+    }, [isPlaying, roleplayMode, lesson]);
+    
     // Hàm phân tích cú pháp [Kanji](furigana)
     const renderFurigana = (text, isShow) => {
         if (!text) return null;
