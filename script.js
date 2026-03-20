@@ -5115,7 +5115,9 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-
+// ==========================================
+// COMPONENT: KAIWA PRACTICE VIEW (SỬ DỤNG HOWLER.JS SIÊU MƯỢT)
+// ==========================================
 const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [showTranslation, setShowTranslation] = React.useState(false);
@@ -5127,141 +5129,134 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [showFurigana, setShowFurigana] = React.useState(false);
     const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
     const [activeIndex, setActiveIndex] = React.useState(-1);     
+    
     const lineRefs = React.useRef([]);
-// --- EFFECT 1: XỬ LÝ HIGHLIGHT & TỰ CUỘN (Dùng cho Giao diện - UI) ---
-    React.useEffect(() => {
-        let foundIndex = -1;
-        let flatIdx = 0;
-        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
+    const soundRef = React.useRef(null); // Ref chứa lõi Howler
+    const timerRef = React.useRef(null); // Ref chạy vòng lặp 60fps
+    const scrollRef = React.useRef(null);
 
-        // Quét toàn bộ câu thoại để xem audio đang ở câu nào
-        for (const conv of convs) {
-            for (const line of conv.dialogues) {
+    // --- 1. KHỞI TẠO ÂM THANH BẰNG HOWLER ---
+    React.useEffect(() => {
+        // Xóa audio cũ nếu có
+        if (soundRef.current) {
+            soundRef.current.unload();
+        }
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setActiveIndex(-1);
+
+        // Nạp file MP3 vào bộ nhớ RAM bằng Web Audio API
+        soundRef.current = new Howl({
+            src: [lesson.audioPath],
+            html5: false, // Bắt buộc false để không bị delay trên mobile
+            preload: true,
+            onload: function() {
+                setDuration(this.duration());
+            },
+            onend: function() {
+                setIsPlaying(false);
+                if (timerRef.current) cancelAnimationFrame(timerRef.current);
+            }
+        });
+
+        if (scrollRef.current) scrollRef.current.scrollTop = 0;
+
+        return () => {
+            if (soundRef.current) soundRef.current.unload();
+            if (timerRef.current) cancelAnimationFrame(timerRef.current);
+        };
+    }, [lesson]);
+
+    // --- 2. CẬP NHẬT TỐC ĐỘ PHÁT ---
+    React.useEffect(() => {
+        if (soundRef.current) { 
+            soundRef.current.rate(playbackRate); 
+        }
+    }, [playbackRate]);
+
+    // --- 3. VÒNG LẶP 60FPS: TRACKING THỜI GIAN & TẮT ÂM THANH CHUẨN XÁC ---
+    React.useEffect(() => {
+        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
+        const flatLines = [];
+        convs.forEach(conv => {
+            conv.dialogues.forEach(line => {
                 if (line.startTime !== undefined && line.endTime !== undefined) {
-                    if (currentTime >= line.startTime && currentTime <= line.endTime) {
-                        foundIndex = flatIdx;
-                    }
+                    flatLines.push(line);
                 }
-                flatIdx++;
-            }
-        }
+            });
+        });
 
-        // Logic bôi xanh và tự cuộn
-        if (foundIndex !== activeIndex) {
-            setActiveIndex(foundIndex);
-            if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
-                lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-    }, [currentTime, activeIndex, isAutoScroll, lesson]);
-
-
-    // --- EFFECT 2: XỬ LÝ TẮT ÂM THANH SIÊU TỐC CHO ĐIỆN THOẠI (Chạy 60fps) ---
-    React.useEffect(() => {
-        let animationFrameId;
-        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
-
-        const checkAudioMute = () => {
-            if (audioRef.current && isPlaying) {
-                // Lấy thời gian thực tế của phần cứng audio (chính xác từng mili-giây)
-                const actualTime = audioRef.current.currentTime;
+        const step = () => {
+            if (soundRef.current && isPlaying && !isDragging) {
+                const seekTime = soundRef.current.seek();
                 
-                // MẸO QUAN TRỌNG: CỘNG THÊM 0.15s (Lookahead)
-                // Giúp hệ thống "đón đầu" và tắt tiếng NGAY TRƯỚC KHI giọng nhân vật kịp cất lên trên mobile
-                const lookaheadTime = actualTime + 0.15; 
-                
-                let currentSpeaker = null;
+                // Đề phòng Howler trả về mảng khi đang loading
+                if (typeof seekTime === 'number') {
+                    setCurrentTime(seekTime);
 
-                for (const conv of convs) {
-                    for (const line of conv.dialogues) {
-                        if (line.startTime !== undefined && line.endTime !== undefined) {
-                            // Kiểm tra xem thời gian thực (đã cộng trừ hao) có rơi vào khoảng thoại không
-                            if (lookaheadTime >= line.startTime && actualTime <= line.endTime) {
-                                currentSpeaker = line.speaker;
-                                break;
-                            }
+                    let foundIndex = -1;
+                    let currentSpeaker = null;
+
+                    // Quét để tìm câu đang nói và xử lý chặn họng
+                    for (let i = 0; i < flatLines.length; i++) {
+                        const line = flatLines[i];
+                        
+                        // Tìm UI đang sáng
+                        if (seekTime >= line.startTime && seekTime <= line.endTime) {
+                            foundIndex = i;
+                        }
+
+                        // Tìm nhân vật để Mute (Trừ hao cực nhẹ 0.05s vì Howler ngắt tức thì)
+                        const lookaheadTime = seekTime + 0.05;
+                        const isMutedCharacter = (roleplayMode === 'hideA' && line.speaker === 'A') || 
+                                                 (roleplayMode === 'hideB' && line.speaker === 'B');
+                        
+                        if (isMutedCharacter && lookaheadTime >= line.startTime && seekTime <= line.endTime) {
+                            currentSpeaker = line.speaker;
                         }
                     }
-                    if (currentSpeaker) break;
-                }
 
-                // Tắt/Mở tiếng ngay lập tức dựa vào người đang nói
-                if (
-                    (roleplayMode === 'hideA' && currentSpeaker === 'A') ||
-                    (roleplayMode === 'hideB' && currentSpeaker === 'B')
-                ) {
-                    audioRef.current.muted = true;
-                } else {
-                    audioRef.current.muted = false;
+                    // Tự động cuộn UI
+                    if (foundIndex !== activeIndex) {
+                        setActiveIndex(foundIndex);
+                        if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
+                            lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+
+                    // Tắt tiếng triệt để từ Core Audio
+                    if (currentSpeaker) {
+                        soundRef.current.volume(0);
+                    } else {
+                        soundRef.current.volume(1);
+                    }
                 }
+            } else if (soundRef.current && !isPlaying) {
+                // Nhả âm lượng khi ấn Pause
+                soundRef.current.volume(1);
             }
-            // Gọi vòng lặp liên tục siêu tốc
-            animationFrameId = requestAnimationFrame(checkAudioMute);
+            
+            timerRef.current = requestAnimationFrame(step);
         };
 
         if (isPlaying) {
-            animationFrameId = requestAnimationFrame(checkAudioMute);
-        } else if (audioRef.current) {
-            // Khi người dùng bấm Pause, trả lại âm thanh bình thường để tránh lỗi
-            audioRef.current.muted = false; 
+            timerRef.current = requestAnimationFrame(step);
         }
 
         return () => {
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            if (timerRef.current) cancelAnimationFrame(timerRef.current);
         };
-    }, [isPlaying, roleplayMode, lesson]);
-    
-    // Hàm phân tích cú pháp [Kanji](furigana)
-    const renderFurigana = (text, isShow) => {
-        if (!text) return null;
-        // Tách chuỗi theo định dạng [Chữ Hán](Phiên âm)
-        const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
-        
-        return parts.map((part, index) => {
-            const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
-            if (match) {
-                const kanji = match[1];
-                const furigana = match[2];
-                return (
-                    <ruby key={index} className="leading-loose">
-                        {kanji}
-                        {/* Ẩn hiện thẻ <rt> dựa vào nút bấm */}
-                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{furigana}</rt>}
-                    </ruby>
-                );
-            }
-            return <span key={index}>{part}</span>;
-        });
-    };
+    }, [isPlaying, roleplayMode, isAutoScroll, activeIndex, isDragging, lesson]);
 
-    const audioRef = React.useRef(null);
-    const scrollRef = React.useRef(null);
-
-    React.useEffect(() => {
-        if (scrollRef.current) scrollRef.current.scrollTop = 0;
-    }, [currentIndex]);
-
-    React.useEffect(() => {
-        if (audioRef.current) { audioRef.current.pause(); }
-        setIsPlaying(false);
-        setCurrentTime(0);
-    }, [lesson]);
-
-    React.useEffect(() => {
-        if (audioRef.current) { audioRef.current.playbackRate = playbackRate; }
-    }, [playbackRate]);
-
+    // --- CÁC HÀM TIỆN ÍCH CHO TRÌNH PHÁT ---
     const toggleAudio = () => {
-        if (!audioRef.current) return;
+        if (!soundRef.current) return;
         if (isPlaying) {
-            audioRef.current.pause();
+            soundRef.current.pause();
             setIsPlaying(false);
         } else {
-            audioRef.current.play().then(() => setIsPlaying(true)).catch(err => {
-                console.error("Lỗi phát Audio:", err);
-                alert("Không thể phát âm thanh! Hãy kiểm tra lại file mp3.");
-                setIsPlaying(false);
-            });
+            soundRef.current.play();
+            setIsPlaying(true);
         }
     };
 
@@ -5275,7 +5270,9 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const handleSeek = (e) => {
         const time = Number(e.target.value);
         setCurrentTime(time);
-        if (audioRef.current) { audioRef.current.currentTime = time; }
+        if (soundRef.current) { 
+            soundRef.current.seek(time); 
+        }
     };
 
     const cyclePlaybackRate = () => {
@@ -5283,36 +5280,39 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         const nextIdx = (rates.indexOf(playbackRate) + 1) % rates.length;
         setPlaybackRate(rates[nextIdx]);
     };
-let globalLineIndex = 0;
+
+    const renderFurigana = (text, isShow) => {
+        if (!text) return null;
+        const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+        return parts.map((part, index) => {
+            const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+            if (match) {
+                return (
+                    <ruby key={index} className="leading-loose">
+                        {match[1]}
+                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
+                    </ruby>
+                );
+            }
+            return <span key={index}>{part}</span>;
+        });
+    };
+
+    let globalLineIndex = 0;
+
+    // --- GIAO DIỆN ---
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
-            <audio 
-                key={lesson.id}
-                ref={audioRef} 
-                src={lesson.audioPath} 
-                preload="none"
-                onEnded={() => setIsPlaying(false)}
-                onLoadedMetadata={(e) => setDuration(e.target.duration)}
-                onCanPlay={() => { if(audioRef.current) audioRef.current.playbackRate = playbackRate; }}
-                onTimeUpdate={(e) => { if (!isDragging) setCurrentTime(e.target.currentTime); }}
-            />
-
-            {/* Thêm 'relative' vào thẻ div cha */}
-<div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center justify-between sticky top-0 z-10 shadow-sm relative">
-    
-    {/* Thêm 'relative z-10' vào nút để đảm bảo nó không bị đè */}
-    <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors relative z-10">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-        QUAY LẠI
-    </button>
-    
-    {/* Thêm 'absolute left-1/2 -translate-x-1/2' để ép khung vào chính giữa tuyệt đối */}
-    <span className="absolute left-1/2 -translate-x-1/2 text-[10px] font-black text-zinc-400 tracking-widest bg-zinc-50 px-3 py-1 rounded-full border border-zinc-200">
-        {currentIndex + 1} / {total}
-    </span>
-    
-    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all relative z-10">✕</button>
-</div>
+            <div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center justify-between sticky top-0 z-10 shadow-sm relative">
+                <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors relative z-10">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    QUAY LẠI
+                </button>
+                <span className="absolute left-1/2 -translate-x-1/2 text-[10px] font-black text-zinc-400 tracking-widest bg-zinc-50 px-3 py-1 rounded-full border border-zinc-200">
+                    {currentIndex + 1} / {total}
+                </span>
+                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all relative z-10">✕</button>
+            </div>
 
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 sm:p-6 pb-8 custom-scrollbar">
                 <div className="mb-6">
@@ -5337,23 +5337,19 @@ let globalLineIndex = 0;
                     </div>
                     
                     <div className="flex gap-2">
-                    {/* Nút Tự Cuộn */}
-        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
-            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
-            <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
-        </label>
-        {/* Nút Furigana */}
-        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
-            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Furigana</span>
-            <input type="checkbox" checked={showFurigana} onChange={() => setShowFurigana(!showFurigana)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
-        </label>
-        
-        {/* Nút Dịch (Cũ) */}
-        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
-            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Dịch</span>
-            <input type="checkbox" checked={showTranslation} onChange={() => setShowTranslation(!showTranslation)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
-        </label>
-    </div>
+                        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+                            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
+                            <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+                            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Furigana</span>
+                            <input type="checkbox" checked={showFurigana} onChange={() => setShowFurigana(!showFurigana)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
+                            <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Dịch</span>
+                            <input type="checkbox" checked={showTranslation} onChange={() => setShowTranslation(!showTranslation)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+                        </label>
+                    </div>
                 </div>
 
                 <div className="space-y-8"> 
@@ -5372,14 +5368,13 @@ let globalLineIndex = 0;
                             {conv.dialogues.map((line, idx) => {
                                 const currentFlatIndex = globalLineIndex++; 
                                 const isActive = activeIndex === currentFlatIndex; 
-                                
                                 const isHidden = (roleplayMode === 'hideA' && line.speaker === 'A') || 
                                                  (roleplayMode === 'hideB' && line.speaker === 'B');
                                 const isA = line.speaker === 'A';
                                 
                                 let boxClass = isA 
-                                    ? 'bg-zinc-50 border-zinc-200 rounded-2xl rounded-tl-sm' 
-                                    : 'bg-zinc-50 border-zinc-900 text-zinc-900 rounded-2xl rounded-tr-sm';
+                                    ? 'bg-zinc-50 border-zinc-200 text-zinc-900 rounded-2xl rounded-tl-sm' 
+                                    : 'bg-zinc-50 border-zinc-900 text-zinc-900 rounded-2xl rounded-tr-sm border-2 shadow-md';
 
                                 if (isActive) {
                                     boxClass = isA 
@@ -5396,23 +5391,20 @@ let globalLineIndex = 0;
                                         <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 transition-colors ${isActive ? 'text-green-600' : 'text-zinc-400'}`}>
                                             Người {line.speaker}
                                         </span>
-                                       <div 
-    onClick={() => {
-        // Kiểm tra xem câu này có thời gian không và audio có đang sẵn sàng không
-        if (line.startTime !== undefined && audioRef.current) {
-            // Tua audio về đúng số giây bắt đầu của câu đó
-            audioRef.current.currentTime = line.startTime;
-            setCurrentTime(line.startTime); // Cập nhật thanh thời gian UI
-            
-            // Tối ưu UX: Bấm vào câu thì tự động Play luôn nếu đang Pause
-            if (!isPlaying) {
-                audioRef.current.play().then(() => setIsPlaying(true)).catch(err => console.log(err));
-            }
-        }
-    }}
-    title="Bấm để nghe từ câu này"
-    className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
->
+                                        <div 
+                                            onClick={() => {
+                                                if (line.startTime !== undefined && soundRef.current) {
+                                                    soundRef.current.seek(line.startTime);
+                                                    setCurrentTime(line.startTime);
+                                                    if (!isPlaying) {
+                                                        soundRef.current.play();
+                                                        setIsPlaying(true);
+                                                    }
+                                                }
+                                            }}
+                                            title="Bấm để nghe từ câu này"
+                                            className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
+                                        >
                                             <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
                                                 {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
                                             </p>
@@ -5451,7 +5443,7 @@ let globalLineIndex = 0;
                         <button onClick={onPrev} disabled={currentIndex === 0} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === 0 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
-                        <button onClick={() => { if(audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 3); }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(0, cur - 3)); setCurrentTime(Math.max(0, cur - 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         </button>
                         <button onClick={toggleAudio} className="w-12 h-12 bg-zinc-900 text-white rounded-full flex items-center justify-center hover:bg-black active:scale-90 transition-all shadow-md mx-1">
@@ -5461,7 +5453,7 @@ let globalLineIndex = 0;
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
                             )}
                         </button>
-                        <button onClick={() => { if(audioRef.current) audioRef.current.currentTime = Math.min(duration, audioRef.current.currentTime + 3); }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.min(duration, cur + 3)); setCurrentTime(Math.min(duration, cur + 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                         </button>
                         <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === total - 1 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
