@@ -5128,10 +5128,11 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
     const [activeIndex, setActiveIndex] = React.useState(-1);     
     const lineRefs = React.useRef([]);
-// --- THÊM EFFECT NÀY ĐỂ XỬ LÝ HIGHLIGHT & TỰ CUỘN ---
+// --- EFFECT XỬ LÝ HIGHLIGHT, TỰ CUỘN & TẮT ÂM THANH THEO VAI ---
     React.useEffect(() => {
         let foundIndex = -1;
         let flatIdx = 0;
+        let currentSpeaker = null; // Biến mới để biết ai đang nói
         const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
 
         // Quét toàn bộ câu thoại để xem audio đang ở câu nào
@@ -5140,22 +5141,35 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 if (line.startTime !== undefined && line.endTime !== undefined) {
                     if (currentTime >= line.startTime && currentTime <= line.endTime) {
                         foundIndex = flatIdx;
+                        currentSpeaker = line.speaker; // Ghi nhận nhân vật đang nói
                     }
                 }
                 flatIdx++;
             }
         }
 
-        // Nếu câu đang đọc thay đổi
+        // 1. Logic bôi xanh và tự cuộn
         if (foundIndex !== activeIndex) {
             setActiveIndex(foundIndex);
             
-            // Nếu bật tự cuộn và tìm thấy dòng tương ứng -> Cuộn ra giữa màn hình
             if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
                 lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
-    }, [currentTime, activeIndex, isAutoScroll, lesson]);
+
+        // 2. LOGIC TẮT ÂM THANH (MUTE) THEO VAI
+        if (audioRef.current) {
+            if (
+                (roleplayMode === 'hideA' && currentSpeaker === 'A') ||
+                (roleplayMode === 'hideB' && currentSpeaker === 'B')
+            ) {
+                audioRef.current.muted = true; // Tắt tiếng nhân vật bị ẩn
+            } else {
+                audioRef.current.muted = false; // Mở lại tiếng bình thường
+            }
+        }
+        
+    }, [currentTime, activeIndex, isAutoScroll, lesson, roleplayMode]);
     // Hàm phân tích cú pháp [Kanji](furigana)
     const renderFurigana = (text, isShow) => {
         if (!text) return null;
@@ -5282,10 +5296,10 @@ let globalLineIndex = 0;
                     </div>
                     
                     <div className="flex gap-2">
-                    {/* --- NÚT TỰ CUỘN MỚI THÊM --- */}
+                    {/* Nút Tự Cuộn */}
         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
             <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
-            <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-green-500 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+            <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
         </label>
         {/* Nút Furigana */}
         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
@@ -5341,7 +5355,23 @@ let globalLineIndex = 0;
                                         <span className={`text-[9px] font-black uppercase tracking-widest mb-1 px-1 transition-colors ${isActive ? 'text-green-600' : 'text-zinc-400'}`}>
                                             Người {line.speaker}
                                         </span>
-                                        <div className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 ${boxClass}`}>
+                                       <div 
+    onClick={() => {
+        // Kiểm tra xem câu này có thời gian không và audio có đang sẵn sàng không
+        if (line.startTime !== undefined && audioRef.current) {
+            // Tua audio về đúng số giây bắt đầu của câu đó
+            audioRef.current.currentTime = line.startTime;
+            setCurrentTime(line.startTime); // Cập nhật thanh thời gian UI
+            
+            // Tối ưu UX: Bấm vào câu thì tự động Play luôn nếu đang Pause
+            if (!isPlaying) {
+                audioRef.current.play().then(() => setIsPlaying(true)).catch(err => console.log(err));
+            }
+        }
+    }}
+    title="Bấm để nghe từ câu này"
+    className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
+>
                                             <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
                                                 {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
                                             </p>
