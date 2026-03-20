@@ -88,71 +88,71 @@
       {
         "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "こんにちは。", "vi": "Chào cậu." },
-          { "speaker": "B", "ja": "こんにちは。", "vi": "Chào cậu." }
+          { "speaker": "A", "ja": "こんにちは。", "vi": "Chào cậu.", "startTime": 1.8, "endTime": 4.1 },
+          { "speaker": "B", "ja": "こんにちは。", "vi": "Chào cậu.", "startTime": 4.1, "endTime": 5.6 }
         ]
       },
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "[先生](せんせい)、おはようございます。", "vi": "Em chào thầy/cô." },
-          { "speaker": "B", "ja": "おはよう。", "vi": "Chào em." }
+          { "speaker": "A", "ja": "[先生](せんせい)、おはようございます。", "vi": "Em chào thầy/cô.", "startTime": 5.6, "endTime": 9.1 },
+          { "speaker": "B", "ja": "おはよう。", "vi": "Chào em.", "startTime": 9.1, "endTime": 10.9 }
         ]
       },
       {
         "context": "Tình huống 3",
         "dialogues": [
-          { "speaker": "A", "ja": "えみさん、じゃーね。", "vi": "Emi, hẹn gặp lại cậu sau." },
-          { "speaker": "B", "ja": "うん。また[明日](あした)。", "vi": "Ừ. Mai gặp lại nhé!" }
+          { "speaker": "A", "ja": "えみさん、じゃーね。", "vi": "Emi, hẹn gặp lại cậu sau.", "startTime": 10.9, "endTime": 14.2 },
+          { "speaker": "B", "ja": "うん。また[明日](あした)。", "vi": "Ừ. Mai gặp lại nhé!", "startTime": 14.2, "endTime": 16.5 }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": "お[先](さき)に[失礼](しつれい)します。", "vi": "Tôi xin phép về trước." },
-          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cám ơn anh đã vất vả làm việc." }
+          { "speaker": "A", "ja": "お[先](さき)に[失礼](しつれい)します。", "vi": "Tôi xin phép về trước.", "startTime": 16.5, "endTime": 19.8 },
+          { "speaker": "B", "ja": "おつかれさまー。", "vi": "Cám ơn anh đã vất vả làm việc.", "startTime": 19.8, "endTime": 21.8 }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "あ～あ。", "vi": "Ôi trời!" },
-          { "speaker": "B", "ja": "すみません。", "vi": "Tôi xin lỗi." }
+          { "speaker": "A", "ja": "あ～あ。", "vi": "Ôi trời!", "startTime": 21.8, "endTime": 25.1 },
+          { "speaker": "B", "ja": "すみません。", "vi": "Tôi xin lỗi.", "startTime": 25.1, "endTime": 27.1 }
         ]
       },
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!" },
-          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!" }
+          { "speaker": "A", "ja": "いってきます。", "vi": "Anh đi đây!", "startTime": 27.1, "endTime": 29.8 },
+          { "speaker": "B", "ja": "いってらっしゃい。", "vi": "Anh đi nhé!", "startTime": 29.8, "endTime": 31.3 }
         ]
       },
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "ただいまー。", "vi": "Anh đã về!" },
-          { "speaker": "B", "ja": "おかえりー。", "vi": "Mừng anh về nhà!" }
+          { "speaker": "A", "ja": "ただいまー。", "vi": "Anh đã về!", "startTime": 31.3, "endTime": 34.8 },
+          { "speaker": "B", "ja": "おかえりー。", "vi": "Mừng anh về nhà!", "startTime": 34.8, "endTime": 36.5 }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "どうもありがとうございます。", "vi": "Cám ơn chị." },
-          { "speaker": "B", "ja": "いいえ、どういたしまして。", "vi": "Không, không có gì." }
+          { "speaker": "A", "ja": "どうもありがとうございます。", "vi": "Cám ơn chị.", "startTime": 36.5, "endTime": 39.7 },
+          { "speaker": "B", "ja": "いいえ、どういたしまして。", "vi": "Không, không có gì.", "startTime": 39.7, "endTime": 42.4 }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "いい[天気](てんき)ですね。", "vi": "Trời đẹp nhỉ!" },
-          { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật." }
+          { "speaker": "A", "ja": "いい[天気](てんき)ですね。", "vi": "Trời đẹp nhỉ!","startTime": 42.4, "endTime": 45.6 },
+          { "speaker": "B", "ja": "ええ、そうですね。", "vi": "Vâng, đúng thế thật.", "startTime": 45.6, "endTime": 48.0 }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "お[元気](げんき)ですか？", "vi": "Chị có khỏe không?" },
-          { "speaker": "B", "ja": "はい、[元気](げんき)です。", "vi": "Có, tôi khỏe." }
+          { "speaker": "A", "ja": "お[元気](げんき)ですか？", "vi": "Chị có khỏe không?", "startTime": 48.0, "endTime": 51.0 },
+          { "speaker": "B", "ja": "はい、[元気](げんき)です。", "vi": "Có, tôi khỏe.", "startTime": 51.0, "endTime": 53.0 }
         ]
       }
     ]
