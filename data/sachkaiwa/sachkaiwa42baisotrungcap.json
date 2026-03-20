@@ -175,7 +175,7 @@
         "context": "Tình huống 2",
         "dialogues": [
           { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)ですか？", "vi": "Bây giờ là mấy giờ?" },
-          { "speaker": "B", "ja": "4[時](よじ)。", "vi": "4 giờ." }
+          { "speaker": "B", "ja": "4[時](じ)。", "vi": "4 giờ." }
         ]
       },
       {
@@ -196,7 +196,7 @@
         "context": "Tình huống 5",
         "dialogues": [
           { "speaker": "A", "ja": "[今日](きょう)は[何日](なんにち)ですか？", "vi": "Hôm nay là ngày mấy?" },
-          { "speaker": "B", "ja": "[4月](しがつ)[1日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
+          { "speaker": "B", "ja": "4月 [1日](ついたち)です。", "vi": "Ngày 1 tháng 4." }
         ]
       },
       {
@@ -210,28 +210,28 @@
         "context": "Tình huống 7",
         "dialogues": [
           { "speaker": "A", "ja": "[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh?" },
-          { "speaker": "B", "ja": "[8月](はちがつ)[20日](はつか)です。", "vi": "20 tháng 8" }
+          { "speaker": "B", "ja": "8月[20日](はつか)です。", "vi": "20 tháng 8" }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
           { "speaker": "A", "ja": "[銀行](ぎんこう)は[何時](なんじ)から[何時](なんじ)までですか？", "vi": "Ngân hàng làm việc từ mấy giờ đến mấy giờ?" },
-          { "speaker": "B", "ja": "[9時](くじ)から[3時](さんじ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
+          { "speaker": "B", "ja": "9[時](じ)から3[時](じ)までです。", "vi": "Từ 9 giờ đến 3 giờ." }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
           { "speaker": "A", "ja": "[今年](ことし)は[何年](なんねん)？", "vi": "Năm nay là năm bao nhiêu?" },
-          { "speaker": "B", "ja": "2006[年](ねん)。[平成](へいせい)18[年](ねん)だよ。", "vi": "Năm 2006. Năm Bình Thành thứ 18." }
+          { "speaker": "B", "ja": "2006年。[平成](へいせい)18年だよ。", "vi": "Năm 2006. Năm Bình Thành thứ 18." }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
           { "speaker": "A", "ja": "[日本](にほん)に[来](き)て、どのぐらいですか？", "vi": "Anh tới Nhật bao lâu rồi?" },
-          { "speaker": "B", "ja": "1[年](ねん)3[ヶ月](かげつ)です。", "vi": "1 năm 3 tháng." }
+          { "speaker": "B", "ja": "1年 3[ヶ月](かげつ)です。", "vi": "1 năm 3 tháng." }
         ]
       }
     ]
@@ -268,7 +268,7 @@
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "あれは[日本語](にほんご)で[何](なん)ですか？", "vi": "Cái đó tiếng Nhật gọi là gì?" },
-          { "speaker": "B", "ja": "あれ？あ、あれは[交番](こうばん)ですよ。", "vi": "Cái đó ấy hả? À, đó là bốt cảnh sát(Kouban)." }
+          { "speaker": "B", "ja": "あれ？あ、あれは[交番](こうばん)ですよ。", "vi": "Cái đó ấy hả? À, đó là bốt cảnh sát." }
         ]
       },
       {
@@ -282,7 +282,7 @@
         "context": "Tình huống 6",
         "dialogues": [
           { "speaker": "A", "ja": "[山田](やまだ)さんの[部屋](へや)は[何階](なんかい)ですか？", "vi": "Phòng của anh Yamada ở tầng mấy?" },
-          { "speaker": "B", "ja": "3[階](さんがい)です。", "vi": "Tầng 3." }
+          { "speaker": "B", "ja": "3[階](がい)です。", "vi": "Tầng 3." }
         ]
       },
       {
@@ -328,7 +328,7 @@
         "context": "Tình huống 1",
         "dialogues": [
           { "speaker": "A", "ja": "[何才](なんさい)ですか？", "vi": "Anh bao nhiêu tuổi rồi?" },
-          { "speaker": "B", "ja": "[28才](にじゅうはっさい)です。", "vi": "Tôi 28 tuổi." }
+          { "speaker": "B", "ja": "28[才](さい)です。", "vi": "Tôi 28 tuổi." }
         ]
       },
       {
@@ -428,7 +428,7 @@
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "[日本](にほん)は、[初](はじ)めてですか？", "vi": "Anh đến Nhật Bản lần đầu à?" },
-          { "speaker": "B", "ja": "いいえ、3[回目](さんかいめ)です。", "vi": "Không, đây là lần thứ ba." }
+          { "speaker": "B", "ja": "いいえ、3[回目](かいめ)です。", "vi": "Không, đây là lần thứ ba." }
         ]
       },
       {
@@ -456,14 +456,14 @@
         "context": "Tình huống 8",
         "dialogues": [
           { "speaker": "A", "ja": "いつ[日本](にほん)に[来](き)たんですか？", "vi": "Anh tới Nhật Bản từ bao giờ?" },
-          { "speaker": "B", "ja": "2[ヶ月](にかげつ)くらい[前](まえ)です。", "vi": "Khoảng 2 tháng trước." }
+          { "speaker": "B", "ja": "2[ヶ月](かげつ)くらい[前](まえ)です。", "vi": "Khoảng 2 tháng trước." }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
           { "speaker": "A", "ja": "[今](いま)、[何時](なんじ)？", "vi": "Bây giờ mấy giờ rồi?" },
-          { "speaker": "B", "ja": "えーっと、4[時](よじ)20[分](にじゅっぷん)。", "vi": "Ờ, 4 giờ 20 phút." }
+          { "speaker": "B", "ja": "えーっと、4[時](じ)20[分](ぷん)。", "vi": "Ờ, 4 giờ 20 phút." }
         ]
       },
       {
@@ -493,7 +493,7 @@
         "context": "Tình huống 2",
         "dialogues": [
           { "speaker": "A", "ja": "ビデオレンタルはいくらですか？", "vi": "Thuê băng video bao nhiêu tiền ạ?" },
-          { "speaker": "B", "ja": "一[泊](いっぱく)350[円](えん)です。", "vi": "350 Yên một đêm." }
+          { "speaker": "B", "ja": "[一泊](いっぱく)350[円](えん)です。", "vi": "350 Yên một đêm." }
         ]
       },
       {
@@ -507,7 +507,7 @@
         "context": "Tình huống 4",
         "dialogues": [
           { "speaker": "A", "ja": "[田中](たなか)さんのうちはどこですか？", "vi": "Nhà anh Tanaka ở đâu?" },
-          { "speaker": "B", "ja": "[新宿](しんじゅく)です。[学校](がっこう)に[近](ちか)いです。", "vi": "Ở Shinzuku, gần trường." }
+          { "speaker": "B", "ja": "[新宿](しんじゅく)です。[学校](がっこう)に[近](ちか)いです。", "vi": "Ở Shinjuku, gần trường." }
         ]
       },
       {
@@ -550,7 +550,7 @@
         "context": "Tình huống 10",
         "dialogues": [
           { "speaker": "A", "ja": "カラオケ！カラオケ！どうですか？　1[時間](じかん)1500[円](えん)です。", "vi": "Karaoke! Karaoke! Quý khách thấy sao ạ? Một tiếng 1500 Yên." },
-          { "speaker": "B", "ja": "う〜ん。ちょっとね〜。[新宿](しんじゅく)のカラオケの[方](ほう)が[安](やす)いですね。", "vi": "Ừm. Thế thì Karaoke ở Shinzuku rẻ hơn." },
+          { "speaker": "B", "ja": "う〜ん。ちょっとね〜。[新宿](しんじゅく)のカラオケの[方](ほう)が[安](やす)いですね。", "vi": "Ừm. Thế thì Karaoke ở Shinjuku rẻ hơn." },
           { "speaker": "A", "ja": "あ、そうですか。じゃ、1[時間](じかん)1300[円](えん)でどうですか？", "vi": "Ồ, vậy sao?! Vậy 1 tiếng 1300 Yên có được không ạ?" },
           { "speaker": "B", "ja": "う〜ん。まだちょっと[高](たか)いですね〜。", "vi": "Ừm. Vẫn hơi đắt!" }
         ]
@@ -595,7 +595,7 @@
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "いらっしゃいませ。お2[人](ふたり)ですか？", "vi": "Kính mời quý khách. Bàn cho hai người ạ?" },
+          { "speaker": "A", "ja": "いらっしゃいませ。お[2人](ふたり)ですか？", "vi": "Kính mời quý khách. Bàn cho hai người ạ?" },
           { "speaker": "B", "ja": "はい。", "vi": "Vâng." }
         ]
       },
@@ -633,8 +633,8 @@
         "context": "Tình huống 10",
         "dialogues": [
           { "speaker": "A", "ja": "[田中](たなか)さんの[誕生日](たんじょうび)はいつですか？", "vi": "Bao giờ sinh nhật anh Tanaka?" },
-          { "speaker": "B", "ja": "10[月](じゅうがつ)15[日](じゅうごにち)です。", "vi": "Ngày 15 tháng 10." },
-          { "speaker": "A", "ja": "えー！[私](わたし)は17[日](じゅうしちにち)です。[近](ちか)いですね。", "vi": "Ổ! Tôi sinh ngày 17 đấy. Gần nhau nhỉ!" }
+          { "speaker": "B", "ja": "10[月](がつ)15[日](にち)です。", "vi": "Ngày 15 tháng 10." },
+          { "speaker": "A", "ja": "えー！[私](わたし)は17[日](にち)です。[近](ちか)いですね。", "vi": "Ổ! Tôi sinh ngày 17 đấy. Gần nhau nhỉ!" }
         ]
       }
     ]
