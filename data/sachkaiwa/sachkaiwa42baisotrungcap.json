@@ -246,73 +246,73 @@
       {
         "context": "Tình huống 1",
         "dialogues": [
-          { "speaker": "A", "ja": "はじめまして。[渡辺](わたなべ)です。", "vi": "Xin chào. Tôi là Watanabe." },
-          { "speaker": "B", "ja": "[田中](たなか)です。どうぞよろしく。", "vi": "Tôi là Tanaka. Rất vui được làm quen với chị." }
+          { "speaker": "A", "ja": "はじめまして。[渡辺](わたなべ)です。", "vi": "Xin chào. Tôi là Watanabe.", "startTime": 1.57, "endTime": 6.01 },
+          { "speaker": "B", "ja": "[田中](たなか)です。どうぞよろしく。", "vi": "Tôi là Tanaka. Rất vui được làm quen với chị.", "startTime": 6.01, "endTime": 8.69 }
         ]
       },
       {
         "context": "Tình huống 2",
         "dialogues": [
-          { "speaker": "A", "ja": "[鈴木](すずき)さんですか？", "vi": "Anh Suzuki phải không ạ?" },
-          { "speaker": "B", "ja": "はい、そうです。", "vi": "Vâng. Đúng vậy." }
+          { "speaker": "A", "ja": "[鈴木](すずき)さんですか？", "vi": "Anh Suzuki phải không ạ?", "startTime": 8.69, "endTime": 11.15 },
+          { "speaker": "B", "ja": "はい、そうです。", "vi": "Vâng. Đúng vậy.", "startTime": 11.15, "endTime": 13.04 }
         ]
       },
       {
         "context": "Tình huống 3",
         "dialogues": [
-          { "speaker": "A", "ja": "[佐藤](さとう)さんですか？", "vi": "Anh Sato phải không ạ?" },
-          { "speaker": "B", "ja": "いいえ、[加藤](かとう)です。", "vi": "Không, tôi là Kato." }
+          { "speaker": "A", "ja": "[佐藤](さとう)さんですか？", "vi": "Anh Sato phải không ạ?", "startTime": 13.34, "endTime": 16.17 },
+          { "speaker": "B", "ja": "いいえ、[加藤](かとう)です。", "vi": "Không, tôi là Kato.", "startTime": 16.17, "endTime": 18.55 }
         ]
       },
       {
         "context": "Tình huống 4",
         "dialogues": [
-          { "speaker": "A", "ja": "あれは[日本語](にほんご)で[何](なん)ですか？", "vi": "Cái đó tiếng Nhật gọi là gì?" },
-          { "speaker": "B", "ja": "あれ？あ、あれは[交番](こうばん)ですよ。", "vi": "Cái đó ấy hả? À, đó là bốt cảnh sát." }
+          { "speaker": "A", "ja": "あれは[日本語](にほんご)で[何](なん)ですか？", "vi": "Cái đó tiếng Nhật gọi là gì?", "startTime": 18.55, "endTime": 22.32 },
+          { "speaker": "B", "ja": "あれ？あ、あれは[交番](こうばん)ですよ。", "vi": "Cái đó ấy hả? À, đó là bốt cảnh sát.", "startTime": 22.32, "endTime": 25.36 }
         ]
       },
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "それはなんですか？", "vi": "Cái đấy là gì vậy?" },
-          { "speaker": "B", "ja": "デジカメです。", "vi": "Máy ảnh kỹ thuật số." }
+          { "speaker": "A", "ja": "それはなんですか？", "vi": "Cái đấy là gì vậy?", "startTime": 25.36, "endTime": 28.53 },
+          { "speaker": "B", "ja": "デジカメです。", "vi": "Máy ảnh kỹ thuật số.", "startTime": 28.53, "endTime": 30.56 }
         ]
       },
       {
         "context": "Tình huống 6",
         "dialogues": [
-          { "speaker": "A", "ja": "[山田](やまだ)さんの[部屋](へや)は[何階](なんかい)ですか？", "vi": "Phòng của anh Yamada ở tầng mấy?" },
-          { "speaker": "B", "ja": "3[階](がい)です。", "vi": "Tầng 3." }
+          { "speaker": "A", "ja": "[山田](やまだ)さんの[部屋](へや)は[何階](なんかい)ですか？", "vi": "Phòng của anh Yamada ở tầng mấy?", "startTime": 30.56, "endTime": 34.69 },
+          { "speaker": "B", "ja": "3[階](がい)です。", "vi": "Tầng 3.", "startTime": 34.69, "endTime": 36.31 }
         ]
       },
       {
         "context": "Tình huống 7",
         "dialogues": [
-          { "speaker": "A", "ja": "お[名前](なまえ)は？", "vi": "Tên anh là gì?" },
-          { "speaker": "B", "ja": "ペドロです。", "vi": "Tôi là Petro." },
-          { "speaker": "A", "ja": "お[国](くに)は？", "vi": "Anh người nước nào?" },
-          { "speaker": "B", "ja": "スペインです。", "vi": "Tôi người Tây Ban Nha." }
+          { "speaker": "A", "ja": "お[名前](なまえ)は？", "vi": "Tên anh là gì?", "startTime": 36.31, "endTime": 39.63 },
+          { "speaker": "B", "ja": "ペドロです。", "vi": "Tôi là Petro.", "startTime": 39.63, "endTime": 40.77 },
+          { "speaker": "A", "ja": "お[国](くに)は？", "vi": "Anh người nước nào?", "startTime": 40.77, "endTime": 41.56 },
+          { "speaker": "B", "ja": "スペインです。", "vi": "Tôi người Tây Ban Nha.", "startTime": 41.56, "endTime": 43.17 }
         ]
       },
       {
         "context": "Tình huống 8",
         "dialogues": [
-          { "speaker": "A", "ja": "ノート、3[冊](さつ)ください。", "vi": "Cho tôi ba quyển vở." },
-          { "speaker": "B", "ja": "はい、3[冊](さつ)ですね。", "vi": "Vâng, 3 quyển phải không ạ?!" }
+          { "speaker": "A", "ja": "ノート、3[冊](さつ)ください。", "vi": "Cho tôi ba quyển vở.", "startTime": 43.17, "endTime": 47.39 },
+          { "speaker": "B", "ja": "はい、3[冊](さつ)ですね。", "vi": "Vâng, 3 quyển phải không ạ?!", "startTime": 47.39, "endTime": 50.09 }
         ]
       },
       {
         "context": "Tình huống 9",
         "dialogues": [
-          { "speaker": "A", "ja": "[駅](えき)までどのぐらいですか？", "vi": "Từ đây tới ga bao xa ạ?" },
-          { "speaker": "B", "ja": "1キロぐらいです。", "vi": "Khoảng 1 cây số." }
+          { "speaker": "A", "ja": "[駅](えき)までどのぐらいですか？", "vi": "Từ đây tới ga bao xa ạ?", "startTime": 50.09, "endTime": 54 },
+          { "speaker": "B", "ja": "1キロぐらいです。", "vi": "Khoảng 1 cây số.", "startTime": 54, "endTime": 56.2 }
         ]
       },
       {
         "context": "Tình huống 10",
         "dialogues": [
-          { "speaker": "A", "ja": "[新宿駅](しんじゅくえき)はどこですか？", "vi": "Ga Shinzuku ở đâu ạ?" },
-          { "speaker": "B", "ja": "あそこですよ。", "vi": "Ở đằng kia." }
+          { "speaker": "A", "ja": "[新宿駅](しんじゅくえき)はどこですか？", "vi": "Ga Shinzuku ở đâu ạ?", "startTime": 56.2, "endTime": 59.83 },
+          { "speaker": "B", "ja": "あそこですよ。", "vi": "Ở đằng kia.", "startTime": 59.83, "endTime": 61.96 }
         ]
       }
     ]
