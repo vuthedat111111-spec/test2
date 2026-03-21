@@ -82,7 +82,7 @@
     "id": "02",
     "title": "PHẦN 1 - BÀI 2",
     "translation": "",
-    "explanation": "Tình huống 4: お先に失礼します\nCâu chào nói với người ở lại khi bạn rời khỏi nơi làm việc sau khi kết thúc ngày làm việc.",
+    "explanation": "Tình huống 4: お先に失礼します\\nCâu chào nói với người ở lại khi bạn rời khỏi nơi làm việc sau khi kết thúc ngày làm việc.",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p2.m4a",
     "conversations": [
       {
@@ -561,7 +561,7 @@
     "id": "08",
     "title": "PHẦN 1 - BÀI 8",
     "translation": "",
-    "explanation": "Tình huống 3: 食べちゃった\n ...ちゃった là dạng rút gọn của Vてしまいました、thể hiện sự hoàn thành",
+    "explanation": "Tình huống 3: 食べちゃった\\n ...ちゃった là dạng rút gọn của Vてしまいました、thể hiện sự hoàn thành",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p8.m4a",
     "conversations": [
       {
@@ -1198,7 +1198,7 @@
   "id": "16",
   "title": "PHẦN 2 - BÀI 6",
   "translation": "",
-  "explanation": "Tình huống 2: 明日は雪だね\nCách nói trêu đùa một người làm được một việc không ngờ tới. Cách nói này cũng bao gồm cả sắc thái chế giễu.",
+  "explanation": "Tình huống 2: 明日は雪だね là cách nói trêu đùa một người làm được một việc không ngờ tới. Cách nói này cũng bao gồm cả sắc thái chế giễu.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p16.m4a",
   "conversations": [
     {
@@ -1491,7 +1491,7 @@
   "id": "20",
   "title": "PHẦN 3 - BÀI 1",
   "translation": "Độ khó: 3/5",
-  "explanation": "Phần này, bạn hãy thử sức với những đoạn hội thoại tự nhiên hơn. Có rất nhiều câu trả lời thú vị trong phần này.\n Tình huống 2: しといた là cách nói thân mật của しておいた",
+  "explanation": "Phần này, bạn hãy thử sức với những đoạn hội thoại tự nhiên hơn. Có rất nhiều câu trả lời thú vị trong phần này.\\n Tình huống 2: しといた là cách nói thân mật của しておいた",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p20.m4a",
   "conversations": [
     {
@@ -1649,7 +1649,7 @@
   "id": "22",
   "title": "PHẦN 3 - BÀI 3",
   "translation": "",
-  "explanation": "Tình huống 1: ちょうだい là cách nói thân mật của ください\nTình huống 5: おめでた ở đây là việc có thai.",
+  "explanation": "Tình huống 1: ちょうだい là cách nói thân mật của ください\\nTình huống 5: おめでた ở đây là việc có thai.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p22.m4a",
   "conversations": [
     {
@@ -2102,8 +2102,8 @@
 {
   "id": "28",
   "title": "PHẦN 4 - BÀI 1",
-  "translation": "",
-  "explanation": "",
+  "translation": "Độ khó: 4/5",
+  "explanation": "Phần này, bạn hãy thử sức với cách thể hiện tình cảm, tình trạng của mình. Khả năng giao tiếp của bạn sẽ tăng lên.\\nTình huống 5: 口は災いの元だ là câu tục ngữ, có nghĩa là nếu không chú ý đến lời nói sẽ dẫn đến hậu quả.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p28.m4a",
   "conversations": [
     {
@@ -2182,7 +2182,7 @@
   "id": "29",
   "title": "PHẦN 4 - BÀI 2",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 5: あんだって là cách nói thân mật của あるんだって",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p29.m4a",
   "conversations": [
     {
@@ -2261,7 +2261,7 @@
   "id": "30",
   "title": "PHẦN 4 - BÀI 3",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 4: たまってんだ là cách nói thân mật của たまっているんだ",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p30.m4a",
   "conversations": [
     {
@@ -2289,7 +2289,7 @@
       "context": "Tình huống 4",
       "dialogues": [
         { "speaker": "A", "ja": "なんだか、[北村](きたむら)さん、[最近怒](さいきんおこ)りっぽくない？", "vi": "Dạo này anh Kitamura có vẻ dễ nổi cáu nhỉ?", "startTime": 27.52, "endTime": 33.65 },
-        { "speaker": "B", "ja": "うん、ストレスたまってるんだよ。", "vi": "Ừ, anh ấy bị căng thẳng ấy mà.", "startTime": 33.65, "endTime": 36.64 }
+        { "speaker": "B", "ja": "うん、ストレスたまってんだよ。", "vi": "Ừ, anh ấy bị căng thẳng ấy mà.", "startTime": 33.65, "endTime": 36.64 }
       ]
     },
     {
@@ -2498,7 +2498,7 @@
   "id": "33",
   "title": "PHẦN 4 - BÀI 6",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 3: やったんじゃん là cách nói thân mật của やったじゃない (やったね)\\nTình huống 6: そりゃ là cách nói thân mật của それは",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p33.m4a",
   "conversations": [
     {
@@ -2734,8 +2734,8 @@
 {
   "id": "36",
   "title": "PHẦN 5 - BÀI 1",
-  "translation": "",
-  "explanation": "",
+  "translation": "Độ khó 5/5",
+  "explanation": "Ở phần này, bạn hãy thử luyện tập với đoạn hội thoại hơi dài một chút và những cách nói thực tế. Khi biết những cách nói đó, bạn cũng sẽ có được những thông tin cuộc sống tiện lợi.\\nTình huống 1: 継続は力なり là câu tục ngữ kiên trì sẽ thành công.\\Tình huống 2: きりがいい có nghĩa là thời điểm tốt để dừng lại việc mình đang làm, nghỉ ngơi 1 chút.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p36.m4a",
   "conversations": [
     {
@@ -2916,7 +2916,7 @@
   "id": "38",
   "title": "PHẦN 5 - BÀI 3",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 6: Anh muốn em nấu súp miso cho anh - đây là câu cầu hôn gián tiếp.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p38.m4a",
   "conversations": [
     {
@@ -3199,7 +3199,7 @@
   "id": "41",
   "title": "PHẦN 5 - BÀI 6",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 6: 少なめ sử dụng khi bạn gọi món ở quán ăn và muốn số lượng món đó ít hơn mức tiêu chuẩn của quán.\\Tình huống 7: 大盛り dùng khi muốn số lượng nhiều hơn mức tiêu chuẩn.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p41.m4a",
   "conversations": [
     {
@@ -3293,7 +3293,7 @@
   "id": "42",
   "title": "PHẦN 5 - BÀI 7",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 9: 一石二鳥 là câu tục ngữ một mũi tên trúng 2 đích.\\nTình huống 10: 一石三鳥 là cách nói lệch đi, có nghĩa một mũi tên trúng 3 đích.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p42.m4a",
   "conversations": [
     {
