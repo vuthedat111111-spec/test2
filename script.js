@@ -5048,7 +5048,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
 
     const loadCategory = async (level) => {
     // 1. KIỂM TRA BỘ NHỚ TẠM (CACHE)
-    // Nếu giáo trình này đã được tải trước đó, lấy ra dùng luôn và bỏ qua loading
     if (courseCache[level]) {
         setAllLessons(courseCache[level].data);
         setParts(courseCache[level].parts);
@@ -5056,14 +5055,23 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         return; 
     }
 
-    // 2. NẾU CHƯA CÓ TRONG BỘ NHỚ TẠM -> BẮT ĐẦU TẢI VÀ HIỆN LOADING
     setIsLoading(true);
     setProgress(20);
     try {
-        const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
-        if (!response.ok) throw new Error("Chưa có data");
-        const data = await response.json();
+        // GỌI DỮ LIỆU TRỰC TIẾP TỪ FIRESTORE THAY VÌ FETCH FILE JSON
+        const snapshot = await db.collection('kaiwa_' + level).get();
         
+        let data = [];
+        snapshot.forEach(doc => {
+            data.push(doc.data());
+        });
+
+        // Firestore không đảm bảo thứ tự nên phải sắp xếp lại theo ID (01, 02, 03...)
+        data.sort((a, b) => a.id.localeCompare(b.id));
+
+        if (data.length === 0) throw new Error("Chưa có data");
+        
+        // --- TỪ ĐOẠN NÀY TRỞ XUỐNG GIỮ NGUYÊN CODE CŨ CỦA BẠN ---
         const config = MANUAL_PARTS_CONFIG[level];
         const chunkedParts = [];
 
@@ -5102,7 +5110,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             }
         }
         
-        // 3. LƯU DỮ LIỆU VỪA TẢI VÀO BỘ NHỚ TẠM (CACHE) ĐỂ LẦN SAU DÙNG
         setCourseCache(prev => ({
             ...prev,
             [level]: {
@@ -5114,7 +5121,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         setAllLessons(data);
         setParts(chunkedParts);
 
-        // Đẩy thanh loading lên 100% và chuyển giao diện
         setProgress(100);
         setTimeout(() => {
             setView('parts'); 
@@ -5122,6 +5128,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         }, 400);
 
     } catch (error) {
+        console.error("Lỗi:", error);
         alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}!`);
         setIsLoading(false);
     }
