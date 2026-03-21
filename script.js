@@ -5136,18 +5136,18 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
             <div className="flex flex-col gap-4">
                 {[
-                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày có thể dùng ngay' }
+                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' }
                 ].map((item) => (
                     <button 
                         key={item.id}
                         onClick={() => loadCategory(item.id)}
                         className="w-full p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
-                        <div className="flex justify-between items-center w-full">
-                            <span className="text-2xl font-black text-zinc-900 uppercase">{item.title}</span>
-                            <svg className="w-6 h-6 text-zinc-400 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/></svg>
+                        <div className="flex justify-between items-center w-full gap-4">
+                            <span className="text-2xl font-black text-zinc-900 uppercase text-left leading-tight">{item.title}</span>
+                            <svg className="w-6 h-6 shrink-0 text-zinc-400 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <span className="text-sm font-bold text-zinc-500 mt-2">{item.desc}</span>
+                        <span className="text-sm font-bold text-zinc-500 mt-2 text-left">{item.desc}</span>
                     </button>
                 ))}
             </div>
@@ -5164,63 +5164,28 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
             <div className="flex flex-col gap-4 pb-6">
                 {[
-                    { 
-  id: 'dummy1', 
-  title: '700 CÂU TIẾP KHÁCH', 
-  desc: 'Mẫu câu dùng ngay trong dịch vụ' 
-},
-
-{ 
-  id: 'dummy2', 
-  title: '200 ĐOẠN HỘI THOẠI N5-N4', 
-  desc: 'Phản xạ nhanh, dùng liền' 
-},
-
-{ 
-  id: 'dummy3', 
-  title: '210 ĐOẠN HỘI THOẠI N3-N2', 
-  desc: 'Luyện nói ngắn gọn mỗi ngày' 
-},
-
-{ 
-  id: 'dummy4', 
-  title: '125 MẪU CÂU NÂNG CAO N2-N1', 
-  desc: 'Hiểu và nói tự nhiên hơn' 
-},
-
-{ 
-  id: 'dummy5', 
-  title: '180 CÂU NGƯỜI NHẬT HAY DÙNG', 
-  desc: 'Mẫu câu quen thuộc hàng ngày' 
-},
-
-{ 
-  id: 'dummy6', 
-  title: '180 CÂU BIỂU ĐẠT CẢM XÚC', 
-  desc: 'Nói tự nhiên, truyền đạt cảm xúc' 
-}
+                   
+                    { id: 'dummy1', title: '200 ĐOẠN KAIWA N5-N4', desc: 'Phản xạ nhanh, dùng liền' },
+                    { id: 'dummy2', title: '210 ĐOẠN HỘI THOẠI N3-N2', desc: 'Luyện nói ngắn gọn mỗi ngày' },
+                    { id: 'dummy3', title: '125 CÂU NÂNG CAO N2-N1', desc: 'Hiểu và nói tự nhiên hơn' },
+                    { id: 'dummy4', title: '180 CÂU BIỂU ĐẠT CẢM XÚC', desc: 'Nói tự nhiên, truyền đạt cảm xúc' }
                 ].map((item) => (
                     <button 
                         key={item.id}
                         disabled
                         className="w-full p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
                     >
-                        {/* Nhãn Coming Soon */}
-                        <div className="absolute top-5 right-5 bg-zinc-200 text-zinc-500 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">
-                            Coming soon
+                        <div className="flex justify-between items-center w-full">
+                            <span className="text-xl font-black text-zinc-400 uppercase text-left leading-tight">{item.title}</span>
                         </div>
-                        
-                        <div className="flex justify-between items-center w-full pr-24">
-                            <span className="text-xl font-black text-zinc-400 uppercase">{item.title}</span>
-                        </div>
-                        <span className="text-sm font-bold text-zinc-400 mt-2">{item.desc}</span>
+                        <span className="text-sm font-bold text-zinc-400 mt-2 text-left">{item.desc}</span>
                     </button>
                 ))}
             </div>
-        </div>
+</div>
     );
 
-    const renderParts = () => (
+  const renderParts = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
             <div className="p-4 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
                 <div className="flex items-center gap-3">
@@ -5236,14 +5201,17 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                     <button 
                         key={idx}
                         onClick={() => { setSelectedPartIdx(idx); setView('list'); }}
-                        className="w-full p-5 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
+                        // Đã thêm md:hover
+                        className="w-full p-5 bg-white border border-zinc-200 rounded-xl text-left md:hover:border-indigo-400 md:hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
                     >
                         <div className="flex flex-col">
-                            <span className="text-lg font-black text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors uppercase tracking-wide">{part.title}</span>
+                            {/* Đã thêm md:group-hover */}
+                            <span className="text-lg font-black text-zinc-800 font-sans md:group-hover:text-indigo-600 transition-colors uppercase tracking-wide">{part.title}</span>
                             <span className="text-xs font-bold text-zinc-400 mt-1">{part.desc}</span>
                         </div>
-                        <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
-                            <svg className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        {/* Đã thêm md:group-hover */}
+                        <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center md:group-hover:bg-indigo-50 transition-colors">
+                            <svg className="w-4 h-4 text-zinc-400 md:group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
                     </button>
                 ))}
@@ -5273,10 +5241,11 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                             <button 
                                 key={lesson.id || globalIdx}
                                 onClick={() => { setCurrentLessonIdx(globalIdx); setView('detail'); }}
-                                className="w-full p-4 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
+                                // Đã thêm md:hover
+                                className="w-full p-4 bg-white border border-zinc-200 rounded-xl text-left md:hover:border-indigo-400 md:hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
                             >
-                                {/* Dùng trực tiếp lesson.title từ JSON (đã có chữ PHẦN 1 - BÀI 1) */}
-                                <span className="text-base sm:text-lg font-bold text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors">{lesson.title}</span>
+                                {/* Đã thêm md:group-hover */}
+                                <span className="text-base sm:text-lg font-bold text-zinc-800 font-sans md:group-hover:text-indigo-600 transition-colors">{lesson.title}</span>
                                 <span className="text-xs font-bold text-zinc-300">#{idx + 1}</span>
                             </button>
                         );
