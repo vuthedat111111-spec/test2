@@ -5246,9 +5246,10 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     };
     
     const lineRefs = React.useRef([]);
-    const soundRef = React.useRef(null); // Ref chứa lõi Howler
-    const timerRef = React.useRef(null); // Ref chạy vòng lặp 60fps
+    const soundRef = React.useRef(null); 
+    const timerRef = React.useRef(null); 
     const scrollRef = React.useRef(null);
+    const stopAtTimeRef = React.useRef(null);
 
     // --- 1. KHỞI TẠO ÂM THANH BẰNG HOWLER ---
     React.useEffect(() => {
@@ -5309,6 +5310,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 if (typeof seekTime === 'number') {
                     setCurrentTime(seekTime);
 
+                    if (stopAtTimeRef.current !== null && seekTime >= stopAtTimeRef.current) {
+                        soundRef.current.pause();
+                        setIsPlaying(false);
+                        stopAtTimeRef.current = null; // Xóa mốc thời gian
+                        return; // Dừng vòng lặp hiện tại
+                    } 
+                    
                     let foundIndex = -1;
                     let currentSpeaker = null;
 
@@ -5370,6 +5378,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             soundRef.current.pause();
             setIsPlaying(false);
         } else {
+            stopAtTimeRef.current = null; 
             soundRef.current.play();
             setIsPlaying(true);
             triggerAudioWarning();
@@ -5512,7 +5521,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                                 if (line.startTime !== undefined && soundRef.current) {
                                                     soundRef.current.seek(line.startTime);
                                                     setCurrentTime(line.startTime);
-                                                    if (!isPlaying) {
+                                                    
+                                                    if (isPlaying) {
+                                                        // 1. Nếu audio ĐANG PHÁT -> Cứ phát tiếp, xóa mốc tự dừng
+                                                        stopAtTimeRef.current = null;
+                                                    } else {
+                                                        // 2. Nếu audio ĐANG DỪNG -> Đặt mốc tự dừng là lúc hết câu này
+                                                        stopAtTimeRef.current = line.endTime;
                                                         soundRef.current.play();
                                                         setIsPlaying(true);
                                                         triggerAudioWarning();
