@@ -5135,18 +5135,20 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
             <div className="flex flex-col gap-4">
                 {[
-                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' }
+                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' }
                 ].map((item) => (
                     <button 
                         key={item.id}
                         onClick={() => loadCategory(item.id)}
-                        className="w-full p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
                         <div className="flex justify-between items-center w-full gap-4">
-                            <span className="text-2xl font-black text-zinc-900 uppercase text-left leading-tight">{item.title}</span>
-                            <svg className="w-6 h-6 shrink-0 text-zinc-400 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/></svg>
+                            {/* CHỮ ĐÃ ĐƯỢC ÉP NHỎ TRÊN MOBILE VÀ KHÔNG XUỐNG DÒNG */}
+                            <span className="text-lg sm:text-2xl font-black text-zinc-900 uppercase text-left leading-tight">
+                                {item.title}
+                            </span>
                         </div>
-                        <span className="text-sm font-bold text-zinc-500 mt-2 text-left">{item.desc}</span>
+                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left truncate w-full">{item.desc}</span>
                     </button>
                 ))}
             </div>
@@ -5163,7 +5165,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
             <div className="flex flex-col gap-4 pb-6">
                 {[
-                   
                     { id: 'dummy1', title: '200 ĐOẠN KAIWA N5-N4', desc: 'Phản xạ nhanh, dùng liền' },
                     { id: 'dummy2', title: '210 ĐOẠN HỘI THOẠI N3-N2', desc: 'Luyện nói ngắn gọn mỗi ngày' },
                     { id: 'dummy3', title: '125 CÂU NÂNG CAO N2-N1', desc: 'Hiểu và nói tự nhiên hơn' },
@@ -5172,17 +5173,24 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                     <button 
                         key={item.id}
                         disabled
-                        className="w-full p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
+                        className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
                     >
-                        <div className="flex justify-between items-center w-full">
-                            <span className="text-xl font-black text-zinc-400 uppercase text-left leading-tight">{item.title}</span>
+                        <div className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-zinc-200 text-zinc-500 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">
+                            Coming soon
                         </div>
-                        <span className="text-sm font-bold text-zinc-400 mt-2 text-left">{item.desc}</span>
+                        
+                        <div className="flex justify-between items-center w-full pr-20 sm:pr-24">
+                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight whitespace-nowrap truncate w-full">
+                                {item.title}
+                            </span>
+                        </div>
+                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left truncate w-full">{item.desc}</span>
                     </button>
                 ))}
             </div>
-</div>
+        </div>
     );
+
 
   const renderParts = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
