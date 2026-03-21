@@ -5032,6 +5032,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     
     const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0); 
     const [isLoading, setIsLoading] = React.useState(false);
+    const [progress, setProgress] = React.useState(0);
 
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -5045,62 +5046,67 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const loadCategory = async (level) => {
-        setIsLoading(true);
-        try {
-            const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
-            if (!response.ok) throw new Error("Chưa có data");
-            const data = await response.json();
-            
-            setAllLessons(data);
+    setIsLoading(true);
+    setProgress(20); // Bắt đầu thanh tiến trình
+    try {
+        const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
+        if (!response.ok) throw new Error("Chưa có data");
+        const data = await response.json();
+        
+        setAllLessons(data);
 
-            const config = MANUAL_PARTS_CONFIG[level];
-            const chunkedParts = [];
+        const config = MANUAL_PARTS_CONFIG[level];
+        const chunkedParts = [];
 
-            if (config) {
-                let currentIndex = 0;
-                config.forEach((partConfig) => {
-                    const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
-                    if (lessonsInPart.length > 0) {
-                        chunkedParts.push({
-                            title: partConfig.title,
-                            desc: partConfig.desc,
-                            lessons: lessonsInPart,
-                            startIndex: currentIndex 
-                        });
-                    }
-                    currentIndex += partConfig.lessonCount;
+        if (config) {
+            let currentIndex = 0;
+            config.forEach((partConfig) => {
+                const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
+                if (lessonsInPart.length > 0) {
+                    chunkedParts.push({
+                        title: partConfig.title,
+                        desc: partConfig.desc,
+                        lessons: lessonsInPart,
+                        startIndex: currentIndex 
+                    });
+                }
+                currentIndex += partConfig.lessonCount;
+            });
+
+            if (currentIndex < data.length) {
+                chunkedParts.push({
+                    title: "Phần bổ sung",
+                    desc: `Các bài còn lại`,
+                    lessons: data.slice(currentIndex),
+                    startIndex: currentIndex
                 });
-
-                if (currentIndex < data.length) {
-                    chunkedParts.push({
-                        title: "Phần bổ sung",
-                        desc: `Các bài còn lại`,
-                        lessons: data.slice(currentIndex),
-                        startIndex: currentIndex
-                    });
-                }
-            } else {
-                const CHUNK_SIZE = 10;
-                for (let i = 0; i < data.length; i += CHUNK_SIZE) {
-                    chunkedParts.push({
-                        title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
-                        desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
-                        lessons: data.slice(i, i + CHUNK_SIZE),
-                        startIndex: i
-                    });
-                }
             }
-            
-            setParts(chunkedParts);
-            setView('parts'); 
-
-        } catch (error) {
-            alert(`Tính năng đang cập nhật bộ dữ liệu ${level.toUpperCase()}! Thử file mẫu N5 nhé.`);
-        } finally {
-            setIsLoading(false);
+        } else {
+            const CHUNK_SIZE = 10;
+            for (let i = 0; i < data.length; i += CHUNK_SIZE) {
+                chunkedParts.push({
+                    title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
+                    desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
+                    lessons: data.slice(i, i + CHUNK_SIZE),
+                    startIndex: i
+                });
+            }
         }
-    };
+        
+        setParts(chunkedParts);
+        
+        // Đẩy lên 100% và tạo độ trễ để người dùng kịp nhìn thấy hiệu ứng
+        setProgress(100);
+        setTimeout(() => {
+            setView('parts'); 
+            setIsLoading(false);
+        }, 400);
 
+    } catch (error) {
+        alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}! Thử file mẫu N5 nhé.`);
+        setIsLoading(false);
+    }
+};
     const renderCategories = () => (
         <div className="p-6 h-full flex flex-col overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center mb-6">
@@ -5125,7 +5131,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                     </button>
                 ))}
             </div>
-            {isLoading && <p className="text-center mt-6 text-xs font-bold text-indigo-500 animate-pulse">Đang tải dữ liệu...</p>}
+            
         </div>
     );
 
@@ -5198,6 +5204,19 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     return (
         <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full h-full sm:h-[90vh] max-w-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
+                {/* --- GIAO DIỆN LOADING MỚI --- */}
+            {isLoading && (
+                <div className="absolute inset-0 z-[600] flex flex-col items-center justify-center bg-white/90 backdrop-blur-md">
+                    <div className="text-center">
+                        <span className="text-xs font-bold text-gray-900 uppercase tracking-widest animate-pulse mb-4 block">
+                            Đang tải dữ liệu... {progress}%
+                        </span>
+                        <div className="w-48 bg-gray-200 rounded-full h-1.5 overflow-hidden mx-auto">
+                            <div className="bg-gray-900 h-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
+                        </div>
+                    </div>
+                </div>
+            )}
                 {view === 'categories' && renderCategories()}
                 {view === 'parts' && renderParts()}
                 {view === 'list' && renderList()}
