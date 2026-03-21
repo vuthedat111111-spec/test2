@@ -5224,6 +5224,7 @@ let hasWarnedAudioGlobal = false;
 // ==========================================
 const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
+    const [isAudioLoading, setIsAudioLoading] = React.useState(true);
     const [showTranslation, setShowTranslation] = React.useState(false);
     const [roleplayMode, setRoleplayMode] = React.useState('all'); 
     const [currentTime, setCurrentTime] = React.useState(0);
@@ -5262,13 +5263,19 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         setCurrentTime(0);
         setActiveIndex(-1);
 
+        setIsAudioLoading(true); // Bắt đầu tải file mới thì bật loading lên
+
         // Nạp file MP3 vào bộ nhớ RAM bằng Web Audio API
         soundRef.current = new Howl({
             src: [lesson.audioPath],
-            html5: false, // Bắt buộc false để không bị delay trên mobile
+            html5: false, 
             preload: true,
             onload: function() {
                 setDuration(this.duration());
+                setIsAudioLoading(false); // THÊM MỚI: Tải xong thì tắt loading
+            },
+            onloaderror: function() {
+                setIsAudioLoading(false); // THÊM MỚI: Nếu file lỗi cũng phải tắt loading để tránh kẹt
             },
             onend: function() {
                 setIsPlaying(false);
@@ -5606,8 +5613,19 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(0, cur - 3)); setCurrentTime(Math.max(0, cur - 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         </button>
-                        <button onClick={toggleAudio} className="w-12 h-12 bg-zinc-900 text-white rounded-full flex items-center justify-center hover:bg-black active:scale-90 transition-all shadow-md mx-1">
-                            {isPlaying ? (
+                        <button 
+                            onClick={toggleAudio} 
+                            disabled={isAudioLoading} 
+                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md mx-1 ${isAudioLoading ? 'bg-zinc-400 cursor-not-allowed' : 'bg-zinc-900 text-white hover:bg-black active:scale-90'}`}
+                        >
+                            {isAudioLoading ? (
+                                // THÊM MỚI: Hiệu ứng 3 dấu chấm nảy gợn sóng
+                                <div className="flex space-x-1 justify-center items-center">
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                                </div>
+                            ) : isPlaying ? (
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
                             ) : (
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
