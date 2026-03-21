@@ -2,8 +2,8 @@
   {
     "id": "01",
     "title": "PHẦN 1 - BÀI 1",
-    "translation": "",
-    "explanation": "",
+    "translation": "Độ khó 1/5",
+    "explanation": "Trước hết hãy làm quen với những âm tiếng Nhật từ những câu chào và các đoạn hội thoại ngắn. Bạn hoàn toàn có thể sử dụng những ngữ pháp căn bản để giao tiếp trọn vẹn với người Nhật.",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p1.m4a",
     "conversations": [
       {
@@ -82,7 +82,7 @@
     "id": "02",
     "title": "PHẦN 1 - BÀI 2",
     "translation": "",
-    "explanation": "",
+    "explanation": "Tình huống 4: お先に失礼します\nCâu chào nói với người ở lại khi bạn rời khỏi nơi làm việc sau khi kết thúc ngày làm việc.",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p2.m4a",
     "conversations": [
       {
@@ -479,7 +479,7 @@
     "id": "07",
     "title": "PHẦN 1 - BÀI 7",
     "translation": "",
-    "explanation": "",
+    "explanation": "Tình huống 1: Trong trường hợp đọc số điện thoại, dấu (-) sẽ đọc là の no.",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p7.m4a",
     "conversations": [
       {
@@ -561,7 +561,7 @@
     "id": "08",
     "title": "PHẦN 1 - BÀI 8",
     "translation": "",
-    "explanation": "",
+    "explanation": "Tình huống 3: 食べちゃった\n ...ちゃった là dạng rút gọn của Vてしまいました、thể hiện sự hoàn thành",
     "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p8.m4a",
     "conversations": [
       {
@@ -802,8 +802,8 @@
   {
   "id": "11",
   "title": "PHẦN 2 - BÀI 1",
-  "translation": "",
-  "explanation": "",
+  "translation": "Độ khó: 2/5",
+  "explanation": "Phần này hãy thử sức với những câu chào hỏi về thời tiết và những cách nói dài hơn. Bạn sẽ nhận và truyền đạt được thông tin.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p11.m4a",
   "conversations": [
     {
@@ -1198,7 +1198,7 @@
   "id": "16",
   "title": "PHẦN 2 - BÀI 6",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 2: 明日は雪だね\nCách nói trêu đùa một người làm được một việc không ngờ tới. Cách nói này cũng bao gồm cả sắc thái chế giễu.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p16.m4a",
   "conversations": [
     {
@@ -1490,8 +1490,8 @@
 {
   "id": "20",
   "title": "PHẦN 3 - BÀI 1",
-  "translation": "",
-  "explanation": "",
+  "translation": "Độ khó: 3/5",
+  "explanation": "Phần này, bạn hãy thử sức với những đoạn hội thoại tự nhiên hơn. Có rất nhiều câu trả lời thú vị trong phần này.\n Tình huống 2: しといた là cách nói thân mật của しておいた",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p20.m4a",
   "conversations": [
     {
@@ -1649,7 +1649,7 @@
   "id": "22",
   "title": "PHẦN 3 - BÀI 3",
   "translation": "",
-  "explanation": "",
+  "explanation": "Tình huống 1: ちょうだい là cách nói thân mật của ください\nTình huống 5: おめでた ở đây là việc có thai.",
   "audioPath": "./data/filenghesachkaiwa/sdn1/sdn1p22.m4a",
   "conversations": [
     {
