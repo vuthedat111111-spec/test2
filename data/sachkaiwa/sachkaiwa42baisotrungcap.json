@@ -3249,7 +3249,7 @@
       "context": "Tình huống 6",
       "dialogues": [
         { "speaker": "A", "ja": "[焼](や)き[肉弁当](にくべんとう)、1つください。", "vi": "Cho tôi 1 hộp cơm thịt nướng.", "startTime": 81.52, "endTime": 86.96 },
-        { "speaker": "B", "ja": "はい、焼]き肉ですね、450[円](えん)でーす。", "vi": "Vâng, một thịt nướng. 450 Yên.", "startTime": 86.96, "endTime": 91.1 },
+        { "speaker": "B", "ja": "はい、焼き肉ですね、450[円](えん)でーす。", "vi": "Vâng, một thịt nướng. 450 Yên.", "startTime": 86.96, "endTime": 91.1 },
         { "speaker": "A", "ja": "あの、ご[飯少](はんすく)なめでお願いします。", "vi": "Cho tôi ít cơm thôi.", "startTime": 91.1, "endTime": 94 }
       ]
     },
