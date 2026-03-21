@@ -9,7 +9,7 @@ const calculateSRS = (currentData, quality) => {
   if (nextReview && nextReview > now) {
       if (quality === 1) return currentData;
   }
- 
+  
   if (quality === 0) {
     easeFactor = Math.max(1.3, easeFactor - 0.2);
     
