@@ -3,6 +3,22 @@ return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").
 };
     const { useState, useEffect, useMemo, useRef } = React;
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDa2y7QcB6sevBap9sYWsqEwRJMcsWXAZ4",
+  authDomain: "test-7ccd2.firebaseapp.com",
+  projectId: "test-7ccd2",
+  storageBucket: "test-7ccd2.firebasestorage.app",
+  messagingSenderId: "321260103403",
+  appId: "1:321260103403:web:228d01e505c4d18706c0ae",
+  measurementId: "G-7NGWW0RZMW"
+};
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const firestoreDb = firebase.firestore();
+
+
+
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
   const now = Date.now();
@@ -5049,6 +5065,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     const loadCategory = async (level) => {
     // 1. KIỂM TRA BỘ NHỚ TẠM (CACHE)
     // Nếu giáo trình này đã được tải trước đó, lấy ra dùng luôn và bỏ qua loading
+   // 1. Kiểm tra bộ nhớ tạm (Cache)
     if (courseCache[level]) {
         setAllLessons(courseCache[level].data);
         setParts(courseCache[level].parts);
@@ -5056,14 +5073,16 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         return; 
     }
 
-    // 2. NẾU CHƯA CÓ TRONG BỘ NHỚ TẠM -> BẮT ĐẦU TẢI VÀ HIỆN LOADING
+    // 2. Nếu chưa có -> Tải từ Firebase Firestore
     setIsLoading(true);
     setProgress(20);
     try {
-        const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
-        if (!response.ok) throw new Error("Chưa có data");
-        const data = await response.json();
+        const docRef = firestoreDb.collection("sachkaiwa").doc(level);
+        const docSnap = await docRef.get();
         
+        if (!docSnap.exists) throw new Error("Chưa có dữ liệu trên Database!");
+        
+        const data = docSnap.data().lessons; 
         const config = MANUAL_PARTS_CONFIG[level];
         const chunkedParts = [];
 
@@ -5072,57 +5091,27 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             config.forEach((partConfig) => {
                 const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
                 if (lessonsInPart.length > 0) {
-                    chunkedParts.push({
-                        title: partConfig.title,
-                        desc: partConfig.desc,
-                        lessons: lessonsInPart,
-                        startIndex: currentIndex 
-                    });
+                    chunkedParts.push({ title: partConfig.title, desc: partConfig.desc, lessons: lessonsInPart, startIndex: currentIndex });
                 }
                 currentIndex += partConfig.lessonCount;
             });
-
-            if (currentIndex < data.length) {
-                chunkedParts.push({
-                    title: "Phần bổ sung",
-                    desc: `Các bài còn lại`,
-                    lessons: data.slice(currentIndex),
-                    startIndex: currentIndex
-                });
-            }
         } else {
             const CHUNK_SIZE = 10;
             for (let i = 0; i < data.length; i += CHUNK_SIZE) {
-                chunkedParts.push({
-                    title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
-                    desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
-                    lessons: data.slice(i, i + CHUNK_SIZE),
-                    startIndex: i
-                });
+                chunkedParts.push({ title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`, desc: `Bài ${i+1}-${i+CHUNK_SIZE}`, lessons: data.slice(i, i + CHUNK_SIZE), startIndex: i });
             }
         }
         
-        // 3. LƯU DỮ LIỆU VỪA TẢI VÀO BỘ NHỚ TẠM (CACHE) ĐỂ LẦN SAU DÙNG
-        setCourseCache(prev => ({
-            ...prev,
-            [level]: {
-                data: data,
-                parts: chunkedParts
-            }
-        }));
-
+        // 3. Cất vào bộ nhớ tạm để lần sau không hiện Loading nữa
+        setCourseCache(prev => ({ ...prev, [level]: { data: data, parts: chunkedParts } }));
         setAllLessons(data);
         setParts(chunkedParts);
 
-        // Đẩy thanh loading lên 100% và chuyển giao diện
         setProgress(100);
-        setTimeout(() => {
-            setView('parts'); 
-            setIsLoading(false);
-        }, 400);
+        setTimeout(() => { setView('parts'); setIsLoading(false); }, 400);
 
     } catch (error) {
-        alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}!`);
+        alert("Lỗi: " + error.message);
         setIsLoading(false);
     }
 };
