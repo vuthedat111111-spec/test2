@@ -5450,7 +5450,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="bg-zinc-50 border-l-4 border-zinc-800 p-3 sm:p-4 rounded-r-xl mb-6">
                         <p className="text-sm text-zinc-700 leading-relaxed font-medium">
                             <span className="text-[10px] font-black text-zinc-900 uppercase tracking-widest block mb-1">💡 Giải thích</span>
-                            {lesson.explanation}
+                            
+                            {/* DÙNG JAVASCRIPT CHUYỂN ĐỔI TRỰC TIẾP THÀNH THẺ <br/> */}
+                            {String(lesson.explanation)
+                                .replace(/\\n/g, '\n') 
+                                .split('\n')
+                                .map((line, index) => (
+                                    <React.Fragment key={index}>
+                                        {line}
+                                        <br />
+                                    </React.Fragment>
+                                ))}
+                                
                         </p>
                     </div>
                 )}
