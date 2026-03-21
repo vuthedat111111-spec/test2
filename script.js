@@ -5234,6 +5234,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [isAutoScroll, setIsAutoScroll] = React.useState(true); 
     const [activeIndex, setActiveIndex] = React.useState(-1);  
     const [showAudioWarning, setShowAudioWarning] = React.useState(false);
+    const [hideText, setHideText] = React.useState(false);
     const triggerAudioWarning = () => {
         if (!hasWarnedAudioGlobal) {
             setShowAudioWarning(true);
@@ -5461,9 +5462,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         <button onClick={() => setRoleplayMode('hideB')} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideB' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai B</button>
                     </div>
                     
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
+                        {/* THÊM MỚI: Nút Ẩn lời thoại (Chỉ hiện khi chọn Tập vai A hoặc B) */}
+                        {roleplayMode !== 'all' && (
+                            <label className="flex items-center gap-2 cursor-pointer bg-indigo-50 px-3 py-1.5 sm:py-2 rounded-lg border border-indigo-200 hover:bg-indigo-100 transition-colors animate-in zoom-in-95 duration-200">
+                                <span className="text-[10px] sm:text-xs font-bold text-indigo-700 uppercase">Ẩn lời thoại</span>
+                                <input type="checkbox" checked={hideText} onChange={() => setHideText(!hideText)} className="accent-indigo-600 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
+                            </label>
+                        )}
+                        
                         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
                             <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
+                            
                             <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
                         </label>
                         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
@@ -5493,8 +5503,12 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             {conv.dialogues.map((line, idx) => {
                                 const currentFlatIndex = globalLineIndex++; 
                                 const isActive = activeIndex === currentFlatIndex; 
-                                const isHidden = (roleplayMode === 'hideA' && line.speaker === 'A') || 
-                                                 (roleplayMode === 'hideB' && line.speaker === 'B');
+                                
+                                // THAY ĐỔI: Chỉ ẩn khi đang chọn vai ĐỒNG THỜI bật tính năng ẩn chữ
+                                const isMutedRole = (roleplayMode === 'hideA' && line.speaker === 'A') || 
+                                                    (roleplayMode === 'hideB' && line.speaker === 'B');
+                                const isHidden = isMutedRole && hideText; 
+                                
                                 const isA = line.speaker === 'A';
                                 
                                 let boxClass = isA 
