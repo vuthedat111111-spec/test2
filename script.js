@@ -5224,7 +5224,7 @@ let hasWarnedAudioGlobal = false;
 // ==========================================
 const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
-    const [isAudioLoading, setIsAudioLoading] = React.useState(true);
+    const [isAudioLoading, setIsAudioLoading] = React.useState(false);
     const [showTranslation, setShowTranslation] = React.useState(false);
     const [roleplayMode, setRoleplayMode] = React.useState('all'); 
     const [currentTime, setCurrentTime] = React.useState(0);
@@ -5253,40 +5253,60 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const scrollRef = React.useRef(null);
     const stopAtTimeRef = React.useRef(null);
 
-    // --- 1. KHỞI TẠO ÂM THANH BẰNG HOWLER ---
-    React.useEffect(() => {
-        // Xóa audio cũ nếu có
-        if (soundRef.current) {
-            soundRef.current.unload();
-        }
-        setIsPlaying(false);
-        setCurrentTime(0);
-        setActiveIndex(-1);
+    // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
+    const initAndPlayAudio = (startTime = 0) => {
+        if (isAudioLoading) return; // Chống spam click khi đang tải
+        setIsAudioLoading(true);
 
-        setIsAudioLoading(true); // Bắt đầu tải file mới thì bật loading lên
-
-        // Nạp file MP3 vào bộ nhớ RAM bằng Web Audio API
         soundRef.current = new Howl({
             src: [lesson.audioPath],
             html5: false, 
             preload: true,
             onload: function() {
                 setDuration(this.duration());
-                setIsAudioLoading(false); // THÊM MỚI: Tải xong thì tắt loading
+                setIsAudioLoading(false); // Tải xong tắt hiệu ứng
+                
+                this.rate(playbackRate); // Áp dụng tốc độ phát
+
+                // Tua đến đúng chỗ nếu bấm vào câu thoại
+                if (startTime > 0) {
+                    this.seek(startTime);
+                    setCurrentTime(startTime);
+                }
+                
+                this.play();
+                setIsPlaying(true);
+                triggerAudioWarning();
             },
             onloaderror: function() {
-                setIsAudioLoading(false); // THÊM MỚI: Nếu file lỗi cũng phải tắt loading để tránh kẹt
+                setIsAudioLoading(false);
+                alert("Lỗi tải âm thanh!");
             },
             onend: function() {
                 setIsPlaying(false);
                 if (timerRef.current) cancelAnimationFrame(timerRef.current);
             }
         });
+    };
+
+    // --- 1. CHỈ DỌN DẸP KHI CHUYỂN BÀI MỚI ---
+    React.useEffect(() => {
+        if (soundRef.current) {
+            soundRef.current.unload();
+            soundRef.current = null; // Đưa về null để báo là chưa tải file
+        }
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setActiveIndex(-1);
+        setIsAudioLoading(false);
 
         if (scrollRef.current) scrollRef.current.scrollTop = 0;
 
         return () => {
-            if (soundRef.current) soundRef.current.unload();
+            if (soundRef.current) {
+                soundRef.current.unload();
+                soundRef.current = null;
+            }
             if (timerRef.current) cancelAnimationFrame(timerRef.current);
         };
     }, [lesson]);
@@ -5381,7 +5401,15 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
 
     // --- CÁC HÀM TIỆN ÍCH CHO TRÌNH PHÁT ---
     const toggleAudio = () => {
-        if (!soundRef.current) return;
+        if (isAudioLoading) return;
+        
+        // CHƯA TẢI FILE -> Gọi hàm tải và tự động phát
+        if (!soundRef.current) {
+            initAndPlayAudio(0);
+            return;
+        }
+
+        // ĐÃ TẢI FILE -> Phát/Dừng bình thường
         if (isPlaying) {
             soundRef.current.pause();
             setIsPlaying(false);
@@ -5392,7 +5420,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             triggerAudioWarning();
         }
     };
-
+    
     const formatTime = (time) => {
         if (isNaN(time)) return "0:00";
         const m = Math.floor(time / 60);
@@ -5549,23 +5577,28 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                             Người {line.speaker}
                                         </span>
                                         <div 
-                                           onClick={() => {
-                                                if (line.startTime !== undefined && soundRef.current) {
-                                                    soundRef.current.seek(line.startTime);
-                                                    setCurrentTime(line.startTime);
-                                                    
-                                                    // Kiểm tra xem hệ thống đang phát liên tục hay đang phát câu lẻ
-                                                    if (isPlaying && stopAtTimeRef.current === null) {
-                                                        // 1. Nếu đang phát LIÊN TỤC (nhờ nút Play to) -> Chỉ chuyển bài, giữ nguyên chế độ liên tục
-                                                        stopAtTimeRef.current = null;
-                                                    } else {
-                                                        // 2. Nếu đang DỪNG, hoặc ĐANG PHÁT LẺ 1 CÂU mà bấm sang câu khác -> Cập nhật mốc dừng mới
-                                                        stopAtTimeRef.current = line.endTime;
-                                                        if (!isPlaying) {
-                                                            soundRef.current.play();
-                                                            setIsPlaying(true);
-                                                            triggerAudioWarning();
-                                                        }
+                                           onClick={(e) => {
+                                                if (line.startTime === undefined) return;
+                                                
+                                                // CHƯA TẢI FILE -> Đặt mốc thời gian dừng rồi gọi hàm tải
+                                                if (!soundRef.current) {
+                                                    stopAtTimeRef.current = line.endTime;
+                                                    initAndPlayAudio(line.startTime);
+                                                    return;
+                                                }
+
+                                                // ĐÃ TẢI FILE -> Seek và phát như cũ
+                                                soundRef.current.seek(line.startTime);
+                                                setCurrentTime(line.startTime);
+                                                
+                                                if (isPlaying && stopAtTimeRef.current === null) {
+                                                    stopAtTimeRef.current = null;
+                                                } else {
+                                                    stopAtTimeRef.current = line.endTime;
+                                                    if (!isPlaying) {
+                                                        soundRef.current.play();
+                                                        setIsPlaying(true);
+                                                        triggerAudioWarning();
                                                     }
                                                 }
                                             }}
