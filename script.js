@@ -5126,67 +5126,68 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     }
 };
     const renderCategories = () => (
-        <div className="p-6 h-full flex flex-col overflow-y-auto custom-scrollbar">
-            <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col h-full overflow-hidden bg-white">
+            
+            {/* HEADER CỐ ĐỊNH KHÔNG BỊ TRÔI */}
+            <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
                 <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Chọn bộ giáo trình</h2>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
-            {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
-            <div className="flex flex-col gap-4">
-                {[
-                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' }
-                ].map((item) => (
-                    <button 
-                        key={item.id}
-                        onClick={() => loadCategory(item.id)}
-                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
-                    >
-                        <div className="flex justify-between items-center w-full gap-4">
-                            {/* CHỮ ĐÃ ĐƯỢC ÉP NHỎ TRÊN MOBILE VÀ KHÔNG XUỐNG DÒNG */}
-                            <span className="text-lg sm:text-2xl font-black text-zinc-900 uppercase text-left leading-tight">
-                                {item.title}
-                            </span>
-                        </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left truncate w-full">{item.desc}</span>
-                    </button>
-                ))}
-            </div>
+            {/* NỘI DUNG CUỘN ĐƯỢC BÊN DƯỚI */}
+            <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
+                
+                {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
+                <div className="flex flex-col gap-4">
+                    {[
+                        { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' }
+                    ].map((item) => (
+                        <button 
+                            key={item.id}
+                            onClick={() => loadCategory(item.id)}
+                            className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                        >
+                            <div className="flex justify-between items-center w-full gap-4">
+                                <span className="text-lg sm:text-2xl font-black text-zinc-900 uppercase text-left leading-tight">
+                                    {item.title}
+                                </span>
+                            </div>
+                            <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">{item.desc}</span>
+                        </button>
+                    ))}
+                </div>
 
-            {/* ĐƯỜNG PHÂN CÁCH SẮP RA MẮT */}
-            <div className="flex items-center gap-4 my-8">
-                <div className="h-px bg-zinc-200 flex-1"></div>
-                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-50 px-3 py-1.5 rounded-full border border-zinc-200">
-                    Sắp ra mắt
-                </span>
-                <div className="h-px bg-zinc-200 flex-1"></div>
-            </div>
+                {/* ĐƯỜNG PHÂN CÁCH SẮP RA MẮT */}
+                <div className="flex items-center gap-4 my-8">
+                    <div className="h-px bg-zinc-200 flex-1"></div>
+                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-50 px-3 py-1.5 rounded-full border border-zinc-200">
+                        Sắp ra mắt
+                    </span>
+                    <div className="h-px bg-zinc-200 flex-1"></div>
+                </div>
 
-            {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
-            <div className="flex flex-col gap-4 pb-6">
-                {[
-                    { id: 'dummy1', title: '200 ĐOẠN KAIWA N5-N4', desc: 'Phản xạ nhanh, dùng liền' },
-                    { id: 'dummy2', title: '210 ĐOẠN HỘI THOẠI N3-N2', desc: 'Luyện nói ngắn gọn mỗi ngày' },
-                    { id: 'dummy3', title: '125 CÂU NÂNG CAO N2-N1', desc: 'Hiểu và nói tự nhiên hơn' },
-                    { id: 'dummy4', title: '180 CÂU BIỂU ĐẠT CẢM XÚC', desc: 'Nói tự nhiên, truyền đạt cảm xúc' }
-                ].map((item) => (
-                    <button 
-                        key={item.id}
-                        disabled
-                        className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
-                    >
-                        <div className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-zinc-200 text-zinc-500 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">
-                            Coming soon
-                        </div>
-                        
-                        <div className="flex justify-between items-center w-full pr-20 sm:pr-24">
-                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight whitespace-nowrap truncate w-full">
-                                {item.title}
-                            </span>
-                        </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left truncate w-full">{item.desc}</span>
-                    </button>
-                ))}
+                {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
+                <div className="flex flex-col gap-4 pb-6">
+                    {[
+                        { id: 'dummy1', title: '200 ĐOẠN KAIWA N5-N4', desc: 'Phản xạ nhanh, dùng liền' },
+                        { id: 'dummy2', title: '210 ĐOẠN HỘI THOẠI N3-N2', desc: 'Luyện nói ngắn gọn mỗi ngày' },
+                        { id: 'dummy3', title: '125 CÂU NÂNG CAO N2-N1', desc: 'Hiểu và nói tự nhiên hơn' },
+                        { id: 'dummy4', title: '180 CÂU BIỂU ĐẠT CẢM XÚC', desc: 'Nói tự nhiên, truyền đạt cảm xúc' }
+                    ].map((item) => (
+                        <button 
+                            key={item.id}
+                            disabled
+                            className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
+                        >
+                            <div className="flex justify-between items-center w-full">
+                                <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">
+                                    {item.title}
+                                </span>
+                            </div>
+                            <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">{item.desc}</span>
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
