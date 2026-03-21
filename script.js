@@ -5080,11 +5080,15 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         const docRef = firestoreDb.collection("sachkaiwa").doc(level);
         const docSnap = await docRef.get();
         
-        if (!docSnap.exists) throw new Error("Chưa có dữ liệu trên Database!");
+        if (!docSnap.exists) throw new Error("Không tìm thấy giáo trình!");
         
-        const data = docSnap.data().lessons; 
-        const config = MANUAL_PARTS_CONFIG[level];
-        const chunkedParts = [];
+        // 1. Lấy dữ liệu thô từ Firebase
+        const rawData = docSnap.data().lessons; 
+        
+        // 2. KIỂM TRA VÀ CHUYỂN ĐỔI:
+        // Nếu rawData là String (do dán thủ công), dùng JSON.parse. 
+        // Nếu nó đã là Array rồi thì dùng luôn.
+        const data = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
 
         if (config) {
             let currentIndex = 0;
