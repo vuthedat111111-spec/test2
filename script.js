@@ -5517,24 +5517,27 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                             Người {line.speaker}
                                         </span>
                                         <div 
-                                            onClick={() => {
+                                           onClick={() => {
                                                 if (line.startTime !== undefined && soundRef.current) {
                                                     soundRef.current.seek(line.startTime);
                                                     setCurrentTime(line.startTime);
                                                     
-                                                    if (isPlaying) {
-                                                        // 1. Nếu audio ĐANG PHÁT -> Cứ phát tiếp, xóa mốc tự dừng
+                                                    // Kiểm tra xem hệ thống đang phát liên tục hay đang phát câu lẻ
+                                                    if (isPlaying && stopAtTimeRef.current === null) {
+                                                        // 1. Nếu đang phát LIÊN TỤC (nhờ nút Play to) -> Chỉ chuyển bài, giữ nguyên chế độ liên tục
                                                         stopAtTimeRef.current = null;
                                                     } else {
-                                                        // 2. Nếu audio ĐANG DỪNG -> Đặt mốc tự dừng là lúc hết câu này
+                                                        // 2. Nếu đang DỪNG, hoặc ĐANG PHÁT LẺ 1 CÂU mà bấm sang câu khác -> Cập nhật mốc dừng mới
                                                         stopAtTimeRef.current = line.endTime;
-                                                        soundRef.current.play();
-                                                        setIsPlaying(true);
-                                                        triggerAudioWarning();
+                                                        if (!isPlaying) {
+                                                            soundRef.current.play();
+                                                            setIsPlaying(true);
+                                                            triggerAudioWarning();
+                                                        }
                                                     }
                                                 }
                                             }}
-                                            title="Bấm để nghe từ câu này"
+                                            title="Bấm để nghe câu này"
                                             className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
                                         >
                                             <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
