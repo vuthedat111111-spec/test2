@@ -5501,6 +5501,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     };
 
     const handleSeek = (e) => {
+        if (isAudioLoading) return; // Thêm chặn ở đây
         const time = Number(e.target.value);
         setCurrentTime(time);
         if (soundRef.current) { 
@@ -5649,34 +5650,37 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                             Người {line.speaker}
                                         </span>
                                         <div 
-                                           onClick={(e) => {
-                                                if (line.startTime === undefined) return;
-                                                
-                                                // CHƯA TẢI FILE -> Đặt mốc thời gian dừng rồi gọi hàm tải
-                                                if (!soundRef.current) {
-                                                    stopAtTimeRef.current = line.endTime;
-                                                    initAndPlayAudio(line.startTime);
-                                                    return;
-                                                }
+            onClick={(e) => {
+                if (line.startTime === undefined) return;
+                
+                // THÊM DÒNG NÀY ĐỂ CHẶN CLICK KHI ĐANG LOAD FILE (Chống chồng âm thanh)
+                if (isAudioLoading) return;
+                
+                // CHƯA TẢI FILE -> Đặt mốc thời gian dừng rồi gọi hàm tải
+                if (!soundRef.current) {
+                    stopAtTimeRef.current = line.endTime;
+                    initAndPlayAudio(line.startTime);
+                    return;
+                }
 
-                                                // ĐÃ TẢI FILE -> Seek và phát như cũ
-                                                soundRef.current.seek(line.startTime);
-                                                setCurrentTime(line.startTime);
-                                                
-                                                if (isPlaying && stopAtTimeRef.current === null) {
-                                                    stopAtTimeRef.current = null;
-                                                } else {
-                                                    stopAtTimeRef.current = line.endTime;
-                                                    if (!isPlaying) {
-                                                        soundRef.current.play();
-                                                        setIsPlaying(true);
-                                                        triggerAudioWarning();
-                                                    }
-                                                }
-                                            }}
-                                            title="Bấm để nghe câu này"
-                                            className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
-                                        >
+                // ĐÃ TẢI FILE -> Seek và phát như cũ
+                soundRef.current.seek(line.startTime);
+                setCurrentTime(line.startTime);
+                
+                if (isPlaying && stopAtTimeRef.current === null) {
+                    stopAtTimeRef.current = null;
+                } else {
+                    stopAtTimeRef.current = line.endTime;
+                    if (!isPlaying) {
+                        soundRef.current.play();
+                        setIsPlaying(true);
+                        triggerAudioWarning();
+                    }
+                }
+            }}
+            title="Bấm để nghe câu này"
+            className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
+        >
                                             <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
                                                 {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
                                             </p>
