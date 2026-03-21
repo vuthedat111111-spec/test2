@@ -45,7 +45,7 @@
       {
         "context": "Tình huống 5",
         "dialogues": [
-          { "speaker": "A", "ja": "ぐずぐずしてないでさっさと出かけなさい。", "vi": "Đừng lẩn chẩn nữa, mau ra khỏi nhà đi!" },
+          { "speaker": "A", "ja": "ぐずぐずしてないでさっさと出かけなさい。", "vi": "Đừng lần chần nữa, mau ra khỏi nhà đi!" },
           { "speaker": "B", "ja": "ちょっとおなかが[痛](いた)くて…。 ", "vi": "Con hơi đau bụng..." },
           { "speaker": "A", "ja": "[大丈夫](だいじょうぶ)。いつもどおりテストが終われば、すぐ[治](なお)るから。", "vi": "Không sao, làm bài kiểm tra xong là hết đau ngay như mọi khi thôi." },
           { "speaker": "B", "ja": "[違](ちが)うってば〜。今日は本当に痛いんだよ。", "vi": "Không phải đâu! Hôm nay con thực sự đau." }
@@ -173,7 +173,7 @@
         "context": "Tình huống 3",
         "dialogues": [
           { "speaker": "A", "ja": "ちょっと、[私](わたし)、[怒](おこ)ってるんだけど。", "vi": "Này, tôi đang giận đấy!" },
-          { "speaker": "B", "ja": "え？　何でそんなにプンプン怒ってんの？　[僕](ぼく)、なんか悪いことした？", "vi": "Ơ, sao lại nổi giận ầm ầm vậy? Anh làm gì sai à?" },
+          { "speaker": "B", "ja": "え？　何でそんなにプンプン怒ってんの？　[僕](ぼく)、なんか悪いことをした？", "vi": "Ơ, sao lại nổi giận ầm ầm vậy? Anh làm gì sai à?" },
           { "speaker": "A", "ja": "ふざけないで！　前の彼女とデートしてるの見ちゃったんだから。", "vi": "Đừng có giả bộ! Tôi thấy anh hẹn hò với bạn gái cũ đấy." },
           { "speaker": "B", "ja": "あ、あれは[偶然](ぐうぜん)会って立ち話してただけだよ。そばにいたなら、声かけてくれればよかったのにー。", "vi": "À, đó là bọn anh chỉ tình cờ gặp nhau nên đứng nói chuyện thôi. Em ở gần đấy sao không lên tiếng?" }
         ]
