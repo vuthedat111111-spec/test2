@@ -5020,6 +5020,10 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "Phần 3", desc: "Gồm 8 bài", lessonCount: 8 },
             { title: "Phần 4", desc: "Gồm 8 bài", lessonCount: 8 },
             { title: "Phần 5", desc: "Gồm 7 bài", lessonCount: 7 }
+        ],
+        '22baitrungthuongcap': [
+            { title: "Phần 1", desc: "Hội thoại với gia đình, người yêu", lessonCount: 5 },
+            { title: "Phần 2", desc: "Hội thoại với bạn bè", lessonCount: 5 }
         ]
     };
 
@@ -5247,7 +5251,8 @@ const renderGuideOverlay = () => (
                 {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
                 <div className="flex flex-col gap-4">
                     {[
-                        { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' }
+                        { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' },
+                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Đoạn hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
