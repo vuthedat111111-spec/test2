@@ -5152,7 +5152,7 @@ const renderGuideOverlay = () => (
                         Shadowing là gì?
                     </h3>
                     <p className="text-sm text-zinc-600 leading-relaxed font-medium">
-                        <strong className="text-zinc-900">Shadowing (Cái bóng)</strong> là kỹ thuật luyện nghe nói bằng cách nghe một đoạn hội thoại và lặp lại ngay lập tức (trễ khoảng 0.5s) giống như một cái bóng bám theo âm thanh gốc. Khác với nghe-lặp-lại truyền thống, bạn phải nói song song với audio.
+                        <strong className="text-zinc-900">Shadowing</strong> là kỹ thuật luyện nghe nói bằng cách nghe một đoạn hội thoại và lặp lại ngay lập tức giống như một cái bóng bám theo âm thanh gốc. Khác với nghe-lặp-lại truyền thống, bạn phải nói song song với audio.
                     </p>
                 </div>
 
@@ -5165,7 +5165,7 @@ const renderGuideOverlay = () => (
                     <ul className="space-y-3 text-sm text-zinc-600 font-medium">
                         <li className="flex items-start gap-2">
                             <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
-                            <span><strong className="text-zinc-900">Ngữ điệu chuẩn xác:</strong> Giúp bạn nắm bắt được sự lên xuống giọng (intonation) và cách ngắt nghỉ tự nhiên của người Nhật.</span>
+                            <span><strong className="text-zinc-900">Ngữ điệu chuẩn xác:</strong> Giúp bạn nắm bắt được sự lên xuống giọng và cách ngắt nghỉ tự nhiên của người Nhật.</span>
                         </li>
                         <li className="flex items-start gap-2">
                             <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
@@ -5180,21 +5180,21 @@ const renderGuideOverlay = () => (
 
                 {/* Section 3 */}
                 <div>
-                    <h3 className="text-lg font-black text-zinc-900 uppercase tracking-wide mb-4">5 Bước Luyện Tập Thực Chiến</h3>
+                    <h3 className="text-lg font-black text-zinc-900 uppercase tracking-wide mb-4">PHƯƠNG PHÁP LUYỆN TẬP</h3>
                     <div className="space-y-4">
                         <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
                             <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">1</div>
                             <div>
-                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing câm (Mute Shadowing)</h4>
-                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Chỉ nghe và mấp máy môi theo audio, không phát ra tiếng để làm quen với nhịp điệu.</p>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing câm (Silent Shadowing)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Luyện tập không nói thành lời âm thanh nghe được mà chỉ nhẩm trong đầu. Những đoạn hội thoại có tốc độ nhanh, những mẫu câu khó, trước hết hãy thử với phương pháp này.</p>
                             </div>
                         </div>
 
                         <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
                             <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">2</div>
                             <div>
-                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Nhẩm theo (Mumbling)</h4>
-                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Phát ra tiếng nhỏ lầm bầm trong miệng. Cố gắng bắt kịp tốc độ của người nói.</p>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Nhẩm theo (Whispering)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Luyện tập không phát âm rõ tiếng nghe được mà chỉ nhẩm lại với tiếng thì thầm. Hãy làm quyen với cảm giác của ngữ điệu.</p>
                             </div>
                         </div>
 
@@ -5202,23 +5202,23 @@ const renderGuideOverlay = () => (
                             <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">3</div>
                             <div>
                                 <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing nhịp điệu (Prosody Shadowing)</h4>
-                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Nói to rõ ràng. Tập trung 100% vào việc bắt chước y hệt ngữ điệu, sự lên xuống giọng, cách nhấn nhá.</p>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Luyện tập chú trọng đặc biệt tới nhịp điệu và ngữ điệu.</p>
                             </div>
                         </div>
 
                         <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
                             <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">4</div>
                             <div>
-                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing nội dung (Content Shadowing)</h4>
-                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Vừa nói vừa hình dung ngữ cảnh và ý nghĩa câu thoại. Có thể bật tính năng Dịch/Furigana để hỗ trợ.</p>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing nội dung (Contents Shadowing)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Luyện tập có chú ý đến việc hiểu ý nghĩa. Khi đã luyện tập kỹ Shadowing theo nhịp điệu và có thể thực hiện tốt rồi, hãy vừa shadowing vừa hình dung ý nghĩa và bối cảnh.</p>
                             </div>
                         </div>
 
                         <div className="flex gap-4 p-5 bg-indigo-50 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden">
                             <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-black flex items-center justify-center shrink-0">5</div>
                             <div>
-                                <h4 className="font-black text-indigo-900 mb-1 uppercase text-sm tracking-wide">Nhập vai thực chiến (Roleplay)</h4>
-                                <p className="text-sm text-indigo-800 font-medium leading-relaxed mb-3">Dùng công cụ của app để tự giao tiếp như nói chuyện với người thật:</p>
+                                <h4 className="font-black text-indigo-900 mb-1 uppercase text-sm tracking-wide">Nhập vai thực chiến</h4>
+                                <p className="text-sm text-indigo-800 font-medium leading-relaxed mb-3">Dùng công cụ của web để tự giao tiếp như nói chuyện với người thật:</p>
                                 <ul className="space-y-2 text-xs font-bold text-indigo-700">
                                     <li className="flex items-center gap-2"><span className="px-2 py-1 bg-white rounded shadow-sm border border-indigo-100">Tập vai A/B</span> Tự động tắt tiếng nhân vật bạn chọn để bạn tự đọc.</li>
                                     <li className="flex items-center gap-2"><span className="px-2 py-1 bg-white rounded shadow-sm border border-indigo-100">Ẩn lời thoại</span> Làm mờ văn bản ép bạn phản xạ bằng trí nhớ.</li>
@@ -5263,7 +5263,8 @@ const renderGuideOverlay = () => (
                         </button>
                     ))}
                 </div>
-<button 
+{/* HƯỚNG DẪN HỌC */}
+            <button 
                 onClick={() => setIsGuideOpen(true)} 
                 className="mt-4 w-full p-4 sm:p-5 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-center justify-between group transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
             >
@@ -5278,6 +5279,8 @@ const renderGuideOverlay = () => (
                 </div>
                 <svg className="w-5 h-5 text-indigo-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
+
+
                 {/* ĐƯỜNG PHÂN CÁCH SẮP RA MẮT */}
                 <div className="flex items-center gap-4 my-8">
                     <div className="h-px bg-zinc-200 flex-1"></div>
