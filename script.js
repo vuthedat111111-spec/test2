@@ -5033,12 +5033,14 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
     const [courseCache, setCourseCache] = React.useState({});
+    const [isGuideOpen, setIsGuideOpen] = React.useState(false);
 
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else {
             document.body.style.overflow = 'unset';
             setView('categories'); 
+            setIsGuideOpen(false);
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
@@ -5125,8 +5127,113 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         setIsLoading(false);
     }
 };
+    // Thêm toàn bộ block này vào trước const renderCategories:
+
+const renderGuideOverlay = () => (
+    <div className="absolute inset-0 z-50 bg-white flex flex-col animate-in slide-in-from-bottom-10 duration-300">
+        {/* Header Guide */}
+        <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
+            <div className="flex items-center gap-3">
+                <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight">Hướng dẫn học Kaiwa</h2>
+            </div>
+        </div>
+
+        {/* Content Guide */}
+        <div className="p-6 flex-1 overflow-y-auto custom-scrollbar bg-zinc-50/30">
+            <div className="max-w-2xl mx-auto space-y-8">
+                
+                {/* Section 1 */}
+                <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+                    <h3 className="text-base font-black text-indigo-600 uppercase mb-3 flex items-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Shadowing là gì?
+                    </h3>
+                    <p className="text-sm text-zinc-600 leading-relaxed font-medium">
+                        <strong className="text-zinc-900">Shadowing (Cái bóng)</strong> là kỹ thuật luyện nghe nói bằng cách nghe một đoạn hội thoại và lặp lại ngay lập tức (trễ khoảng 0.5s) giống như một cái bóng bám theo âm thanh gốc. Khác với nghe-lặp-lại truyền thống, bạn phải nói song song với audio.
+                    </p>
+                </div>
+
+                {/* Section 2 */}
+                <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+                    <h3 className="text-base font-black text-indigo-600 uppercase mb-3 flex items-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Tại sao lại cần Shadowing?
+                    </h3>
+                    <ul className="space-y-3 text-sm text-zinc-600 font-medium">
+                        <li className="flex items-start gap-2">
+                            <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                            <span><strong className="text-zinc-900">Ngữ điệu chuẩn xác:</strong> Giúp bạn nắm bắt được sự lên xuống giọng (intonation) và cách ngắt nghỉ tự nhiên của người Nhật.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                            <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                            <span><strong className="text-zinc-900">Luyện cơ miệng:</strong> Quen với tốc độ nói thật, không bị vấp hay "líu lưỡi" khi giao tiếp.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                            <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
+                            <span><strong className="text-zinc-900">Phản xạ nhanh:</strong> Rèn luyện não bộ xử lý thông tin âm thanh đồng thời với việc phát âm.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Section 3 */}
+                <div>
+                    <h3 className="text-lg font-black text-zinc-900 uppercase tracking-wide mb-4">5 Bước Luyện Tập Thực Chiến</h3>
+                    <div className="space-y-4">
+                        <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">1</div>
+                            <div>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing câm (Mute Shadowing)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Chỉ nghe và mấp máy môi theo audio, không phát ra tiếng để làm quen với nhịp điệu.</p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">2</div>
+                            <div>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Nhẩm theo (Mumbling)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Phát ra tiếng nhỏ lầm bầm trong miệng. Cố gắng bắt kịp tốc độ của người nói.</p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">3</div>
+                            <div>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing nhịp điệu (Prosody Shadowing)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Nói to rõ ràng. Tập trung 100% vào việc bắt chước y hệt ngữ điệu, sự lên xuống giọng, cách nhấn nhá.</p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-200 shadow-sm relative overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-black flex items-center justify-center shrink-0">4</div>
+                            <div>
+                                <h4 className="font-black text-zinc-900 mb-1 uppercase text-sm tracking-wide">Shadowing nội dung (Content Shadowing)</h4>
+                                <p className="text-sm text-zinc-500 font-medium leading-relaxed">Vừa nói vừa hình dung ngữ cảnh và ý nghĩa câu thoại. Có thể bật tính năng Dịch/Furigana để hỗ trợ.</p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4 p-5 bg-indigo-50 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-black flex items-center justify-center shrink-0">5</div>
+                            <div>
+                                <h4 className="font-black text-indigo-900 mb-1 uppercase text-sm tracking-wide">Nhập vai thực chiến (Roleplay)</h4>
+                                <p className="text-sm text-indigo-800 font-medium leading-relaxed mb-3">Dùng công cụ của app để tự giao tiếp như nói chuyện với người thật:</p>
+                                <ul className="space-y-2 text-xs font-bold text-indigo-700">
+                                    <li className="flex items-center gap-2"><span className="px-2 py-1 bg-white rounded shadow-sm border border-indigo-100">Tập vai A/B</span> Tự động tắt tiếng nhân vật bạn chọn để bạn tự đọc.</li>
+                                    <li className="flex items-center gap-2"><span className="px-2 py-1 bg-white rounded shadow-sm border border-indigo-100">Ẩn lời thoại</span> Làm mờ văn bản ép bạn phản xạ bằng trí nhớ.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
     const renderCategories = () => (
-        <div className="flex flex-col h-full overflow-hidden bg-white">
+        <div className="flex flex-col h-full overflow-hidden bg-white relative">
+        {isGuideOpen && renderGuideOverlay()}
             
             {/* HEADER CỐ ĐỊNH KHÔNG BỊ TRÔI */}
             <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
@@ -5156,7 +5263,21 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                         </button>
                     ))}
                 </div>
-
+<button 
+                onClick={() => setIsGuideOpen(true)} 
+                className="mt-4 w-full p-4 sm:p-5 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-center justify-between group transition-all hover:border-indigo-300 hover:shadow-md active:scale-95"
+            >
+                <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
+                    <div className="flex flex-col text-left">
+                        <span className="text-sm sm:text-base font-black text-indigo-900 uppercase tracking-wide leading-tight">Hướng dẫn học</span>
+                        <span className="text-xs sm:text-sm font-bold text-indigo-500 mt-0.5">Phương pháp Shadowing & Nhập vai</span>
+                    </div>
+                </div>
+                <svg className="w-5 h-5 text-indigo-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
                 {/* ĐƯỜNG PHÂN CÁCH SẮP RA MẮT */}
                 <div className="flex items-center gap-4 my-8">
                     <div className="h-px bg-zinc-200 flex-1"></div>
@@ -5191,7 +5312,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             </div>
         </div>
     );
-
 
   const renderParts = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
@@ -5335,7 +5455,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const stopAtTimeRef = React.useRef(null);
 
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
-    // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     const initAndPlayAudio = (startTime = 0) => {
         if (isAudioLoading) return; // Chống spam click khi đang tải
         setIsAudioLoading(true);
@@ -5381,7 +5500,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         // Gán instance vừa tạo vào biến toàn cục để theo dõi
         soundRef.current = howlInstance;
     };
-
     // --- 1. CHỈ DỌN DẸP KHI CHUYỂN BÀI MỚI ---
     React.useEffect(() => {
         if (soundRef.current) {
