@@ -46,6 +46,27 @@
   <body>
     <div id="root"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+<script>
+  // Copy toàn bộ firebaseConfig trong Project Settings của bạn thay vào đây
+  const firebaseConfig = {
+  apiKey: "AIzaSyDa2y7QcB6sevBap9sYWsqEwRJMcsWXAZ4",
+  authDomain: "test-7ccd2.firebaseapp.com",
+  projectId: "test-7ccd2",
+  storageBucket: "test-7ccd2.firebasestorage.app",
+  messagingSenderId: "321260103403",
+  appId: "1:321260103403:web:228d01e505c4d18706c0ae",
+  measurementId: "G-7NGWW0RZMW"
+};
+
+  // Khởi tạo Firebase
+  firebase.initializeApp(firebaseConfig);
+  // Tạo biến db dùng chung cho toàn bộ web
+  const db = firebase.firestore();
+</script>
+    
     <script type="text/babel" src="./script.js"></script>
   </body>
 </html>
