@@ -5007,13 +5007,30 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
             )}
         </div>
     );
-};// ==========================================
+};
+// ==========================================
 // COMPONENT: KAIWA MODAL (GIAO TIẾP SHADOWING)
 // ==========================================
 const KaiwaModal = ({ isOpen, onClose }) => {
+    // --- BẢN ĐỒ CẤU HÌNH NHÓM BÀI THỦ CÔNG ---
+    // Đã phân chia chuẩn xác theo dữ liệu JSON của bạn
+    const MANUAL_PARTS_CONFIG = {
+        '42baisotrungcap': [
+            { title: "Phần 1", desc: "Gồm 10 bài", lessonCount: 10 },
+            { title: "Phần 2", desc: "Gồm 9 bài", lessonCount: 9 },
+            { title: "Phần 3", desc: "Gồm 8 bài", lessonCount: 8 },
+            { title: "Phần 4", desc: "Gồm 8 bài", lessonCount: 8 },
+            { title: "Phần 5", desc: "Gồm 7 bài", lessonCount: 7 }
+        ]
+    };
+
     const [view, setView] = React.useState('categories'); 
-    const [lessons, setLessons] = React.useState([]);
-    const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0);
+    
+    const [allLessons, setAllLessons] = React.useState([]); 
+    const [parts, setParts] = React.useState([]); 
+    const [selectedPartIdx, setSelectedPartIdx] = React.useState(0); 
+    
+    const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0); 
     const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
@@ -5033,8 +5050,50 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
             if (!response.ok) throw new Error("Chưa có data");
             const data = await response.json();
-            setLessons(data);
-            setView('list');
+            
+            setAllLessons(data);
+
+            const config = MANUAL_PARTS_CONFIG[level];
+            const chunkedParts = [];
+
+            if (config) {
+                let currentIndex = 0;
+                config.forEach((partConfig) => {
+                    const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
+                    if (lessonsInPart.length > 0) {
+                        chunkedParts.push({
+                            title: partConfig.title,
+                            desc: partConfig.desc,
+                            lessons: lessonsInPart,
+                            startIndex: currentIndex 
+                        });
+                    }
+                    currentIndex += partConfig.lessonCount;
+                });
+
+                if (currentIndex < data.length) {
+                    chunkedParts.push({
+                        title: "Phần bổ sung",
+                        desc: `Các bài còn lại`,
+                        lessons: data.slice(currentIndex),
+                        startIndex: currentIndex
+                    });
+                }
+            } else {
+                const CHUNK_SIZE = 10;
+                for (let i = 0; i < data.length; i += CHUNK_SIZE) {
+                    chunkedParts.push({
+                        title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
+                        desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
+                        lessons: data.slice(i, i + CHUNK_SIZE),
+                        startIndex: i
+                    });
+                }
+            }
+            
+            setParts(chunkedParts);
+            setView('parts'); 
+
         } catch (error) {
             alert(`Tính năng đang cập nhật bộ dữ liệu ${level.toUpperCase()}! Thử file mẫu N5 nhé.`);
         } finally {
@@ -5043,71 +5102,114 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     };
 
     const renderCategories = () => (
-        <div className="p-6 h-full flex flex-col overflow-y-auto">
+        <div className="p-6 h-full flex flex-col overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Chọn bộ giáo trình</h2>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    {[
-        { id: '42baisotrungcap', title: '42 BÀI KAIWA', desc: 'Từ sơ cấp đến trung cấp' }
-   ].map((item) => (
-        <button 
-            key={item.id}
-            onClick={() => loadCategory(item.id)}
-            // 1. Đổi border-zinc-200 thành border-transparent (Viền tàng hình, rê chuột vào mới hiện đen)
-            className="p-6 bg-zinc-50 border border-transparent rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95"
-        >
-            {/* 2. Đổi text-zinc-300 thành text-zinc-900 (Chữ luôn luôn đen đậm) */}
-            <span className="text-2xl font-black text-zinc-900 uppercase">{item.title}</span>
-            <span className="text-sm font-bold text-zinc-600 mt-2">{item.desc}</span>
-        </button>
-    ))}
-</div>
-            {isLoading && <p className="text-center mt-4 text-xs font-bold text-indigo-500 animate-pulse">Đang tải dữ liệu...</p>}
+            <div className="flex flex-col gap-4">
+                {[
+                    { id: '42baisotrungcap', title: '42 BÀI KAIWA', desc: 'Từ sơ cấp đến trung cấp' }
+                ].map((item) => (
+                    <button 
+                        key={item.id}
+                        onClick={() => loadCategory(item.id)}
+                        className="w-full p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group"
+                    >
+                        <div className="flex justify-between items-center w-full">
+                            <span className="text-2xl font-black text-zinc-900 uppercase">{item.title}</span>
+                            <svg className="w-6 h-6 text-zinc-400 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                        <span className="text-sm font-bold text-zinc-500 mt-2">{item.desc}</span>
+                    </button>
+                ))}
+            </div>
+            {isLoading && <p className="text-center mt-6 text-xs font-bold text-indigo-500 animate-pulse">Đang tải dữ liệu...</p>}
         </div>
     );
 
-    const renderList = () => (
+    const renderParts = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
             <div className="p-4 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
                 <div className="flex items-center gap-3">
                     <button onClick={() => setView('categories')} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
-                    <h2 className="text-sm font-black text-zinc-900 uppercase">Danh sách câu hỏi</h2>
+                    <h2 className="text-sm font-black text-zinc-900 uppercase">Chọn phần học</h2>
                 </div>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
-            <div className="p-4 space-y-2 overflow-y-auto custom-scrollbar flex-1">
-                {lessons.map((lesson, idx) => (
+            <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar flex-1">
+                {parts.map((part, idx) => (
                     <button 
-                        key={lesson.id}
-                        onClick={() => { setCurrentLessonIdx(idx); setView('detail'); }}
-                        className="w-full p-4 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
+                        key={idx}
+                        onClick={() => { setSelectedPartIdx(idx); setView('list'); }}
+                        className="w-full p-5 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
                     >
-                        <span className="text-base sm:text-lg font-bold text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors">{lesson.title}</span>
-                        <span className="text-xs font-bold text-zinc-300">#{idx + 1}</span>
+                        <div className="flex flex-col">
+                            <span className="text-lg font-black text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors uppercase tracking-wide">{part.title}</span>
+                            <span className="text-xs font-bold text-zinc-400 mt-1">{part.desc}</span>
+                        </div>
+                        <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
+                            <svg className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
                     </button>
                 ))}
             </div>
         </div>
     );
 
+    const renderList = () => {
+        const currentPart = parts[selectedPartIdx];
+        if (!currentPart) return null;
+
+        return (
+            <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
+                <div className="p-4 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+                    <div className="flex items-center gap-3">
+                        <button onClick={() => setView('parts')} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <h2 className="text-sm font-black text-zinc-900 uppercase">{currentPart.title}</h2>
+                    </div>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
+                </div>
+                <div className="p-4 space-y-2 overflow-y-auto custom-scrollbar flex-1">
+                    {currentPart.lessons.map((lesson, idx) => {
+                        const globalIdx = currentPart.startIndex + idx; 
+                        return (
+                            <button 
+                                key={lesson.id || globalIdx}
+                                onClick={() => { setCurrentLessonIdx(globalIdx); setView('detail'); }}
+                                className="w-full p-4 bg-white border border-zinc-200 rounded-xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group"
+                            >
+                                {/* Dùng trực tiếp lesson.title từ JSON (đã có chữ PHẦN 1 - BÀI 1) */}
+                                <span className="text-base sm:text-lg font-bold text-zinc-800 font-sans group-hover:text-indigo-600 transition-colors">{lesson.title}</span>
+                                <span className="text-xs font-bold text-zinc-300">#{idx + 1}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full h-full sm:h-[90vh] max-w-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
                 {view === 'categories' && renderCategories()}
+                {view === 'parts' && renderParts()}
                 {view === 'list' && renderList()}
+                
                 {view === 'detail' && (
                     <KaiwaPracticeView 
-                        lesson={lessons[currentLessonIdx]} 
-                        total={lessons.length}
+                        lesson={allLessons[currentLessonIdx]} 
+                        total={allLessons.length}
                         currentIndex={currentLessonIdx}
-                        onBack={() => setView('list')}
+                        onBack={() => setView('list')} 
                         onClose={onClose} 
-                        onNext={() => setCurrentLessonIdx(prev => Math.min(prev + 1, lessons.length - 1))}
+                        onNext={() => setCurrentLessonIdx(prev => Math.min(prev + 1, allLessons.length - 1))}
                         onPrev={() => setCurrentLessonIdx(prev => Math.max(prev - 1, 0))}
                     />
                 )}
