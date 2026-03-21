@@ -5033,6 +5033,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     const [currentLessonIdx, setCurrentLessonIdx] = React.useState(0); 
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
+    const [courseCache, setCourseCache] = React.useState({});
 
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -5046,15 +5047,23 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const loadCategory = async (level) => {
+    // 1. KIỂM TRA BỘ NHỚ TẠM (CACHE)
+    // Nếu giáo trình này đã được tải trước đó, lấy ra dùng luôn và bỏ qua loading
+    if (courseCache[level]) {
+        setAllLessons(courseCache[level].data);
+        setParts(courseCache[level].parts);
+        setView('parts');
+        return; 
+    }
+
+    // 2. NẾU CHƯA CÓ TRONG BỘ NHỚ TẠM -> BẮT ĐẦU TẢI VÀ HIỆN LOADING
     setIsLoading(true);
-    setProgress(20); // Bắt đầu thanh tiến trình
+    setProgress(20);
     try {
         const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
         if (!response.ok) throw new Error("Chưa có data");
         const data = await response.json();
         
-        setAllLessons(data);
-
         const config = MANUAL_PARTS_CONFIG[level];
         const chunkedParts = [];
 
@@ -5093,9 +5102,19 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             }
         }
         
+        // 3. LƯU DỮ LIỆU VỪA TẢI VÀO BỘ NHỚ TẠM (CACHE) ĐỂ LẦN SAU DÙNG
+        setCourseCache(prev => ({
+            ...prev,
+            [level]: {
+                data: data,
+                parts: chunkedParts
+            }
+        }));
+
+        setAllLessons(data);
         setParts(chunkedParts);
-        
-        // Đẩy lên 100% và tạo độ trễ để người dùng kịp nhìn thấy hiệu ứng
+
+        // Đẩy thanh loading lên 100% và chuyển giao diện
         setProgress(100);
         setTimeout(() => {
             setView('parts'); 
@@ -5103,7 +5122,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         }, 400);
 
     } catch (error) {
-        alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}! Thử file mẫu N5 nhé.`);
+        alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}!`);
         setIsLoading(false);
     }
 };
@@ -5114,6 +5133,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
+            {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
             <div className="flex flex-col gap-4">
                 {[
                     { id: '42baisotrungcap', title: '42 BÀI KAIWA', desc: 'Từ sơ cấp đến trung cấp' }
@@ -5121,7 +5141,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                     <button 
                         key={item.id}
                         onClick={() => loadCategory(item.id)}
-                        className="w-full p-6 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group"
+                        className="w-full p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
                         <div className="flex justify-between items-center w-full">
                             <span className="text-2xl font-black text-zinc-900 uppercase">{item.title}</span>
@@ -5131,7 +5151,41 @@ const KaiwaModal = ({ isOpen, onClose }) => {
                     </button>
                 ))}
             </div>
-            
+
+            {/* ĐƯỜNG PHÂN CÁCH SẮP RA MẮT */}
+            <div className="flex items-center gap-4 my-8">
+                <div className="h-px bg-zinc-200 flex-1"></div>
+                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-50 px-3 py-1.5 rounded-full border border-zinc-200">
+                    Sắp ra mắt
+                </span>
+                <div className="h-px bg-zinc-200 flex-1"></div>
+            </div>
+
+            {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
+            <div className="flex flex-col gap-4 pb-6">
+                {[
+                    { id: 'dummy1', title: '200 CÂU KAIWA', desc: 'Giao tiếp hàng ngày thiết yếu' },
+                    { id: 'dummy2', title: 'PHẢN XẠ N3-N2', desc: 'Luyện nghe hiểu tốc độ cao' },
+                    { id: 'dummy3', title: 'KAIWA CÔNG SỞ', desc: 'Tiếng Nhật thương mại (BJT)' },
+                    { id: 'dummy4', title: 'KAIWA ĐỜI SỐNG', desc: 'Tình huống du lịch, nhà hàng, mua sắm' }
+                ].map((item) => (
+                    <button 
+                        key={item.id}
+                        disabled
+                        className="w-full p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden"
+                    >
+                        {/* Nhãn Coming Soon */}
+                        <div className="absolute top-5 right-5 bg-zinc-200 text-zinc-500 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">
+                            Coming soon
+                        </div>
+                        
+                        <div className="flex justify-between items-center w-full pr-24">
+                            <span className="text-xl font-black text-zinc-400 uppercase">{item.title}</span>
+                        </div>
+                        <span className="text-sm font-bold text-zinc-400 mt-2">{item.desc}</span>
+                    </button>
+                ))}
+            </div>
         </div>
     );
 
