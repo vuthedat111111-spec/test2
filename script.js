@@ -2625,10 +2625,10 @@ React.useEffect(() => {
     }, [isDocsModalOpen]);
     const notifications = [
         { 
-            id: 3, 
-            title: '🔥 TÍNH NĂNG MỚI', 
-            date: '12/03/2026', 
-            content: 'Luyện chia động từ cực gắt! Trải nghiệm ngay 3 chế độ: Tự Luận, Trắc Nghiệm và Phản Xạ siêu tốc. Vào ngay mục "CHIA ĐỘNG TỪ" ở trang chủ để test trình độ nhé!'
+            id: 4, 
+            title: '🔥 LUYỆN KAIWA', 
+            date: '21/03/2026', 
+            content: 'Ra mắt tính năng Luyện Kaiwa cực cháy! Nâng trình giao tiếp với chế độ Shadowing, luyện tập đóng vai, và nghe audio siêu mượt. Vào ngay mục "LUYỆN KAIWA" ở trang chủ để nói tiếng Nhật tự nhiên như người bản xứ nhé!'
         }
     ];
 
@@ -2817,6 +2817,17 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
                         </div>
+    {/* 7. LUYỆN KAIWA */}
+<div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        MỚI
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
+</div>
 
                         {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
@@ -2831,26 +2842,14 @@ React.useEffect(() => {
                         </div>
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
 <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md shadow-blue-500/20 animate-pulse">
-     MIỄN PHÍ
-  </div>
+    
     <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
     </div>
     <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
 </div>
-{/* 7. LUYỆN KAIWA */}
-<div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
-        MỚI
-    </div>
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
-</div>
+
 
                         {/* 7. LUYỆN JLPT */}
                         <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
