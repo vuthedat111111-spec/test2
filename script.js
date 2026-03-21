@@ -5136,7 +5136,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
             <div className="flex flex-col gap-4">
                 {[
-                    { id: '42baisotrungcap', title: '42 BÀI KAIWA', desc: 'Từ sơ cấp đến trung cấp' }
+                    { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày có thể dùng ngay' }
                 ].map((item) => (
                     <button 
                         key={item.id}
@@ -5164,10 +5164,41 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             {/* DANH SÁCH GIÁO TRÌNH GIẢ (LÀM MỜ, KHÔNG BẤM ĐƯỢC) */}
             <div className="flex flex-col gap-4 pb-6">
                 {[
-                    { id: 'dummy1', title: '200 CÂU KAIWA', desc: 'Giao tiếp hàng ngày thiết yếu' },
-                    { id: 'dummy2', title: 'PHẢN XẠ N3-N2', desc: 'Luyện nghe hiểu tốc độ cao' },
-                    { id: 'dummy3', title: 'KAIWA CÔNG SỞ', desc: 'Tiếng Nhật thương mại (BJT)' },
-                    { id: 'dummy4', title: 'KAIWA ĐỜI SỐNG', desc: 'Tình huống du lịch, nhà hàng, mua sắm' }
+                    { 
+  id: 'dummy1', 
+  title: '700 CÂU TIẾP KHÁCH', 
+  desc: 'Mẫu câu dùng ngay trong dịch vụ' 
+},
+
+{ 
+  id: 'dummy2', 
+  title: '200 ĐOẠN HỘI THOẠI N5-N4', 
+  desc: 'Phản xạ nhanh, dùng liền' 
+},
+
+{ 
+  id: 'dummy3', 
+  title: '210 ĐOẠN HỘI THOẠI N3-N2', 
+  desc: 'Luyện nói ngắn gọn mỗi ngày' 
+},
+
+{ 
+  id: 'dummy4', 
+  title: '125 MẪU CÂU NÂNG CAO N2-N1', 
+  desc: 'Hiểu và nói tự nhiên hơn' 
+},
+
+{ 
+  id: 'dummy5', 
+  title: '180 CÂU NGƯỜI NHẬT HAY DÙNG', 
+  desc: 'Mẫu câu quen thuộc hàng ngày' 
+},
+
+{ 
+  id: 'dummy6', 
+  title: '180 CÂU BIỂU ĐẠT CẢM XÚC', 
+  desc: 'Nói tự nhiên, truyền đạt cảm xúc' 
+}
                 ].map((item) => (
                     <button 
                         key={item.id}
