@@ -5447,6 +5447,24 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [showAudioWarning, setShowAudioWarning] = React.useState(false);
     const [hideText, setHideText] = React.useState(false);
     const [isGuideOpen, setIsGuideOpen] = React.useState(false);
+// --- STATE MỚI CHO TÍNH NĂNG CHẤM ĐIỂM ---
+const [isScoringMode, setIsScoringMode] = React.useState(false); // Bật/tắt chế độ chấm điểm
+const [scoringStep, setScoringStep] = React.useState('bot'); // 'bot' (máy đọc), 'user' (chờ người dùng đọc), 'result' (hiện kết quả câu)
+const [currentScoreLine, setCurrentScoreLine] = React.useState(0); // Vị trí câu đang chấm
+const [isListening, setIsListening] = React.useState(false); // Trạng thái Mic
+const [userTranscript, setUserTranscript] = React.useState(''); // Lời người dùng nói
+const [scoredLines, setScoredLines] = React.useState([]); // Mảng lưu kết quả từng câu
+const [finalScore, setFinalScore] = React.useState(null); // Điểm tổng kết
+
+const recognitionRef = React.useRef(null);
+// Lấy danh sách tất cả các câu thoại ra một mảng phẳng để dễ quản lý index
+const flatDialogues = React.useMemo(() => {
+    const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
+    let arr = [];
+    convs.forEach(c => arr = [...arr, ...c.dialogues]);
+    return arr.filter(d => d.startTime !== undefined);
+}, [lesson]);
+    
     const triggerAudioWarning = () => {
         if (!hasWarnedAudioGlobal) {
             setShowAudioWarning(true);
@@ -5463,7 +5481,165 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const timerRef = React.useRef(null); 
     const scrollRef = React.useRef(null);
     const stopAtTimeRef = React.useRef(null);
+// Hàm làm sạch chuỗi tiếng Nhật (bỏ dấu câu, khoảng trắng)
+const cleanJapaneseText = (text) => {
+    if (!text) return "";
+    return text.replace(/[。、！？\s\n　]/g, '').trim();
+};
 
+// Hàm tính % giống nhau và tạo mảng render Xanh/Đỏ
+const calculateAccuracy = (expected, actual) => {
+    const cleanExpected = cleanJapaneseText(expected);
+    const cleanActual = cleanJapaneseText(actual);
+    
+    // Nếu rỗng
+    if (!cleanActual) return { percent: 0, html: <span className="text-red-500">Chưa nghe được âm thanh</span> };
+
+    // So sánh đơn giản: Đếm số ký tự khớp nhau (Basic Diff)
+    let matchCount = 0;
+    let htmlElements = [];
+    
+    // Thuật toán so sánh siêu cơ bản (có thể nâng cấp lên Levenshtein Distance sau)
+    for (let i = 0; i < cleanExpected.length; i++) {
+        if (cleanActual.includes(cleanExpected[i])) {
+            matchCount++;
+            htmlElements.push(<span key={i} className="text-green-600 font-black">{cleanExpected[i]}</span>);
+        } else {
+            htmlElements.push(<span key={i} className="text-red-500 font-black">{cleanExpected[i]}</span>);
+        }
+    }
+
+    const percent = Math.round((matchCount / cleanExpected.length) * 100);
+    return { percent: Math.min(percent, 100), html: <>{htmlElements}</> };
+};
+
+// Khởi tạo Web Speech API
+const startListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        alert("Trình duyệt của bạn không hỗ trợ nhận diện giọng nói. Vui lòng dùng Google Chrome.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ja-JP'; // Ép nghe tiếng Nhật
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setIsListening(true);
+    
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setUserTranscript(transcript);
+        
+        // Chấm điểm luôn câu hiện tại
+        const currentLineData = flatDialogues[currentScoreLine];
+        const result = calculateAccuracy(currentLineData.ja, transcript);
+        
+        setScoredLines(prev => [...prev, { 
+            lineIndex: currentScoreLine, 
+            transcript: transcript, 
+            score: result.percent,
+            html: result.html
+        }]);
+        setScoringStep('result');
+    };
+
+    recognition.onerror = (event) => {
+        console.error(event.error);
+        alert("Không nghe rõ, vui lòng thử lại!");
+        setIsListening(false);
+    };
+
+    recognition.onend = () => setIsListening(false);
+
+    recognitionRef.current = recognition;
+    recognition.start();
+};
+// Bắt đầu chế độ chấm điểm
+const toggleScoringMode = () => {
+    if (!isScoringMode) {
+        // BẬT
+        if (roleplayMode === 'all') {
+            alert("Vui lòng chọn 'Tập vai A' hoặc 'Tập vai B' trước khi chấm điểm.");
+            return;
+        }
+        setIsScoringMode(true);
+        setCurrentScoreLine(0);
+        setScoredLines([]);
+        setFinalScore(null);
+        setIsAutoScroll(true);
+        
+        // Dừng audio bình thường nếu đang chạy
+        if (soundRef.current && isPlaying) {
+            soundRef.current.pause();
+            setIsPlaying(false);
+        }
+        
+        playScoreLine(0);
+    } else {
+        // TẮT
+        setIsScoringMode(false);
+        if (soundRef.current) soundRef.current.stop();
+    }
+};
+
+// Hàm phát đúng 1 câu rồi dừng
+const playScoreLine = (index) => {
+    if (index >= flatDialogues.length) {
+        // KẾT THÚC BÀI, TÍNH TỔNG ĐIỂM
+        const total = scoredLines.reduce((acc, curr) => acc + curr.score, 0);
+        const avg = Math.round(total / scoredLines.length);
+        setFinalScore(avg || 0);
+        return;
+    }
+
+    const line = flatDialogues[index];
+    setActiveIndex(index);
+    
+    // Cuộn tới câu đó
+    if (lineRefs.current[index]) {
+        lineRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    const isMyTurn = (roleplayMode === 'hideA' && line.speaker === 'A') || 
+                     (roleplayMode === 'hideB' && line.speaker === 'B');
+
+    if (isMyTurn) {
+        // Lượt của User -> Mở Mic
+        setScoringStep('user');
+        setUserTranscript('');
+    } else {
+        // Lượt của Máy -> Phát audio
+        setScoringStep('bot');
+        if (!soundRef.current) initAndPlayAudio(line.startTime);
+        else {
+            soundRef.current.seek(line.startTime);
+            soundRef.current.volume(1);
+            soundRef.current.play();
+        }
+        
+        // Đặt hẹn giờ để DỪNG đúng lúc câu kết thúc
+        stopAtTimeRef.current = line.endTime;
+    }
+};
+
+// Cập nhật lại hàm handleNextScoreLine
+    const handleNextScoreLine = React.useCallback(() => {
+        const nextIndex = currentScoreLine + 1;
+        setCurrentScoreLine(nextIndex);
+        playScoreLine(nextIndex);
+    }, [currentScoreLine, flatDialogues, roleplayMode]);
+// --- BỔ SUNG: TỰ ĐỘNG QUA CÂU KHI MÁY ĐỌC XONG ---
+    React.useEffect(() => {
+        // Nếu đang ở chế độ chấm điểm, lượt của Máy, và Audio vừa dừng lại
+        if (isScoringMode && scoringStep === 'bot' && !isPlaying) {
+            const timer = setTimeout(() => {
+                handleNextScoreLine();
+            }, 500); // Nghỉ 0.5s cho tự nhiên rồi qua câu
+            return () => clearTimeout(timer);
+        }
+    }, [isPlaying, isScoringMode, scoringStep]);
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     const initAndPlayAudio = (startTime = 0) => {
         if (isAudioLoading) return; // Chống spam click khi đang tải
@@ -5729,7 +5905,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         <button onClick={() => setRoleplayMode('hideA')} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideA' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai A</button>
                         <button onClick={() => setRoleplayMode('hideB')} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideB' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai B</button>
                     </div>
-                    
+                    {/* NÚT BẬT CHẤM ĐIỂM */}
+    <button 
+        onClick={toggleScoringMode}
+        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2 ${isScoringMode ? 'bg-red-500 text-white animate-pulse' : 'bg-emerald-500 text-white hover:bg-emerald-600'}`}
+    >
+        {isScoringMode ? "🛑 DỪNG CHẤM" : "🎙️ BẬT CHẤM ĐIỂM"}
+    </button>
                     <div className="flex flex-wrap gap-2">
                         {/* THÊM MỚI: Nút Ẩn lời thoại (Chỉ hiện khi chọn Tập vai A hoặc B) */}
                         {roleplayMode !== 'all' && (
@@ -5830,9 +6012,24 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             title="Bấm để nghe câu này"
             className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
         >
-                                            <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-                                                {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
-                                            </p>
+                                            // Trong hàm render dialogues.map...
+const scoredData = scoredLines.find(s => s.lineIndex === currentFlatIndex);
+
+<p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden && !isScoringMode ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
+    {scoredData ? (
+        // NẾU CÂU NÀY ĐÃ CHẤM ĐIỂM XONG -> HIỆN KẾT QUẢ XANH ĐỎ
+        <div className="flex flex-col gap-1">
+            <span className="text-zinc-400 line-through text-sm">{line.ja}</span>
+            <span className="text-xl bg-gray-50 px-2 py-1 rounded">{scoredData.html}</span>
+            <span className={`text-[10px] font-black mt-1 ${scoredData.score > 70 ? 'text-green-500' : 'text-red-500'}`}>
+                Độ chính xác: {scoredData.score}%
+            </span>
+        </div>
+    ) : (
+        // BÌNH THƯỜNG
+        isHidden && !isScoringMode ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)
+    )}
+</div>
                                             {showTranslation && (
                                                 <p className={`text-sm sm:text-base mt-2 font-medium border-t pt-2 transition-colors ${isActive ? 'text-green-700 border-green-200' : 'text-zinc-500 border-zinc-200'}`}>
                                                     {line.vi}
@@ -5846,7 +6043,41 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     ))}
                 </div>
             </div>
-
+{isScoringMode ? (
+    <div className="w-full shrink-0 bg-white border-t border-zinc-200 p-4 flex flex-col items-center justify-center shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20 min-h-[100px]">
+        
+        {finalScore !== null ? (
+            <div className="text-center w-full">
+                <h3 className="text-xl font-black text-zinc-900 mb-2">ĐIỂM CỦA BẠN</h3>
+                <div className="text-5xl font-bold text-emerald-500">{finalScore}/100</div>
+                <button onClick={toggleScoringMode} className="mt-4 px-6 py-2 bg-zinc-900 text-white font-bold rounded-lg uppercase">Thoát</button>
+            </div>
+        ) : scoringStep === 'bot' ? (
+            <div className="text-blue-600 font-bold animate-pulse flex items-center gap-2">
+                <svg className="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v2m0 12v2m8-8h-2M6 12H4m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636"></path></svg>
+                Hệ thống đang đọc...
+            </div>
+        ) : scoringStep === 'user' ? (
+            <div className="flex flex-col items-center gap-2 w-full">
+                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-1">Đến lượt bạn</span>
+                <button 
+                    onClick={isListening ? () => recognitionRef.current?.stop() : startListening}
+                    className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-lg transition-transform active:scale-95 ${isListening ? 'bg-red-500 animate-pulse' : 'bg-zinc-900 hover:bg-black'}`}
+                >
+                    🎤
+                </button>
+                <span className="text-xs text-zinc-400 mt-1">{isListening ? "Đang nghe..." : "Bấm vào Mic để nói"}</span>
+            </div>
+        ) : (
+            <div className="flex flex-col items-center gap-3 w-full">
+                <span className="text-sm text-zinc-600">Bạn đã nói: <b className="text-zinc-900">{userTranscript || "(không nghe thấy)"}</b></span>
+                <button onClick={handleNextScoreLine} className="w-full max-w-xs py-3 bg-emerald-500 text-white font-black uppercase tracking-widest rounded-xl shadow-md active:scale-95">
+                    TIẾP TỤC BÀI THOẠI
+                </button>
+            </div>
+        )}
+    </div>
+) : (
             {/* THANH PLAYER AUDIO Ở DƯỚI */}
             <div className="w-full shrink-0 bg-white border-t border-zinc-200 px-4 py-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20">
                 <div className="flex items-center gap-3 w-full">
@@ -5999,6 +6230,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 </div>
             )}
         </div>
+)}
     )
 }
 const App = () => {
