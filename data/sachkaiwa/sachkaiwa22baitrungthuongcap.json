@@ -148,7 +148,8 @@
     "id": "03",
     "title": "PHẦN 1 - THƯỢNG CẤP 1",
     "translation": "",
-    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p3.m4a",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p3.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -230,7 +231,8 @@
     "id": "04",
     "title": "PHẦN 1 - THƯỢNG CẤP 2",
     "translation": "",
-    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p4.m4a",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p4.m4a",
     "conversations": [
       {
         "context": "Tình huống 9",
@@ -310,7 +312,8 @@
     "id": "05",
     "title": "PHẦN 1 - THƯỢNG CẤP 3",
     "translation": "",
-    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p5.m4a",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p5.m4a",
     "conversations": [
       {
         "context": "Tình huống 17",
