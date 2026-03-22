@@ -3033,6 +3033,452 @@
       ]
     }
   ]
+},
+  {
+  "id": "15",
+  "title": "PHẦN 3 - THƯỢNG CẤP 3",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p15.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 17",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "先日、[初](はじ)めて[韓国](かんこく)へ行ったんですよ。韓国[料理](りょうり)を[堪能](たんのう)してきました！",
+          "vi": "Hôm trước, lần đầu tiên tôi đến Hàn Quốc. Tôi đã ăn thoải mái món ăn Hàn Quốc!",
+          "startTime": 0,
+          "endTime": 7.16
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか、韓国の[印象](いんしょう)はどうでしたか？",
+          "vi": "Vậy sao? Ấn tượng của anh về Hàn Quốc thế nào?",
+          "startTime": 7.16,
+          "endTime": 11.5
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、見るものすべてが[新鮮](しんせん)で、[刺激的](しげきてき)でした。それで、あの…。",
+          "vi": "Vâng, tất cả mọi thứ đều tươi mới, kích thích. Và đây là..",
+          "startTime": 11.5,
+          "endTime": 16.97
+        },
+        {
+          "speaker": "B",
+          "ja": "はい…。",
+          "vi": "Vâng....",
+          "startTime": 16.97,
+          "endTime": 17.8
+        },
+        {
+          "speaker": "A",
+          "ja": "これ、韓国のお[土産](みやげ)です。ほんの「キムチ」ですが…。",
+          "vi": "Đây là quà Hàn Quốc. Một chút \"Kim Chi\"...",
+          "startTime": 17.8,
+          "endTime": 21.53
+        },
+        {
+          "speaker": "B",
+          "ja": "ほんのきむち…、[親父](おやじ)ギャグですね。ははは。",
+          "vi": "Một chút Kim Chi...Cách chơi chữ của các cụ nhỉ! Ha ha ha",
+          "startTime": 21.53,
+          "endTime": 25.43
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 18",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "「[釣](つ)った魚に[餌](えさ)はやらない」って言うけど、あれ本当ね。",
+          "vi": "Người ta bảo \"Không cần cho cá đã câu được thức ăn\". Câu đó đúng thật!",
+          "startTime": 25.43,
+          "endTime": 31.18
+        },
+        {
+          "speaker": "B",
+          "ja": "へ〜、ご主人プレゼントしてくださらないんですか？",
+          "vi": "Chà, chồng chị không tặng quà cho chị à?",
+          "startTime": 31.18,
+          "endTime": 34.96
+        },
+        {
+          "speaker": "A",
+          "ja": "ぜーんぜん。[結婚](けっこん)してから[誕生日](たんじょうび)プレゼントなんて一度もなしよ。",
+          "vi": "Hoàn toàn không. Từ lúc cưới đến giờ anh ấy chưa một lần tặng quà sinh nhật cho tôi.",
+          "startTime": 34.96,
+          "endTime": 40.2
+        },
+        {
+          "speaker": "B",
+          "ja": "[優](やさ)しそうなご主人なのに…、人は見かけによらないもんですね。",
+          "vi": "Trông anh ấy có vẻ hiền lành thế mà...Đúng là không thể dựa vào vẻ bề ngoài được nhỉ!",
+          "startTime": 40.2,
+          "endTime": 44.97
+        },
+        {
+          "speaker": "A",
+          "ja": "優しさとかの問題じゃなくて、男はみんなそんなもんなんじゃないの。",
+          "vi": "Hiền hay không không phải là vấn đề.Chẳng phải đàn ông ai cũng vậy sao?",
+          "startTime": 44.97,
+          "endTime": 49.96
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか〜？ [僕](ぼく)はちゃんと[記念日](きねんび)にはカードとプレゼント[贈](おく)ってますけどね。",
+          "vi": "Chị nghĩ vậy sao? Tôi vẫn gửi thiệp và quà nhân ngày kỷ niệm đấy chứ.",
+          "startTime": 49.96,
+          "endTime": 55.72
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 19",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "お正月になると、お[年寄](としよ)りが[餅](もち)を[喉](のど)に[詰](つ)まらせたっていうニュースが[増](ふ)えるね。",
+          "vi": "Cứ đến tết là số tin người già bị nghẹn bánh mochi lại tăng nhỉ.",
+          "startTime": 55.72,
+          "endTime": 63.13
+        },
+        {
+          "speaker": "B",
+          "ja": "年を取ると、飲み[込](こ)む力が弱くなるんですかねー。",
+          "vi": "Chắc tại càng già khả năng nuốt càng kém.",
+          "startTime": 63.13,
+          "endTime": 66.65
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。[唾液](だえき)の[分泌](ぶんぴつ)も[減](へ)るだろうしねー。",
+          "vi": "Đúng vậy. Có lẽ việc tiết nước bọt cũng giảm.",
+          "startTime": 66.65,
+          "endTime": 69.7
+        },
+        {
+          "speaker": "B",
+          "ja": "そう言えば、うちの[祖母](そぼ)なんて、この間ゼリーを喉に詰まらせたって言ってましたよ。",
+          "vi": "Nói đến mới nhớ, bà tôi kể là hôm nọ bị nghẹn thạch đấy.",
+          "startTime": 69.7,
+          "endTime": 74.91
+        },
+        {
+          "speaker": "A",
+          "ja": "えーっ、ゼリーで喉が詰まっちゃうの？",
+          "vi": "Ơ, bị nghẹn vì thạch sao?",
+          "startTime": 74.91,
+          "endTime": 77.78
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、[急](きゅう)に[呼吸](こきゅう)ができなくなっちゃって、このまま死んじゃうのかって思ったらしいですよ。",
+          "vi": "Vâng, bà bảo tự dưng nghẹn thở, tưởng rằng chết luôn rồi.",
+          "startTime": 77.78,
+          "endTime": 83.83
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 20",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "この前、[骨董品屋](こっとうひんや)に行って、[初](はじ)めて[鑑定](かんてい)してもらったんですよ。",
+          "vi": "Hôm trước tôi đến cửa hàng đồ cổ, nhờ giám định rồi.",
+          "startTime": 83.83,
+          "endTime": 90.25
+        },
+        {
+          "speaker": "B",
+          "ja": "へー、何を？",
+          "vi": "Ồ, giám định gì vậy?",
+          "startTime": 90.25,
+          "endTime": 92.06
+        },
+        {
+          "speaker": "A",
+          "ja": "うちに[代々伝](だいだいつた)わる[皿](さら)があって、それがどのぐらい[価値](かち)があるのか知りたくなって。まー、古いってだけなんですけどね。",
+          "vi": "Nhà tôi có một cái đĩa được truyền từ đời này sang đời khác nên tôi muốn biết nó có giá trị thế nào. Tôi chỉ biết là nó lâu rồi thôi.",
+          "startTime": 92.06,
+          "endTime": 100.17
+        },
+        {
+          "speaker": "B",
+          "ja": "それで、何て言われたんですか？",
+          "vi": "Thế người ta bảo sao?",
+          "startTime": 100.17,
+          "endTime": 102.67
+        },
+        {
+          "speaker": "A",
+          "ja": "「この皿はたいへん[貴重](きちょう)なもので、100万円はくだらない」って。",
+          "vi": "Họ bảo \"Cái đĩa này rất quý, giá không dưới 1 triệu Yên\"",
+          "startTime": 102.67,
+          "endTime": 107.1
+        },
+        {
+          "speaker": "B",
+          "ja": "へー、100万円！そりゃ、すごい。",
+          "vi": "Chà, 1 triệu Yên! Thật giá trị.",
+          "startTime": 107.1,
+          "endTime": 110.01
+        },
+        {
+          "speaker": "A",
+          "ja": "[凡人](ぼんじん)には[一見普通](いっけんふつう)にしか見えないんですけどね。",
+          "vi": "Người thường nhìn qua thì chỉ thấy bình thường thôi.",
+          "startTime": 110.01,
+          "endTime": 113.61
+        },
+        {
+          "speaker": "B",
+          "ja": "見る人が見れば、本当の[価値](かち)がわかるんですよ。",
+          "vi": "Người tinh ý mà nhìn sẽ biết giá trị thực sự thôi.",
+          "startTime": 113.61,
+          "endTime": 117.1
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 21",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "だいぶ、日が長くなりましたねー。",
+          "vi": "Ngày dài hơn nhiều rồi nhỉ.",
+          "startTime": 117.1,
+          "endTime": 122.02
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、5時でも、まだこの明るさですからねー。",
+          "vi": "Vâng, 5 giờ rồi mà vẫn sáng thế này.",
+          "startTime": 122.02,
+          "endTime": 125.46
+        },
+        {
+          "speaker": "A",
+          "ja": "もう1月も[半](なか)ばかー。",
+          "vi": "Đã giữa tháng 1 rồi à?",
+          "startTime": 125.46,
+          "endTime": 127.75
+        },
+        {
+          "speaker": "B",
+          "ja": "あと2週間もすれば、もう[立春](りっしゅん)ですよ。",
+          "vi": "Chỉ 2 tuần nữa là lập xuân đấy.",
+          "startTime": 127.75,
+          "endTime": 131.4
+        },
+        {
+          "speaker": "A",
+          "ja": "立春かー。[確](たし)か、その前の日が[節分](せつぶん)でしたよね。",
+          "vi": "Lập xuân à?! Hình như ngày trước đó là Setsubun nhỉ?",
+          "startTime": 131.4,
+          "endTime": 136.18
+        },
+        {
+          "speaker": "B",
+          "ja": "節分といっても、豆をまく家は[減](へ)ってきちゃったんでしょうね。",
+          "vi": "Setsubun nhưng cũng ít nhà vãi đỗ hơn nhỉ?!",
+          "startTime": 136.18,
+          "endTime": 140.5
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 22",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "一日[練習](れんしゅう)しただけでこれだけ[滑](すべ)れるなんて、なかなか[筋](すじ)がいいですよ。",
+          "vi": "Chỉ tập có một ngày mà trượt được thế này quả là có khiếu đấy.",
+          "startTime": 140.5,
+          "endTime": 147.76
+        },
+        {
+          "speaker": "B",
+          "ja": "えっ、本当ですか？ スケートって[難](むずか)しいけどおもしろいもんですね。",
+          "vi": "Ơ, thế ạ? Trượt pa - tanh khó nhưng mà thú vị thật đấy!",
+          "startTime": 147.76,
+          "endTime": 153.97
+        },
+        {
+          "speaker": "A",
+          "ja": "[一生懸命](いっしょうけんめい)練習すれば、三[回転](かいてん)ジャンプも[夢](ゆめ)じゃありませんよ。",
+          "vi": "Nếu chăm chỉ luyện tập thì nhảy xoay ba vòng không phải là ao ước đâu.",
+          "startTime": 153.97,
+          "endTime": 158.62
+        },
+        {
+          "speaker": "B",
+          "ja": "えーっ、三回転ジャンプもできるようになるんですか？",
+          "vi": "Thật ạ? Em có thể nhảy xoay 3 vòng ạ?",
+          "startTime": 158.62,
+          "endTime": 162.29
+        },
+        {
+          "speaker": "A",
+          "ja": "あなたのやる気[次第](しだい)ですよ。じゃ、今日はここまでにしましょう。",
+          "vi": "Tùy thuộc vào quyết tâm của em thôi. Hôm nay chúng ta tập đến đây thôi.",
+          "startTime": 162.29,
+          "endTime": 166.55
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。ありがとうございました。",
+          "vi": "Vâng, cám ơn thầy ạ.",
+          "startTime": 166.55,
+          "endTime": 168.91
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 23",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "「[行間](ぎょうかん)を読む」って言いますけど、なかなか[難](むずか)しいですよね。",
+          "vi": "Người ta nói \"ý tại ngôn ngoại\", nhưng quả là khó nhỉ!",
+          "startTime": 168.91,
+          "endTime": 175.24
+        },
+        {
+          "speaker": "B",
+          "ja": "まー、人の[感性](かんせい)は一人一人[違](ちが)いますからね。",
+          "vi": "Thì cảm tính mà, mỗi người một khác.",
+          "startTime": 175.24,
+          "endTime": 179.25
+        },
+        {
+          "speaker": "A",
+          "ja": "読者がとんでもない読み違いをしちゃってることもあるでしょうね。",
+          "vi": "Chắc cũng có khi độc giả hiểu nhầm một cách tai hại ấy nhỉ?",
+          "startTime": 179.25,
+          "endTime": 183.47
+        },
+        {
+          "speaker": "B",
+          "ja": "[書評](しょひょう)を見て、[作家](さっか)が[苦笑](にがわら)いするなんてこともあるんじゃないですか。",
+          "vi": "Xem phần nhận xét tác phẩm, chắc cũng có khi tác giả cười như mếu mất.",
+          "startTime": 183.47,
+          "endTime": 188.44
+        },
+        {
+          "speaker": "A",
+          "ja": "あり[得](う)るでしょうねー。",
+          "vi": "Có thể lắm nhỉ.",
+          "startTime": 188.44,
+          "endTime": 190.4
+        },
+        {
+          "speaker": "B",
+          "ja": "[評論家](ひょうろんか)ももっともらしいこと言いますからね。",
+          "vi": "Dù sao các nhà phê bình vẫn nói những điều có lý nhất.",
+          "startTime": 190.4,
+          "endTime": 193.66
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 24",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "そうですか。[木村](きむら)さん、弟さんがいらっしゃったんですか。",
+          "vi": "Ra là vậy, hóa ra là chị Kimura có em trai à?",
+          "startTime": 193.66,
+          "endTime": 200.56
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、[家業](かぎょう)を[継](つ)いでるんです。",
+          "vi": "Vâng, cậu ấy đang nối nghiệp gia đình ạ.",
+          "startTime": 200.56,
+          "endTime": 203.07
+        },
+        {
+          "speaker": "A",
+          "ja": "家業というと？",
+          "vi": "Nối nghiệp gia đình?",
+          "startTime": 203.07,
+          "endTime": 204.38
+        },
+        {
+          "speaker": "B",
+          "ja": "[運送業](うんそうぎょう)です。",
+          "vi": "Nhà tôi làm nghề vận tải.",
+          "startTime": 204.38,
+          "endTime": 205.74
+        },
+        {
+          "speaker": "A",
+          "ja": "へー、運送業ですか。運送[業界](ぎょうかい)も、今なかなか[難](むずか)しいみたいですね。",
+          "vi": "Chà, nghề vận tải à? Nghề vận tải giờ cũng có vẻ khó nhỉ!",
+          "startTime": 205.74,
+          "endTime": 212.24
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ。[原油](げんゆ)の高騰のあおりを受けちゃって、[相当大変](そうとうたいへん)らしいですよ。",
+          "vi": "Vâng, giá dầu thô tăng cao đột ngột làm công việc có vẻ tương đương đối khó khăn.",
+          "startTime": 212.24,
+          "endTime": 217.91
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 25",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "明けましておめでとうございます。今年もよろしくお[願](ねが)いします。",
+          "vi": "Chúc mừng năm mới. Năm nay cũng mong được anh giúp đỡ.",
+          "startTime": 217.91,
+          "endTime": 224.04
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、おめでとうございます。お[正月](しょうがつ)休みはゆっくりできましたか？",
+          "vi": "Vâng, chúc mừng năm mới chị. Chị nghỉ tết thoải mái chứ?",
+          "startTime": 224.04,
+          "endTime": 228.76
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ、今年はちょっと[奮発](ふんぱつ)して、家族でハワイに行ったんですよ。",
+          "vi": "Vâng, năm nay gia đình tôi nổi hứng đi Hawaii chơi.",
+          "startTime": 228.76,
+          "endTime": 233.47
+        },
+        {
+          "speaker": "B",
+          "ja": "え、本当ですか。うらやましい[限](かぎ)りですね。",
+          "vi": "Ồ, thật vậy sao! Ghen tỵ thật đấy!",
+          "startTime": 233.47,
+          "endTime": 237.29
+        },
+        {
+          "speaker": "A",
+          "ja": "えへへ。で、ビーチで一日中[寝](ね)そべってのんびりしたり、いろいろ買い物したり…。おかげさまでいい[骨休](ほねやす)めができました。[鈴木](すずき)さんも、どちらかに出かけられたんですか？",
+          "vi": "Hẻ hẻ. Chúng tôi suốt ngày hết nằm dài trên bãi cát, lại đi mua sắm...Nhờ vậy mà cũng dãn gân dãn cốt được. Anh Suzuki cũng có đi đâu không?",
+          "startTime": 237.29,
+          "endTime": 250.6
+        },
+        {
+          "speaker": "B",
+          "ja": "うちは家族で[妻](つま)の[実家](じっか)に行ったんですけどね、気を遣ってすっかり[肩](かた)が[凝](こ)っちゃって…。[羽](はね)を伸ばすどころじゃなかったんですよ。",
+          "vi": "Cả nhà tôi về nhà vợ tôi. Phải giữ ý giữ tứ nên mỏi hết cả vai.... Chẳng được nghỉ ngơi thoải mái gì cả.",
+          "startTime": 250.6,
+          "endTime": 259.62
+        }
+      ]
+    }
+  ]
 }
   
 ]
