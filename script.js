@@ -5445,6 +5445,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [activeIndex, setActiveIndex] = React.useState(-1);  
     const [showAudioWarning, setShowAudioWarning] = React.useState(false);
     const [hideText, setHideText] = React.useState(false);
+    const [isGuideOpen, setIsGuideOpen] = React.useState(false);
     const triggerAudioWarning = () => {
         if (!hasWarnedAudioGlobal) {
             setShowAudioWarning(true);
@@ -5894,7 +5895,20 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </button>
                     </div>
-                    <div className="w-12"></div>
+                    {/* NÚT HƯỚNG DẪN (?) BÊN GÓC PHẢI */}
+                    <div className="w-12 flex justify-end">
+                        <button 
+                            onClick={() => setIsGuideOpen(true)} 
+                            className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all active:scale-90"
+                            title="Hướng dẫn sử dụng"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
                                 {/* KHUNG THÔNG BÁO ÂM THANH */}
@@ -5920,6 +5934,89 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     </div>
                     {/* Tam giác nhỏ trỏ xuống dưới */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
+                </div>
+            )}
+{/* MODAL HƯỚNG DẪN KAIWA */}
+            {isGuideOpen && (
+                <div 
+                    className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-md p-4 animate-in fade-in duration-200" 
+                    onClick={() => setIsGuideOpen(false)} // Click ra ngoài để đóng
+                >
+                    <div 
+                        className="bg-white rounded-[2rem] shadow-2xl w-full max-w-md flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
+                        onClick={e => e.stopPropagation()} // Chặn sự kiện click để không đóng khi bấm vào bảng
+                    >
+                        {/* Header */}
+                        <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50/50 flex justify-between items-center">
+                            <h3 className="font-black text-zinc-900 uppercase tracking-wide flex items-center gap-2">
+                                <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Trợ giúp & Mẹo học
+                            </h3>
+                            <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-red-500 hover:bg-red-50 transition-all shadow-sm">✕</button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 overflow-y-auto custom-scrollbar space-y-6">
+                            
+                            {/* 1. Xử lý sự cố âm thanh */}
+                            <div className="bg-amber-50 border border-amber-100 p-4 rounded-2xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-amber-100 rounded-bl-full -z-0 opacity-50"></div>
+                                <h4 className="text-sm font-black text-amber-800 uppercase mb-2 flex items-center gap-1.5 relative z-10">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                                    Lưu ý về Âm thanh
+                                </h4>
+                                <p className="text-sm text-amber-700 font-medium leading-relaxed relative z-10">
+                                    Nếu bạn bấm phát nhưng <b>không nghe thấy tiếng</b>, hãy kiểm tra xem điện thoại có đang bật <b>"Chế độ Im lặng"</b> (Gạt rung) hay không, và thử <b>tăng âm lượng</b> lên nhé.
+                                </p>
+                            </div>
+
+                            {/* 2. Tính năng Luyện tập */}
+                            <div>
+                                <h4 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">Các tính năng thao tác</h4>
+                                <ul className="space-y-3">
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                                        </div>
+                                        <div>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5">Phát lại một câu bất kỳ</span>
+                                            <span className="block text-xs text-zinc-500 font-medium">Chỉ cần <b>bấm trực tiếp vào bong bóng thoại</b>, hệ thống sẽ tự động tua và phát lại câu nói đó.</span>
+                                        </div>
+                                    </li>
+
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        </div>
+                                        <div>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5">Nhập vai (Tập vai A / B)</span>
+                                            <span className="block text-xs text-zinc-500 font-medium">Bấm <b>Tập vai A</b> hoặc <b>Tập vai B</b>. Hệ thống sẽ <b>tắt tiếng</b> của nhân vật đó để bạn tự đóng vai đọc theo.</span>
+                                        </div>
+                                    </li>
+
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                        </div>
+                                        <div>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5">Ẩn lời thoại (Thử thách trí nhớ)</span>
+                                            <span className="block text-xs text-zinc-500 font-medium">Khi đang Tập Vai, tích chọn <b>Ẩn lời thoại</b>. Câu thoại của bạn sẽ bị làm mờ, ép bạn phải lắng nghe và tự phản xạ.</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-4 border-t border-zinc-100 bg-white">
+                            <button 
+                                onClick={() => setIsGuideOpen(false)}
+                                className="w-full py-3.5 bg-zinc-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest"
+                            >
+                                Đã rõ, Bắt đầu học!
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
