@@ -409,5 +409,307 @@
         ]
       }
     ]
-  }
+  },
+  {
+  "id": "06",
+  "title": "PHẦN 2 - TRUNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p6.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日、仕事の[面接](めんせつ)に行くんだ。",
+          "vi": "Hôm nay tớ đi phỏng vấn xin việc đấy.",
+          "startTime": 3.6,
+          "endTime": 6.96
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜！ まさかその[格好](かっこう)で行くんじゃないでしょうね？",
+          "vi": "Hả? Cậu không định mặc như thế đi đấy chứ?",
+          "startTime": 6.96,
+          "endTime": 10.73
+        },
+        {
+          "speaker": "A",
+          "ja": "え〜？ どうして？ なんか[変](へん)？",
+          "vi": "Ơ? Tại sao? Có gì không ổn à?",
+          "startTime": 10.73,
+          "endTime": 13.7
+        },
+        {
+          "speaker": "B",
+          "ja": "ジーンズはまずいでしょう、やっぱり。",
+          "vi": "Rõ ràng là mặc quần bò là không được rồi.",
+          "startTime": 13.7,
+          "endTime": 16.73
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ〜あ、[一目](ひとめ)でいいから彼女に会いたいな〜。",
+          "vi": "Ôi, giá mà mình được gặp nàng dù chỉ trong giây lát.",
+          "startTime": 16.73,
+          "endTime": 21.57
+        },
+        {
+          "speaker": "B",
+          "ja": "何[未練](みれん)がましいこと言ってんだよ。ふられたんだよ、お前は。",
+          "vi": "Còn tiếc nuối gì nữa. Cậu bị đá rồi còn gì.",
+          "startTime": 21.57,
+          "endTime": 25.95
+        },
+        {
+          "speaker": "A",
+          "ja": "いや〜、なんかの[事情](じじょう)があったんだよ、きっと。",
+          "vi": "Không, chắc chắn là có lý do gì đó.",
+          "startTime": 25.95,
+          "endTime": 29.82
+        },
+        {
+          "speaker": "B",
+          "ja": "[幸](しあわ)せなやつだな〜、お前は。",
+          "vi": "Cậu đúng là một kẻ hạnh phúc!",
+          "startTime": 29.82,
+          "endTime": 32.06
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あれ、ちょっと太った？",
+          "vi": "Chà, cậu mập lên một chút đấy à?",
+          "startTime": 32.06,
+          "endTime": 34.84
+        },
+        {
+          "speaker": "B",
+          "ja": "やだー、ひどい！",
+          "vi": "Này, cậu thật quá đáng!",
+          "startTime": 34.84,
+          "endTime": 36.37
+        },
+        {
+          "speaker": "A",
+          "ja": "ごめんごめん、気に[触](さわ)った？",
+          "vi": "Xin lỗi, xin lỗi, tớ làm cậu phật lòng à?",
+          "startTime": 36.37,
+          "endTime": 38.64
+        },
+        {
+          "speaker": "B",
+          "ja": "[当](あ)たり前じゃない！本当にデリカシーのない人ね。",
+          "vi": "Đương nhiên rồi! Cậu chẳng tế nhị gì cả!",
+          "startTime": 38.64,
+          "endTime": 42.03
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "入学[試験](しけん)の[面接](めんせつ)、どうだった？",
+          "vi": "Phỏng vấn thi đầu vào thế nào?",
+          "startTime": 42.03,
+          "endTime": 45.69
+        },
+        {
+          "speaker": "B",
+          "ja": "[志望動機](しぼうどうき)をしつこく聞かれて、たじたじだったよ。",
+          "vi": "Tớ luống cuống vì bị hỏi mãi về lý do muốn vào trường.",
+          "startTime": 45.69,
+          "endTime": 49.48
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、[望](のぞ)みが[薄](うす)いかもね。",
+          "vi": "Vậy thì có lẽ ít hy vọng rồi!",
+          "startTime": 49.48,
+          "endTime": 51.95
+        },
+        {
+          "speaker": "B",
+          "ja": "え、そんな〜。",
+          "vi": "Ơ, đừng nói thế chứ!",
+          "startTime": 51.95,
+          "endTime": 53.97
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "教室の時計、おかしくない？",
+          "vi": "Đồng hồ lớp mình bị làm sao thì phải?",
+          "startTime": 53.97,
+          "endTime": 57.69
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、本当だ。３、４分進んでる。",
+          "vi": "Ừ, đúng thật. Nhanh 3,4 phút.",
+          "startTime": 57.69,
+          "endTime": 60.87
+        },
+        {
+          "speaker": "A",
+          "ja": "きっと[誰](だれ)かが[授業](じゅぎょう)を早く終わらせようって、[仕組](しく)んだんじゃないの？",
+          "vi": "Có khi ai đó làm thế để giờ học kết thúc sớm đấy mà!",
+          "startTime": 60.87,
+          "endTime": 64.65
+        },
+        {
+          "speaker": "B",
+          "ja": "かもね…。",
+          "vi": "Có thể...",
+          "startTime": 64.65,
+          "endTime": 66.05
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[誕生日](たんじょうび)おめでとう！ これプレゼント。",
+          "vi": "Chúc mừng sinh nhật! Quà của cậu đây.",
+          "startTime": 66.05,
+          "endTime": 70.27
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、ありがとう。よく[覚](おぼ)えててくれたね。この中、何入ってんの？",
+          "vi": "Oa, cám ơn cậu. Cám ơn cậu vẫn nhớ. Có gì bên trong thế?",
+          "startTime": 70.27,
+          "endTime": 75.58
+        },
+        {
+          "speaker": "A",
+          "ja": "それは開けてからのお楽しみ。",
+          "vi": "Cứ mở ra đi!",
+          "startTime": 75.58,
+          "endTime": 77.94
+        },
+        {
+          "speaker": "B",
+          "ja": "何だろう。ワクワクするな。",
+          "vi": "Gì vậy nhỉ? Hồi hộp quá!",
+          "startTime": 77.94,
+          "endTime": 80.43
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "かおりって、毎日彼と電話してるの？",
+          "vi": "Kaori, ngày nào cậu cũng gọi điện cho bạn trai à?",
+          "startTime": 80.43,
+          "endTime": 85.37
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、ま〜ね。",
+          "vi": "Ờ, thì...",
+          "startTime": 85.37,
+          "endTime": 86.74
+        },
+        {
+          "speaker": "A",
+          "ja": "よくそんなに毎日毎日話すことあるね〜。[信](しん)じらんない。",
+          "vi": "Ngày nào cũng có chuyện để nói nhỉ! Thật không thể tin được.",
+          "startTime": 86.74,
+          "endTime": 91.18
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜、だって彼の[生活全部](せいかつぜんぶ)知ってたいもん…。",
+          "vi": "Ơ, thì tại tớ muốn biết toàn bộ cuộc sống của anh ấy mà.",
+          "startTime": 91.18,
+          "endTime": 94.41
+        },
+        {
+          "speaker": "A",
+          "ja": "ごちそうさま。でもそんなの[初](はじ)めのうちだけだよ、[絶対](ぜったい)。",
+          "vi": "Tớ nghe đủ rồi. Nhưng thế này cũng chỉ lúc mới yêu thôi. Chắc chắn luôn.",
+          "startTime": 94.41,
+          "endTime": 98.83
+        },
+        {
+          "speaker": "B",
+          "ja": "そんなことないよ〜。何でそうやって水さすようなこと言うの〜？",
+          "vi": "Không có chuyện đó đâu. Sao cậu lại nói kiểu phá đám như thế chứ?",
+          "startTime": 98.83,
+          "endTime": 103.64
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[由佳](ゆか)、フラダンス[習](なら)ってるんだって？",
+          "vi": "Yuka, nghe nói cậu đang học múa Hula?",
+          "startTime": 103.64,
+          "endTime": 107.85
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、先月始めたばっかりなんだけどね。",
+          "vi": "Ừ, tớ mới học từ tháng trước.",
+          "startTime": 107.85,
+          "endTime": 110.98
+        },
+        {
+          "speaker": "A",
+          "ja": "私もちょっと[興味](きょうみ)あるんだ。ねー、どんな[感](かん)じ？",
+          "vi": "Tớ cũng có chút quan tâm tới môn đó. Nói xem, nó thế nào?",
+          "startTime": 110.98,
+          "endTime": 114.88
+        },
+        {
+          "speaker": "B",
+          "ja": "えー、おもしろいよー。すごくストレス解消にもなるし。今はまだ[基礎](きそ)[練習](れんしゅう)だけだけど、それでも運動[量](りょう)は[半端](はんぱ)じゃないし…。",
+          "vi": "Ờ, thú vị lắm. Cũng giúp giảm căng thẳng rất tốt nữa. Bây giờ tớ mới đang tập động tác cơ bản thôi nhưng dù thế thì lượng vận động cũng không vừa đâu...",
+          "startTime": 114.88,
+          "endTime": 123.85
+        },
+        {
+          "speaker": "A",
+          "ja": "へー。でも[難](むずか)しいんでしょ？",
+          "vi": "Chà. Nhưng khó phải không?",
+          "startTime": 123.85,
+          "endTime": 126.05
+        },
+        {
+          "speaker": "B",
+          "ja": "まー、[簡単](かんたん)じゃないけど、私でもできるんだから。",
+          "vi": "Thì, cũng không đơn giản đâu nhưng đến tớ còn làm được cơ mà.",
+          "startTime": 126.05,
+          "endTime": 129.9
+        }
+      ]
+    }
+  ]
+}
+  
 ]
