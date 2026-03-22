@@ -1958,6 +1958,246 @@
       ]
     }
   ]
+},
+  {
+  "id": "11",
+  "title": "PHẦN 3 - TRUNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p11.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "来週の日曜日、[新年会](しんねんかい)をしようと思うんですけど。",
+          "vi": "Chủ nhật tuần sau chúng tôi định tổ chức tiệc mừng năm mới.",
+          "startTime": 3.7,
+          "endTime": 8.38
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、ぜひ[参加](さんか)させてください。楽しみです。",
+          "vi": "A, vậy cho tôi tham gia nhé! Tôi háo hức lắm.",
+          "startTime": 8.38,
+          "endTime": 11.51
+        },
+        {
+          "speaker": "A",
+          "ja": "それで、一人一[皿](さら)、[得意](とくい)な[料理](りょうり)を持ってきてほしいんですけど。",
+          "vi": "Chúng tôi muốn mỗi người sẽ mang tới một đĩa món ăn mình nấu ngon nhất.",
+          "startTime": 11.51,
+          "endTime": 15.66
+        },
+        {
+          "speaker": "B",
+          "ja": "わかりました。じゃ、ぎょうざ持っていきます。",
+          "vi": "Tôi hiểu rồi. Vậy tôi sẽ mang sủi cảo tới.",
+          "startTime": 15.66,
+          "endTime": 18.37
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "このざる[豆腐](とうふ)おいしいですね。",
+          "vi": "Món zarudofu này ngon thật đấy.",
+          "startTime": 18.37,
+          "endTime": 21.92
+        },
+        {
+          "speaker": "B",
+          "ja": "本当ですね。このプルプルの[食感](しょっかん)がたまりませんね。",
+          "vi": "Đúng vậy. Cảm giác mềm mịn thật tuyệt vời nhỉ!",
+          "startTime": 21.92,
+          "endTime": 25.53
+        },
+        {
+          "speaker": "A",
+          "ja": "さすが、豆腐[専門](せんもん)レストランですね。豆腐ハンバーグも[注文](ちゅうもん)してみましょうか。",
+          "vi": "Nhà hàng chuyên về đậu phụ có khác. Thử gọi hamburg đậu phụ đi!",
+          "startTime": 25.53,
+          "endTime": 31.27
+        },
+        {
+          "speaker": "B",
+          "ja": "いいですね。たまには豆腐づくしもいいもんですね。",
+          "vi": "Ý hay đấy. Thỉnh thoảng ăn toàn đậu phụ không cũng được đấy chứ.",
+          "startTime": 31.27,
+          "endTime": 34.77
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "は〜。",
+          "vi": "Hà ~",
+          "startTime": 34.77,
+          "endTime": 37.63
+        },
+        {
+          "speaker": "B",
+          "ja": "ため[息](いき)つくと[幸](しあわ)せが[逃](に)げていくって言いますよ。",
+          "vi": "Người ta bảo thở dài sẽ làm hay hạnh phúc bỏ chạy đấy.",
+          "startTime": 37.63,
+          "endTime": 41.39
+        },
+        {
+          "speaker": "A",
+          "ja": "そうなんですけどね。",
+          "vi": "Biết là vậy nhưng...",
+          "startTime": 41.39,
+          "endTime": 43.25
+        },
+        {
+          "speaker": "B",
+          "ja": "ほらほら、元気出してくださいよ。",
+          "vi": "Nào, hăng hái lên nào!",
+          "startTime": 43.25,
+          "endTime": 45.6
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "またあそこの[交差点](こうさてん)で[事故](じこ)だそうですよ。",
+          "vi": "Nghe nói lại có tai nạn ở ngã tư đằng kia đấy.",
+          "startTime": 45.6,
+          "endTime": 49.82
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜、またですか？ ついこの間も自転車と車の事故があったばかりですよね。",
+          "vi": "Lại tai nạn sao? Mới hôm rồi xảy ra tai nạn giữa xe đạp và ô tô mà.",
+          "startTime": 49.82,
+          "endTime": 56.02
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ。ミラーつけるとか、[行政](ぎょうせい)に何とかしてほしいですよね。",
+          "vi": "Vâng. Chính quyền phải lắp gương hay làm gì đó chứ nhỉ?!",
+          "startTime": 56.02,
+          "endTime": 60.64
+        },
+        {
+          "speaker": "B",
+          "ja": "本当ですよね。",
+          "vi": "Đúng vậy.",
+          "startTime": 60.64,
+          "endTime": 62.09
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "モンブラン、[買](か)ってきましたよ。",
+          "vi": "Tôi đã mua bánh mont blanc rồi đây.",
+          "startTime": 62.09,
+          "endTime": 64.98
+        },
+        {
+          "speaker": "B",
+          "ja": "わー、ありがとうございます。今日も多くのお客さん[並](なら)んでましたか？",
+          "vi": "Ôi, cám ơn anh. Hôm nay cũng đông khách xếp hàng lắm phải không?",
+          "startTime": 64.98,
+          "endTime": 69.1
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ。一日[限定](げんてい)50[個](こ)というのもミソなんですかね。",
+          "vi": "Vâng. Quan trọng là ở chỗ họ chỉ bán 50 chiếc một ngày thôi.",
+          "startTime": 69.1,
+          "endTime": 73.12
+        },
+        {
+          "speaker": "B",
+          "ja": "あそこのモンブラン、[味](あじ)も[絶品](ぜっぴん)ですからね。",
+          "vi": "Vì bánh mont blanc ở đó có hương vị tuyệt vời mà.",
+          "startTime": 73.12,
+          "endTime": 76.39
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "これ、お一ついかが？ [家庭菜園](かていさいえん)でとれたんです。",
+          "vi": "Chị dùng thử một quả chứ? Hái ở vườn nhà tôi đấy.",
+          "startTime": 76.39,
+          "endTime": 81.75
+        },
+        {
+          "speaker": "B",
+          "ja": "わー、きれいなトマト。こんなのがうちでできるなんていいですねー。",
+          "vi": "Ôi, quả cà chua đẹp quá! Trồng được thứ này ở nhà thì thích thật nhỉ!",
+          "startTime": 81.75,
+          "endTime": 86.4
+        },
+        {
+          "speaker": "A",
+          "ja": "[味](あじ)は[保証](ほしょう)できませんが。どうぞ。",
+          "vi": "Tôi không dám đảm bảo vị của nó đâu nhưng mời chị thử.",
+          "startTime": 86.4,
+          "endTime": 89.2
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃ、[遠慮](えんりょ)なくいただきます。",
+          "vi": "Vậy tôi không khách sáo nữa.",
+          "startTime": 89.2,
+          "endTime": 91.08
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "どうして彼女が[怒](おこ)ってるわけ？",
+          "vi": "Tại sao cô ấy lại giận?",
+          "startTime": 91.08,
+          "endTime": 95.27
+        },
+        {
+          "speaker": "B",
+          "ja": "自分でもよくわからないんだけど、口をきいてくれないんです。",
+          "vi": "Tôi cũng không biết nữa, chỉ biết cô ấy không chịu nói gì với tôi cả.",
+          "startTime": 95.27,
+          "endTime": 99.65
+        },
+        {
+          "speaker": "A",
+          "ja": "彼女の気に[障](さわ)ることを言ったんじゃない？",
+          "vi": "Hay anh nói gì làm cô ấy khó chịu?",
+          "startTime": 99.65,
+          "endTime": 102.39
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、思い[当](あ)たることはないんですけど…。",
+          "vi": "Ừm, tôi không nhớ là đã nói điều gì như thế....",
+          "startTime": 102.39,
+          "endTime": 106.19
+        }
+      ]
+    }
+  ]
 }
   
 ]
