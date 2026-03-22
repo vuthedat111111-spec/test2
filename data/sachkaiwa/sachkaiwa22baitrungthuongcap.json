@@ -1342,6 +1342,286 @@
       ]
     }
   ]
+},
+  {
+  "id": "09",
+  "title": "PHẦN 2 - THƯỢNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p9.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "すべてうまく行っているのに、この[不安感](ふあんかん)はなんだろう？",
+          "vi": "Mọi chuyện đang diễn ra suôn sẻ mà sao tớ lại cảm thấy bất an vậy?",
+          "startTime": 0,
+          "endTime": 6.09
+        },
+        {
+          "speaker": "B",
+          "ja": "[疲](つか)れてるんじゃない？ 今日は、ゆっくり休んだら？",
+          "vi": "Chắc tại cậu mệt mỏi đấy thôi! Sao hôm nay cậu không nghỉ ngơi cho thoải mái đi?",
+          "startTime": 6.09,
+          "endTime": 9.94
+        },
+        {
+          "speaker": "A",
+          "ja": "そうねー。[久](ひさ)しぶりに[銭湯](せんとう)でも行ってみるかな…。",
+          "vi": "Cậu nói phải. Có lẽ tớ sẽ đi nhà tắm công cộng vì lâu rồi không đi.",
+          "startTime": 9.94,
+          "endTime": 14.09
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。いい[気分転換](きぶんてんかん)になるんじゃない？",
+          "vi": "Hay đấy! Sẽ giúp cậu thay đổi tâm trạng tốt đấy!",
+          "startTime": 14.09,
+          "endTime": 17.29
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いつも、顔の色つやがいいね。[鈴木](すずき)さんって[健康的](けんこうてき)だよね。",
+          "vi": "Da mặt cậu lúc nào cũng đẹp nhỉ. Cậu khỏe mạnh thật đấy.",
+          "startTime": 17.29,
+          "endTime": 23.1
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、[快食快眠](かいしょくかいみん)してるからね。健康の[秘訣](ひけつ)だよ。",
+          "vi": "Ừ. Vì tớ ăn ngon ngủ kỹ. Đó là bí quyết của sức khỏe.",
+          "startTime": 23.1,
+          "endTime": 27.37
+        },
+        {
+          "speaker": "A",
+          "ja": "私なんか なかなか[睡眠](すいみん)時間が[十分](じゅうぶん)取れなくて。",
+          "vi": "Tớ không thể có thời gian ngủ đủ.",
+          "startTime": 27.37,
+          "endTime": 31.5
+        },
+        {
+          "speaker": "B",
+          "ja": "いやー、時間て取るんじゃなくて作るもんだよ。",
+          "vi": "Không, không phải là \"có\" thời gian mà phải \"tạo ra\" thời gian.",
+          "startTime": 31.5,
+          "endTime": 34.83
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "日本人って、どうしてこう[優柔不断](ゆうじゅうふだん)なんだろう。",
+          "vi": "Tại sao người Nhật lại thiếu quyết đoán vậy?",
+          "startTime": 34.83,
+          "endTime": 39.31
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。でも、みんながみんな[一概](いちがい)に優柔不断とは言えないけどね。",
+          "vi": "Cũng có thể. Nhưng không thể nói là tất cả mọi người đều thiếu quyết đoán.",
+          "startTime": 39.31,
+          "endTime": 44.19
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、そうだけど。多いよ、私の[周](まわ)りには。",
+          "vi": "Thì đúng vậy nhưng quanh tớ nhiều người thế lắm.",
+          "startTime": 44.19,
+          "endTime": 48.32
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、周りに気を[遣](つか)ってるってことじゃない？",
+          "vi": "Ừm, chắc họ không muốn làm phiền đến những người xung quanh thôi.",
+          "startTime": 48.32,
+          "endTime": 51.7
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いつまでも[悲](かな)しんでばかりじゃだめだよ。",
+          "vi": "Cậu không thể buồn rầu mãi được.",
+          "startTime": 51.7,
+          "endTime": 55.76
+        },
+        {
+          "speaker": "B",
+          "ja": "頭ではわかってるんだけど、なかなかねー。",
+          "vi": "Tớ biết thế nhưng vẫn không...",
+          "startTime": 55.76,
+          "endTime": 60.03
+        },
+        {
+          "speaker": "A",
+          "ja": "[公園](こうえん)でも[散歩](さんぽ)してみたら？ 気分が[晴](は)れるよ。",
+          "vi": "Hay cậu thử đi dạo trong công viên xem sao? Sẽ dễ chịu hơn đấy.",
+          "startTime": 60.03,
+          "endTime": 63.87
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、でも、よその犬を見るとまた思い出しちゃって。",
+          "vi": "Ừ, nhưng nhìn thấy chó của người khác là tớ sẽ lại nhớ đến nó mất.",
+          "startTime": 63.87,
+          "endTime": 69.65
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねー、もう、立ち[直](なお)れないくらいショックだったってことある？",
+          "vi": "Này, cậu đã bao giờ bị sốc đến mức không thể gượng dậy được chưa?",
+          "startTime": 69.65,
+          "endTime": 75.75
+        },
+        {
+          "speaker": "B",
+          "ja": "ありすぎて思い出せないよ！",
+          "vi": "Có quá nhiều khiến tớ không thể nhớ nổi ấy chứ!",
+          "startTime": 75.75,
+          "endTime": 78
+        },
+        {
+          "speaker": "A",
+          "ja": "人間って[不思議](ふしぎ)だよねー。それでも何とか生きていけちゃうんだからね〜。",
+          "vi": "Con người thật là lạ nhỉ. Vì dù vậy mà vẫn gắng gượng sống được.",
+          "startTime": 78,
+          "endTime": 83.54
+        },
+        {
+          "speaker": "B",
+          "ja": "ある[程度](ていど)[鈍感](どんかん)っていうのも[才能](さいのう)の一つだよね。",
+          "vi": "Ở một mức độ nào đó, thiếu nhạy cảm cũng là một tài năng đấy nhỉ!",
+          "startTime": 83.54,
+          "endTime": 86.95
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ〜あ、もうヘトヘトだ。",
+          "vi": "Ôi, tớ mệt rã rời rồi.",
+          "startTime": 86.95,
+          "endTime": 91.92
+        },
+        {
+          "speaker": "B",
+          "ja": "だいぶ手こずってるようだね。それで[許](ゆる)してもらえたのか？",
+          "vi": "Cậu đã khá vất vả nhỉ! Thế đã được tha thứ chưa?",
+          "startTime": 91.92,
+          "endTime": 96.07
+        },
+        {
+          "speaker": "A",
+          "ja": "うん、どうにかね。いや、今度の彼女は手ごわい。",
+          "vi": "Ừ, cũng ổn ổn rồi. Cô bạn gái lần này rắn thật.",
+          "startTime": 96.07,
+          "endTime": 100.56
+        },
+        {
+          "speaker": "B",
+          "ja": "手ごわいほど男は[振](ふ)り回されて[夢中](むちゅう)になるもんだってこと、彼女はちゃんと知ってるんだよ。",
+          "vi": "Cô ấy biết rõ là càng rắn thì càng điều khiển được đàn ông, khiến họ say mê mình.",
+          "startTime": 100.56,
+          "endTime": 106.69
+        },
+        {
+          "speaker": "A",
+          "ja": "それが[過](す)ぎると、[愛想](あいそ)をつかされるってことも知っといてほしいけどね。",
+          "vi": "Tớ cũng muốn cô ấy biết là nếu quá đi thì sẽ mất hết tình cảm.",
+          "startTime": 106.69,
+          "endTime": 111.48
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "何、この写真、すごいピンぼけじゃない。",
+          "vi": "Ảnh kiểu gì thế này? Chẳng nét gì cả.",
+          "startTime": 111.48,
+          "endTime": 116.66
+        },
+        {
+          "speaker": "B",
+          "ja": "やっぱり？ [岡本](おかもと)さんに[任](まか)せたのがまずかったね。",
+          "vi": "Cậu cũng thấy thế à? Quả là sai lầm khi giao cho Okamoto.",
+          "startTime": 116.66,
+          "endTime": 120.37
+        },
+        {
+          "speaker": "A",
+          "ja": "あ、でも、見て、[由美](ゆみ)ちゃんだけはピントばっちりに写ってるよ。",
+          "vi": "A, nhưng nhìn này, riêng Yumi thì rõ mồn một.",
+          "startTime": 120.37,
+          "endTime": 125.01
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、そういうことかー。由美ちゃんだけしか目に入ってなかったのね、岡本さん。",
+          "vi": "Chà, ra là thế. Trong mắt Okamoto chỉ có Yumi thôi nhỉ!",
+          "startTime": 125.01,
+          "endTime": 130.3
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "リナの[元彼](もとかれ)、[新](あたら)しい彼女できたんだって。しかもクラスメートのナオよ。[別](わか)れてから一週間も[経](た)ってないのに、ひどすぎない？",
+          "vi": "Rina, nghe nói bạn trai cũ của cậu có bạn gái mới rồi đấy. Lại là Nao lớp mình nữa chứ! Chia tay chưa được 1 tuần. Cậu ta thật quá đáng!",
+          "startTime": 130.31,
+          "endTime": 140.99
+        },
+        {
+          "speaker": "B",
+          "ja": "ふん、いいじゃない、あいつが何しようと、もう[関係](かんけい)ないし…。",
+          "vi": "Hừm, có sao đâu. Hắn ta có làm gì cũng chẳng liên quan đến mình....",
+          "startTime": 140.99,
+          "endTime": 145.3
+        },
+        {
+          "speaker": "A",
+          "ja": "ちょっとなんか言ってやったほうがいいんじゃない？",
+          "vi": "Cậu nên nói gì đó với cậu ta đi chứ?",
+          "startTime": 145.3,
+          "endTime": 148.15
+        },
+        {
+          "speaker": "B",
+          "ja": "もう私がとやかく言う[筋合](すじあ)いじゃないから、二度とあいつの名前は口に出さないでくれる？",
+          "vi": "Tớ không còn ở vị trí có thể nói này nói nọ nữa nên làm ơn đừng nhắc đến tên hắn ta nữa được không?",
+          "startTime": 148.15,
+          "endTime": 153.52
+        }
+      ]
+    }
+  ]
 }
   
 ]
