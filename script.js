@@ -5937,14 +5937,14 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
                 </div>
             )}
-{/* MODAL HƯỚNG DẪN KAIWA (MONOCHROME & KÍCH THƯỚC CHUẨN) */}
+{/* MODAL HƯỚNG DẪN KAIWA (GỌN NHẸ) */}
             {isGuideOpen && (
                 <div 
                     className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
                     onClick={() => setIsGuideOpen(false)}
                 >
                     <div 
-                        className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col max-h-[75vh] overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
+                        className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
                         onClick={e => e.stopPropagation()}
                     >
                         {/* Header */}
@@ -5956,8 +5956,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm">✕</button>
                         </div>
 
-                        {/* Content */}
-                        <div className="p-5 flex-1 overflow-y-auto custom-scrollbar space-y-5">
+                        {/* Content (Đã bỏ overflow-y-auto và flex-1 để ôm sát nội dung) */}
+                        <div className="p-5 space-y-5">
                             
                             {/* 1. Xử lý sự cố âm thanh */}
                             <div className="bg-zinc-50 border border-zinc-200 p-4 rounded-2xl">
@@ -5970,9 +5970,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 </p>
                             </div>
 
-                            {/* 2. Tính năng Luyện tập */}
+                            {/* 2. Tính năng Luyện tập (Đã xóa tiêu đề và các mục dư thừa) */}
                             <div>
-                                <h4 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">Các thao tác</h4>
                                 <ul className="space-y-3">
                                     <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
                                         <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
@@ -5981,26 +5980,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                         <div>
                                             <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Phát lại một câu</span>
                                             <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Bấm trực tiếp vào <b>câu thoại</b>, hệ thống sẽ tự tua và đọc lại.</span>
-                                        </div>
-                                    </li>
-
-                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
-                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                        </div>
-                                        <div>
-                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Tập vai A / B</span>
-                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Chọn vai, hệ thống sẽ <b>tắt tiếng</b> nhân vật đó để bạn tự đọc.</span>
-                                        </div>
-                                    </li>
-
-                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
-                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
-                                        </div>
-                                        <div>
-                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Ẩn lời thoại</span>
-                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Khi đang Tập Vai, tích chọn <b>Ẩn lời thoại</b> để thử thách trí nhớ của bạn.</span>
                                         </div>
                                     </li>
                                 </ul>
