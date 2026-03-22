@@ -2198,6 +2198,274 @@
       ]
     }
   ]
+},
+  {
+  "id": "12",
+  "title": "PHẦN 3 - TRUNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p12.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "夏バテ[対策](たいさく)、何かしていますか？",
+          "vi": "Chị đang làm gì để chống lại cái nóng của mùa hè?",
+          "startTime": 0,
+          "endTime": 3.92
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね、うなぎの[蒲焼](かばや)きを食べるとか…。",
+          "vi": "Để tôi nghĩ xem.... Ăn cá trình nướng này...",
+          "startTime": 3.92,
+          "endTime": 7.14
+        },
+        {
+          "speaker": "A",
+          "ja": "わー、[豪華](ごうか)ですね。[僕](ぼく)なんか、アイス食べてしのいでるぐらいです。",
+          "vi": "Chà, sang quá nhỉ. Tôi thì chỉ ăn kem cho mát thôi.",
+          "startTime": 7.14,
+          "endTime": 12.5
+        },
+        {
+          "speaker": "B",
+          "ja": "[冷](つめ)たいものは体にあまりよくないんだよ。",
+          "vi": "Đồ lạnh không tốt cho sức khỏe đâu.",
+          "startTime": 12.5,
+          "endTime": 15.58
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "さー、どうぞ。[熱](あつ)いうちに[召](め)し上がってください。",
+          "vi": "Mời chị. Mời chị dùng cho nóng.",
+          "startTime": 15.58,
+          "endTime": 20.28
+        },
+        {
+          "speaker": "B",
+          "ja": "わー、おいしそう。じゃ、[遠慮](えんりょ)なくいただきます。",
+          "vi": "Oa, trông ngon quá! Vậy tôi không làm khách nữa.",
+          "startTime": 20.28,
+          "endTime": 23.22
+        },
+        {
+          "speaker": "A",
+          "ja": "いかがですか？",
+          "vi": "Chị thấy thế nào?",
+          "startTime": 23.22,
+          "endTime": 24.4
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、やっぱりできたてはおいしいですね。",
+          "vi": "Đúng là mới làm xong ăn ngon thật!",
+          "startTime": 24.4,
+          "endTime": 27.8
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "これ、[福岡](ふくおか)のお[土産](みやげ)なんですけど、[皆](みな)さんで[召](め)し上がってください。",
+          "vi": "Đây là quà Fukuoka, mời mọi người ăn ạ.",
+          "startTime": 27.82,
+          "endTime": 34
+        },
+        {
+          "speaker": "B",
+          "ja": "あら、ありがとうございます。",
+          "vi": "Chà, cám ơn anh.",
+          "startTime": 34,
+          "endTime": 35.58
+        },
+        {
+          "speaker": "A",
+          "ja": "[地元](じもと)では有名なお[菓子](かし)なんです。[向](む)こうで食べたんですけど、おいしかったんで…。",
+          "vi": "Đây là loại bánh nổi tiếng ở địa phương. Tôi đã ăn ở đó rồi và thấy ngon thật....",
+          "startTime": 35.58,
+          "endTime": 41.04
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃあ、[早速](さっそく)お茶入れて、いただきますね。",
+          "vi": "Vậy, tôi sẽ đi pha trà rồi thử ngay.",
+          "startTime": 41.04,
+          "endTime": 43.73
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いよいよ[受験](じゅけん)勉強も[追](お)い[込](こ)みですね。",
+          "vi": "Học thi cũng sắp đến giai đoạn nước rút rồi nhỉ.",
+          "startTime": 43.73,
+          "endTime": 47.91
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。あとがないので、ここで[一発](いっぱつ)決めようと思ってます。",
+          "vi": "Vâng. Không có đường lùi nên cháu quyết thi là phải đỗ.",
+          "startTime": 47.91,
+          "endTime": 52.16
+        },
+        {
+          "speaker": "A",
+          "ja": "その[意気込](いきご)みなら[合格間違](ごうかくまちが)いなしですね。[頑張](がんば)ってください。",
+          "vi": "Quyết tâm như vậy chắc chắn sẽ đỗ. Cố lên nhé!",
+          "startTime": 52.16,
+          "endTime": 56.64
+        },
+        {
+          "speaker": "B",
+          "ja": "ありがとうございます。頑張ります。",
+          "vi": "Cám ơn cô. Cháu sẽ cố ạ.",
+          "startTime": 56.64,
+          "endTime": 59.08
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[卒業後](そつぎょうご)は何をしたいですか？",
+          "vi": "Sau khi tốt nghiệp, cháu muốn làm gì?",
+          "startTime": 59.08,
+          "endTime": 62.9
+        },
+        {
+          "speaker": "B",
+          "ja": "日本でしばらく仕事をしてみたいんですが…。",
+          "vi": "Cháu muốn thử làm việc ở Nhật Bản một thời gian.",
+          "startTime": 62.9,
+          "endTime": 66.02
+        },
+        {
+          "speaker": "A",
+          "ja": "外国人の[就職](しゅうしょく)はなかなか[難](むずか)しいけど、これをしたいという気持ちがあれば[可能性](かのうせい)はありますよ。",
+          "vi": "Người nước ngoài khó xin việc ở đây lắm, nhưng nếu cháu có nguyện vọng muốn làm điều này thì cũng có hy vọng đấy.",
+          "startTime": 66.02,
+          "endTime": 73.23
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか…。私は[一応](いちおう)ＩＴ[企業](きぎょう)を[志望](しぼう)しているんですけど。",
+          "vi": "Thế ạ?! Cháu mong được làm việc ở công ty IT ạ.",
+          "startTime": 73.23,
+          "endTime": 78.26
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "来週は[箱根](はこね)ですね。箱根に行ったら、[温泉](おんせん)たくさん入りたいですね。",
+          "vi": "Tuần sau là đi Hakone rồi. Đến Hakone, tôi muốn tắm suối nước nóng nhiều lần.",
+          "startTime": 78.26,
+          "endTime": 85.68
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ。少なくとも5回は入りましょうね。",
+          "vi": "Ừ, ít nhất cũng phải 5 lần nhé.",
+          "startTime": 85.68,
+          "endTime": 88.28
+        },
+        {
+          "speaker": "A",
+          "ja": "でも、あんまり入りすぎると[湯](ゆ)あたりして体に良くないって言いますよ。",
+          "vi": "Nhưng người ta bảo tắm nhiều quá sẽ không tốt cho cơ thể.",
+          "startTime": 88.28,
+          "endTime": 92.93
+        },
+        {
+          "speaker": "B",
+          "ja": "あー、そうなんですか。てっきり[体](からだ)にいいと思ってました。",
+          "vi": "Ồ, vậy sao? Thế mà tôi cứ tưởng là tốt cho cơ thể cơ đấy.",
+          "startTime": 92.93,
+          "endTime": 96.93
+        },
+        {
+          "speaker": "A",
+          "ja": "そうでもないみたいですよ。",
+          "vi": "Có vẻ không phải là như thế.",
+          "startTime": 96.93,
+          "endTime": 98.9
+        },
+        {
+          "speaker": "B",
+          "ja": "何でも[過](す)ぎると良くないんでしょうね。",
+          "vi": "Cái gì quá nhiều cũng không tốt nhỉ.",
+          "startTime": 98.9,
+          "endTime": 101.29
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[最近](さいきん)、[松下](まつした)さんの[姿](すがた)が見えないけど、どうしたのかしら。",
+          "vi": "Dạo này không thấy Matsushita-san nhỉ. Không biết có chuyện gì không?",
+          "startTime": 101.29,
+          "endTime": 106.65
+        },
+        {
+          "speaker": "B",
+          "ja": "何でも、ご家族にご[不幸](ふこう)があったとかで、[大変](たいへん)だったみたい。",
+          "vi": "Hình như chị ấy đang khó khăn vì gia đình có chuyện buồn.",
+          "startTime": 106.65,
+          "endTime": 111.39
+        },
+        {
+          "speaker": "A",
+          "ja": "あら、そうなの。だから、電話しても出なかったのね。",
+          "vi": "Ôi trời. Thảo nào mà chị ấy không nghe điện thoại.",
+          "startTime": 111.39,
+          "endTime": 115.13
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、前はメール入れたらすぐに[返事](へんじ)くれたんですけどね。",
+          "vi": "Vâng, nhưng hôm trước tôi gửi mail thì chị ấy trả lời ngay.",
+          "startTime": 115.13,
+          "endTime": 119.35
+        },
+        {
+          "speaker": "A",
+          "ja": "どなたがお[亡](な)くなりになったんでしょうねー。",
+          "vi": "Không biết ai mất vậy nhỉ?",
+          "startTime": 119.35,
+          "endTime": 122.27
+        },
+        {
+          "speaker": "B",
+          "ja": "さー、どなたでしょうかねー。",
+          "vi": "Tôi không biết. Là ai được nhỉ?",
+          "startTime": 122.27,
+          "endTime": 124.7
+        }
+      ]
+    }
+  ]
 }
   
 ]
