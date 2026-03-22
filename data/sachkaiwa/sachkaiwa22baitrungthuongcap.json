@@ -710,6 +710,398 @@
       ]
     }
   ]
+},
+  {
+  "id": "07",
+  "title": "PHẦN 2 - TRUNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p7.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねー、どうしてこのジムこんなに高いの？",
+          "vi": "Này, sao phòng tập này lại đắt thế?",
+          "startTime": 0.35,
+          "endTime": 4.58
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜、[高級感](こうきゅうかん)出そうとしてんじゃない？",
+          "vi": "Ờ, có lẽ vì trông nó có vẻ cao cấp?",
+          "startTime": 4.58,
+          "endTime": 7.42
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、シャワールームなんかも[豪華](ごうか)そうだしね。",
+          "vi": "Ừ, phòng tắm trông cũng có vẻ sang trọng.",
+          "startTime": 7.42,
+          "endTime": 10.55
+        },
+        {
+          "speaker": "B",
+          "ja": "そうそう、ほかのところとは[違](ちが)うよね。",
+          "vi": "Đúng đấy, khác với những phòng tập khác nhỉ!",
+          "startTime": 10.55,
+          "endTime": 13.28
+        },
+        {
+          "speaker": "A",
+          "ja": "うん…でもこの[値段](ねだん)じゃちょっと手が出ないなー。",
+          "vi": "Ừ... Nhưng giá này thì tớ không trả nổi.",
+          "startTime": 13.28,
+          "endTime": 16.93
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだねー。",
+          "vi": "Cậu nói phải.",
+          "startTime": 16.93,
+          "endTime": 18.27
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "きゃー、あれ[俳優](はいゆう)の[田中](たなか)ジョージじゃない？",
+          "vi": "Ôi, kia là nam diễn viên George Tanaka phải không?",
+          "startTime": 18.27,
+          "endTime": 22.58
+        },
+        {
+          "speaker": "B",
+          "ja": "どこどこ？ え〜、そうかな。[似](に)てるけど、なんか[微妙](びみょう)に[違](ちが)わない？",
+          "vi": "Đâu, đâu? Ờ, có lẽ thế. Trông giống nhưng hình như hơi khác thì phải?",
+          "startTime": 22.58,
+          "endTime": 27.81
+        },
+        {
+          "speaker": "A",
+          "ja": "うそ〜、[絶対](ぜったい)に[田中](たなか)ジョージよ。",
+          "vi": "Không đâu. Chắc chắn là George Tanaka đấy.",
+          "startTime": 27.81,
+          "endTime": 30.95
+        },
+        {
+          "speaker": "B",
+          "ja": "でもさ〜、あの田中ジョージが100円ショップなんかに来る？",
+          "vi": "Nhưng, George Tanaka đó mà tới cửa hàng 100 Yên à?",
+          "startTime": 30.95,
+          "endTime": 34.98
+        },
+        {
+          "speaker": "A",
+          "ja": "それもそうだよね…。",
+          "vi": "Cũng phải....",
+          "startTime": 34.98,
+          "endTime": 37.11
+        },
+        {
+          "speaker": "B",
+          "ja": "[他人](たにん)の[空似](そらに)だよ。",
+          "vi": "Chỉ là người giống người thôi.",
+          "startTime": 37.11,
+          "endTime": 38.91
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "何、どうしたの？ あんなに人が[集](あつ)まって…。",
+          "vi": "Gì vậy, có chuyện gì vậy? Sao đông người thế?",
+          "startTime": 38.91,
+          "endTime": 43.8
+        },
+        {
+          "speaker": "B",
+          "ja": "[三丁目](さんちょうめ)のビルで火事があったんだって。",
+          "vi": "Nghe nói có hỏa hoạn trong tòa nhà ở phường 3.",
+          "startTime": 43.8,
+          "endTime": 46.57
+        },
+        {
+          "speaker": "A",
+          "ja": "えっ、火事？ だから[野次馬](やじうま)がたくさんいるんだ。ほら、テレビカメラも来てる。",
+          "vi": "Ơ, hỏa hoạn á? Thảo nào mà tập trung nhiều người thích hóng chuyện thế. Kìa, cả truyền hình cũng tới.",
+          "startTime": 46.57,
+          "endTime": 52.7
+        },
+        {
+          "speaker": "B",
+          "ja": "何でも[放火](ほうか)らしいよ。",
+          "vi": "Thấy bảo là có kẻ đốt.",
+          "startTime": 52.7,
+          "endTime": 54.66
+        },
+        {
+          "speaker": "A",
+          "ja": "へー、そうなの？ [日中](にっちゅう)、[堂々](どうどう)と放火なんて…。",
+          "vi": "Ồ, vậy sao? Ban ngày ban mặt mà dám đốt thì thật....",
+          "startTime": 54.66,
+          "endTime": 58.92
+        },
+        {
+          "speaker": "B",
+          "ja": "[物騒](ぶっそう)な世の中になったもんだね。",
+          "vi": "Thời buổi loạn hết cả rồi.",
+          "startTime": 58.92,
+          "endTime": 61.47
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日は本当、ついてないよ！ [定期](ていき)[落](お)としちゃったんだ。",
+          "vi": "Hôm nay đúng là xui xẻo! Tớ làm rơi mất vé tháng rồi.",
+          "startTime": 61.47,
+          "endTime": 67.02
+        },
+        {
+          "speaker": "B",
+          "ja": "えっ、どこで落としたの？",
+          "vi": "Hả, cậu làm rơi ở đâu?",
+          "startTime": 67.02,
+          "endTime": 68.99
+        },
+        {
+          "speaker": "A",
+          "ja": "それがわかってればね〜。",
+          "vi": "Nếu mà biết thì....",
+          "startTime": 68.99,
+          "endTime": 71.2
+        },
+        {
+          "speaker": "B",
+          "ja": "とりあえず、定期を買った駅に[連絡](れんらく)してみたら？ 落とした定期は、そこに[届](とど)くことになってるんだって。",
+          "vi": "Sao không liên lạc với ga mà cậu đã mua vé? Thấy bảo vé bị rơi sẽ được gửi đến đó.",
+          "startTime": 71.2,
+          "endTime": 78.21
+        },
+        {
+          "speaker": "A",
+          "ja": "でも、お金が少し入ってたんだけど、[大丈夫](だいじょうぶ)かな。",
+          "vi": "Nhưng vẫn còn ít tiền trong đó, liệu có còn không nhỉ?",
+          "startTime": 78.21,
+          "endTime": 82.39
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、お金が入ってたなら、出てこないかもね。",
+          "vi": "Ừm, nếu còn tiền thì có khi không quay lại đâu.",
+          "startTime": 82.39,
+          "endTime": 87.16
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[映画](えいが)5本ハシゴしたら、[内容](ないよう)がごちゃごちゃになっちゃったよ。",
+          "vi": "Sau khi đi từ phòng chiếu này sang phòng chiếu khác để xem 5 phim thì nội dung lẫn lộn hết.",
+          "startTime": 87.16,
+          "endTime": 93.01
+        },
+        {
+          "speaker": "B",
+          "ja": "5本ハシゴって、つまり10時間くらい映画見[続](つづ)けたってこと？",
+          "vi": "Đi từ phòng chiếu này sang phòng chiếu khác để xem 5 phim? Nghĩa là cậu xem liên tục 10 tiếng liền?",
+          "startTime": 93.01,
+          "endTime": 98.02
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。シネコンだから[便利](べんり)だし、映画の日は1本1000円だからね。",
+          "vi": "Ừ, cụm tổ hợp rạp chiếu phim liên hoàn nên tiện lắm và vào ngày chiếu phim thì 1 phim có 1000 Yên thôi.",
+          "startTime": 98.02,
+          "endTime": 103.07
+        },
+        {
+          "speaker": "B",
+          "ja": "内容がごちゃごちゃになっちゃうなら、あんまり意味ないと思うけど。",
+          "vi": "Nếu nội dung lẫn lộn thì tớ nghĩ chẳng có ý nghĩa gì.",
+          "startTime": 103.07,
+          "endTime": 107.48
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、[完全](かんぜん)に頭に入ってるのは1、2本かな。",
+          "vi": "Ừ, có lẽ tớ nhớ được hết 1 hoặc 2 phim.",
+          "startTime": 107.48,
+          "endTime": 111.18
+        },
+        {
+          "speaker": "B",
+          "ja": "ふーん、私は、やっぱり1本をじっくり見るほうが[好](す)きだな。",
+          "vi": "Hừm, tớ vẫn thích xem kỹ một bộ phim hơn.",
+          "startTime": 111.18,
+          "endTime": 115.94
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ、[信号](しんごう)が青になった。行こう！",
+          "vi": "Kìa, đèn chuyển sang xanh dương rồi. Đi thôi!",
+          "startTime": 115.94,
+          "endTime": 120.16
+        },
+        {
+          "speaker": "B",
+          "ja": "え、青？ 青じゃないよ、[緑](みどり)でしょう？",
+          "vi": "Ơ, xanh dương? Không phải xanh dương mà là xanh lá cây chứ?",
+          "startTime": 120.16,
+          "endTime": 123.92
+        },
+        {
+          "speaker": "A",
+          "ja": "[違](ちが)うよ、日本では緑を時々青って言うんだよ。",
+          "vi": "Không phải. Ở Nhật Bản, đôi khi gọi xanh lá cây là xanh dương.",
+          "startTime": 123.92,
+          "endTime": 128.01
+        },
+        {
+          "speaker": "B",
+          "ja": "ふーん、色の[感覚](かんかく)が[違](ちが)うのかー。",
+          "vi": "Hừm, là do cảm giác về màu sắc khác nhau à?!",
+          "startTime": 128.01,
+          "endTime": 130.92
+        },
+        {
+          "speaker": "A",
+          "ja": "そう言えば、「顔が[真](ま)っ[青](さお)になった」とも言うね。",
+          "vi": "Nói đến mới nhớ, người Nhật cũng nói là \"Mặt xanh lét\"",
+          "startTime": 130.92,
+          "endTime": 134.45
+        },
+        {
+          "speaker": "B",
+          "ja": "まさか、顔が緑になったってことじゃないよね。",
+          "vi": "Không có chuyện mặt trở nên xanh lá cây đâu nhỉ?",
+          "startTime": 134.45,
+          "endTime": 138.01
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[最近](さいきん)、[肩](かた)が[凝](こ)って肩が凝って…。",
+          "vi": "Gần đây vai mỏi, mỏi quá....",
+          "startTime": 138.01,
+          "endTime": 142.66
+        },
+        {
+          "speaker": "B",
+          "ja": "へー、そうなの。もしかしてデスクワークばっかりなんじゃないの？",
+          "vi": "Ồ, vậy sao?! Có lẽ tại cậu ngồi làm việc nhiều quá đấy!",
+          "startTime": 142.66,
+          "endTime": 147.22
+        },
+        {
+          "speaker": "A",
+          "ja": "そうなんだ。一日8時間はパソコンに[向](む)かってるもん。",
+          "vi": "Cậu nói phải. Một ngày tớ ngồi máy tính 8 tiếng liền.",
+          "startTime": 147.22,
+          "endTime": 151.44
+        },
+        {
+          "speaker": "B",
+          "ja": "1時間に一回ぐらい、ストレッチでもしてみたら？",
+          "vi": "Hay cậu thử giãn cơ mỗi tiếng một lần xem?",
+          "startTime": 151.44,
+          "endTime": 155.26
+        },
+        {
+          "speaker": "A",
+          "ja": "そうだよね〜。だけど仕事を始めるとあっという間に3、4時間[過](す)ぎちゃうんだ。",
+          "vi": "Ý hay đấy. Nhưng cứ bắt đầu làm việc là loáng một cái đã 3,4 tiếng trôi qua.",
+          "startTime": 155.26,
+          "endTime": 161.5
+        },
+        {
+          "speaker": "B",
+          "ja": "あのね、わかってると思うけど、[働](はたら)きすぎは良くないよ。",
+          "vi": "Này, tớ nghĩ cậu biết là làm việc nhiều không tốt đâu đấy!",
+          "startTime": 161.5,
+          "endTime": 166.22
+        },
+        {
+          "speaker": "A",
+          "ja": "そうだね、気をつけるよ。",
+          "vi": "Tớ biết. Tớ sẽ chú ý.",
+          "startTime": 166.22,
+          "endTime": 168.86
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ちょっとこのメール見て、「あけおめ、ことよろ」ってわかる？",
+          "vi": "Này, đọc cái mail này đi. Cậu có hiểu 「あけおめ、ことよろ」 nghĩa là gì không?",
+          "startTime": 168.86,
+          "endTime": 175.36
+        },
+        {
+          "speaker": "B",
+          "ja": "あけおめ？ ことよろ？",
+          "vi": "Akeome? Kotoyoro?",
+          "startTime": 175.36,
+          "endTime": 178.12
+        },
+        {
+          "speaker": "A",
+          "ja": "あけましておめでとうが「あけおめ」、今年もどうぞよろしくが「ことよろ」なんだって。",
+          "vi": "Chúc mừng năm mới viết tắt thành 「あけおめ」, còn năm nay cũng mong được giúp đỡ viết tắt thành 「ことよろ」",
+          "startTime": 178.12,
+          "endTime": 185.12
+        },
+        {
+          "speaker": "B",
+          "ja": "へー、そうなんだ、知らなかった。外来語にそのパターンがあるのは知ってたけど。",
+          "vi": "Chà, ra là thế. Tớ không hề biết đấy. Chỉ biết là trong từ vay mượn thì có kiểu viết tắt như thế thôi.",
+          "startTime": 185.12,
+          "endTime": 191.19
+        },
+        {
+          "speaker": "A",
+          "ja": "「コンビニ」とか「マザコン」とか「セクハラ」なんかだよね。",
+          "vi": "Kiểu như 「コンビニ (convenience store)」, 「マザコン (mother complex)」 hay 「セクハラ (sexual harassment)」 ấy nhỉ?",
+          "startTime": 191.19,
+          "endTime": 194.77
+        },
+        {
+          "speaker": "B",
+          "ja": "日本人って、せっかちなのかな？ 何でも[略](りゃく)すよね。",
+          "vi": "Người Nhật vội vàng hay sao vậy? Cái gì cũng giản lược.",
+          "startTime": 194.77,
+          "endTime": 199.12
+        }
+      ]
+    }
+  ]
 }
   
 ]
