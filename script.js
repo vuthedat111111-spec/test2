@@ -5040,25 +5040,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     const [courseCache, setCourseCache] = React.useState({});
     const [isGuideOpen, setIsGuideOpen] = React.useState(false);
 
-    // --- STATE MỚI CHO TÍNH NĂNG CHẤM ĐIỂM ---
-    const [isScoringMode, setIsScoringMode] = React.useState(false); 
-    const [scoringStep, setScoringStep] = React.useState('bot'); 
-    const [currentScoreLine, setCurrentScoreLine] = React.useState(0); 
-    const [isListening, setIsListening] = React.useState(false); 
-    const [userTranscript, setUserTranscript] = React.useState(''); 
-    const [scoredLines, setScoredLines] = React.useState([]); 
-    const [finalScore, setFinalScore] = React.useState(null); 
-
-    const recognitionRef = React.useRef(null);
-    
-    // Gộp tất cả câu thoại thành mảng 1 chiều để dễ chấm điểm
-    const flatDialogues = React.useMemo(() => {
-        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
-        let arr = [];
-        convs.forEach(c => arr = [...arr, ...c.dialogues]);
-        return arr.filter(d => d.startTime !== undefined);
-    }, [lesson]);
-
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else {
@@ -5449,7 +5430,7 @@ const renderGuideOverlay = () => (
 
 let hasWarnedAudioGlobal = false;
 // ==========================================
-// COMPONENT: KAIWA PRACTICE VIEW (SỬ DỤNG HOWLER.JS SIÊU MƯỢT + CHẤM ĐIỂM WEB SPEECH API)
+// COMPONENT: KAIWA PRACTICE VIEW (SỬ DỤNG HOWLER.JS SIÊU MƯỢT)
 // ==========================================
 const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -5466,174 +5447,26 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const [showAudioWarning, setShowAudioWarning] = React.useState(false);
     const [hideText, setHideText] = React.useState(false);
     const [isGuideOpen, setIsGuideOpen] = React.useState(false);
-
-    // --- STATE MỚI CHO TÍNH NĂNG CHẤM ĐIỂM ---
-    const [isScoringMode, setIsScoringMode] = React.useState(false); 
-    const [scoringStep, setScoringStep] = React.useState('bot'); 
-    const [currentScoreLine, setCurrentScoreLine] = React.useState(0); 
-    const [isListening, setIsListening] = React.useState(false); 
-    const [userTranscript, setUserTranscript] = React.useState(''); 
-    const [scoredLines, setScoredLines] = React.useState([]); 
-    const [finalScore, setFinalScore] = React.useState(null); 
-
-    const recognitionRef = React.useRef(null);
+    const triggerAudioWarning = () => {
+        if (!hasWarnedAudioGlobal) {
+            setShowAudioWarning(true);
+            hasWarnedAudioGlobal = true; // Đánh dấu là đã hiện
+        }
+    };
+    const closeAudioWarning = (e) => {
+        if (e) e.stopPropagation();
+        setShowAudioWarning(false);
+    };
+    
     const lineRefs = React.useRef([]);
     const soundRef = React.useRef(null); 
     const timerRef = React.useRef(null); 
     const scrollRef = React.useRef(null);
     const stopAtTimeRef = React.useRef(null);
 
-    // Gộp tất cả câu thoại thành mảng 1 chiều để dễ quản lý index khi chấm điểm
-    const flatDialogues = React.useMemo(() => {
-        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
-        let arr = [];
-        convs.forEach(c => arr = [...arr, ...c.dialogues]);
-        return arr.filter(d => d.startTime !== undefined);
-    }, [lesson]);
-
-    const triggerAudioWarning = () => {
-        if (!hasWarnedAudioGlobal) {
-            setShowAudioWarning(true);
-            hasWarnedAudioGlobal = true; 
-        }
-    };
-
-    const closeAudioWarning = (e) => {
-        if (e) e.stopPropagation();
-        setShowAudioWarning(false);
-    };
-    
-    // ==========================================
-    // CÁC HÀM XỬ LÝ CHẤM ĐIỂM BẰNG WEB SPEECH API
-    // ==========================================
-    const cleanJapaneseText = (text) => {
-        if (!text) return "";
-        return text.replace(/[。、！？\s\n　]/g, '').trim();
-    };
-
-    const calculateAccuracy = (expected, actual) => {
-        const cleanExpected = cleanJapaneseText(expected);
-        const cleanActual = cleanJapaneseText(actual);
-        if (!cleanActual) return { percent: 0, html: <span className="text-red-500">Chưa nghe được âm thanh</span> };
-
-        let matchCount = 0;
-        let htmlElements = [];
-        for (let i = 0; i < cleanExpected.length; i++) {
-            if (cleanActual.includes(cleanExpected[i])) {
-                matchCount++;
-                htmlElements.push(<span key={i} className="text-green-600 font-black">{cleanExpected[i]}</span>);
-            } else {
-                htmlElements.push(<span key={i} className="text-red-500 font-black">{cleanExpected[i]}</span>);
-            }
-        }
-        const percent = Math.round((matchCount / cleanExpected.length) * 100);
-        return { percent: Math.min(percent, 100), html: <>{htmlElements}</> };
-    };
-
-    const startListening = () => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-            alert("Trình duyệt không hỗ trợ nhận diện giọng nói. Vui lòng dùng Google Chrome.");
-            return;
-        }
-
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'ja-JP'; 
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-
-        recognition.onstart = () => setIsListening(true);
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            setUserTranscript(transcript);
-            
-            const currentLineData = flatDialogues[currentScoreLine];
-            const result = calculateAccuracy(currentLineData.ja, transcript);
-            
-            setScoredLines(prev => [...prev, { 
-                lineIndex: currentScoreLine, 
-                transcript: transcript, 
-                score: result.percent,
-                html: result.html
-            }]);
-            setScoringStep('result');
-        };
-        recognition.onerror = () => {
-            alert("Không nghe rõ, vui lòng thử lại!");
-            setIsListening(false);
-        };
-        recognition.onend = () => setIsListening(false);
-
-        recognitionRef.current = recognition;
-        recognition.start();
-    };
-
-    const playScoreLine = React.useCallback((index) => {
-        if (index >= flatDialogues.length) {
-            setFinalScore(scoredLines.length > 0 ? Math.round(scoredLines.reduce((acc, curr) => acc + curr.score, 0) / scoredLines.length) : 0);
-            return;
-        }
-        const line = flatDialogues[index];
-        setActiveIndex(index);
-        if (lineRefs.current[index]) lineRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        const isMyTurn = (roleplayMode === 'hideA' && line.speaker === 'A') || (roleplayMode === 'hideB' && line.speaker === 'B');
-
-        if (isMyTurn) {
-            setScoringStep('user');
-            setUserTranscript('');
-        } else {
-            setScoringStep('bot');
-            if (!soundRef.current) initAndPlayAudio(line.startTime);
-            else {
-                soundRef.current.seek(line.startTime);
-                soundRef.current.volume(1);
-                soundRef.current.play();
-            }
-            stopAtTimeRef.current = line.endTime;
-        }
-    }, [flatDialogues, roleplayMode, scoredLines]);
-
-    const handleNextScoreLine = React.useCallback(() => {
-        const nextIndex = currentScoreLine + 1;
-        setCurrentScoreLine(nextIndex);
-        playScoreLine(nextIndex);
-    }, [currentScoreLine, playScoreLine]);
-
-    const toggleScoringMode = () => {
-        if (!isScoringMode) {
-            if (roleplayMode === 'all') {
-                alert("Vui lòng chọn 'Tập vai A' hoặc 'Tập vai B' trước khi bật chấm điểm.");
-                return;
-            }
-            setIsScoringMode(true);
-            setCurrentScoreLine(0);
-            setScoredLines([]);
-            setFinalScore(null);
-            setIsAutoScroll(true);
-            if (soundRef.current && isPlaying) {
-                soundRef.current.pause();
-                setIsPlaying(false);
-            }
-            playScoreLine(0);
-        } else {
-            setIsScoringMode(false);
-            if (soundRef.current) soundRef.current.stop();
-        }
-    };
-
-    // Tự động qua câu khi Máy đọc xong trong chế độ chấm điểm
-    React.useEffect(() => {
-        if (isScoringMode && scoringStep === 'bot' && !isPlaying) {
-            const timer = setTimeout(() => { handleNextScoreLine(); }, 500);
-            return () => clearTimeout(timer);
-        }
-    }, [isPlaying, isScoringMode, scoringStep, handleNextScoreLine]);
-    // ==========================================
-
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     const initAndPlayAudio = (startTime = 0) => {
-        if (isAudioLoading) return; 
+        if (isAudioLoading) return; // Chống spam click khi đang tải
         setIsAudioLoading(true);
 
         const howlInstance = new Howl({
@@ -5641,16 +5474,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             html5: false, 
             preload: true,
             onload: function() {
+                // FIX LỖI DÍNH ÂM THANH: Kiểm tra nếu user đã chuyển bài hoặc đóng popup
                 if (soundRef.current !== howlInstance) {
-                    howlInstance.unload(); 
-                    return; 
+                    howlInstance.unload(); // Hủy bỏ hoàn toàn rác audio
+                    return; // Chặn lập tức, không cho chạy tiếp lệnh play
                 }
 
                 setDuration(this.duration());
-                setIsAudioLoading(false); 
+                setIsAudioLoading(false); // Tải xong tắt hiệu ứng
                 
-                this.rate(playbackRate); 
+                this.rate(playbackRate); // Áp dụng tốc độ phát
 
+                // Tua đến đúng chỗ nếu bấm vào câu thoại
                 if (startTime > 0) {
                     this.seek(startTime);
                     setCurrentTime(startTime);
@@ -5672,14 +5507,14 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             }
         });
 
+        // Gán instance vừa tạo vào biến toàn cục để theo dõi
         soundRef.current = howlInstance;
     };
-
     // --- 1. CHỈ DỌN DẸP KHI CHUYỂN BÀI MỚI ---
     React.useEffect(() => {
         if (soundRef.current) {
             soundRef.current.unload();
-            soundRef.current = null; 
+            soundRef.current = null; // Đưa về null để báo là chưa tải file
         }
         setIsPlaying(false);
         setCurrentTime(0);
@@ -5706,30 +5541,44 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
 
     // --- 3. VÒNG LẶP 60FPS: TRACKING THỜI GIAN & TẮT ÂM THANH CHUẨN XÁC ---
     React.useEffect(() => {
+        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
+        const flatLines = [];
+        convs.forEach(conv => {
+            conv.dialogues.forEach(line => {
+                if (line.startTime !== undefined && line.endTime !== undefined) {
+                    flatLines.push(line);
+                }
+            });
+        });
+
         const step = () => {
             if (soundRef.current && isPlaying && !isDragging) {
                 const seekTime = soundRef.current.seek();
                 
+                // Đề phòng Howler trả về mảng khi đang loading
                 if (typeof seekTime === 'number') {
                     setCurrentTime(seekTime);
 
                     if (stopAtTimeRef.current !== null && seekTime >= stopAtTimeRef.current) {
                         soundRef.current.pause();
                         setIsPlaying(false);
-                        stopAtTimeRef.current = null; 
-                        return; 
+                        stopAtTimeRef.current = null; // Xóa mốc thời gian
+                        return; // Dừng vòng lặp hiện tại
                     } 
                     
                     let foundIndex = -1;
                     let currentSpeaker = null;
 
-                    for (let i = 0; i < flatDialogues.length; i++) {
-                        const line = flatDialogues[i];
+                    // Quét để tìm câu đang nói và xử lý chặn họng
+                    for (let i = 0; i < flatLines.length; i++) {
+                        const line = flatLines[i];
                         
+                        // Tìm UI đang sáng
                         if (seekTime >= line.startTime && seekTime <= line.endTime) {
                             foundIndex = i;
                         }
 
+                        // Tìm nhân vật để Mute (Trừ hao cực nhẹ 0.05s vì Howler ngắt tức thì)
                         const lookaheadTime = seekTime + 0.05;
                         const isMutedCharacter = (roleplayMode === 'hideA' && line.speaker === 'A') || 
                                                  (roleplayMode === 'hideB' && line.speaker === 'B');
@@ -5739,6 +5588,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         }
                     }
 
+                    // Tự động cuộn UI
                     if (foundIndex !== activeIndex) {
                         setActiveIndex(foundIndex);
                         if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
@@ -5746,6 +5596,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         }
                     }
 
+                    // Tắt tiếng triệt để từ Core Audio
                     if (currentSpeaker) {
                         soundRef.current.volume(0);
                     } else {
@@ -5753,6 +5604,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     }
                 }
             } else if (soundRef.current && !isPlaying) {
+                // Nhả âm lượng khi ấn Pause
                 soundRef.current.volume(1);
             }
             
@@ -5766,17 +5618,19 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         return () => {
             if (timerRef.current) cancelAnimationFrame(timerRef.current);
         };
-    }, [isPlaying, roleplayMode, isAutoScroll, activeIndex, isDragging, flatDialogues]);
+    }, [isPlaying, roleplayMode, isAutoScroll, activeIndex, isDragging, lesson]);
 
     // --- CÁC HÀM TIỆN ÍCH CHO TRÌNH PHÁT ---
     const toggleAudio = () => {
         if (isAudioLoading) return;
         
+        // CHƯA TẢI FILE -> Gọi hàm tải và tự động phát
         if (!soundRef.current) {
             initAndPlayAudio(0);
             return;
         }
 
+        // ĐÃ TẢI FILE -> Phát/Dừng bình thường
         if (isPlaying) {
             soundRef.current.pause();
             setIsPlaying(false);
@@ -5796,7 +5650,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     };
 
     const handleSeek = (e) => {
-        if (isAudioLoading) return;
+        if (isAudioLoading) return; // Thêm chặn ở đây
         const time = Number(e.target.value);
         setCurrentTime(time);
         if (soundRef.current) { 
@@ -5853,6 +5707,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="bg-zinc-50 border-l-4 border-zinc-800 p-3 sm:p-4 rounded-r-xl mb-6">
                         <p className="text-sm text-zinc-700 leading-relaxed font-medium">
                             <span className="text-[10px] font-black text-zinc-900 uppercase tracking-widest block mb-1">💡 Giải thích</span>
+                            
+                            {/* DÙNG JAVASCRIPT CHUYỂN ĐỔI TRỰC TIẾP THÀNH THẺ <br/> */}
                             {String(lesson.explanation)
                                 .replace(/\\n/g, '\n') 
                                 .split('\n')
@@ -5862,6 +5718,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                         <br />
                                     </React.Fragment>
                                 ))}
+                                
                         </p>
                     </div>
                 )}
@@ -5873,15 +5730,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         <button onClick={() => setRoleplayMode('hideB')} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold transition-all ${roleplayMode === 'hideB' ? 'bg-zinc-900 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-700'}`}>Tập vai B</button>
                     </div>
                     
-                    {/* NÚT BẬT CHẤM ĐIỂM */}
-                    <button 
-                        onClick={toggleScoringMode}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2 ${isScoringMode ? 'bg-red-500 text-white animate-pulse' : 'bg-emerald-500 text-white hover:bg-emerald-600'}`}
-                    >
-                        {isScoringMode ? "🛑 DỪNG CHẤM" : "🎙️ BẬT CHẤM ĐIỂM"}
-                    </button>
-
                     <div className="flex flex-wrap gap-2">
+                        {/* THÊM MỚI: Nút Ẩn lời thoại (Chỉ hiện khi chọn Tập vai A hoặc B) */}
                         {roleplayMode !== 'all' && (
                             <label className="flex items-center gap-2 cursor-pointer bg-indigo-50 px-3 py-1.5 sm:py-2 rounded-lg border border-indigo-200 hover:bg-indigo-100 transition-colors animate-in zoom-in-95 duration-200">
                                 <span className="text-[10px] sm:text-xs font-bold text-indigo-700 uppercase">Ẩn lời thoại</span>
@@ -5891,6 +5741,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         
                         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
                             <span className="text-[10px] sm:text-xs font-bold text-zinc-600 uppercase">Tự cuộn</span>
+                            
                             <input type="checkbox" checked={isAutoScroll} onChange={() => setIsAutoScroll(!isAutoScroll)} className="accent-zinc-900 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"/>
                         </label>
                         <label className="flex items-center gap-2 cursor-pointer bg-zinc-50 px-3 py-1.5 sm:py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 transition-colors">
@@ -5921,6 +5772,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 const currentFlatIndex = globalLineIndex++; 
                                 const isActive = activeIndex === currentFlatIndex; 
                                 
+                                // THAY ĐỔI: Chỉ ẩn khi đang chọn vai ĐỒNG THỜI bật tính năng ẩn chữ
                                 const isMutedRole = (roleplayMode === 'hideA' && line.speaker === 'A') || 
                                                     (roleplayMode === 'hideB' && line.speaker === 'B');
                                 const isHidden = isMutedRole && hideText; 
@@ -5947,51 +5799,40 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                             Người {line.speaker}
                                         </span>
                                         <div 
-                                            onClick={(e) => {
-                                                if (line.startTime === undefined) return;
-                                                if (isAudioLoading || isScoringMode) return; // Khóa click nếu đang tải hoặc đang chấm điểm
-                                                
-                                                if (!soundRef.current) {
-                                                    stopAtTimeRef.current = line.endTime;
-                                                    initAndPlayAudio(line.startTime);
-                                                    return;
-                                                }
+            onClick={(e) => {
+                if (line.startTime === undefined) return;
+                
+                // THÊM DÒNG NÀY ĐỂ CHẶN CLICK KHI ĐANG LOAD FILE (Chống chồng âm thanh)
+                if (isAudioLoading) return;
+                
+                // CHƯA TẢI FILE -> Đặt mốc thời gian dừng rồi gọi hàm tải
+                if (!soundRef.current) {
+                    stopAtTimeRef.current = line.endTime;
+                    initAndPlayAudio(line.startTime);
+                    return;
+                }
 
-                                                soundRef.current.seek(line.startTime);
-                                                setCurrentTime(line.startTime);
-                                                
-                                                if (isPlaying && stopAtTimeRef.current === null) {
-                                                    stopAtTimeRef.current = null;
-                                                } else {
-                                                    stopAtTimeRef.current = line.endTime;
-                                                    if (!isPlaying) {
-                                                        soundRef.current.play();
-                                                        setIsPlaying(true);
-                                                        triggerAudioWarning();
-                                                    }
-                                                }
-                                            }}
-                                            title="Bấm để nghe câu này"
-                                            className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
-                                        >
-                                            {(() => {
-                                                const scoredData = scoredLines.find(s => s.lineIndex === currentFlatIndex);
-                                                return (
-                                                    <div className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${(isHidden && !isScoringMode) ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-                                                        {scoredData ? (
-                                                            <div className="flex flex-col gap-1">
-                                                                <span className="text-zinc-400 line-through text-sm">{line.ja}</span>
-                                                                <span className="text-xl bg-gray-50 px-2 py-1 rounded">{scoredData.html}</span>
-                                                                <span className={`text-[10px] font-black mt-1 ${scoredData.score > 70 ? 'text-green-500' : 'text-red-500'}`}>
-                                                                    Độ chính xác: {scoredData.score}%
-                                                                </span>
-                                                            </div>
-                                                        ) : (
-                                                            (isHidden && !isScoringMode) ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)
-                                                        )}
-                                                    </div>
-                                                );
-                                            })()}
+                // ĐÃ TẢI FILE -> Seek và phát như cũ
+                soundRef.current.seek(line.startTime);
+                setCurrentTime(line.startTime);
+                
+                if (isPlaying && stopAtTimeRef.current === null) {
+                    stopAtTimeRef.current = null;
+                } else {
+                    stopAtTimeRef.current = line.endTime;
+                    if (!isPlaying) {
+                        soundRef.current.play();
+                        setIsPlaying(true);
+                        triggerAudioWarning();
+                    }
+                }
+            }}
+            title="Bấm để nghe câu này"
+            className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
+        >
+                                            <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
+                                                {isHidden ? "（あなたが話す番です）" : renderFurigana(line.ja, showFurigana)}
+                                            </p>
                                             {showTranslation && (
                                                 <p className={`text-sm sm:text-base mt-2 font-medium border-t pt-2 transition-colors ${isActive ? 'text-green-700 border-green-200' : 'text-zinc-500 border-zinc-200'}`}>
                                                     {line.vi}
@@ -6006,122 +5847,107 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 </div>
             </div>
 
-            {/* --- THANH DƯỚI CÙNG (PLAYER HOẶC CHẤM ĐIỂM) --- */}
-            {isScoringMode ? (
-                <div className="w-full shrink-0 bg-white border-t border-zinc-200 p-4 flex flex-col items-center justify-center shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20 min-h-[120px]">
-                    {finalScore !== null ? (
-                        <div className="text-center w-full animate-in zoom-in">
-                            <h3 className="text-xl font-black text-zinc-900 mb-2">ĐIỂM CỦA BẠN</h3>
-                            <div className="text-5xl font-bold text-emerald-500">{finalScore}/100</div>
-                            <button onClick={toggleScoringMode} className="mt-4 px-6 py-2 bg-zinc-900 text-white font-bold rounded-lg uppercase active:scale-95">Thoát</button>
-                        </div>
-                    ) : scoringStep === 'bot' ? (
-                        <div className="text-indigo-600 font-bold animate-pulse flex items-center gap-2">
-                            <svg className="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v2m0 12v2m8-8h-2M6 12H4m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636"></path></svg>
-                            Hệ thống đang đọc...
-                        </div>
-                    ) : scoringStep === 'user' ? (
-                        <div className="flex flex-col items-center gap-2 w-full animate-in fade-in">
-                            <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-1">Đến lượt bạn</span>
-                            <button 
-                                onClick={isListening ? () => recognitionRef.current?.stop() : startListening}
-                                className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-lg transition-transform active:scale-95 ${isListening ? 'bg-red-500 animate-pulse' : 'bg-zinc-900 hover:bg-black'}`}
-                            >
-                                🎤
-                            </button>
-                            <span className="text-xs text-zinc-400 mt-1">{isListening ? "Đang nghe..." : "Bấm vào Mic để nói"}</span>
-                        </div>
-                    ) : (
-                        <div className="flex flex-col items-center gap-3 w-full animate-in fade-in">
-                            <span className="text-sm text-zinc-600">Bạn đã nói: <b className="text-zinc-900">{userTranscript || "(không nghe thấy)"}</b></span>
-                            <button onClick={handleNextScoreLine} className="w-full max-w-xs py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-black uppercase tracking-widest rounded-xl shadow-md active:scale-95 transition-all">
-                                TIẾP TỤC
-                            </button>
-                        </div>
-                    )}
+            {/* THANH PLAYER AUDIO Ở DƯỚI */}
+            <div className="w-full shrink-0 bg-white border-t border-zinc-200 px-4 py-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20">
+                <div className="flex items-center gap-3 w-full">
+                    <span className="text-[10px] font-bold text-zinc-400 w-8 text-right">{formatTime(currentTime)}</span>
+                    <input
+                        type="range" min={0} max={duration || 100} value={currentTime}
+                        onMouseDown={() => setIsDragging(true)} onMouseUp={() => setIsDragging(false)}
+                        onTouchStart={() => setIsDragging(true)} onTouchEnd={() => setIsDragging(false)}
+                        onChange={handleSeek}
+                        className="flex-1 h-1.5 accent-zinc-900 bg-zinc-200 rounded-full appearance-none cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-zinc-400 w-8">{formatTime(duration)}</span>
                 </div>
-            ) : (
-                <div className="w-full shrink-0 bg-white border-t border-zinc-200 px-4 py-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20">
-                    <div className="flex items-center gap-3 w-full">
-                        <span className="text-[10px] font-bold text-zinc-400 w-8 text-right">{formatTime(currentTime)}</span>
-                        <input
-                            type="range" min={0} max={duration || 100} value={currentTime}
-                            onMouseDown={() => setIsDragging(true)} onMouseUp={() => setIsDragging(false)}
-                            onTouchStart={() => setIsDragging(true)} onTouchEnd={() => setIsDragging(false)}
-                            onChange={handleSeek}
-                            className="flex-1 h-1.5 accent-zinc-900 bg-zinc-200 rounded-full appearance-none cursor-pointer"
-                        />
-                        <span className="text-[10px] font-bold text-zinc-400 w-8">{formatTime(duration)}</span>
-                    </div>
-                    <div className="flex items-center justify-between w-full">
-                        <button onClick={cyclePlaybackRate} className="w-12 py-1.5 text-[10px] font-black text-zinc-600 bg-zinc-100 rounded-md hover:bg-zinc-200 transition-colors active:scale-95 text-center">
-                            {playbackRate}x
+                <div className="flex items-center justify-between w-full">
+                    <button onClick={cyclePlaybackRate} className="w-12 py-1.5 text-[10px] font-black text-zinc-600 bg-zinc-100 rounded-md hover:bg-zinc-200 transition-colors active:scale-95 text-center">
+                        {playbackRate}x
+                    </button>
+                    <div className="flex items-center gap-1 sm:gap-3">
+                        <button onClick={onPrev} disabled={currentIndex === 0} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === 0 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
-                        <div className="flex items-center gap-1 sm:gap-3">
-                            <button onClick={onPrev} disabled={currentIndex === 0} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === 0 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                            </button>
-                            <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(0, cur - 3)); setCurrentTime(Math.max(0, cur - 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                            </button>
-                            <button 
-                                onClick={toggleAudio} 
-                                disabled={isAudioLoading} 
-                                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md mx-1 ${isAudioLoading ? 'bg-zinc-400 cursor-not-allowed' : 'bg-zinc-900 text-white hover:bg-black active:scale-90'}`}
-                            >
-                                {isAudioLoading ? (
-                                    <div className="flex space-x-1 justify-center items-center">
-                                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
-                                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
-                                    </div>
-                                ) : isPlaying ? (
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
-                                ) : (
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
-                                )}
-                            </button>
-                            <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(duration, cur + 3)); setCurrentTime(Math.max(duration, cur + 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
-                            </button>
-                            <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === total - 1 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                            </button>
-                        </div>
-                        <div className="w-12 flex justify-end">
-                            <button 
-                                onClick={() => setIsGuideOpen(true)} 
-                                className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all active:scale-90"
-                                title="Hướng dẫn nhanh"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                                </svg>
-                            </button>
-                        </div>
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(0, cur - 3)); setCurrentTime(Math.max(0, cur - 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        </button>
+                        <button 
+                            onClick={toggleAudio} 
+                            disabled={isAudioLoading} 
+                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md mx-1 ${isAudioLoading ? 'bg-zinc-400 cursor-not-allowed' : 'bg-zinc-900 text-white hover:bg-black active:scale-90'}`}
+                        >
+                            {isAudioLoading ? (
+                                // THÊM MỚI: Hiệu ứng 3 dấu chấm nảy gợn sóng
+                                <div className="flex space-x-1 justify-center items-center">
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                                </div>
+                            ) : isPlaying ? (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+                            ) : (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
+                            )}
+                        </button>
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.min(duration, cur + 3)); setCurrentTime(Math.min(duration, cur + 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                        </button>
+                        <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === total - 1 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                    {/* NÚT HƯỚNG DẪN (?) BÊN GÓC PHẢI - Hover xám/đen */}
+                    <div className="w-12 flex justify-end">
+                        <button 
+                            onClick={() => setIsGuideOpen(true)} 
+                            className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all active:scale-90"
+                            title="Hướng dẫn nhanh"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-            )}
-            {/* KHUNG THÔNG BÁO ÂM THANH */}
-            {showAudioWarning && (
+            </div>
+                                {/* KHUNG THÔNG BÁO ÂM THANH */}
+           {showAudioWarning && (
                 <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
                     <div className="flex flex-col">
-                        <span className="text-center text-[11px] font-black text-amber-400 uppercase tracking-widest mb-1">Lưu ý âm thanh</span>
+                        
+                        {/* Tiêu đề: Căn giữa (thêm text-center) */}
+                        <span className="text-center text-[11px] font-black text-amber-400 uppercase tracking-widest mb-1">
+                            Lưu ý âm thanh
+                        </span>
+                        
+                        {/* Nội dung: Căn lề trái (thêm text-left) */}
                         <span className="text-left text-[13px] leading-relaxed font-medium text-gray-200 mt-2 mb-4">
                             Nếu không nghe thấy tiếng, hãy đảm bảo máy đã tắt <b className="text-white">Chế độ Im lặng</b> và thử <b className="text-white">tăng âm lượng</b> lên nhé!
                         </span>
-                        <button onClick={closeAudioWarning} className="w-full py-2.5 bg-white text-gray-900 text-[11px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-all shadow-sm">Đã hiểu</button>
+                        
+                        {/* Nút bấm */}
+                        <button onClick={closeAudioWarning} className="w-full py-2.5 bg-white text-gray-900 text-[11px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-all shadow-sm">
+                            Đã hiểu
+                        </button>
+
                     </div>
+                    {/* Tam giác nhỏ trỏ xuống dưới */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
                 </div>
             )}
-            
-            {/* MODAL HƯỚNG DẪN KAIWA */}
+{/* MODAL HƯỚNG DẪN KAIWA (GỌN NHẸ) */}
             {isGuideOpen && (
-                <div className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsGuideOpen(false)}>
-                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" onClick={e => e.stopPropagation()}>
+                <div 
+                    className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
+                    onClick={() => setIsGuideOpen(false)}
+                >
+                    <div 
+                        className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
+                        onClick={e => e.stopPropagation()}
+                    >
+                        {/* Header */}
                         <div className="px-5 py-4 border-b border-zinc-100 bg-zinc-50 flex justify-between items-center shrink-0">
                             <h3 className="font-black text-sm text-zinc-900 uppercase tracking-wider flex items-center gap-2">
                                 <svg className="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -6129,7 +5955,11 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             </h3>
                             <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm">✕</button>
                         </div>
+
+                        {/* Content (Đã bỏ overflow-y-auto và flex-1 để ôm sát nội dung) */}
                         <div className="p-5 space-y-5">
+                            
+                            {/* 1. Xử lý sự cố âm thanh */}
                             <div className="bg-zinc-50 border border-zinc-200 p-4 rounded-2xl">
                                 <h4 className="text-xs font-black text-zinc-900 uppercase mb-2 flex items-center gap-1.5">
                                     <svg className="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
@@ -6139,6 +5969,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                     Không nghe thấy tiếng? Hãy kiểm tra xem điện thoại có đang bật <b>"Chế độ Im lặng"</b> (Gạt rung) không, nếu có thì hãy tắt nó đi và thử <b>tăng âm lượng</b> nhé.
                                 </p>
                             </div>
+
+                            {/* 2. Tính năng Luyện tập (Đã xóa tiêu đề và các mục dư thừa) */}
                             <div>
                                 <ul className="space-y-3">
                                     <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
@@ -6153,8 +5985,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 </ul>
                             </div>
                         </div>
+
+                        {/* Footer */}
                         <div className="p-4 border-t border-zinc-100 bg-white shrink-0">
-                            <button onClick={() => setIsGuideOpen(false)} className="w-full py-3.5 bg-zinc-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest">
+                            <button 
+                                onClick={() => setIsGuideOpen(false)}
+                                className="w-full py-3.5 bg-zinc-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest"
+                            >
                                 Đã rõ, Đóng lại
                             </button>
                         </div>
@@ -6164,7 +6001,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
-// ==========================================
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
