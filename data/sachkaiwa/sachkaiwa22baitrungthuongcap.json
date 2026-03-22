@@ -76,7 +76,7 @@
     "title": "PHẦN 1 - TRUNG CẤP 2",
     "translation": "",
     "explanation": "",
-    "audioPath": "",
+    "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p2.m4a",
     "conversations": [
       {
         "context": "Tình huống 8",
@@ -148,7 +148,7 @@
     "id": "03",
     "title": "PHẦN 1 - THƯỢNG CẤP 1",
     "translation": "",
-    "explanation": "",
+    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p3.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -230,7 +230,7 @@
     "id": "04",
     "title": "PHẦN 1 - THƯỢNG CẤP 2",
     "translation": "",
-    "explanation": "",
+    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p4.m4a",
     "conversations": [
       {
         "context": "Tình huống 9",
@@ -310,7 +310,7 @@
     "id": "05",
     "title": "PHẦN 1 - THƯỢNG CẤP 3",
     "translation": "",
-    "explanation": "",
+    "explanation": "./data/filenghesachkaiwa/sdn2/sdn2p5.m4a",
     "conversations": [
       {
         "context": "Tình huống 17",
@@ -344,7 +344,7 @@
         "dialogues": [
           { "speaker": "A", "ja": "おやつ何にする？", "vi": "Ăn nhẹ món gì bây giờ?" },
           { "speaker": "B", "ja": "アツアツのあんまんがあるけど、どう？", "vi": "Có bánh bao ngọt nóng hổi đấy. Ăn không?" },
-          { "speaker": "A", "ja": "いいね、それ。じゃ、しぶーいお茶用意するね。", "vi": "Nghe được đấy nhỉ. Vậy em sẽ pha trà đặc nhé." },
+          { "speaker": "A", "ja": "いいね、それ。じゃ、しぶーいお[茶用意](ちゃようい)するね。", "vi": "Nghe được đấy nhỉ. Vậy em sẽ pha trà đặc nhé." },
           { "speaker": "B", "ja": "あ、それから、ホクホクの[焼](や)き[芋](いも)もあるよ。", "vi": "À, còn có cả khoai nướng nữa." },
           { "speaker": "A", "ja": "うーん、あんまんに焼き芋じゃ、かなりヘビーなおやつになりそうだね。", "vi": "Ừm, bánh bao ngọt và khoai nướng, xem ra là sẽ thành bữa ăn nặng rồi." },
           { "speaker": "B", "ja": "[夕飯](ゆうはん)少なめにしてもらわなきゃね。", "vi": "Phải giảm bớt bữa tối thôi." }
@@ -354,7 +354,7 @@
         "context": "Tình huống 21",
         "dialogues": [
           { "speaker": "A", "ja": "あなた、[一緒](いっしょ)にランチ行かない？", "vi": "Anh đi ăn trưa cùng em không?" },
-          { "speaker": "B", "ja": "うーん、今日は[昼抜](ひるぬ)きにしとくよ。", "vi": "Ừm, hôm nay anh không ăn." },
+          { "speaker": "B", "ja": "うーん、今日は昼[抜](ぬ)きにしとくよ。", "vi": "Ừm, hôm nay anh không ăn." },
           { "speaker": "A", "ja": "どうしたの？　[珍](めずら)しいじゃない。[具合](ぐあい)悪いの？", "vi": "Sao thế? Thật chẳng giống anh gì cả. Anh thấy khó chịu trong người à?" },
           { "speaker": "B", "ja": "うん。昨日、パーティでマンゴー食べすぎちゃって…、おなかがちょっとね…。", "vi": "Ừ. Hôm qua anh ăn quá nhiều xoài ở bữa tiệc nên bụng dạ hơi có vấn đề...." },
           { "speaker": "A", "ja": "マンゴーの食べすぎ？　もう、子どもじゃあるまいし…。いい年したおじさんが[恥](は)ずかしいわね。", "vi": "Ăn quá nhiều xoài? Anh có còn là trẻ con nữa đâu...Ngần này tuổi rồi thật là xấu hổ!" },
