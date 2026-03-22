@@ -5023,7 +5023,8 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         ],
         '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Hội thoại với gia đình, người yêu", lessonCount: 5 },
-            { title: "Phần 2", desc: "Hội thoại với bạn bè", lessonCount: 5 }
+            { title: "Phần 2", desc: "Hội thoại với bạn bè", lessonCount: 5 },
+            { title: "Phần 3", desc: "Hội thoại với người quen, hàng xóm", lessonCount: 5 }
         ]
     };
 
