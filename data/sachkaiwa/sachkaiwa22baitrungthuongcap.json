@@ -184,7 +184,7 @@
         "dialogues": [
           { "speaker": "A", "ja": "ねー、何もそんなにツンツンしなくても…。", "vi": "Này, đâu cần phải bực bội như thế....", "startTime": 49.54, "endTime": 54.24 },
           { "speaker": "B", "ja": "いいえ。[怒](おこ)るなって言われても、今度ばかりは[無理](むり)です。", "vi": "Không. Anh bảo tôi không giận nhưng lần này thì không được.", "startTime": 54.24, "endTime": 58.14 },
-          { "speaker": "A", "ja": "だから、あれは[君](きみ)の[誤解](ごかい)だって、さっきから言ってるだろう。", "vi": "Này giờ anh đã bảo là em hiểu nhầm mà.", "startTime": 58.14, "endTime": 62.78 },
+          { "speaker": "A", "ja": "だから、あれは[君](きみ)の[誤解](ごかい)だって、さっきから言ってるだろう。", "vi": "Nãy giờ anh đã bảo là em hiểu nhầm mà.", "startTime": 58.14, "endTime": 62.78 },
           { "speaker": "B", "ja": "[偶然](ぐうぜん)会っても、立ち[話](ばなし)なんてしてほしくないのよね、私としては…。", "vi": "Em không muốn anh đứng nói chuyện dù là gặp tình cờ đi nữa....", "startTime": 62.78, "endTime": 67.91 }
         ]
       },
