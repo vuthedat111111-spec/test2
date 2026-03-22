@@ -5683,43 +5683,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     let globalLineIndex = 0;
 
     // --- GIAO DIỆN ---
-// --- HÀM TUA ĐẾN CÂU TRƯỚC / CÂU SAU ---
-    const handleSkipLine = (direction) => {
-        if (!soundRef.current) return;
-        
-        // Lấy thời gian hiện tại
-        const curTime = typeof soundRef.current.seek() === 'number' ? soundRef.current.seek() : currentTime;
-        
-        // Trích xuất toàn bộ thời gian của các câu thoại
-        const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
-        const flatLines = [];
-        convs.forEach(conv => {
-            conv.dialogues.forEach(line => {
-                if (line.startTime !== undefined && line.endTime !== undefined) {
-                    flatLines.push(line);
-                }
-            });
-        });
-
-        if (flatLines.length === 0) return;
-
-        let targetTime = curTime;
-
-        if (direction === -1) {
-            // Tua lùi: Tìm câu thoại gần nhất ở phía trước (trừ hao 0.5s để khi đang đọc dở câu hiện tại, bấm nút sẽ tua về đầu câu đó)
-            const prevLine = [...flatLines].reverse().find(line => line.startTime < curTime - 0.5);
-            targetTime = prevLine ? prevLine.startTime : 0; // Về 0 nếu đang ở câu đầu tiên
-        } else {
-            // Tua tới: Tìm câu thoại gần nhất ở phía sau
-            const nextLine = flatLines.find(line => line.startTime > curTime + 0.5);
-            if (nextLine) targetTime = nextLine.startTime;
-        }
-
-        soundRef.current.seek(targetTime);
-        setCurrentTime(targetTime);
-    };
-
-    // --- GIAO DIỆN ---
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
             <div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center justify-between sticky top-0 z-10 shadow-sm relative">
@@ -5900,24 +5863,20 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <button onClick={cyclePlaybackRate} className="w-12 py-1.5 text-[10px] font-black text-zinc-600 bg-zinc-100 rounded-md hover:bg-zinc-200 transition-colors active:scale-95 text-center">
                         {playbackRate}x
                     </button>
-                   <div className="flex items-center gap-1 sm:gap-3">
-                        {/* Nút quay lại bài trước */}
+                    <div className="flex items-center gap-1 sm:gap-3">
                         <button onClick={onPrev} disabled={currentIndex === 0} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === 0 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
-                        
-                        {/* Nút lùi 1 câu */}
-                        <button onClick={() => handleSkipLine(-1)} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 1 câu">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.max(0, cur - 3)); setCurrentTime(Math.max(0, cur - 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Lùi 3 giây">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         </button>
-                        
-                        {/* Nút Play/Pause */}
                         <button 
                             onClick={toggleAudio} 
                             disabled={isAudioLoading} 
                             className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md mx-1 ${isAudioLoading ? 'bg-zinc-400 cursor-not-allowed' : 'bg-zinc-900 text-white hover:bg-black active:scale-90'}`}
                         >
                             {isAudioLoading ? (
+                                // THÊM MỚI: Hiệu ứng 3 dấu chấm nảy gợn sóng
                                 <div className="flex space-x-1 justify-center items-center">
                                     <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
                                     <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
@@ -5929,13 +5888,9 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
                             )}
                         </button>
-
-                        {/* Nút tiến 1 câu */}
-                        <button onClick={() => handleSkipLine(1)} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 1 câu">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                        <button onClick={() => { if(soundRef.current) { const cur = soundRef.current.seek(); soundRef.current.seek(Math.min(duration, cur + 3)); setCurrentTime(Math.min(duration, cur + 3)); } }} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-full transition-all active:scale-90" title="Tiến 3 giây">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                         </button>
-
-                        {/* Nút chuyển bài tiếp theo */}
                         <button onClick={onNext} disabled={currentIndex === total - 1} className={`p-2 rounded-full transition-all active:scale-90 ${currentIndex === total - 1 ? 'text-zinc-200' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </button>
