@@ -2466,6 +2466,279 @@
       ]
     }
   ]
+},
+  {
+  "id": "13",
+  "title": "PHẦN 3 - THƯỢNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p13.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あれっ、[石井](いしい)さんの[隣](となり)に写ってるこの人、妹さんですか？",
+          "vi": "Ơ, người đứng cạnh là chị gái của chị à?",
+          "startTime": 1.92,
+          "endTime": 8.23
+        },
+        {
+          "speaker": "B",
+          "ja": "いえ、[赤](あか)の[他人](たにん)ですよ。",
+          "vi": "Không người lạ đấy.",
+          "startTime": 8.23,
+          "endTime": 10.55
+        },
+        {
+          "speaker": "A",
+          "ja": "ヘー、他人の[空似](そらに)とは、よく言ったもんですね。",
+          "vi": "Chà, người ta thường nói người giống người nhỉ.",
+          "startTime": 10.55,
+          "endTime": 14.21
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか？ そんなに似てますかね。",
+          "vi": "Thế á? Giống đến thế sao?",
+          "startTime": 14.21,
+          "endTime": 17.08
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もっと会話を勉強したいんです。",
+          "vi": "Tôi muốn học hội thoại thêm nữa.",
+          "startTime": 17.08,
+          "endTime": 21
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしてですか？ お上手ですよ。",
+          "vi": "Tại sao? Anh đã giỏi rồi mà.",
+          "startTime": 21,
+          "endTime": 23.55
+        },
+        {
+          "speaker": "A",
+          "ja": "う〜ん。でも、聞いてわかっても言いたいことがすぐ[言葉](ことば)にならないんです。",
+          "vi": "Nhưng dù nghe hiểu nhưng tôi không thể nói ra những điều mình muốn nói.",
+          "startTime": 23.55,
+          "endTime": 29.66
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃ、だまされたと思って、シャドーイングしてみたらどうですか？",
+          "vi": "Vậy anh thử học theo shadowing xem sao. Có mất đâu.",
+          "startTime": 29.66,
+          "endTime": 33.71
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[企業買収](きぎょうばいしゅう)って、[最近](さいきん)[増](ふ)えてますよね。",
+          "vi": "Gần đây nhiều vụ thu mua doanh nghiệp nhỉ.",
+          "startTime": 33.71,
+          "endTime": 38.36
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね。[老舗](しにせ)の[企業](きぎょう)なんかもどんどん買収の[対象](たいしょう)になってますしね。",
+          "vi": "Đúng vậy. Những doanh nghiệp lâu đời cũng trở thành đối tượng thu mua.",
+          "startTime": 38.36,
+          "endTime": 44.15
+        },
+        {
+          "speaker": "A",
+          "ja": "今の時代、[地道](じみち)にやってるだけじゃだめなんでしょうかね。",
+          "vi": "Thời buổi này, có lẽ cứ làm từ từ từng bước sẽ chẳng được gì nhỉ?!",
+          "startTime": 44.15,
+          "endTime": 48.25
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん。これも時代の流れなんじゃないですか？",
+          "vi": "Hừm, điều này cũng là xu thế của thời đại thôi.",
+          "startTime": 48.25,
+          "endTime": 51.66
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "【ショールームで】\nこの車、ちょっと変わってませんか？",
+          "vi": "【Tại phòng trưng bày】\nChiếc này hơi khác phải không?",
+          "startTime": 51.66,
+          "endTime": 55.33
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、これですか？ [水素](すいそ)で走るって書いてありますよ。ふーん、ＣＯ２を出さないで、出すのは水だけか…。",
+          "vi": "À, chiếc này à? Ở đây ghi là chạy bằng hydro. Hừm, không thải ra CO2 mà chỉ thải ra nước à...",
+          "startTime": 55.33,
+          "endTime": 64.33
+        },
+        {
+          "speaker": "A",
+          "ja": "ヘー、エコカーですか。そんなの[未来](みらい)の[乗](の)り物だと思ってましたけどねー。",
+          "vi": "Chà, vậy là xe thân thiện với môi trường rồi. Tôi cứ nghĩ đó là phương tiện giao thông của tương lai cơ đấy.",
+          "startTime": 64.33,
+          "endTime": 70.06
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね。まー、[環境](かんきょう)問題にはみんな[敏感](びんかん)になってますからね。デザイン[的](てき)にもなかなかいいんじゃないですか？",
+          "vi": "Đúng vậy. Vì mọi người đang trở nên nhạy cảm với vấn đề môi trường hơn mà. Kiểu dáng cũng được đấy chứ?",
+          "startTime": 70.06,
+          "endTime": 78.33
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ、このお肉、なんかシールがはってありますけど、これ何でしょう？",
+          "vi": "Này, có cái mác gì gắn vào hộp thịt này này. Cái này là gì vậy nhỉ?",
+          "startTime": 78.33,
+          "endTime": 85.34
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、それは[環境](かんきょう)にいい[商品](しょうひん)だっていう[認定](にんてい)みたいですよ。安心っていう[付加価値](ふかかち)をつけてるんですって。",
+          "vi": "À, hình như đó là chứng nhận sản phẩm tốt cho môi trường đấy. Có nghĩa là tăng thêm giá trị phụ gia là sự an tâm.",
+          "startTime": 85.34,
+          "endTime": 93.05
+        },
+        {
+          "speaker": "A",
+          "ja": "そうなんですか。[最近](さいきん)は、みんな[品質](ひんしつ)にうるさくなってきてますからね。",
+          "vi": "Ra là thế. Vì gần đây mọi người khắt khe với chất lượng hơn.",
+          "startTime": 93.05,
+          "endTime": 98.34
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ。少し前には[偽装問題](ぎそうもんだい)なんかもたくさん[発覚](はっかく)しましたからね。",
+          "vi": "Vâng. Vì mới gần đây thôi đã phát hiện ra nhiều vụ làm giả.",
+          "startTime": 98.34,
+          "endTime": 103.85
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[災害](さいがい)ボランティアに[登録](とうろく)したんです。",
+          "vi": "Tôi đã đăng ký tham gia tình nguyện chống thiên tai.",
+          "startTime": 103.85,
+          "endTime": 108.47
+        },
+        {
+          "speaker": "B",
+          "ja": "それって、何ですか？",
+          "vi": "Cái đó là gì vậy?",
+          "startTime": 108.47,
+          "endTime": 110.65
+        },
+        {
+          "speaker": "A",
+          "ja": "[地震](じしん)や台風で[被害](ひがい)を[受](う)けた場所に行って、[被災者](ひさいしゃ)を[支援](しえん)するんです。",
+          "vi": "Là hoạt động tới những nơi chịu thiệt hại do động đất hoặc bão để giúp đỡ những người bị hại.",
+          "startTime": 110.65,
+          "endTime": 115.36
+        },
+        {
+          "speaker": "A",
+          "ja": "ヘー、そうなんですか。りっぱな[社会貢献](しゃかいこうけん)ですね。[僕](ぼく)もなんかやらなくっちゃなー。",
+          "vi": "Ồ, ra là vậy! Một sự đóng góp tuyệt vời cho xã hội nhỉ! Tôi cũng phải làm gì đó mới được.",
+          "startTime": 115.36,
+          "endTime": 122.03
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ〜あ、[親切心](しんせつしん)で言ったのに、[嫌](いや)がられちゃった。",
+          "vi": "Chán thật, tôi quan tâm nên mới nói vậy mà lại bị ghét.",
+          "startTime": 122.03,
+          "endTime": 127.6
+        },
+        {
+          "speaker": "B",
+          "ja": "むなしいですねー。",
+          "vi": "Thật phí công vô ích nhỉ!",
+          "startTime": 127.6,
+          "endTime": 129.53
+        },
+        {
+          "speaker": "A",
+          "ja": "[世代](せだい)が[違](ちが)うのかな。",
+          "vi": "Chẳng lẽ là vì khác thế hệ?",
+          "startTime": 129.53,
+          "endTime": 131.5
+        },
+        {
+          "speaker": "B",
+          "ja": "いやー、[個人](こじん)の[価値観](かちかん)の[相違](そうい)じゃないですか。",
+          "vi": "Không, có lẽ là nhân sinh quan khác nhau.",
+          "startTime": 131.5,
+          "endTime": 134.9
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "このトロ、[召](め)し上がりましたか？ [脂](あぶら)が[乗](の)っててトロトロですよ。",
+          "vi": "Chị đã ăn món cá ngừ này chưa? Mỡ nhiều ngậy lắm đấy.",
+          "startTime": 134.9,
+          "endTime": 141.74
+        },
+        {
+          "speaker": "B",
+          "ja": "本当ですね。何ですか、この[舌](した)でとろけるまろやかさは…。",
+          "vi": "Đúng vậy. Nói thế nào nhỉ, cảm giác béo ngậy tan ở đầu lưỡi...",
+          "startTime": 141.74,
+          "endTime": 146.41
+        },
+        {
+          "speaker": "A",
+          "ja": "でしょう？ それから、このシュウマイも召し上がってみてください。[肉汁](にくじゅう)がジュワッと出てきておいしいですよ。",
+          "vi": "Chính xác. Rồi thử cả món xíu mại này đi. Nước thịt trào ra ngon lắm ấy.",
+          "startTime": 146.42,
+          "endTime": 154.68
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、この[海老](えび)のプリプリッとした[食感](しょっかん)がたまりませんねー。",
+          "vi": "Ừm, còn cái cảm giác sần sật của món tôm này đúng là ngon hết biết.",
+          "startTime": 154.68,
+          "endTime": 159.84
+        }
+      ]
+    }
+  ]
 }
   
 ]
