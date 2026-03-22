@@ -5899,7 +5899,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="w-12 flex justify-end">
                         <button 
                             onClick={() => setIsGuideOpen(true)} 
-                            className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all active:scale-90"
+                            className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all active:scale-90"
                             title="Hướng dẫn sử dụng"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -5909,8 +5909,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             </svg>
                         </button>
                     </div>
-                </div>
-            </div>
                                 {/* KHUNG THÔNG BÁO ÂM THANH */}
            {showAudioWarning && (
                 <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
@@ -5936,72 +5934,71 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
                 </div>
             )}
-{/* MODAL HƯỚNG DẪN KAIWA (BẢN NHỎ GỌN - CUỘN ĐƯỢC) */}
+{/* MODAL HƯỚNG DẪN KAIWA (BẢN VỪA VẶN, ĐỒNG BỘ MONOCHROME) */}
             {isGuideOpen && (
                 <div 
                     className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
                     onClick={() => setIsGuideOpen(false)}
                 >
                     <div 
-                        // THAY ĐỔI: max-w-[340px] (thu hẹp) và max-h-[65vh] (ép chiều cao để cuộn)
-                        className="bg-white rounded-3xl shadow-2xl w-full max-w-[340px] flex flex-col max-h-[65vh] overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
+                        // Nới rộng một chút (380px) và chiều cao (75vh) để nội dung thoáng hơn
+                        className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col max-h-[75vh] overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
                         onClick={e => e.stopPropagation()}
                     >
                         {/* Header */}
-                        <div className="px-5 py-3.5 border-b border-zinc-100 bg-zinc-50 flex justify-between items-center shrink-0">
-                            <h3 className="font-black text-[13px] text-zinc-900 uppercase tracking-wider flex items-center gap-1.5">
-                                <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div className="px-5 py-4 border-b border-zinc-100 bg-zinc-50 flex justify-between items-center shrink-0">
+                            <h3 className="font-black text-sm text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                                <svg className="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 Hướng dẫn nhanh
                             </h3>
-                            <button onClick={() => setIsGuideOpen(false)} className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-red-500 hover:bg-red-50 transition-all shadow-sm">✕</button>
+                            <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm">✕</button>
                         </div>
 
-                        {/* Content: Đã thêm flex-1 và overflow-y-auto để cuộn mượt */}
-                        <div className="p-4 flex-1 overflow-y-auto custom-scrollbar space-y-4">
+                        {/* Content */}
+                        <div className="p-5 flex-1 overflow-y-auto custom-scrollbar space-y-5">
                             
-                           {/* 1. Xử lý sự cố âm thanh */}
-                            {/* ĐOẠN MÃ ĐÃ CẬP NHẬT: TÔNG ĐEN TRẮNG XÁM, KHÔNG HIỆU ỨNG GÓC */}
-                            <div className="bg-zinc-100 border border-zinc-200 p-4 rounded-xl">
-                                <h4 className="text-[12px] font-black text-zinc-900 uppercase mb-2 flex items-center gap-2">
+                            {/* 1. Xử lý sự cố âm thanh */}
+                            <div className="bg-zinc-50 border border-zinc-200 p-4 rounded-2xl">
+                                <h4 className="text-xs font-black text-zinc-900 uppercase mb-2 flex items-center gap-1.5">
                                     <svg className="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                                     Lưu ý Âm thanh
                                 </h4>
-                                <p className="text-[13px] text-zinc-700 font-medium leading-relaxed">
+                                <p className="text-sm text-zinc-600 font-medium leading-relaxed">
                                     Không nghe thấy tiếng? Hãy kiểm tra xem điện thoại có đang bật <b>"Chế độ Im lặng"</b> (Gạt rung) không, và thử <b>tăng âm lượng</b> nhé.
                                 </p>
                             </div>
 
                             {/* 2. Tính năng Luyện tập */}
                             <div>
-                                <h4 className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-2.5">Các thao tác</h4>
-                                <ul className="space-y-2.5">
-                                    <li className="flex gap-2.5 items-start p-2.5 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
-                                        <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                                <h4 className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-3">Các thao tác</h4>
+                                <ul className="space-y-3">
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
                                         </div>
                                         <div>
-                                            <span className="block text-[13px] font-bold text-zinc-900 mb-0.5 leading-tight">Phát lại một câu</span>
-                                            <span className="block text-[11px] text-zinc-500 font-medium leading-tight">Bấm trực tiếp vào <b>bong bóng thoại</b>, hệ thống sẽ tự tua và đọc lại.</span>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Phát lại một câu</span>
+                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Bấm trực tiếp vào <b>bong bóng thoại</b>, hệ thống sẽ tự tua và đọc lại.</span>
                                         </div>
                                     </li>
 
-                                    <li className="flex gap-2.5 items-start p-2.5 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
-                                        <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         </div>
                                         <div>
-                                            <span className="block text-[13px] font-bold text-zinc-900 mb-0.5 leading-tight">Tập vai A / B</span>
-                                            <span className="block text-[11px] text-zinc-500 font-medium leading-tight">Chọn vai, hệ thống sẽ <b>tắt tiếng</b> nhân vật đó để bạn tự đọc.</span>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Tập vai A / B</span>
+                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Chọn vai, hệ thống sẽ <b>tắt tiếng</b> nhân vật đó để bạn tự đọc.</span>
                                         </div>
                                     </li>
 
-                                    <li className="flex gap-2.5 items-start p-2.5 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
-                                        <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                    <li className="flex gap-3 items-start p-3 bg-white border border-zinc-100 rounded-xl shadow-sm hover:border-zinc-300 transition-colors">
+                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-700 flex items-center justify-center shrink-0">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
                                         </div>
                                         <div>
-                                            <span className="block text-[13px] font-bold text-zinc-900 mb-0.5 leading-tight">Ẩn lời thoại</span>
-                                            <span className="block text-[11px] text-zinc-500 font-medium leading-tight">Khi đang Tập Vai, tích chọn để làm mờ thoại, thử thách trí nhớ của bạn.</span>
+                                            <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Ẩn lời thoại</span>
+                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Khi đang Tập Vai, tích chọn để làm mờ thoại, thử thách trí nhớ của bạn.</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -6009,10 +6006,10 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                         </div>
 
                         {/* Footer cố định */}
-                        <div className="p-3 border-t border-zinc-100 bg-white shrink-0">
+                        <div className="p-4 border-t border-zinc-100 bg-white shrink-0">
                             <button 
                                 onClick={() => setIsGuideOpen(false)}
-                                className="w-full py-3 bg-zinc-900 hover:bg-black text-white text-[11px] font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest"
+                                className="w-full py-3.5 bg-zinc-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest"
                             >
                                 Đã rõ, Đóng lại
                             </button>
