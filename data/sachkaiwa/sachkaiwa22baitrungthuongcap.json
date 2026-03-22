@@ -318,94 +318,94 @@
       {
         "context": "Tình huống 17",
         "dialogues": [
-          { "speaker": "A", "ja": "このアナウンサー、顔小さいね。", "vi": "Phát thanh viên này có khuôn mặt nhỏ nhỉ." },
-          { "speaker": "B", "ja": "あ、本当だ。ほら、前にいるのに後ろの人と同じぐらいに見えない？", "vi": "Ồ, đúng thế thật. Xem này, đứng ở phía trước mà nhìn bằng người đứng ở sau ấy nhỉ?" },
-          { "speaker": "A", "ja": "うん。[遠近法](えんきんほう)を[無視](むし)した[構図](こうず)だね。", "vi": "Ừ, đúng là một bố cục bỏ qua phép xa - gần nhỉ." },
-          { "speaker": "B", "ja": "後ろの人だって、[決](けっ)して顔大きくないのにね。", "vi": "Người ở đằng sau chắc chắn mặt không to." }
+          { "speaker": "A", "ja": "このアナウンサー、顔小さいね。", "vi": "Phát thanh viên này có khuôn mặt nhỏ nhỉ.", "startTime": 0, "endTime": 4.38 },
+          { "speaker": "B", "ja": "あ、本当だ。ほら、前にいるのに後ろの人と同じぐらいに見えない？", "vi": "Ồ, đúng thế thật. Xem này, đứng ở phía trước mà nhìn bằng người đứng ở sau ấy nhỉ?", "startTime": 4.38, "endTime": 9.71 },
+          { "speaker": "A", "ja": "うん。[遠近法](えんきんほう)を[無視](むし)した[構図](こうず)だね。", "vi": "Ừ, đúng là một bố cục bỏ qua phép xa - gần nhỉ.", "startTime": 9.71, "endTime": 12.46 },
+          { "speaker": "B", "ja": "後ろの人だって、[決](けっ)して顔大きくないのにね。", "vi": "Người ở đằng sau chắc chắn mặt không to.", "startTime": 12.46, "endTime": 16.15 }
         ]
       },
       {
         "context": "Tình huống 18",
         "dialogues": [
-          { "speaker": "A", "ja": "も〜、顔見る[度](たび)に[説教](せっきょう)されたんじゃ、たまんないよ。", "vi": "Trời ơi, cứ mỗi lần nhìn thấy mặt là lại bị thuyết giáo thì làm sao chịu nổi." },
-          { "speaker": "B", "ja": "お父さん、あなたのことが[心配](しんぱい)なのよ。", "vi": "Bố lo cho con đấy thôi!" },
-          { "speaker": "A", "ja": "人のことはいいから、自分の[老後](ろうご)の心配でもしてくれってんだよ。", "vi": "Chuyện của con để con lo. Sao bố không lo cho tuổi già của mình đi!" },
-          { "speaker": "B", "ja": "[親](おや)の言うことは[素直](すなお)に聞いといたほうがいいんじゃない？", "vi": "Con cái nên ngoan ngoãn nghe lời bố mẹ chứ?" }
+          { "speaker": "A", "ja": "も〜、顔見る[度](たび)に[説教](せっきょう)されたんじゃ、たまんないよ。", "vi": "Trời ơi, cứ mỗi lần nhìn thấy mặt là lại bị thuyết giáo thì làm sao chịu nổi.", "startTime": 16.15, "endTime": 23.32 },
+          { "speaker": "B", "ja": "お父さん、あなたのことが[心配](しんぱい)なのよ。", "vi": "Bố lo cho con đấy thôi!", "startTime": 23.32, "endTime": 26.4 },
+          { "speaker": "A", "ja": "人のことはいいから、自分の[老後](ろうご)の心配でもしてくれってんだよ。", "vi": "Chuyện của con để con lo. Sao bố không lo cho tuổi già của mình đi!", "startTime": 26.4, "endTime": 30.98 },
+          { "speaker": "B", "ja": "[親](おや)の言うことは[素直](すなお)に聞いといたほうがいいんじゃない？", "vi": "Con cái nên ngoan ngoãn nghe lời bố mẹ chứ?", "startTime": 30.98, "endTime": 34.07 }
         ]
       },
       {
         "context": "Tình huống 19",
         "dialogues": [
-          { "speaker": "A", "ja": "見て、あの子、さっきから[黙々](もくもく)と[砂山](すなやま)作ってるんだけど…。", "vi": "Nhìn kia, đứa trẻ đó từ nãy đến giờ cứ lẳng lặng xây lâu đài cát..." },
-          { "speaker": "B", "ja": "うん、上手だね。あ、あー、[残念](ざんねん)、[崩](くず)れちゃった。", "vi": "Ừ, đẹp thật. Ôi, tiếc quá, đổ mất rồi!" },
-          { "speaker": "A", "ja": "もう、これで四回目よ、崩れたの。小さいのに[根性](こんじょう)あるわね。", "vi": "Đây là lần thứ 4 đấy. Còn nhỏ mà kiên trì nhỉ!" },
-          { "speaker": "B", "ja": "よその子ながら、[将来](しょうらい)が楽しみだね。", "vi": "Không phải con mình nhưng tương lai chắc vui lắm nhỉ!" }
+          { "speaker": "A", "ja": "見て、あの子、さっきから[黙々](もくもく)と[砂山](すなやま)作ってるんだけど…。", "vi": "Nhìn kia, đứa trẻ đó từ nãy đến giờ cứ lẳng lặng xây lâu đài cát...", "startTime": 34.07, "endTime": 39.79 },
+          { "speaker": "B", "ja": "うん、上手だね。あ、あー、[残念](ざんねん)、[崩](くず)れちゃった。", "vi": "Ừ, đẹp thật. Ôi, tiếc quá, đổ mất rồi!", "startTime": 39.79, "endTime": 44.56 },
+          { "speaker": "A", "ja": "もう、これで四回目よ、崩れたの。小さいのに[根性](こんじょう)あるわね。", "vi": "Đây là lần thứ 4 đấy. Còn nhỏ mà kiên trì nhỉ!", "startTime": 44.56, "endTime": 49.98 },
+          { "speaker": "B", "ja": "よその子ながら、[将来](しょうらい)が楽しみだね。", "vi": "Không phải con mình nhưng tương lai chắc vui lắm nhỉ!", "startTime": 49.98, "endTime": 52.77 }
         ]
       },
       {
         "context": "Tình huống 20",
         "dialogues": [
-          { "speaker": "A", "ja": "おやつ何にする？", "vi": "Ăn nhẹ món gì bây giờ?" },
-          { "speaker": "B", "ja": "アツアツのあんまんがあるけど、どう？", "vi": "Có bánh bao ngọt nóng hổi đấy. Ăn không?" },
-          { "speaker": "A", "ja": "いいね、それ。じゃ、しぶーいお[茶用意](ちゃようい)するね。", "vi": "Nghe được đấy nhỉ. Vậy em sẽ pha trà đặc nhé." },
-          { "speaker": "B", "ja": "あ、それから、ホクホクの[焼](や)き[芋](いも)もあるよ。", "vi": "À, còn có cả khoai nướng nữa." },
-          { "speaker": "A", "ja": "うーん、あんまんに焼き芋じゃ、かなりヘビーなおやつになりそうだね。", "vi": "Ừm, bánh bao ngọt và khoai nướng, xem ra là sẽ thành bữa ăn nặng rồi." },
-          { "speaker": "B", "ja": "[夕飯](ゆうはん)少なめにしてもらわなきゃね。", "vi": "Phải giảm bớt bữa tối thôi." }
+          { "speaker": "A", "ja": "おやつ何にする？", "vi": "Ăn nhẹ món gì bây giờ?", "startTime": 52.77, "endTime": 55.56 },
+          { "speaker": "B", "ja": "アツアツのあんまんがあるけど、どう？", "vi": "Có bánh bao ngọt nóng hổi đấy. Ăn không?", "startTime": 55.56, "endTime": 58.11 },
+          { "speaker": "A", "ja": "いいね、それ。じゃ、しぶーいお[茶用意](ちゃようい)するね。", "vi": "Nghe được đấy nhỉ. Vậy em sẽ pha trà đặc nhé.", "startTime": 58.11, "endTime": 61.6 },
+          { "speaker": "B", "ja": "あ、それから、ホクホクの[焼](や)き[芋](いも)もあるよ。", "vi": "À, còn có cả khoai nướng nữa.", "startTime": 61.6, "endTime": 64.48 },
+          { "speaker": "A", "ja": "うーん、あんまんに焼き芋じゃ、かなりヘビーなおやつになりそうだね。", "vi": "Ừm, bánh bao ngọt và khoai nướng, xem ra là sẽ thành bữa ăn nặng rồi.", "startTime": 64.48, "endTime": 69.12 },
+          { "speaker": "B", "ja": "[夕飯](ゆうはん)少なめにしてもらわなきゃね。", "vi": "Phải giảm bớt bữa tối thôi.", "startTime": 69.12, "endTime": 71.67 }
         ]
       },
       {
         "context": "Tình huống 21",
         "dialogues": [
-          { "speaker": "A", "ja": "あなた、[一緒](いっしょ)にランチ行かない？", "vi": "Anh đi ăn trưa cùng em không?" },
-          { "speaker": "B", "ja": "うーん、今日は昼[抜](ぬ)きにしとくよ。", "vi": "Ừm, hôm nay anh không ăn." },
-          { "speaker": "A", "ja": "どうしたの？　[珍](めずら)しいじゃない。[具合](ぐあい)悪いの？", "vi": "Sao thế? Thật chẳng giống anh gì cả. Anh thấy khó chịu trong người à?" },
-          { "speaker": "B", "ja": "うん。昨日、パーティでマンゴー食べすぎちゃって…、おなかがちょっとね…。", "vi": "Ừ. Hôm qua anh ăn quá nhiều xoài ở bữa tiệc nên bụng dạ hơi có vấn đề...." },
-          { "speaker": "A", "ja": "マンゴーの食べすぎ？　もう、子どもじゃあるまいし…。いい年したおじさんが[恥](は)ずかしいわね。", "vi": "Ăn quá nhiều xoài? Anh có còn là trẻ con nữa đâu...Ngần này tuổi rồi thật là xấu hổ!" },
-          { "speaker": "B", "ja": "だけど、本当においしかったんだよ、あの[完熟](かんじゅく)マンゴー。", "vi": "Nhưng thực sự là món xoài chín đó rất ngon." }
+          { "speaker": "A", "ja": "あなた、[一緒](いっしょ)にランチ行かない？", "vi": "Anh đi ăn trưa cùng em không?", "startTime": 71.67, "endTime": 76.03 },
+          { "speaker": "B", "ja": "うーん、今日は昼[抜](ぬ)きにしとくよ。", "vi": "Ừm, hôm nay anh không ăn.", "startTime": 76.03, "endTime": 78.82 },
+          { "speaker": "A", "ja": "どうしたの？　[珍](めずら)しいじゃない。[具合](ぐあい)悪いの？", "vi": "Sao thế? Thật chẳng giống anh gì cả. Anh thấy khó chịu trong người à?", "startTime": 78.82, "endTime": 82.38 },
+          { "speaker": "B", "ja": "うん。昨日、パーティでマンゴー食べすぎちゃって…、おなかがちょっとね…。", "vi": "Ừ. Hôm qua anh ăn quá nhiều xoài ở bữa tiệc nên bụng dạ hơi có vấn đề....", "startTime": 82.38, "endTime": 87.29 },
+          { "speaker": "A", "ja": "マンゴーの食べすぎ？　もう、子どもじゃあるまいし…。いい年したおじさんが[恥](は)ずかしいわね。", "vi": "Ăn quá nhiều xoài? Anh có còn là trẻ con nữa đâu...Ngần này tuổi rồi thật là xấu hổ!", "startTime": 87.29, "endTime": 94.14 },
+          { "speaker": "B", "ja": "だけど、本当においしかったんだよ、あの[完熟](かんじゅく)マンゴー。", "vi": "Nhưng thực sự là món xoài chín đó rất ngon.", "startTime": 94.14, "endTime": 98.44 }
         ]
       },
       {
         "context": "Tình huống 22",
         "dialogues": [
-          { "speaker": "A", "ja": "ねー、これ食べてみて。", "vi": "Này, ăn thử cái này đi!" },
-          { "speaker": "B", "ja": "どれどれ。うーん、うまいよ、これ。", "vi": "Đâu, đâu? Ừm, ngon thật!" },
-          { "speaker": "A", "ja": "本当？　テレビでやってたの、作ってみたの。", "vi": "Thật không? Em xem trên ti vi hướng dẫn nên làm thử đấy." },
-          { "speaker": "B", "ja": "[最近](さいきん)、[料理](りょうり)の[腕](うで)上げたね。", "vi": "Dạo này tay nghề nấu ăn của em khá hơn hẳn." },
-          { "speaker": "A", "ja": "そう？　それほどでもないけど…。でも、うそでもうれしいわ。", "vi": "Vậy sao? Làm gì đến mức đó... Nhưng dù anh nói dối thì em cũng vẫn vui." },
-          { "speaker": "B", "ja": "うそじゃないよ。それとも、[僕](ぼく)が[君](きみ)の味にすっかり[慣](な)らされちゃったのかな。", "vi": "Không nói dối đâu. Hay là anh đã quen với vị món ăn em nấu quá rồi?" }
+          { "speaker": "A", "ja": "ねー、これ食べてみて。", "vi": "Này, ăn thử cái này đi!", "startTime": 98.44, "endTime": 101.89 },
+          { "speaker": "B", "ja": "どれどれ。うーん、うまいよ、これ。", "vi": "Đâu, đâu? Ừm, ngon thật!", "startTime": 101.89, "endTime": 105.59 },
+          { "speaker": "A", "ja": "本当？　テレビでやってたの、作ってみたの。", "vi": "Thật không? Em xem trên ti vi hướng dẫn nên làm thử đấy.", "startTime": 105.59, "endTime": 109.3 },
+          { "speaker": "B", "ja": "[最近](さいきん)、[料理](りょうり)の[腕](うで)上げたね。", "vi": "Dạo này tay nghề nấu ăn của em khá hơn hẳn.", "startTime": 109.3, "endTime": 111.45 },
+          { "speaker": "A", "ja": "そう？　それほどでもないけど…。でも、うそでもうれしいわ。", "vi": "Vậy sao? Làm gì đến mức đó... Nhưng dù anh nói dối thì em cũng vẫn vui.", "startTime": 111.45, "endTime": 116.39 },
+          { "speaker": "B", "ja": "うそじゃないよ。それとも、[僕](ぼく)が[君](きみ)の味にすっかり[慣](な)らされちゃったのかな。", "vi": "Không nói dối đâu. Hay là anh đã quen với vị món ăn em nấu quá rồi?", "startTime": 116.39, "endTime": 122.05 }
         ]
       },
       {
         "context": "Tình huống 23",
         "dialogues": [
-          { "speaker": "A", "ja": "[太郎](たろう)が学校休んだんだって？　どこか[具合](ぐあい)でも悪いのか？", "vi": "Em bảo Taro nghỉ học hôm nay? Con thấy khó chịu ở đâu à?" },
-          { "speaker": "B", "ja": "ううん、そうじゃなくて。学校でクラスメートにからかわれたらしいの。", "vi": "Không, không phải thế. Hình như con bị bạn cùng lớp trêu." },
-          { "speaker": "A", "ja": "からかわれたぐらいで学校に行けないんじゃ、しょうがないな〜。", "vi": "Bị bạn cùng lớp trêu mà cũng nghỉ học thì thật chẳng thể hiểu nổi." },
-          { "speaker": "B", "ja": "それが、大好きな女の子にからかわれちゃったらしいのよ。", "vi": "Hình như là bị một bạn gái mà con rất thích trêu." },
-          { "speaker": "A", "ja": "いったい、何をからかわれたんだ？", "vi": "Thế bị trêu cái gì?" },
-          { "speaker": "B", "ja": "あなたがカットしてあげたヘアスタイルよ。[坊主頭](ぼうずあたま)はもう古いって…。太郎、[怒](おこ)ってるわよ〜。", "vi": "Kiểu tóc anh cắt cho con ấy. Con bé bảo đầu húi cua giờ xưa rồi. Taro bực mình lắm đó." }
+          { "speaker": "A", "ja": "[太郎](たろう)が学校休んだんだって？　どこか[具合](ぐあい)でも悪いのか？", "vi": "Em bảo Taro nghỉ học hôm nay? Con thấy khó chịu ở đâu à?", "startTime": 122.05, "endTime": 128.45 },
+          { "speaker": "B", "ja": "ううん、そうじゃなくて。学校でクラスメートにからかわれたらしいの。", "vi": "Không, không phải thế. Hình như con bị bạn cùng lớp trêu.", "startTime": 128.45, "endTime": 134.12 },
+          { "speaker": "A", "ja": "からかわれたぐらいで学校に行けないんじゃ、しょうがないな〜。", "vi": "Bị bạn cùng lớp trêu mà cũng nghỉ học thì thật chẳng thể hiểu nổi.", "startTime": 134.12, "endTime": 138.57 },
+          { "speaker": "B", "ja": "それが、大好きな女の子にからかわれちゃったらしいのよ。", "vi": "Hình như là bị một bạn gái mà con rất thích trêu.", "startTime": 138.57, "endTime": 142.53 },
+          { "speaker": "A", "ja": "いったい、何をからかわれたんだ？", "vi": "Thế bị trêu cái gì?", "startTime": 142.53, "endTime": 145.05 },
+          { "speaker": "B", "ja": "あなたがカットしてあげたヘアスタイルよ。[坊主頭](ぼうずあたま)はもう古いって…。太郎、[怒](おこ)ってるわよ〜。", "vi": "Kiểu tóc anh cắt cho con ấy. Con bé bảo đầu húi cua giờ xưa rồi. Taro bực mình lắm đó.", "startTime": 145.05, "endTime": 153.04 }
         ]
       },
       {
         "context": "Tình huống 24",
         "dialogues": [
-          { "speaker": "A", "ja": "[翼](つばさ)、いつまでゲームしてんの！　もうそのくらいで[止](や)めにして、さっさと[寝](ね)なさい。", "vi": "Tsubasa, con định chơi game đến bao giờ hả? Chơi thế thôi. Mau đi ngủ đi!" },
-          { "speaker": "B", "ja": "わかったよ。", "vi": "Vâng." },
-          { "speaker": "A", "ja": "ほらほら、[止](や)めなさい。何時だと思ってるのよ。いい[加減](かげん)にしないとー。", "vi": "Nào, nào, dừng lại ngay. Con nghĩ giờ là mấy giờ rồi? Không dừng lại là mẹ..." },
-          { "speaker": "B", "ja": "もう、いちいちうるさいんだよ、おふくろは！　もう子どもじゃないんだから。", "vi": "Mẹ lắm lời quá đấy! Con có còn là trẻ con nữa đâu!" },
-          { "speaker": "A", "ja": "親の言うことに[口答](くちごた)えして、そんな[息子](むすこ)に[育](そだ)てた[覚](おぼ)えはありません。", "vi": "Mẹ không nhớ là đã nuôi đứa con dám cãi lời bố mẹ đấy!" },
-          { "speaker": "B", "ja": "はいはい、わかりました！", "vi": "Vâng, vâng, con biết rồi!" }
+          { "speaker": "A", "ja": "[翼](つばさ)、いつまでゲームしてんの！　もうそのくらいで[止](や)めにして、さっさと[寝](ね)なさい。", "vi": "Tsubasa, con định chơi game đến bao giờ hả? Chơi thế thôi. Mau đi ngủ đi!", "startTime": 153.04, "endTime": 160.45 },
+          { "speaker": "B", "ja": "わかったよ。", "vi": "Vâng.", "startTime": 160.45, "endTime": 161.83 },
+          { "speaker": "A", "ja": "ほらほら、[止](や)めなさい。何時だと思ってるのよ。いい[加減](かげん)にしないとー。", "vi": "Nào, nào, dừng lại ngay. Con nghĩ giờ là mấy giờ rồi? Không dừng lại là mẹ...", "startTime": 161.83, "endTime": 166.9 },
+          { "speaker": "B", "ja": "もう、いちいちうるさいんだよ、おふくろは！　もう子どもじゃないんだから。", "vi": "Mẹ lắm lời quá đấy! Con có còn là trẻ con nữa đâu!", "startTime": 166.9, "endTime": 172.45 },
+          { "speaker": "A", "ja": "親の言うことに[口答](くちごた)えして、そんな[息子](むすこ)に[育](そだ)てた[覚](おぼ)えはありません。", "vi": "Mẹ không nhớ là đã nuôi đứa con dám cãi lời bố mẹ đấy!", "startTime": 172.45, "endTime": 177.27 },
+          { "speaker": "B", "ja": "はいはい、わかりました！", "vi": "Vâng, vâng, con biết rồi!", "startTime": 177.27, "endTime": 179.58 }
         ]
       },
       {
         "context": "Tình huống 25",
         "dialogues": [
-          { "speaker": "A", "ja": "[姉貴](あねき)ー、おやじとおふくろ、またけんかしてるよ。", "vi": "Chị, bố mẹ lại cãi nhau đấy!" },
-          { "speaker": "B", "ja": "また〜？「[夫婦](ふうふ)げんかは犬も食わない」って言うのにね。", "vi": "Lại à? Người ta bảo \"vợ chồng cãi nhau đến con chó cũng bỏ ăn\" thế mà bố mẹ cứ..." },
-          { "speaker": "A", "ja": "本当、本当。まー、「けんかするほど[仲](なか)がいい」とも言うけどさー。", "vi": "Đúng vậy. Nhưng cũng có câu \"thân thiết đến mức cãi nhau\"" },
-          { "speaker": "B", "ja": "少しは子どもの[身](み)にもなってほしいよね。", "vi": "Chị mong bố mẹ đặt mình vào vị trí của con cái một chút." },
-          { "speaker": "A", "ja": "まったく。週末ごとじゃ、たまったもんじゃないよ。", "vi": "Thật chẳng ra sao! Cuối tuần nào cũng thế này làm sao chịu nổi!" },
-          { "speaker": "B", "ja": "まー、ほとぼりが[冷](さ)めるまでほっとこう。", "vi": "Thôi cứ mặc kệ cho đến lúc cả hai nguội lại đi!" }
+          { "speaker": "A", "ja": "[姉貴](あねき)ー、おやじとおふくろ、またけんかしてるよ。", "vi": "Chị, bố mẹ lại cãi nhau đấy!", "startTime": 179.58, "endTime": 185.09 },
+          { "speaker": "B", "ja": "また〜？「[夫婦](ふうふ)げんかは犬も食わない」って言うのにね。", "vi": "Lại à? Người ta bảo \"vợ chồng cãi nhau đến con chó cũng bỏ ăn\" thế mà bố mẹ cứ...", "startTime": 185.09, "endTime": 189.54 },
+          { "speaker": "A", "ja": "本当、本当。まー、「けんかするほど[仲](なか)がいい」とも言うけどさー。", "vi": "Đúng vậy. Nhưng cũng có câu \"thân thiết đến mức cãi nhau\"", "startTime": 189.54, "endTime": 194.06 },
+          { "speaker": "B", "ja": "少しは子どもの[身](み)にもなってほしいよね。", "vi": "Chị mong bố mẹ đặt mình vào vị trí của con cái một chút.", "startTime": 194.06, "endTime": 196.89 },
+          { "speaker": "A", "ja": "まったく。週末ごとじゃ、たまったもんじゃないよ。", "vi": "Thật chẳng ra sao! Cuối tuần nào cũng thế này làm sao chịu nổi!", "startTime": 196.89, "endTime": 200.94 },
+          { "speaker": "B", "ja": "まー、ほとぼりが[冷](さ)めるまでほっとこう。", "vi": "Thôi cứ mặc kệ cho đến lúc cả hai nguội lại đi!", "startTime": 200.94, "endTime": 204.1 }
         ]
       }
     ]
