@@ -1102,6 +1102,246 @@
       ]
     }
   ]
+},
+  {
+  "id": "08",
+  "title": "PHẦN 2 - THƯỢNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p8.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねー、冬になると[肘](ひじ)とか[踵](かかと)がカサカサしない？",
+          "vi": "Này, mùa đông khuỷu tay và gót chân cậu không bị nứt nẻ à?",
+          "startTime": 2.25,
+          "endTime": 7.11
+        },
+        {
+          "speaker": "B",
+          "ja": "[大丈夫](だいじょうぶ)。[保湿](ほしつ)クリームを朝[晩](ばん)すりこんでるから。",
+          "vi": "Không hề. Vì tớ bôi kem dưỡng ẩm mỗi sáng và tối mà.",
+          "startTime": 7.11,
+          "endTime": 10.65
+        },
+        {
+          "speaker": "A",
+          "ja": "へー、それどこで売ってるの？",
+          "vi": "Ồ, kem đó bán ở đâu vậy?",
+          "startTime": 10.65,
+          "endTime": 12.95
+        },
+        {
+          "speaker": "B",
+          "ja": "え、ドラッグストアならどこでも売ってるよ。",
+          "vi": "Ơ, hiệu thuốc nào cũng bán mà.",
+          "startTime": 12.95,
+          "endTime": 15.43
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "彼女、[昨日](きのう)からプリプリして口もきいてくれないんだ。",
+          "vi": "Từ hôm qua đến giờ, cậu ấy cáu kỉnh, chẳng chịu nói với tớ tiếng nào cả.",
+          "startTime": 15.44,
+          "endTime": 20.49
+        },
+        {
+          "speaker": "B",
+          "ja": "私にもそうだよ。何[怒](おこ)ってんだろう。",
+          "vi": "Với tớ cũng thế. Không hiểu cô ấy giận gì nữa?",
+          "startTime": 20.49,
+          "endTime": 23.59
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、ほっとこう。さわらぬ[神](かみ)に[祟](たた)りなしだ。",
+          "vi": "Thôi cứ mặc kệ đi. Không động đến sẽ không có chuyện.",
+          "startTime": 23.59,
+          "endTime": 27.49
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。それが一番かもね。",
+          "vi": "Ừ, có lẽ thế là tốt nhất.",
+          "startTime": 27.49,
+          "endTime": 29.83
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねー。ちょっと、聞いて聞いて！ このカッターは切れなかったー！って、どう？",
+          "vi": "Này, nghe này, nghe này! \"Con dao cắt này không cắt được!\". Cậu thấy sao?",
+          "startTime": 29.83,
+          "endTime": 36.68
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん。[内容](ないよう)がないよ〜。",
+          "vi": "Ừm. Không có nội dung.",
+          "startTime": 36.68,
+          "endTime": 39.5
+        },
+        {
+          "speaker": "A",
+          "ja": "さむー、くだらなーい。",
+          "vi": "Nhạt quá, chẳng ra sao cả.",
+          "startTime": 39.5,
+          "endTime": 41.87
+        },
+        {
+          "speaker": "B",
+          "ja": "どっちが？ お互いさまでしょ！",
+          "vi": "Ai cơ? Như nhau cả thôi!",
+          "startTime": 41.87,
+          "endTime": 44.39
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ちょっと、悪いんだけど1000円[貸](か)してくれない？",
+          "vi": "Này, cậu có thể cho tớ vay 1000 Yên được không?",
+          "startTime": 44.39,
+          "endTime": 48.23
+        },
+        {
+          "speaker": "B",
+          "ja": "また？ この前貸した500円もまだ[返](かえ)してもらってないよ。",
+          "vi": "Lại nữa sao? Cậu còn chưa trả 500 Yên tớ cho vay lần trước đấy.",
+          "startTime": 48.23,
+          "endTime": 52.74
+        },
+        {
+          "speaker": "A",
+          "ja": "え〜っ？ そう？ てっきり返したと思ってた。ごめん！",
+          "vi": "Ơ? Vậy sao? Tớ cứ tưởng đã trả rồi. Xin lỗi nhé!",
+          "startTime": 52.74,
+          "endTime": 57.3
+        },
+        {
+          "speaker": "B",
+          "ja": "も〜、しょうがないな〜。",
+          "vi": "Ôi trời, đến chịu cậu.",
+          "startTime": 57.3,
+          "endTime": 59.57
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "彼女、[最近](さいきん)休みがちだね。",
+          "vi": "Dạo này cậu ấy hay nghỉ nhỉ.",
+          "startTime": 59.57,
+          "endTime": 63.42
+        },
+        {
+          "speaker": "B",
+          "ja": "何でも[結婚](けっこん)するんで、学校どころじゃないらしいよ。",
+          "vi": "Hình như cậu ấy sắp cưới nên không có thời gian đi học.",
+          "startTime": 63.42,
+          "endTime": 67.11
+        },
+        {
+          "speaker": "A",
+          "ja": "え、あの[田中](たなか)さんと結婚しちゃうの？",
+          "vi": "Sao? Cậu ấy sẽ cưới anh chàng Tanaka đó sao?",
+          "startTime": 67.11,
+          "endTime": 70.18
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。とうとうお父さんのお[許](ゆる)しが出たらしいよ。",
+          "vi": "Ừ. Hình như cuối cùng thì bố cậu ấy cũng đã đồng ý.",
+          "startTime": 70.18,
+          "endTime": 73.24
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あー、[久](ひさ)しぶりにいい映画を見たわ。",
+          "vi": "Chà, lâu lắm mới xem được bộ phim hay!",
+          "startTime": 73.24,
+          "endTime": 77.56
+        },
+        {
+          "speaker": "B",
+          "ja": "本当だね！ [最後](さいご)のシーンは[感動](かんどう)で心がふるえたよ。",
+          "vi": "Đúng thế thật! Cảnh cuối làm tớ xúc động đến run người.",
+          "startTime": 77.56,
+          "endTime": 82.6
+        },
+        {
+          "speaker": "A",
+          "ja": "私は心のけがれが、すっかり[洗](あら)い流されたって感じよ。",
+          "vi": "Cảm giác như tâm hồn tớ được gột rửa sạch sẽ ấy.",
+          "startTime": 82.6,
+          "endTime": 86.56
+        },
+        {
+          "speaker": "B",
+          "ja": "ま、どうせそれも一日だけだけどね。",
+          "vi": "Dù gì thì cũng chỉ được một ngày thôi.",
+          "startTime": 86.56,
+          "endTime": 89.91
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "学校のとなりのうどん屋、つぶれちゃったみたいだよ。",
+          "vi": "Hình như quán Udon gần trường đóng cửa rồi thì phải.",
+          "startTime": 89.91,
+          "endTime": 95.56
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜？ けっこうお[客](きゃく)さん入ってたのにね。",
+          "vi": "Hả? Chỗ đó cũng khá đông khách cơ mà?",
+          "startTime": 95.56,
+          "endTime": 98.84
+        },
+        {
+          "speaker": "A",
+          "ja": "あ〜あ、つぶれる前にもう一度行っておけばよかった。",
+          "vi": "Chán thật, giá mà tớ đến đó một lần trước khi đóng cửa.",
+          "startTime": 98.84,
+          "endTime": 103.12
+        },
+        {
+          "speaker": "B",
+          "ja": "本店が[新宿](しんじゅく)にあるみたいよ。何なら行ってみる？",
+          "vi": "Hình như cửa hàng chính ở Shinjuku đấy. Sao cậu không thử đến đó?",
+          "startTime": 103.12,
+          "endTime": 106.92
+        }
+      ]
+    }
+  ]
 }
   
 ]
