@@ -2739,6 +2739,300 @@
       ]
     }
   ]
+},
+  {
+  "id": "14",
+  "title": "PHẦN 3 - THƯỢNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p14.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いじめって、なかながなくならないようですね。",
+          "vi": "Có vẻ nạn bắt nạt mãi vẫn không hết nhỉ.",
+          "startTime": 0.4,
+          "endTime": 4.88
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね。けっこう根が[深](ふか)いんでしょうね。",
+          "vi": "Đúng vậy. Có lẽ nó bắt rễ khá sâu rồi.",
+          "startTime": 4.88,
+          "endTime": 8.78
+        },
+        {
+          "speaker": "A",
+          "ja": "そうなんでしょうね。それに、いじめは、何も子どもの世界に[限](かぎ)ったことじゃありませんしね。",
+          "vi": "Có lẽ vậy. Với lại, bắt nạt không chỉ giới hạn ở thế giới của trẻ con nhỉ.",
+          "startTime": 8.78,
+          "endTime": 15.78
+        },
+        {
+          "speaker": "B",
+          "ja": "まったくですねー。ひとごとじゃありませんよね。",
+          "vi": "Hoàn toàn chính xác. Đó là vấn đề không của riêng ai.",
+          "startTime": 15.78,
+          "endTime": 19.25
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いたいけな子どもをターゲットにした[犯罪](はんざい)は、[許](ゆる)せませんね。",
+          "vi": "Không thể tha thứ cho hành động tội phạm nhằm vào trẻ nhỏ.",
+          "startTime": 19.25,
+          "endTime": 25.07
+        },
+        {
+          "speaker": "B",
+          "ja": "まったくですね！ [怒](いか)りで体がふるえます。",
+          "vi": "Đúng vậy! Khắp người tôi run lên vì tức giận.",
+          "startTime": 25.07,
+          "endTime": 28.77
+        },
+        {
+          "speaker": "A",
+          "ja": "本当ですね。こんなことは[決](けっ)して起こってはならないことですよね。",
+          "vi": "Vâng. Những chuyện như thế này đáng lẽ không được xảy ra.",
+          "startTime": 28.77,
+          "endTime": 33.84
+        },
+        {
+          "speaker": "B",
+          "ja": "こういう犯罪が[多発](たはつ)しているということは、社会が[歪](ゆが)んでいるということですね。",
+          "vi": "Việc loại tội phạm kiểu này ngày càng nhiều chứng tỏ xã hội đang xuống cấp.",
+          "startTime": 33.84,
+          "endTime": 39.03
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[新聞](しんぶん)の[勧誘](かんゆう)を[断](ことわ)るとき、何て言ったらいいですか？",
+          "vi": "Tôi nên nói gì để từ chối lời mời mua báo dài hạn?",
+          "startTime": 39.03,
+          "endTime": 45.51
+        },
+        {
+          "speaker": "B",
+          "ja": "「もうすぐ国に帰るから、[難](むずか)しいです。」っていうのはどう？",
+          "vi": "Nói \"Tôi sắp về nước rồi nên cũng khó mua\" thử xem.",
+          "startTime": 45.51,
+          "endTime": 50.29
+        },
+        {
+          "speaker": "A",
+          "ja": "なるほど…。でも勧誘はしつこいから、それで本当に[大丈夫](だいじょうぶ)ですか？",
+          "vi": "Ý hay đấy.... Nhưng họ mời dai lắm nên liệu nói như thế có được không?",
+          "startTime": 50.29,
+          "endTime": 56.63
+        },
+        {
+          "speaker": "B",
+          "ja": "とにかく一度[試](ため)してみたら？",
+          "vi": "Cứ thử một lần xem sao!",
+          "startTime": 56.71,
+          "endTime": 59.55
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "どうすれば[敬語](けいご)がうまく使えるようになるんでしょうか？",
+          "vi": "Làm thế nào để có thể sử dụng kính ngữ tốt được?",
+          "startTime": 59.55,
+          "endTime": 64.86
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、[習](なら)うより[慣](な)れろって言いますからね。",
+          "vi": "Ừm, người ta vẫn bảo \"Học trên thực tế vẫn hơn học trong sách vở.\"",
+          "startTime": 64.86,
+          "endTime": 69.07
+        },
+        {
+          "speaker": "A",
+          "ja": "ということは学校で習うより、仕事の[現場](げんば)で[覚](おぼ)えるってことですか？",
+          "vi": "Nghĩa là học ở nơi làm việc hơn là học ở trường ạ?",
+          "startTime": 69.07,
+          "endTime": 74.13
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、そうですね。ひたすら[実践](じっせん)あるのみですね。",
+          "vi": "Đúng vậy đó. Vì chỉ có mỗi cách là sử dụng trong thực tế mà thôi.",
+          "startTime": 74.13,
+          "endTime": 78.28
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "すいません。この間お[願](ねが)いした[就職](しゅうしょく)の話なんですが、やっぱり[結構](けっこう)です。",
+          "vi": "Xin lỗi anh. Về chuyện xin việc lần trước tôi có nhờ anh, giờ không cần nữa đâu ạ.",
+          "startTime": 78.28,
+          "endTime": 85.9
+        },
+        {
+          "speaker": "B",
+          "ja": "え！ 今さら何言ってるの？ もう、[先方](せんぽう)にも[頼](たの)んじゃったよ。",
+          "vi": "Ơ! Sao giờ lại nói vậy? Tôi đã nhờ người ta rồi.",
+          "startTime": 85.9,
+          "endTime": 91.72
+        },
+        {
+          "speaker": "A",
+          "ja": "本当にすいません。[急](きゅう)に[帰国](きこく)することになってしまいまして…。",
+          "vi": "Tôi thật sự xin lỗi ạ. Tôi buộc phải về nước gấp...",
+          "startTime": 91.72,
+          "endTime": 96.82
+        },
+        {
+          "speaker": "B",
+          "ja": "こんなこと言いたくないけど、日本の[常識](じょうしき)じゃそんなこと通らないんだよねー。",
+          "vi": "Tôi không muốn nói điều này nhưng điều đó không chấp nhận được ở Nhật Bản.",
+          "startTime": 96.82,
+          "endTime": 102.69
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "この[度](たび)はご[愁傷](しゅうしょう)さまでした。",
+          "vi": "Tôi xin chia buồn cùng gia đình.",
+          "startTime": 102.69,
+          "endTime": 107.19
+        },
+        {
+          "speaker": "B",
+          "ja": "ありがとうございます。",
+          "vi": "Cám ơn anh.",
+          "startTime": 107.19,
+          "endTime": 109.12
+        },
+        {
+          "speaker": "A",
+          "ja": "どうぞお[力落](ちからお)としのないように…。",
+          "vi": "Xin chị đừng quá đau buồn mà sinh bệnh...",
+          "startTime": 109.12,
+          "endTime": 111.67
+        },
+        {
+          "speaker": "B",
+          "ja": "ありがとうございます。",
+          "vi": "Cám ơn anh.",
+          "startTime": 111.67,
+          "endTime": 113.36
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "デジカメ、買い[替](か)えようかなって思ってるんですよ。",
+          "vi": "Tôi đang định mua máy ảnh kỹ thuật số mới.",
+          "startTime": 113.36,
+          "endTime": 118.45
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃー、ぶれないできれいに[撮](と)れるカメラがいいんじゃない？",
+          "vi": "Vậy thì hãy chọn loại máy không bị rung có thể chụp đẹp.",
+          "startTime": 118.45,
+          "endTime": 122.09
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ、800万[画素](がそ)ぐらいのにしようかなって思って…。",
+          "vi": "Vâng. Tôi đang định mua loại 8 mega-pixels....",
+          "startTime": 122.09,
+          "endTime": 125.77
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、800万画素ぐらいあれば[十分](じゅうぶん)だよ。今は1万円ちょっとで買えるしね。",
+          "vi": "Ừ, 8 mega-pixels là được rồi. Bây giờ chỉ hơn 10.000 Yên là mua được.",
+          "startTime": 125.77,
+          "endTime": 132.11
+        },
+        {
+          "speaker": "A",
+          "ja": "本当、うそみたいに安くなりましたよね。昔のあの[値段](ねだん)は何だったんでしょうね。",
+          "vi": "Thật đúng là giờ đã rẻ đến không thể tin được nhỉ. Giá ngày xưa sao lại đắt thế nhỉ!",
+          "startTime": 132.11,
+          "endTime": 138.46
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "よく話し合った？",
+          "vi": "Đã nói chuyện với nhau chưa?",
+          "startTime": 138.46,
+          "endTime": 141.95
+        },
+        {
+          "speaker": "B",
+          "ja": "話し合うも何も、電話にも出てくれないんですから。",
+          "vi": "Nói gì được đâu. Anh ấy còn không nghe điện thoại.",
+          "startTime": 141.95,
+          "endTime": 145.85
+        },
+        {
+          "speaker": "A",
+          "ja": "[関係修復](かんけいしゅうふく)は[難](むずか)しい？",
+          "vi": "Khó có thể khôi phục lại quan hệ à?",
+          "startTime": 145.85,
+          "endTime": 148.57
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、[実](じつ)は、もう[別](わか)れようって、メールが来ました。",
+          "vi": "Thực ra, tôi nhận được mail đòi chia tay.",
+          "startTime": 148.57,
+          "endTime": 153.26
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、ちょっとね。",
+          "vi": "Vậy thì, không hay rồi.",
+          "startTime": 153.26,
+          "endTime": 155.08
+        },
+        {
+          "speaker": "B",
+          "ja": "やっぱりそう思いますか…。",
+          "vi": "Đúng là anh cũng nghĩ thế ạ?",
+          "startTime": 155.08,
+          "endTime": 157.66
+        }
+      ]
+    }
+  ]
 }
   
 ]
