@@ -5895,12 +5895,12 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                         </button>
                     </div>
-                    {/* NÚT HƯỚNG DẪN (?) BÊN GÓC PHẢI */}
+                    {/* NÚT HƯỚNG DẪN (?) BÊN GÓC PHẢI - Hover xám/đen */}
                     <div className="w-12 flex justify-end">
                         <button 
                             onClick={() => setIsGuideOpen(true)} 
                             className="w-9 h-9 flex items-center justify-center rounded-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all active:scale-90"
-                            title="Hướng dẫn sử dụng"
+                            title="Hướng dẫn nhanh"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -5909,6 +5909,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                             </svg>
                         </button>
                     </div>
+                </div>
+            </div>
                                 {/* KHUNG THÔNG BÁO ÂM THANH */}
            {showAudioWarning && (
                 <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 border border-gray-700">
@@ -5934,14 +5936,13 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-900/95"></div>
                 </div>
             )}
-{/* MODAL HƯỚNG DẪN KAIWA (BẢN VỪA VẶN, ĐỒNG BỘ MONOCHROME) */}
+{/* MODAL HƯỚNG DẪN KAIWA (MONOCHROME & KÍCH THƯỚC CHUẨN) */}
             {isGuideOpen && (
                 <div 
                     className="fixed inset-0 z-[700] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
                     onClick={() => setIsGuideOpen(false)}
                 >
                     <div 
-                        // Nới rộng một chút (380px) và chiều cao (75vh) để nội dung thoáng hơn
                         className="bg-white rounded-3xl shadow-2xl w-full max-w-[380px] flex flex-col max-h-[75vh] overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 cursor-default" 
                         onClick={e => e.stopPropagation()}
                     >
@@ -5964,7 +5965,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                     Lưu ý Âm thanh
                                 </h4>
                                 <p className="text-sm text-zinc-600 font-medium leading-relaxed">
-                                    Không nghe thấy tiếng? Hãy kiểm tra xem điện thoại có đang bật <b>"Chế độ Im lặng"</b> (Gạt rung) không, và thử <b>tăng âm lượng</b> nhé.
+                                    Không nghe thấy tiếng? Hãy kiểm tra xem điện thoại có đang bật <b>"Chế độ Im lặng"</b> (Gạt rung) không, nếu có thì hãy tắt nó đi và thử <b>tăng âm lượng</b> nhé.
                                 </p>
                             </div>
 
@@ -5978,7 +5979,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                         </div>
                                         <div>
                                             <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Phát lại một câu</span>
-                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Bấm trực tiếp vào <b>bong bóng thoại</b>, hệ thống sẽ tự tua và đọc lại.</span>
+                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Bấm trực tiếp vào <b>câu thoại</b>, hệ thống sẽ tự tua và đọc lại.</span>
                                         </div>
                                     </li>
 
@@ -5998,14 +5999,14 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                                         </div>
                                         <div>
                                             <span className="block text-sm font-bold text-zinc-900 mb-0.5 leading-tight">Ẩn lời thoại</span>
-                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Khi đang Tập Vai, tích chọn để làm mờ thoại, thử thách trí nhớ của bạn.</span>
+                                            <span className="block text-xs text-zinc-500 font-medium leading-relaxed">Khi đang Tập Vai, tích chọn <b>Ẩn lời thoại</b> để thử thách trí nhớ của bạn.</span>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
-                        {/* Footer cố định */}
+                        {/* Footer */}
                         <div className="p-4 border-t border-zinc-100 bg-white shrink-0">
                             <button 
                                 onClick={() => setIsGuideOpen(false)}
