@@ -2045,7 +2045,7 @@
         {
           "speaker": "B",
           "ja": "ため[息](いき)つくと[幸](しあわ)せが[逃](に)げていくって言いますよ。",
-          "vi": "Người ta bảo thở dài sẽ làm hay hạnh phúc bỏ chạy đấy.",
+          "vi": "Người ta bảo thở dài sẽ làm hạnh phúc bỏ chạy đấy.",
           "startTime": 37.63,
           "endTime": 41.39
         },
@@ -2110,7 +2110,7 @@
         },
         {
           "speaker": "B",
-          "ja": "わー、ありがとうございます。今日も多くのお客さん[並](なら)んでましたか？",
+          "ja": "わー、ありがとうございます。今日もお客さん[並](なら)んでましたか？",
           "vi": "Ôi, cám ơn anh. Hôm nay cũng đông khách xếp hàng lắm phải không?",
           "startTime": 64.98,
           "endTime": 69.1
@@ -2232,7 +2232,7 @@
         },
         {
           "speaker": "B",
-          "ja": "[冷](つめ)たいものは体にあまりよくないんだよ。",
+          "ja": "[冷](つめ)たいものは体にあんまりよくないんだよ。",
           "vi": "Đồ lạnh không tốt cho sức khỏe đâu.",
           "startTime": 12.5,
           "endTime": 15.58
@@ -2578,8 +2578,8 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "【ショールームで】\nこの車、ちょっと変わってませんか？",
-          "vi": "【Tại phòng trưng bày】\nChiếc này hơi khác phải không?",
+          "ja": "この車、ちょっと変わってませんか？",
+          "vi": "Chiếc này hơi khác phải không?",
           "startTime": 51.66,
           "endTime": 55.33
         },
@@ -2664,7 +2664,7 @@
           "endTime": 115.36
         },
         {
-          "speaker": "A",
+          "speaker": "B",
           "ja": "ヘー、そうなんですか。りっぱな[社会貢献](しゃかいこうけん)ですね。[僕](ぼく)もなんかやらなくっちゃなー。",
           "vi": "Ồ, ra là vậy! Một sự đóng góp tuyệt vời cho xã hội nhỉ! Tôi cũng phải làm gì đó mới được.",
           "startTime": 115.36,
@@ -3122,7 +3122,7 @@
         {
           "speaker": "A",
           "ja": "優しさとかの問題じゃなくて、男はみんなそんなもんなんじゃないの。",
-          "vi": "Hiền hay không không phải là vấn đề.Chẳng phải đàn ông ai cũng vậy sao?",
+          "vi": "Hiền hay không không phải là vấn đề. Chẳng phải đàn ông ai cũng vậy sao?",
           "startTime": 44.97,
           "endTime": 49.96
         },
@@ -3424,7 +3424,7 @@
         },
         {
           "speaker": "B",
-          "ja": "ええ。[原油](げんゆ)の高騰のあおりを受けちゃって、[相当大変](そうとうたいへん)らしいですよ。",
+          "ja": "ええ。[原油](げんゆ)の[高騰](こうとう)のあおりを受けちゃって、[相当大変](そうとうたいへん)らしいですよ。",
           "vi": "Vâng, giá dầu thô tăng cao đột ngột làm công việc có vẻ tương đương đối khó khăn.",
           "startTime": 212.24,
           "endTime": 217.91
@@ -3471,7 +3471,7 @@
         },
         {
           "speaker": "B",
-          "ja": "うちは家族で[妻](つま)の[実家](じっか)に行ったんですけどね、気を遣ってすっかり[肩](かた)が[凝](こ)っちゃって…。[羽](はね)を伸ばすどころじゃなかったんですよ。",
+          "ja": "うちは家族で[妻](つま)の[実家](じっか)に行ったんですけどね、気を[遣](つ)ってすっかり[肩](かた)が[凝](こ)っちゃって…。[羽](はね)を[伸](の)ばすどころじゃなかったんですよ。",
           "vi": "Cả nhà tôi về nhà vợ tôi. Phải giữ ý giữ tứ nên mỏi hết cả vai.... Chẳng được nghỉ ngơi thoải mái gì cả.",
           "startTime": 250.6,
           "endTime": 259.62
