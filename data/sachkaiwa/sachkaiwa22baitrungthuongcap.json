@@ -1622,6 +1622,342 @@
       ]
     }
   ]
+},
+  {
+  "id": "10",
+  "title": "PHẦN 2 - THƯỢNG CẤP 3",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p10.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "男の人って、女の[涙](なみだ)に[弱](よわ)いんだって。",
+          "vi": "Người ta bảo đàn ông dễ mềm lòng trước nước mắt của phụ nữ.",
+          "startTime": 0,
+          "endTime": 4.51
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、聞いたことある。なんてったって、女の[武器](ぶき)を使わない手はないんじゃない？",
+          "vi": "Ừ, tớ đã từng nghe điều đó. Vậy là không có cách gì để không sử dụng vũ khí của phụ nữ nhỉ?",
+          "startTime": 4.51,
+          "endTime": 9.77
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。だから、ここぞって時に使うといいかもね。",
+          "vi": "Ừ. Vậy nên đem ra sử dụng lúc cần thiết có lẽ cũng được nhỉ!",
+          "startTime": 9.77,
+          "endTime": 13.01
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。そんな[簡単](かんたん)に泣けたらいいけどね。",
+          "vi": "Ừ. Nếu có thể dễ dàng khóc được.",
+          "startTime": 13.01,
+          "endTime": 16.44
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 17",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "うー、さむーい。どうして[寒](さむ)いと[胸](むね)を[張](は)って歩けないんだろうね。",
+          "vi": "Eo, lạnh quá. Tại sao trời lạnh là không thể đi thẳng người được nhỉ?",
+          "startTime": 16.44,
+          "endTime": 25.19
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、[肩凝](かたこ)るね。[寒](さむ)いのと[暑](あつ)いのとどっちが[我慢](がまん)できる？",
+          "vi": "Ừ, vai đông cứng lại nhỉ. Cậu chịu lạnh hay nóng tốt hơn?",
+          "startTime": 25.19,
+          "endTime": 30
+        },
+        {
+          "speaker": "A",
+          "ja": "うーん、今は暑いの。でも、[基本的](きほんてき)に暑がりで寒がりだからどっちも[苦手](にがて)。",
+          "vi": "Ừm, bây giờ thì chịu nóng tốt hơn. Nhưng về cơ bản tớ không ưa cả nóng lẫn lạnh.",
+          "startTime": 30,
+          "endTime": 37.46
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、私も。[案外](あんがい)そういう人多いんじゃない。",
+          "vi": "Tớ cũng vậy. Có vẻ nhiều người như thế nhỉ.",
+          "startTime": 37.46,
+          "endTime": 40.73
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 18",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日、[教授](きょうじゅ)に[怒](おこ)られて、[散々](さんざん)だったよ。",
+          "vi": "Hôm nay tớ bị giáo sư mắng cho một trận nên thân.",
+          "startTime": 40.73,
+          "endTime": 45.84
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしたの？",
+          "vi": "Sao thế?",
+          "startTime": 45.84,
+          "endTime": 46.95
+        },
+        {
+          "speaker": "A",
+          "ja": "[田中](たなか)と[津田](つだ)の[代返](だいへん)をしたんだ。いつもはうまくいくんだけど、今日は[続](つづ)いてたから[失敗](しっぱい)した！",
+          "vi": "Tớ điểm danh cho Tanaka và Tsuda. Mọi lần vẫn chót lọt nhưng hôm nay thầy gọi liền nhau nên bị lộ!",
+          "startTime": 46.95,
+          "endTime": 53.69
+        },
+        {
+          "speaker": "B",
+          "ja": "わかった！ こうでしょ！ 「田中くん」「はーい」「津田くん」「はーい」",
+          "vi": "Tớ hiểu rồi! Như thế này chứ gì?! \"Tanaka-kun\" \"Có ạ!\" \"Tsuda-kun\" \"Có ạ!\"",
+          "startTime": 53.69,
+          "endTime": 59.06
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 19",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "うーん、[見事](みごと)にやられた。",
+          "vi": "Hừ, bị chơi một vố ngoạn mục.",
+          "startTime": 59.06,
+          "endTime": 63.21
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしたの？",
+          "vi": "Nghĩa là sao?",
+          "startTime": 63.21,
+          "endTime": 64.53
+        },
+        {
+          "speaker": "A",
+          "ja": "テストにやまかけたら、まったくはずされちゃったんだ。",
+          "vi": "Tớ học tủ nhưng bị lệch tủ.",
+          "startTime": 64.53,
+          "endTime": 68.06
+        },
+        {
+          "speaker": "B",
+          "ja": "そりゃ、先生のほうが[一枚](いちまい)も[二枚](にまい)も[上手](うわて)ってことだよ。",
+          "vi": "Điều đó có nghĩa là thầy giáo cao tay hơn hẳn nhỉ.",
+          "startTime": 68.06,
+          "endTime": 71.94
+        },
+        {
+          "speaker": "A",
+          "ja": "[追試確定](ついしかくてい)だな…。[前期](ぜんき)に[続](つづ)いて3回目だー。",
+          "vi": "Chắc chắn là phải thi lại rồi.... Lần thứ 3 tính cả kỳ trước.",
+          "startTime": 71.94,
+          "endTime": 76.31
+        },
+        {
+          "speaker": "B",
+          "ja": "ご[愁傷](しゅうしょう)さま。",
+          "vi": "Xin chia buồn với cậu.",
+          "startTime": 76.31,
+          "endTime": 77.79
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 20",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[出張](しゅっちょう)どうだった？",
+          "vi": "Chuyến công tác thế nào?",
+          "startTime": 77.79,
+          "endTime": 80.37
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、仕事のほうは問題なかったんだけどさー、ずっと[腰痛](ようつう)で本当[大変](たいへん)だったんだ。",
+          "vi": "Ừm, công việc thì không vấn đề gì nhưng thật khổ sở vì bị đau lưng suốt.",
+          "startTime": 80.37,
+          "endTime": 87.33
+        },
+        {
+          "speaker": "A",
+          "ja": "腰痛？ えー、どうして？ [持病](じびょう)なの？",
+          "vi": "Đau lưng? Tại sao vậy? Bệnh mãn tính à?",
+          "startTime": 87.33,
+          "endTime": 91.06
+        },
+        {
+          "speaker": "B",
+          "ja": "いや、道歩いてるときにくしゃみした[拍子](ひょうし)にグキッときて…。",
+          "vi": "Không, đang đi trên đường, tự dưng nhói một cái đúng lúc hắt hơi....",
+          "startTime": 91.07,
+          "endTime": 95.59
+        },
+        {
+          "speaker": "A",
+          "ja": "ははは…、やだねー、[漫画](まんが)みたい。",
+          "vi": "Ha ha ha..., cậu giỡn à. Cứ như là trong truyện tranh ấy.",
+          "startTime": 95.59,
+          "endTime": 98.17
+        },
+        {
+          "speaker": "B",
+          "ja": "[笑](わら)い事じゃなかったんだよー。本当に[涙](なみだ)が出るほど[痛](いた)かったんだから。",
+          "vi": "Không phải chuyện cười đâu. Thật sự là đau đến chảy nước mắt ấy.",
+          "startTime": 98.17,
+          "endTime": 103.05
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 21",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "一人はソロで、二人はデュエット、三人はトリオで、四人はカルテットか…。",
+          "vi": "Một người gọi là hát sô lô, hai người gọi là hát duet, ba người gọi là hát trio, bốn người gọi là quarto à....",
+          "startTime": 103.05,
+          "endTime": 112.25
+        },
+        {
+          "speaker": "B",
+          "ja": "それは音楽[用語](ようご)だね。イタリア語だろう？",
+          "vi": "Đó là thuật ngữ trong âm nhạc nhỉ. Tiếng Ý phải không?",
+          "startTime": 112.25,
+          "endTime": 115.22
+        },
+        {
+          "speaker": "A",
+          "ja": "一人はシングルとも言うし、二人はペアとも言うよ。",
+          "vi": "Một người còn gọi là đơn ca, hai người còn gọi là song ca.",
+          "startTime": 115.22,
+          "endTime": 119.17
+        },
+        {
+          "speaker": "B",
+          "ja": "あー、ダブルスとも言うね、テニスでは。プロレスはタッグだし…。",
+          "vi": "Ừ, còn gọi là cặp, trong quần vợt ấy. Trong đấu vật chuyên nghiệp thì là cặp đôi.",
+          "startTime": 119.17,
+          "endTime": 124.7
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、たわいもない話だけど、おもしろいね。",
+          "vi": "Ồ... Chuyện không đâu mà vui nhỉ.",
+          "startTime": 124.7,
+          "endTime": 128.08
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 22",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[受験](じゅけん)まで[残](のこ)り50日切ったから、そろそろ[追](お)い[込](こ)みかけていかないとね。",
+          "vi": "Chỉ còn 50 ngày nữa là thi nên đã đến lúc chúng ta phải dốc sức rồi nhỉ.",
+          "startTime": 128.08,
+          "endTime": 135.48
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。今が[頑張](がんば)りどころだね。",
+          "vi": "Ừ. Bây giờ là thời điểm cần cố gắng.",
+          "startTime": 135.48,
+          "endTime": 138.15
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。本当、[焦](あせ)るよね。",
+          "vi": "Ừ. Sốt ruột thật đấy.",
+          "startTime": 138.15,
+          "endTime": 140.57
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜、なんで〜？ 毎日コツコツやってきてるじゃん。",
+          "vi": "Ơ? Tại sao? Chúng ta vẫn đều đặn học hàng ngày mà.",
+          "startTime": 140.57,
+          "endTime": 144.45
+        },
+        {
+          "speaker": "A",
+          "ja": "そうだけどさ〜、何となく。",
+          "vi": "Đành là thế nhưng không hiểu sao lại vẫn lo.",
+          "startTime": 144.45,
+          "endTime": 147.23
+        },
+        {
+          "speaker": "B",
+          "ja": "ま〜ね〜。やるだけやるしかないんじゃない？",
+          "vi": "Tớ hiểu. Cứ làm việc phải làm thôi nhỉ?",
+          "startTime": 147.23,
+          "endTime": 150.51
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 23",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねー、[最近](さいきん)のドラマでなんかおもしろいのある？",
+          "vi": "Này, dạo này có phim truyền hình nào hay không?",
+          "startTime": 150.51,
+          "endTime": 155.78
+        },
+        {
+          "speaker": "B",
+          "ja": "「とんだ[所](ところ)に[嫁](よめ)に来た！」とかいうのがいいよ。見たことある？",
+          "vi": "\"Tôi đã tới làm dâu một gia đình kỳ lạ!\" được đấy. Cậu đã xem chưa?",
+          "startTime": 155.78,
+          "endTime": 160.51
+        },
+        {
+          "speaker": "A",
+          "ja": "ううん。それってどんなドラマ？",
+          "vi": "Chưa. Phim nói về gì vậy?",
+          "startTime": 160.51,
+          "endTime": 162.65
+        },
+        {
+          "speaker": "B",
+          "ja": "「嫁と[姑](しゅうとめ)の[確執](かくしつ)」ってとこかな。",
+          "vi": "Kiểu như \"Mối hiềm khích giữa mẹ chồng và nàng dâu\".",
+          "startTime": 162.65,
+          "endTime": 165.52
+        },
+        {
+          "speaker": "A",
+          "ja": "でも、よくあるパターンじゃない。",
+          "vi": "Nhưng đó là một mô típ thường thấy mà.",
+          "startTime": 165.52,
+          "endTime": 167.69
+        },
+        {
+          "speaker": "B",
+          "ja": "そうなんだけど、姑をやってる[松下礼子](まつしたれいこ)がはまり[役](やく)でさ。[意地悪](いじわる)な女をやらせたら、彼女の右に出る者はいないね。",
+          "vi": "Đúng vậy nhưng Reiko Matsushita đóng vai mẹ chồng đạt lắm. Không ai đóng vai một bà già khó chịu giỏi như cô ấy cả.",
+          "startTime": 167.69,
+          "endTime": 177.35
+        }
+      ]
+    }
+  ]
 }
   
 ]
