@@ -5267,7 +5267,7 @@ const renderGuideOverlay = () => (
                             className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                         >
                             <div className="flex justify-between items-center w-full gap-4">
-                                <span className="text-lg sm:text-2xl font-black text-zinc-900 uppercase text-left leading-tight">
+                                <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight">
                                     {item.title}
                                 </span>
                             </div>
