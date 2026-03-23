@@ -812,15 +812,23 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
         let items = [];
         if (mode === 'vocab') {
-            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => w && dbData.TUVUNG_DB?.[w]);
+            // FIX LỖI: Bắt buộc từ vựng phải có CẢ cách đọc và ý nghĩa mới được đưa vào game
+            items = text.split(/[\n;]+/).map(w => w.trim()).filter(w => {
+                const info = dbData.TUVUNG_DB?.[w];
+                return info && info.reading && info.meaning;
+            });
         } else {
             items = Array.from(new Set(text.replace(/[\n\s]/g, ''))).filter(c => dbData.KANJI_DB?.[c]);
         }
-        
+
+        // FIX LỖI "KẸT STATE": Nếu không có từ nào hợp lệ, báo lỗi và gọi onClose() để dọn dẹp hệ thống
+        if (items.length === 0) {
+            alert("Không có từ vựng hợp lệ để kiểm tra! Vui lòng bổ sung Ý nghĩa & Cách đọc trước khi học.");
+            onClose();
+            return;
+        }
+
         const shuffled = items.sort(() => Math.random() - 0.5);
-        setQueue(shuffled);
-        setInitialTotal(shuffled.length);
-    };
 
    
 
@@ -1065,14 +1073,25 @@ const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, o
         if (isOpen && text) { 
             let chars = [];
             if (mode === 'vocab') {
-                 
+                 // FIX LỖI: Lọc từ vựng phải có đủ thông tin
                  chars = text.split(/[\n;]+/)
                     .map(w => w.trim())
-                    .filter(w => w.length > 0 && dbData?.TUVUNG_DB && dbData.TUVUNG_DB[w]);
+                    .filter(w => {
+                        const info = dbData?.TUVUNG_DB?.[w];
+                        return info && info.reading && info.meaning;
+                    });
             } else {
                 chars = Array.from(text).filter(c => c.trim()); 
             }
             chars = [...new Set(chars)];
+
+            // FIX LỖI "KẸT STATE": Tránh crash khi mảng rỗng
+            if (chars.length === 0) {
+                alert("Không có từ vựng hợp lệ để ôn tập! Vui lòng bổ sung Ý nghĩa & Cách đọc.");
+                onClose();
+                return;
+            }
+
             setOriginalQueue(chars); 
             const queueToLoad = isShuffleOn ? shuffleArray(chars) : chars; 
             startNewSession(queueToLoad); 
@@ -2430,7 +2449,12 @@ const PreviewListModal = ({ isOpen, onClose, onStart, text, mode, dbData, target
                         <button onClick={onClose} className="px-6 py-4 rounded-xl border border-gray-300 text-gray-600 font-bold text-xs uppercase hover:bg-gray-100 transition-all">Quay lại</button>
                         <button 
                             onClick={() => onStart(targetAction)} 
-                            className="flex-1 py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                            disabled={(mode === 'vocab' && ready.length === 0) || (mode === 'kanji' && kanjiList.length === 0)}
+                            className={`flex-1 py-4 font-black rounded-xl shadow-lg transition-all uppercase tracking-widest flex justify-center items-center gap-2 
+                                ${((mode === 'vocab' && ready.length === 0) || (mode === 'kanji' && kanjiList.length === 0))
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50' 
+                                    : 'bg-gray-900 hover:bg-black text-white active:scale-[0.98]'
+                                }`}
                         >
                             BẮT ĐẦU
                             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
