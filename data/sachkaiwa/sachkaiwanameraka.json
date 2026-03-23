@@ -908,7 +908,7 @@
     "id": "07",
     "title": "LƯỢC BỎ TRỢ TỪ",
     "translation": "",
-    "explanation": "",
+    "explanation": "Trong hội thoại thân mật, trợ từ 「を」 thường bị lược bỏ.\\nNếu ngữ cảnh đủ rõ, 「が」 và 「に/へ」 cũng có thể bỏ mà vẫn hiểu được.\\nTuy nhiên, các trợ từ khác như 「に」「で」「と」 nếu bỏ sẽ dễ gây khó hiểu.\\nNgoài ra, 「は」 (chủ đề) cũng thường bị lược bỏ trong lời nói. ",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka7.m4a",
     "conversations": [
       {
@@ -1027,7 +1027,7 @@
     "id": "08",
     "title": "CÂU RÚT GỌN",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi nói chuyện với gia đình, bạn bè, thường dùng câu rút gọn để nói nhanh hơn.\\nKhông cần nói hết câu vẫn hiểu nếu ngữ cảnh rõ ràng.\\nDùng dạng ngắn giúp hội thoại tự nhiên và tốc độ nhanh hơn.\\n1. Nhờ vả / yêu cầu ai làm gì:\\n「〜てください」→「〜て」\\n「〜ないでください」→「〜ないで」\\n2. Khuyên người khác:\\n「〜たらどうですか」→「〜たら」\\n「〜ばいいですよ」→「〜ば」\\n「〜てはどうですか」→「〜ては」\\n3. Diễn đạt nghĩa “phải làm”:\\n「〜なければならない」→「〜なければ」\\n「〜なきゃならない」→「〜なきゃ」\\n「〜なくてはいけない」→「〜なくては」\\n「〜ないといけない」→「〜ないと」\\n4. Thuật lại lời người khác:\\n「〜と聞きました／言いました」→「〜って」\\n5. Hỏi lại / yêu cầu giải thích:\\n「〜と言いましたか」→「〜って？」\\n「〜というのは何ですか」→「〜って？」",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka8.m4a",
     "conversations": [
       {
@@ -1136,7 +1136,7 @@
     "id": "09",
     "title": "THÀNH NGỮ CỐ ĐỊNH",
     "translation": "",
-    "explanation": "",
+    "explanation": "Trong tiếng Nhật, các câu chào hỏi hoặc mẫu câu giao tiếp cố định thường được lược bỏ phần đuôi để câu nói tự nhiên, nhẹ nhàng hơn. Cách nói này thể hiện sự tinh tế, quan tâm đến đối phương, thường dùng với cả cấp trên hoặc người chưa thân thiết lắm để giúp giao tiếp trôi chảy, thoải mái hơn.\\nDưới đây là 4 nhóm mẫu câu rút gọn đuôi phổ biến:\\n1. Nhóm「どうぞ ～」(Xin mời / Xin hãy...)\\n- どうぞこちらへ来てください ➔ どうぞこちらへ (Xin mời đi hướng này)\\nどうぞお大事にしてください ➔ どうぞお大事に (Xin hãy bảo trọng / Chúc chóng khỏe)\\nどうぞお楽にしてください ➔ どうぞお楽に (Xin cứ thoải mái)\\nどうぞ～によろしくお伝えください ➔ どうぞ～によろしく (Cho tôi gửi lời thăm...)\\nどうぞよいお年をお迎えください ➔ どうぞよいお年を (Chúc năm mới tốt lành)\\n- どうぞお先に行ってください  ➔ どうぞお先に (Xin mời đi trước)\\n- どうぞごゆっくりしてください ➔ どうぞごゆっくり (Xin hãy thong thả)\\n2. Nhóm「どうぞ ～ なく」(Xin đừng...)\\n どうぞご心配しないでください ➔ どうぞご心配なく (Xin đừng lo lắng)\\n- どうぞかまわないでください  ➔ どうぞおかまいなく (Xin đừng bận tâm)\\n どうぞごえんりょしないでください  ➔ どうぞごえんりょなく (Xin đừng khách sáo)\\n3. Nhóm「どうも」(Rút gọn cho cảm ơn, xin lỗi, xin phép)\\n どうもありがとう ➔ どうも (Rất cám ơn)\\nどうもすみません ➔ どうも (Rất xin lỗi)\\n どうも失礼します  ➔ どうも (Tôi xin phép / Xin thất lễ)\\n4. Các câu giao tiếp thông dụng khác\\n お先に失礼します ➔ お先に (Tôi xin phép đi trước)\\n じゃ、また後で会いましょう ➔ じゃ、また後で (Vậy, hẹn gặp lại sau nhé)\\nでは、後ほど会いましょう ➔ では、後ほど (Vậy thì, chút nữa gặp lại nhé)\\nおかげさまで（元気です）➔ おかげさまで (Nhờ trời phù hộ / Nhờ ơn trên)\\nお気のどくに思います ➔ お気のどくに (Tội nghiệp quá / Thật đáng tiếc)",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka9.m4a",
     "conversations": [
       {
@@ -1255,7 +1255,7 @@
     "id": "10",
     "title": "SỰ LẶP LẠI",
     "translation": "",
-    "explanation": "",
+    "explanation": "Trong giao tiếp tiếng Nhật, người ta thường có thói quen lặp lại một từ 2 lần (ví dụ: だいじょうぶ、だいじょうぶ). Mục đích của việc này là để:\\n- Nhấn mạnh cảm xúc và thái độ của người nói đối với người nghe.\\n- Tạo nhịp điệu tự nhiên, nhịp nhàng hơn cho cuộc hội thoại.\\nCách nói này được sử dụng rất nhiều trong đời sống hàng ngày, lâu dần nhiều từ đã trở thành những cụm từ cố định quen thuộc. ",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka10.m4a",
     "conversations": [
       {
@@ -1263,7 +1263,7 @@
         "dialogues": [
           {
             "speaker": "A",
-            "ja": "[材料](ざいりょう)が_[来](き)た来きた_。さあ、お[好](この)み[焼](や)き、[焼](や)こうか。",
+            "ja": "[材料](ざいりょう)が_[来](き)た来た_。さあ、お[好](この)み[焼](や)き、[焼](や)こうか。",
             "vi": "Nguyên liệu tới rồi tới rồi. Nào, mình chiên bánh xèo đi."
           },
           {
@@ -1394,7 +1394,7 @@
     "id": "11",
     "title": "CÁCH NÓI LẤP LỬNG",
     "translation": "",
-    "explanation": "",
+    "explanation": "Thông thường, các từ 「とか」「たり」「し」 được dùng để liệt kê từ 2 ví dụ trở lên. Tuy nhiên, trong giao tiếp thực tế, người Nhật thường có thói quen chỉ đưa ra MỘT ví dụ đại diện, còn lại để người nghe tự hiểu hoặc tự tưởng tượng. \\nCách nói mập mờ (không nói hết ý) này giúp giảm bớt sự cứng nhắc, ít áp đặt và làm câu nói mềm mỏng hơn rất nhiều.\\nDưới đây là 5 mẫu câu thường gặp theo phong cách này:\\n1. ～なんか  Đưa ra một ví dụ đại diện (Như là... / Cỡ như...)\\n- Ví dụ: おにぎりなんかがいい。(Cơm nắm hay gì đó chắc cũng được đấy.)\\n2. ～でも Đưa ra một ví dụ khi muốn gợi ý, rủ rê ai đó (...hay gì đó)\\n- Ví dụ: 食事でもしませんか。(Mình đi ăn hay gì đó nhé?)\\n3. ～とか  Dùng rất rộng rãi để nêu lên một ví dụ chung chung (Ví dụ như... / Kiểu như...)\\n- Ví dụ: 家事とかはどうやってるの？ (Mấy việc nhà các thứ thì cậu làm thế nào?)\\n4. ～たり Nêu lên một hành động hoặc trạng thái làm đại diện.\\n- Ví dụ: 友達に会ったりした。(Tớ đã đi gặp bạn [và có làm vài việc khác nữa]...)\\n5. ～し  Nêu ra một lý do mang tính đại diện (Vì... [và còn những lý do khác nữa])\\n- Ví dụ: 本人の気持ちもあることだし... (Vì cũng phải xét đến cảm xúc của người trong cuộc nữa... [nên là...])",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka11.m4a",
     "conversations": [
       {
@@ -1513,7 +1513,7 @@
     "id": "12",
     "title": "THAY ĐỔI TRẬT TỰ TỪ",
     "translation": "",
-    "explanation": "",
+    "explanation": "Trong đàm thoại tiếng Nhật, người ta thường xuyên thay đổi trật tự từ trong câu (đảo ngữ). Những thông tin quan trọng nhất, cảm xúc mạnh nhất, hoặc điều đối phương muốn nghe nhất sẽ được ưu tiên đưa lên đầu câu.\\nDưới đây là 5 kiểu đảo ngữ phổ biến:\\n1. Đưa từ để hỏi (Nghi vấn từ) lên đầu\\nこれは何？ ➔ 何、これ？ (Cái gì đây?)\\nうちの猫はどこへ行ったんだろう ➔ どこ行ったんだろう、うちの猫 (Đi đâu rồi nhỉ, con mèo nhà mình.)\\n2. Đưa từ chỉ cảm xúc lên đầu\\n 卒業できてよかったね ➔ よかったね、卒業できて (Tuyệt quá nhỉ, tốt nghiệp được rồi.)\\n行けなくて残念だったなあ ➔ 残念だったなあ、行けなくて (Tiếc thật đấy, vì không đi được.)\\n3. Đưa kết luận lên trước, lý do theo sau\\n 危ないからやめなさい ➔ やめなさい、危ないから (Dừng lại đi, nguy hiểm đấy.)\\n試験前だから忙しいんだよ ➔ 忙しいんだよ、試験前だから (Bận lắm, vì sắp thi mà.)\\n4. Đưa lời tác động đến người nghe (xin lỗi, nhắc nhở...) lên trước\\nお待たせしてしまってごめんなさい ➔ ごめんなさい、お待たせしてしまって (Xin lỗi nhé, vì bắt cậu đợi.)\\nこんなところにゴミを出しちゃだめじゃない  ➔ だめじゃない、こんなところにゴミを出しちゃ (Không được đâu, vứt rác ở chỗ thế này.)\\n5. Đưa trạng từ về cuối câu (để nhấn mạnh hoặc tạo dư âm)\\nほんとにおもしろい映画だったなあ ➔ おもしろい映画だったなあ、ほんとに (Phim hay thật đấy, thực sự.)\\nぜひ一度遊びに来てくださいね ➔ 一度遊びに来てくださいね、ぜひ (Hãy đến chơi nhé, nhất định đấy.)\\n* Chú ý: Một câu có thể có nhiều cách đảo vị trí linh hoạt tùy theo ý đồ người nói. Ví dụ với câu 田中君って / すしをにぎるのが / うまいんだね (Cậu Tanaka / nắm sushi / giỏi nhỉ), ta có thể đảo thành:\\nうまいんだね、すしをにぎるのが、田中君って。\\nすしをにぎるのがうまいんだね、田中君って。\\n田中君ってうまいんだね、すしをにぎるのが。",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka12.m4a",
     "conversations": [
       {
