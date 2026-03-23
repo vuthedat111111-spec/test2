@@ -829,6 +829,9 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         }
 
         const shuffled = items.sort(() => Math.random() - 0.5);
+        setQueue(shuffled);
+        setInitialTotal(shuffled.length);
+    }; 
 
    
 
