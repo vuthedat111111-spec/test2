@@ -5025,11 +5025,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "Phần 1", desc: "Hội thoại với gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Hội thoại với bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Hội thoại với người quen, hàng xóm", lessonCount: 5 }
-        ],
-        'nameraka': [
-            { title: "BIẾN ÂM", desc: "", lessonCount: 6 },
-            { title: "HÌNH THỨC HỘI THOẠI", desc: "", lessonCount: 6 },
-            { title: "MỤC ĐÍCH HỘI THOẠI", desc: "", lessonCount: 11 }
         ]
     };
 
