@@ -2251,8 +2251,13 @@
           },
           {
             "speaker": "B",
-            "ja": "大人2名様、子供1名様ですね。[少々](しょうしょう)お[待](ま)ちくださいませ。お[待](ま)たせいたしました。[申](もう)しわけございませんが、その[日](ひ)は[予約](よやく)がいっぱいになっておりまして…。もしよろしかったら、キャンセル[待](ま)ちをうかがっておきます_が_…",
-            "vi": "2 người lớn 1 trẻ em phải không? Xin quí khách chờ một chút. Xin lỗi đã để quí khách phải chờ. Thật xin lỗi quí khách, ngày hôm đó đã có người đặt trước hết rồi. Nhưng nếu được, xin quí khách chờ có người hủy bỏ."
+            "ja": "大人2名様、子供1名様ですね。[少々](しょうしょう)お[待](ま)ちくださいませ。",
+            "vi": "2 người lớn 1 trẻ em phải không? Xin quí khách chờ một chút."
+          },
+          {
+            "speaker": "B",
+            "ja": "お[待](ま)たせいたしました。[申](もう)しわけございませんが、その[日](ひ)は[予約](よやく)がいっぱいになっておりまして…。もしよろしかったら、キャンセル[待](ま)ちをうかがっておきます_が_…",
+            "vi": "Xin lỗi đã để quí khách phải chờ. Thật xin lỗi quí khách, ngày hôm đó đã có người đặt trước hết rồi. Nhưng nếu được, xin quí khách chờ có người hủy bỏ."
           },
           {
             "speaker": "A",
