@@ -76,49 +76,50 @@
     }
   ]
 },
-  {
-  "id": "02",
-  "title": "BIẾN ÂM - ちゃ - じゃ - きゃ",
-  "translation": "",
-  "explanation": "",
-  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka2.m4a",
-  "conversations": [
-    {
-      "context": "Tình huống 1",
-      "dialogues": [
-        { "speaker": "A", "ja": "ちょっとすみません。ここはどのあたりですか。", "vi": "À, xin lỗi. Ở đây là khu vực nào rồi?" },
-        { "speaker": "B", "ja": "[今](いま)、[京都](きょうと)を[過](す)ぎたところですよ。", "vi": "Hiện giờ, vừa mới qua khỏi Kyoto đấy." },
-        { "speaker": "A", "ja": "ぼくは[次](つぎ)の[駅](えき)で[降](お)りなきゃならないんですが、[近](ちか)づいたら[教](おし)えてくださいませんか。", "vi": "Tôi phải xuống ở ga kế tiếp. Khi nào gần tới chị làm ơn cho tôi biết nhé." },
-        { "speaker": "B", "ja": "（[少](すこ)し[後](あと)で）\nもしもし、もうすぐ[着](つ)きますよ。", "vi": "（Một lúc sau）\nNày này, sắp tới rồi đấy." },
-        { "speaker": "A", "ja": "うーん。", "vi": "Ừm." },
-        { "speaker": "B", "ja": "[起](お)きてください。[乗](の)りこしちゃいますよ。", "vi": "Dậy đi. Tàu sắp đi qua trạm rồi đấy." },
-        { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ... .\nCám ơn, cám ơn nhé." },
-        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... . Anh bỏ quên hành lý rồi nè." }
-      ]
-    },
-    {
-      "context": "Tình huống 2",
-      "dialogues": [
-        { "speaker": "A", "ja": "すみません、おまわりさん。[終電車](しゅうでんしゃ)に[乗](の)り[遅](おく)れちゃったんです。", "vi": "Xin lỗi, anh cảnh sát ơi. Em đã trễ chuyến xe cuối rồi." },
-        { "speaker": "B", "ja": "はい、それで？", "vi": "Ừ, rồi sao nữa?" },
-        { "speaker": "A", "ja": "タクシー[代](だい)、[貸](か)してほしいんですけど。", "vi": "Em muốn mượn tiền đi taxi." },
-        { "speaker": "B", "ja": "いくら？", "vi": "Mượn bao nhiêu?" },
-        { "speaker": "A", "ja": "[千円](せんえん)でいいんです。さいふに[千円](せんえん)[残](のこ)ってますから。", "vi": "Một ngàn yên là đủ rồi. Vì trong bóp của em còn một ngàn yên." },
-        { "speaker": "B", "ja": "ちゃんと[返](かえ)してくれるのかい？", "vi": "Chắc chắn em sẽ trả lại cho tôi chứ?" },
-        { "speaker": "A", "ja": "[明日](あした)の[朝](あさ)、[一番](いちばん)に[持](も)ってきますから。", "vi": "Sáng sớm ngày mai em sẽ mang tiền đến trả." },
-        { "speaker": "B", "ja": "しょうがないなあ。ちょっと[待](ま)って。", "vi": "Biết làm sao đây. Chờ tôi một chút nhé." },
-        { "speaker": "A", "ja": "はい。", "vi": "Vâng." },
-        { "speaker": "B", "ja": "じゃ、[千円](せんえん)[貸](か)すからね。これからは[夜遊](よあそ)びしちゃいけないよ。[早](はや)く[家](いえ)に[帰](かえ)らなくちゃだめだよ。ご[両親](りょうしん)に[心配](しんぱい)かけるんじゃないよ。", "vi": "Vậy, tôi cho em mượn một ngàn yên đấy nhé. Từ nay về sau em không được đi chơi khuya nữa nhé. Em phải nhanh về nhà đi. Đừng làm bố mẹ phải lo lắng." }
-      ]
-    }
-  ]
-},
-  {
+{
   "id": "03",
   "title": "BIẾN ÂM - たって - だって",
   "translation": "",
   "explanation": "",
   "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka3.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "こんどダンスパーティーがあるんだけど、いっしょに[行](い)かない？", "vi": "Sắp tới đây có một buổi tiệc khiêu vũ, em đi với anh nhé." },
+        { "speaker": "B", "ja": "わたし、ダンスが[下手](へた)なの。", "vi": "Em khiêu vũ dở lắm." },
+        { "speaker": "A", "ja": "[下手](へた)だって [大丈夫](だいじょうぶ)だよ。ぼくが[教](おし)えてあげるから。", "vi": "Dở cũng không sao đâu. Anh sẽ chỉ cho em." },
+        { "speaker": "B", "ja": "でも、ダンスの[時](とき)に[着](き)る[服](ふく)がないし…", "vi": "Nhưng em không có quần áo khiêu vũ." },
+        { "speaker": "A", "ja": "なくたって かまわないよ。レンタルすればいいんだから…", "vi": "Không có cũng không sao. Mình đi thuê là được mà." },
+        { "speaker": "B", "ja": "レンタルするのは[高](たか)いし…", "vi": "Đi thuê thì mắc lắm, hơn nữa ..." },
+        { "speaker": "A", "ja": "[高](たか)くたって いいじゃないか。ぼくが[払](はら)ってあげるよ。", "vi": "Mắc cũng được chứ sao. Anh sẽ trả tiền cho em." },
+        { "speaker": "B", "ja": "う〜ん。[一回](いっかい)しか[着](き)ないのに[高](たか)いお[金](かね)を[出](だ)すなんて、ばかげてるんじゃない？", "vi": "Ừm. Chỉ mặc có một lần mà phải trả nhiều tiền như vậy, chẳng phải là uổng quá hay sao?" },
+        { "speaker": "A", "ja": "わかったよ。[買](か)えばいいんだろ。", "vi": "Biết rồi. Mua là được chứ gì." },
+        { "speaker": "B", "ja": "わあ、うれしいわ。ありがとう。", "vi": "Ôi, sướng quá. Cám ơn anh." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "ねえ、アパートの[家賃](やちん)も[高](たか)いし、そろそろマイホームを[買](か)わない？", "vi": "Anh nè, tiền thuê căn hộ cũng mắc quá, hay là mình mua nhà riêng đi." },
+        { "speaker": "B", "ja": "そうだな。[小](ちい)さくたって [自分](じぶん)の[家](いえ)に[住](す)みたいよなあ。", "vi": "Ừ nhỉ. Dù có nhỏ một chút nhưng anh cũng muốn sống trong căn nhà của riêng mình." },
+        { "speaker": "A", "ja": "やっぱり、[庭](にわ)があって[自然](しぜん)に[囲](かこ)まれた うちがいいわ。", "vi": "Đương nhiên rồi, một căn nhà có vườn và thiên nhiên bao quanh thì tuyệt quá." },
+        { "speaker": "B", "ja": "そんなこと[言](い)ったって [無理](むり)だよ。", "vi": "Em nói thế thì làm sao mà có được." },
+        { "speaker": "A", "ja": "[駅](えき)から[遠](とお)くたっていいじゃない。そうすれば[少](すこ)しは[安](やす)くなるわ。", "vi": "Xa nhà ga thì sao lại không được. Nếu vậy sẽ rẻ được một chút đấy." },
+        { "speaker": "B", "ja": "[通勤](つうきん)が[不便](ふべん)になるじゃないか。", "vi": "Đi làm sẽ bất tiện lắm." },
+        { "speaker": "A", "ja": "だいじょうぶよ。わたしが[車](くるま)で[駅](えき)まで[送](おく)り[迎](むか)えしてあげるから。", "vi": "Không sao đâu. Em sẽ lái xe đưa đón anh đến nhà ga." },
+        { "speaker": "B", "ja": "でも、[仕事](しごと)で[帰](かえ)りが[遅](おそ)くなることもあるんだぜ。", "vi": "Nhưng lỡ khi có việc anh về trễ thì sao." },
+        { "speaker": "A", "ja": "かまわないわよ。いくら[遅](おそ)くなったって わたしは[迎](むか)えに[行](い)くから。", "vi": "Không sao đâu. Dù có trễ mấy đi nữa thì em vẫn đi đón anh." }
+      ]
+    }
+  ]
+},
+  {
+  "id": "04",
+  "title": "BIẾN ÂM - って - て",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka4.m4a",
   "conversations": [
     {
       "context": "Tình huống 1",
@@ -151,11 +152,11 @@
   ]
 },
   {
-  "id": "04",
+  "id": "05",
   "title": "BIẾN ÂM - ん",
   "translation": "",
   "explanation": "",
-  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka4.m4a",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka5.m4a",
   "conversations": [
     {
       "context": "Tình huống 1",
@@ -190,11 +191,11 @@
   ]
 },
   {
-  "id": "05",
+  "id": "06",
   "title": "BIẾN ÂM - TỪ NGỮ BIẾN ĐỔI",
   "translation": "",
   "explanation": "",
-  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka5.m4a",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka6.m4a",
   "conversations": [
     {
       "context": "Tình huống 1",
