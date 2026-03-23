@@ -1209,124 +1209,164 @@
   ]
 },
 {
-    "id": "09",
-    "title": "THÀNH NGỮ CỐ ĐỊNH",
-    "translation": "",
-    "explanation": "Trong tiếng Nhật, các câu chào hỏi hoặc mẫu câu giao tiếp cố định thường được lược bỏ phần đuôi để câu nói tự nhiên, nhẹ nhàng hơn. Cách nói này thể hiện sự tinh tế, quan tâm đến đối phương, thường dùng với cả cấp trên hoặc người chưa thân thiết lắm để giúp giao tiếp trôi chảy, thoải mái hơn.",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka9.m4a",
-    "conversations": [
-      {
-        "context": "Tình huống 1",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "お[体](からだ)の[調子](ちょうし)はいかがですか。",
-            "vi": "Bệnh tình của anh sao rồi?"
-          },
-          {
-            "speaker": "B",
-            "ja": "ありがとうございます。だいぶよくなりましたので、_ご[心配](しんぱい)なく_。",
-            "vi": "Cám ơn chị. Tôi đã khỏe nhiều rồi, xin chị đừng lo."
-          },
-          {
-            "speaker": "A",
-            "ja": "これ、お[見舞](みま)いです。どうぞ。",
-            "vi": "Đây là quà cho anh."
-          },
-          {
-            "speaker": "B",
-            "ja": "きれいな[花](はな)ですね。どうもすみません。こちらにおかけください。",
-            "vi": "Hoa đẹp quá. Xin lỗi đã làm phiền chị. Mời chị ngồi."
-          },
-          {
-            "speaker": "A",
-            "ja": "いいえ、_おかまいなく_。[会社](かいしゃ)のみんなからのお[見舞](みま)いも[預](あず)かってきました。これ、どうぞ。みんな[心配](しんぱい)しているんですよ。",
-            "vi": "Xin anh đừng bận tâm. Còn đây là quà của mọi người trong công ty nhờ tôi mang đến. Xin anh nhận cho. Mọi người rất lo lắng cho anh."
-          },
-          {
-            "speaker": "B",
-            "ja": "すみませんね。どうぞみなさんにくれぐれも_よろしく_。[来週](らいしゅう)にはもう[退院](たいいん)できると[思](おも)いますので…。",
-            "vi": "Phiền chị, cho tôi gởi lời cảm ơn mọi người nhiều lắm. Tôi nghĩ tuần sau chắc có thể xuất viện rồi."
-          },
-          {
-            "speaker": "A",
-            "ja": "それはよかったですね。",
-            "vi": "Vậy thì tốt quá."
-          },
-          {
-            "speaker": "B",
-            "ja": "_おかげさまで_。[退院後](たいいんご)、一[週間](いっしゅうかん)ほど[家](いえ)で[休](やす)んでから[会社](かいしゃ)に[出](で)ます。",
-            "vi": "Nhờ trời phù hộ. Sau khi xuất viện, tôi sẽ nghỉ ngơi ở nhà khoảng một tuần rồi sẽ đi làm lại."
-          },
-          {
-            "speaker": "A",
-            "ja": "どうぞごゆっくりお[休](やす)みになってください。[今日](きょう)はこれで[失礼](しつれい)します。_どうぞお[大事](だいじ)に_。",
-            "vi": "Xin anh cứ nghỉ ngơi thong thả. Thôi, tôi xin phép. Chúc anh sớm lành bệnh."
-          }
-        ]
-      },
-      {
-        "context": "Tình huống 2",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "[仕事](しごと)はまだ[終](お)わらない？",
-            "vi": "Vẫn chưa xong việc à?"
-          },
-          {
-            "speaker": "B",
-            "ja": "もうちょっとなので、やってしまおうと[思](おも)って…。",
-            "vi": "Còn một chút xíu nữa, anh định làm cho xong."
-          },
-          {
-            "speaker": "A",
-            "ja": "そう、じゃ、いつものところへ[行](い)ってるわね。",
-            "vi": "Thế à. Vậy, em đợi ở chỗ cũ nhé."
-          },
-          {
-            "speaker": "B",
-            "ja": "_お[先](さき)にどうぞ_。ぼくも[後](あと)から[行](い)くから。",
-            "vi": "Em cứ đi trước đi, một lát nữa anh sẽ tới."
-          },
-          {
-            "speaker": "A",
-            "ja": "じゃ、_また[後](あと)で_。",
-            "vi": "Vậy thì, lát nữa gặp lại."
-          },
-          {
-            "speaker": "B",
-            "ja": "お[待](ま)たせしてごめん。[仕事](しごと)が[終](お)わったと[思](おも)ったら、[国際電話](こくさいでんわ)がかかってきて…",
-            "vi": "Xin lỗi đã bắt em phải chờ. Cứ nghĩ là đã xong việc thì lại có điện thoại quốc tế gọi đến cho nên ..."
-          },
-          {
-            "speaker": "A",
-            "ja": "それはごくろうさま。じゃ、ビールでも[飲](の)む？",
-            "vi": "Anh vất vả quá. Anh uống bia nhé."
-          },
-          {
-            "speaker": "B",
-            "ja": "それより、おなかがぺこぺこなんだ。",
-            "vi": "Để sau đi, bây giờ anh đói quá."
-          },
-          {
-            "speaker": "A",
-            "ja": "それじゃ、ステーキでも[食](た)べに[行](い)かない？",
-            "vi": "Vậy, mình đi ăn bò bít tết không?"
-          },
-          {
-            "speaker": "B",
-            "ja": "でも、[給料日前](きゅうりょうびまえ)だし…",
-            "vi": "Nhưng, chưa đến ngày lãnh lương ..."
-          },
-          {
-            "speaker": "A",
-            "ja": "じゃ、わたしのアパートへ[来](く)る？[何](なに)かごちそうするわ。",
-            "vi": "Vậy, đến nhà em đi. Em sẽ đãi anh cái gì đó."
-          }
-        ]
-      }
-    ]
-  },
+  "id": "09",
+  "title": "THÀNH NGỮ CỐ ĐỊNH",
+  "translation": "",
+  "explanation": "Trong tiếng Nhật, các câu chào hỏi hoặc mẫu câu giao tiếp cố định thường được lược bỏ phần đuôi để câu nói tự nhiên, nhẹ nhàng hơn. Cách nói này thể hiện sự tinh tế, quan tâm đến đối phương, thường dùng với cả cấp trên hoặc người chưa thân thiết lắm để giúp giao tiếp trôi chảy, thoải mái hơn.",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka9.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "お[体](からだ)の[調子](ちょうし)はいかがですか。",
+          "vi": "Bệnh tình của anh sao rồi?",
+          "startTime": 0,
+          "endTime": 3.29
+        },
+        {
+          "speaker": "B",
+          "ja": "ありがとうございます。だいぶよくなりましたので、_ご[心配](しんぱい)なく_。",
+          "vi": "Cám ơn chị. Tôi đã khỏe nhiều rồi, xin chị đừng lo.",
+          "startTime": 3.29,
+          "endTime": 7.41
+        },
+        {
+          "speaker": "A",
+          "ja": "これ、お[見舞](みま)いです。どうぞ。",
+          "vi": "Đây là quà cho anh.",
+          "startTime": 7.41,
+          "endTime": 10.32
+        },
+        {
+          "speaker": "B",
+          "ja": "きれいな[花](はな)ですね。どうもすみません。こちらにおかけください。",
+          "vi": "Hoa đẹp quá. Xin lỗi đã làm phiền chị. Mời chị ngồi.",
+          "startTime": 10.32,
+          "endTime": 14.71
+        },
+        {
+          "speaker": "A",
+          "ja": "いいえ、_おかまいなく_。[会社](かいしゃ)のみんなからのお[見舞](みま)いも[預](あず)かってきました。これ、どうぞ。みんな[心配](しんぱい)しているんですよ。",
+          "vi": "Xin anh đừng bận tâm. Còn đây là quà của mọi người trong công ty nhờ tôi mang đến. Xin anh nhận cho. Mọi người rất lo lắng cho anh.",
+          "startTime": 14.71,
+          "endTime": 23.71
+        },
+        {
+          "speaker": "B",
+          "ja": "すみませんね。どうぞみなさんにくれぐれも_よろしく_。[来週](らいしゅう)にはもう[退院](たいいん)できると[思](おも)いますので…。",
+          "vi": "Phiền chị, cho tôi gởi lời cảm ơn mọi người nhiều lắm. Tôi nghĩ tuần sau chắc có thể xuất viện rồi.",
+          "startTime": 23.71,
+          "endTime": 30.56
+        },
+        {
+          "speaker": "A",
+          "ja": "それはよかったですね。",
+          "vi": "Vậy thì tốt quá.",
+          "startTime": 30.56,
+          "endTime": 32.86
+        },
+        {
+          "speaker": "B",
+          "ja": "_おかげさまで_。[退院後](たいいんご)、一[週間](いっしゅうかん)ほど[家](いえ)で[休](やす)んでから[会社](かいしゃ)に[出](で)ます。",
+          "vi": "Nhờ trời phù hộ. Sau khi xuất viện, tôi sẽ nghỉ ngơi ở nhà khoảng một tuần rồi sẽ đi làm lại.",
+          "startTime": 32.86,
+          "endTime": 38.27
+        },
+        {
+          "speaker": "A",
+          "ja": "どうぞごゆっくりお[休](やす)みになってください。[今日](きょう)はこれで[失礼](しつれい)します。_どうぞお[大事](だいじ)に_。",
+          "vi": "Xin anh cứ nghỉ ngơi thong thả. Thôi, tôi xin phép. Chúc anh sớm lành bệnh.",
+          "startTime": 38.27,
+          "endTime": 45.25
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[仕事](しごと)はまだ[終](お)わらない？",
+          "vi": "Vẫn chưa xong việc à?",
+          "startTime": 45.25,
+          "endTime": 49.13
+        },
+        {
+          "speaker": "B",
+          "ja": "もうちょっとなので、やってしまおうと[思](おも)って…。",
+          "vi": "Còn một chút xíu nữa, anh định làm cho xong.",
+          "startTime": 49.13,
+          "endTime": 51.77
+        },
+        {
+          "speaker": "A",
+          "ja": "そう、じゃ、いつものところへ[行](い)ってるわね。",
+          "vi": "Thế à. Vậy, em đợi ở chỗ cũ nhé.",
+          "startTime": 51.77,
+          "endTime": 55
+        },
+        {
+          "speaker": "B",
+          "ja": "_お[先](さき)にどうぞ_。ぼくも[後](あと)から[行](い)くから。",
+          "vi": "Em cứ đi trước đi, một lát nữa anh sẽ tới.",
+          "startTime": 55,
+          "endTime": 57.59
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃ、_また[後](あと)で_。",
+          "vi": "Vậy thì, lát nữa gặp lại.",
+          "startTime": 57.59,
+          "endTime": 59.39
+        },
+        {
+          "speaker": "B",
+          "ja": "お[待](ま)たせしてごめん。[仕事](しごと)が[終](お)わったと[思](おも)ったら、[国際電話](こくさいでんわ)がかかってきて…",
+          "vi": "Xin lỗi đã bắt em phải chờ. Cứ nghĩ là đã xong việc thì lại có điện thoại quốc tế gọi đến cho nên ...",
+          "startTime": 59.39,
+          "endTime": 65.23
+        },
+        {
+          "speaker": "A",
+          "ja": "それはごくろうさま。じゃ、ビールでも[飲](の)む？",
+          "vi": "Anh vất vả quá. Anh uống bia nhé.",
+          "startTime": 65.23,
+          "endTime": 68.42
+        },
+        {
+          "speaker": "B",
+          "ja": "それより、おなかがぺこぺこなんだ。",
+          "vi": "Để sau đi, bây giờ anh đói quá.",
+          "startTime": 68.42,
+          "endTime": 70.58
+        },
+        {
+          "speaker": "A",
+          "ja": "それじゃ、ステーキでも[食](た)べに[行](い)かない？",
+          "vi": "Vậy, mình đi ăn bò bít tết không?",
+          "startTime": 70.58,
+          "endTime": 72.85
+        },
+        {
+          "speaker": "B",
+          "ja": "でも、[給料日前](きゅうりょうびまえ)だし…",
+          "vi": "Nhưng, chưa đến ngày lãnh lương ...",
+          "startTime": 72.85,
+          "endTime": 75.08
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃ、わたしのアパートへ[来](く)る？[何](なに)かごちそうするわ。",
+          "vi": "Vậy, đến nhà em đi. Em sẽ đãi anh cái gì đó.",
+          "startTime": 75.08,
+          "endTime": 79.02
+        }
+      ]
+    }
+  ]
+},
 {
   "id": "10",
   "title": "SỰ LẶP LẠI",
