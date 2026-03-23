@@ -2273,12 +2273,91 @@
       }
     ]
   },
-{
+  {
     "id": "16",
-    "title": "NGÔN TỪ HƯỞNG ỨNG",
+    "title": "QUAN SÁT VÀ PHẢN ỨNG",
     "translation": "",
     "explanation": "",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka16.m4a",
+    "conversations": [
+      {
+        "context": "Tình huống 1",
+        "dialogues": [
+          {
+            "speaker": "A",
+            "ja": "[今日](きょう)からお[母](かあ)さんは[旅行](りょこう)に[行](い)くからね、お[留守番](るすばん)、お[願](ねが)いね。",
+            "vi": "Từ hôm nay mẹ sẽ đi du lịch, nên việc trông coi nhà cửa, mẹ nhờ con nhé."
+          },
+          {
+            "speaker": "B",
+            "ja": "だいじょうぶだよ。[心配](しんぱい)いらないよ。",
+            "vi": "Không sao đâu. Mẹ đừng lo."
+          },
+          {
+            "speaker": "A",
+            "ja": "ワンちゃんのお[世話](せわ)も[忘](わす)れないでね。",
+            "vi": "Con đừng quên chăm sóc con wan nhé."
+          },
+          {
+            "speaker": "B",
+            "ja": "えさをやればいいんだろ。",
+            "vi": "Cho nó ăn là được chứ gì."
+          },
+          {
+            "speaker": "A",
+            "ja": "えさは[冷蔵庫](れいぞうこ)の[二段目](にだんめ)に[入](い)れてあるからね、[朝](あさ)と[晩](ばん)の2[回](かい)に[分](わ)けてね、ちゃんとやるのよ。それからね、[散歩](さんぽ)にも[連](つ)れて[行](い)ってやりなさい。それから、みんなの[今晩](こんばん)のごはんはね、[冷蔵庫](れいぞうこ)の[一番上](いちばんうえ)に[肉](にく)が[入](はい)っているし、それに…",
+            "vi": "Thức ăn cho nó, mẹ để ở ngăn thứ 2 trong tủ lạnh, con chia ra làm 2 phần sáng tối, rồi cho nó ăn đàng hoàng nhé. Còn nữa, khi con đi dạo cũng dắt nó theo nhé. Còn bữa ăn tối của mọi người, có thịt để ở ngăn trên cùng trong tủ lạnh."
+          },
+          {
+            "speaker": "B",
+            "ja": "いいからいいから。[早](はや)く[行](い)ってらっしゃい。",
+            "vi": "Được rồi, được rồi. Mẹ đi nhanh đi."
+          }
+        ]
+      },
+      {
+        "context": "Tình huống 2",
+        "dialogues": [
+          {
+            "speaker": "A",
+            "ja": "すみません。[来週](らいしゅう)の[水曜日](すいようび)に[学生](がくせい)のミーティングをしたいと[思](おも)っておりまして...、それでどこか[部屋](へや)をお[借](か)りしたいんですが...",
+            "vi": "Xin lỗi, thứ tư tuần sau chúng em định tổ chức cuộc họp học sinh. Vì vậy chúng em muốn mượn một phòng nào đó."
+          },
+          {
+            "speaker": "B",
+            "ja": "じゃ、[第](だい)7[会議室](かいぎしつ)を[使](つか)ってください。",
+            "vi": "Vậy thì, hãy sử dụng phòng họp số 7."
+          },
+          {
+            "speaker": "A",
+            "ja": "その[部屋](へや)にはかぎがかかっているんですか。",
+            "vi": "Phòng đó có khóa không?"
+          },
+          {
+            "speaker": "B",
+            "ja": "ええ、かかっていますよ。でも、そのかぎはね、ここにはないんですよ。だから[当日](とうじつ)にね、1[階](かい)の[受付](うけつけ)へ[行](い)ってね、かぎを[貸](か)してもらってください。ミーティングは[何時](なんじ)までですか。",
+            "vi": "Ừ, có khóa đấy. Nhưng mà, chìa khóa không có ở đây. Vì vậy, ngày hôm ấy, em hãy đến quầy tiếp tân ở tầng 1 mượn chìa khóa nhé. Buổi họp đến mấy giờ vậy?"
+          },
+          {
+            "speaker": "A",
+            "ja": "4[時半](じはん)までの[予定](よてい)なんですが...",
+            "vi": "Dự định đến 4 giờ rưỡi."
+          },
+          {
+            "speaker": "B",
+            "ja": "じゃ、4[時半](じはん)に[終](お)わったらね、また[部屋](へや)にかぎをかけてね、そのかぎを[受付](うけつけ)に[返](かえ)してください。[受付](うけつけ)は5[時](じ)になったら、[閉](し)まってしまいますからね、[必](かなら)ずその[前](まえ)に[返](かえ)すようにしてくださいよ。",
+            "vi": "Vậy thì, 4 giờ rưỡi nếu xong rồi, em hãy khóa cửa phòng lại nhé, rồi mang chìa khóa trả lại cho quầy tiếp tân. Ở quầy tiếp tân đến 5 giờ là đóng cửa nên nhất định em phải trả trước giờ đó nhé."
+          }
+        ]
+      }
+    ]
+  }
+{
+    "id": "17",
+    "title": "NGÔN TỪ HƯỞNG ỨNG",
+    "translation": "",
+    "explanation": "",
+    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka17.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -2393,11 +2472,11 @@
     ]
   },
 {
-    "id": "17",
+    "id": "18",
     "title": "XÁC NHẬN",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka17.m4a",
+    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka18.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -2507,11 +2586,11 @@
     ]
   },
 {
-    "id": "18",
+    "id": "19",
     "title": "TRUYỀN ĐẠT CHỦ Ý",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka18.m4a",
+    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka19.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -2591,11 +2670,11 @@
     ]
   },
 {
-    "id": "19",
+    "id": "20",
     "title": "CẢM ƠN, XIN LỖI",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka19.m4a",
+    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka20.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
@@ -2700,11 +2779,11 @@
     ]
   },
 {
-    "id": "20",
+    "id": "21",
     "title": "PHÀN NÀN, TỪ CHỐI",
     "translation": "",
     "explanation": "",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka20.m4a",
+    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka21.m4a",
     "conversations": [
       {
         "context": "Tình huống 1",
