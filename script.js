@@ -5021,6 +5021,11 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "Phần 4", desc: "Gồm 8 bài", lessonCount: 8 },
             { title: "Phần 5", desc: "Gồm 7 bài", lessonCount: 7 }
         ],
+        'nameraka': [
+            { title: "BIẾN ÂM", desc: "Gồm 6 bài", lessonCount: 6 },
+            { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
+            { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
+        ],
         '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Hội thoại với gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Hội thoại với bạn bè", lessonCount: 5 },
