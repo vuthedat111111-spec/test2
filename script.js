@@ -1726,7 +1726,7 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
             
             if (currentItem.type === 'quiz_sound') {
                 // QUIZ 1: Hiện Mặt Chữ (+ Cách đọc) --> Chọn Nghĩa
-                const readingDisplay = targetInfo.reading && targetInfo.reading !== target ? `(${targetInfo.reading})` : '';
+                const readingDisplay = targetInfo.reading && targetInfo.reading !== target ? targetInfo.reading : '';
                 questionDisplay = {
                     main: target,
                     sub: readingDisplay, // Hiện cách đọc ở dưới
