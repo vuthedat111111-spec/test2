@@ -55,8 +55,8 @@
         { "speaker": "B", "ja": "（[少](すこ)し[後](あと)で）\nもしもし、もうすぐ[着](つ)きますよ。", "vi": "（Một lúc sau）\nNày này, sắp tới rồi đấy." },
         { "speaker": "A", "ja": "うーん。", "vi": "Ừm." },
         { "speaker": "B", "ja": "[起](お)きてください。[乗](の)りこしちゃいますよ。", "vi": "Dậy đi. Tàu sắp đi qua trạm rồi đấy." },
-        { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ... .\nCám ơn, cám ơn nhé." },
-        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... . Anh bỏ quên hành lý rồi nè." }
+        { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ...\nCám ơn, cám ơn nhé." },
+        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... Anh bỏ quên hành lý rồi nè." }
       ]
     },
     {
@@ -182,10 +182,10 @@
         { "speaker": "B", "ja": "お[帰](かえ)んなさい。ここんとこ[帰](かえ)りが[遅](おそ)いわね。こんなに[遅](おそ)くまで[毎晩](まいばん)[何](なに)してんの？", "vi": "Anh về đấy à. Dạo này anh hay về trễ quá nhỉ. Mỗi tối anh làm gì mà trễ thế?" },
         { "speaker": "A", "ja": "いろんな つきあいがあるもんだからね。", "vi": "Vì có nhiều việc phải đi giao thiệp." },
         { "speaker": "B", "ja": "[明日](あした)は[土曜日](どようび)だから[早](はや)く[帰](かえ)れるんでしょ。", "vi": "Ngày mai là thứ bảy, anh về sớm được chứ?" },
-        { "speaker": "A", "ja": "そんなことわからんよ。[急](きゅう)に[残業](ざんぎょう)を[頼](たの)まれるかもしれんし……", "vi": "Chuyện đó, anh chưa biết được. Lỡ đột xuất bị tăng ca hoặc là ... ." },
+        { "speaker": "A", "ja": "そんなことわからんよ。[急](きゅう)に[残業](ざんぎょう)を[頼](たの)まれるかもしれんし……", "vi": "Chuyện đó, anh chưa biết được. Lỡ đột xuất bị tăng ca hoặc là ..." },
         { "speaker": "B", "ja": "あなた、[明日](あした)はうちの[子](こ)のサッカーの[試合](しあい)があるのよ。たまには[見](み)てやったらどうなの？", "vi": "Anh này, ngày mai có một trận thi đấu bóng đá của con mình đấy. Thỉnh thoảng anh xem ủng hộ cho con không được sao?" },
         { "speaker": "A", "ja": "……", "vi": "..." },
-        { "speaker": "B", "ja": "また[知](し)らんぷりして…。ほんとにいやんなっちゃうわ。", "vi": "Lại vờ không biết ... . Anh thật đáng ghét." }
+        { "speaker": "B", "ja": "また[知](し)らんぷりして…。ほんとにいやんなっちゃうわ。", "vi": "Lại vờ không biết ... Anh thật đáng ghét." }
       ]
     }
   ]
@@ -219,7 +219,7 @@
         { "speaker": "B", "ja": "あっ、やっぱりそうですか。ここんとこ、おんなじようなどろぼうがよく[出](で)るんですよ。こないだ、となりのマンションでもどろぼうに[入](はい)られましてね、[現金](げんきん)をとられたんですよ。お[宅](たく)では[何](なに)かとられましたか。", "vi": "À, đúng là như vậy rồi. Dạo này bọn trộm thường hay đột nhập vào nhà theo kiểu ấy. Mấy bữa trước ở chung cư kế bên cũng bị kẻ trộm vào nhà và lấy cắp tiền. Nhà chị có mất gì không?" },
         { "speaker": "A", "ja": "ええ、あたしくやしくって、くやしくって…", "vi": "Có chứ. Tôi tiếc quá đi, tiếc quá đi." },
         { "speaker": "B", "ja": "よっぽど[大切](たいせつ)なものをとられたんですね。", "vi": "Chắc là chị bị lấy mất vật rất quan trọng." },
-        { "speaker": "A", "ja": "あたしの[指輪](ゆびわ)がなくなってるんです。とっても[高](たか)かったんです。すっごく[気](き)に[入](い)ってた[指輪](ゆびわ)なんです。[買](か)ったばっかりだったのに…", "vi": "Chiếc nhẫn của tôi mất rồi. Nó rất đắt tiền. Tôi thích nó lắm. Vừa mới mua thế mà ... ." },
+        { "speaker": "A", "ja": "あたしの[指輪](ゆびわ)がなくなってるんです。とっても[高](たか)かったんです。すっごく[気](き)に[入](い)ってた[指輪](ゆびわ)なんです。[買](か)ったばっかりだったのに…", "vi": "Chiếc nhẫn của tôi mất rồi. Nó rất đắt tiền. Tôi thích nó lắm. Vừa mới mua thế mà ..." },
         { "speaker": "B", "ja": "そうですか。お[金](かね)はだいじょうぶでしたか。", "vi": "Thế à. Tiền bạc thì không sao chứ?" },
         { "speaker": "A", "ja": "ええ、[給料日前](きゅうりょうびまえ)だから……", "vi": "Vâng, vì chưa đến ngày lãnh lương." }
       ]
