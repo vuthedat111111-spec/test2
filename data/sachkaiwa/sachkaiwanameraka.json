@@ -52,11 +52,11 @@
         { "speaker": "A", "ja": "ちょっとすみません。ここはどのあたりですか。", "vi": "À, xin lỗi. Ở đây là khu vực nào rồi?" },
         { "speaker": "B", "ja": "[今](いま)、[京都](きょうと)を[過](す)ぎたところですよ。", "vi": "Hiện giờ, vừa mới qua khỏi Kyoto đấy." },
         { "speaker": "A", "ja": "ぼくは[次](つぎ)の[駅](えき)で[降](お)りなきゃならないんですが、[近](ちか)づいたら[教](おし)えてくださいませんか。", "vi": "Tôi phải xuống ở ga kế tiếp. Khi nào gần tới chị làm ơn cho tôi biết nhé." },
-        { "speaker": "B", "ja": "（[少](すこ)し[後](あと)で）\nもしもし、もうすぐ[着](つ)きますよ。", "vi": "（Một lúc sau）\nNày này, sắp tới rồi đấy." },
+        { "speaker": "B", "ja": "もしもし、もうすぐ[着](つ)きますよ。", "vi": "Này này, sắp tới rồi đấy." },
         { "speaker": "A", "ja": "うーん。", "vi": "Ừm." },
         { "speaker": "B", "ja": "[起](お)きてください。[乗](の)りこしちゃいますよ。", "vi": "Dậy đi. Tàu sắp đi qua trạm rồi đấy." },
         { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ...\nCám ơn, cám ơn nhé." },
-        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... Anh bỏ quên hành lý rồi nè." }
+        { "speaker": "B", "ja": "あーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "A ... Anh bỏ quên hành lý rồi nè." }
       ]
     },
     {
