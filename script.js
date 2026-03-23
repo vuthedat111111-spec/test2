@@ -5252,8 +5252,9 @@ const renderGuideOverlay = () => (
                 {/* DANH SÁCH GIÁO TRÌNH HIỆN CÓ */}
                 <div className="flex flex-col gap-4">
                     {[
-                        { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Đoạn hội thoại hàng ngày' },
-                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Đoạn hội thoại theo các mối quan hệ' }
+                        { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
+                        { id: 'nameraka', title: 'GIAO TIẾP LƯU LOÁT N4-N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
+                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
