@@ -5686,7 +5686,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             return <span key={index}>{part}</span>;
         });
     };
-const renderTextWithUnderline = (text, isShowFuri) => {
+// THÊM HOẶC THAY THẾ HÀM CŨ BẰNG HÀM NÀY
+    const renderMarkedText = (text, isShowFuri) => {
         if (!text) return null;
         
         // Tách câu thành các mảng dựa trên dấu _ _
@@ -5697,8 +5698,8 @@ const renderTextWithUnderline = (text, isShowFuri) => {
             if (part.startsWith('_') && part.endsWith('_')) {
                 const innerText = part.slice(1, -1);
                 return (
-                    <span key={index} className="border-b-[3px] border-gray-300 pb-[2px]">
-                        {/* Vẫn render Furigana bình thường cho phần chữ bên trong */}
+                    // Đổi màu chữ ở đây
+                    <span key={index} className="text-orange-800">
                         {renderFurigana(innerText, isShowFuri)}
                     </span>
                 );
@@ -5856,8 +5857,8 @@ const renderTextWithUnderline = (text, isShowFuri) => {
             title="Bấm để nghe câu này"
             className={`max-w-[80%] md:max-w-[65%] p-3 sm:p-4 shadow-sm border transition-all duration-300 cursor-pointer hover:shadow-md active:scale-[0.98] ${boxClass}`}
         >
-                                            <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
-    {isHidden ? "（あなたが話す番です）" : renderTextWithUnderline(line.ja, showFurigana)}
+                                          <p className={`text-base sm:text-lg font-bold leading-relaxed font-sans transition-all duration-300 ${isHidden ? 'filter blur-[4px] opacity-40 select-none' : ''}`}>
+    {isHidden ? "（あなたが話す番です）" : renderMarkedText(line.ja, showFurigana)}
 </p>
                                             {showTranslation && (
                                                 <p className={`text-sm sm:text-base mt-2 font-medium border-t pt-2 transition-colors ${isActive ? 'text-green-700 border-green-200' : 'text-zinc-500 border-zinc-200'}`}>
