@@ -1,1 +1,229 @@
-
+[
+  {
+  "id": "01",
+  "title": "BIẾN ÂM - てる - てく - とく",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka1.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "お[兄](にい)ちゃんの[彼女](かのじょ)って、どの[人](ひと)？", "vi": "Bạn gái của anh là người nào?" },
+        { "speaker": "B", "ja": "[後](うし)ろに[立](た)ってる[人](ひと)だよ。", "vi": "Người đứng ở phía sau đấy." },
+        { "speaker": "A", "ja": "めがね、かけてる[人](ひと)？", "vi": "Người mang kính phải không?" },
+        { "speaker": "B", "ja": "めがねはかけてないよ。", "vi": "Không có mang kính." },
+        { "speaker": "A", "ja": "じゃ、きれいな[色](いろ)のスカーフをしてる[人](ひと)？", "vi": "Vậy, là người quấn chiếc khăn choàng xinh xắn chứ gì?" },
+        { "speaker": "B", "ja": "[違](ちが)うよ。", "vi": "Không phải đâu." },
+        { "speaker": "A", "ja": "じゃ、どの人なの？", "vi": "Vậy, là người nào?" },
+        { "speaker": "B", "ja": "まだわからない？ほら、[一番](いちばん)きれいな人だよ、ぼうしかぶってる。", "vi": "Không biết à? Nhìn này, người xinh đẹp nhất đó, có đội nón đấy." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "もしもし、お[客](きゃく)さん。", "vi": "Này này, vị khách kia." },
+        { "speaker": "B", "ja": "え？わたしですか。", "vi": "Hả, gọi cháu phải không?" },
+        { "speaker": "A", "ja": "ちょっと、あなた、[定期](ていき)がきれてますよ。", "vi": "Này, vé định kỳ của cháu hết hạn sử dụng rồi." },
+        { "speaker": "B", "ja": "あっ、そうですか。", "vi": "Ôi, vậy sao." },
+        { "speaker": "A", "ja": "ちゃんと お[金](かね)を[払](はら)ってもらいますよ。", "vi": "Xin cháu trả tiền ngay cho bác." },
+        { "speaker": "B", "ja": "ごめんなさい。わたし、[今](いま)お[金](かね)[持](も)ってないんです。", "vi": "Xin lỗi bác, bây giờ cháu không có tiền." },
+        { "speaker": "A", "ja": "[困](こま)るなあ。じゃ、[学生証](がくせいしょう)を[見](み)せてごらん。", "vi": "Gay quá. Vậy thì, cháu cho bác xem thẻ học sinh." },
+        { "speaker": "B", "ja": "はい。", "vi": "Dạ." },
+        { "speaker": "A", "ja": "お[金](かね)を持ってくるまで、これ、あずかっとくよ。", "vi": "Bác sẽ giữ cái này đến khi nào cháu mang tiền đến trả." },
+        { "speaker": "B", "ja": "すみませんけど、お[願](ねが)いがあるんですが…。", "vi": "Xin lỗi bác, cháu xin bác ..." },
+        { "speaker": "A", "ja": "[何](なん)だね。", "vi": "Chuyện gì vậy cháu?" },
+        { "speaker": "B", "ja": "[学校](がっこう)に[知](し)らせるのだけはやめてくれませんか。", "vi": "Xin bác đừng báo chuyện này cho nhà trường biết, được không bác." },
+        { "speaker": "A", "ja": "わかった、わかった。だまっとくよ。", "vi": "Được rồi, được rồi. Bác sẽ không nói gì hết." }
+      ]
+    }
+  ]
+},
+  {
+  "id": "02",
+  "title": "BIẾN ÂM - ちゃ - じゃ - きゃ",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka2.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "ちょっとすみません。ここはどのあたりですか。", "vi": "À, xin lỗi. Ở đây là khu vực nào rồi?" },
+        { "speaker": "B", "ja": "[今](いま)、[京都](きょうと)を[過](す)ぎたところですよ。", "vi": "Hiện giờ, vừa mới qua khỏi Kyoto đấy." },
+        { "speaker": "A", "ja": "ぼくは[次](つぎ)の[駅](えき)で[降](お)りなきゃならないんですが、[近](ちか)づいたら[教](おし)えてくださいませんか。", "vi": "Tôi phải xuống ở ga kế tiếp. Khi nào gần tới chị làm ơn cho tôi biết nhé." },
+        { "speaker": "B", "ja": "（[少](すこ)し[後](あと)で）\nもしもし、もうすぐ[着](つ)きますよ。", "vi": "（Một lúc sau）\nNày này, sắp tới rồi đấy." },
+        { "speaker": "A", "ja": "うーん。", "vi": "Ừm." },
+        { "speaker": "B", "ja": "[起](お)きてください。[乗](の)りこしちゃいますよ。", "vi": "Dậy đi. Tàu sắp đi qua trạm rồi đấy." },
+        { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ... .\nCám ơn, cám ơn nhé." },
+        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... . Anh bỏ quên hành lý rồi nè." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "すみません、おまわりさん。[終電車](しゅうでんしゃ)に[乗](の)り[遅](おく)れちゃったんです。", "vi": "Xin lỗi, anh cảnh sát ơi. Em đã trễ chuyến xe cuối rồi." },
+        { "speaker": "B", "ja": "はい、それで？", "vi": "Ừ, rồi sao nữa?" },
+        { "speaker": "A", "ja": "タクシー[代](だい)、[貸](か)してほしいんですけど。", "vi": "Em muốn mượn tiền đi taxi." },
+        { "speaker": "B", "ja": "いくら？", "vi": "Mượn bao nhiêu?" },
+        { "speaker": "A", "ja": "[千円](せんえん)でいいんです。さいふに[千円](せんえん)[残](のこ)ってますから。", "vi": "Một ngàn yên là đủ rồi. Vì trong bóp của em còn một ngàn yên." },
+        { "speaker": "B", "ja": "ちゃんと[返](かえ)してくれるのかい？", "vi": "Chắc chắn em sẽ trả lại cho tôi chứ?" },
+        { "speaker": "A", "ja": "[明日](あした)の[朝](あさ)、[一番](いちばん)に[持](も)ってきますから。", "vi": "Sáng sớm ngày mai em sẽ mang tiền đến trả." },
+        { "speaker": "B", "ja": "しょうがないなあ。ちょっと[待](ま)って。", "vi": "Biết làm sao đây. Chờ tôi một chút nhé." },
+        { "speaker": "A", "ja": "はい。", "vi": "Vâng." },
+        { "speaker": "B", "ja": "じゃ、[千円](せんえん)[貸](か)すからね。これからは[夜遊](よあそ)びしちゃいけないよ。[早](はや)く[家](いえ)に[帰](かえ)らなくちゃだめだよ。ご[両親](りょうしん)に[心配](しんぱい)かけるんじゃないよ。", "vi": "Vậy, tôi cho em mượn một ngàn yên đấy nhé. Từ nay về sau em không được đi chơi khuya nữa nhé. Em phải nhanh về nhà đi. Đừng làm bố mẹ phải lo lắng." }
+      ]
+    }
+  ]
+},
+  {
+  "id": "02",
+  "title": "BIẾN ÂM - ちゃ - じゃ - きゃ",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka2.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "ちょっとすみません。ここはどのあたりですか。", "vi": "À, xin lỗi. Ở đây là khu vực nào rồi?" },
+        { "speaker": "B", "ja": "[今](いま)、[京都](きょうと)を[過](す)ぎたところですよ。", "vi": "Hiện giờ, vừa mới qua khỏi Kyoto đấy." },
+        { "speaker": "A", "ja": "ぼくは[次](つぎ)の[駅](えき)で[降](お)りなきゃならないんですが、[近](ちか)づいたら[教](おし)えてくださいませんか。", "vi": "Tôi phải xuống ở ga kế tiếp. Khi nào gần tới chị làm ơn cho tôi biết nhé." },
+        { "speaker": "B", "ja": "（[少](すこ)し[後](あと)で）\nもしもし、もうすぐ[着](つ)きますよ。", "vi": "（Một lúc sau）\nNày này, sắp tới rồi đấy." },
+        { "speaker": "A", "ja": "うーん。", "vi": "Ừm." },
+        { "speaker": "B", "ja": "[起](お)きてください。[乗](の)りこしちゃいますよ。", "vi": "Dậy đi. Tàu sắp đi qua trạm rồi đấy." },
+        { "speaker": "A", "ja": "あっ。[大変](たいへん)だ。[急](いそ)がなきゃ…。どうもどうも。", "vi": "Ôi, nguy rồi. Phải nhanh lên mới được ... .\nCám ơn, cám ơn nhé." },
+        { "speaker": "B", "ja": "（ドアが[閉](し)まる）\nあーあ。[荷物](にもつ)を[忘](わす)れて[行](い)っちゃった。", "vi": "（Cửa xe đóng lại）\nA ... . Anh bỏ quên hành lý rồi nè." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "すみません、おまわりさん。[終電車](しゅうでんしゃ)に[乗](の)り[遅](おく)れちゃったんです。", "vi": "Xin lỗi, anh cảnh sát ơi. Em đã trễ chuyến xe cuối rồi." },
+        { "speaker": "B", "ja": "はい、それで？", "vi": "Ừ, rồi sao nữa?" },
+        { "speaker": "A", "ja": "タクシー[代](だい)、[貸](か)してほしいんですけど。", "vi": "Em muốn mượn tiền đi taxi." },
+        { "speaker": "B", "ja": "いくら？", "vi": "Mượn bao nhiêu?" },
+        { "speaker": "A", "ja": "[千円](せんえん)でいいんです。さいふに[千円](せんえん)[残](のこ)ってますから。", "vi": "Một ngàn yên là đủ rồi. Vì trong bóp của em còn một ngàn yên." },
+        { "speaker": "B", "ja": "ちゃんと[返](かえ)してくれるのかい？", "vi": "Chắc chắn em sẽ trả lại cho tôi chứ?" },
+        { "speaker": "A", "ja": "[明日](あした)の[朝](あさ)、[一番](いちばん)に[持](も)ってきますから。", "vi": "Sáng sớm ngày mai em sẽ mang tiền đến trả." },
+        { "speaker": "B", "ja": "しょうがないなあ。ちょっと[待](ま)って。", "vi": "Biết làm sao đây. Chờ tôi một chút nhé." },
+        { "speaker": "A", "ja": "はい。", "vi": "Vâng." },
+        { "speaker": "B", "ja": "じゃ、[千円](せんえん)[貸](か)すからね。これからは[夜遊](よあそ)びしちゃいけないよ。[早](はや)く[家](いえ)に[帰](かえ)らなくちゃだめだよ。ご[両親](りょうしん)に[心配](しんぱい)かけるんじゃないよ。", "vi": "Vậy, tôi cho em mượn một ngàn yên đấy nhé. Từ nay về sau em không được đi chơi khuya nữa nhé. Em phải nhanh về nhà đi. Đừng làm bố mẹ phải lo lắng." }
+      ]
+    }
+  ]
+},
+  {
+  "id": "03",
+  "title": "BIẾN ÂM - たって - だって",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka3.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "[何](なに)かおもしろい[番組](ばんぐみ)ある？", "vi": "Có chương trình gì hay không?" },
+        { "speaker": "B", "ja": "そうだなあ。「[土曜](どよう)スペシャル」って[番組](ばんぐみ)があるけど。", "vi": "Để xem nào. Có chương trình 「Ngày thứ bảy đặc biệt」." },
+        { "speaker": "A", "ja": "「[土曜](どよう)スペシャル」って？", "vi": "「Ngày thứ bảy đặc biệt」 là chương trình gì vậy?" },
+        { "speaker": "B", "ja": "[安](やす)くてうまいレストランの[紹介](しょうかい)だって。", "vi": "Đó là chương trình giới thiệu về những nhà hàng rẻ và ngon." },
+        { "speaker": "A", "ja": "ほかに[何](なに)かない？", "vi": "Không có chương trình gì khác à?" },
+        { "speaker": "B", "ja": "「[動物](どうぶつ)おもしろランド」っていうのもあるよ。", "vi": "Còn có chương trình 「Thế giới động vật hoang dã」." },
+        { "speaker": "A", "ja": "おもしろくなさそうね。", "vi": "Nghe chẳng hấp dẫn gì cả." },
+        { "speaker": "B", "ja": "じゃ、[野球](やきゅう)の[試合](しあい)を[見](み)ることにしようぜ。", "vi": "Vậy thì, mình xem thi đấu bóng chày nhé." },
+        { "speaker": "A", "ja": "ねえ、[映画](えいが)はないの？", "vi": "Này, không có phim hả?" },
+        { "speaker": "B", "ja": "「アポロ13[号](ごう)」ってのがあるよ。", "vi": "Có phim 「Thần mặt trời thứ 13」." },
+        { "speaker": "A", "ja": "どうして[先](さき)にそれを[言](い)ってくれないの。[早](はや)くテレビつけて。", "vi": "Sao nãy giờ anh không nói cho em biết. Mở tivi nhanh đi anh." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "お[父](とう)さん。ぼく、[彼女](かのじょ)と[結婚](けっこん)しようと[思](おも)ってるんだ。", "vi": "Bố ơi, con định sẽ kết hôn với cô ấy." },
+        { "speaker": "B", "ja": "え？[彼女](かのじょ)って？", "vi": "Hả? Với cô ấy?" },
+        { "speaker": "A", "ja": "ほら、この[前](まえ)、[家](いえ)に[連](つ)れてきただろ。あの[子](こ)だよ。ぼくたち、ウィーンで[結婚式](けっこんしき)をあげようと[思](おも)うんだけど…", "vi": "À, trước đây con có dẫn cô ấy về nhà. Chính là cô gái ấy. Chúng con dự định sẽ tổ chức hôn lễ ở Viên." },
+        { "speaker": "B", "ja": "え？ウィーンって、オーストリアのウィーンかい？", "vi": "Hả? Ở Viên, có phải là thủ đô nước Áo không?" },
+        { "speaker": "A", "ja": "そうだよ。ウィーンの[教会](きょうかい)で[二人](ふたり)きりで[式](しき)をあげるんだ。", "vi": "Dạ, đúng vậy. Chúng con sẽ tổ chức buổi lễ tại nhà thờ thủ đô, chỉ riêng hai đứa chúng con thôi." },
+        { "speaker": "B", "ja": "二人きりって？…ちょっと[待](ま)ってくれよ。お父さんにはお[父](とう)さんの[夢](ゆめ)ってものがあるんだよ。", "vi": "Chỉ riêng hai đứa? ... Đợi một chút nào. Riêng bố cũng có ước muốn đấy." },
+        { "speaker": "A", "ja": "え？お[父](とう)さんの[夢](ゆめ)って？", "vi": "Hả? Ước muốn của bố?" }
+      ]
+    }
+  ]
+},
+  {
+  "id": "04",
+  "title": "BIẾN ÂM - ん",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka4.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "[何](なに)してんの？", "vi": "Con đang làm gì vậy?" },
+        { "speaker": "B", "ja": "[着](き)がえをつめてるんだよ。", "vi": "Con đang cho quần áo vào ba lô." },
+        { "speaker": "A", "ja": "どこへ[行](い)くの？", "vi": "Con đi đâu?" },
+        { "speaker": "B", "ja": "キャンプに[行](い)くんだ。かばんが[小](ちい)さくてぜんぶ[入](はい)んないや。", "vi": "Con đi cắm trại. Cái túi này nhỏ quá, không đựng hết được." },
+        { "speaker": "A", "ja": "[荷物](にもつ)が[多](おお)すぎるんじゃないの。[少](すこ)し[減](へ)らしたら？", "vi": "Đồ của con nhiều quá. Con bỏ bớt ra một ít thử xem có được không?" },
+        { "speaker": "B", "ja": "うん、そうするよ。", "vi": "Dạ, con sẽ làm như vậy." },
+        { "speaker": "A", "ja": "ぼうしはあった？", "vi": "Có nón chưa?" },
+        { "speaker": "B", "ja": "それが[見](み)つかんないんだ。どこに[入](い)れたかわかんないの。", "vi": "Con tìm không thấy, không biết đã bỏ nó ở đâu." },
+        { "speaker": "A", "ja": "[部屋](へや)をかたづけなさいって、いつも[言](い)ってるでしょ。", "vi": "Mẹ luôn bảo con dọn dẹp phòng là gì." },
+        { "speaker": "B", "ja": "だって、[忙](いそが)しいんだもん。お[母](かあ)さん、[水筒](すいとう)はどこ？", "vi": "Nhưng, con bận lắm. Mẹ ơi, cái bình nước uống đâu rồi?" },
+        { "speaker": "A", "ja": "えっと…", "vi": "gì hả ... ?" },
+        { "speaker": "B", "ja": "お[母](かあ)さん、いつも[言](い)ってるでしょ。[台所](だいどころ)をかたづけてって。", "vi": "Mẹ ơi, con nói với mẹ hoài. Mẹ dọn dẹp nhà bếp đi." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "ただいま。", "vi": "Anh về rồi đây." },
+        { "speaker": "B", "ja": "お[帰](かえ)んなさい。ここんとこ[帰](かえ)りが[遅](おそ)いわね。こんなに[遅](おそ)くまで[毎晩](まいばん)[何](なに)してんの？", "vi": "Anh về đấy à. Dạo này anh hay về trễ quá nhỉ. Mỗi tối anh làm gì mà trễ thế?" },
+        { "speaker": "A", "ja": "いろんな つきあいがあるもんだからね。", "vi": "Vì có nhiều việc phải đi giao thiệp." },
+        { "speaker": "B", "ja": "[明日](あした)は[土曜日](どようび)だから[早](はや)く[帰](かえ)れるんでしょ。", "vi": "Ngày mai là thứ bảy, anh về sớm được chứ?" },
+        { "speaker": "A", "ja": "そんなことわからんよ。[急](きゅう)に[残業](ざんぎょう)を[頼](たの)まれるかもしれんし……", "vi": "Chuyện đó, anh chưa biết được. Lỡ đột xuất bị tăng ca hoặc là ... ." },
+        { "speaker": "B", "ja": "あなた、[明日](あした)はうちの[子](こ)のサッカーの[試合](しあい)があるのよ。たまには[見](み)てやったらどうなの？", "vi": "Anh này, ngày mai có một trận thi đấu bóng đá của con mình đấy. Thỉnh thoảng anh xem ủng hộ cho con không được sao?" },
+        { "speaker": "A", "ja": "……", "vi": "..." },
+        { "speaker": "B", "ja": "また[知](し)らんぷりして…。ほんとにいやんなっちゃうわ。", "vi": "Lại vờ không biết ... . Anh thật đáng ghét." }
+      ]
+    }
+  ]
+},
+  {
+  "id": "05",
+  "title": "BIẾN ÂM - TỪ NGỮ BIẾN ĐỔI",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka5.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        { "speaker": "A", "ja": "すいません。おばあさん、イノシシを[見](み)ませんでしたか。", "vi": "Xin lỗi. Bà ơi, bà có thấy con lợn rừng nào không?" },
+        { "speaker": "B", "ja": "[見](み)ましたけど。", "vi": "Tôi có thấy đấy." },
+        { "speaker": "A", "ja": "どっちの[方](ほう)へ[行](い)きましたか。", "vi": "Nó đi về hướng nào vậy?" },
+        { "speaker": "B", "ja": "こっちの[方](ほう)へ[走](はし)っていったよ。", "vi": "Nó chạy về hướng này nè." },
+        { "speaker": "A", "ja": "どんなイノシシでしたか。", "vi": "Con lợn rừng đó thế nào?" },
+        { "speaker": "B", "ja": "すっごく[大](おお)きくって[強](つよ)そうなやつだったよ。", "vi": "Trông nó to lớn và mạnh dễ sợ." },
+        { "speaker": "A", "ja": "やっぱりそうか。あいつがうちの[畑](はたけ)を[荒](あ)らして[困](こま)ってるんですよ。[悪](わる)いことばっかりするんで…", "vi": "Đúng là nó rồi. Nó đã phá nát rẫy của nhà cháu, khổ ghê vậy đó. Nó chỉ biết phá phách không thôi." },
+        { "speaker": "B", "ja": "そりゃ[困](こま)ったことだねえ。", "vi": "Thiệt là khổ cho nhà bác quá." }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        { "speaker": "A", "ja": "おまわりさん。[大変](たいへん)です。どろぼうに[入](はい)られたんです。", "vi": "Anh cảnh sát ơi, khổ quá. Tôi bị ăn trộm vào nhà." },
+        { "speaker": "B", "ja": "[家](いえ)にかぎをかけてましたか。", "vi": "Chị có khóa cửa nhà chứ?" },
+        { "speaker": "A", "ja": "ええ、かぎをかけてたんですけど、[窓](まど)を[破](やぶ)られたみたいです。", "vi": "Có chứ. Tôi đã khóa cửa lại rồi, nhưng kẻ trộm đã phá cửa sổ vào." },
+        { "speaker": "B", "ja": "あっ、やっぱりそうですか。ここんとこ、おんなじようなどろぼうがよく[出](で)るんですよ。こないだ、となりのマンションでもどろぼうに[入](はい)られましてね、[現金](げんきん)をとられたんですよ。お[宅](たく)では[何](なに)かとられましたか。", "vi": "À, đúng là như vậy rồi. Dạo này bọn trộm thường hay đột nhập vào nhà theo kiểu ấy. Mấy bữa trước ở chung cư kế bên cũng bị kẻ trộm vào nhà và lấy cắp tiền. Nhà chị có mất gì không?" },
+        { "speaker": "A", "ja": "ええ、あたしくやしくって、くやしくって…", "vi": "Có chứ. Tôi tiếc quá đi, tiếc quá đi." },
+        { "speaker": "B", "ja": "よっぽど[大切](たいせつ)なものをとられたんですね。", "vi": "Chắc là chị bị lấy mất vật rất quan trọng." },
+        { "speaker": "A", "ja": "あたしの[指輪](ゆびわ)がなくなってるんです。とっても[高](たか)かったんです。すっごく[気](き)に[入](い)ってた[指輪](ゆびわ)なんです。[買](か)ったばっかりだったのに…", "vi": "Chiếc nhẫn của tôi mất rồi. Nó rất đắt tiền. Tôi thích nó lắm. Vừa mới mua thế mà ... ." },
+        { "speaker": "B", "ja": "そうですか。お[金](かね)はだいじょうぶでしたか。", "vi": "Thế à. Tiền bạc thì không sao chứ?" },
+        { "speaker": "A", "ja": "ええ、[給料日前](きゅうりょうびまえ)だから……", "vi": "Vâng, vì chưa đến ngày lãnh lương." }
+      ]
+    }
+  ]
+}
+  
+]
