@@ -18,28 +18,28 @@
         },
         {
           "speaker": "B",
-          "ja": "[後](うし)ろに[立](た)ってる[人](ひと)だよ。",
+          "ja": "[後](うし)ろに[立](た)っ_てる_[人](ひと)だよ。",
           "vi": "Người đứng ở phía sau đấy.",
           "startTime": 3.95,
           "endTime": 5.84
         },
         {
           "speaker": "A",
-          "ja": "めがね、かけてる[人](ひと)？",
+          "ja": "めがね、かけ_てる_[人](ひと)？",
           "vi": "Người mang kính phải không?",
           "startTime": 5.84,
           "endTime": 7.79
         },
         {
           "speaker": "B",
-          "ja": "めがねはかけてないよ。",
+          "ja": "めがねはかけ_てない_よ。",
           "vi": "Không có mang kính.",
           "startTime": 7.79,
           "endTime": 9.51
         },
         {
           "speaker": "A",
-          "ja": "じゃ、きれいな[色](いろ)のスカーフをしてる[人](ひと)？",
+          "ja": "じゃ、きれいな[色](いろ)のスカーフを_してる_[人](ひと)？",
           "vi": "Vậy, là người quấn chiếc khăn choàng xinh xắn chứ gì?",
           "startTime": 9.51,
           "endTime": 12.1
@@ -60,7 +60,7 @@
         },
         {
           "speaker": "B",
-          "ja": "まだわからない？ほら、[一番](いちばん)きれいな人だよ、ぼうしかぶってる。",
+          "ja": "まだわからない？ほら、[一番](いちばん)きれいな人だよ、ぼうしかぶっ_てる_。",
           "vi": "Không biết à? Nhìn này, người xinh đẹp nhất đó, có đội nón đấy.",
           "startTime": 15.17,
           "endTime": 20.4
