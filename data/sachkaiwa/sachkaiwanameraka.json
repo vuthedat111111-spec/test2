@@ -1890,7 +1890,7 @@
     "id": "13",
     "title": "DẪN DẮT HỘI THOẠI",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi bắt đầu, thay đổi hoặc kết thúc câu chuyện, người Nhật thường dùng các mẫu câu cố định. Việc học thuộc các câu này giúp bạn giao tiếp lưu loát và tự nhiên hơn.\n\n1. Thu hút sự chú ý của đối phương\\n- Lịch sự: あのー / すみません (Dạ thưa... / Xin lỗi...)\\n- Thân mật: ねえ / あのね (Nè, này / À nè...)\n\n2. Mở đầu câu chuyện\\n- Lịch sự: ちょっとお話ししたいことがあるんですが... (Tôi có chút chuyện muốn nói...)\\n- Thân mật: ちょっと話があるんだけど... (Tớ có chuyện này muốn nói...)\n\n3. Vào đề câu chuyện\\n- Lịch sự: 実は / さっそくですが (Thực ra là... / Xin phép đi ngay vào vấn đề...)\\n- Thân mật: 実はね / さっそくだけど (Thực ra thì... / Vào việc luôn nhé...)\n\n4. Thay đổi đề tài\\n- Lịch sự: ところで / 話は変わりますが (Nhân tiện... / Đổi chủ đề một chút nhé...)\\n- Thân mật: それはそうと / 話は変わるけど (Nhắc mới nhớ... / Đổi chủ đề xíu nè...)\n\n5. Kết thúc câu chuyện\\n- Lịch sự: それでは、このへんで... (Vậy thì, xin phép dừng ở đây...)\\n- Thân mật: じゃ、このへんで... (Vậy nha, đến đây thôi...)",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka13.m4a",
     "conversations": [
       {
@@ -2029,7 +2029,7 @@
     "id": "14",
     "title": "MỞ LỜI CÂU CHUYỆN",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi nói mở đầu cho một câu chuyện, người ta thường dùng hình thức:\\n「〜けど…」「〜が…」「〜まして…」.\\nNgười ta không nói hết đến câu sau cùng mà bỏ lửng để chờ đợi phản ứng của đối phương.\\nSau khi thấy phản ứng của đối phương thì người ta mới tiếp tục câu chuyện.",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka14.m4a",
     "conversations": [
       {
@@ -2158,7 +2158,7 @@
     "id": "15",
     "title": "TRẢ LỜI",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi đáp lại những câu hỏi của người khác một cách lịch sự, người ta thường dùng hình thức bỏ lửng câu với 「〜けど…」 hoặc 「〜が…」.\\nHình thức này không chỉ dùng để trả lời câu hỏi của đối phương mà còn bày tỏ hàm ý sẵn sàng giúp đỡ, tạo cảm giác thân thiện và nhiệt tình hơn.",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka15.m4a",
     "conversations": [
       {
@@ -2277,7 +2277,7 @@
     "id": "16",
     "title": "QUAN SÁT VÀ PHẢN ỨNG",
     "translation": "",
-    "explanation": "",
+    "explanation": "Người ta thường thêm những trợ từ như 「ね」 vào sau một cụm từ để vừa xem xét phản ứng của đối phương vừa triển khai cuộc hội thoại. Những từ này cũng góp phần tạo nên ngữ điệu tự nhiên trong tiếng Nhật.\\nTuy nhiên, nếu lạm dụng quá nhiều sẽ tạo ấn tượng không hay nên cần chú ý. Khi nói chuyện với cấp trên hoặc người không quen thân lắm, ta nên dùng hình thức lịch sự như 「〜でしたね」 hoặc 「〜ましてね」。\n\nChú ý:\\n- Trợ từ 「ね」: Cả nam và nữ đều dùng được.\\n- Trợ từ 「な」: Chủ yếu nam giới dùng.\\n- Trợ từ 「さ」: Cả nam và nữ đều dùng được nhưng không phổ biến trên toàn quốc.",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka16.m4a",
     "conversations": [
       {
@@ -2356,7 +2356,7 @@
     "id": "17",
     "title": "NGÔN TỪ HƯỞNG ỨNG",
     "translation": "",
-    "explanation": "",
+    "explanation": "Trong bất kỳ cuộc đàm thoại nào cũng không thể thiếu ngôn từ hưởng ứng (あいづち) từ phía người nghe. Những từ này dùng để thể hiện rằng \"Tôi đang nghe bạn nói và tôi hiểu rõ\". Dĩ nhiên ngoài lời nói, những động tác như gật đầu đồng ý hay thay đổi nét mặt cũng rất cần thiết.\\nDưới đây là một số từ hưởng ứng thường gặp:\n\n1. Trong đàm thoại lịch sự:\\nそうですね (Đúng vậy nhỉ)\\nそうですか / そうなんですか (Vậy à? / Vậy sao?)\\nその通りですね (Đúng là như vậy)\\nほんとうですか (Thật vậy ạ?)\n\n2. Trong đàm thoại thân mật:\\nそうだね (Nam) / そうね (Nữ) (Đúng vậy nhỉ)\\nそうか / そうなの (Vậy à? / Vậy sao?)\\nその通り (Chuẩn luôn / Đúng thế)\\nほんと？ / へえ (Thật á? / Ồ)",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka17.m4a",
     "conversations": [
       {
@@ -2475,7 +2475,7 @@
     "id": "18",
     "title": "XÁC NHẬN",
     "translation": "",
-    "explanation": "",
+    "explanation": "Thông thường khi muốn xác nhận lại thông tin, ví dụ như đọc lại số điện thoại vừa ghi chép để kiểm tra xem có chính xác không, người ta thường dùng hình thức 「〜ですね」.\\nTrợ từ 「ね」 được đặt ở cuối câu nhằm mục đích xác nhận lại một lần nữa những điều mà cả người nói và người nghe đều đã biết.\n\n* Chú ý:\\n- Trợ từ 「ね」: Cả nam và nữ đều sử dụng được.\\n- Trợ từ 「な」: Chủ yếu do nam giới sử dụng. Tuy nhiên, đôi khi phái nữ cũng dùng từ này khi lẩm bẩm nói chuyện một mình.",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka18.m4a",
     "conversations": [
       {
@@ -2589,7 +2589,7 @@
     "id": "19",
     "title": "TRUYỀN ĐẠT CHỦ Ý",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi nói những chuyện mà chỉ có bản thân mình biết (người khác không biết), hoặc muốn truyền đạt/khẳng định chủ ý của mình, ta thêm trợ từ 「よ」 vào cuối câu. Ví dụ: dùng để đính chính lại thông tin khi đối phương nói sai.\n\n<Chú ý>\\n① Trợ từ 「ぞ」 cũng được sử dụng giống như 「よ」 nhưng có khẩu khí mạnh hơn. Chủ yếu nam giới dùng để nói chuyện với bạn bè hoặc người dưới mình. Cần chú ý vì tùy thuộc vào đối tượng và tình huống mà nó có thể trở nên bất lịch sự.\\n② Phụ nữ thường có thói quen sử dụng hình thức lược bỏ 「だ」 trước các trợ từ cuối câu này.\\nVí dụ:\\n- Nam: 元気だね。(Khỏe nhỉ.) ➔ うん、元気だよ。(Ừ, khỏe chứ.)\\n- Nữ: 元気ね。(Khỏe nhỉ.) ➔ うん、元気よ。(Ừ, khỏe chứ.)",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka19.m4a",
     "conversations": [
       {
@@ -2673,7 +2673,7 @@
     "id": "20",
     "title": "CẢM ƠN, XIN LỖI",
     "translation": "",
-    "explanation": "",
+    "explanation": "Khi nói lời cảm ơn hoặc xin lỗi với cấp trên hoặc người không quen thân lắm, thay vì nói trọn vẹn hết câu, ví dụ: 「お世話になりましてありがとうございました」 thì người Nhật thường dùng hình thức bỏ lửng câu ở dạng 「〜まして…」 hoặc 「〜で…」.\\nCách nói lấp lửng này thực chất lại thể hiện sự thành tâm, lòng biết ơn hay sự hối lỗi một cách sâu sắc và lịch sự hơn.\n\n1. Cách nói khi cảm ơn:\\nVí dụ: いつもお世話になりまして... (Cảm ơn vì luôn được anh/chị giúp đỡ...)\n\n2. Cách nói khi xin lỗi:\\nVí dụ: 電車の事故で遅くなりまして... (Vì sự cố tàu điện nên tôi đến trễ...)",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka20.m4a",
     "conversations": [
       {
@@ -2782,7 +2782,7 @@
     "id": "21",
     "title": "PHÀN NÀN, TỪ CHỐI",
     "translation": "",
-    "explanation": "",
+    "explanation": "Những khi phải nói lời phàn nàn với người không quen thân lắm hay từ chối sự nhờ vả hoặc lời mời của ai đó, thì nên chú ý đừng làm tổn thương đến tình cảm của đối phương. Những lúc như vậy, người ta thường sử dụng những từ như 「ちょっと...」 để bày tỏ sự ngập ngừng, khó xử.",
     "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka21.m4a",
     "conversations": [
       {
@@ -2901,7 +2901,7 @@
   "id": "22",
   "title": "TỪ CHỐI",
   "translation": "",
-  "explanation": "",
+  "explanation": "Khi từ chối lời đề nghị của người khác thì cần phải chú ý tránh làm tổn thương đến tình cảm của họ. Nếu dùng 「から」 hoặc 「ので」 để trình bày lý do thì cho dù không từ chối một cách rõ ràng nhưng vẫn được đối phương hiểu cho.",
   "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka22.m4a",
   "conversations": [
     {
@@ -3030,7 +3030,7 @@
   "id": "23",
   "title": "ĐẶT CÂU HỎI",
   "translation": "",
-  "explanation": "",
+  "explanation": "Những từ 「かな」, 「かしら」 thường được sử dụng khi nói chuyện một mình, nhưng cũng được dùng thay cho câu hỏi trong đàm thoại thân mật. Từ 「かしら」 chủ yếu phái nữ dùng. Ngoài ra, nhiều người cũng dùng trợ từ 「っけ」.\n\n<Chú ý>\\n① Khi quên đi những chuyện đã nghe trước đây và muốn hỏi lại lần nữa thì chúng ta dùng hình thức quá khứ.\\nVí dụ: あの人はだれだったかな？ (Người đó là ai vậy nhỉ?)\\n② 「そうかな」 / 「そうかしら」: Được sử dụng khi có ý kiến khác với ý kiến của đối phương.\\n③ 「〜じゃないかな」 / 「〜じゃないかしら」: Được dùng khi muốn khẳng định ý kiến của mình một cách dè dặt, nhẹ nhàng.\\nVí dụ: 君にも少し責任があるんじゃないかな。(Chẳng phải em cũng có một phần trách nhiệm đó sao?)",
   "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka23.m4a",
   "conversations": [
     {
