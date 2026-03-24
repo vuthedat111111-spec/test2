@@ -3261,7 +3261,7 @@
     }
   ]
 },
-  {
+ {
   "id": "22",
   "title": "TỪ CHỐI",
   "translation": "",
@@ -3274,62 +3274,86 @@
         {
           "speaker": "A",
           "ja": "いらっしゃい。",
-          "vi": "Chào quí khách."
+          "vi": "Chào quí khách.",
+          "startTime": 0.05,
+          "endTime": 2.68
         },
         {
           "speaker": "B",
           "ja": "みかんを[一箱](ひとはこ)買いたいんだけど、ちょっと[味見](あじみ)させて。",
-          "vi": "Tôi muốn mua một thùng táo, nhưng cho tôi thử vị của nó một chút."
+          "vi": "Tôi muốn mua một thùng táo, nhưng cho tôi thử vị của nó một chút.",
+          "startTime": 2.68,
+          "endTime": 6.3
         },
         {
           "speaker": "A",
           "ja": "はいよ。どうぞ[食](た)べてみて。[甘](あま)くておいしいだろ？",
-          "vi": "Vâng. Mời chị dùng thử. Nó ngọt và ngon phải không?"
+          "vi": "Vâng. Mời chị dùng thử. Nó ngọt và ngon phải không?",
+          "startTime": 6.3,
+          "endTime": 9.54
         },
         {
           "speaker": "B",
           "ja": "そうね。じゃ、これ[届](とど)けてちょうだい。[大阪](おおさか)の[親戚](しんせき)の[家](いえ)まで。",
-          "vi": "Ừ nhỉ. Vậy thì, làm ơn giao cái này đến nhà người họ hàng của tôi ở Osaka."
+          "vi": "Ừ nhỉ. Vậy thì, làm ơn giao cái này đến nhà người họ hàng của tôi ở Osaka.",
+          "startTime": 9.54,
+          "endTime": 14.83
         },
         {
           "speaker": "A",
           "ja": "じゃ、この[宅急便](たっきゅうびん)の[用紙](ようし)に[記入](きにゅう)してもらえるかな",
-          "vi": "Vậy thì, xin chị ghi vào phiếu gởi hàng nhanh đến tận nhà được không ạ?"
+          "vi": "Vậy thì, xin chị ghi vào phiếu gởi hàng nhanh đến tận nhà được không ạ?",
+          "startTime": 14.83,
+          "endTime": 17.89
         },
         {
           "speaker": "B",
           "ja": "はい... これでいい？",
-          "vi": "Vâng, như vầy được chưa?"
+          "vi": "Vâng, như vầy được chưa?",
+          "startTime": 17.89,
+          "endTime": 20.67
         },
         {
           "speaker": "A",
           "ja": "[夜間](やかん)[配達](はいたつ)ご[希望](きぼう)ですか。",
-          "vi": "Chị có muốn chúng tôi giao hàng vào ban đêm không?"
+          "vi": "Chị có muốn chúng tôi giao hàng vào ban đêm không?",
+          "startTime": 20.67,
+          "endTime": 22.81
         },
         {
           "speaker": "B",
           "ja": "夜間配達って？",
-          "vi": "Giao hàng ban đêm là thế nào?"
+          "vi": "Giao hàng ban đêm là thế nào?",
+          "startTime": 22.81,
+          "endTime": 24.54
         },
         {
           "speaker": "A",
           "ja": "このごろは[奥](おく)さんも[仕事](しごと)に[出](で)ているところが[多](おお)いから、[昼間](ひるま)、だれも[家](いえ)にいないでしょ。だから、[夜](よる)に[配達](はいたつ)してもらうんだよ。",
-          "vi": "Dạo này cũng có nhiều bà vợ đi làm nên ban ngày không có ai ở nhà. Vì vậy chúng tôi nhận giao hàng vào ban đêm."
+          "vi": "Dạo này cũng có nhiều bà vợ đi làm nên ban ngày không có ai ở nhà. Vì vậy chúng tôi nhận giao hàng vào ban đêm.",
+          "startTime": 24.54,
+          "endTime": 32.57
         },
         {
           "speaker": "B",
           "ja": "なるほど。でも、それはいいわ。おばあちゃんがうちにいる_から_。えーっと、それから、このすいかもちょうだい。",
-          "vi": "Thế nữa à. Nhưng được rồi. Vì bà có ở nhà. À, còn nữa, cho tôi trái dưa hấu này luôn."
+          "vi": "Thế nữa à. Nhưng được rồi. Vì bà có ở nhà. À, còn nữa, cho tôi trái dưa hấu này luôn.",
+          "startTime": 32.57,
+          "endTime": 40.64
         },
         {
           "speaker": "A",
           "ja": "[配達](はいたつ)しますか。",
-          "vi": "Cũng giao đến tận nhà à?"
+          "vi": "Cũng giao đến tận nhà à?",
+          "startTime": 40.64,
+          "endTime": 41.74
         },
         {
           "speaker": "B",
           "ja": "いいえ、けっこうよ。[車](くるま)で[来](き)てる_から_。",
-          "vi": "Thôi, được rồi. Vì tôi đi bằng xe hơi."
+          "vi": "Thôi, được rồi. Vì tôi đi bằng xe hơi.",
+          "startTime": 41.74,
+          "endTime": 44.66
         }
       ]
     },
@@ -3339,52 +3363,72 @@
         {
           "speaker": "A",
           "ja": "もしもし、お[客](きゃく)さん。[終点](しゅうてん)ですよ。[起](お)きてください。",
-          "vi": "Này này, anh khách ơi. Đến ga cuối rồi. Anh dậy đi."
+          "vi": "Này này, anh khách ơi. Đến ga cuối rồi. Anh dậy đi.",
+          "startTime": 44.66,
+          "endTime": 49.93
         },
         {
           "speaker": "B",
           "ja": "わかってるよ、そんな[大](おお)きな[声](こえ)で[言](い)わなくたって。",
-          "vi": "Biết rồi, anh không cần phải nói lớn tiếng như vậy."
+          "vi": "Biết rồi, anh không cần phải nói lớn tiếng như vậy.",
+          "startTime": 49.93,
+          "endTime": 54.23
         },
         {
           "speaker": "A",
           "ja": "[歩](ある)けますか。わたしの[手](て)につかまってください。",
-          "vi": "Anh đi được không? Hãy nắm lấy tay tôi."
+          "vi": "Anh đi được không? Hãy nắm lấy tay tôi.",
+          "startTime": 54.23,
+          "endTime": 56.92
         },
         {
           "speaker": "B",
           "ja": "[平気](へいき)平気。[一人](ひとり)で歩ける_から_。",
-          "vi": "Không sao không sao. Tôi có thể đi một mình được mà."
+          "vi": "Không sao không sao. Tôi có thể đi một mình được mà.",
+          "startTime": 56.92,
+          "endTime": 59.59
         },
         {
           "speaker": "A",
           "ja": "でも、お客さんはお[酒](さけ)をたくさんめしあがっているようだから[危](あぶ)ないですよ。",
-          "vi": "Nhưng hình như anh đã uống nhiều rượu nên nguy hiểm lắm đấy."
+          "vi": "Nhưng hình như anh đã uống nhiều rượu nên nguy hiểm lắm đấy.",
+          "startTime": 59.59,
+          "endTime": 64.32
         },
         {
           "speaker": "B",
           "ja": "だいじょうぶだよ。まっすぐ[歩](ある)いてる_から_。トイレはここかい？",
-          "vi": "Không sao đâu. Vì tôi đi thẳng tới là được mà. Nhà vệ sinh ở đâu vậy?"
+          "vi": "Không sao đâu. Vì tôi đi thẳng tới là được mà. Nhà vệ sinh ở đâu vậy?",
+          "startTime": 64.32,
+          "endTime": 69.12
         },
         {
           "speaker": "A",
           "ja": "あっ、[違](ちが)います。ちょっと[待](ま)ってください。ご[案内](あんない)しますから。",
-          "vi": "A, nhầm rồi, chờ tôi một chút. Tôi sẽ dẫn cho."
+          "vi": "A, nhầm rồi, chờ tôi một chút. Tôi sẽ dẫn cho.",
+          "startTime": 69.12,
+          "endTime": 72.34
         },
         {
           "speaker": "B",
           "ja": "いらない、いらない。[自分](じぶん)で[行](い)ける_から_。",
-          "vi": "Không cần, không cần. Tôi tự đi được mà."
+          "vi": "Không cần, không cần. Tôi tự đi được mà.",
+          "startTime": 72.34,
+          "endTime": 74.58
         },
         {
           "speaker": "A",
           "ja": "タクシー、[呼](よ)びましょうか。",
-          "vi": "Tôi gọi taxi cho anh nhé."
+          "vi": "Tôi gọi taxi cho anh nhé.",
+          "startTime": 74.58,
+          "endTime": 76.15
         },
         {
           "speaker": "B",
           "ja": "いいよ、いいよ。[歩](ある)いて[帰](かえ)る_から_。",
-          "vi": "Được rồi, được rồi. Tôi đi bộ về."
+          "vi": "Được rồi, được rồi. Tôi đi bộ về.",
+          "startTime": 76.15,
+          "endTime": 78.62
         }
       ]
     }
