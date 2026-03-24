@@ -5630,7 +5630,8 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
 
             const shouldMute = !!currentSpeaker;
             if (shouldMute !== isMutedRef.current) {
-                soundRef.current.mute(shouldMute);
+                // Dùng "Fake Mute" (0.001) để đánh lừa hệ điều hành
+                soundRef.current.volume(shouldMute ? 0.001 : 1);
                 isMutedRef.current = shouldMute;
             }
         };
@@ -5655,7 +5656,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             }
         } else if (soundRef.current && !isPlaying) {
             if (isMutedRef.current) {
-                soundRef.current.mute(false);
+                soundRef.current.volume(1); // Trả lại âm lượng 100%
                 isMutedRef.current = false;
             }
         }
