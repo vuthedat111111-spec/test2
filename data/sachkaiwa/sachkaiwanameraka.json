@@ -3447,67 +3447,93 @@
         {
           "speaker": "A",
           "ja": "明日、アメフトの試合、[見](み)に[行](い)こうと[思](おも)ってるんだけど...",
-          "vi": "Ngày mai tớ định đi xem trận đấu bóng."
+          "vi": "Ngày mai tớ định đi xem trận đấu bóng.",
+          "startTime": 0,
+          "endTime": 5.01
         },
         {
           "speaker": "B",
           "ja": "どことどこの[試合](しあい)なんだい？",
-          "vi": "Đội nào đấu với đội nào?"
+          "vi": "Đội nào đấu với đội nào?",
+          "startTime": 5.01,
+          "endTime": 6.64
         },
         {
           "speaker": "A",
           "ja": "[学生](がくせい)オールスターと[社会人](しゃかいじん)オールスターだよ。",
-          "vi": "Đội tuyển học sinh và đội tuyển thành viên xã hội."
+          "vi": "Đội tuyển học sinh và đội tuyển thành viên xã hội.",
+          "startTime": 6.64,
+          "endTime": 9.19
         },
         {
           "speaker": "B",
           "ja": "そうか。おもしろそうだな。いっしょに[行](い)ってもいい_かな_。",
-          "vi": "Thế à. Nghe có vẻ hấp dẫn quá. Tớ đi cùng có được không?"
+          "vi": "Thế à. Nghe có vẻ hấp dẫn quá. Tớ đi cùng có được không?",
+          "startTime": 9.19,
+          "endTime": 13.42
         },
         {
           "speaker": "A",
           "ja": "もちろんだよ。おおぜいで[行](い)った[方](ほう)がおもしろいからな。",
-          "vi": "Dĩ nhiên là được mà. Có nhiều người đi sẽ vui hơn."
+          "vi": "Dĩ nhiên là được mà. Có nhiều người đi sẽ vui hơn.",
+          "startTime": 13.42,
+          "endTime": 16.52
         },
         {
           "speaker": "B",
           "ja": "どっちが[勝](か)つ_かな_。",
-          "vi": "Không biết đội nào sẽ thắng đây."
+          "vi": "Không biết đội nào sẽ thắng đây.",
+          "startTime": 16.52,
+          "endTime": 17.82
         },
         {
           "speaker": "A",
           "ja": "どっちも[強](つよ)いチームだからなあ、[何](なん)とも[言](い)えないなあ。",
-          "vi": "Đội nào cũng mạnh cả nên không biết được."
+          "vi": "Đội nào cũng mạnh cả nên không biết được.",
+          "startTime": 17.82,
+          "endTime": 21.2
         },
         {
           "speaker": "B",
           "ja": "[試合](しあい)は[何時](なんじ)から？",
-          "vi": "Trận đấu bắt đầu từ mấy giờ?"
+          "vi": "Trận đấu bắt đầu từ mấy giờ?",
+          "startTime": 21.2,
+          "endTime": 23.23
         },
         {
           "speaker": "A",
           "ja": "[午後](ごご)5[時](じ)からだよ。",
-          "vi": "Từ 5 giờ chiều."
+          "vi": "Từ 5 giờ chiều.",
+          "startTime": 23.23,
+          "endTime": 24.54
         },
         {
           "speaker": "B",
           "ja": "[雨](あめ)が[降](ふ)ってもやるの_かな_。",
-          "vi": "Trời mưa cũng vẫn đấu phải không?"
+          "vi": "Trời mưa cũng vẫn đấu phải không?",
+          "startTime": 24.54,
+          "endTime": 26
         },
         {
           "speaker": "A",
           "ja": "うん、そうだよ。ところで、[君](きみ)、[前売](まえう)り[券](けん)買っておいてくれないか？",
-          "vi": "Ừ, đúng vậy đấy. À này. Cậu mua vé trước dùm tớ được không?"
+          "vi": "Ừ, đúng vậy đấy. À này. Cậu mua vé trước dùm tớ được không?",
+          "startTime": 26,
+          "endTime": 30.37
         },
         {
           "speaker": "B",
           "ja": "いいけど。でも、[今日](きょう)はぼく[金](かね)、[持](も)ってきてないよ。",
-          "vi": "Cũng được. Nhưng hôm nay tớ không mang theo tiền."
+          "vi": "Cũng được. Nhưng hôm nay tớ không mang theo tiền.",
+          "startTime": 30.37,
+          "endTime": 34.79
         },
         {
           "speaker": "A",
           "ja": "[実](じつ)はぼくもなんだ。しかたないなあ。[当日券](とうじつけん)にするか。",
-          "vi": "Thật ra, tớ cũng vậy. Chẳng còn cách nào, đành phải mua vé ngày hôm đó thôi."
+          "vi": "Thật ra, tớ cũng vậy. Chẳng còn cách nào, đành phải mua vé ngày hôm đó thôi.",
+          "startTime": 34.79,
+          "endTime": 39.27
         }
       ]
     },
@@ -3517,52 +3543,72 @@
         {
           "speaker": "A",
           "ja": "たけし、[大学生活](だいがくせいかつ)は[楽](たの)しいか？",
-          "vi": "Takeshi này, cuộc sống sinh viên có vui không?"
+          "vi": "Takeshi này, cuộc sống sinh viên có vui không?",
+          "startTime": 39.27,
+          "endTime": 43.92
         },
         {
           "speaker": "B",
           "ja": "うん、クラブ[活動](かつどう)が[楽](たの)しいなあ。",
-          "vi": "Dạ, hoạt động ở câu lạc bộ vui lắm."
+          "vi": "Dạ, hoạt động ở câu lạc bộ vui lắm.",
+          "startTime": 43.92,
+          "endTime": 46.42
         },
         {
           "speaker": "A",
           "ja": "どんなクラブに[入](はい)ったんだい？",
-          "vi": "Con tham gia câu lạc bộ gì?"
+          "vi": "Con tham gia câu lạc bộ gì?",
+          "startTime": 46.42,
+          "endTime": 48.08
         },
         {
           "speaker": "B",
           "ja": "[国際学生](こくさいがくせい)クラブだよ。",
-          "vi": "Câu lạc bộ sinh viên quốc tế."
+          "vi": "Câu lạc bộ sinh viên quốc tế.",
+          "startTime": 48.08,
+          "endTime": 49.71
         },
         {
           "speaker": "A",
           "ja": "[外国人](がいこくじん)学生との[交流](こうりゅう)もあるの_かな_。",
-          "vi": "Chắc có giao lưu với sinh viên nước ngoài phải không?"
+          "vi": "Chắc có giao lưu với sinh viên nước ngoài phải không?",
+          "startTime": 49.71,
+          "endTime": 52.03
         },
         {
           "speaker": "B",
           "ja": "うん、そうなんだ。ぼくも[留学](りゅうがく)したいと[思](おも)ってるんだけど...",
-          "vi": "Dạ, đúng vậy. Con cũng muốn đi du học nhưng..."
+          "vi": "Dạ, đúng vậy. Con cũng muốn đi du học nhưng...",
+          "startTime": 52.03,
+          "endTime": 55.94
         },
         {
           "speaker": "A",
           "ja": "[若](わか)いうちにいろんな[経験](けいけん)をするのはいいことだけど、[費用](ひよう)は[自分](じぶん)で何とかしろよ。",
-          "vi": "Trong khi còn trẻ chịu khó học hỏi nhiều kinh nghiệm thì cũng tốt. Thế nhưng, chi phí con hãy tự xoay sở đấy nhé."
+          "vi": "Trong khi còn trẻ chịu khó học hỏi nhiều kinh nghiệm thì cũng tốt. Thế nhưng, chi phí con hãy tự xoay sở đấy nhé.",
+          "startTime": 55.94,
+          "endTime": 61.07
         },
         {
           "speaker": "B",
           "ja": "わかってるよ。だから、アルバイトしてるんじゃないか。",
-          "vi": "Con biết rồi. Cho nên con mới đi làm thêm."
+          "vi": "Con biết rồi. Cho nên con mới đi làm thêm.",
+          "startTime": 61.07,
+          "endTime": 64.5
         },
         {
           "speaker": "A",
           "ja": "おまえ、クラブやアルバイトが[忙](いそが)しそうだけど、[勉強](べんきょう)の[方](ほう)もしっかりやってる_かな_。",
-          "vi": "Bố thấy con luôn bận rộn với câu lạc bộ và công việc làm thêm. Còn chuyện học hành con có học đàng hoàng không đấy?"
+          "vi": "Bố thấy con luôn bận rộn với câu lạc bộ và công việc làm thêm. Còn chuyện học hành con có học đàng hoàng không đấy?",
+          "startTime": 64.5,
+          "endTime": 69.43
         },
         {
           "speaker": "B",
           "ja": "だいじょうぶ、だいじょうぶ。[先輩](せんぱい)がノートを[貸](か)してくれるんだ。",
-          "vi": "Không sao không sao. Mấy anh chị lớp trên sẽ cho con mượn vở."
+          "vi": "Không sao không sao. Mấy anh chị lớp trên sẽ cho con mượn vở.",
+          "startTime": 69.43,
+          "endTime": 73.56
         }
       ]
     }
