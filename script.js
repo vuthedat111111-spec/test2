@@ -5504,7 +5504,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
 
         const howlInstance = new Howl({
             src: [lesson.audioPath],
-            html5: false, 
+            html5: true, 
             preload: true,
             onload: function() {
                 // FIX LỖI DÍNH ÂM THANH: Kiểm tra nếu user đã chuyển bài hoặc đóng popup
