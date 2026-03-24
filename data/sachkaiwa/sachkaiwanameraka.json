@@ -3103,124 +3103,164 @@
   ]
 },
 {
-    "id": "21",
-    "title": "PHÀN NÀN, TỪ CHỐI",
-    "translation": "",
-    "explanation": "Những khi phải nói lời phàn nàn với người không quen thân lắm hay từ chối sự nhờ vả hoặc lời mời của ai đó, thì nên chú ý đừng làm tổn thương đến tình cảm của đối phương. Những lúc như vậy, người ta thường sử dụng những từ như 「ちょっと...」 để bày tỏ sự ngập ngừng, khó xử.",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka21.m4a",
-    "conversations": [
-      {
-        "context": "Tình huống 1",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "ねえ、いつかつりに[行](い)こうよ。",
-            "vi": "Hôm nào đó mình đi câu cá đi."
-          },
-          {
-            "speaker": "B",
-            "ja": "いいけど。でも、[朝早](あさはや)く[起](お)きないといけないんじゃない？[早起](はやお)きは_あんまり_...",
-            "vi": "Hay đấy. Nhưng mà buổi sáng phải dậy sớm đúng không? Dậy sớm thì ..."
-          },
-          {
-            "speaker": "A",
-            "ja": "[心配](しんぱい)ないよ。[前](まえ)の[晩](ばん)に[車](くるま)で[出](で)かけるんだから。",
-            "vi": "Đừng lo. Chúng ta sẽ đi bằng xe hơi vào đêm hôm trước."
-          },
-          {
-            "speaker": "B",
-            "ja": "わたし、[夜運転](よるうんてん)するのは_どうも_...",
-            "vi": "Em mà lái xe thì ..."
-          },
-          {
-            "speaker": "A",
-            "ja": "ぼくの[車](くるま)で[行](い)けばいいじゃないか。",
-            "vi": "Đi bằng xe của anh là được chứ gì?"
-          },
-          {
-            "speaker": "B",
-            "ja": "そうね。[運転](うんてん)してくれるなら[行](い)くわ。[次](つぎ)の[土曜日](どようび)はどう？",
-            "vi": "Ừ nhỉ. Nếu anh lái xe thì em đi. Thứ bảy tới này được không?"
-          },
-          {
-            "speaker": "A",
-            "ja": "うーん。その[日](ひ)は_ちょっと_...",
-            "vi": "Ừm. Ngày hôm đó thì ..."
-          },
-          {
-            "speaker": "B",
-            "ja": "じゃ、[再来週](さらいしゅう)の土曜日は？",
-            "vi": "Vậy thì, thứ bảy tuần tới nữa được chứ?"
-          },
-          {
-            "speaker": "A",
-            "ja": "よし、[決](き)めた。そうしよう。",
-            "vi": "Được đấy, quyết định vậy nhé."
-          },
-          {
-            "speaker": "B",
-            "ja": "わたし、おにぎりとジュース[持](も)っていくわ。",
-            "vi": "Em sẽ mang theo cơm nắm và nước ngọt."
-          },
-          {
-            "speaker": "A",
-            "ja": "ジュースは_ちょっと_...",
-            "vi": "Nước ngọt thì ..."
-          },
-          {
-            "speaker": "B",
-            "ja": "わかった、わかった。ビールにすればいいんでしょ？",
-            "vi": "Biết rồi, biết rồi. Bia là được chứ gì?"
-          }
-        ]
-      },
-      {
-        "context": "Tình huống 2",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "こんばんは。[今](いま)、ちょっとよろしいでしょうか。",
-            "vi": "Chào anh. Tôi xin phép làm phiền anh một chút được không?"
-          },
-          {
-            "speaker": "B",
-            "ja": "どうぞ。[残業](ざんぎょう)で[遅](おそ)くなりましてね、これから[晩](ばん)ごはんなんですよ。",
-            "vi": "Dạ mời chị. Vì tôi tăng ca nên về trễ, bây giờ mới ăn tối đây."
-          },
-          {
-            "speaker": "A",
-            "ja": "たいへんですね、お[仕事](しごと)。[実](じつ)は、うちのおばあちゃんのことなんですけどね、[夜寝](よるね)るのが[早](はや)くて...。",
-            "vi": "Công việc vất vả quá nhỉ. Thật ra, bà cụ nhà tôi buổi tối thường hay đi ngủ sớm."
-          },
-          {
-            "speaker": "B",
-            "ja": "おばあちゃん、もうお[休](やす)みですか。",
-            "vi": "Bà cụ đã đi nghỉ rồi sao?"
-          },
-          {
-            "speaker": "A",
-            "ja": "ええ。それでテレビの[音](おと)がちょっと[気](き)になるって[言](い)うもんですから。",
-            "vi": "Vâng. Vì vậy, bà nói âm thanh tivi hơi khó chịu một chút."
-          },
-          {
-            "speaker": "B",
-            "ja": "うちのテレビ、うるさいですか。",
-            "vi": "Tivi nhà tôi hơi ồn phải không?"
-          },
-          {
-            "speaker": "A",
-            "ja": "ええ、_ちょっと_...。それに、[野球](やきゅう)を[応援](おうえん)なさる[声](こえ)が_ちょっと_...",
-            "vi": "Vâng, hơi ồn một chút. Hơn nữa, tiếng cổ vũ bóng chày cũng ..."
-          },
-          {
-            "speaker": "B",
-            "ja": "すみませんでした。ちっとも[気](き)がつかなくて...。これからは[気](き)をつけますから。",
-            "vi": "Xin lỗi nhé. Tôi thật vô ý. Từ nay về sau tôi sẽ chú ý hơn."
-          }
-        ]
-      }
-    ]
-  },
+  "id": "21",
+  "title": "PHÀN NÀN, TỪ CHỐI",
+  "translation": "",
+  "explanation": "Những khi phải nói lời phàn nàn với người không quen thân lắm hay từ chối sự nhờ vả hoặc lời mời của ai đó, thì nên chú ý đừng làm tổn thương đến tình cảm của đối phương. Những lúc như vậy, người ta thường sử dụng những từ như 「ちょっと...」 để bày tỏ sự ngập ngừng, khó xử.",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka21.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ねえ、いつかつりに[行](い)こうよ。",
+          "vi": "Hôm nào đó mình đi câu cá đi.",
+          "startTime": 0,
+          "endTime": 4.12
+        },
+        {
+          "speaker": "B",
+          "ja": "いいけど。でも、[朝早](あさはや)く[起](お)きないといけないんじゃない？[早起](はやお)きは_あんまり_...",
+          "vi": "Hay đấy. Nhưng mà buổi sáng phải dậy sớm đúng không? Dậy sớm thì ...",
+          "startTime": 4.14,
+          "endTime": 9.65
+        },
+        {
+          "speaker": "A",
+          "ja": "[心配](しんぱい)ないよ。[前](まえ)の[晩](ばん)に[車](くるま)で[出](で)かけるんだから。",
+          "vi": "Đừng lo. Chúng ta sẽ đi bằng xe hơi vào đêm hôm trước.",
+          "startTime": 9.65,
+          "endTime": 13.53
+        },
+        {
+          "speaker": "B",
+          "ja": "わたし、[夜運転](よるうんてん)するのは_どうも_...",
+          "vi": "Em mà lái xe thì ...",
+          "startTime": 13.53,
+          "endTime": 16.82
+        },
+        {
+          "speaker": "A",
+          "ja": "ぼくの[車](くるま)で[行](い)けばいいじゃないか。",
+          "vi": "Đi bằng xe của anh là được chứ gì?",
+          "startTime": 16.82,
+          "endTime": 18.58
+        },
+        {
+          "speaker": "B",
+          "ja": "そうね。[運転](うんてん)してくれるなら[行](い)くわ。[次](つぎ)の[土曜日](どようび)はどう？",
+          "vi": "Ừ nhỉ. Nếu anh lái xe thì em đi. Thứ bảy tới này được không?",
+          "startTime": 18.58,
+          "endTime": 23.47
+        },
+        {
+          "speaker": "A",
+          "ja": "うーん。その[日](ひ)は_ちょっと_...",
+          "vi": "Ừm. Ngày hôm đó thì ...",
+          "startTime": 23.47,
+          "endTime": 25.79
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃ、[再来週](さらいしゅう)の土曜日は？",
+          "vi": "Vậy thì, thứ bảy tuần tới nữa được chứ?",
+          "startTime": 25.79,
+          "endTime": 27.79
+        },
+        {
+          "speaker": "A",
+          "ja": "よし、[決](き)めた。そうしよう。",
+          "vi": "Được đấy, quyết định vậy nhé.",
+          "startTime": 27.79,
+          "endTime": 29.42
+        },
+        {
+          "speaker": "B",
+          "ja": "わたし、おにぎりとジュース[持](も)っていくわ。",
+          "vi": "Em sẽ mang theo cơm nắm và nước ngọt.",
+          "startTime": 29.42,
+          "endTime": 31.69
+        },
+        {
+          "speaker": "A",
+          "ja": "ジュースは_ちょっと_...",
+          "vi": "Nước ngọt thì ...",
+          "startTime": 31.69,
+          "endTime": 33.31
+        },
+        {
+          "speaker": "B",
+          "ja": "わかった、わかった。ビールにすればいいんでしょ？",
+          "vi": "Biết rồi, biết rồi. Bia là được chứ gì?",
+          "startTime": 33.31,
+          "endTime": 35.99
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "こんばんは。[今](いま)、ちょっとよろしいでしょうか。",
+          "vi": "Chào anh. Tôi xin phép làm phiền anh một chút được không?",
+          "startTime": 35.99,
+          "endTime": 41.4
+        },
+        {
+          "speaker": "B",
+          "ja": "どうぞ。[残業](ざんぎょう)で[遅](おそ)くなりましてね、これから[晩](ばん)ごはんなんですよ。",
+          "vi": "Dạ mời chị. Vì tôi tăng ca nên về trễ, bây giờ mới ăn tối đây.",
+          "startTime": 41.4,
+          "endTime": 45.47
+        },
+        {
+          "speaker": "A",
+          "ja": "たいへんですね、お[仕事](しごと)。[実](じつ)は、うちのおばあちゃんのことなんですけどね、[夜寝](よるね)るのが[早](はや)くて...。",
+          "vi": "Công việc vất vả quá nhỉ. Thật ra, bà cụ nhà tôi buổi tối thường hay đi ngủ sớm.",
+          "startTime": 45.47,
+          "endTime": 53.69
+        },
+        {
+          "speaker": "B",
+          "ja": "おばあちゃん、もうお[休](やす)みですか。",
+          "vi": "Bà cụ đã đi nghỉ rồi sao?",
+          "startTime": 53.69,
+          "endTime": 55.66
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ。それでテレビの[音](おと)がちょっと[気](き)になるって[言](い)うもんですから。",
+          "vi": "Vâng. Vì vậy, bà nói âm thanh tivi hơi khó chịu một chút.",
+          "startTime": 55.66,
+          "endTime": 60.6
+        },
+        {
+          "speaker": "B",
+          "ja": "うちのテレビ、うるさいですか。",
+          "vi": "Tivi nhà tôi hơi ồn phải không?",
+          "startTime": 60.6,
+          "endTime": 62.69
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ、_ちょっと_...。それに、[野球](やきゅう)を[応援](おうえん)なさる[声](こえ)が_ちょっと_...",
+          "vi": "Vâng, hơi ồn một chút. Hơn nữa, tiếng cổ vũ bóng chày cũng ...",
+          "startTime": 62.69,
+          "endTime": 68.66
+        },
+        {
+          "speaker": "B",
+          "ja": "すみませんでした。ちっとも[気](き)がつかなくて...。これからは[気](き)をつけますから。",
+          "vi": "Xin lỗi nhé. Tôi thật vô ý. Từ nay về sau tôi sẽ chú ý hơn.",
+          "startTime": 68.66,
+          "endTime": 73.63
+        }
+      ]
+    }
+  ]
+},
   {
   "id": "22",
   "title": "TỪ CHỐI",
