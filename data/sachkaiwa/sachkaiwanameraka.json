@@ -2958,114 +2958,150 @@
   ]
 },
 {
-    "id": "20",
-    "title": "CẢM ƠN, XIN LỖI",
-    "translation": "",
-    "explanation": "Khi nói lời cảm ơn hoặc xin lỗi với cấp trên hoặc người không quen thân lắm, thay vì nói trọn vẹn hết câu, ví dụ: 「お世話になりましてありがとうございました」 thì người Nhật thường dùng hình thức bỏ lửng câu ở dạng 「〜まして…」 hoặc 「〜で…」.\\nCách nói lấp lửng này thực chất lại thể hiện sự thành tâm, lòng biết ơn hay sự hối lỗi một cách sâu sắc và lịch sự hơn.\n\n1. Cách nói khi cảm ơn:\\nVí dụ: いつもお世話になりまして... (Cảm ơn vì luôn được anh/chị giúp đỡ...)\n\n2. Cách nói khi xin lỗi:\\nVí dụ: 電車の事故で遅くなりまして... (Vì sự cố tàu điện nên tôi đến trễ...)",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka20.m4a",
-    "conversations": [
-      {
-        "context": "Tình huống 1",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "もしもし、ここ、わたしの[席](せき)なんですが…",
-            "vi": "Này này, đây là chỗ ngồi của tôi mà."
-          },
-          {
-            "speaker": "B",
-            "ja": "えっ？ここはわたしの席のはずですよ。ここに[切符](きっぷ)もありますよ。ほら、12Bでしょ？",
-            "vi": "Hả? Chỗ này chắc chắn là chỗ ngồi của tôi đấy. Tôi có vé đây này. Nhìn xem, 12B đúng không?"
-          },
-          {
-            "speaker": "A",
-            "ja": "ここは3[号車](ごうしゃ)ですよ。あなたの切符は4号車じゃありませんか。",
-            "vi": "Đây là xe số 3 đấy. Vé của chị chẳng phải là xe số 4 đó sao?"
-          },
-          {
-            "speaker": "B",
-            "ja": "あっ、ほんとだわ。_うっかりしておりまして_…",
-            "vi": "A, thật vậy. Xin lỗi tôi vô ý quá."
-          },
-          {
-            "speaker": "A",
-            "ja": "いいえ、どういたしまして。",
-            "vi": "Không có gì đâu."
-          },
-          {
-            "speaker": "B",
-            "ja": "すぐに4号車へ[移動](いどう)しますから。",
-            "vi": "Tôi phải qua xe số 4 ngay đây."
-          },
-          {
-            "speaker": "A",
-            "ja": "あっ、[痛](いた)い。[足](あし)が……。",
-            "vi": "Á, đau quá. Chân của tôi ..."
-          },
-          {
-            "speaker": "B",
-            "ja": "ごめんなさい。_[踏](ふ)んでしまいまして_…。[申](もう)しわけございません。",
-            "vi": "Xin lỗi. Tôi đã lỡ giẫm lên chân của anh ... Thật xin lỗi."
-          }
-        ]
-      },
-      {
-        "context": "Tình huống 2",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "もしもし、[山田](やまだ)さんのお[宅](たく)でしょうか。",
-            "vi": "A lô! A lô! Đây có phải là nhà của thầy Yamada không?"
-          },
-          {
-            "speaker": "B",
-            "ja": "はい、そうですが…",
-            "vi": "Vâng, đúng rồi."
-          },
-          {
-            "speaker": "A",
-            "ja": "[私](わたくし)、[留学生](りゅうがくせい)の[林](りん)と[申](もう)しますが…",
-            "vi": "Em là Rin, du học sinh."
-          },
-          {
-            "speaker": "B",
-            "ja": "あいにく、[主人](しゅじん)は[出張](しゅっちょう)して_おりまして_…",
-            "vi": "Thật không may, chồng tôi đi công tác rồi."
-          },
-          {
-            "speaker": "A",
-            "ja": "このたびは山田さんにすっかり_お[世話](せわ)になりまして_…",
-            "vi": "Dạo gần đây em được thầy Yamada giúp đỡ rất nhiều."
-          },
-          {
-            "speaker": "B",
-            "ja": "そうですか。[何](なん)のお[役](やく)にも_[立](た)てませんで_…",
-            "vi": "Thế à. Nhưng có giúp được gì nhiều đâu."
-          },
-          {
-            "speaker": "A",
-            "ja": "いいえ、おかげさまで[新](あたら)しい[仕事](しごと)が[決](き)まりました。",
-            "vi": "Không đâu ạ. Nhờ thầy giúp đỡ mà em có được việc làm mới."
-          },
-          {
-            "speaker": "B",
-            "ja": "それはよかったですね。ご[就職](しゅうしょく)おめでとうございます。",
-            "vi": "Vậy thì tốt quá. Chúc mừng em đã có việc làm."
-          },
-          {
-            "speaker": "A",
-            "ja": "つきましては、[一度](いちど)私のアパートへおいでくださいませんか。お[口](くち)に[合](あ)うかどうかわかりませんが、私の手[料理](りょうり)でもめしあがっていただきたいと_[存](ぞん)じまして_…。",
-            "vi": "Nhân tiện đây, em muốn mời thầy cô đến thăm căn hộ của em một lần. Không biết có hợp khẩu vị hay không nhưng em muốn tự tay làm một ít thức ăn đãi thầy cô."
-          },
-          {
-            "speaker": "B",
-            "ja": "そうですか。ありがとうございます。主人が[戻](もど)りましたら、そのように[伝](つた)えておきます。",
-            "vi": "Thế à. Cám ơn em nhé. Khi nào chồng tôi trở về, tôi sẽ nói lại như vậy."
-          }
-        ]
-      }
-    ]
-  },
+  "id": "20",
+  "title": "CẢM ƠN, XIN LỖI",
+  "translation": "",
+  "explanation": "Khi nói lời cảm ơn hoặc xin lỗi với cấp trên hoặc người không quen thân lắm, thay vì nói trọn vẹn hết câu, ví dụ: 「お世話になりましてありがとうございました」 thì người Nhật thường dùng hình thức bỏ lửng câu ở dạng 「〜まして…」 hoặc 「〜で…」.\\nCách nói lấp lửng này thực chất lại thể hiện sự thành tâm, lòng biết ơn hay sự hối lỗi một cách sâu sắc và lịch sự hơn.\n\n1. Cách nói khi cảm ơn:\\nVí dụ: いつもお世話になりまして... (Cảm ơn vì luôn được anh/chị giúp đỡ...)\n\n2. Cách nói khi xin lỗi:\\nVí dụ: 電車の事故で遅くなりまして... (Vì sự cố tàu điện nên tôi đến trễ...)",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka20.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もしもし、ここ、わたしの[席](せき)なんですが…",
+          "vi": "Này này, đây là chỗ ngồi của tôi mà.",
+          "startTime": 0.05,
+          "endTime": 5.12
+        },
+        {
+          "speaker": "B",
+          "ja": "えっ？ここはわたしの席のはずですよ。ここに[切符](きっぷ)もありますよ。ほら、12Bでしょ？",
+          "vi": "Hả? Chỗ này chắc chắn là chỗ ngồi của tôi đấy. Tôi có vé đây này. Nhìn xem, 12B đúng không?",
+          "startTime": 5.12,
+          "endTime": 11.52
+        },
+        {
+          "speaker": "A",
+          "ja": "ここは3[号車](ごうしゃ)ですよ。あなたの切符は4号車じゃありませんか。",
+          "vi": "Đây là xe số 3 đấy. Vé của chị chẳng phải là xe số 4 đó sao?",
+          "startTime": 11.52,
+          "endTime": 16.35
+        },
+        {
+          "speaker": "B",
+          "ja": "あっ、ほんとだわ。_うっかりしておりまして_…",
+          "vi": "A, thật vậy. Xin lỗi tôi vô ý quá.",
+          "startTime": 16.35,
+          "endTime": 20.33
+        },
+        {
+          "speaker": "A",
+          "ja": "いいえ、どういたしまして。",
+          "vi": "Không có gì đâu.",
+          "startTime": 20.33,
+          "endTime": 22.1
+        },
+        {
+          "speaker": "B",
+          "ja": "すぐに4号車へ[移動](いどう)しますから。",
+          "vi": "Tôi phải qua xe số 4 ngay đây.",
+          "startTime": 22.1,
+          "endTime": 24.6
+        },
+        {
+          "speaker": "A",
+          "ja": "あっ、[痛](いた)い。[足](あし)が……。",
+          "vi": "Á, đau quá. Chân của tôi ...",
+          "startTime": 24.6,
+          "endTime": 26.64
+        },
+        {
+          "speaker": "B",
+          "ja": "ごめんなさい。_[踏](ふ)んでしまいまして_…。[申](もう)しわけございません。",
+          "vi": "Xin lỗi. Tôi đã lỡ giẫm lên chân của anh ... Thật xin lỗi.",
+          "startTime": 26.64,
+          "endTime": 31.94
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もしもし、[山田](やまだ)さんのお[宅](たく)でしょうか。",
+          "vi": "A lô! A lô! Đây có phải là nhà của thầy Yamada không?",
+          "startTime": 31.94,
+          "endTime": 36.54
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、そうですが…",
+          "vi": "Vâng, đúng rồi.",
+          "startTime": 36.54,
+          "endTime": 38.55
+        },
+        {
+          "speaker": "A",
+          "ja": "[私](わたくし)、[留学生](りゅうがくせい)の[林](りん)と[申](もう)しますが…",
+          "vi": "Em là Rin, du học sinh.",
+          "startTime": 38.55,
+          "endTime": 41.38
+        },
+        {
+          "speaker": "B",
+          "ja": "あいにく、[主人](しゅじん)は[出張](しゅっちょう)して_おりまして_…",
+          "vi": "Thật không may, chồng tôi đi công tác rồi.",
+          "startTime": 41.39,
+          "endTime": 44.35
+        },
+        {
+          "speaker": "A",
+          "ja": "このたびは山田さんにすっかり_お[世話](せわ)になりまして_…",
+          "vi": "Dạo gần đây em được thầy Yamada giúp đỡ rất nhiều.",
+          "startTime": 44.35,
+          "endTime": 47.31
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか。[何](なん)のお[役](やく)にも_[立](た)てませんで_…",
+          "vi": "Thế à. Nhưng có giúp được gì nhiều đâu.",
+          "startTime": 47.31,
+          "endTime": 50.61
+        },
+        {
+          "speaker": "A",
+          "ja": "いいえ、おかげさまで[新](あたら)しい[仕事](しごと)が[決](き)まりました。",
+          "vi": "Không đâu ạ. Nhờ thầy giúp đỡ mà em có được việc làm mới.",
+          "startTime": 50.61,
+          "endTime": 53.96
+        },
+        {
+          "speaker": "B",
+          "ja": "それはよかったですね。ご[就職](しゅうしょく)おめでとうございます。",
+          "vi": "Vậy thì tốt quá. Chúc mừng em đã có việc làm.",
+          "startTime": 53.96,
+          "endTime": 57.8
+        },
+        {
+          "speaker": "A",
+          "ja": "つきましては、[一度](いちど)私のアパートへおいでくださいませんか。お[口](くち)に[合](あ)うかどうかわかりませんが、私の手[料理](りょうり)でもめしあがっていただきたいと_[存](ぞん)じまして_…。",
+          "vi": "Nhân tiện đây, em muốn mời thầy cô đến thăm căn hộ của em một lần. Không biết có hợp khẩu vị hay không nhưng em muốn tự tay làm một ít thức ăn đãi thầy cô.",
+          "startTime": 57.8,
+          "endTime": 66.99
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか。ありがとうございます。主人が[戻](もど)りましたら、そのように[伝](つた)えておきます。",
+          "vi": "Thế à. Cám ơn em nhé. Khi nào chồng tôi trở về, tôi sẽ nói lại như vậy.",
+          "startTime": 66.99,
+          "endTime": 73.44
+        }
+      ]
+    }
+  ]
+},
 {
     "id": "21",
     "title": "PHÀN NÀN, TỪ CHỐI",
