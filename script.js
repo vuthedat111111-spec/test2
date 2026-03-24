@@ -5285,8 +5285,9 @@ const renderGuideOverlay = () => (
                 <div className="flex flex-col gap-4">
                     {[
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
-                        { id: 'nameraka', title: 'GIAO TIẾP TRÔI CHẢY N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
+                        { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
                         { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
+                       
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -5497,7 +5498,6 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const scrollRef = React.useRef(null);
     const stopAtTimeRef = React.useRef(null);
     const isMutedRef = React.useRef(false);
-    const timeUpdateListenerRef = React.useRef(null);
 
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     const initAndPlayAudio = (startTime = 0) => {
@@ -5574,7 +5574,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         }
     }, [playbackRate]);
 
-    // --- 3. THEO DÕI THỜI GIAN & TẮT ÂM THANH (HỖ TRỢ CHẠY NỀN) ---
+    // --- 3. VÒNG LẶP 60FPS: TRACKING THỜI GIAN & TẮT ÂM THANH CHUẨN XÁC ---
     React.useEffect(() => {
         const convs = lesson.conversations || [{ dialogues: lesson.dialogues }];
         const flatLines = [];
@@ -5586,87 +5586,75 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             });
         });
 
-        // Tách riêng logic xử lý thời gian ra một hàm độc lập
-        const processAudioTime = () => {
-            if (!soundRef.current || !isPlaying || isDragging) return;
-
-            const seekTime = soundRef.current.seek();
-            if (typeof seekTime !== 'number') return;
-
-            setCurrentTime(seekTime);
-
-            if (stopAtTimeRef.current !== null && seekTime >= stopAtTimeRef.current) {
-                soundRef.current.pause();
-                setIsPlaying(false);
-                stopAtTimeRef.current = null;
-                return;
-            }
-
-            let foundIndex = -1;
-            let currentSpeaker = null;
-
-            for (let i = 0; i < flatLines.length; i++) {
-                const line = flatLines[i];
-
-                if (seekTime >= line.startTime && seekTime <= line.endTime) {
-                    foundIndex = i;
-                }
-
-                const lookaheadTime = seekTime + 0.05;
-                const isMutedCharacter = (roleplayMode === 'hideA' && line.speaker === 'A') ||
-                                         (roleplayMode === 'hideB' && line.speaker === 'B');
-
-                if (isMutedCharacter && lookaheadTime >= line.startTime && seekTime <= line.endTime) {
-                    currentSpeaker = line.speaker;
-                }
-            }
-
-            if (foundIndex !== activeIndex) {
-                setActiveIndex(foundIndex);
-                if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
-                    lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
-
-            const shouldMute = !!currentSpeaker;
-            if (shouldMute !== isMutedRef.current) {
-                soundRef.current.mute(shouldMute);
-                isMutedRef.current = shouldMute;
-            }
-        };
-
-        // Hàm step dùng cho giao diện mượt mà (Chỉ chạy khi Màn hình đang bật)
         const step = () => {
-            processAudioTime();
-            if (isPlaying) timerRef.current = requestAnimationFrame(step);
+            if (soundRef.current && isPlaying && !isDragging) {
+                const seekTime = soundRef.current.seek();
+                
+                // Đề phòng Howler trả về mảng khi đang loading
+                if (typeof seekTime === 'number') {
+                    setCurrentTime(seekTime);
+
+                    if (stopAtTimeRef.current !== null && seekTime >= stopAtTimeRef.current) {
+                        soundRef.current.pause();
+                        setIsPlaying(false);
+                        stopAtTimeRef.current = null; // Xóa mốc thời gian
+                        return; // Dừng vòng lặp hiện tại
+                    } 
+                    
+                    let foundIndex = -1;
+                    let currentSpeaker = null;
+
+                    // Quét để tìm câu đang nói và xử lý chặn họng
+                    for (let i = 0; i < flatLines.length; i++) {
+                        const line = flatLines[i];
+                        
+                        // Tìm UI đang sáng
+                        if (seekTime >= line.startTime && seekTime <= line.endTime) {
+                            foundIndex = i;
+                        }
+
+                        // Tìm nhân vật để Mute (Trừ hao cực nhẹ 0.05s vì Howler ngắt tức thì)
+                        const lookaheadTime = seekTime + 0.05;
+                        const isMutedCharacter = (roleplayMode === 'hideA' && line.speaker === 'A') || 
+                                                 (roleplayMode === 'hideB' && line.speaker === 'B');
+                        
+                        if (isMutedCharacter && lookaheadTime >= line.startTime && seekTime <= line.endTime) {
+                            currentSpeaker = line.speaker;
+                        }
+                    }
+
+                    // Tự động cuộn UI
+                    if (foundIndex !== activeIndex) {
+                        setActiveIndex(foundIndex);
+                        if (foundIndex !== -1 && isAutoScroll && lineRefs.current[foundIndex]) {
+                            lineRefs.current[foundIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+
+                    // Tắt tiếng triệt để (Đã tối ưu cho HTML5 Audio)
+                    const shouldMute = !!currentSpeaker; // Ép kiểu về true/false
+                    if (shouldMute !== isMutedRef.current) {
+                        soundRef.current.mute(shouldMute); // Dùng mute() thay vì volume()
+                        isMutedRef.current = shouldMute;
+                    }
+                }
+            } else if (soundRef.current && !isPlaying) {
+                // Nhả âm lượng khi ấn Pause
+                if (isMutedRef.current) {
+                    soundRef.current.mute(false);
+                    isMutedRef.current = false;
+                }
+            }
+            
+            timerRef.current = requestAnimationFrame(step);
         };
 
         if (isPlaying) {
             timerRef.current = requestAnimationFrame(step);
-
-            // BÍ QUYẾT CHẠY NỀN: Lắng nghe sự kiện timeupdate của thẻ Audio HTML5 gốc
-            const node = soundRef.current?._sounds[0]?._node;
-            if (node) {
-                if (timeUpdateListenerRef.current) {
-                    node.removeEventListener('timeupdate', timeUpdateListenerRef.current);
-                }
-                timeUpdateListenerRef.current = processAudioTime;
-                node.addEventListener('timeupdate', timeUpdateListenerRef.current);
-            }
-        } else if (soundRef.current && !isPlaying) {
-            if (isMutedRef.current) {
-                soundRef.current.mute(false);
-                isMutedRef.current = false;
-            }
         }
 
         return () => {
             if (timerRef.current) cancelAnimationFrame(timerRef.current);
-            // Dọn dẹp sự kiện chạy nền khi component unmount
-            const node = soundRef.current?._sounds[0]?._node;
-            if (node && timeUpdateListenerRef.current) {
-                node.removeEventListener('timeupdate', timeUpdateListenerRef.current);
-            }
         };
     }, [isPlaying, roleplayMode, isAutoScroll, activeIndex, isDragging, lesson]);
 
