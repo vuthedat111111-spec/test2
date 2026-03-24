@@ -2841,94 +2841,122 @@
   ]
 },
 {
-    "id": "19",
-    "title": "TRUYỀN ĐẠT CHỦ Ý",
-    "translation": "",
-    "explanation": "Khi nói những chuyện mà chỉ có bản thân mình biết (người khác không biết), hoặc muốn truyền đạt/khẳng định chủ ý của mình, ta thêm trợ từ 「よ」 vào cuối câu. Ví dụ: dùng để đính chính lại thông tin khi đối phương nói sai.\n\n<Chú ý>\\n① Trợ từ 「ぞ」 cũng được sử dụng giống như 「よ」 nhưng có khẩu khí mạnh hơn. Chủ yếu nam giới dùng để nói chuyện với bạn bè hoặc người dưới mình. Cần chú ý vì tùy thuộc vào đối tượng và tình huống mà nó có thể trở nên bất lịch sự.\\n② Phụ nữ thường có thói quen sử dụng hình thức lược bỏ 「だ」 trước các trợ từ cuối câu này.\\nVí dụ:\\n- Nam: 元気だね。(Khỏe nhỉ.) ➔ うん、元気だよ。(Ừ, khỏe chứ.)\\n- Nữ: 元気ね。(Khỏe nhỉ.) ➔ うん、元気よ。(Ừ, khỏe chứ.)",
-    "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka19.m4a",
-    "conversations": [
-      {
-        "context": "Tình huống 1",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "もしもし、ここにバイクをとめないで[下](くだ)さい。",
-            "vi": "Này này, xin đừng đậu xe máy ở đây."
-          },
-          {
-            "speaker": "B",
-            "ja": "え？とめちゃいけないの？みんなよくここにとめてるのに。",
-            "vi": "Hả? Không được đậu ở đây à? Mọi người vẫn thường đậu ở đây mà."
-          },
-          {
-            "speaker": "A",
-            "ja": "ここはスーパーの[駐車場](ちゅうしゃじょう)ですよ。だから、スーパーが[開](あ)いてる[時間](じかん)ならとめてもいいけど、[開](あ)いてない[時間](じかん)にとめちゃいけないんですよ。",
-            "vi": "Ở đây là bãi đậu xe của siêu thị đấy. Vì vậy, trong thời gian siêu thị mở cửa thì đậu xe ở đây cũng được, nhưng lúc chưa mở cửa thì không được đậu xe."
-          },
-          {
-            "speaker": "A",
-            "ja": "[買](か)い[物](もの)する[人](ひと)のための[駐車場](ちゅうしゃじょう)なんですからね。",
-            "vi": "Vì đây là bãi đậu xe dành cho khách đi mua sắm."
-          },
-          {
-            "speaker": "B",
-            "ja": "あっ、そうなんですか。[知](し)らなかった。ごめんなさい。ところで、スーパーの[開店時間](かいてんじかん)は[何時](なんじ)かしら。",
-            "vi": "A, thế à. Vậy mà tôi không biết. Xin lỗi nhé. Mà này, siêu thị mở cửa vào giờ nào vậy?"
-          },
-          {
-            "speaker": "A",
-            "ja": "スーパーは10時[開店](かいてん)ですよ。まだ30分[以上](いじょう)ありますよ。[有料](ゆうりょう)駐車場なら、[駅前](えきまえ)にありますけど…",
-            "vi": "Siêu thị mở cửa vào lúc 10 giờ, còn hơn 30 phút nữa đấy. Còn bãi đậu xe có thu phí thì ở trước nhà ga."
-          },
-          {
-            "speaker": "B",
-            "ja": "そうね。30[分](ぷん)も[待](ま)ってられないものね。そっちを[利用](りよう)することにするわ。",
-            "vi": "Vậy hả? Chờ tới 30 phút thì không được rồi. Tới gởi xe ở đằng đó thôi."
-          }
-        ]
-      },
-      {
-        "context": "Tình huống 2",
-        "dialogues": [
-          {
-            "speaker": "A",
-            "ja": "おい、おまえビールの[飲](の)みすぎじゃないか？[顔](かお)がまっかだよ。",
-            "vi": "Này, mày uống nhiều quá rồi, mày biết không? Mặt đỏ rực lên rồi đấy."
-          },
-          {
-            "speaker": "B",
-            "ja": "そんなことないよ。木村も[飲](の)めよ。",
-            "vi": "Làm gì có. Kimura, mày cũng uống đi chứ."
-          },
-          {
-            "speaker": "A",
-            "ja": "おれは[車](くるま)で[来](き)てるから、[飲](の)めないんだ。ウーロン[茶](ちゃ)、お[代](か)わりもらうよ。",
-            "vi": "Tao còn phải lái xe nên không uống được. Tao uống trà ô long thay vậy."
-          },
-          {
-            "speaker": "B",
-            "ja": "おれはウィスキーにするよ。[今日](きょう)はどんどん[飲](の)むぞ。",
-            "vi": "Tao uống rượu whisky. Hôm nay uống thoải mái luôn."
-          },
-          {
-            "speaker": "A",
-            "ja": "さあ、もう11[時](じ)だよ。そろそろ[帰](かえ)るぞ。[送](おく)ってくよ。",
-            "vi": "Chà, đã 11 giờ rồi đấy. Về ngay thôi, tao đưa mày về."
-          },
-          {
-            "speaker": "B",
-            "ja": "まあまあ、そんなこと[言](い)うなよ。もう[一軒](いっけん)[行](い)こう、[行](い)こう。",
-            "vi": "Này này, mày đừng nói thế chứ. Đi thêm một quán nữa đi. Đi nào."
-          },
-          {
-            "speaker": "A",
-            "ja": "おれたち、[土曜日](どようび)も[仕事](しごと)があるんだからな。そんなに[飲](の)むと、[明日](あした)の[仕事](しごと)にさしつかえるぞ。",
-            "vi": "Tụi mình, ngày thứ bảy cũng phải đi làm mà. Nếu uống nhiều như thế, ngày mai không làm việc được đâu."
-          }
-        ]
-      }
-    ]
-  },
+  "id": "19",
+  "title": "TRUYỀN ĐẠT CHỦ Ý",
+  "translation": "",
+  "explanation": "Khi nói những chuyện mà chỉ có bản thân mình biết (người khác không biết), hoặc muốn truyền đạt/khẳng định chủ ý của mình, ta thêm trợ từ 「よ」 vào cuối câu. Ví dụ: dùng để đính chính lại thông tin khi đối phương nói sai.\n\n<Chú ý>\\n① Trợ từ 「ぞ」 cũng được sử dụng giống như 「よ」 nhưng có khẩu khí mạnh hơn. Chủ yếu nam giới dùng để nói chuyện với bạn bè hoặc người dưới mình. Cần chú ý vì tùy thuộc vào đối tượng và tình huống mà nó có thể trở nên bất lịch sự.\\n② Phụ nữ thường có thói quen sử dụng hình thức lược bỏ 「だ」 trước các trợ từ cuối câu này.\\nVí dụ:\\n- Nam: 元気だね。(Khỏe nhỉ.) ➔ うん、元気だよ。(Ừ, khỏe chứ.)\\n- Nữ: 元気ね。(Khỏe nhỉ.) ➔ うん、元気よ。(Ừ, khỏe chứ.)",
+  "audioPath": "./data/filenghesachkaiwa/nameraka/nameraka19.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もしもし、ここにバイクをとめないで[下](くだ)さい。",
+          "vi": "Này này, xin đừng đậu xe máy ở đây.",
+          "startTime": 0,
+          "endTime": 4.85
+        },
+        {
+          "speaker": "B",
+          "ja": "え？とめちゃいけないの？みんなよくここにとめてるのに。",
+          "vi": "Hả? Không được đậu ở đây à? Mọi người vẫn thường đậu ở đây mà.",
+          "startTime": 4.85,
+          "endTime": 9.23
+        },
+        {
+          "speaker": "A",
+          "ja": "ここはスーパーの[駐車場](ちゅうしゃじょう)ですよ。だから、スーパーが[開](あ)いてる[時間](じかん)ならとめてもいいけど、[開](あ)いてない[時間](じかん)にとめちゃいけないんですよ。",
+          "vi": "Ở đây là bãi đậu xe của siêu thị đấy. Vì vậy, trong thời gian siêu thị mở cửa thì đậu xe ở đây cũng được, nhưng lúc chưa mở cửa thì không được đậu xe.",
+          "startTime": 9.23,
+          "endTime": 16.42
+        },
+        {
+          "speaker": "A",
+          "ja": "[買](か)い[物](もの)する[人](ひと)のための[駐車場](ちゅうしゃじょう)なんですからね。",
+          "vi": "Vì đây là bãi đậu xe dành cho khách đi mua sắm.",
+          "startTime": 16.42,
+          "endTime": 18.95
+        },
+        {
+          "speaker": "B",
+          "ja": "あっ、そうなんですか。[知](し)らなかった。ごめんなさい。ところで、スーパーの[開店時間](かいてんじかん)は[何時](なんじ)かしら。",
+          "vi": "A, thế à. Vậy mà tôi không biết. Xin lỗi nhé. Mà này, siêu thị mở cửa vào giờ nào vậy?",
+          "startTime": 18.95,
+          "endTime": 26.75
+        },
+        {
+          "speaker": "A",
+          "ja": "スーパーは10時[開店](かいてん)ですよ。まだ30分[以上](いじょう)ありますよ。[有料](ゆうりょう)駐車場なら、[駅前](えきまえ)にありますけど…",
+          "vi": "Siêu thị mở cửa vào lúc 10 giờ, còn hơn 30 phút nữa đấy. Còn bãi đậu xe có thu phí thì ở trước nhà ga.",
+          "startTime": 26.75,
+          "endTime": 33.47
+        },
+        {
+          "speaker": "B",
+          "ja": "そうね。30[分](ぷん)も[待](ま)ってられないものね。そっちを[利用](りよう)することにするわ。",
+          "vi": "Vậy hả? Chờ tới 30 phút thì không được rồi. Tới gởi xe ở đằng đó thôi.",
+          "startTime": 33.47,
+          "endTime": 39.86
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "おい、おまえビールの[飲](の)みすぎじゃないか？[顔](かお)がまっかだよ。",
+          "vi": "Này, mày uống nhiều quá rồi, mày biết không? Mặt đỏ rực lên rồi đấy.",
+          "startTime": 39.86,
+          "endTime": 45.69
+        },
+        {
+          "speaker": "B",
+          "ja": "そんなことないよ。木村も[飲](の)めよ。",
+          "vi": "Làm gì có. Kimura, mày cũng uống đi chứ.",
+          "startTime": 45.69,
+          "endTime": 48.3
+        },
+        {
+          "speaker": "A",
+          "ja": "おれは[車](くるま)で[来](き)てるから、[飲](の)めないんだ。ウーロン[茶](ちゃ)、お[代](か)わりもらうよ。",
+          "vi": "Tao còn phải lái xe nên không uống được. Tao uống trà ô long thay vậy.",
+          "startTime": 48.3,
+          "endTime": 52.06
+        },
+        {
+          "speaker": "B",
+          "ja": "おれはウィスキーにするよ。[今日](きょう)はどんどん[飲](の)むぞ。",
+          "vi": "Tao uống rượu whisky. Hôm nay uống thoải mái luôn.",
+          "startTime": 52.06,
+          "endTime": 55.43
+        },
+        {
+          "speaker": "A",
+          "ja": "さあ、もう11[時](じ)だよ。そろそろ[帰](かえ)るぞ。[送](おく)ってくよ。",
+          "vi": "Chà, đã 11 giờ rồi đấy. Về ngay thôi, tao đưa mày về.",
+          "startTime": 55.43,
+          "endTime": 63.58
+        },
+        {
+          "speaker": "B",
+          "ja": "まあまあ、そんなこと[言](い)うなよ。もう[一軒](いっけん)[行](い)こう、[行](い)こう。",
+          "vi": "Này này, mày đừng nói thế chứ. Đi thêm một quán nữa đi. Đi nào.",
+          "startTime": 63.58,
+          "endTime": 67.04
+        },
+        {
+          "speaker": "A",
+          "ja": "おれたち、[土曜日](どようび)も[仕事](しごと)があるんだからな。そんなに[飲](の)むと、[明日](あした)の[仕事](しごと)にさしつかえるぞ。",
+          "vi": "Tụi mình, ngày thứ bảy cũng phải đi làm mà. Nếu uống nhiều như thế, ngày mai không làm việc được đâu.",
+          "startTime": 67.04,
+          "endTime": 73.08
+        }
+      ]
+    }
+  ]
+},
 {
     "id": "20",
     "title": "CẢM ƠN, XIN LỖI",
