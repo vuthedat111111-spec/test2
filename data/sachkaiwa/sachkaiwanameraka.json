@@ -2755,8 +2755,13 @@
           },
           {
             "speaker": "A",
-            "ja": "ここはスーパーの[駐車場](ちゅうしゃじょう)ですよ。だから、スーパーが[開](あ)いてる[時間](じかん)ならとめてもいいけど、[開](あ)いてない[時間](じかん)にとめちゃいけないんですよ。[買](か)い[物](もの)する[人](ひと)のための[駐車場](ちゅうしゃじょう)なんですからね。",
-            "vi": "Ở đây là bãi đậu xe của siêu thị đấy. Vì vậy, trong thời gian siêu thị mở cửa thì đậu xe ở đây cũng được, nhưng lúc chưa mở cửa thì không được đậu xe, vì đây là bãi đậu xe dành cho khách đi mua sắm."
+            "ja": "ここはスーパーの[駐車場](ちゅうしゃじょう)ですよ。だから、スーパーが[開](あ)いてる[時間](じかん)ならとめてもいいけど、[開](あ)いてない[時間](じかん)にとめちゃいけないんですよ。",
+            "vi": "Ở đây là bãi đậu xe của siêu thị đấy. Vì vậy, trong thời gian siêu thị mở cửa thì đậu xe ở đây cũng được, nhưng lúc chưa mở cửa thì không được đậu xe."
+          },
+          {
+            "speaker": "A",
+            "ja": "[買](か)い[物](もの)する[人](ひと)のための[駐車場](ちゅうしゃじょう)なんですからね。",
+            "vi": "Vì đây là bãi đậu xe dành cho khách đi mua sắm."
           },
           {
             "speaker": "B",
