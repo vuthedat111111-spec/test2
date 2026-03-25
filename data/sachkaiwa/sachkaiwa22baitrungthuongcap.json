@@ -4249,7 +4249,1266 @@
       ]
     }
   ]
+},
+  {
+  "id": "21",
+  "title": "PHẦN 5 - TRUNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p21.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日は何日だっけ？",
+          "vi": "Hôm nay là ngày bao nhiêu nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "22日だけど。",
+          "vi": "Hôm nay là 22."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、あとちょっとで[給料](きゅうりょう)だ。フトコロが[寒](さむ)くってねー。",
+          "vi": "À, mấy bữa nữa có lương rồi. Tớ rỗng hầu bao quá."
+        },
+        {
+          "speaker": "B",
+          "ja": "あー、あと3日だね。",
+          "vi": "Ờ, còn 3 ngày nữa thôi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今度の[三連休](さんれんきゅう)、何するの？",
+          "vi": "Ba ngày nghỉ sắp tới cậu định làm gì?"
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、どこにも行かないで、家でゴロゴロするつもり。",
+          "vi": "Ừm, chẳng đi đâu hết, chỉ định loanh quanh ở nhà thôi."
+        },
+        {
+          "speaker": "A",
+          "ja": "え〜、おもしろくないじゃない、せっかくの休みなのに。",
+          "vi": "Sao? Được nghỉ mà thế thì vui gì."
+        },
+        {
+          "speaker": "B",
+          "ja": "だって、しょうがないよ、[金欠](きんけつ)なんだから。",
+          "vi": "Thì cậu xem, biết làm thế nào, tớ làm gì có tiền."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "聞いた？ [田中](たなか)くん、この間の[昇進試験](しょうしんしけん)、まただめだったんだって。",
+          "vi": "Cậu biết chưa? Nghe nói Tanaka lại trượt kỳ thi thăng cấp rồi đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、あんなに[頑張](がんば)ってたのにね。ガックリきてるだろうなー。",
+          "vi": "Ừ, dù cậu ấy cố gắng đến thế. Chắc phải chán lắm nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "明日会ったら、なんて言って[慰](なぐさ)めよう。",
+          "vi": "Ngày mai gặp cậu ấy, nên nói gì để an ủi đây."
+        },
+        {
+          "speaker": "B",
+          "ja": "気の[毒](どく)で、声のかけようもないよ。",
+          "vi": "Đáng thương thế, biết nói gì đây."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[山田](やまだ)さんの[送別会](そうべつかい)の[費用](ひよう)、一人3000円でお[願](ねが)いします。",
+          "vi": "Xin mỗi người đóng 3000 Yên phí tổ chức tiệc chia tay anh Yamada."
+        },
+        {
+          "speaker": "B",
+          "ja": "すみません。今日は持ち合わせがなくて…。",
+          "vi": "Xin lỗi, hôm nay tôi không mang đủ tiền..."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、私が立て[替](か)えておきましょうか。",
+          "vi": "Vậy, tôi ứng trước cho chị nhé?"
+        },
+        {
+          "speaker": "B",
+          "ja": "え、いいんですか？ すみません、明日、[必](かなら)ずお[返](かえ)しします。",
+          "vi": "Có được không? Xin lỗi nhé, chắc chắn ngày mai tôi sẽ trả lại anh."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[課長](かちょう)の[結婚式](けっこんしき)行ったら、妹さんと[瓜二](うりふた)つなの。",
+          "vi": "Hôm dự lễ cưới trưởng nhóm, thấy cô em gái giống anh như lột."
+        },
+        {
+          "speaker": "B",
+          "ja": "え、本当？ 妹さん、ちょっとかわいそうかも…。",
+          "vi": "Sao, thật á? Vậy thì tội cho cô ấy quá..."
+        },
+        {
+          "speaker": "A",
+          "ja": "いや、似てるんだけど、とっても感じよかったよ。",
+          "vi": "Không, tuy giống nhau nhưng cô ấy dễ chịu lắm."
+        },
+        {
+          "speaker": "B",
+          "ja": "きっと、[性格](せいかく)のいい妹さんなんだろうね。",
+          "vi": "Chắc là một cô em gái tốt tính lắm nhỉ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "すみません。明日、[午前](ごぜん)中に私[宛](あて)に[代引](だいび)きで[荷物](にもつ)が[届](とど)くことになってるんですけど、[遅番](おそばん)なんで受け取ってもらえますか？",
+          "vi": "Xin lỗi, trong sáng mai có hàng thanh toán cước tại chỗ gửi đến cho tôi, nhưng tôi lại làm ca muộn. Chị nhận giúp tôi được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "[了解](りょうかい)。お金だけ[準備](じゅんび)しといてね。",
+          "vi": "Được thôi. Hãy chuẩn bị sẵn tiền nhé."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい。じゃー、この引き出しにお金入れときます。ぴったりお釣りなしです。",
+          "vi": "Ừ. Vậy, tôi để tiền trong ngăn kéo này. Vừa đủ, không thừa."
+        },
+        {
+          "speaker": "B",
+          "ja": "わかった。",
+          "vi": "Được rồi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ〜、何これ〜！ データ[全部](ぜんぶ)消えちゃったよ〜。",
+          "vi": "Oái, gì thế này! Mất hết dữ liệu rồi..."
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜？ どうして？",
+          "vi": "Hả? Tại sao?"
+        },
+        {
+          "speaker": "A",
+          "ja": "わかんないけど、[急](きゅう)に[画面](がめん)が[真](ま)っ[暗](くら)になって…。",
+          "vi": "Chẳng biết sao, nhưng tự nhiên màn hình tối thui..."
+        },
+        {
+          "speaker": "B",
+          "ja": "バックアップとってなかったの？",
+          "vi": "Cậu không back-up sao?"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[先輩](せんぱい)、ここには[駐車](ちゅうしゃ)できませんよ。",
+          "vi": "Anh ơi, chỗ này không đậu xe được đâu."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうか…。[最近](さいきん)、[路上](ろじょう)駐車の[取](と)り[締](し)まり[厳](きび)しくなったからね。",
+          "vi": "Vậy à... Gần đây người ta bắt lỗi đậu xe trên đường chặt hơn nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "しょうがないですね、パーキング[探](さが)しましょうか。",
+          "vi": "Biết làm sao được. Mình tìm chỗ đậu xe thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "いや、ほんの10分で[済](す)むから、ちょっと乗っててくれない？",
+          "vi": "Không, chỉ đúng 10' là xong nên cậu đợi trong xe giúp tôi được không?"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "22",
+  "title": "PHẦN 5 - TRUNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p22.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "坂本さん、初めて彼女のうちに行ったとき、向こうのご両親になんて言いました？",
+          "vi": "Sakamoto này, lần đầu đến nhà bạn gái, anh đã nói gì với bố mẹ cô ấy?"
+        },
+        {
+          "speaker": "B",
+          "ja": "え？なんて言ったかな。どうして？",
+          "vi": "Sao? Tôi đã nói gì nhỉ? Mà sao vậy?"
+        },
+        {
+          "speaker": "A",
+          "ja": "実は、来週、彼女のうちに行くんで。",
+          "vi": "Thực ra là tuần sau em sẽ đến nhà bạn gái."
+        },
+        {
+          "speaker": "B",
+          "ja": "え、まだ結婚するんじゃないんでしょ？",
+          "vi": "Hả? Chắc chưa cưới đấy chứ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ、そうなんですけどね。でも、何か言うべきかなって。",
+          "vi": "Vâng, chưa đâu. Nhưng em không biết nên nói gì."
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん。遊びでつき合ってるわけじゃないってことは、岡田さんを見れば、向こうのご両親もわかってくれるんじゃない？挨拶だけでいいんじゃない？",
+          "vi": "Ùm, Okada à, nhìn cậu thì bố mẹ cô ấy chắc cũng hiểu cậu không cặp với cô ấy để chơi bời đúng không? Nên có lẽ chỉ cần chào hỏi thôi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "バレンタインデーにチョコレートもらった？",
+          "vi": "Cậu có nhận được sô cô la vào ngày Valentine không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "へへへ、もらったよ。本命から！田中は？",
+          "vi": "He he he... Có chứ! Từ chính nàng luôn! Còn cậu thì sao, Tanaka?"
+        },
+        {
+          "speaker": "A",
+          "ja": "もらったにはもらったけど、義理チョコ。",
+          "vi": "Nhận thì có nhận, nhưng chỉ là sô cô la lễ nghi thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "いやー、義理でも全然もらえないよりいいんじゃない？",
+          "vi": "Thôi, dù chỉ là lễ nghi vẫn còn hơn không nhận được tý gì phải không?"
+        },
+        {
+          "speaker": "A",
+          "ja": "でも、お返しに1万円はかかるかも…。ちょっとありがた迷惑だよな。",
+          "vi": "Nhưng quà cảm ơn không khéo tốn hơn 10.000 Yên mất... Quả là một sự hàm ơn phiền toái."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうか〜？まー、感謝の印ってことで、もらっとけよ。",
+          "vi": "Vậy hả? Mà thôi, cứ nhận đi, coi đó thay cho lời cảm ơn từ họ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あー、調子わる〜。",
+          "vi": "Ôi, khó chịu quá!"
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしたの？",
+          "vi": "Cậu sao vậy?"
+        },
+        {
+          "speaker": "A",
+          "ja": "ちょっと、夕べ飲みすぎて…。胸はムカムカするし、胃はもたれるし、頭はガンガンするし…。それに女房には「毎日午前様だ」って叱られるし…。踏んだり蹴ったりだよ。",
+          "vi": "Tối qua tớ uống hơi nhiều... Giờ vừa buồn nôn, vừa đầy bụng, vừa váng đầu... Đã thế còn bị vợ mắng là \"Quý ông luôn về lúc sáng sớm\" nữa... Đúng là họa vô đơn chí!"
+        },
+        {
+          "speaker": "B",
+          "ja": "そんなになるまで飲むから、罰が当たったのよ。",
+          "vi": "Tại cậu uống đến mức ra như thế nên bị trời phạt đó thôi."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、腹も痛くなってきた。ちょっとトイレ。",
+          "vi": "Ôi, Bụng cũng đau nữa rồi. Phải đi vệ sinh một cái."
+        },
+        {
+          "speaker": "B",
+          "ja": "まったく、もう〜。",
+          "vi": "Thật đúng là!"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "田中さん、歓送迎会の日程を決めたいんですけど、希望日ってありますか？",
+          "vi": "Anh Tanaka này, tôi đang muốn chọn ngày làm tiệc đón tiễn, anh có yêu cầu ngày nào không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "えーと、いつ頃の予定？",
+          "vi": "Xem nào. Dự kiến tầm nào nhỉ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "再来週のどこかでやりたいんですけどねー。",
+          "vi": "Tôi định làm vào ngày nào đó trong tuần sau nữa."
+        },
+        {
+          "speaker": "B",
+          "ja": "再来週ね〜。今んとこ、全部空いてるけど…。",
+          "vi": "Tuần sau nữa à? Lúc này tôi vẫn trống lịch cả tuần..."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、いつでもオーケーってことでいいですか？",
+          "vi": "Vậy là ngày nào cũng được phải không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、やっぱ、金曜日がベストだな。",
+          "vi": "Ừm, nghĩ lại thì có lẽ thứ Sáu là tiện nhất."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もしもし、遠藤ですが。",
+          "vi": "Alo, tôi Endo đây."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、遠藤さん、山本です。おはようございます。",
+          "vi": "A, anh Endo. Tôi là Yamamoto. Chào anh!"
+        },
+        {
+          "speaker": "A",
+          "ja": "おはようございます。えーと、今東京駅にいるんですけど、電車が事故か何かで止まっちゃってるんですよ。いつ動くかもわかんなくて。",
+          "vi": "Chào chị. Ờ, tôi đang ở ga Tokyo nhưng tàu điện đang dừng, không biết vì tai nạn hay vì cái gì. Cũng không biết lúc nào mới chạy nữa."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、そうなんですか。",
+          "vi": "Ôi, thế à?"
+        },
+        {
+          "speaker": "A",
+          "ja": "ええ。で、今日朝一で打ち合わせが入ってるんですけど、少し遅れるって主任に伝えてもらえますか。",
+          "vi": "Ừ, mà sáng nay tôi có lịch họp đầu buổi sáng nên nhờ chị nói với trưởng nhóm tôi sẽ đến muộn một chút được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、わかりました。伝えておきます。",
+          "vi": "Vâng, rõ rồi. Tôi sẽ nói."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "加藤さん、これ人間ドックの案内書です。よくお読みになって、申込書を出してくださいね。",
+          "vi": "Anh Kato này, đây là bản hướng dẫn về chương trình kiểm tra sức khỏe tổng quát. Hãy xem kỹ và nộp đơn đăng ký nhé."
+        },
+        {
+          "speaker": "B",
+          "ja": "え、人間ドック？いやー、ちょっと忙しくてそんなの行ってる暇ないんで…。",
+          "vi": "Sao? Kiểm tra sức khỏe tổng quát ư? Không, tôi bận lắm, không có thời gian đi kiểm tra đâu..."
+        },
+        {
+          "speaker": "A",
+          "ja": "でも、加藤さんの年齢だと、人間ドックは行かなきゃいけないことになってるんですよ。",
+          "vi": "Nhưng quy định là ở độ tuổi của anh thì buộc phải đi đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "え、そうなんですか？やだなー。なんか、かえって病気になっちゃうような気がして。",
+          "vi": "Ô, thật vậy sao? Chán nhỉ! Không hiểu sao, tôi cảm thấy có khi lại sinh bệnh thêm ấy chứ."
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、そう言わずに。",
+          "vi": "Thôi nào, đừng có nói vậy chứ."
+        },
+        {
+          "speaker": "B",
+          "ja": "まー、しょうがないですね。",
+          "vi": "Thôi được, đâu còn cách nào khác nhỉ!"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今度の電車は15分で、次の電車は25分ですね。",
+          "vi": "Chuyến tàu sắp tới xuất phát lúc 15 phút, chuyến sau đó xuất phát lúc 25 phút nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、つまり、今度と次では今度のほうが早いってことだね。",
+          "vi": "Ừ, tức là giữa chuyến sắp tới với chuyến sau đó thì chuyến sắp tới nhanh hơn nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "なんか紛らわしいですよね。これって、鉄道会社に共通した言い方なんでしょうか。",
+          "vi": "Thật là lằng nhằng nhỉ. Không biết đây có phải là kiểu nói chung giữa các công ty đường sắt không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、どうかなー。今度からちょっと気をつけて見てみよう。",
+          "vi": "Ừm, Không biết nữa. Từ giờ, mình sẽ để ý xem sao."
+        },
+        {
+          "speaker": "A",
+          "ja": "あ、電車来ましたよ。急ぎましょう。",
+          "vi": "Ô, tàu đến rồi kìa. Nhanh lên nào!"
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、今度のに乗れないと、約束の時間ギリギリになっちゃうからね。",
+          "vi": "Ừ, vì nếu không kịp chuyến này thì sẽ bị sát giờ hẹn mất."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "「一度マイクを握ったら離さない」とは、山田さんのことだね。",
+          "vi": "Cậu Yamada đúng là \"Khi đã nắm mic thì nhất quyết không rời\" nhỉ!"
+        },
+        {
+          "speaker": "B",
+          "ja": "さっきから、3曲ぶっ続けですよ。上手ならいいんですけどねー。",
+          "vi": "Hát liền tù tì 3 bài từ nãy đến giờ rồi đấy. Mà nếu hát hay thì đã đành."
+        },
+        {
+          "speaker": "A",
+          "ja": "誰だよ、山田さんにマイク渡したのは…。",
+          "vi": "Ai nhỉ? Ai lại đi đưa mic cho Yamada thế...?"
+        },
+        {
+          "speaker": "B",
+          "ja": "渡したんじゃなくて、奪い取られたんですよ。",
+          "vi": "Có ai đưa đâu. Bị cậu ấy cướp mic đấy."
+        },
+        {
+          "speaker": "A",
+          "ja": "しっかりマイク持っとかないからだよ。あ〜あ、これじゃ俺の順番なんて来やしないよ。",
+          "vi": "Tại không giữ mic cho chắc đấy. Ôi., thế này thì còn lâu mới đến lượt tớ mất."
+        },
+        {
+          "speaker": "B",
+          "ja": "こっそり抜け出して、ほかのカラオケに行っちゃいましょうかー。",
+          "vi": "Hay là lẻn ra, tới quán karaoke khác đi!"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "23",
+  "title": "PHẦN 5 - THƯỢNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p23.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あー、目がショボショボする。",
+          "vi": "Ôi, mắt nhòa quá."
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしたの？老眼？",
+          "vi": "Sao vậy? Viễn thị ư?"
+        },
+        {
+          "speaker": "A",
+          "ja": "そうかな〜。38歳って、もう老眼年齢？",
+          "vi": "Chẳng biết nữa... Tuổi 38 đã bị viễn thị chưa nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "冗談だよ。課の中で美智子さんが一番若いんだから。",
+          "vi": "Đùa vậy thôi. Cậu trẻ nhất phòng mình mà, Michiko."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "女房のやつ、朝っぱらからガミガミうるさいったらありゃしないよ。",
+          "vi": "Mụ vợ nhà này, mới sáng ra mà đã làu nhà làu nhàu."
+        },
+        {
+          "speaker": "B",
+          "ja": "毎晩午前様じゃね〜、しかたないんじゃないの？",
+          "vi": "Tối nào cũng về nhà sau nửa đêm thì còn kêu ca nỗi gì chứ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "誰が好き好んで午前様やってると思ってんだよ。",
+          "vi": "Ai bảo tớ muốn về muộn thế nào!"
+        },
+        {
+          "speaker": "B",
+          "ja": "なんだかんだ言っても、おまえのこと心配してるんだよ。",
+          "vi": "Nói gì thì nói, chẳng qua cô ấy cũng chỉ lo cho cậu mà thôi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "まだ落ち込んでんの？",
+          "vi": "Cậu vẫn còn buồn sao?"
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。あの一件以来、山田さんとの仲がギクシャクしちゃって…。",
+          "vi": "Ừ, từ sau chuyện đó, quan hệ với anh Yamada không còn tốt nữa..."
+        },
+        {
+          "speaker": "A",
+          "ja": "職場は明るく楽しくだよ。中村さんから飲みに誘えば？",
+          "vi": "Chỗ làm việc là phải vui vẻ mới được. Thử rủ anh ấy đi uống xem, Nakamura!"
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。でも顔を見るとなんか気まずくって。",
+          "vi": "Ừ, nhưng cứ nhìn mặt cậu ấy là tớ lại thấy ngại."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "吉田さん、とうとう会社クビになったんだって。",
+          "vi": "Nghe nói anh Yoshida cuối cùng cũng bị sa thải rồi đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん、あの仕事ぶりじゃ、当然だよね。",
+          "vi": "Ừ, làm việc kiểu ấy thì cũng là chuyện đương nhiên thôi."
+        },
+        {
+          "speaker": "A",
+          "ja": "うん、身から出た錆だね。",
+          "vi": "Ừ, gieo gió gặt bão mà."
+        },
+        {
+          "speaker": "B",
+          "ja": "もっと動ける人があのポストには必要だからね。",
+          "vi": "Vị trí ấy cần một người có năng lực hơn nhỉ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日の中田さんの遅刻の理由、聞いた？きっとまた寝過ごしたのに、渋滞だって。",
+          "vi": "Cậu đã nghe lý do Nakata đến muộn hôm nay chưa? Chắc chắn lại ngủ quên, thế mà lại nói là tắc đường."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。バレバレだったね。ネクタイしてなかったし、寝癖もついてたしね。",
+          "vi": "Ừ, nói dối lòi đuôi ra nhỉ. Quên thắt cà vạt này, đầu tóc rối bù nữa nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "そもそも、彼、渋滞が関係する交通機関なんか使ってたっけ？",
+          "vi": "Mà cậu ta có dùng phương tiện giao thông nào liên quan đến tắc đường không nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "うちから駅までの自転車が渋滞してたって、言いたいんじゃないの？",
+          "vi": "Chắc ý cậu ta là đi xe đạp từ nhà ra ga bị tắc đường chăng?"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あー、どうしよう。締め切りに間に合わない！",
+          "vi": "Ôi, làm sao đây. Không kịp thời hạn rồi!"
+        },
+        {
+          "speaker": "B",
+          "ja": "どうしたの？ちょっと手伝おうか？",
+          "vi": "Sao thế? Tớ giúp một tay nhé!"
+        },
+        {
+          "speaker": "A",
+          "ja": "え、いいの？悪いね。恩に着るよ。",
+          "vi": "Ồ, thật ư? Ngại quá. Tớ mang ơn cậu."
+        },
+        {
+          "speaker": "B",
+          "ja": "そんな水臭いこと言って。困ったときはお互いさまだよ。",
+          "vi": "Cậu nói năng khách sáo quá. Lúc khó khăn thì phải giúp nhau chứ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "昨日、人事課の鈴木さんと激しくやりあってたでしょ。見ちゃったよ〜。大変そうだね〜。",
+          "vi": "Hôm qua cậu cãi nhau to với Suzuki ở phòng nhân sự phải không? Tớ thấy rồi. Có vẻ cũng mệt đấy nhỉ!"
+        },
+        {
+          "speaker": "B",
+          "ja": "え、見てたの？",
+          "vi": "Sao? Cậu trông thấy à?"
+        },
+        {
+          "speaker": "A",
+          "ja": "あの人、一筋縄じゃいかないからね。",
+          "vi": "Tay đó quả cũng không dễ chịu tý nào."
+        },
+        {
+          "speaker": "B",
+          "ja": "でも、今思えば言いすぎたかな。そうか、見られたか。穴があったら入りたいよ。",
+          "vi": "Nhưng giờ nghĩ lại, có lẽ tớ cũng hơi quá lời. Vậy ra, cậu trông thấy rồi à? Có cái lỗ nào thì tớ muốn chui luôn vào."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "竹内君って、博士号持ってるんだってね。",
+          "vi": "Nghe nói Takeuchi có bằng tiến sỹ cơ đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、人は見かけによらないよね。",
+          "vi": "Ừ, đúng là không được xét người qua bề ngoài nhỉ!"
+        },
+        {
+          "speaker": "A",
+          "ja": "バカなことばっかり言ってるけどさ。",
+          "vi": "Nhưng cậu ấy toàn nói những điều ngốc nghếch."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうなんだよね。でもやるときはやるよね。",
+          "vi": "Đúng thế thật. Nhưng lúc làm là cậu ấy làm ra trò đấy."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "どうだった？部長面談。",
+          "vi": "Sao? Cuộc gặp với trưởng phòng thế nào?"
+        },
+        {
+          "speaker": "B",
+          "ja": "も〜、ガンガンどなられちゃって、意気消沈。",
+          "vi": "Ôi trời, Tớ bị quạt một trận tơi bời, buồn chết đây."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、今夜はおまえのやけ酒にでもつき合うか。",
+          "vi": "Vậy, tối nay tớ đi uống rượu giải sầu với cậu nhé."
+        },
+        {
+          "speaker": "B",
+          "ja": "おー、パーっと憂さ晴らしでもするか。",
+          "vi": "Ừ, mình sẽ quên sạch chuyện buồn đi nhé."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "24",
+  "title": "PHẦN 5 - THƯỢNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p24.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "も〜、今度の課長ったらネチネチしつこいったらありゃしない。",
+          "vi": "Ôi, cái lão trưởng nhóm mới này, lằng nhằng phát khiếp."
+        },
+        {
+          "speaker": "B",
+          "ja": "また叱られたの？",
+          "vi": "Lại bị mắng à?"
+        },
+        {
+          "speaker": "A",
+          "ja": "謝ってるのに、1時間も嫌味タラタラ言われちゃった。",
+          "vi": "Tớ đã nhận lỗi rồi mà còn lải nhải suốt cả tiếng đồng hồ."
+        },
+        {
+          "speaker": "B",
+          "ja": "ま、右から左へ受け流しとけばいいんじゃない？",
+          "vi": "Ôi dào, cứ bỏ ngoài tai là được chứ gì!"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "おい、明日の飲み会どうする？",
+          "vi": "Này, bữa nhậu ngày mai tính sao?"
+        },
+        {
+          "speaker": "B",
+          "ja": "行かないわけにはいかないでしょう？部長のお誘いだもの。",
+          "vi": "Không đi không được nhỉ! Trưởng phòng mời kia mà."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうだね…。新入社員はつらいよね。",
+          "vi": "Đúng thế nhỉ... Nhân viên mới khổ ghê cơ."
+        },
+        {
+          "speaker": "B",
+          "ja": "何とか一次会だけで帰るようにしようね。",
+          "vi": "Xem thế nào hết tăng 1 mình về trước nhé."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "またいちからやり直し…。",
+          "vi": "Lại làm lại từ đầu..."
+        },
+        {
+          "speaker": "B",
+          "ja": "あんだけエネルギー注いだのにね。",
+          "vi": "Tốn bao nhiêu sức lực mà vậy nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "全然積み上がっていかない。本当に、割に合わないね。",
+          "vi": "Không tiến bộ thêm chút nào cả. Đúng là chẳng bõ công nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "合わないね〜。",
+          "vi": "Chẳng bõ công nhỉ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "部長の娘さん、結婚することになったらしいですよ。",
+          "vi": "Nghe nói con gái trưởng phòng sẽ cưới đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "ヘー。娘を結婚させる父親の気持ちって、どんなものなんでしょうね？",
+          "vi": "Chà, Không biết tâm trạng ông bố sắp cho con gái đi lấy chồng thì thế nào nhỉ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "ホッとした気持ちと寂しい気持ちが入り交じって、感極まるって感じなんじゃないですかね。",
+          "vi": "Chắc là tràn ngập cảm xúc, vừa nhẹ lòng vừa xen lẫn nỗi buồn nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうかー。花嫁の父親って、複雑な心境なんですねー。",
+          "vi": "Vậy hả? Làm bố cô dâu tâm trạng rối bời phết nhỉ?"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "この度マーケティング部に配属されましたパク・ヨンジュンです。これからお世話になります。どうぞ、よろしくお願いいたします。",
+          "vi": "Tôi là Pak Yon Jun, mới được chuyển về phòng marketing. Tôi sẽ được làm việc với các anh chị trong thời gian tới. Rất mong được các anh chị giúp đỡ."
+        },
+        {
+          "speaker": "B",
+          "ja": "パク・ヨンジュンさんね。渡辺です。どうぞよろしく。ところで、お名前はなんとお呼びすればいいですか。",
+          "vi": "Anh Pak Yon Jun à. Tôi là Watanabe. Rất mong anh giúp đỡ. Nhân tiện, tôi nên gọi tên anh thế nào?"
+        },
+        {
+          "speaker": "A",
+          "ja": "あ、前の部署では同姓の人がいたのでヨンジュンと呼ばれていましたが、ここではパクと呼んでください。",
+          "vi": "À, ở phòng cũ có người trùng họ nên mọi người gọi tôi là Yon Jun, còn ở đây thì cứ gọi tôi là Pak."
+        },
+        {
+          "speaker": "B",
+          "ja": "わかりました。パクさんですね。",
+          "vi": "Được rồi. Vậy là anh Pak nhé."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "先ほども申し上げましたように、営業部としては賛成いたしかねます。",
+          "vi": "Như tôi đã trình bày lúc nãy, phòng kinh doanh khó mà tán thành được."
+        },
+        {
+          "speaker": "B",
+          "ja": "でも、反対の理由が今一つはっきりこちらに伝わって来ないんですよ。",
+          "vi": "Nhưng, phía chúng tôi thấy lý do phản đối thiếu rõ ràng."
+        },
+        {
+          "speaker": "A",
+          "ja": "利益の見込みがない商品の企画に賛成するわけにはいかないということです。",
+          "vi": "Không có lý gì chúng tôi lại tán thành một kế hoạch sản phẩm không thấy trước lợi nhuận."
+        },
+        {
+          "speaker": "B",
+          "ja": "いや、短期的には厳しいかもしれませんが、長期的には必ず利益が見込めると思うんですよ。",
+          "vi": "Không, ngắn hạn thì có thể khó, nhưng dài hạn thì tôi nghĩ chắc chắn có thể có lợi nhuận."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "最終報告書ですが、ひとまずフォーマットを作ってみました。ちょっと目を通して、それで良ければ書き始めといてもらえますか？",
+          "vi": "Về bản báo cáo cuối cùng, tôi đã soạn tạm phom ra rồi. Cậu xem qua, nếu được rồi thì bắt đầu viết luôn được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。締め切りはいつですか？",
+          "vi": "Vâng, hạn chót là bao giờ ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "先方はまだ何も言ってこないけど、前倒しにできることしといてください。",
+          "vi": "Khách hàng thì chưa nói gì, nhưng hãy cứ làm để đi trước tiến độ."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。わかりました。",
+          "vi": "Vâng, em hiểu rồi ạ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 17",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あー、気分爽快！",
+          "vi": "Aa... Tinh thần sảng khoái quá!"
+        },
+        {
+          "speaker": "B",
+          "ja": "なんかあったの？",
+          "vi": "Có chuyện gì chăng?"
+        },
+        {
+          "speaker": "A",
+          "ja": "いや、ただ部長が出張で席にいないだけなんだけどね。",
+          "vi": "Không, chỉ là trưởng phòng đi công tác vắng thôi mà."
+        },
+        {
+          "speaker": "B",
+          "ja": "そういえば、部全体がのびのびしてるみたいだねー。",
+          "vi": "Nói vậy mới thấy, cả phòng cậu có vẻ thư giãn nhỉ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 18",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "山田部長、今夜はいやに機嫌がいいですよね。",
+          "vi": "Trưởng phòng Yamada tối nay có vẻ vui gớm nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。何でも昇進が内定したらしいよ。",
+          "vi": "Ừ, nghe nói được thăng chức mà lại."
+        },
+        {
+          "speaker": "A",
+          "ja": "へー、そうなんですか。あの笑顔、いつもの部長とは思えませんね。",
+          "vi": "Chà, Vậy hả? Nhìn khuôn mặt tươi cười kia, không thể tin đó là trưởng phòng mọi khi nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "よっぽど嬉しかったんだろうね。",
+          "vi": "Chắc là phải vui lắm đấy."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "25",
+  "title": "PHẦN 5 - THƯỢNG CẤP 3",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p25.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 19",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "今日も木村さん、昼休みに難しそうな哲学の本読んでたよ。",
+          "vi": "Cậu Kimura trưa nay lại đọc một cuốn sách triết học trông có vẻ khó lắm đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうそう、いつも読んでるよね。",
+          "vi": "Phải rồi, cậu ấy lúc nào cũng đọc nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "なんか、勉強熱心そうだよねー。",
+          "vi": "Trông có vẻ chăm học thật đấy nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "え〜、そうは思えないけどなー。現実逃避なんじゃないの？",
+          "vi": "Sao? Tớ thì không nghĩ vậy đâu. Chắc chỉ là chạy trốn thực tại thôi."
+        },
+        {
+          "speaker": "A",
+          "ja": "また、すぐそうやって物事を斜めに見るんだからー。もっと素直になれば？",
+          "vi": "Cậu lại ngay lập tức nhìn mọi việc méo mó đi thế. Sao không nghĩ trong sáng hơn đi."
+        },
+        {
+          "speaker": "B",
+          "ja": "しょうがないよ、性分なんだから。",
+          "vi": "Biết làm sao được. Bản tính tớ thế rồi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 20",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いくら口を酸っぱくして言っても、聞くほうにその気がなくちゃね…。",
+          "vi": "Nói đến khô cả họng mà người nghe có thèm nghe đâu..."
+        },
+        {
+          "speaker": "B",
+          "ja": "本当、本当！言うだけ疲れるってもんだよ。",
+          "vi": "Đúng thế! Đúng thế! Chỉ nói không đã mệt rồi nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "かと言って、何も言わないでいいってわけにもいかないだろうし…。",
+          "vi": "Nói là vậy, chứ không nói cũng không được..."
+        },
+        {
+          "speaker": "B",
+          "ja": "「人の振り見てわが振り直せ」で、自分で気づくのが一番なんだけどねー。",
+          "vi": "Đúng là \"Nhìn người lại ngắm đến ta\". Tự mình nhận ra là tốt nhất nhỉ."
+        },
+        {
+          "speaker": "A",
+          "ja": "無理、無理！だいたい先輩後輩の観念からしてないんだから。",
+          "vi": "Khó lắm, khó lắm! Ngay đến quan niệm đàn anh đàn em còn chẳng có nữa là."
+        },
+        {
+          "speaker": "B",
+          "ja": "僕たちが新人の頃は、先輩の言葉は絶対だったけどな〜。",
+          "vi": "Hồi bọn mình mới vào công ty, những lời của bậc đàn anh luôn là tuyệt đối nhỉ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 21",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "例のプロジェクト、まだ決まらないの？",
+          "vi": "Dự án đó vẫn chưa quyết à?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうなんだよ。当初の計画が保留になっちゃってんだよねー。",
+          "vi": "Đúng vậy đấy! Kế hoạch ban đầu bị bảo lưu mất rồi."
+        },
+        {
+          "speaker": "A",
+          "ja": "なんか話がややこしくなってない？",
+          "vi": "Có vẻ lằng nhằng nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうなんだ。あちらを立てればこちらが立たずでさー。",
+          "vi": "Chính thế đấy. Được chỗ này lại hỏng chỗ kia."
+        },
+        {
+          "speaker": "A",
+          "ja": "いっそ、振り出しに戻しちゃえば？",
+          "vi": "Sao không bắt đầu lại từ đầu?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうしたいのはやまやまなんだけどね〜。",
+          "vi": "Tôi cũng muốn làm vậy lắm chứ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 22",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "どうしたの？さっきから時計ばっかり気にして、ちっとも落ち着きがないけど。",
+          "vi": "Có chuyện gì vậy? Nãy giờ cậu cứ để ý đồng hồ suốt, chẳng yên chút nào cả."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。実は、さっき病院にいる妻から連絡があって、陣痛が始まったんだって。",
+          "vi": "Ừ. Thực ra, vợ tớ ở viện mới gọi báo là cô ấy bắt đầu trở dạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "え、本当？だったら仕事なんてしてないで、奥さんの所に早く行ってあげなさいよ。",
+          "vi": "Ô, thật á? Vậy thì đừng làm việc nữa, mau tới chỗ cô ấy đi."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、そうしたいのはやまやまなんだけど、どうしても抜けられない会議があって…。",
+          "vi": "Ừ, tớ muốn thế lắm chứ nhưng có cuộc họp không thể vắng mặt...."
+        },
+        {
+          "speaker": "A",
+          "ja": "そんなのどうだっていいじゃない。一生に何度もあることじゃないのよ。",
+          "vi": "Chuyện đó sao mà chẳng được. Cả đời đâu có mấy lần sinh nở đâu."
+        },
+        {
+          "speaker": "B",
+          "ja": "うーん。そうだね。じゃ、課長に相談してくるよ。",
+          "vi": "Ừ, cậu nói đúng. Tớ sẽ đi nói với trưởng nhóm."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 23",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "山田さんって、飲み会に誘っても絶対に来たことないし、人づき合いよくないよね。",
+          "vi": "Anh Yamada ấy, có mời đi uống cũng nhất định không đi bao giờ. Quan hệ với mọi người chẳng tốt gì cả nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "うん。部長のゴルフの誘いも平気で断っちゃうんだって。",
+          "vi": "Ừ, nghe nói trưởng phòng rủ đi đánh gôn anh ta cũng thản nhiên từ chối."
+        },
+        {
+          "speaker": "A",
+          "ja": "へー、どんなに仕事ができてもそれじゃーね…。",
+          "vi": "Thế cơ à, làm việc tốt đến mấy mà thế thì..."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだよね。やっぱり人間関係って大切だよね。",
+          "vi": "Đúng vậy nhỉ. Quan hệ với mọi người quan trọng mà."
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。特に組織の仕事って、そういうの影響するじゃない？山田さんも上司の受けが悪いと、出世もままならないんじゃないかなー。",
+          "vi": "Ừ. Nhất là công việc tập thể, những chuyện như thế cũng ảnh hưởng chứ? Anh Yamada làm mất lòng sếp thế thì làm sao mà thăng tiến được kia chứ!"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうか。じゃ、俺も気をつけなきゃな。",
+          "vi": "Thế à? Vậy, tớ cũng phải cẩn thận mới được."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 24",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "どんなに頑張ってもしょせん一介のサラリーマンなんだから、億万長者になれるわけないよな。",
+          "vi": "Có cố gắng đến mấy thì rốt cuộc cũng chỉ là một người làm công ăn lương bình thường, chẳng cách nào trở thành triệu phú được nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "どうして今さらそんなこと？",
+          "vi": "Sao giờ cậu lại nói chuyện đó?"
+        },
+        {
+          "speaker": "A",
+          "ja": "だってさ、毎日満員電車に揺られて会社に行って、クタクタになるまで働いて、夜は家に帰って寝るだけ。しかも、給料も一向に上がらない、出世も無理ときたら、この先望みなんて持てるわけないよ。",
+          "vi": "Thì cậu xem, ngày nào cũng chỉ lắc lư trên tàu điện chật kín người, đến công ty, làm việc đến phờ phạc rồi về ngủ. Lương thì chẳng tăng, thành đạt cũng không mong thì làm gì có thể hy vọng ở tương lai chứ."
+        },
+        {
+          "speaker": "B",
+          "ja": "そんなこと言わないでくれよ。なんだか俺まで悲しくなってくるよ。",
+          "vi": "Đừng nói thế chứ. Làm tớ cũng buồn lây đây này."
+        },
+        {
+          "speaker": "A",
+          "ja": "あ〜あ、何のために働き蜂みたいに毎日働いてんのかなー。いっそ脱サラでもしようかなー。",
+          "vi": "Ôi, ngày nào cũng làm việc như con ong chăm chỉ để làm gì chứ! Hay là bỏ quách cái cảnh làm công này đi nhỉ."
+        },
+        {
+          "speaker": "B",
+          "ja": "そんな弱気なこと言って、自分はだめだってはなから諦めちゃだめだよ。平凡なサラリーマンでも、真面目にコツコツ働いて認められた人はごまんといるじゃないか。",
+          "vi": "Đừng có thối chí, tự mình bỏ cuộc như thế chứ! Thiếu gì những người chỉ làm công ăn lương bình thường mà nghiêm túc, chăm chỉ, cuối cùng cũng được công nhận đấy thôi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 25",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "次回の報告会だけど、10月頃に持ってこようと思うんだけど…。どう思う？",
+          "vi": "Về buổi báo cáo lần tới, tôi định chuyển sang tháng 10... Cậu nghĩ sao?"
+        },
+        {
+          "speaker": "B",
+          "ja": "10月ね…。",
+          "vi": "Tháng 10 à..."
+        },
+        {
+          "speaker": "A",
+          "ja": "新入社員のモチベーションをあげる仕掛けになると思うんだよね。ちょうど今回と2カ月離れてるし。",
+          "vi": "Tôi nghĩ nó sẽ là cái cớ để nâng cao động lực của nhân viên mới. Vừa vặn cách buổi báo cáo lần này tròn 2 tháng."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね。9月は中間決算が控えているから、10月ごろが確かにいいかもね。",
+          "vi": "Cậu nói phải. Tháng 9 có quyết toán giữa kỳ nên khoảng tháng 10 chắc được đấy."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃ、そういうことで。具体的な日時は、またいくつか候補を挙げるから、そこから考えよう。",
+          "vi": "Vậy cứ thế nhé. Ngày giờ cụ thể, tôi sẽ đưa ra một số phương án rồi ta sẽ chọn từ đó."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだな。とりあえず、10月予定とだけ知らせておこう。メールしとくよ。",
+          "vi": "Được thôi. Tạm thời, cứ thông báo là dự kiến vào tháng 10 nhé. Tôi sẽ gửi mail."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 26",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "次回の打ち合わせは、来週の火曜か水曜あたりでどうですか？",
+          "vi": "Cuộc họp tiếp theo vào khoảng thứ 3, thứ 4 tuần sau được không ạ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "どちらかと言うと、14日のほうが都合がいいですね。",
+          "vi": "Nếu phải chọn thì ngày 14 tiện cho tôi hơn."
+        },
+        {
+          "speaker": "A",
+          "ja": "14日の火曜日ですね、わかりました。",
+          "vi": "Thứ ba, ngày 14 đúng không ạ. Tôi hiểu rồi."
+        },
+        {
+          "speaker": "B",
+          "ja": "じゃ、14日の2時3時ということで。",
+          "vi": "Vậy 2 hoặc 3 giờ ngày 14 nhé."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい。じゃ、部屋、押さえときます。",
+          "vi": "Vâng, tôi sẽ đặt phòng trước."
+        },
+        {
+          "speaker": "B",
+          "ja": "お願いします。それから今年度の経費、概数でいいので出しといてください。",
+          "vi": "Nhờ anh việc đó. À, anh cho tôi kinh phí năm nay, đại khái thôi cũng được."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、わかりました。今日中にやっときます。",
+          "vi": "Vâng, tôi hiểu rồi. Tôi sẽ làm trong hôm nay."
+        }
+      ]
+    }
+  ]
 }
-  
   
 ]
