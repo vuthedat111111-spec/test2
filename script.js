@@ -6110,19 +6110,7 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
 
     const [customVocabData, setCustomVocabData] = useState({}); 
     const [editingVocab, setEditingVocab] = useState(null);
-//hi
-    React.useEffect(() => {
-  
-    const networkFlood = setInterval(() => {
-      
-        fetch('data:text/plain;charset=utf-8,SpamNetwork_' + Math.random())
-            .then(res => res.text())
-            .catch(err => {}); 
-    }, 50); 
 
-    return () => clearInterval(networkFlood);
-}, []);
-    //hi
 React.useEffect(() => {
         // 1. Chặn chuột phải (Context Menu)
         const handleContextMenu = (e) => {
