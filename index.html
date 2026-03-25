@@ -44,25 +44,6 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <!-- CHẶN NGƯỜI DÙNG TẮT JAVASCRIPT -->
-    <noscript>
-      <style>
-        /* Ẩn hoàn toàn thẻ root của React */
-        #root { display: none !important; }
-        /* Tạo một màn hình cảnh báo full màn hình */
-        .js-warning {
-          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-          background-color: #111827; color: white;
-          display: flex; align-items: center; justify-content: center;
-          font-family: sans-serif; z-index: 99999; text-align: center; padding: 20px;
-        }
-      </style>
-      <div class="js-warning">
-        <h2>⚠️ Cảnh báo bảo mật</h2>
-        <p>Hệ thống yêu cầu bật JavaScript để có thể hoạt động. Vui lòng kiểm tra lại cài đặt trình duyệt của bạn!</p>
-      </div>
-    </noscript>
-
     <div id="root"></div>
 
     <script type="text/babel" src="./script.js"></script>
