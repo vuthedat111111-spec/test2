@@ -6110,7 +6110,46 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
 
     const [customVocabData, setCustomVocabData] = useState({}); 
     const [editingVocab, setEditingVocab] = useState(null);
+React.useEffect(() => {
+        // 1. Chặn chuột phải (Context Menu)
+        const handleContextMenu = (e) => {
+            e.preventDefault();
+        };
 
+        // 2. Chặn các tổ hợp phím tắt
+        const handleKeyDown = (e) => {
+            // Chặn F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + U (Xem nguồn trang)
+            if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + Shift + I / J / C (Các kiểu mở DevTools)
+            if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + S (Lưu trang web về máy)
+            if (e.ctrlKey && e.key.toLowerCase() === 's') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + P (In trang web)
+            if (e.ctrlKey && e.key.toLowerCase() === 'p') {
+                e.preventDefault();
+            }
+        };
+
+        // Đăng ký bộ lắng nghe sự kiện
+        document.addEventListener('contextmenu', handleContextMenu);
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Dọn dẹp khi component unmount
+        return () => {
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
     // --- TẢI DỮ LIỆU KHI VÀO TRANG ---
     useEffect(() => {
         fetchDataFromGithub().then(data => {
