@@ -5413,8 +5413,13 @@
         },
         {
           "speaker": "A",
-          "ja": "だってさ、毎日[満員](まんいん)電車に[揺](ゆ)られて会社に行って、クタクタになるまで働いて、夜は家に帰って[寝](ね)るだけ。しかも、[給料](きゅうりょう)も[一向](いっこう)に上がらない、[出世](しゅっせ)も[無理](むり)ときたら、この先[望](のぞ)みなんて持てるわけないよ。",
-          "vi": "Thì cậu xem, ngày nào cũng chỉ lắc lư trên tàu điện chật kín người, đến công ty, làm việc đến phờ phạc rồi về ngủ. Lương thì chẳng tăng, thành đạt cũng không mong thì làm gì có thể hy vọng ở tương lai chứ."
+          "ja": "だってさ、毎日[満員](まんいん)電車に[揺](ゆ)られて会社に行って、クタクタになるまで働いて、夜は家に帰って[寝](ね)るだけ。",
+          "vi": "Thì cậu xem, ngày nào cũng chỉ lắc lư trên tàu điện chật kín người, đến công ty, làm việc đến phờ phạc rồi về ngủ."
+        },
+        {
+          "speaker": "A",
+          "ja": "しかも、[給料](きゅうりょう)も[一向](いっこう)に上がらない、[出世](しゅっせ)も[無理](むり)ときたら、この先[望](のぞ)みなんて持てるわけないよ。",
+          "vi": "Lương thì chẳng tăng, thành đạt cũng không mong thì làm gì có thể hy vọng ở tương lai chứ."
         },
         {
           "speaker": "B",
