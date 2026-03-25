@@ -4093,8 +4093,8 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "すみません、[図書館](としょかん)のカードを作りたいんですが…。この区の[住民](じゅうみん)じゃないんですけど、[大丈夫](だいじょうぶ)ですか？",
-          "vi": "Xin lỗi, tôi muốn làm thẻ thư viện...Nhưng tôi không phải người dân của quận này, liệu có được không ạ?"
+          "ja": "すみません、[図書館](としょかん)のカードを作りたいんですが…。この区の[住民](じゅうみん)じゃないんですけど、大丈夫ですか？",
+          "vi": "Xin lỗi, tôi muốn làm thẻ thư viện... Nhưng tôi không phải người dân của quận này, liệu có được không ạ?"
         },
         {
           "speaker": "B",
