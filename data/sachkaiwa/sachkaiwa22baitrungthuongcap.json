@@ -6611,7 +6611,7 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "[納期](のうき)が[遅](おく)れてますね。[状況](じょうきょう)を[説明](せつめい)してください。",
+          "ja": "[納期](のうき)が[遅](おく)れてますね。[状況](じょうきょう)を説明してください。",
           "vi": "Các anh giao hàng chậm. Hãy báo cáo tình hình cho tôi."
         },
         {
@@ -6818,6 +6818,167 @@
     {
       "context": "Tình huống 14",
       "dialogues": [
+        {
+      "context": "Tình huống 9",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[恐](おそ)れ入りますが、[折](お)り[返](かえ)しお電話をいただけますか？",
+          "vi": "Xin lỗi, phiền anh nói ông ấy gọi lại cho tôi được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "承知いたしました。申し訳ございませんが、もう一度、お名前とお電話[番号](ばんごう)をいただけますか？",
+          "vi": "Vâng ạ. Xin lỗi chị, cho tôi xin lại tên chị và số điện thoại được không ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "[日本商事](にほんしょうじ)[営業部](えいぎょうぶ)の[竹中](たけなか)です。",
+          "vi": "Tôi là Takenaka ở phòng kinh doanh công ty thương mại Nihon."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。日本商事営業部の竹中[様](さま)ですね。",
+          "vi": "Vâng, chị Takenaka, phòng kinh doanh công ty thương mại Nihon phải không ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "電話番号は03-……",
+          "vi": "Số điện thoại của tôi là 03-..."
+        }
+      ]
+    },
+        {
+      "context": "Tình huống 10",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[片桐](かたぎり)さんは、もともと[企画部](きかくぶ)にいらっしゃったんですね。",
+          "vi": "Katagiri này, hóa ra trước anh ở phòng kế hoạch đấy à."
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、[営業](えいぎょう)に[配属](はいぞく)が[決](き)まった[当初](とうしょ)は、[嫌々](いやいや)外まわりやってたんですよ。",
+          "vi": "Đúng vậy, nên hồi đầu khi bị chuyển sang phòng bán hàng, tôi cứ vật và vật vờ suốt."
+        },
+        {
+          "speaker": "A",
+          "ja": "え、本当ですか？[凄腕](すごうで)の営業マンの片桐さんが？",
+          "vi": "Sao? Thật á? Một nhân viên bán hàng cự phách như anh mà vậy á, Katagiri."
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ。でも、ほら営業って、結果が[数字](すうじ)っていう目に見える[形](かたち)で出てくるでしょう。だから、「何くそ[負](ま)けるものか」ってやってたら、いつからかその[魅了](みりょく)にすっかりはまっちゃって。",
+          "vi": "Đúng vậy đấy. Nhưng chị biết đấy, bán hàng thì kết quả thế nào sẽ thấy ngay qua các con số phải không nào! Thế nên khi tôi tự nhủ \"Không lẽ mình chịu thua?\" và làm việc thì lại bị công việc đó cuốn hút lúc nào không hay."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか。[確](たし)かに、その点はやりがいがありますよね。でも、ノルマもあって、毎日[大変でしょう。",
+          "vi": "Ra là vậy à? Quả thực công việc đó cũng có ý nghĩa để thực hiện. Nhưng còn doanh số được giao nữa nên chắc ngày nào cũng mệt lắm đúng không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、大変は大変なんですが...。営業の魅力に取りつかれちゃったんでしょうね。",
+          "vi": "Vâng, mệt thì đúng là mệt thật... Nhưng chắc có lẽ tôi mê cái hấp dẫn của việc bán hàng mất rồi."
+        },
+
+        ]
+    },
+        {
+      "context": "Tình huống 11",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あ、[見積](みつ)もり見させてもらいました。",
+          "vi": "A : Tôi xem báo giá rồi."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、そうですか。どうですか、この[線](せん)で。",
+          "vi": "B : Ồ, thế ạ? Chị thấy định hướng đó của chúng tôi thế nào ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "う〜ん、この[部品](ぶひん)の[単価](たんか)、もう少し何とかなりませんかねー。",
+          "vi": "A : Ừ, đơn giá của linh kiện này, liệu còn làm gì thêm được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "[勘弁](かんべん)してくださいよ。うちもこれで目いっぱいなんですから。",
+          "vi": "B : Xin chị hiểu cho. Vì đến mức này là chúng tôi cũng đã cố hết sức rồi ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、それはわかってるんですがね〜。そこを何とか…。",
+          "vi": "A : Ừm, chuyện đó tôi biết nhưng... Hãy xem chỗ đó có cách gì hơn không..."
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、まいったなー。",
+          "vi": "B : Ôi, tôi biết làm sao đây!"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 12",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "本日はお[忙](いそが)しいなか、[突然](とつぜん)おじゃまいたしまして、[恐縮](きょうしゅく)に[存](ぞん)じます。",
+          "vi": "A : Rất xin lỗi ông hôm nay tôi đã đường đột làm phiền ông trong lúc công việc bận rộn."
+        },
+        {
+          "speaker": "B",
+          "ja": "まー、どうぞ、そちらにおかけください。",
+          "vi": "B : Không sao. Mời cô ngồi!"
+        },
+        {
+          "speaker": "A",
+          "ja": "本日は、先日の[契約](けいやく)の[件](けん)に[関](かん)して、おうかがいさせていただきました。",
+          "vi": "A : Hôm nay tôi đến là về việc hợp đồng hôm trước ạ."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、そうですか。それなら[営業部長](えいぎょうぶちょう)の[高橋](たかはし)も[同席](どうせき)させたほうが良いかもしれませんね。",
+          "vi": "B : À, vậy à? Thế thì có lẽ nên có trưởng phòng kinh doanh Takahashi họp cùng nhỉ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "あ、高橋部長がいらっしゃるのでしたら、ぜひそうお[願](ねが)いしたいのですが。",
+          "vi": "A : Ồ, nếu trưởng phòng Takahashi cũng có ở đây thì tôi cũng rất muốn được gặp."
+        },
+        {
+          "speaker": "B",
+          "ja": "わかりました、それでは高橋を[呼](よ)びますので、少々お待ちください。",
+          "vi": "B : Được rồi. Tôi sẽ gọi Takahashi. Phiền cô đợi một lát nhé."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 13",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[早速](さっそく)ですが、[志望動機](しぼうどうき)をうかがわせてください。",
+          "vi": "A : Trước hết, hãy cho biết nguyện vọng và động cơ của anh."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。とにかく[御社](おんしゃ)の車に[関](かか)わる仕事がしたいからです。",
+          "vi": "B : Vâng. Vì tôi muốn làm công việc liên quan đến ô tô của công ty bà."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃー、例えばどんな仕事がしたいんですか？",
+          "vi": "A : Vậy, chẳng hạn anh muốn làm công việc như thế nào?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、ハイブリッドカーの[開発](かいはつ)に[携](たずさ)わるのが[夢](ゆめ)です。",
+          "vi": "B : Vâng, được tham gia vào việc phát triển xe hybrid là giấc mơ của tôi ạ."
+        }
+      ]
+    },
         {
           "speaker": "A",
           "ja": "いろいろな仕事をされてきたんですね。",
