@@ -6886,32 +6886,32 @@
         {
           "speaker": "A",
           "ja": "あ、[見積](みつ)もり見させてもらいました。",
-          "vi": "A : Tôi xem báo giá rồi."
+          "vi": "Tôi xem báo giá rồi."
         },
         {
           "speaker": "B",
           "ja": "あ、そうですか。どうですか、この[線](せん)で。",
-          "vi": "B : Ồ, thế ạ? Chị thấy định hướng đó của chúng tôi thế nào ạ?"
+          "vi": "Ồ, thế ạ? Chị thấy định hướng đó của chúng tôi thế nào ạ?"
         },
         {
           "speaker": "A",
           "ja": "う〜ん、この[部品](ぶひん)の[単価](たんか)、もう少し何とかなりませんかねー。",
-          "vi": "A : Ừ, đơn giá của linh kiện này, liệu còn làm gì thêm được không?"
+          "vi": "Ừ, đơn giá của linh kiện này, liệu còn làm gì thêm được không?"
         },
         {
           "speaker": "B",
           "ja": "[勘弁](かんべん)してくださいよ。うちもこれで目いっぱいなんですから。",
-          "vi": "B : Xin chị hiểu cho. Vì đến mức này là chúng tôi cũng đã cố hết sức rồi ạ."
+          "vi": "Xin chị hiểu cho. Vì đến mức này là chúng tôi cũng đã cố hết sức rồi ạ."
         },
         {
           "speaker": "A",
           "ja": "まー、それはわかってるんですがね〜。そこを何とか…。",
-          "vi": "A : Ừm, chuyện đó tôi biết nhưng... Hãy xem chỗ đó có cách gì hơn không..."
+          "vi": "Ừm, chuyện đó tôi biết nhưng... Hãy xem chỗ đó có cách gì hơn không..."
         },
         {
           "speaker": "B",
           "ja": "う〜ん、まいったなー。",
-          "vi": "B : Ôi, tôi biết làm sao đây!"
+          "vi": "Ôi, tôi biết làm sao đây!"
         }
       ]
     },
@@ -6921,32 +6921,32 @@
         {
           "speaker": "A",
           "ja": "本日はお[忙](いそが)しいなか、[突然](とつぜん)おじゃまいたしまして、[恐縮](きょうしゅく)に[存](ぞん)じます。",
-          "vi": "A : Rất xin lỗi ông hôm nay tôi đã đường đột làm phiền ông trong lúc công việc bận rộn."
+          "vi": "Rất xin lỗi ông hôm nay tôi đã đường đột làm phiền ông trong lúc công việc bận rộn."
         },
         {
           "speaker": "B",
           "ja": "まー、どうぞ、そちらにおかけください。",
-          "vi": "B : Không sao. Mời cô ngồi!"
+          "vi": "Không sao. Mời cô ngồi!"
         },
         {
           "speaker": "A",
           "ja": "本日は、先日の[契約](けいやく)の[件](けん)に[関](かん)して、おうかがいさせていただきました。",
-          "vi": "A : Hôm nay tôi đến là về việc hợp đồng hôm trước ạ."
+          "vi": "Hôm nay tôi đến là về việc hợp đồng hôm trước ạ."
         },
         {
           "speaker": "B",
           "ja": "あ、そうですか。それなら[営業部長](えいぎょうぶちょう)の[高橋](たかはし)も[同席](どうせき)させたほうが良いかもしれませんね。",
-          "vi": "B : À, vậy à? Thế thì có lẽ nên có trưởng phòng kinh doanh Takahashi họp cùng nhỉ?"
+          "vi": "À, vậy à? Thế thì có lẽ nên có trưởng phòng kinh doanh Takahashi họp cùng nhỉ?"
         },
         {
           "speaker": "A",
           "ja": "あ、高橋部長がいらっしゃるのでしたら、ぜひそうお[願](ねが)いしたいのですが。",
-          "vi": "A : Ồ, nếu trưởng phòng Takahashi cũng có ở đây thì tôi cũng rất muốn được gặp."
+          "vi": "Ồ, nếu trưởng phòng Takahashi cũng có ở đây thì tôi cũng rất muốn được gặp."
         },
         {
           "speaker": "B",
           "ja": "わかりました、それでは高橋を[呼](よ)びますので、少々お待ちください。",
-          "vi": "B : Được rồi. Tôi sẽ gọi Takahashi. Phiền cô đợi một lát nhé."
+          "vi": "Được rồi. Tôi sẽ gọi Takahashi. Phiền cô đợi một lát nhé."
         }
       ]
     },
@@ -6956,22 +6956,22 @@
         {
           "speaker": "A",
           "ja": "[早速](さっそく)ですが、[志望動機](しぼうどうき)をうかがわせてください。",
-          "vi": "A : Trước hết, hãy cho biết nguyện vọng và động cơ của anh."
+          "vi": "Trước hết, hãy cho biết nguyện vọng và động cơ của anh."
         },
         {
           "speaker": "B",
           "ja": "はい。とにかく[御社](おんしゃ)の車に[関](かか)わる仕事がしたいからです。",
-          "vi": "B : Vâng. Vì tôi muốn làm công việc liên quan đến ô tô của công ty bà."
+          "vi": "Vâng. Vì tôi muốn làm công việc liên quan đến ô tô của công ty bà."
         },
         {
           "speaker": "A",
           "ja": "じゃー、例えばどんな仕事がしたいんですか？",
-          "vi": "A : Vậy, chẳng hạn anh muốn làm công việc như thế nào?"
+          "vi": "Vậy, chẳng hạn anh muốn làm công việc như thế nào?"
         },
         {
           "speaker": "B",
           "ja": "はい、ハイブリッドカーの[開発](かいはつ)に[携](たずさ)わるのが[夢](ゆめ)です。",
-          "vi": "B : Vâng, được tham gia vào việc phát triển xe hybrid là giấc mơ của tôi ạ."
+          "vi": "Vâng, được tham gia vào việc phát triển xe hybrid là giấc mơ của tôi ạ."
         }
       ]
     },
@@ -6995,7 +6995,7 @@
         },
         {
           "speaker": "B",
-          "ja": "そうですね。ネットワークに関する新規プロジェクトです。立ち上げから運営に携わってきました。",
+          "ja": "そうですね。ネットワークに[関](かん)する[新規](しんき)プロジェクトです。立ち上げから[運営](うんえい)に[携](たずさ)わってきました。",
           "vi": "Vâng, đó là dự án mới liên quan đến network. Tôi đã tham gia từ lúc lập dự án cho đến khi vận hành."
         }
       ]
@@ -7010,7 +7010,7 @@
         },
         {
           "speaker": "B",
-          "ja": "社員の安全と健康の管理が主でした。",
+          "ja": "社員の[安全](あんぜん)と[健康](けんこう)の[管理](かんり)が主でした。",
           "vi": "Tôi chủ yếu là quản lý an toàn và sức khỏe nhân viên công ty."
         },
         {
@@ -7020,7 +7020,7 @@
         },
         {
           "speaker": "B",
-          "ja": "そうですね、工場内での環境改善とか、社員の禁煙プログラムの開発などをやっておりました。",
+          "ja": "そうですね、工場[内](ない)での[環境](かんきょう)[改善](かいぜん)とか、社員の[禁煙](きんえん)プログラムの[開発](かいはつ)などをやっておりました。",
           "vi": "Vâng, tôi đã thực hiện cải thiện môi trường trong nhà máy, hay như xúc tiến chương trình cấm hút thuốc trong nhân viên."
         },
         {
@@ -7030,7 +7030,7 @@
         },
         {
           "speaker": "B",
-          "ja": "はい、自分で工夫したことが実現されていくので、充実感がありました。",
+          "ja": "はい、自分で[工夫](くふう)したことが[実現](じつげん)されていくので、[充実感](じゅうじつかん)がありました。",
           "vi": "Vâng, tôi cảm thấy rất có ý nghĩa vì những gì mình dồn công sức đã được thực hiện."
         }
       ]
