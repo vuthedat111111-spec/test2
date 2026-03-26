@@ -6816,9 +6816,6 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p33.m4a",
   "conversations": [
     {
-      "context": "Tình huống 14",
-      "dialogues": [
-        {
       "context": "Tình huống 9",
       "dialogues": [
         {
@@ -6848,7 +6845,7 @@
         }
       ]
     },
-        {
+    {
       "context": "Tình huống 10",
       "dialogues": [
         {
@@ -6873,18 +6870,17 @@
         },
         {
           "speaker": "A",
-          "ja": "そうですか。[確](たし)かに、その点はやりがいがありますよね。でも、ノルマもあって、毎日[大変でしょう。",
+          "ja": "そうですか。[確](たし)かに、その点はやりがいがありますよね。でも、ノルマもあって、毎日大変でしょう。",
           "vi": "Ra là vậy à? Quả thực công việc đó cũng có ý nghĩa để thực hiện. Nhưng còn doanh số được giao nữa nên chắc ngày nào cũng mệt lắm đúng không?"
         },
         {
           "speaker": "B",
           "ja": "ええ、大変は大変なんですが...。営業の魅力に取りつかれちゃったんでしょうね。",
           "vi": "Vâng, mệt thì đúng là mệt thật... Nhưng chắc có lẽ tôi mê cái hấp dẫn của việc bán hàng mất rồi."
-        },
-
-        ]
+        }
+      ]
     },
-        {
+    {
       "context": "Tình huống 11",
       "dialogues": [
         {
@@ -6979,7 +6975,7 @@
         }
       ]
     },
-      {
+    {
       "context": "Tình huống 14",
       "dialogues": [
         {
@@ -7042,5 +7038,4 @@
   ]
 }
 
-  
 ]
