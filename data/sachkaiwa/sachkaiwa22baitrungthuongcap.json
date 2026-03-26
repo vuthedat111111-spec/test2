@@ -6399,5 +6399,484 @@
       ]
     }
   ]
+},
+  {
+  "id": "31",
+  "title": "PHẦN 7 - TRUNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p31.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あのー、[営業部](えいぎょうぶ)の[山田](やまだ)さんにお目にかかりたいんですが。",
+          "vi": "Xin lỗi, tôi muốn xin gặp ông/bà Yamada ở phòng kinh doanh ạ..."
+        },
+        {
+          "speaker": "B",
+          "ja": "[失礼](しつれい)ですが、お名前をいただけますでしょうか。",
+          "vi": "Xin lỗi ông, tôi có thể xin tên ông được không ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "チャンです。",
+          "vi": "Tôi là Chang."
+        },
+        {
+          "speaker": "B",
+          "ja": "チャン[様](さま)ですね。うかがっております。山田はすぐにまいりますので、そちらで少々お待ちくださいませ。",
+          "vi": "Vâng thưa ông Chang. Tôi có nghe nói rồi ạ. Yamada sẽ đến ngay. Xin ông đợi ở kia một lát ạ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "あまり、[召](め)し上がらないんですね。",
+          "vi": "Ông không dùng nhiều lắm nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "うん、[最近](さいきん)飲み会が[続](つづ)いてて、[胃](い)の[調子](ちょうし)が悪いんですよ。",
+          "vi": "Ừ, mấy bữa nay tôi đi uống liên miên nên bụng dạ không được tốt lắm."
+        },
+        {
+          "speaker": "A",
+          "ja": "ほどほどになさったほうが…。",
+          "vi": "Ông nên uống điều độ thì hơn..."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうしたいんですけど、飲み会も仕事のようなもんですから…。",
+          "vi": "Tôi cũng muốn vậy, nhưng vì đi uống cũng là công việc nên..."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "まあ、一[杯](はい)いかがですか。",
+          "vi": "Thôi, làm một ly nhé?"
+        },
+        {
+          "speaker": "B",
+          "ja": "すみません。今、アルコール[控](ひか)えてるんですよ、体を[壊](こわ)してから。[女房](にょうぼう)に[酒](さけ)を止められてまして。",
+          "vi": "Xin lỗi, nhưng dạo này tôi đang hạn chế rượu bia kể từ sau lần bị ốm. Vợ tôi không cho tôi uống nữa."
+        },
+        {
+          "speaker": "A",
+          "ja": "まあまあ、[固](かた)いことは[抜](ぬ)きにして…。",
+          "vi": "Thôi thôi, đừng có nguyên tắc quá thế..."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうはおっしゃいましても…。",
+          "vi": "Dù anh có nói thế đi nữa..."
+        },
+        {
+          "speaker": "A",
+          "ja": "一杯ぐらい飲んでも[罰](ばち)は[当](あ)たりませんよ。それに「酒は[百薬](ひゃくやく)の[長](ちょう)」って言うじゃないですか。",
+          "vi": "Uống một ly thì cũng không bị trời phạt đâu. Mà có câu \"Một chén rượu bằng trăm thang thuốc\" đấy thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "ま〜、そうですけど〜、今夜はやめときます。",
+          "vi": "À, đúng thế nhưng... tối nay tôi không uống đâu."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[秋田](あきた)さん、まだ一[曲](きょく)も歌ってませんよね？",
+          "vi": "Akita, anh vẫn chưa hát bài nào nhỉ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "いやいや、[皆](みな)さんの歌を聞いてるほうが楽しいですから。",
+          "vi": "Thôi thôi, nghe mọi người hát vui hơn mà."
+        },
+        {
+          "speaker": "A",
+          "ja": "まー、そう言わずに、歌ってくださいよ。",
+          "vi": "Ôi, đừng nói thế. Hát đi chứ!"
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、まー、あとで。",
+          "vi": "Vâng, thôi được rồi. Để lát nữa."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、この中から[選](えら)んでくださいね。",
+          "vi": "Đây, anh chọn bài trong này nhé."
+        },
+        {
+          "speaker": "B",
+          "ja": "はいはい、じゃー、見せてもらいます。",
+          "vi": "Vâng, vâng. Tôi sẽ xem."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "IT[関連](かんれん)がご[希望](きぼう)だということですが、[経験](けいけん)はありますか？",
+          "vi": "Nguyện vọng của anh là công việc có liên quan đến IT nhưng anh có kinh nghiệm làm việc chưa?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、アルバイト[程度](ていど)ですが。",
+          "vi": "Có ạ, nhưng chỉ là công việc làm thêm thôi."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか…、それなら一度インターンシップに出てみますか？",
+          "vi": "Thế à...? Vậy thì anh có muốn đi thực tập thử không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "インターンシップ？",
+          "vi": "Thực tập ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "つまり、[職業体験](しょくぎょうたいけん)です。[給料](きゅうりょう)は出ませんが、会社で[実際](じっさい)に仕事を体験してみるというプログラムです。",
+          "vi": "Nghĩa là trải nghiệm công việc ấy. Đó là chương trình thử trải nghiệm công việc thực tế ở doanh nghiệp nhưng không có lương."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですか…じゃ、一度チャレンジしてみようかな。お[願](ねが)いします。",
+          "vi": "Thế à...? Thôi được, có lẽ tôi sẽ thử xem sao. Nhờ chị đăng ký giúp."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "明けましておめでとうございます。",
+          "vi": "Chúc mừng năm mới."
+        },
+        {
+          "speaker": "B",
+          "ja": "明けましておめでとうございます。",
+          "vi": "Chúc mừng năm mới."
+        },
+        {
+          "speaker": "A",
+          "ja": "本年もどうぞよろしくお[願](ねが)いいたします。",
+          "vi": "Năm nay cũng mong được anh giúp đỡ."
+        },
+        {
+          "speaker": "B",
+          "ja": "こちらこそ、本年もどうぞよろしくお願いいたします。",
+          "vi": "Chính tôi cũng mong năm nay được chị giúp đỡ."
+        },
+        {
+          "speaker": "A",
+          "ja": "今年は[御社](おんしゃ)との[協同](きょうどう)プロジェクトも始まりますので。",
+          "vi": "Năm nay dự án chung với công ty anh sẽ bắt đầu."
+        },
+        {
+          "speaker": "B",
+          "ja": "ええ、[実](みの)りの多い年にしたいですね。",
+          "vi": "Vâng, tôi cũng mong sẽ có một năm nhiều thành quả."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "32",
+  "title": "PHẦN 7 - THƯỢNG CẤP 1",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p32.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[納期](のうき)が[遅](おく)れてますね。[状況](じょうきょう)を[説明](せつめい)してください。",
+          "vi": "Các anh giao hàng chậm. Hãy báo cáo tình hình cho tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "申し訳ありません。[現地](げんち)での[船積](ふなづ)みが遅れているんです。",
+          "vi": "Rất xin lỗi chị. Việc xếp hàng lên tàu ở hiện trường bị chậm ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "納期を[守](まも)っていただかないと、こちらも[困](こま)ります。",
+          "vi": "Nếu các anh không giữ đúng hạn giao hàng thì cũng làm khó cho chúng tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。今、[最優先](さいゆうせん)でやらせてますので。",
+          "vi": "Vâng ạ. Chúng tôi đang ưu tiên hàng đầu đấy ạ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 2",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "こちらが[提示](ていじ)した[条件](じょうけん)をクリアしていませんよ。",
+          "vi": "Các anh không đáp ứng hết những điều kiện chúng tôi đặt ra."
+        },
+        {
+          "speaker": "B",
+          "ja": "申し訳ございません。",
+          "vi": "Rất xin lỗi chị."
+        },
+        {
+          "speaker": "A",
+          "ja": "[不良品](ふりょうひん)が多すぎますよ。これでは[契約](けいやく)を[切](き)らざるを[得](え)ませんね。",
+          "vi": "Hàng lỗi nhiều quá. Thế này thì chúng tôi đành phải chấm dứt hợp đồng thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "そんなことおっしゃらずに、もう一度チャンスをいただけませんか。",
+          "vi": "Xin chị đừng nói vậy. Xin hãy cho chúng tôi một cơ hội nữa được không ạ?"
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 3",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もう少しコストダウンできませんか？",
+          "vi": "Có thể giảm giá thêm chút nữa được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "[原料](げんりょう)が[値上](ねあ)がりしていますからね〜。",
+          "vi": "Vì nguyên liệu tăng giá cho nên..."
+        },
+        {
+          "speaker": "A",
+          "ja": "わかりますが…、[再度](さいど)ご[検討願](けんとうねが)えませんか？",
+          "vi": "Tôi biết... Nhưng nhờ anh tính lại lần nữa được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "もう[打](う)てる手は[全部](ぜんぶ)打ったんですよ。",
+          "vi": "Chúng tôi đã làm tất cả những gì có thể rồi ạ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 4",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "では、こちらの[契約書](けいやくしょ)にサインと[印鑑](いんかん)をお[願](ねが)いできますでしょうか。",
+          "vi": "Vậy, anh có thể ký và đóng dấu vào bản hợp đồng này được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "申し訳ありませんが、やっぱりもう一度[上司](じょうし)に[相談](そうだん)してから、ということにさせてください。",
+          "vi": "Rất xin lỗi chị nhưng quả thực hãy để tôi trao đổi với sếp thêm lần nữa."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、どの[辺](あた)りに問題があるんでしょうか。",
+          "vi": "Ồ, có vấn đề ở chỗ nào thế ạ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "いえ、問題というわけではないんですが、[金額](きんがく)が大きいので[念](ねん)のためということで。",
+          "vi": "Không, không phải là có vấn đề mà do số tiền lớn nên tôi muốn cho chắc thôi."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 5",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ご意見、ご[提案](ていあん)があれば、お[願](ねが)いいたします。",
+          "vi": "Xin ông cho ý kiến hoặc đề xuất nếu có."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね、[企画書](きかくしょ)をよく[検討](けんとう)させていただいてからでもよろしいですか？",
+          "vi": "Vâng, để tôi xem kỹ bản kế hoạch đã được không ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、どうぞよろしくお願いいたします。",
+          "vi": "Vâng, phiền ông giúp cho."
+        },
+        {
+          "speaker": "B",
+          "ja": "2、3日中には、またご[連絡](れんらく)いたしますので。",
+          "vi": "Tôi sẽ liên lạc lại trong 2, 3 ngày tới."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 6",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[見積書](みつもりしょ)、見せていただけますか？",
+          "vi": "Cho tôi xem bản báo giá được không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、こちらです。いかがでしょうか？",
+          "vi": "Vâng, đây ạ. Chị thấy sao ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "う〜ん、もう少しコストダウンできませんか？",
+          "vi": "Ừm, có thể giảm giá thêm chút nữa không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "注文[数](すう)が少ないので、これで目いっぱいなんです。",
+          "vi": "Do số lượng đặt hàng ít nên như vậy đã là cố gắng hết sức rồi ạ."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 7",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "たびたびお電話をいただいたそうで、申し訳ありませんでした。",
+          "vi": "Nghe nói anh đã gọi cho tôi mấy lần. Thành thật xin lỗi anh."
+        },
+        {
+          "speaker": "B",
+          "ja": "いえいえ、長いご[出張](しゅっちょう)だったそうで。",
+          "vi": "Không sao, không sao. Nghe nói chị đi công tác dài ngày."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、[海外](かいがい)に出ておりましたもので。ご[迷惑](めいわく)をおかけしました。",
+          "vi": "Vâng, tôi đi công tác nước ngoài. Rất xin lỗi đã làm phiền anh."
+        },
+        {
+          "speaker": "B",
+          "ja": "とんでもないです。お[忙](いそが)しそうで[大変](たいへん)ですね。",
+          "vi": "Không sao. Chị bận thế chắc là vất vả lắm."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 8",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "それで、お仕事はうまくいきましたか？",
+          "vi": "Vậy, công việc của chị có tốt không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "おかげさまで、どうにか[契約成立](けいやくせいりつ)にまでこぎつけました。",
+          "vi": "Ơn trời, cuối cùng thì tôi cũng ký được hợp đồng."
+        },
+        {
+          "speaker": "A",
+          "ja": "それはよかったですね。おめでとうございます。",
+          "vi": "Vậy thì tốt quá nhỉ. Chúc mừng chị."
+        },
+        {
+          "speaker": "B",
+          "ja": "いやー、まだまだ[細部](さいぶ)を[詰](つ)めないといけないんですけどね。",
+          "vi": "Chưa đâu. Còn phải bàn đến các nội dung chi tiết nữa kia."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "33",
+  "title": "PHẦN 7 - THƯỢNG CẤP 2",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p33.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 14",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "いろいろな仕事をされてきたんですね。",
+          "vi": "Anh đã từng trải qua rất nhiều công việc nhỉ!"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。私なりにキャリアアップをしてきたと考えています。",
+          "vi": "Vâng, tôi nghĩ mình cũng đã phát triển sự nghiệp theo cách của mình."
+        },
+        {
+          "speaker": "A",
+          "ja": "特に力を入れられたことは何ですか？",
+          "vi": "Anh đã tập trung tâm huyết nhất vào việc gì?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね。ネットワークに関する新規プロジェクトです。立ち上げから運営に携わってきました。",
+          "vi": "Vâng, đó là dự án mới liên quan đến network. Tôi đã tham gia từ lúc lập dự án cho đến khi vận hành."
+        }
+      ]
+    },
+    {
+      "context": "Tình huống 15",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "前の会社ではどんなお仕事をされていたんですか？",
+          "vi": "Cô đã làm công việc gì ở công ty trước?"
+        },
+        {
+          "speaker": "B",
+          "ja": "社員の安全と健康の管理が主でした。",
+          "vi": "Tôi chủ yếu là quản lý an toàn và sức khỏe nhân viên công ty."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか。例えば？",
+          "vi": "Vậy hả? Ví dụ là gì?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですね、工場内での環境改善とか、社員の禁煙プログラムの開発などをやっておりました。",
+          "vi": "Vâng, tôi đã thực hiện cải thiện môi trường trong nhà máy, hay như xúc tiến chương trình cấm hút thuốc trong nhân viên."
+        },
+        {
+          "speaker": "A",
+          "ja": "ほ〜、そうですか。仕事はやりがいがありましたか？",
+          "vi": "Ồ, thật vậy à? Cô thấy công việc có ý nghĩa chứ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、自分で工夫したことが実現されていくので、充実感がありました。",
+          "vi": "Vâng, tôi cảm thấy rất có ý nghĩa vì những gì mình dồn công sức đã được thực hiện."
+        }
+      ]
+    }
+  ]
 }
+
+  
 ]
