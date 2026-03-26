@@ -6402,7 +6402,7 @@
 },
   {
   "id": "31",
-  "title": "PHẦN 7 - TRUNG CẤP 1",
+  "title": "PHẦN 7 - TRUNG CẤP",
   "translation": "",
   "explanation": "",
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p31.m4a",
@@ -6462,7 +6462,7 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "まあ、一[杯](はい)いかがですか。",
+          "ja": "まあ、[一杯](いっぱい)いかがですか。",
           "vi": "Thôi, làm một ly nhé?"
         },
         {
@@ -6497,7 +6497,7 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "[秋田](あきた)さん、まだ一[曲](きょく)も歌ってませんよね？",
+          "ja": "[秋田](あきた)さん、まだ[一曲](いっきょく)も歌ってませんよね？",
           "vi": "Akita, anh vẫn chưa hát bài nào nhỉ?"
         },
         {
