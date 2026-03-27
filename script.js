@@ -6100,27 +6100,86 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
+// --- 3. HÀM PHÂN RÃ CÂU THÀNH CÁC CỤM (CHUNK) ---
+const parseSentenceToChunks = (sentence) => {
+    if (!sentence) return [];
+    const chunks = [];
+    const regex = /(\[[^\]]+\]\([^)]+\))|([^[]+)/g;
+    let match;
+
+    while ((match = regex.exec(sentence)) !== null) {
+        if (match[1]) {
+            const innerMatch = match[1].match(/\[([^\]]+)\]\(([^)]+)\)/);
+            if (innerMatch) {
+                chunks.push({
+                    type: 'kanji',
+                    kanji: innerMatch[1],
+                    kana: innerMatch[2],
+                    original: match[1]
+                });
+            }
+        } else if (match[2]) {
+            chunks.push({
+                type: 'text',
+                text: match[2],
+                original: match[2]
+            });
+        }
+    }
+    return chunks;
+};
+
+// ==========================================
+// COMPONENT: GAME CHÉP CHÍNH TẢ (DICTATION)
+// ==========================================
 const DictationGameModal = ({ isOpen, onClose, data }) => {
-    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [viewMode, setViewMode] = React.useState('menu'); // 'menu', 'input', 'review', 'finished'
+    
+    // --- State Dữ liệu ---
+    const [selectedLessonIdx, setSelectedLessonIdx] = React.useState(0);
+    const [currentConversationIdx, setCurrentConversationIdx] = React.useState(0);
+    const [currentDialogueIdx, setCurrentDialogueIdx] = React.useState(0);
+    
+    // --- State Trò chơi ---
     const [userInput, setUserInput] = React.useState('');
-    const [status, setStatus] = React.useState('idle'); // 'idle', 'correct', 'wrong'
-    const [finished, setFinished] = React.useState(false);
-    const [showAnswer, setShowAnswer] = React.useState(false);
+    const [status, setStatus] = React.useState('idle'); 
+    const [resultChunks, setResultChunks] = React.useState([]); 
     
     const soundRef = React.useRef(null);
     const timerRef = React.useRef(null);
 
-    // 1. Khởi tạo Audio khi mở Modal
+    // Lấy câu thoại hiện tại an toàn
+    const currentDialogue = React.useMemo(() => {
+        if (!data || !data[selectedLessonIdx]) return null;
+        const lesson = data[selectedLessonIdx];
+        if (!lesson.conversations || !lesson.conversations[currentConversationIdx]) return null;
+        const conv = lesson.conversations[currentConversationIdx];
+        if (!conv.dialogues || !conv.dialogues[currentDialogueIdx]) return null;
+        return conv.dialogues[currentDialogueIdx];
+    }, [data, selectedLessonIdx, currentConversationIdx, currentDialogueIdx]);
+
+    // Tính số thứ tự câu phẳng (để hiển thị Câu 1/20)
+    const flatCurrentIndex = React.useMemo(() => {
+        if (!data || !data[selectedLessonIdx]) return 0;
+        let count = 0;
+        for (let i = 0; i < currentConversationIdx; i++) {
+            count += data[selectedLessonIdx].conversations[i].dialogues.length;
+        }
+        return count + currentDialogueIdx + 1;
+    }, [data, selectedLessonIdx, currentConversationIdx, currentDialogueIdx]);
+
+    // Tính tổng số câu trong bài
+    const totalDialoguesInLesson = React.useMemo(() => {
+        if (!data || !data[selectedLessonIdx]) return 0;
+        return data[selectedLessonIdx].conversations.reduce((acc, conv) => acc + conv.dialogues.length, 0);
+    }, [data, selectedLessonIdx]);
+
+
+    // 1. Quản lý trạng thái Audio & Modal
     React.useEffect(() => {
-        if (isOpen && data?.audioPath) {
+        if (isOpen && data) {
             document.body.style.overflow = 'hidden';
-            soundRef.current = new Howl({
-                src: [data.audioPath],
-                html5: true,
-                preload: true
-            });
-            // Tự động phát câu đầu tiên
-            playCurrentSentence(0);
+            setViewMode('menu'); // Bật lên luôn mở menu chọn bài
         } else {
             document.body.style.overflow = 'unset';
             if (soundRef.current) {
@@ -6128,28 +6187,54 @@ const DictationGameModal = ({ isOpen, onClose, data }) => {
                 soundRef.current = null;
             }
             if (timerRef.current) cancelAnimationFrame(timerRef.current);
-            // Reset state
-            setCurrentIndex(0);
+            // Reset toàn bộ
+            setSelectedLessonIdx(0);
+            setCurrentConversationIdx(0);
+            setCurrentDialogueIdx(0);
             setUserInput('');
             setStatus('idle');
-            setFinished(false);
-            setShowAnswer(false);
+            setViewMode('menu');
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, data]);
 
-    // 2. Hàm phát Audio cho câu hiện tại
-    const playCurrentSentence = (index) => {
-        if (!soundRef.current || !data?.dialogues[index]) return;
-        const sentence = data.dialogues[index];
+    // Hàm khi User chọn bài học
+    const selectLesson = (idx) => {
+        setSelectedLessonIdx(idx);
+        setCurrentConversationIdx(0);
+        setCurrentDialogueIdx(0);
+        setUserInput('');
+        setStatus('idle');
+        setViewMode('input');
+
+        // Khởi tạo audio cho bài học mới
+        if (soundRef.current) soundRef.current.unload();
+        
+        soundRef.current = new Howl({
+            src: [data[idx].audioPath],
+            html5: true,
+            preload: true
+        });
+
+        // Delay nhẹ để tránh lỗi bất đồng bộ trước khi phát câu 1
+        setTimeout(() => playCurrentDialogue(data[idx], 0, 0), 100);
+    };
+
+    // Hàm phát Audio cắt đoạn
+    const playCurrentDialogue = (lessonOpt, convIdxOpt, diagIdxOpt) => {
+        const lesson = lessonOpt || data[selectedLessonIdx];
+        const convIdx = convIdxOpt !== undefined ? convIdxOpt : currentConversationIdx;
+        const diagIdx = diagIdxOpt !== undefined ? diagIdxOpt : currentDialogueIdx;
+        const targetDialogue = lesson?.conversations[convIdx]?.dialogues[diagIdx];
+        
+        if (!soundRef.current || !targetDialogue) return;
         
         soundRef.current.stop();
-        soundRef.current.seek(sentence.startTime);
+        soundRef.current.seek(targetDialogue.startTime);
         soundRef.current.play();
 
-        // Vòng lặp kiểm tra dừng audio
         const checkEnd = () => {
-            if (soundRef.current && soundRef.current.seek() >= sentence.endTime) {
+            if (soundRef.current && soundRef.current.seek() >= targetDialogue.endTime) {
                 soundRef.current.pause();
                 cancelAnimationFrame(timerRef.current);
             } else {
@@ -6159,39 +6244,104 @@ const DictationGameModal = ({ isOpen, onClose, data }) => {
         timerRef.current = requestAnimationFrame(checkEnd);
     };
 
-    // 3. Hàm kiểm tra đáp án
-    const handleCheckAnswer = () => {
-        if (status === 'correct' || finished) return;
+    // 2. Chuyển câu tiếp theo
+    const goToNextDialogue = () => {
+        const lesson = data[selectedLessonIdx];
+        const currentConv = lesson.conversations[currentConversationIdx];
         
-        const currentSentence = data.dialogues[currentIndex];
-        const cleanedInput = cleanJapanesePunctuation(userInput); // Dọn rác input
-        
-        // Tạo luật Regex và kiểm tra
-        const validatorRegex = buildDictationRegex(currentSentence.ja);
-        const isCorrect = validatorRegex.test(cleanedInput);
-
-        if (isCorrect) {
-            setStatus('correct');
-            setTimeout(() => {
-                if (currentIndex < data.dialogues.length - 1) {
-                    setCurrentIndex(prev => prev + 1);
-                    setUserInput('');
-                    setStatus('idle');
-                    setShowAnswer(false);
-                    playCurrentSentence(currentIndex + 1); // Phát câu tiếp theo
-                } else {
-                    setFinished(true);
-                }
-            }, 800); // Đợi 0.8s cho hiệu ứng xanh lá rồi mới chuyển
+        if (currentDialogueIdx < currentConv.dialogues.length - 1) {
+            const nextDiag = currentDialogueIdx + 1;
+            setCurrentDialogueIdx(nextDiag);
+            resetForNext(lesson, currentConversationIdx, nextDiag);
+        } else if (currentConversationIdx < lesson.conversations.length - 1) {
+            const nextConv = currentConversationIdx + 1;
+            setCurrentConversationIdx(nextConv);
+            setCurrentDialogueIdx(0);
+            resetForNext(lesson, nextConv, 0);
         } else {
-            setStatus('wrong');
-            setShowAnswer(true); // Hiện đáp án cho người dùng đối chiếu
-            playCurrentSentence(currentIndex); // Phát lại câu bị sai
-            setTimeout(() => setStatus('idle'), 500); // Bỏ hiệu ứng rung sau 0.5s
+            setViewMode('finished');
         }
     };
 
-    // Hàm render Furigana (tái sử dụng logic cũ)
+    const resetForNext = (lesson, convIdx, diagIdx) => {
+        setUserInput('');
+        setStatus('idle');
+        setViewMode('input');
+        setTimeout(() => playCurrentDialogue(lesson, convIdx, diagIdx), 300);
+    };
+
+    // 3. THUẬT TOÁN CHẤM ĐIỂM CHUNK (Nhận diện lỗi sai)
+    const handleCheckAnswer = () => {
+        if (!currentDialogue) return;
+        if (!userInput.trim()) {
+            alert("Vui lòng gõ tiếng Nhật trước khi kiểm tra!");
+            return;
+        }
+
+        const expectedChunks = parseSentenceToChunks(currentDialogue.ja);
+        let remainingInput = cleanJapanesePunctuation(userInput); 
+        const evaluatedChunks = [];
+        let isTotallyCorrect = true;
+
+        for (let i = 0; i < expectedChunks.length; i++) {
+            const chunk = expectedChunks[i];
+            
+            if (chunk.type === 'kanji') {
+                const validKanji = chunk.kanji;
+                const validKana = chunk.kana;
+                
+                // Cho phép gõ Kanji hoặc Hiragana đều được tính đúng
+                if (remainingInput.startsWith(validKanji)) {
+                    evaluatedChunks.push({ text: validKanji, status: 'correct' });
+                    remainingInput = remainingInput.slice(validKanji.length);
+                } else if (remainingInput.startsWith(validKana)) {
+                    evaluatedChunks.push({ text: validKana, status: 'correct' });
+                    remainingInput = remainingInput.slice(validKana.length);
+                } else {
+                    const wrongLength = Math.min(validKana.length, remainingInput.length || 1);
+                    const wrongText = remainingInput.slice(0, wrongLength);
+                    evaluatedChunks.push({ text: wrongText || "___", status: 'wrong' });
+                    remainingInput = remainingInput.slice(wrongLength);
+                    isTotallyCorrect = false;
+                }
+            } else {
+                const cleanedExpectedText = cleanJapanesePunctuation(chunk.text);
+                if (cleanedExpectedText.length === 0) continue; 
+
+                if (remainingInput.startsWith(cleanedExpectedText)) {
+                    evaluatedChunks.push({ text: chunk.text, status: 'correct' });
+                    remainingInput = remainingInput.slice(cleanedExpectedText.length);
+                } else {
+                    const wrongLength = Math.min(cleanedExpectedText.length, remainingInput.length || 1);
+                    const wrongText = remainingInput.slice(0, wrongLength);
+                    evaluatedChunks.push({ text: wrongText || "___", status: 'wrong' });
+                    remainingInput = remainingInput.slice(wrongLength);
+                    isTotallyCorrect = false;
+                }
+            }
+        }
+        
+        // Nếu gõ thừa chữ
+        if (remainingInput.length > 0) {
+            evaluatedChunks.push({ text: remainingInput, status: 'wrong' });
+            isTotallyCorrect = false;
+        }
+
+        setResultChunks(evaluatedChunks);
+
+        if (isTotallyCorrect) {
+            setStatus('correct');
+            setTimeout(() => {
+                goToNextDialogue();
+            }, 800); 
+        } else {
+            setStatus('wrong');
+            setViewMode('review'); // Kích hoạt UI sửa lỗi
+            playCurrentDialogue(); // Tự động phát lại câu bị sai
+            setTimeout(() => setStatus('idle'), 500); 
+        }
+    };
+
     const renderFurigana = (text) => {
         if (!text) return null;
         const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
@@ -6199,13 +6349,13 @@ const DictationGameModal = ({ isOpen, onClose, data }) => {
             const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
             if (match) {
                 return (
-                    <ruby key={index} className="leading-loose mx-0.5">
+                    <ruby key={index} className="leading-loose mx-0.5 text-zinc-800">
                         {match[1]}
-                        <rt className="text-[10px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>
+                        <rt className="text-[10px] sm:text-[11px] text-indigo-500 font-bold select-none">{match[2]}</rt>
                     </ruby>
                 );
             }
-            return <span key={index}>{part}</span>;
+            return <span key={index} className="text-zinc-800">{part}</span>;
         });
     };
 
@@ -6213,78 +6363,153 @@ const DictationGameModal = ({ isOpen, onClose, data }) => {
 
     return (
         <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
-            {!finished ? (
-                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg p-6 sm:p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+            
+            {/* MÀN HÌNH 1: CHỌN BÀI HỌC */}
+            {viewMode === 'menu' && (
+                <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-md p-6 border-4 border-zinc-100 flex flex-col max-h-[80vh]">
+                    <div className="flex justify-between items-center mb-6 pb-4 border-b border-zinc-100">
+                        <h2 className="text-lg font-black text-zinc-900 uppercase">CHỌN BÀI ĐỂ LUYỆN NGHE</h2>
+                        <button onClick={onClose} className="text-zinc-400 hover:text-red-500 bg-zinc-100 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+                    </div>
+                    <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar pr-2">
+                        {data.map((lesson, idx) => (
+                            <button 
+                                key={lesson.id} 
+                                onClick={() => selectLesson(idx)}
+                                className="w-full p-4 rounded-xl border border-zinc-200 text-left hover:border-indigo-500 hover:bg-indigo-50 transition-colors group"
+                            >
+                                <h3 className="font-bold text-zinc-800 group-hover:text-indigo-700">{lesson.title}</h3>
+                                {lesson.translation && <p className="text-xs text-zinc-500 mt-1 font-medium">{lesson.translation}</p>}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* MÀN HÌNH 2: NHẬP LIỆU & ĐỐI CHIẾU */}
+            {(viewMode === 'input' || viewMode === 'review') && currentDialogue && (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-2xl p-6 sm:p-8 flex flex-col border-4 border-zinc-100 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
                     
                     {/* Header */}
                     <div className="flex justify-between items-center w-full mb-6">
                         <div className="flex items-center gap-3">
-                            <button onClick={() => playCurrentSentence(currentIndex)} className="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors shadow-sm">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <button 
+                                onClick={() => setViewMode('menu')} 
+                                className="px-3 py-1.5 bg-zinc-100 text-zinc-600 rounded-lg text-[10px] font-black uppercase hover:bg-zinc-200 transition-colors"
+                            >
+                                Quay lại
                             </button>
-                            <span className="text-[11px] font-black text-zinc-500 uppercase tracking-widest bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200">
-                                CÂU {currentIndex + 1} / {data.dialogues.length}
+                            <span className="text-[11px] font-black text-zinc-500 uppercase tracking-widest px-2">
+                                CÂU {flatCurrentIndex} / {totalDialoguesInLesson}
                             </span>
                         </div>
-                        <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all shadow-sm">
-                            ✕
+                        <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all shadow-sm">✕</button>
+                    </div>
+
+                    {/* Khối Phát Audio */}
+                    <div className="flex flex-col items-center justify-center bg-indigo-50/50 border border-indigo-100 rounded-3xl p-6 mb-6">
+                        <button 
+                            onClick={() => playCurrentDialogue()} 
+                            className="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-indigo-200 mb-3"
+                        >
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         </button>
+                        <p className="text-[11px] font-black text-indigo-400 uppercase tracking-widest">
+                            Người {currentDialogue.speaker} nói (Nghe và chép lại)
+                        </p>
                     </div>
 
-                    {/* Vùng nhập liệu */}
-                    <div className="w-full space-y-4">
-                        <textarea 
-                            autoFocus
-                            value={userInput} 
-                            onChange={(e) => setUserInput(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
-                                    e.preventDefault();
-                                    handleCheckAnswer();
-                                }
-                            }}
-                            placeholder="Gõ lại những gì bạn nghe được..."
-                            className={`w-full p-4 h-32 text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all resize-none ${
-                                status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
-                                status === 'wrong' ? 'border-red-500 bg-red-50 text-red-700 animate-shake' : 
-                                'border-zinc-200 focus:border-indigo-500 bg-zinc-50 shadow-inner'
-                            }`}
-                        />
-                        
-                        <div className="flex justify-between items-center">
-                            <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
-                                Bấm Enter để kiểm tra
-                            </p>
-                            <button onClick={handleCheckAnswer} className="px-6 py-2 bg-zinc-900 text-white rounded-xl text-xs font-black uppercase hover:bg-black active:scale-95 transition-all">
-                                Kiểm tra
-                            </button>
+                    {/* VÙNG NHẬP LIỆU */}
+                    {viewMode === 'input' && (
+                        <div className="w-full space-y-4 animate-in fade-in">
+                            <textarea 
+                                autoFocus
+                                value={userInput} 
+                                onChange={(e) => setUserInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault();
+                                        handleCheckAnswer();
+                                    }
+                                }}
+                                placeholder="Nhập tiếng Nhật (Kanji hoặc Hiragana)..."
+                                className="w-full p-4 h-28 text-lg sm:text-xl font-bold border-2 border-zinc-200 focus:border-indigo-500 bg-zinc-50 rounded-2xl outline-none transition-all resize-none shadow-inner"
+                            />
+                            <div className="flex justify-between items-center">
+                                <span className="text-xs text-zinc-400 font-medium">Không bắt buộc viết dấu câu. Bấm <b>Enter</b> để chấm.</span>
+                                <button onClick={handleCheckAnswer} className="px-8 py-3 bg-zinc-900 text-white rounded-xl text-xs font-black uppercase hover:bg-black active:scale-95 transition-all shadow-md">
+                                    Kiểm tra
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
-                    {/* Hiển thị đáp án nếu sai */}
-                    {showAnswer && (
-                        <div className="w-full mt-6 p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl animate-in slide-in-from-top-2">
-                            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2 flex items-center gap-1">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                Đáp án chuẩn
-                            </p>
-                            <p className="text-lg sm:text-xl font-bold text-zinc-800">
-                                {renderFurigana(data.dialogues[currentIndex].ja)}
-                            </p>
-                            <p className="text-sm font-medium text-zinc-500 mt-2 border-t border-indigo-100/50 pt-2">
-                                {data.dialogues[currentIndex].vi}
-                            </p>
+                    {/* VÙNG CHẤM LỖI XANH/ĐỎ */}
+                    {viewMode === 'review' && (
+                        <div className="w-full space-y-6 animate-in slide-in-from-bottom-4">
+                            
+                            {/* Phân tích lỗi User */}
+                            <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">Phân tích bài làm:</p>
+                                <div className="text-lg sm:text-xl font-bold leading-loose flex flex-wrap gap-x-1 gap-y-2">
+                                    {resultChunks.map((c, i) => (
+                                        <span key={i} className={`px-1.5 py-0.5 rounded-lg ${
+                                            c.status === 'correct' 
+                                                ? 'bg-green-100 text-green-700 border border-green-200' 
+                                                : 'bg-red-100 text-red-700 border border-red-200 line-through decoration-2'
+                                        }`}>
+                                            {c.text}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Đáp án Chuẩn */}
+                            <div className="p-5 bg-white border-2 border-indigo-100 shadow-[0_4px_20px_rgba(79,70,229,0.08)] rounded-2xl relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
+                                <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2">Đáp án chuẩn:</p>
+                                <div className="text-xl font-bold mb-3">
+                                    {renderFurigana(currentDialogue.ja)}
+                                </div>
+                                <p className="text-sm font-medium text-zinc-500 border-t border-zinc-100 pt-3">
+                                    {currentDialogue.vi}
+                                </p>
+                            </div>
+
+                            {/* Nút điều hướng */}
+                            <div className="flex gap-3 pt-2">
+                                <button 
+                                    onClick={() => { setViewMode('input'); playCurrentDialogue(); }}
+                                    className="flex-1 py-3.5 bg-white border-2 border-zinc-200 text-zinc-600 rounded-xl text-xs font-black uppercase hover:bg-zinc-50 hover:border-zinc-300 active:scale-95 transition-all"
+                                >
+                                    Thử lại
+                                </button>
+                                <button 
+                                    onClick={goToNextDialogue}
+                                    className="flex-1 py-3.5 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase hover:bg-indigo-700 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
+                                >
+                                    Tiếp theo
+                                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/></svg>
+                                </button>
+                            </div>
+
                         </div>
                     )}
                 </div>
-            ) : (
-                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[300px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+            )}
+
+            {/* MÀN HÌNH 3: HOÀN THÀNH */}
+            {viewMode === 'finished' && (
+                 <div className="bg-white rounded-[2rem] p-8 w-full max-w-[300px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
                     <div className="text-5xl mb-4 animate-bounce">🏆</div>
                     <h3 className="text-xl font-black text-gray-800 mb-1 uppercase">HOÀN THÀNH!</h3>
                     <p className="text-gray-500 mb-6 text-xs font-medium">Bạn đã chép chính tả xong bài này.</p>
-                    <div className="space-y-2">
-                        <button onClick={onClose} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-                            Đóng & Thoát
+                    <div className="space-y-3">
+                        <button onClick={() => setViewMode('menu')} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] uppercase tracking-widest shadow-lg active:scale-95 transition-all">
+                            Chọn bài khác
+                        </button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-zinc-600 hover:border-zinc-300 rounded-xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all">
+                            Thoát
                         </button>
                     </div>
                 </div>
