@@ -5188,7 +5188,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
 
         try {
             // Thay link API SheetDB/Google Sheet của bạn vào đây:
-            const API_URL = 'https://sheetdb.io/api/v1/ID_CUA_BAN'; 
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwXPHwgr28ReJEkMtQ_0YjW_gjs9kMMGqgXRdT_FEuo/dev'; 
             
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error("Lỗi mạng");
