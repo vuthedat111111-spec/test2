@@ -2821,14 +2821,14 @@ React.useEffect(() => {
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
                        {/* 8. TỪ ĐIỂN BỘ THỦ */}
-                        <div onClick={onOpenDictionary} className="group bg-zinc-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 bg-white text-zinc-900 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse">
+                        <div onClick={onOpenDictionary} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                            <div className="absolute top-4 right-4 bg-indigo-50 text-indigo-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse">
                                 MỚI
                             </div>
-                            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 text-white group-hover:bg-white group-hover:text-zinc-900 transition-colors duration-300">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1 text-white">TRA CỨU KANJI</h3>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tìm theo 214 Bộ thủ</p>
                         </div>
                         {/* 1. CHẾ ĐỘ HỌC */}
@@ -6098,13 +6098,13 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
     const [selectedRadical, setSelectedRadical] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
     const [relatedVocab, setRelatedVocab] = useState([]);
+    const [replayKey, setReplayKey] = useState(0); // State dùng để ép SVG vẽ lại
 
     // Logic khóa nền khi mở Modal
     useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else {
             document.body.style.overflow = 'unset';
-            // Reset state khi đóng
             setView('radicals');
             setSelectedRadical(null);
             setSelectedKanji(null);
@@ -6121,74 +6121,116 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     matches.push({ word, reading: info.reading, meaning: info.meaning });
                 }
             });
-            // Sắp xếp từ ngắn lên trước
             matches.sort((a, b) => a.word.length - b.word.length);
             setRelatedVocab(matches);
         }
     }, [view, selectedKanji, dbData]);
 
-    // Hook lấy SVG cho chữ đang chọn (dùng lại hook của bạn)
-    const { paths, fullSvg } = useKanjiSvg(selectedKanji || '');
+    const { paths } = useKanjiSvg(selectedKanji || '');
 
     if (!isOpen) return null;
 
-    // --- MÀN 1: DANH SÁCH BỘ THỦ ---
+    // --- MÀN 1: TÌM KIẾM & DANH SÁCH BỘ THỦ ---
     const renderRadicals = () => {
         const radicals = dbData?.BOTHU_DB || {}; 
-        // Giả lập UI nếu bạn chưa có file BOTHU_DB chuẩn, hãy thay bằng data thực tế
-        const radicalList = Object.entries(radicals).length > 0 
-            ? Object.entries(radicals) 
-            : [['一', { name: 'Nhất', chars: ['一','七','三']}], ['人', { name: 'Nhân', chars: ['人','休','体']}]]; // Dữ liệu mẫu
+        const radicalList = Object.entries(radicals);
 
         return (
-            <div className="p-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 overflow-y-auto custom-scrollbar flex-1 bg-zinc-50">
-                {radicalList.map(([rad, info]) => (
-                    <button 
-                        key={rad}
-                        onClick={() => {
-                            setSelectedRadical({ radical: rad, ...info });
-                            setView('kanji_list');
-                        }}
-                        className="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 hover:shadow-md active:scale-95 group"
-                    >
-                        <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-black mb-2">{rad}</span>
-                        <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{info.name || 'Bộ thủ'}</span>
-                    </button>
-                ))}
+            <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
+                {/* Thanh tìm kiếm */}
+                <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 shrink-0">
+                    <SearchBar 
+                        mode="kanji" 
+                        dbData={dbData} 
+                        onSelectResult={(item) => {
+                            setSelectedKanji(item.char);
+                            setView('detail');
+                        }} 
+                    />
+                </div>
+
+                {/* Danh sách Bộ thủ */}
+                <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="w-2 h-2 rounded-full bg-zinc-300"></span>
+                        <h3 className="text-sm font-black text-zinc-500 uppercase tracking-widest">Tra cứu theo bộ thủ</h3>
+                    </div>
+
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                        {radicalList.map(([rad, info]) => (
+                            <button 
+                                key={rad}
+                                onClick={() => {
+                                    setSelectedRadical({ radical: rad, ...info });
+                                    setView('kanji_list');
+                                }}
+                                className="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 md:hover:shadow-md active:scale-95 group"
+                            >
+                                <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-black mb-2">{rad}</span>
+                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center truncate w-full">{info.name || 'Bộ thủ'}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     };
 
-    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ ---
+    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ (PHÂN THEO JLPT) ---
     const renderKanjiList = () => {
         if (!selectedRadical) return null;
         const chars = selectedRadical.chars || [];
 
+        // Gom Kanji theo cấp độ
+        const groups = { N5: [], N4: [], N3: [], N2: [], N1: [], Khác: [] };
+        chars.forEach(char => {
+            let foundLevel = 'Khác';
+            if (dbData?.KANJI_LEVELS) {
+                if (dbData.KANJI_LEVELS.N5?.includes(char)) foundLevel = 'N5';
+                else if (dbData.KANJI_LEVELS.N4?.includes(char)) foundLevel = 'N4';
+                else if (dbData.KANJI_LEVELS.N3?.includes(char)) foundLevel = 'N3';
+                else if (dbData.KANJI_LEVELS.N2?.includes(char)) foundLevel = 'N2';
+                else if (dbData.KANJI_LEVELS.N1?.includes(char)) foundLevel = 'N1';
+            }
+            groups[foundLevel].push(char);
+        });
+
         return (
-            <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-white">
-                <div className="flex items-center gap-2 mb-6 border-b border-zinc-100 pb-4">
-                    <span className="text-4xl font-['Klee_One'] font-black text-zinc-900">{selectedRadical.radical}</span>
+            <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 bg-white">
+                <div className="flex items-center gap-4 mb-6 border-b border-zinc-100 pb-4">
+                    <span className="text-5xl font-['Klee_One'] font-black text-zinc-900 bg-zinc-50 border border-zinc-200 p-2 rounded-xl">{selectedRadical.radical}</span>
                     <div className="flex flex-col">
-                        <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Bộ {selectedRadical.name}</span>
-                        <span className="text-sm font-black text-zinc-900">{chars.length} Kanji</span>
+                        <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Bộ {selectedRadical.name}</span>
+                        <span className="text-lg font-black text-indigo-600">{chars.length} Kanji</span>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
-                    {chars.map(char => {
-                        const info = dbData?.KANJI_DB?.[char] || {};
+                <div className="space-y-6">
+                    {['N5', 'N4', 'N3', 'N2', 'N1', 'Khác'].map(level => {
+                        if (groups[level].length === 0) return null;
                         return (
-                            <button 
-                                key={char}
-                                onClick={() => {
-                                    setSelectedKanji(char);
-                                    setView('detail');
-                                }}
-                                className="border border-zinc-200 bg-zinc-50 hover:bg-zinc-900 hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group"
-                            >
-                                <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-white mb-1">{char}</span>
-                                <span className="text-[9px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase truncate w-full text-center">{info.sound || '---'}</span>
-                            </button>
+                            <div key={level}>
+                                <h4 className="text-[11px] font-black text-zinc-400 uppercase tracking-widest mb-3 border-l-4 border-indigo-500 pl-2">CẤP ĐỘ {level} ({groups[level].length})</h4>
+                                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
+                                    {groups[level].map(char => {
+                                        const info = dbData?.KANJI_DB?.[char] || {};
+                                        return (
+                                            <button 
+                                                key={char}
+                                                onClick={() => {
+                                                    setSelectedKanji(char);
+                                                    setReplayKey(prev => prev + 1); // Đảm bảo chuyển chữ mới thì vẽ lại từ đầu
+                                                    setView('detail');
+                                                }}
+                                                className="border border-zinc-200 bg-zinc-50 hover:bg-zinc-900 hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group"
+                                            >
+                                                <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-white mb-1">{char}</span>
+                                                <span className="text-[9px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase truncate w-full text-center">{info.sound || '---'}</span>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         );
                     })}
                 </div>
@@ -6196,20 +6238,22 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         );
     };
 
-    // --- MÀN 3: CHI TIẾT KANJI (Nét vẽ, On/Kun, Từ vựng) ---
+    // --- MÀN 3: CHI TIẾT KANJI (CUỘN ĐƯỢC CẢ TRANG) ---
     const renderDetail = () => {
         const info = dbData?.KANJI_DB?.[selectedKanji] || {};
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
 
         return (
-            <div className="flex-1 flex flex-col bg-zinc-50 overflow-hidden">
-                {/* Phần Nửa trên: Animation & Thông tin cơ bản */}
-                <div className="p-6 bg-white border-b border-zinc-200 flex flex-col md:flex-row gap-6 shrink-0">
+            // Bao bọc toàn bộ màn hình này bằng một thẻ cuộn duy nhất
+            <div className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 w-full flex flex-col">
+                
+                {/* Phần 1: Khối thông tin và Animation */}
+                <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 flex flex-col md:flex-row gap-6">
                     
                     {/* Ô vẽ Kanji */}
                     <div className="w-full md:w-48 h-48 border border-zinc-200 rounded-2xl flex items-center justify-center bg-zinc-50 shadow-inner relative overflow-hidden shrink-0">
                         {paths.length > 0 ? (
-                            <svg viewBox="0 0 109 109" className="w-[85%] h-[85%]">
+                            <svg key={replayKey} viewBox="0 0 109 109" className="w-[85%] h-[85%]">
                                 {paths.map((d, index) => (
                                     <path 
                                         key={index} d={d} 
@@ -6227,7 +6271,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                             <span className="text-7xl font-['Klee_One'] text-zinc-900">{selectedKanji}</span>
                         )}
                         <button 
-                            onClick={() => { /* Hack để component re-render và chạy lại animation SVG */ setSelectedKanji(prev => prev + ' '); setTimeout(()=>setSelectedKanji(selectedKanji), 10); }}
+                            onClick={() => setReplayKey(prev => prev + 1)} // Chỉ cập nhật state Key để vẽ lại
                             className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md border border-zinc-200 text-zinc-600 hover:text-black active:scale-90 transition-all"
                             title="Vẽ lại"
                         >
@@ -6235,51 +6279,55 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         </button>
                     </div>
 
-                    {/* Thông tin Hán Việt, Ý nghĩa, On/Kun */}
-                    <div className="flex-1 flex flex-col justify-center">
+                    {/* Thông tin Text (Sử dụng min-w-0 để fix lỗi flex truncate) */}
+                    <div className="flex-1 flex flex-col justify-center min-w-0">
                         <div className="mb-4">
-                            <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1">{info.sound || '---'}</h2>
-                            <p className="text-sm font-medium text-zinc-500 italic">{info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}</p>
+                            <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate">{info.sound || '---'}</h2>
+                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2" title={info.meaning || onkun.meanings?.join(', ')}>
+                                {info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}
+                            </p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200">
+                            <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0">
                                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
-                                <span className="text-sm font-bold text-zinc-900">
+                                <span className="text-sm font-bold text-zinc-900 block truncate" title={onkun.readings_on?.join('、 ')}>
                                     {onkun.readings_on && onkun.readings_on.length > 0 ? onkun.readings_on.join('、 ') : '---'}
                                 </span>
                             </div>
-                            <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200">
+                            <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0">
                                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm KUN (Kun'yomi)</span>
-                                <span className="text-sm font-bold text-zinc-900">
+                                <span className="text-sm font-bold text-zinc-900 block truncate" title={onkun.readings_kun?.join('、 ')}>
                                     {onkun.readings_kun && onkun.readings_kun.length > 0 ? onkun.readings_kun.join('、 ') : '---'}
                                 </span>
                             </div>
                         </div>
                         
                         <div className="mt-3 flex gap-2">
-                            {onkun.jlpt_new && <span className="px-2 py-1 bg-black text-white text-[10px] font-black rounded uppercase">JLPT N{onkun.jlpt_new}</span>}
+                            {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase">JLPT N{onkun.jlpt_new}</span>}
                             {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase">{onkun.strokes} Nét</span>}
                         </div>
                     </div>
                 </div>
 
-                {/* Phần Nửa dưới: Từ vựng đi kèm */}
-                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
+                {/* Phần 2: Từ vựng đi kèm (Nằm dưới khối flex trên, scroll mượt mà) */}
+                <div className="p-4 sm:p-6 w-full">
                     <h3 className="text-xs font-black text-zinc-900 uppercase tracking-widest mb-4 flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                         Từ vựng thông dụng ({relatedVocab.length})
                     </h3>
                     
                     {relatedVocab.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-6">
                             {relatedVocab.map((vocab, i) => (
                                 <div key={i} className="p-3 bg-white border border-zinc-200 rounded-xl hover:border-zinc-400 transition-colors shadow-sm flex items-center justify-between">
-                                    <div className="flex flex-col">
-                                        <span className="text-lg font-bold text-zinc-900">{vocab.word}</span>
-                                        <span className="text-xs font-medium text-zinc-500">{vocab.meaning}</span>
+                                    <div className="flex flex-col min-w-0 pr-2">
+                                        <span className="text-base sm:text-lg font-bold text-zinc-900 truncate">{vocab.word}</span>
+                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 truncate">{vocab.meaning}</span>
                                     </div>
-                                    <span className="text-sm font-bold text-zinc-600 bg-zinc-100 px-3 py-1.5 rounded-lg">{vocab.reading}</span>
+                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0">
+                                        {vocab.reading}
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -6294,13 +6342,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-[600] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full max-w-4xl h-[90vh] md:h-[80vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 border border-zinc-200">
+        <div className="fixed inset-0 z-[600] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200">
+            {/* Sửa kích thước Modal để full màn hình trên điện thoại, thu gọn trên PC */}
+            <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] md:h-[80vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 sm:border border-zinc-200">
                 
                 {/* HEADER */}
-                <div className="px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10">
+                <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10">
                     <div className="flex items-center gap-3">
-                        {/* Nút Back (Chỉ hiện khi ở màn kanji_list hoặc detail) */}
+                        {/* Nút Back */}
                         {view !== 'radicals' && (
                             <button 
                                 onClick={() => setView(view === 'detail' ? 'kanji_list' : 'radicals')}
@@ -6309,8 +6358,9 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
                         )}
-                        <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight">
-                            {view === 'radicals' ? 'Tra cứu Kanji theo bộ thủ' : view === 'kanji_list' ? 'Danh sách Kanji' : 'Chi tiết chữ Hán'}
+                        {/* Đã sửa Tiêu đề cố định */}
+                        <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
+                            TRA CỨU KANJI
                         </h2>
                     </div>
                     <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-900 hover:text-white transition-all shadow-sm">✕</button>
