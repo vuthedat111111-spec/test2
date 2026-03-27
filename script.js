@@ -6186,7 +6186,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 className="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none"
                             >
                                 <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-black mb-2">{rad}</span>
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center truncate w-full">{info.name || 'Bộ thủ'}</span>
+                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center line-clamp-1 w-full pb-0.5">{info.name || 'Bộ thủ'}</span>
                             </button>
                         ))}
                     </div>
@@ -6218,7 +6218,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                 <div className="flex items-center gap-4 mb-6 border-b border-zinc-100 pb-4">
                     <span className="text-5xl font-['Klee_One'] font-black text-zinc-900 bg-zinc-50 border border-zinc-200 p-2 rounded-xl">{selectedRadical.radical}</span>
                     <div className="flex flex-col">
-                        <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Bộ {selectedRadical.name}</span>
+                        <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest pb-1">Bộ {selectedRadical.name}</span>
                         <span className="text-lg font-black text-indigo-600">{chars.length} Kanji</span>
                     </div>
                 </div>
@@ -6228,6 +6228,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         if (groups[level].length === 0) return null;
                         return (
                             <div key={level}>
+                                {/* Đã xóa border-l-4 gạch xanh ở đây */}
                                 <h4 className="text-[11px] font-black text-zinc-400 uppercase tracking-widest mb-3">CẤP ĐỘ {level} ({groups[level].length})</h4>
                                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
                                     {groups[level].map(char => {
@@ -6245,7 +6246,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                 className="border border-zinc-200 bg-zinc-50 hover:bg-zinc-900 hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group outline-none"
                                             >
                                                 <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-white mb-1">{char}</span>
-                                                <span className="text-[9px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase truncate w-full text-center">{info.sound || '---'}</span>
+                                                <span className="text-[9px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase line-clamp-1 w-full text-center pb-0.5">{info.sound || '---'}</span>
                                             </button>
                                         );
                                     })}
@@ -6275,7 +6276,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                     <text 
                                         key={`num-${idx}`} 
                                         transform={num.transform} 
-                                        className="stroke-number"
+                                        className="stroke-number text-[10px] font-sans fill-gray-400"
                                         style={{ animationDelay: `${0.4 + (idx * 0.6)}s` }} 
                                     >
                                         {num.value}
@@ -6314,8 +6315,8 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     {/* Thông tin Text */}
                     <div className="flex-1 flex flex-col justify-center min-w-0 w-full">
                         <div className="mb-4 w-full">
-                            <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full">{info.sound || '---'}</h2>
-                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed" title={info.meaning || onkun.meanings?.join(', ')}>
+                            <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full pb-1">{info.sound || '---'}</h2>
+                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed pb-1" title={info.meaning || onkun.meanings?.join(', ')}>
                                 {info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}
                             </p>
                         </div>
@@ -6323,13 +6324,13 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
                                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
-                                <span className="text-sm font-bold text-zinc-900 block truncate w-full" title={onkun.readings_on?.join('、 ')}>
+                                <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_on?.join('、 ')}>
                                     {onkun.readings_on && onkun.readings_on.length > 0 ? onkun.readings_on.join('、 ') : '---'}
                                 </span>
                             </div>
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
                                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm KUN (Kun'yomi)</span>
-                                <span className="text-sm font-bold text-zinc-900 block truncate w-full" title={onkun.readings_kun?.join('、 ')}>
+                                <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_kun?.join('、 ')}>
                                     {onkun.readings_kun && onkun.readings_kun.length > 0 ? onkun.readings_kun.join('、 ') : '---'}
                                 </span>
                             </div>
@@ -6354,10 +6355,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                             {relatedVocab.map((vocab, i) => (
                                 <div key={i} className="p-3 bg-white border border-zinc-200 rounded-xl hover:border-zinc-400 transition-colors shadow-sm flex items-center justify-between w-full min-w-0">
                                     <div className="flex flex-col min-w-0 pr-2 flex-1 justify-center">
-                                        <span className="text-base sm:text-lg font-bold text-zinc-900 truncate w-full leading-tight pb-0.5">{vocab.word}</span>
-                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 truncate w-full leading-normal pb-0.5">{vocab.meaning}</span>
+                                        {/* Fix lỗi cắt đuôi chữ (g, y, p...) bằng line-clamp-1 và đệm pb-1 */}
+                                        <span className="text-base sm:text-lg font-bold text-zinc-900 line-clamp-1 w-full leading-normal pb-1" title={vocab.word}>{vocab.word}</span>
+                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 line-clamp-1 w-full leading-normal pb-1" title={vocab.meaning}>{vocab.meaning}</span>
                                     </div>
-                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] truncate leading-normal">
+                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] line-clamp-1 leading-normal pb-1">
                                         {vocab.reading}
                                     </span>
                                 </div>
@@ -6380,6 +6382,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                 {/* HEADER */}
                 <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
                     <div className="flex items-center gap-3">
+                        {/* Nút Back - Tắt bôi đen khi tap mobile */}
                         {view !== 'radicals' && (
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
