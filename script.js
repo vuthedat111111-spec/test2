@@ -5066,12 +5066,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     };
 
     const [view, setView] = React.useState('categories'); 
-    // --- STATE CHO TÍNH NĂNG MẬT KHẨU ---
-    const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
-    const [passwordInput, setPasswordInput] = React.useState('');
-    const [isVerifying, setIsVerifying] = React.useState(false);
-    const [passwordError, setPasswordError] = React.useState('');
-    const [targetLockedCategory, setTargetLockedCategory] = React.useState(null);
     
     const [allLessons, setAllLessons] = React.useState([]); 
     const [parts, setParts] = React.useState([]); 
@@ -5089,7 +5083,6 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             document.body.style.overflow = 'unset';
             setView('categories'); 
             setIsGuideOpen(false);
-            setIsPasswordModalOpen(false);
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
@@ -5176,59 +5169,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
         setIsLoading(false);
     }
 };
-    const verifyPassword = async () => {
-        const cleanInput = passwordInput.trim();
-        if (!cleanInput) {
-            setPasswordError('Vui lòng nhập mã truy cập!');
-            return;
-        }
-
-        setIsVerifying(true);
-        setPasswordError('');
-
-        try {
-            // Thay link API SheetDB/Google Sheet của bạn vào đây:
-            const API_URL = 'https://script.google.com/macros/s/AKfycbwXPHwgr28ReJEkMtQ_0YjW_gjs9kMMGqgXRdT_FEuo/dev'; 
-            
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error("Lỗi mạng");
-            const data = await response.json();
-
-            // Quét tìm các cột chứa mật khẩu (ví dụ cột tên là password hoặc code)
-            const validPasswords = data.map(item => String(item.password || item.code || item.id || item).trim());
-
-            if (validPasswords.includes(cleanInput)) {
-                // ĐÚNG MẬT KHẨU: Lưu vào máy để lần sau không bắt nhập nữa
-                localStorage.setItem(`unlocked_${targetLockedCategory}`, 'true'); 
-                setIsPasswordModalOpen(false);
-                loadCategory(targetLockedCategory); // Chuyển vào bài học
-            } else {
-                // SAI MẬT KHẨU
-                setPasswordError('Mã truy cập không đúng hoặc đã hết hạn!');
-            }
-        } catch (error) {
-            setPasswordError('Không thể kết nối đến máy chủ. Vui lòng thử lại sau!');
-        } finally {
-            setIsVerifying(false);
-        }
-    };
-    const handleCategoryClick = (id) => {
-        // Chỉ khóa mục 23 BÀI KAIWA (id là 'nameraka')
-        if (id === 'nameraka') {
-            const isUnlocked = localStorage.getItem(`unlocked_${id}`) === 'true';
-            if (isUnlocked) {
-                loadCategory(id); // Đã mở khóa trước đó rồi thì vào luôn
-            } else {
-                // Chưa mở khóa -> Bật popup nhập pass
-                setTargetLockedCategory(id);
-                setIsPasswordModalOpen(true);
-                setPasswordError('');
-                setPasswordInput('');
-            }
-        } else {
-            loadCategory(id); // Các bài khác vào bình thường
-        }
-    };
+    // Thêm toàn bộ block này vào trước const renderCategories:
 
 const renderGuideOverlay = () => (
     <div className="absolute inset-0 z-50 bg-white flex flex-col animate-in slide-in-from-bottom-10 duration-300">
@@ -5355,15 +5296,12 @@ const renderGuideOverlay = () => (
                     ].map((item) => (
                         <button 
                             key={item.id}
-                            onClick={() => handleCategoryClick(item.id)}
+                            onClick={() => loadCategory(item.id)}
                             className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                         >
                             <div className="flex justify-between items-center w-full gap-4">
                                 <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight">
                                     {item.title}
-                                   {item.id === 'nameraka' && localStorage.getItem(`unlocked_${item.id}`) !== 'true' && (
-    <svg className="w-5 h-5 text-zinc-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-)}
                                 </span>
                             </div>
                             <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">{item.desc}</span>
@@ -5525,61 +5463,6 @@ const renderGuideOverlay = () => (
                     />
                 )}
             </div>
-                {/* --- BẢNG BẮT NHẬP MẬT KHẨU --- */}
-            {isPasswordModalOpen && (
-                <div className="fixed inset-0 z-[800] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsPasswordModalOpen(false)}>
-                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-[320px] p-6 flex flex-col items-center animate-in zoom-in-95 duration-300 cursor-default border border-zinc-200" onClick={e => e.stopPropagation()}>
-                        
-                        <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                        </div>
-                        
-                        <h3 className="text-lg font-black text-zinc-900 uppercase tracking-tight mb-2 text-center">Nội dung độc quyền</h3>
-                        <p className="text-xs text-zinc-500 font-medium text-center mb-6 leading-relaxed">
-                            Khóa học này yêu cầu mã truy cập. Vui lòng nhập mã để tiếp tục.
-                        </p>
-
-                        <div className="w-full space-y-3">
-                            <input 
-                                type="text" 
-                                autoFocus
-                                value={passwordInput}
-                                onChange={(e) => {
-                                    setPasswordInput(e.target.value);
-                                    setPasswordError('');
-                                }}
-                                onKeyDown={(e) => e.key === 'Enter' && !isVerifying && verifyPassword()}
-                                placeholder="Nhập mã truy cập..." 
-                                className={`w-full p-3.5 text-center text-sm font-bold border-2 rounded-xl outline-none transition-all ${passwordError ? 'border-red-400 bg-red-50 text-red-900' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
-                            />
-                            
-                            {passwordError && (
-                                <p className="text-[10px] font-bold text-red-500 text-center animate-in slide-in-from-top-1">{passwordError}</p>
-                            )}
-
-                            <div className="flex gap-2 pt-2">
-                                <button 
-                                    onClick={() => setIsPasswordModalOpen(false)}
-                                    className="px-4 py-3 bg-white border border-zinc-200 text-zinc-500 font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-zinc-50 active:scale-95 transition-all"
-                                >
-                                    Hủy
-                                </button>
-                                <button 
-                                    onClick={verifyPassword}
-                                    disabled={isVerifying}
-                                    className={`flex-1 py-3 bg-indigo-600 text-white font-black rounded-xl text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 ${isVerifying ? 'opacity-70 cursor-not-allowed' : 'hover:bg-indigo-700'}`}
-                                >
-                                    {isVerifying ? (
-                                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                    ) : (
-                                        "Mở Khóa"
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
