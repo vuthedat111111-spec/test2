@@ -6321,23 +6321,29 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     </div>
 
                     {/* Thông tin Text */}
-                    <div className="flex-1 flex flex-col justify-center min-w-0 w-full text-center md:text-left mt-4 md:mt-0">
-                        <div className="mb-4 w-full">
+                    {/* 1. Bỏ text-center ở thẻ bọc ngoài cùng này để các phần bên trong tự do căn lề */}
+                    <div className="flex-1 flex flex-col justify-center min-w-0 w-full mt-4 md:mt-0">
+                        
+                        {/* 2. Chỉ thêm text-center md:text-left vào riêng khối chứa Âm Hán Việt và Ý nghĩa */}
+                        <div className="mb-4 w-full text-center md:text-left">
                             <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full pb-1">{info.sound || '---'}</h2>
-                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed pb-1" title={info.meaning || onkun.meanings?.join(', ')}>
+                            
+                            {/* 3. Tăng cỡ chữ Ý nghĩa lên text-base md:text-lg (hoặc text-lg tùy ý bạn) */}
+                            <p className="text-base md:text-lg font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed pb-1" title={info.meaning || onkun.meanings?.join(', ')}>
                                 {info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                        {/* Khối Âm On / Âm Kun: Mặc định sẽ căn trái vì không bị ảnh hưởng bởi text-center nữa */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-left">
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM ON</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_on?.join('、 ')}>
                                     {onkun.readings_on && onkun.readings_on.length > 0 ? onkun.readings_on.join('、 ') : '---'}
                                 </span>
                             </div>
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM KUN</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm KUN (Kun'yomi)</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_kun?.join('、 ')}>
                                     {onkun.readings_kun && onkun.readings_kun.length > 0 ? onkun.readings_kun.join('、 ') : '---'}
                                 </span>
