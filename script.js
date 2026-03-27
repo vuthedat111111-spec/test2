@@ -5505,6 +5505,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const isMutedRef = React.useRef(false);
 
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
+    // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     const initAndPlayAudio = (startTime = 0) => {
         if (isAudioLoading) return; // Chống spam click khi đang tải
         setIsAudioLoading(true);
@@ -5514,16 +5515,16 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             html5: true, 
             preload: true,
             onload: function() {
-                // FIX LỖI DÍNH ÂM THANH: Kiểm tra nếu user đã chuyển bài hoặc đóng popup
+                // FIX LỖI DÍNH ÂM THANH
                 if (soundRef.current !== howlInstance) {
-                    howlInstance.unload(); // Hủy bỏ hoàn toàn rác audio
-                    return; // Chặn lập tức, không cho chạy tiếp lệnh play
+                    howlInstance.unload(); 
+                    return; 
                 }
 
                 setDuration(this.duration());
-                setIsAudioLoading(false); // Tải xong tắt hiệu ứng
+                setIsAudioLoading(false); 
                 
-                this.rate(playbackRate); // Áp dụng tốc độ phát
+                this.rate(playbackRate); 
 
                 // Tua đến đúng chỗ nếu bấm vào câu thoại
                 if (startTime > 0) {
@@ -5542,14 +5543,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
             },
             onend: function() {
                 if (soundRef.current !== howlInstance) return;
-                setIsPlaying(false);
-                if (timerRef.current) cancelAnimationFrame(timerRef.current);
+                
+                // TỰ ĐỘNG LẶP LẠI: Tua về 0 và tiếp tục phát
+                this.seek(0);
+                setCurrentTime(0);
+                this.play();
             }
         });
 
         // Gán instance vừa tạo vào biến toàn cục để theo dõi
         soundRef.current = howlInstance;
     };
+    
     // --- 1. CHỈ DỌN DẸP KHI CHUYỂN BÀI MỚI ---
     React.useEffect(() => {
         if (soundRef.current) {
