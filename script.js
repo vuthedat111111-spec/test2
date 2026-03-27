@@ -2829,7 +2829,7 @@ React.useEffect(() => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">HỆ THỐNG BỘ THỦ</p>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tìm theo 214 Bộ thủ</p>
                         </div>
                         {/* 1. CHẾ ĐỘ HỌC */}
                         <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
@@ -6119,17 +6119,12 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
             const matches = [];
             Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
                 if (word.includes(selectedKanji)) {
-                    // Xử lý tự động viết hoa chữ cái đầu tiên của nghĩa Tiếng Việt
+                    // Viết hoa chữ cái đầu tiên của nghĩa tiếng Việt
                     let formattedMeaning = info.meaning || '';
                     if (formattedMeaning.length > 0) {
                         formattedMeaning = formattedMeaning.charAt(0).toUpperCase() + formattedMeaning.slice(1);
                     }
-
-                    matches.push({ 
-                        word, 
-                        reading: info.reading, 
-                        meaning: formattedMeaning 
-                    });
+                    matches.push({ word, reading: info.reading, meaning: formattedMeaning });
                 }
             });
             matches.sort((a, b) => a.word.length - b.word.length);
@@ -6189,18 +6184,16 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 key={rad}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-    e.currentTarget.blur();
-    setSelectedRadical({ radical: rad, ...info });
-    
-    // Bọc setView trong setTimeout để tạo độ trễ siêu nhỏ
-    setTimeout(() => {
-        setView('kanji_list');
-    }, 50); // Trì hoãn 50 mili-giây
-}}
-                                className="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none"
+                                    e.currentTarget.blur();
+                                    setSelectedRadical({ radical: rad, ...info });
+                                    setTimeout(() => {
+                                        setView('kanji_list');
+                                    }, 50);
+                                }}
+                                className="bg-white border border-zinc-200 md:hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all md:hover:-translate-y-1 md:hover:shadow-md active:scale-95 active:bg-zinc-200 group outline-none"
                             >
-                                <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-black mb-2">{rad}</span>
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center line-clamp-1 w-full pb-0.5">{info.name || 'Bộ thủ'}</span>
+                                <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-black mb-2">{rad}</span>
+                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center truncate w-full">{info.name || 'Bộ thủ'}</span>
                             </button>
                         ))}
                     </div>
@@ -6242,7 +6235,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         if (groups[level].length === 0) return null;
                         return (
                             <div key={level}>
-                                {/* Đã xóa border-l-4 gạch xanh ở đây */}
                                 <h4 className="text-[11px] font-black text-zinc-400 uppercase tracking-widest mb-3">CẤP ĐỘ {level} ({groups[level].length})</h4>
                                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
                                     {groups[level].map(char => {
@@ -6255,12 +6247,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                     e.currentTarget.blur();
                                                     setSelectedKanji(char);
                                                     setReplayKey(prev => prev + 1);
-                                                    setView('detail');
+                                                    setTimeout(() => {
+                                                        setView('detail');
+                                                    }, 50);
                                                 }}
                                                 className="border border-zinc-200 bg-zinc-50 md:hover:bg-zinc-900 md:hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 active:bg-zinc-200 group outline-none"
->
-    <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-white mb-1">{char}</span>
-    <span className="text-[9px] font-bold text-zinc-500 md:group-hover:text-zinc-300 uppercase truncate w-full text-center pb-0.5">{info.sound || '---'}</span>
+                                            >
+                                                <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-white mb-1">{char}</span>
+                                                <span className="text-[9px] font-bold text-zinc-500 md:group-hover:text-zinc-300 uppercase line-clamp-1 w-full text-center pb-0.5">{info.sound || '---'}</span>
                                             </button>
                                         );
                                     })}
@@ -6350,12 +6344,12 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                             </div>
                         </div>
                         
-                        {/* Căn giữa các Tag trên điện thoại, căn trái trên PC */}
                         <div className="mt-4 flex gap-2 w-full justify-center md:justify-start">
                             {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
                             {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
                         </div>
                     </div>
+                </div>
 
                 {/* Phần 2: Từ vựng đi kèm */}
                 <div className="p-4 sm:p-6 w-full">
@@ -6368,12 +6362,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-8">
                             {relatedVocab.map((vocab, i) => (
                                 <div key={i} className="p-3 bg-white border border-zinc-200 rounded-xl hover:border-zinc-400 transition-colors shadow-sm flex items-center justify-between w-full min-w-0">
-                                    <div className="flex flex-col min-w-0 pr-2 flex-1 justify-center">
-                                        {/* Fix lỗi cắt đuôi chữ (g, y, p...) bằng line-clamp-1 và đệm pb-1 */}
+                                    <div className="flex flex-col min-w-0 pr-3 flex-1 justify-center">
                                         <span className="text-base sm:text-lg font-bold text-zinc-900 line-clamp-1 w-full leading-normal pb-1" title={vocab.word}>{vocab.word}</span>
-                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 line-clamp-1 w-full leading-normal pb-1" title={vocab.meaning}>{vocab.meaning}</span>
+                                        <span className="text-[13px] sm:text-sm font-medium text-zinc-500 line-clamp-1 w-full leading-normal pb-1" title={vocab.meaning}>{vocab.meaning}</span>
                                     </div>
-                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] line-clamp-1 leading-normal pb-1">
+                                    <span className="text-[11px] sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] line-clamp-1 leading-normal pb-1">
                                         {vocab.reading}
                                     </span>
                                 </div>
@@ -6396,20 +6389,19 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                 {/* HEADER */}
                 <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
                     <div className="flex items-center gap-3">
-                        {/* Nút Back - Tắt bôi đen khi tap mobile */}
                         {view !== 'radicals' && (
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-    e.currentTarget.blur();
-    setTimeout(() => {
-        if (view === 'detail') {
-            setView(selectedRadical ? 'kanji_list' : 'radicals');
-        } else {
-            setView('radicals');
-        }
-    }, 50);
-}}
+                                    e.currentTarget.blur();
+                                    setTimeout(() => {
+                                        if (view === 'detail') {
+                                            setView(selectedRadical ? 'kanji_list' : 'radicals');
+                                        } else {
+                                            setView('radicals');
+                                        }
+                                    }, 50);
+                                }}
                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -6431,6 +6423,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         </div>
     );
 };
+
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
