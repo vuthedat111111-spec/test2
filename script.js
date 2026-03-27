@@ -6119,7 +6119,17 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
             const matches = [];
             Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
                 if (word.includes(selectedKanji)) {
-                    matches.push({ word, reading: info.reading, meaning: info.meaning });
+                    // Xử lý tự động viết hoa chữ cái đầu tiên của nghĩa Tiếng Việt
+                    let formattedMeaning = info.meaning || '';
+                    if (formattedMeaning.length > 0) {
+                        formattedMeaning = formattedMeaning.charAt(0).toUpperCase() + formattedMeaning.slice(1);
+                    }
+
+                    matches.push({ 
+                        word, 
+                        reading: info.reading, 
+                        meaning: formattedMeaning 
+                    });
                 }
             });
             matches.sort((a, b) => a.word.length - b.word.length);
@@ -6179,10 +6189,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 key={rad}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-                                    e.currentTarget.blur();
-                                    setSelectedRadical({ radical: rad, ...info });
-                                    setView('kanji_list');
-                                }}
+    e.currentTarget.blur();
+    setSelectedRadical({ radical: rad, ...info });
+    
+    // Bọc setView trong setTimeout để tạo độ trễ siêu nhỏ
+    setTimeout(() => {
+        setView('kanji_list');
+    }, 50); // Trì hoãn 50 mili-giây
+}}
                                 className="bg-white border border-zinc-200 hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none"
                             >
                                 <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-black mb-2">{rad}</span>
@@ -6243,10 +6257,10 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                     setReplayKey(prev => prev + 1);
                                                     setView('detail');
                                                 }}
-                                                className="border border-zinc-200 bg-zinc-50 hover:bg-zinc-900 hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group outline-none"
-                                            >
-                                                <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 group-hover:text-white mb-1">{char}</span>
-                                                <span className="text-[9px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase line-clamp-1 w-full text-center pb-0.5">{info.sound || '---'}</span>
+                                                className="border border-zinc-200 bg-zinc-50 md:hover:bg-zinc-900 md:hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 active:bg-zinc-200 group outline-none"
+>
+    <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-white mb-1">{char}</span>
+    <span className="text-[9px] font-bold text-zinc-500 md:group-hover:text-zinc-300 uppercase truncate w-full text-center pb-0.5">{info.sound || '---'}</span>
                                             </button>
                                         );
                                     })}
@@ -6313,7 +6327,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     </div>
 
                     {/* Thông tin Text */}
-                    <div className="flex-1 flex flex-col justify-center min-w-0 w-full">
+                    <div className="flex-1 flex flex-col justify-center min-w-0 w-full text-center md:text-left mt-4 md:mt-0">
                         <div className="mb-4 w-full">
                             <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full pb-1">{info.sound || '---'}</h2>
                             <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed pb-1" title={info.meaning || onkun.meanings?.join(', ')}>
@@ -6323,25 +6337,25 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM ON</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_on?.join('、 ')}>
                                     {onkun.readings_on && onkun.readings_on.length > 0 ? onkun.readings_on.join('、 ') : '---'}
                                 </span>
                             </div>
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm KUN (Kun'yomi)</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM KUN</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_kun?.join('、 ')}>
                                     {onkun.readings_kun && onkun.readings_kun.length > 0 ? onkun.readings_kun.join('、 ') : '---'}
                                 </span>
                             </div>
                         </div>
                         
-                        <div className="mt-3 flex gap-2 w-full">
+                        {/* Căn giữa các Tag trên điện thoại, căn trái trên PC */}
+                        <div className="mt-4 flex gap-2 w-full justify-center md:justify-start">
                             {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
                             {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
                         </div>
                     </div>
-                </div>
 
                 {/* Phần 2: Từ vựng đi kèm */}
                 <div className="p-4 sm:p-6 w-full">
@@ -6387,13 +6401,15 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-                                    e.currentTarget.blur();
-                                    if (view === 'detail') {
-                                        setView(selectedRadical ? 'kanji_list' : 'radicals');
-                                    } else {
-                                        setView('radicals');
-                                    }
-                                }}
+    e.currentTarget.blur();
+    setTimeout(() => {
+        if (view === 'detail') {
+            setView(selectedRadical ? 'kanji_list' : 'radicals');
+        } else {
+            setView('radicals');
+        }
+    }, 50);
+}}
                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
