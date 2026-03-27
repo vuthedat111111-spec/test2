@@ -2,6 +2,24 @@ const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
     const { useState, useEffect, useMemo, useRef } = React;
+//hi
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAKbrGAfg7cSo6YEmu46diFIw-1BhS_e7Q",
+  authDomain: "phadaotiengnhat.firebaseapp.com",
+  projectId: "phadaotiengnhat",
+  storageBucket: "phadaotiengnhat.firebasestorage.app",
+  messagingSenderId: "688286396656",
+  appId: "1:688286396656:web:6665419206f9abe4d95235",
+  measurementId: "G-BFP7J5D9ZN"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+//hii
+
 
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
@@ -5090,85 +5108,102 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const loadCategory = async (level) => {
-    // 1. KIỂM TRA BỘ NHỚ TẠM (CACHE)
-    // Nếu giáo trình này đã được tải trước đó, lấy ra dùng luôn và bỏ qua loading
-    if (courseCache[level]) {
-        setAllLessons(courseCache[level].data);
-        setParts(courseCache[level].parts);
-        setView('parts');
-        return; 
-    }
+        if (courseCache[level]) {
+            setAllLessons(courseCache[level].data);
+            setParts(courseCache[level].parts);
+            setView('parts');
+            return; 
+        }
 
-    // 2. NẾU CHƯA CÓ TRONG BỘ NHỚ TẠM -> BẮT ĐẦU TẢI VÀ HIỆN LOADING
-    setIsLoading(true);
-    setProgress(20);
-    try {
-        const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
-        if (!response.ok) throw new Error("Chưa có data");
-        const data = await response.json();
+        setIsLoading(true);
+        setProgress(20);
         
-        const config = MANUAL_PARTS_CONFIG[level];
-        const chunkedParts = [];
+        try {
+            let data;
+            
+            // 🔥 NẾU LÀ GIÁO TRÌNH VIP -> HÚT TỪ FIREBASE XUỐNG
+            if (level === '22baitrungthuongcap') {
+                const dbRef = ref(db);
+                
+                // 👉 ĐÂY LÀ CHỖ DÁN DÒNG CODE CỦA BẠN VÀO:
+                // Lấy toàn bộ dữ liệu ở gốc (root) của Firebase
+                const snapshot = await get(child(dbRef, '/'));
+                
+                if (snapshot.exists()) {
+                    data = snapshot.val();
+                    console.log("🔥 Đã hút dữ liệu VIP 22 bài từ gốc Firebase thành công!");
+                } else {
+                    throw new Error("Không tìm thấy data VIP trên Firebase");
+                }
+            } 
+            // 🟢 NẾU LÀ CÁC GIÁO TRÌNH CÒN LẠI -> TẢI TỪ GITHUB NHƯ CŨ
+            else {
+                const response = await fetch(`./data/sachkaiwa/sachkaiwa${level}.json`);
+                if (!response.ok) throw new Error("Chưa có data Github");
+                data = await response.json();
+            }
 
-        if (config) {
-            let currentIndex = 0;
-            config.forEach((partConfig) => {
-                const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
-                if (lessonsInPart.length > 0) {
+            // ========================================================
+            // ĐOẠN DƯỚI NÀY GIỮ NGUYÊN Y HỆT KHÔNG THAY ĐỔI GÌ CẢ
+            // ========================================================
+            const config = MANUAL_PARTS_CONFIG[level];
+            const chunkedParts = [];
+
+            if (config) {
+                let currentIndex = 0;
+                config.forEach((partConfig) => {
+                    const lessonsInPart = data.slice(currentIndex, currentIndex + partConfig.lessonCount);
+                    if (lessonsInPart.length > 0) {
+                        chunkedParts.push({
+                            title: partConfig.title,
+                            desc: partConfig.desc,
+                            lessons: lessonsInPart,
+                            startIndex: currentIndex 
+                        });
+                    }
+                    currentIndex += partConfig.lessonCount;
+                });
+
+                if (currentIndex < data.length) {
                     chunkedParts.push({
-                        title: partConfig.title,
-                        desc: partConfig.desc,
-                        lessons: lessonsInPart,
-                        startIndex: currentIndex 
+                        title: "Phần bổ sung",
+                        desc: `Các bài còn lại`,
+                        lessons: data.slice(currentIndex),
+                        startIndex: currentIndex
                     });
                 }
-                currentIndex += partConfig.lessonCount;
-            });
-
-            if (currentIndex < data.length) {
-                chunkedParts.push({
-                    title: "Phần bổ sung",
-                    desc: `Các bài còn lại`,
-                    lessons: data.slice(currentIndex),
-                    startIndex: currentIndex
-                });
+            } else {
+                const CHUNK_SIZE = 10;
+                for (let i = 0; i < data.length; i += CHUNK_SIZE) {
+                    chunkedParts.push({
+                        title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
+                        desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
+                        lessons: data.slice(i, i + CHUNK_SIZE),
+                        startIndex: i
+                    });
+                }
             }
-        } else {
-            const CHUNK_SIZE = 10;
-            for (let i = 0; i < data.length; i += CHUNK_SIZE) {
-                chunkedParts.push({
-                    title: `Phần ${Math.floor(i / CHUNK_SIZE) + 1}`,
-                    desc: `Từ bài ${i + 1} đến bài ${Math.min(i + CHUNK_SIZE, data.length)}`,
-                    lessons: data.slice(i, i + CHUNK_SIZE),
-                    startIndex: i
-                });
-            }
-        }
-        
-        // 3. LƯU DỮ LIỆU VỪA TẢI VÀO BỘ NHỚ TẠM (CACHE) ĐỂ LẦN SAU DÙNG
-        setCourseCache(prev => ({
-            ...prev,
-            [level]: {
-                data: data,
-                parts: chunkedParts
-            }
-        }));
+            
+            setCourseCache(prev => ({
+                ...prev,
+                [level]: { data: data, parts: chunkedParts }
+            }));
 
-        setAllLessons(data);
-        setParts(chunkedParts);
+            setAllLessons(data);
+            setParts(chunkedParts);
 
-        // Đẩy thanh loading lên 100% và chuyển giao diện
-        setProgress(100);
-        setTimeout(() => {
-            setView('parts'); 
+            setProgress(100);
+            setTimeout(() => {
+                setView('parts'); 
+                setIsLoading(false);
+            }, 400);
+
+        } catch (error) {
+            console.error(error);
+            alert(`Tài khoản của bạn chưa được cấp quyền xem giáo trình này!`);
             setIsLoading(false);
-        }, 400);
-
-    } catch (error) {
-        alert(`Đang cập nhật bộ dữ liệu ${level.toUpperCase()}!`);
-        setIsLoading(false);
-    }
-};
+        }
+    };
     // Thêm toàn bộ block này vào trước const renderCategories:
 
 const renderGuideOverlay = () => (
@@ -6153,8 +6188,14 @@ React.useEffect(() => {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
-    // --- TẢI DỮ LIỆU KHI VÀO TRANG ---
+    // --- TẢI DỮ LIỆU VÀ VƯỢT TRẠM GÁC FIREBASE KHI VÀO TRANG ---
     useEffect(() => {
+        // 1. Mở cửa Firebase ngầm
+        signInWithEmailAndPassword(auth, "admin@phadaotiengnhat.com", "Dat3108@")
+            .then(() => console.log("🔥 Đã vượt trạm gác Firebase thành công!"))
+            .catch(error => console.error("Lỗi trạm gác:", error.message));
+
+        // 2. Fetch các file Free từ Github như cũ
         fetchDataFromGithub().then(data => {
             if (data) {
                 setDbData(data);
