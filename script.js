@@ -6298,8 +6298,13 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                     isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-zinc-50 border-zinc-200 md:hover:bg-zinc-900 md:hover:text-white'
                                                 }`}
                                             >
-                                                <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-white'}`}>{char}</span>
-                                                <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{info.sound || '---'}</span>
+                                              
+<span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 md:group-hover:text-white'}`}>
+    {char}
+</span>
+<span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500 md:group-hover:text-zinc-300'}`}>
+    {info.sound || '---'}
+</span>
                                             </button>
                                         );
                                     })}
