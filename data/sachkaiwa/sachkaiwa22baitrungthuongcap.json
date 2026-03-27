@@ -7049,53 +7049,83 @@
       "dialogues": [
         {
           "speaker": "A",
-          "ja": "先日注文した商品がまだ届いていないんですが、どうなっていますか？",
-          "vi": "Sản phẩm tôi đặt hôm trước vẫn chưa tới, hiện giờ thế nào rồi ạ?"
+          "ja": "はい、スピード[便新宿配送](びんじんじゅくはいそう)センターでございます。",
+          "vi": "Vâng, trung tâm chuyển phát nhanh Speed Shinjuku nghe ạ."
         },
         {
           "speaker": "B",
-          "ja": "申し訳ございません。ご迷惑をおかけしております。すぐに状況を確認いたしますので、少々お待ちいただけますか？",
-          "vi": "Chúng tôi rất xin lỗi vì đã gây bất tiện. Tôi sẽ kiểm tra ngay tình trạng, anh/chị vui lòng đợi một chút được không ạ?"
+          "ja": "あ、昨日[不在連絡票](ふざいれんらくひょう)が入ってて、今日の3時までに届けてもらえるように連絡したんですけど、まだ届かないんです。",
+          "vi": "À, hôm qua lúc về tôi thấy có phiếu thông báo chưa phát bưu phẩm do vắng mặt chủ nhà nên đã liên lạc yêu cầu phát trước 3 giờ hôm nay mà giờ vẫn chưa nhận được."
         },
         {
           "speaker": "A",
-          "ja": "はい、お願いします。",
-          "vi": "Vâng, nhờ anh/chị."
+          "ja": "申し訳ございません。ただいまお調べいたします。お客様のお手もとに不在連絡票がございますか。",
+          "vi": "Rất xin lỗi bà. Tôi sẽ kiểm tra ngay bây giờ. Bà có giữ phiếu thông báo ở đó không?"
         },
         {
           "speaker": "B",
-          "ja": "お待たせいたしました。確認したところ、配送に遅れが出ているようでございます。",
-          "vi": "Xin lỗi đã để anh/chị đợi. Sau khi kiểm tra, có vẻ việc giao hàng đang bị chậm trễ."
+          "ja": "あー、あります。",
+          "vi": "Có, có đây."
         },
         {
           "speaker": "A",
-          "ja": "そうですか。いつ頃届く予定ですか？",
-          "vi": "Vậy à? Khi nào thì dự kiến sẽ giao đến?"
+          "ja": "右上にある、8[桁](けた)の[配達番号](はいたつばんごう)をお願いいたします。",
+          "vi": "Phiền bà đọc cho tôi mã số chuyển phát có 8 chữ số ở phía trên bên trái phiếu thông báo."
         },
         {
           "speaker": "B",
-          "ja": "本日中には発送され、明日中にはお届けできる見込みでございます。",
-          "vi": "Dự kiến sẽ được gửi đi trong hôm nay và có thể giao tới trong ngày mai."
+          "ja": "えっとー、464-6-9241です。",
+          "vi": "Xem nào... 465-6-9241."
         },
         {
           "speaker": "A",
-          "ja": "わかりました。ただ、急いでいるので、できるだけ早く対応していただけると助かります。",
-          "vi": "Tôi hiểu rồi. Nhưng vì tôi đang cần gấp nên mong bên anh/chị xử lý nhanh nhất có thể."
+          "ja": "はい、[中村様](なかむらさま)ですね。確かに日本３時までとうけたまわっております。ただいま、ドライバーと連絡を取って確かめまして、こちらから中村様のお宅に折り返しお電話差し上げます。",
+          "vi": "Vâng, bà Nakamura phải không ạ? Đúng là bà có yêu cầu phát trước 3 giờ chiều nay. Ngay bây giờ, tôi sẽ liên lạc với lái xe để xác nhận và gọi lại cho bà."
         },
         {
           "speaker": "B",
-          "ja": "かしこまりました。最優先で手配させていただきます。",
-          "vi": "Vâng, tôi hiểu. Chúng tôi sẽ ưu tiên xử lý ngay."
-        },
-        {
-          "speaker": "B",
-          "ja": "また、この度はご迷惑をおかけしましたこと、深くお詫び申し上げます。",
-          "vi": "Một lần nữa, chúng tôi xin chân thành xin lỗi vì sự bất tiện này."
+          "ja": "えっと、これから出かけなくちゃいけないんで、あんまり待っていられないんですが。",
+          "vi": "Ừm, tôi lại sắp phải đi bây giờ nên không đợi lâu được."
         },
         {
           "speaker": "A",
-          "ja": "よろしくお願いします。",
-          "vi": "Nhờ anh/chị."
+          "ja": "2、3分ですぐお電話差し上げられますが...",
+          "vi": "Tôi có thể gọi lại cho bà sau 2,3 phút nữa..."
+        },
+        {
+          "speaker": "B",
+          "ja": "あー、わかりました。じゃーお願いします。",
+          "vi": "Ừ, được rồi. Vậy gọi lại cho tôi nhé."
+        },
+        {
+          "speaker": "A",
+          "ja": "中村様、たいへん申し訳ございませんが、ただいま事故の影響で道路が渋滞しておりまして、そちらにお届けできるのが30分後ぐらいになるということなんですが...。",
+          "vi": "Thưa bà Nakamura, rất xin lỗi bà nhưng tình hình là đang bị tắc đường do tai nạn giao thông nên chúng tôi chỉ có thể phát sau 30 phút nữa..."
+        },
+        {
+          "speaker": "B",
+          "ja": "あー、あの、私もう家を出なきゃいけないんで、それはちょっと無理ですね。明日の3時までにしてもらえますか？",
+          "vi": "Ờ... Thế thì không được rồi vì tôi phải đi bây giờ. Các anh chuyển sang phát trước 3 giờ chiều mai được không?"
+        },
+        {
+          "speaker": "A",
+          "ja": "かしこまりました。では明日1時から3時の間にお届けいたします。ご迷惑をおかけしてたいへん申し訳ございませんでした。",
+          "vi": "Vâng, thưa bà. Vậy chúng tôi sẽ phát trong khoảng từ 1 giờ đến 3 giờ chiều mai. Chúng tôi thành thục xin lỗi vì đã làm phiền bà."
+        },
+        {
+          "speaker": "B",
+          "ja": "わかりました。じゃー、その時間でお願いします。あ、明日も3時すぎには出かけるんで、ぜったい3時までに届けてもらいたいんですけど。",
+          "vi": "ĐƯợc rồi, vậy hãy phát vào giờ đó nhé. Mà ngày mai tôi cũng phải đi lúc hơn 3 giờ nên tôi muốn chắc chắn sẽ nhận được trước 3 giờ."
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、明日は大丈夫でございます。",
+          "vi": "Vâng, ngày mai sẽ không có vấn đề gì đâu ạ."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。じゃあよろしくお願いします。",
+          "vi": "Được rồi. Vậy nhờ các anh nhé."
         }
       ]
     }
