@@ -7045,7 +7045,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p34.m4a",
   "conversations": [
     {
-      "context": "Tình huống 16",
+      "context": "Khiếu nại",
       "dialogues": [
         {
           "speaker": "A",
@@ -7103,13 +7103,13 @@
 },
   {
   "id": "35",
-  "title": "PHẦN 9 - CHUYỆN TÌNH CẢM",
+  "title": "PHẦN 8 - CHUYỆN TÌNH CẢM",
   "translation": "",
   "explanation": "",
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p35.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Chuyện tình cảm",
       "dialogues": [
         {
           "speaker": "A",
@@ -7243,7 +7243,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p36.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Xem bóng chày",
       "dialogues": [
         {
           "speaker": "A",
@@ -7322,7 +7322,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p37.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Cấp trên với cấp dưới",
       "dialogues": [
         {
           "speaker": "A",
@@ -7446,7 +7446,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p38.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Phỏng vấn tuyển dụng",
       "dialogues": [
         {
           "speaker": "A",
@@ -7530,7 +7530,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p39.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Telephone shopping",
       "dialogues": [
         {
           "speaker": "B",
@@ -7599,7 +7599,7 @@
         },
         {
           "speaker": "B",
-          "ja": こちらは、[実際](じっさい)に部屋に置いて一週間後の「スーパーフレッシュエアドライ」の吸水剤です。",
+          "ja": "こちらは、[実際](じっさい)に部屋に置いて一週間後の「スーパーフレッシュエアドライ」の吸水剤です。",
           "vi": "Đây là bột hút ẩm bên trong \"Super Fresh Air Dry\" sau khi để trong phòng một tuần."
         },
         {
@@ -7654,7 +7654,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p40.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Lễ cưới",
       "dialogues": [
         {
           "speaker": "B",
@@ -7723,7 +7723,7 @@
   "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p41.m4a",
   "conversations": [
     {
-      "context": "Tình huống 1",
+      "context": "Thuyết trình",
       "dialogues": [
         {
           "speaker": "A",
