@@ -7036,6 +7036,798 @@
       ]
     }
   ]
+},
+  {
+  "id": "34",
+  "title": "PHẦN 8 - KHIẾU NẠI",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p34.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 16",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "先日注文した商品がまだ届いていないんですが、どうなっていますか？",
+          "vi": "Sản phẩm tôi đặt hôm trước vẫn chưa tới, hiện giờ thế nào rồi ạ?"
+        },
+        {
+          "speaker": "B",
+          "ja": "申し訳ございません。ご迷惑をおかけしております。すぐに状況を確認いたしますので、少々お待ちいただけますか？",
+          "vi": "Chúng tôi rất xin lỗi vì đã gây bất tiện. Tôi sẽ kiểm tra ngay tình trạng, anh/chị vui lòng đợi một chút được không ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "はい、お願いします。",
+          "vi": "Vâng, nhờ anh/chị."
+        },
+        {
+          "speaker": "B",
+          "ja": "お待たせいたしました。確認したところ、配送に遅れが出ているようでございます。",
+          "vi": "Xin lỗi đã để anh/chị đợi. Sau khi kiểm tra, có vẻ việc giao hàng đang bị chậm trễ."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか。いつ頃届く予定ですか？",
+          "vi": "Vậy à? Khi nào thì dự kiến sẽ giao đến?"
+        },
+        {
+          "speaker": "B",
+          "ja": "本日中には発送され、明日中にはお届けできる見込みでございます。",
+          "vi": "Dự kiến sẽ được gửi đi trong hôm nay và có thể giao tới trong ngày mai."
+        },
+        {
+          "speaker": "A",
+          "ja": "わかりました。ただ、急いでいるので、できるだけ早く対応していただけると助かります。",
+          "vi": "Tôi hiểu rồi. Nhưng vì tôi đang cần gấp nên mong bên anh/chị xử lý nhanh nhất có thể."
+        },
+        {
+          "speaker": "B",
+          "ja": "かしこまりました。最優先で手配させていただきます。",
+          "vi": "Vâng, tôi hiểu. Chúng tôi sẽ ưu tiên xử lý ngay."
+        },
+        {
+          "speaker": "B",
+          "ja": "また、この度はご迷惑をおかけしましたこと、深くお詫び申し上げます。",
+          "vi": "Một lần nữa, chúng tôi xin chân thành xin lỗi vì sự bất tiện này."
+        },
+        {
+          "speaker": "A",
+          "ja": "よろしくお願いします。",
+          "vi": "Nhờ anh/chị."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "35",
+  "title": "PHẦN 9 - CHUYỆN TÌNH CẢM",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p35.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "ね、りか。この間の[合コン](ごうコン)どうだった？",
+          "vi": "Rika này. Buổi đi chơi chung hôm trước thế nào?"
+        },
+        {
+          "speaker": "B",
+          "ja": "それがさ、一人イケメンがいて、この人がけっこういい人だったんだ。",
+          "vi": "Ừ, hôm đó có một anh rất bảnh, lại là người khá tốt nữa."
+        },
+        {
+          "speaker": "A",
+          "ja": "えー、いいなー。それで？",
+          "vi": "Ồ, hay quá! Rồi sao nữa?"
+        },
+        {
+          "speaker": "B",
+          "ja": "[早速](さっそく)メアド[交換](こうかん)したんだけど、いくら待っても全然[音沙汰](おとさた)なし…。",
+          "vi": "Tớ ngay lập tức trao đổi địa chỉ e-mail nhưng đợi mãi không thấy hồi âm..."
+        },
+        {
+          "speaker": "A",
+          "ja": "そりゃ、[脈](みゃく)ないよ。",
+          "vi": "Thế thì hết hy vọng rồi."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうかな〜。けっこういい感じだったんだけどな〜。",
+          "vi": "Chẳng biết nữa. Nhưng bọn tớ đã nói chuyện khá vui đấy."
+        },
+        {
+          "speaker": "A",
+          "ja": "もうあきらめたほうがいいんじゃない？",
+          "vi": "Có lẽ cậu không nên cố thêm nữa."
+        },
+        {
+          "speaker": "B",
+          "ja": "う〜ん、[商社](しょうしゃ)マンで、バリバリ仕事してる人だから、今度こそ[玉の輿](たまのこし)って思ったんだけど…。",
+          "vi": "Ờ, anh ấy ở một công ty thương mại, lại giỏi việc nên tớ cứ nghĩ mình là chuột sa chĩnh gạo rồi kia..."
+        },
+        {
+          "speaker": "A",
+          "ja": "ま、そのうち、また合コンあるじゃない。いつかきっとこれだって人が[現](あらわ)れると思うよ。",
+          "vi": "Thôi, rồi sẽ lại có những buổi đi chơi chung khác mà. Tớ nghĩ sẽ đến lúc cậu gặp người vừa ý thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだね、「下手な[鉄砲](てっぽう)[数](かず)[撃](う)ちゃ当たる」って言うしね。ところで、[由美](ゆみ)のほうはどう？ うわさの彼とは[上手](うま)くいってるの？",
+          "vi": "Ừ, có câu \"Trăm bó đuốc cũng phải bắt được một con ếch\" mà nhỉ! Còn cậu thì sao hả Yumi? Cậu với anh chàng mà mọi người hay nói đến ấy vẫn ổn cả chứ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "えっ、どうって。まー、ぼちぼち、かな。",
+          "vi": "Hả, sao ấy à? Ờ thì cũng túc tắc."
+        },
+        {
+          "speaker": "B",
+          "ja": "ぼちぼちって？",
+          "vi": "“Túc tắc” là sao?"
+        },
+        {
+          "speaker": "A",
+          "ja": "まあまあ上手くいってるってこと。でもね、実はこの間、彼にプロポーズされたんだ。",
+          "vi": "Là cũng tàm tạm ổn. Mà này, thực ra là mới đây anh ấy đã cầu hôn tớ đấy."
+        },
+        {
+          "speaker": "B",
+          "ja": "えー、すごい。やったじゃない！ で、なんて言われたの？",
+          "vi": "Ôi, tuyệt thật đấy. Nhất cậu còn gì! Thế, anh ấy nói gì với cậu?"
+        },
+        {
+          "speaker": "A",
+          "ja": "それがね、フフフ…。",
+          "vi": "Lại kể đến chuyện ấy... Hi hi hi,..."
+        },
+        {
+          "speaker": "B",
+          "ja": "え、何？",
+          "vi": "Sao? Có chuyện gì?"
+        },
+        {
+          "speaker": "A",
+          "ja": "この間、[神社](じんじゃ)の前を通りかかったら、ちょうど[結婚式](けっこんしき)をやってて、[白無垢姿](しろむくすがた)のお[嫁](よめ)さんが見えたのね。そしたら、彼が「あれ、[着](き)てみない？」って急に言い出して…。私、びっくりしちゃった。",
+          "vi": "Hôm ấy, đúng lúc bọn tớ đi ngang qua một ngôi đền thì gặp ngay một đám cưới và trông thấy một cô dâu mặc bộ đồ trắng muốt. Bỗng nhiên anh ấy nói \"Em... có muốn thử mặc bộ đồ đó không?\" khiến tớ ngạc nhiên quá."
+        },
+        {
+          "speaker": "B",
+          "ja": "それってプロポーズなの？ 彼ってシャイなんだね。",
+          "vi": "Thế là cầu hôn ư? Anh ấy nhút nhát quá nhỉ!"
+        },
+        {
+          "speaker": "A",
+          "ja": "うん、そうなの。でも、もっと[気](き)の利いたこと言ってほしいよね。",
+          "vi": "Ừ, đúng vậy đấy. Dù sao tớ vẫn muốn anh ấy nói điều gì đó khéo khéo hơn một chút."
+        },
+        {
+          "speaker": "B",
+          "ja": "まー、いいじゃない。[贅沢](ぜいたく)言わないの！ で、由美、何て答えたの？",
+          "vi": "Thôi, thế cũng tốt mà. Đừng đòi hỏi quá nhiều! Thế, cậu trả lời sao, Yumi?"
+        },
+        {
+          "speaker": "A",
+          "ja": "「私はウェディングドレスのほうがいいんだけどな…」って答えたんだけどね。",
+          "vi": "Tớ trả lời là \"Em thích mặc váy cưới hơn cơ...\""
+        },
+        {
+          "speaker": "B",
+          "ja": "へー、で、彼は何て？",
+          "vi": "Ôi, thế anh ấy nói sao?"
+        },
+        {
+          "speaker": "A",
+          "ja": "「君がウェディングドレスがいいなら、僕もタキシードにするよ」だって。",
+          "vi": "Anh ấy nói \"Nếu em muốn mặc váy cưới thì anh cũng sẽ mặc vét đuôi tôm\"."
+        },
+        {
+          "speaker": "B",
+          "ja": "ふーん、そうなんだ。じゃ、プロポーズ[成立](せいりつ)ってわけか。",
+          "vi": "Ồ, thế à. Vậy là lời cầu hôn được chấp nhận rồi."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "36",
+  "title": "PHẦN 8 - XEM ĐẤU BÓNG CHÀY",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p36.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "もう、あのバッターなんだっけ？ そうだ、[松田](まつだ)だよ！ おい、ちゃんと[球](たま)見ろよ！ 早く引っ[込](こ)め、こら。",
+          "vi": "\"Hừm, tay đánh bóng ấy tên gì nhỉ? Phải rồi, Matsuda! Ê, nhìn bóng cho kỹ vào! Thôi, biến cho sớm đi!\""
+        },
+        {
+          "speaker": "B",
+          "ja": "そうだそうだ。野球なんてやめちまえ。ツーアウトだぞ。もう後がないぞー。",
+          "vi": "Đúng đấy, đúng đấy! Thôi chơi bóng chày luôn đi! Trượt 2 phát rồi. Còn nước gì nữa!"
+        },
+        {
+          "speaker": "A",
+          "ja": "お、[次](つぎ)は[清川](きよかわ)か。あいつは今[調子](ちょうし)がいいから、[頼](たの)むぞー、[打](う)ってくれ。かっ飛ばせー、清川！ フレー、フレー、ホワイトソックス！",
+          "vi": "Ồ, tiếp theo là Kiyokawa à? Tay này phong độ đang ngon. Cố lên nhé! Phang cho trúng vào. Đánh bay bóng đê! Kiyokawa! Cố lên, cố lên! White Sox!"
+        },
+        {
+          "speaker": "B",
+          "ja": "あと一点で同点か。打て打て、清川！ あんなへなちょこピッチャー、こてんぱんにやっちまえ！ おっ、打った打った！ [伸](の)びてる。入るかー？",
+          "vi": "Chỉ còn 1 điểm nữa là hòa. Đánh đê, đánh đê, Kiyokawa! Thằng ném bóng chíp hôi ấy, cho nó biết tay đê! Ồ, trúng rồi, trúng rồi! Bay cao quá. Có được không đây...?"
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、おしいなー。ファールか。次はちゃーんと[球](たま)見ていけ。",
+          "vi": "Ôi, tiếc quá! Lỗi rồi! Quả sau phải nhắm cho kỹ vào!"
+        },
+        {
+          "speaker": "B",
+          "ja": "次はどうだ？ おー、[落](お)ちついて打ってくれよ。",
+          "vi": "Để xem quả sau nào. Hừm, bình tĩnh mà đánh đấy!"
+        },
+        {
+          "speaker": "A",
+          "ja": "そうだ。やれっ、やれっ！ またファールか。もっとバットの[芯](しん)に[当](あ)てないと。",
+          "vi": "Phải rồi! Đánh đê, đánh đê! Lại lỗi rồi! Phải nhắm vào giữa gậy kia."
+        },
+        {
+          "speaker": "B",
+          "ja": "ピッチャーも今日はコントロールがさえてるし。",
+          "vi": "Mà tay ném bóng hôm nay cũng khéo nữa."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー。ツーストライクか。[追](お)い込まれたなー。",
+          "vi": "Ôi, two-strike cơ à? Vậy là xong rồi còn gì..."
+        },
+        {
+          "speaker": "B",
+          "ja": "はあ〜、なんだよ。[見逃](みのが)しの三振か、まったく[情](なさ)けないな。",
+          "vi": "Hừm... Thế này là sao! Bị loại vì đánh trượt ư? Thật là quá tệ!"
+        },
+        {
+          "speaker": "A",
+          "ja": "[肝心](かんじん)な時に打てないんじゃ、だめだな、あれは。また[負](ま)けたよ。",
+          "vi": "Lúc cần nhất mà không đánh được thì vứt thôi. Lại thua nữa rồi!"
+        },
+        {
+          "speaker": "B",
+          "ja": "こんな調子じゃ、[優勝](ゆうしょう)なんて夢のまた[夢](ゆめ)だな。いつになったらうまいビールが飲めるんだよ、まったく。",
+          "vi": "Cứ thế này thì chức vô địch chỉ là mơ trong mơ thôi. Biết đến bao giờ mới được uống bia mừng chiến thắng đây."
+        },
+        {
+          "speaker": "A",
+          "ja": "も、帰ろ帰ろ。",
+          "vi": "Thôi, về thôi!"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "37",
+  "title": "PHẦN 8 - CẤP TRÊN VỚI CẤP DƯỚI",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p37.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "[山田君](やまだくん)、ちょっと、今いいかな。",
+          "vi": "Yamada này, giờ có rảnh chút không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、[部長](ぶちょう)。",
+          "vi": "Vâng, thưa trưởng phòng."
+        },
+        {
+          "speaker": "A",
+          "ja": "急で悪いんだけど、山田君に[頼](たの)みたいことがあるんだよ。",
+          "vi": "Xin lỗi cậu hơi đột xuất một chút nhưng có việc này tôi muốn nhờ cậu."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、どのようなことでしょうか。",
+          "vi": "Vâng, việc gì thế ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "うちの[九州地区](きゅうしゅうちく)のお[得意様](とくいさま)のKBB[電機](でんき)さんの接待の[件](けん)なんだけどね…。",
+          "vi": "Về việc đón tiếp công ty thiết bị điện KBB - khách hàng quan trọng của chúng ta ở khu vực Kyushu ấy mà..."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、はい。",
+          "vi": "À, vâng ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "うちの社長にうかがったんだけど、山田君はKBB電機さんの社長のお[孫](まご)さんなんだって？",
+          "vi": "Tôi nghe giám đốc nói, cậu là cháu của ngài giám đốc KBB phải không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい…。私の[母方](ははかた)の[祖父](そふ)ですが…。",
+          "vi": "Vâng... Đó là ông ngoại em ạ..."
+        },
+        {
+          "speaker": "A",
+          "ja": "いや〜、知らなかったよー。ところで、実は、今週の金曜日にKBB電機さんの社長とうちの社長が[会食](かいしょく)をする[予定](よてい)になっていてね。",
+          "vi": "Ôi trời, tôi đâu có biết. Thực ra thì thứ Sáu tuần này, giám đốc công ty chúng ta định dùng bữa cùng ngài giám đốc công ty thiết bị điện KBB."
+        },
+        {
+          "speaker": "B",
+          "ja": "あ、そうなんですか。",
+          "vi": "Ồ, thế ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "それで、せっかくだから、会食の時に山田君にも[出席](しゅっせき)してもらったらどうかとうちの社長がおっしゃるんだよ。",
+          "vi": "Cũng chẳng mấy khi có dịp như vậy nên giám đốc công ty chúng ta hỏi không biết cậu có tham dự bữa đó được không."
+        },
+        {
+          "speaker": "B",
+          "ja": "[私](わたし)がですか？",
+          "vi": "Em ấy ạ?"
+        },
+        {
+          "speaker": "A",
+          "ja": "うん、KBB電機さんの社長はめったに[上京](じょうきょう)なさらないそうだし…、山田君とも[久](ひさ)しぶりにお会いになりたいんじゃないかな？",
+          "vi": "Ừ, nghe nói ngài giám đốc KBB chẳng mấy khi lên Tokyo... Và chắc lâu lâu cũng muốn gặp cậu đúng không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "はあ…。しかし、部長、こんなことを申し上げては何ですが、祖父には仕事とプライベートを[混同](こんどう)してはいけないといつも言われていますが…。",
+          "vi": "Ôi... Thưa trưởng phòng, xin lỗi em nói điều này nhưng ông em luôn bảo em không được lẫn lộn công việc với đời tư ạ..."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、それは[十分承知](じゅうぶんしょうち)してるんだが、まあ今回は[特別](とくべつ)ということで。",
+          "vi": "Ồ, tôi rất hiểu điều đó, nhưng thôi, cứ coi lần này là ngoại lệ."
+        },
+        {
+          "speaker": "B",
+          "ja": "わかりました。それでは、お[言葉](ことば)に[甘](あま)えて[出席](しゅっせき)させていただきます。",
+          "vi": "Vâng. Vậy em xin nghe lời trưởng phòng, tham dự bữa đó ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "頼むよ。何てったって、うちの社長のご[提案](ていあん)なんだからね。",
+          "vi": "Nhờ cậu đấy nhé. Dù sao chăng nữa, đây cũng là đề xuất của giám đốc công ty chúng ta mà."
+        },
+        {
+          "speaker": "B",
+          "ja": "[光栄](こうえい)です。では、祖父にはサプライズということにして…。",
+          "vi": "Cảm ơn đã chiếu cố đến em. Vậy cứ coi như một sự ngạc nhiên em giành cho ông ngoại..."
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。ところで、お[祖父様](じいさま)はどんなものがお好きなのかな？",
+          "vi": "Ừ. Mà này, ông cậu thích món gì vậy?"
+        },
+        {
+          "speaker": "B",
+          "ja": "そうですねー。祖父は「[今十](いまじゅう)」の牛肉が好きで、母がよく送ったりしてますけど…。",
+          "vi": "Để xem nào... Ông em thích thịt bò Imagyu nên mẹ em vẫn hay gửi cho ông..."
+        },
+        {
+          "speaker": "A",
+          "ja": "じゃっ、それで決まりだな。うちの社長も「[今十](いまじゅう)」好きだし、ちょうどよかった。じゃー、細かいことは後で連絡するから、頼んだよ。",
+          "vi": "Vậy là quyết định rồi. Vừa hay, giám đốc công ty ta cũng thích Imagyu. Được rồi, cụ thể tôi sẽ báo cho cậu sau. Cứ vậy nhé!"
+        },
+        {
+          "speaker": "B",
+          "ja": "はい、[承知](しょうち)しました。",
+          "vi": "Vâng, rõ rồi ạ!"
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "38",
+  "title": "PHẦN 8 - PHỎNG VẤN TUYỂN DỤNG",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p38.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "では、[李](い)さんが[弊社](へいしゃ)でやりたいと思っていることを話してください。",
+          "vi": "Nào, cô Lee hãy trình bày việc cô muốn làm ở công ty của chúng tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。えー、[近年](きんねん)、韓国ドラマブームをきっかけに、日本では韓国に対する[関心](かんしん)が高まっていると思います。韓国へ旅行に来る日本の方もずいぶん[増](ふ)えました。",
+          "vi": "Vâng. Những năm gần đây, nhờ phim truyền hình Hàn Quốc mà có vẻ như ở Nhật Bản, mọi người ngày càng quan tâm hơn tới Hàn Quốc, du khách Nhật Bản đến Hàn Quốc đã tăng lên đáng kể."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですね。",
+          "vi": "Đúng vậy."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。そこで、そういう日本の方に、韓国の[家庭](かてい)にホームステイしてもらえるようなツアーを[開発](かいはつ)してみたいと思っています。",
+          "vi": "Vâng. Vì vậy tôi muốn thử mở tour cho du khách Nhật Bản đến ở home-stay trong gia đình Hàn Quốc."
+        },
+        {
+          "speaker": "A",
+          "ja": "ははあ。韓国の家庭にホームステイですか。今までに李さんは外国でホームステイしたり、[反対](はんたい)に[受](う)け入れたりした[経験](けいけん)があるんですか？",
+          "vi": "Hay đấy! Home-stay trong gia đình Hàn Quốc đúng không? Thế cô đã bao giờ home-stay ở nước ngoài, hoặc nhận khách home-stay ở nhà mình bao giờ chưa?"
+        },
+        {
+          "speaker": "B",
+          "ja": "いいえ、[残念](ざんねん)ながらありません。",
+          "vi": "Chưa ạ. Rất tiếc là chưa ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "あー、ではホームステイについてのノウハウとか、プランを立てる[際](さい)のツボとかを研究したことは？",
+          "vi": "Ừm, thế cô đã bao giờ nghiên cứu về cách home-stay hay các bí quyết khi lập kế hoạch chưa?"
+        },
+        {
+          "speaker": "B",
+          "ja": "いいえ、まだありませんが、これから勉強するつもりです。夏休みには[北海道](ほっかいどう)の[農家](のうか)にホームステイする[予定](よてい)です。また、日本人を受け入れたことがある韓国人の友人から、そのときの経験について聞き取りをする[約束](やくそく)をしました。そして、気がついたことをまとめていこうと思っています。",
+          "vi": "Chưa, cũng chưa, nhưng tôi sẽ học. Kỳ nghỉ hè tới, tôi định sẽ home-stay ở một gia đình nông dân Hokkaido. Ngoài ra, tôi cũng đã hẹn sẽ phỏng vấn về kinh nghiệm của một người bạn Hàn Quốc đã từng nhận khách Nhật Bản home-stay. Sau đó, tôi sẽ tổng kết lại những gì mình thu nhận được."
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。まー、おもしろい[発想](はっそう)だとは思うんですがね。あー、こういうプランは[留学斡旋会社](りゅうがくあっせんがいしゃ)なんかでやってみたほうがいいんじゃないかな。うちではまだやったことないし、[未知数](みちすう)だね。",
+          "vi": "Ừm. Tôi thấy ý tưởng của cô cũng hay đấy. Có lẽ cô nên thử kế hoạch này ở một công ty hỗ trợ lưu học xem sao. Chúng tôi chưa làm việc này bao giờ và cũng nhiều yếu tố chưa chắc chắn."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうかもしれませんが、留学斡旋専門の会社では、学生が中心だと思うんです。でも、私は、学生よりもむしろ[一般](いっぱん)の社会人の方、[高齢](こうれい)の方などを[対象](たいしょう)にしたものを作ってみたいと考えています。",
+          "vi": "Có thể đúng như vậy, nhưng các công ty chuyên hỗ trợ lưu học thì họ chú trọng đến sinh viên. Còn tôi muốn thử mở tour nhắm tới đối tượng là những người đã ra trường hoặc người cao tuổi kia."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか。ま、ほかでやっているのとどう[差別化](さべつか)を[図](はか)るかが問題でしょうね。",
+          "vi": "Vậy hả? Vấn đề là khác biệt hóa thế nào với những công ty khác kia."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。そのあたりを研究して、[実現](じつげん)に[向](む)けて[努力](どりょく)したいと思います。",
+          "vi": "Vâng. Tôi muốn cố gắng nghiên cứu để thực hiện chính điều đó đấy ạ."
+        },
+        {
+          "speaker": "A",
+          "ja": "そうですか。ところで李さんはどうして日本で就職しようと思ったんですか？ 韓国の会社でも同じようなことは[出来](でき)ると思いますけど。",
+          "vi": "Vậy hả? Mà, tại sao cô lại muốn xin việc ở công ty của Nhật Bản? Tôi nghĩ cô có thể làm được điều tương tự ở một công ty của Hàn Quốc mà."
+        },
+        {
+          "speaker": "B",
+          "ja": "はい。[確](たし)かに韓国にある会社でも[可能](かのう)だとは思いますが、日本の文化や[風土](ふうど)をよく[理解](りかい)することがこの仕事には[重要](じゅうよう)だと思いますので、日本の会社で働きたいと考えています。",
+          "vi": "Vâng. Đúng là cũng có thể làm được điều đó ở một công ty Hàn Quốc, nhưng tôi nghĩ, đối với công việc này, điều quan trọng là hiểu rõ văn hóa, phong tục của Nhật Bản nên tôi muốn được làm việc ở một công ty Nhật Bản."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "39",
+  "title": "PHẦN 8 - TELEPHONE SHOPPING",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p39.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "B",
+          "ja": "さー、「さわやかテレフォンショッピング」の時間がやってまいりました。",
+          "vi": "Nào, chúng ta cùng đến với chương trình \"Sawayaka Telephone Shopping\" nhé."
+        },
+        {
+          "speaker": "B",
+          "ja": "[本日](ほんじつ)は、「さわやかテレフォンショッピング」をご[覧](らん)いただいている[皆様](みなさま)だけにご[紹介](しょうかい)させていただく[商品](しょうひん)のご[案内](あんない)です。",
+          "vi": "Hôm nay, chúng tôi xin giới thiệu sản phẩm chỉ dành riêng cho các khán giả của chương trình \"Sawayaka Telephone Shopping\" mà thôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "[早速](さっそく)、メモをご[用意](ようい)の上、商品の[素晴](すば)らしさをその目でお[確](たし)かめください。",
+          "vi": "Các bạn hãy nhanh tay chuẩn bị ghi chép lại và tận mắt cảm nhận sự tuyệt vời của sản phẩm này nhé."
+        },
+        {
+          "speaker": "B",
+          "ja": "[梅雨時](つゆどき)はジメジメと[湿気](しっけ)が多く、お[部屋](へや)にいても気分がスッキリしない毎日が[続](つづ)きますね。",
+          "vi": "Vào mùa mưa, ngày nào chúng ta cũng cảm thấy không thoải mái vì độ ẩm cao khiến mọi thứ nhớp nháp."
+        },
+        {
+          "speaker": "B",
+          "ja": "エアコンの[送風](そうふう)をお[使](つか)いのご[家庭](かてい)も多いようですが、けっこう[電気代](でんきだい)もバカになりません。",
+          "vi": "Nhiều gia đình sử dụng chế độ thông gió của điều hòa nhưng rất tốn tiền điện đúng không?"
+        },
+        {
+          "speaker": "B",
+          "ja": "小さなお子様がいらっしゃるご家庭では、[風](かぜ)がお子様の体に[直接](ちょくせつ)あたって[風邪](かぜ)をひかせてしまった、というようなお話もよく聞きます。",
+          "vi": "Chúng ta cũng thường nghe mọi người kể nhiều nhà có trẻ con bị gió thổi vào người nên bị cảm."
+        },
+        {
+          "speaker": "B",
+          "ja": "そこで、本日ご紹介させていただくのが、こちらの「スーパーフレッシュエアドライ」でございます。",
+          "vi": "Và chính vì thế, hôm nay chúng tôi xin giới thiệu với các bạn sản phẩm \"Super Fresh Air Dry\" này."
+        },
+        {
+          "speaker": "B",
+          "ja": "この「スーパーフレッシュエアドライ」は、お部屋に[置](お)いていただくだけで、ジメジメと湿った[空気](くうき)をグングン[吸](す)い[取](と)り、[高原](こうげん)にいるような[爽](さわ)やかな気分にさせてくれる、まさに[奇跡](きせき)の商品でございます。",
+          "vi": "Bạn chỉ cần để hộp \"Super Fresh Air Dry\" trong phòng là nó sẽ liên tục hút không khí ẩm, khiến cho bạn cảm thấy sảng khoái như đang ở giữa cao nguyên vậy. Sản phẩm này đúng là một kỳ tích."
+        },
+        {
+          "speaker": "B",
+          "ja": "ご覧のように[超小型設計](ちょうこがたせっけい)ですから、お部屋の[片隅](かたすみ)に置いていただいてもまったく[邪魔](じゃま)になりません。",
+          "vi": "Như các bạn thấy, với cấu tạo siêu nhỏ gọn, các bạn có thể đặt nó trong góc phòng mà không hề cảm thấy chướng."
+        },
+        {
+          "speaker": "B",
+          "ja": "[直径](ちょっけい)15センチ、高さ30センチで、デザインもシンプルですので、どんなインテリアにもすっきり[調和](ちょうわ)いたします。",
+          "vi": "Với đường kính 15cm, chiều cao 30cm, thiết kế tối giản, nó có thể hài hòa với bất kỳ thiết kế nội thất nào."
+        },
+        {
+          "speaker": "B",
+          "ja": "カラーも、ホワイト・ベージュ・ブラック・ブラウンと４[色](しょく)ご[用意](ようい)いたしました。",
+          "vi": "Chúng tôi cũng đã chuẩn bị tới bốn màu trắng, be, đen, nâu cho sự lựa chọn của các bạn."
+        },
+        {
+          "speaker": "B",
+          "ja": "[本体](ほんたい)ケースには、[当社独自](とうしゃどくじ)の[製法](せいほう)で[吸水力](きゅうすいりょく)50パーセントアップに[成功](せいこう)した[粉末状](ふんまつじょう)の[吸水剤](きゅうすいざい)が[入](はい)っております。",
+          "vi": "Bên trong hộp chính là bột hút ẩm được sản xuất theo phương pháp đặc biệt của công ty chúng tôi, tăng khả năng hút ẩm thêm 50%."
+        },
+        {
+          "speaker": "B",
+          "ja": "ご覧ください。",
+          "vi": "Các bạn hãy xem."
+        },
+        {
+          "speaker": "B",
+          "ja": こちらは、[実際](じっさい)に部屋に置いて一週間後の「スーパーフレッシュエアドライ」の吸水剤です。",
+          "vi": "Đây là bột hút ẩm bên trong \"Super Fresh Air Dry\" sau khi để trong phòng một tuần."
+        },
+        {
+          "speaker": "B",
+          "ja": "一週間で空気中の[水分](すいぶん)が2リットルも[吸収](きゅうしゅう)されていることがご覧になれます。",
+          "vi": "Các bạn có thể nhận thấy là sau một tuần, nó đã hút đến 2 lít nước trong không khí."
+        },
+        {
+          "speaker": "B",
+          "ja": "これは、もうミラクルとしか言えません。",
+          "vi": "Chúng ta chỉ có thể nói rằng đây là một phép màu."
+        },
+        {
+          "speaker": "B",
+          "ja": "ぜひ、皆様のお[宅](たく)でもお使いいただき、この[効果](こうか)を[体感](たいかん)していただきたいと[思](おも)います。",
+          "vi": "Rất mong các bạn hãy thử dùng ở nhà mình để có thể tự trải nghiệm hiệu quả của nó."
+        },
+        {
+          "speaker": "B",
+          "ja": "では、お[値段](ねだん)とお[申](もう)し[込](こ)み[方法](ほうほう)を申し上げましょう。",
+          "vi": "Nào, tôi xin gửi đến các bạn thông tin về giá bán và phương thức đăng ký mua sản phẩm."
+        },
+        {
+          "speaker": "B",
+          "ja": "ケース一[個](こ)と吸水剤30個のセットで、[特別価格](とくべつかかく)、[何](なん)と4980円、4980円でお[求](もと)めいただけます。",
+          "vi": "Giá bán đặc biệt cho một bộ gồm 1 vỏ hộp và 30 gói bột hút ẩm chỉ có 4980 Yên, vâng, chỉ với 4980 Yên, các bạn đã có thể sở hữu sản phẩm này."
+        },
+        {
+          "speaker": "B",
+          "ja": "[今回](こんかい)はさらに、吸水剤を10個お[付](つ)けいたします。",
+          "vi": "Nhân dịp này, chúng tôi còn tặng thêm 10 gói bột hút ẩm nữa."
+        },
+        {
+          "speaker": "B",
+          "ja": "さあ、このチャンスをお[見逃](みのが)しなく。",
+          "vi": "Nào, đừng bỏ lỡ cơ hội này."
+        },
+        {
+          "speaker": "B",
+          "ja": "お申し込みはフリーダイヤルでお[受](う)けいたします。",
+          "vi": "Chúng tôi xin nhận điện thoại đặt hàng của các bạn qua số tổng đài miễn phí."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "40",
+  "title": "PHẦN 8 - LỄ CƯỚI",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p40.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "B",
+          "ja": "[本日](ほんじつ)はお[忙](いそが)しい中、またはるばる[遠方](えんぽう)から私どもの[結婚披露宴](けっこんひろうえん)においでいただき、まことにありがとうございます。",
+          "vi": "Tôi xin gửi lời cảm ơn chân thành đến các quý vị, ngày hôm nay, trong lúc bận rộn vẫn không quản đường xa đến dự tiệc mừng sau lễ cưới của chúng tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "生まれた国も言葉も[違](ちが)う私たち二人がこの東京で出会いまして、３年間の[交際](こうさい)を[経](へ)て本日こうして皆様の前で結婚のご[報告](ほうこく)をすることができましたことは、私たちにとって[最高](さいこう)の[喜](よろこ)びです。",
+          "vi": "Hai chúng tôi, vốn sinh ra ở những đất nước khác nhau, với ngôn ngữ khác nhau, rồi gặp gỡ ở Tokyo, để rồi sau 3 năm tìm hiểu lẫn nhau, ngày hôm nay, chúng tôi vô cùng vui mừng được thông báo với các quý vị về việc kết hôn của mình."
+        },
+        {
+          "speaker": "B",
+          "ja": "私がスペインの大学を[卒業](そつぎょう)して21[歳](さい)で来日したとき、東京には一人の知り合いもいませんでした。",
+          "vi": "Khi tôi đến Nhật Bản năm 21 tuổi, sau khi tốt nghiệp đại học ở Tây Ban Nha, tôi không có lấy một người quen ở Tokyo."
+        },
+        {
+          "speaker": "B",
+          "ja": "日本語も[当時](とうじ)は[挨拶程度](あいさつていど)しかできず、せまいアパートで[自炊](じすい)をして日本語学校へ[通](かよ)い、[慣](な)れない生活に、夜、暗い部屋に帰りますと本当に寒くて、一人でご飯を食べて…、そういう毎日でした。",
+          "vi": "Hồi ấy tiếng Nhật của tôi chỉ biết chào hỏi, tôi sống trong một căn chung cư nhỏ, tự nấu ăn và theo học một trường tiếng Nhật. Giữa cuộc sống xa lạ, hàng tối, tôi trở về căn phòng tối và rất lạnh, ngồi ăn một mình... Ngày nào cũng vậy..."
+        },
+        {
+          "speaker": "B",
+          "ja": "それから少しずつ日本語もわかるようになり、友人もでき、またバイトも始めるようにもなり、東京の生活が[軌道](きどう)に乗りはじめた[頃](ころ)、友人の[岩城潤一君](いわきじゅんいちくん)、今日も[出席](しゅっせき)してもらっていますが、岩城君の[紹介](しょうかい)で[夕子](ゆうこ)さんと出[逢](あ)いました。",
+          "vi": "Rồi dần dần, tôi hiểu tiếng Nhật nhiều hơn, có thêm bạn, bắt đầu đi làm thêm, rồi đúng lúc cuộc sống của tôi ở Tokyo bắt đầu đi vào quỹ đạo thì một người bạn của tôi - anh Junichi Iwaki, hôm nay cũng có mặt tại đây, qua giới thiệu của anh ấy, tôi đã được gặp Yuko."
+        },
+        {
+          "speaker": "B",
+          "ja": "今日ここで、人と人との出逢い、つながりの大切さというものを[改](あらた)めて感じております。",
+          "vi": "Ngày hôm nay, tại nơi này, một lần nữa tôi lại cảm nhận được ý nghĩa quan trọng của những cuộc hội ngộ, của sự gắn kết giữa con người với con người."
+        },
+        {
+          "speaker": "B",
+          "ja": "私たちには[財産](ざいさん)と呼べるようなものは何もありません。",
+          "vi": "Hai chúng tôi không có gì đáng để gọi là tài sản."
+        },
+        {
+          "speaker": "B",
+          "ja": "ただ、今日こうして皆様にお[越](こ)しいただき、お祝いの[言葉](ことば)をいただき、このつながりが私たち二人の[掛](か)け[替](が)えのない財産だと感じております。",
+          "vi": "Nhưng tôi cảm thấy sự có mặt của các quý vị ngày hôm nay cùng với những lời chúc tốt đẹp, chính sự gắn kết này là tài sản không gì sánh được của hai chúng tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "これからは、お[互](たが)い手を取り合って[協力](きょうりょく)し[笑顔](えがお)の[絶](た)えない家庭にしていきたいと思います。",
+          "vi": "Từ nay về sau, chúng tôi sẽ nắm chặt tay nhau, cùng nhau tạo dựng một gia đình luôn tràn ngập tiếng cười."
+        },
+        {
+          "speaker": "B",
+          "ja": "そして皆様、今後とも私たち二人をお[見守](みまも)り、ご[指導](しどう)くださいますようお願いいたします。",
+          "vi": "Mong các quý vị hãy tiếp tục giúp đỡ và chỉ bảo cho chúng tôi."
+        },
+        {
+          "speaker": "B",
+          "ja": "本日は、本当に、ありがとうございました。",
+          "vi": "Xin chân thành cảm ơn các quý vị."
+        }
+      ]
+    }
+  ]
+},
+  {
+  "id": "41",
+  "title": "PHẦN 8 - THUYẾT TRÌNH",
+  "translation": "",
+  "explanation": "",
+  "audioPath": "./data/filenghesachkaiwa/sdn2/sdn2p41.m4a",
+  "conversations": [
+    {
+      "context": "Tình huống 1",
+      "dialogues": [
+        {
+          "speaker": "A",
+          "ja": "先月、ドイツで行われた[営業会議](えいぎょうかいぎ)に[中村課長](なかむらかちょう)が出席されました。",
+          "vi": "Trưởng nhóm Nakamura đã tham dự hội nghị kinh doanh được tổ chức ở Đức tháng trước."
+        },
+        {
+          "speaker": "A",
+          "ja": "会議には[欧州内](おうしゅうない)18[支社](ししゃ)のマネージャーが集まり、[薄型](うすがた)テレビの売り上げについて話し合われました。",
+          "vi": "Các giám đốc chi nhánh ở khu vực châu Âu đã tham dự hội nghị này và họp bàn về doanh thu bán TV màn hình mỏng."
+        },
+        {
+          "speaker": "A",
+          "ja": "今日は中村課長から、先月の会議に関してどのようなことが話し合われたのか、また今後の[方向](ほうこう)等について[発表](はっぴょう)をしていただきます。",
+          "vi": "Ngày hôm nay, trưởng nhóm Nakamura sẽ trình bày về những nội dung đã được bàn đến trong hội nghị tháng trước và định hướng trong thời gian tới."
+        },
+        {
+          "speaker": "A",
+          "ja": "では、[早速](さっそく)、中村課長、よろしくお願いします。",
+          "vi": "Ngay sau đây, xin mời trưởng nhóm Nakamura thực hiện phần báo cáo của mình."
+        },
+        {
+          "speaker": "B",
+          "ja": "よろしくお願いします。",
+          "vi": "Xin cảm ơn các quý vị."
+        },
+        {
+          "speaker": "B",
+          "ja": "あのー、[電気](でんき)[落](お)としてもらえますか。あ、すみません。",
+          "vi": "Ờ..., làm ơn tắt đèn giúp tôi. Vâng, xin cảm ơn."
+        },
+        {
+          "speaker": "B",
+          "ja": "では、早速ですが、まずこちらの円グラフをご[覧](らん)ください。",
+          "vi": "Nào, xin mời quý vị cùng xem biểu đồ tròn này."
+        },
+        {
+          "speaker": "B",
+          "ja": "こちらはヨーロッパでの薄型テレビの[普及率](ふきゅうりつ)です。",
+          "vi": "Đây là tỷ lệ phổ cập TV màn hình mỏng ở châu Âu."
+        },
+        {
+          "speaker": "B",
+          "ja": "[現在](げんざい)普及しているテレビの42％がすでに薄型テレビに[移行](いこう)し、今後およそこの2、3年の間で薄型テレビの普及率は70％に近づくと考えられています。",
+          "vi": "Hiện nay, 42% TV ở châu Âu đã là TV màn hình mỏng và người ta cho rằng trong 2 đến 3 năm tới, tỷ lệ phổ cập TV màn hình mỏng sẽ đạt tới gần 70%."
+        },
+        {
+          "speaker": "B",
+          "ja": "さらに、5年[以内](いない)には8[割強](わりきょう)が薄型に移行する[見込](みこ)みです。",
+          "vi": "Dự báo là trong vòng 5 năm tới, hơn 80% TV sẽ là loại màn hình mỏng."
+        },
+        {
+          "speaker": "B",
+          "ja": "では、現在普及しているこの42％の[内訳](うちわけ)ですが、わが社は[業界](ぎょうかい)で半年ぶりに2位まで[巻](ま)き[返](かえ)しました。",
+          "vi": "Sau đây là nội dung chi tiết của con số 42% đã nêu. Sau nửa năm, công ty chúng ta giành lại vị trí thứ 2."
+        },
+        {
+          "speaker": "B",
+          "ja": "[次](つぎ)にこちらのスライドをご覧ください。これは[過去](かこ)1年間のわが社の売り上げの[推移](すいい)です。",
+          "vi": "Tiếp theo xin hãy xem slide này. Đây là thống kê diễn biến doanh thu của công ty chúng ta trong một năm qua."
+        },
+        {
+          "speaker": "B",
+          "ja": "[販売台数](はんばいだいすう)は昨年の10月頃から[徐々](じょじょ)に伸び、11月と12月に[波状](はじょう)的に行ったキャンペーンにより、[飛躍的](ひやくてき)に販売台数が[増](ふ)えました。",
+          "vi": "Kể từ khoảng tháng 10 năm ngoái, doanh số bán hàng đã tăng dần lên, nhất là nhờ vào các chiến dịch khuyến mãi dồn dập trong tháng 11 và tháng 12, doanh số bán hàng đã tăng vọt."
+        },
+        {
+          "speaker": "B",
+          "ja": "ただ、[全体的](ぜんたいてき)な[傾向](けいこう)として[低価格製品](ていかかくせいひん)へ[需要](じゅよう)がシフトしていることもあり、販売台数が増えても、[経常利益](けいじょうりえき)はそれほど伸びない[状態](じょうたい)に[陥](おちい)っています。",
+          "vi": "Tuy nhiên, xu hướng chung là nhu cầu thị trường chuyển sang các sản phẩm giá rẻ nên dẫn đến tình trạng tuy doanh số tăng mà lợi nhuận thường xuyên không tăng đáng kể."
+        },
+        {
+          "speaker": "B",
+          "ja": "売り上げは[対前年同期比](たいぜんねんどうきひ)5.4％[増](ぞう)の173[億円](おくえん)にとどまりました。",
+          "vi": "Doanh thu tăng 5,4% so với cùng kỳ năm trước, ở mức 17,3 tỷ Yên."
+        },
+        {
+          "speaker": "B",
+          "ja": "ここで[補足](ほそく)ですが、こちらのグラフをご覧ください。",
+          "vi": "Tôi xin bổ sung thêm. Mời quý vị xem biểu đồ này."
+        },
+        {
+          "speaker": "B",
+          "ja": "1月の利益に[若干](じゃっかん)落ち込みがありますが、これは1月に[競合他社](きょうごうたしゃ)が[一斉](いっせい)に[値下](ねさ)げを行い、この[時期](じき)に[一旦](いったん)売り上げが[鈍](にぶ)ったということです。",
+          "vi": "Lợi nhuận của tháng 1 có giảm đôi chút. Đó là do trong tháng 1, các công ty đối thủ đồng loạt thực hiện giảm giá khiến doanh thu của chúng ta tạm thời chững lại."
+        },
+        {
+          "speaker": "B",
+          "ja": "ただ、この時期には[上位機種](じょういきしゅ)である[大画面](だいがめん)薄型の販売台数が伸びています。",
+          "vi": "Tuy nhiên, cũng trong giai đoạn này, doanh số bán TV màn hình mỏng cỡ lớn - dòng sản phẩm cao cấp của chúng ta - lại tăng lên."
+        },
+        {
+          "speaker": "B",
+          "ja": "競合他社と[比較](ひかく)し[品質](ひんしつ)で[上回](うわまわ)るわが社の製品が[選](えら)ばれた[結果](けっか)と[受](う)け[取](と)れます。",
+          "vi": "Có thể coi đó là nhờ khách hàng đã lựa chọn sản phẩm của công ty chúng ta do chất lượng tốt hơn các công ty đối thủ."
+        },
+        {
+          "speaker": "B",
+          "ja": "ブランドイメージという[付加価値](ふかかち)が[浸透](しんとう)した結果だろうと考えています。",
+          "vi": "Tôi cho rằng đó là nhờ hình ảnh thương hiệu - một trong các giá trị gia tăng - đã được xác lập trên thị trường."
+        }
+      ]
+    }
+  ]
 }
 
 ]
