@@ -7193,8 +7193,13 @@
         },
         {
           "speaker": "A",
-          "ja": "この間、[神社](じんじゃ)の前を通りかかったら、ちょうど[結婚式](けっこんしき)をやってて、[白無垢姿](しろむくすがた)のお[嫁](よめ)さんが見えたのね。そしたら、彼が「あれ、[着](き)てみない？」って急に言い出して…。私、びっくりしちゃった。",
-          "vi": "Hôm ấy, đúng lúc bọn tớ đi ngang qua một ngôi đền thì gặp ngay một đám cưới và trông thấy một cô dâu mặc bộ đồ trắng muốt. Bỗng nhiên anh ấy nói \"Em... có muốn thử mặc bộ đồ đó không?\" khiến tớ ngạc nhiên quá."
+          "ja": "この間、[神社](じんじゃ)の前を通りかかったら、ちょうど[結婚式](けっこんしき)をやってて、[白無垢姿](しろむくすがた)のお[嫁](よめ)さんが見えたのね。",
+          "vi": "Hôm ấy, đúng lúc bọn tớ đi ngang qua một ngôi đền thì gặp ngay một đám cưới và trông thấy một cô dâu mặc bộ đồ trắng muốt."
+        },
+        {
+          "speaker": "A",
+          "ja": "そしたら、彼が「あれ、[着](き)てみない？」って急に言い出して…。私、びっくりしちゃった。",
+          "vi": "Bỗng nhiên anh ấy nói \"Em... có muốn thử mặc bộ đồ đó không?\" khiến tớ ngạc nhiên quá."
         },
         {
           "speaker": "B",
@@ -7485,18 +7490,38 @@
         },
         {
           "speaker": "B",
-          "ja": "いいえ、まだありませんが、これから勉強するつもりです。夏休みには[北海道](ほっかいどう)の[農家](のうか)にホームステイする[予定](よてい)です。また、日本人を受け入れたことがある韓国人の友人から、そのときの経験について聞き取りをする[約束](やくそく)をしました。そして、気がついたことをまとめていこうと思っています。",
-          "vi": "Chưa, cũng chưa, nhưng tôi sẽ học. Kỳ nghỉ hè tới, tôi định sẽ home-stay ở một gia đình nông dân Hokkaido. Ngoài ra, tôi cũng đã hẹn sẽ phỏng vấn về kinh nghiệm của một người bạn Hàn Quốc đã từng nhận khách Nhật Bản home-stay. Sau đó, tôi sẽ tổng kết lại những gì mình thu nhận được."
-        },
-        {
-          "speaker": "A",
-          "ja": "うん。まー、おもしろい[発想](はっそう)だとは思うんですがね。あー、こういうプランは[留学斡旋会社](りゅうがくあっせんがいしゃ)なんかでやってみたほうがいいんじゃないかな。うちではまだやったことないし、[未知数](みちすう)だね。",
-          "vi": "Ừm. Tôi thấy ý tưởng của cô cũng hay đấy. Có lẽ cô nên thử kế hoạch này ở một công ty hỗ trợ lưu học xem sao. Chúng tôi chưa làm việc này bao giờ và cũng nhiều yếu tố chưa chắc chắn."
+          "ja": "いいえ、まだありませんが、これから勉強するつもりです。夏休みには[北海道](ほっかいどう)の[農家](のうか)にホームステイする[予定](よてい)です。",
+          "vi": "Chưa, cũng chưa, nhưng tôi sẽ học. Kỳ nghỉ hè tới, tôi định sẽ home-stay ở một gia đình nông dân Hokkaido. "
         },
         {
           "speaker": "B",
-          "ja": "そうかもしれませんが、留学斡旋専門の会社では、学生が中心だと思うんです。でも、私は、学生よりもむしろ[一般](いっぱん)の社会人の方、[高齢](こうれい)の方などを[対象](たいしょう)にしたものを作ってみたいと考えています。",
-          "vi": "Có thể đúng như vậy, nhưng các công ty chuyên hỗ trợ lưu học thì họ chú trọng đến sinh viên. Còn tôi muốn thử mở tour nhắm tới đối tượng là những người đã ra trường hoặc người cao tuổi kia."
+          "ja": "また、日本人を受け入れたことがある韓国人の友人から、そのときの経験について聞き取りをする[約束](やくそく)をしました。",
+          "vi": "Ngoài ra, tôi cũng đã hẹn sẽ phỏng vấn về kinh nghiệm của một người bạn Hàn Quốc đã từng nhận khách Nhật Bản home-stay."
+        },
+        {
+          "speaker": "B",
+          "ja": "そして、気がついたことをまとめていこうと思っています。",
+          "vi": "Sau đó, tôi sẽ tổng kết lại những gì mình thu nhận được."
+        },
+        {
+          "speaker": "A",
+          "ja": "うん。まー、おもしろい[発想](はっそう)だとは思うんですがね。あー、こういうプランは[留学斡旋会社](りゅうがくあっせんがいしゃ)なんかでやってみたほうがいいんじゃないかな。",
+          "vi": "Ừm. Tôi thấy ý tưởng của cô cũng hay đấy. Có lẽ cô nên thử kế hoạch này ở một công ty hỗ trợ lưu học xem sao."
+        },
+        {
+          "speaker": "A",
+          "ja": "うちではまだやったことないし、[未知数](みちすう)だね。",
+          "vi": "Chúng tôi chưa làm việc này bao giờ và cũng nhiều yếu tố chưa chắc chắn."
+        },
+        {
+          "speaker": "B",
+          "ja": "そうかもしれませんが、留学斡旋専門の会社では、学生が中心だと思うんです。",
+          "vi": "Có thể đúng như vậy, nhưng các công ty chuyên hỗ trợ lưu học thì họ chú trọng đến sinh viên. "
+        },
+        {
+          "speaker": "B",
+          "ja": "でも、私は、学生よりもむしろ[一般](いっぱん)の社会人の方、[高齢](こうれい)の方などを[対象](たいしょう)にしたものを作ってみたいと考えています。",
+          "vi": "Còn tôi muốn thử mở tour nhắm tới đối tượng là những người đã ra trường hoặc người cao tuổi kia."
         },
         {
           "speaker": "A",
@@ -7515,8 +7540,13 @@
         },
         {
           "speaker": "B",
-          "ja": "はい。[確](たし)かに韓国にある会社でも[可能](かのう)だとは思いますが、日本の文化や[風土](ふうど)をよく[理解](りかい)することがこの仕事には[重要](じゅうよう)だと思いますので、日本の会社で働きたいと考えています。",
-          "vi": "Vâng. Đúng là cũng có thể làm được điều đó ở một công ty Hàn Quốc, nhưng tôi nghĩ, đối với công việc này, điều quan trọng là hiểu rõ văn hóa, phong tục của Nhật Bản nên tôi muốn được làm việc ở một công ty Nhật Bản."
+          "ja": "はい。[確](たし)かに韓国にある会社でも[可能](かのう)だとは思いますが...",
+          "vi": "Vâng. Đúng là cũng có thể làm được điều đó ở một công ty Hàn Quốc, nhưng..."
+        },
+        {
+          "speaker": "B",
+          "ja": "...日本の文化や[風土](ふうど)をよく[理解](りかい)することがこの仕事には[重要](じゅうよう)だと思いますので、日本の会社で働きたいと考えています。",
+          "vi": "...tôi nghĩ, đối với công việc này, điều quan trọng là hiểu rõ văn hóa, phong tục của Nhật Bản nên tôi muốn được làm việc ở một công ty Nhật Bản."
         }
       ]
     }
@@ -7569,8 +7599,13 @@
         },
         {
           "speaker": "B",
-          "ja": "この「スーパーフレッシュエアドライ」は、お部屋に[置](お)いていただくだけで、ジメジメと湿った[空気](くうき)をグングン[吸](す)い[取](と)り、[高原](こうげん)にいるような[爽](さわ)やかな気分にさせてくれる、まさに[奇跡](きせき)の商品でございます。",
-          "vi": "Bạn chỉ cần để hộp \"Super Fresh Air Dry\" trong phòng là nó sẽ liên tục hút không khí ẩm, khiến cho bạn cảm thấy sảng khoái như đang ở giữa cao nguyên vậy. Sản phẩm này đúng là một kỳ tích."
+          "ja": "この「スーパーフレッシュエアドライ」は、お部屋に[置](お)いていただくだけで...",
+          "vi": "Bạn chỉ cần để hộp \"Super Fresh Air Dry\" trong phòng..."
+        },
+        {
+          "speaker": "B",
+          "ja": "...ジメジメと湿った[空気](くうき)をグングン[吸](す)い[取](と)り、[高原](こうげん)にいるような[爽](さわ)やかな気分にさせてくれる、まさに[奇跡](きせき)の商品でございます。",
+          "vi": "...là nó sẽ liên tục hút không khí ẩm, khiến cho bạn cảm thấy sảng khoái như đang ở giữa cao nguyên vậy. Sản phẩm này đúng là một kỳ tích."
         },
         {
           "speaker": "B",
@@ -7663,8 +7698,13 @@
         },
         {
           "speaker": "B",
-          "ja": "生まれた国も言葉も[違](ちが)う私たち二人がこの東京で出会いまして、３年間の[交際](こうさい)を[経](へ)て本日こうして皆様の前で結婚のご[報告](ほうこく)をすることができましたことは、私たちにとって[最高](さいこう)の[喜](よろこ)びです。",
-          "vi": "Hai chúng tôi, vốn sinh ra ở những đất nước khác nhau, với ngôn ngữ khác nhau, rồi gặp gỡ ở Tokyo, để rồi sau 3 năm tìm hiểu lẫn nhau, ngày hôm nay, chúng tôi vô cùng vui mừng được thông báo với các quý vị về việc kết hôn của mình."
+          "ja": "生まれた国も言葉も[違](ちが)う私たち二人がこの東京で出会いまして...",
+          "vi": "Hai chúng tôi, vốn sinh ra ở những đất nước khác nhau, với ngôn ngữ khác nhau, rồi gặp gỡ ở Tokyo..."
+        },
+         {
+          "speaker": "B",
+          "ja": "...３年間の[交際](こうさい)を[経](へ)て本日こうして皆様の前で結婚のご[報告](ほうこく)をすることができましたことは、私たちにとって[最高](さいこう)の[喜](よろこ)びです。",
+          "vi": "...để rồi sau 3 năm tìm hiểu lẫn nhau, ngày hôm nay, chúng tôi vô cùng vui mừng được thông báo với các quý vị về việc kết hôn của mình."
         },
         {
           "speaker": "B",
@@ -7673,13 +7713,23 @@
         },
         {
           "speaker": "B",
-          "ja": "日本語も[当時](とうじ)は[挨拶程度](あいさつていど)しかできず、せまいアパートで[自炊](じすい)をして日本語学校へ[通](かよ)い、[慣](な)れない生活に、夜、暗い部屋に帰りますと本当に寒くて、一人でご飯を食べて…、そういう毎日でした。",
-          "vi": "Hồi ấy tiếng Nhật của tôi chỉ biết chào hỏi, tôi sống trong một căn chung cư nhỏ, tự nấu ăn và theo học một trường tiếng Nhật. Giữa cuộc sống xa lạ, hàng tối, tôi trở về căn phòng tối và rất lạnh, ngồi ăn một mình... Ngày nào cũng vậy..."
+          "ja": "日本語も[当時](とうじ)は[挨拶程度](あいさつていど)しかできず、せまいアパートで[自炊](じすい)をして日本語学校へ[通](かよ)い...",
+          "vi": "Hồi ấy tiếng Nhật của tôi chỉ biết chào hỏi, tôi sống trong một căn chung cư nhỏ, tự nấu ăn và theo học một trường tiếng Nhật."
         },
         {
           "speaker": "B",
-          "ja": "それから少しずつ日本語もわかるようになり、友人もでき、またバイトも始めるようにもなり、東京の生活が[軌道](きどう)に乗りはじめた[頃](ころ)、友人の[岩城潤一君](いわきじゅんいちくん)、今日も[出席](しゅっせき)してもらっていますが、岩城君の[紹介](しょうかい)で[夕子](ゆうこ)さんと出[逢](あ)いました。",
-          "vi": "Rồi dần dần, tôi hiểu tiếng Nhật nhiều hơn, có thêm bạn, bắt đầu đi làm thêm, rồi đúng lúc cuộc sống của tôi ở Tokyo bắt đầu đi vào quỹ đạo thì một người bạn của tôi - anh Junichi Iwaki, hôm nay cũng có mặt tại đây, qua giới thiệu của anh ấy, tôi đã được gặp Yuko."
+          "ja": "...[慣](な)れない生活に、夜、暗い部屋に帰りますと本当に寒くて、一人でご飯を食べて…、そういう毎日でした。",
+          "vi": "...Giữa cuộc sống xa lạ, hàng tối, tôi trở về căn phòng tối và rất lạnh, ngồi ăn một mình... Ngày nào cũng vậy..."
+        },
+        {
+          "speaker": "B",
+          "ja": "それから少しずつ日本語もわかるようになり、友人もでき、またバイトも始めるようにもなり、東京の生活が[軌道](きどう)に乗りはじめた[頃](ころ)...",
+          "vi": "Rồi dần dần, tôi hiểu tiếng Nhật nhiều hơn, có thêm bạn, bắt đầu đi làm thêm, rồi đúng lúc cuộc sống của tôi ở Tokyo bắt đầu đi vào quỹ đạo thì..."
+        },
+        {
+          "speaker": "B",
+          "ja": "...友人の[岩城潤一君](いわきじゅんいちくん)、今日も[出席](しゅっせき)してもらっていますが、岩城君の[紹介](しょうかい)で[夕子](ゆうこ)さんと出[逢](あ)いました。",
+          "vi": "...một người bạn của tôi - anh Junichi Iwaki, hôm nay cũng có mặt tại đây, qua giới thiệu của anh ấy, tôi đã được gặp Yuko."
         },
         {
           "speaker": "B",
