@@ -107,7 +107,27 @@ const fetchDataFromGithub = async () => {
     const getHex = (char) => char.codePointAt(0).toString(16).toLowerCase().padStart(5, '0');
 
     
+// 1. Hàm dọn dẹp "rác" (Xóa khoảng trắng, dấu câu tiếng Nhật)
+const cleanJapanesePunctuation = (str) => {
+    if (!str) return "";
+    // Xóa dấu cách (nửa/toàn), dấu chấm, phẩy, ngoặc, chấm hỏi, chấm than
+    return str.replace(/[\s\u3000。、！？「」]/g, '');
+};
 
+// 2. Hàm tạo luật kiểm tra (Regex) từ chuỗi có [Kanji](hiragana)
+const buildDictationRegex = (expectedStr) => {
+    if (!expectedStr) return new RegExp('^$');
+    
+    // Bước A: Dọn sạch dấu câu trong câu gốc trước
+    let cleanedBase = cleanJapanesePunctuation(expectedStr);
+    
+    // Bước B: Biến đổi [卵](たまご) thành (卵|たまご)
+    // Ký tự đặc biệt trong regex cần được escape nếu có, nhưng tiếng Nhật thường an toàn
+    let regexPattern = cleanedBase.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '($1|$2)');
+    
+    // Trả về một đối tượng Regex bắt buộc khớp từ đầu (^) đến cuối ($)
+    return new RegExp('^' + regexPattern + '$');
+};
     
    const fetchKanjiData = async (char) => {
     const hex = getHex(char);
@@ -2855,7 +2875,17 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
 </div>
-
+{/* 8. LUYỆN NGHE (CHÉP CHÍNH TẢ) */}
+<div onClick={() => onOpenSetup('dictation')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        HOT
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><path d="M15.5 16.5L12 22l-3.5-5.5"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN NGHE</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Chép chính tả & Nghe hiểu</p>
+</div>
                         {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             {dueCharsCount > 0 && (
@@ -6070,6 +6100,198 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
+const DictationGameModal = ({ isOpen, onClose, data }) => {
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [userInput, setUserInput] = React.useState('');
+    const [status, setStatus] = React.useState('idle'); // 'idle', 'correct', 'wrong'
+    const [finished, setFinished] = React.useState(false);
+    const [showAnswer, setShowAnswer] = React.useState(false);
+    
+    const soundRef = React.useRef(null);
+    const timerRef = React.useRef(null);
+
+    // 1. Khởi tạo Audio khi mở Modal
+    React.useEffect(() => {
+        if (isOpen && data?.audioPath) {
+            document.body.style.overflow = 'hidden';
+            soundRef.current = new Howl({
+                src: [data.audioPath],
+                html5: true,
+                preload: true
+            });
+            // Tự động phát câu đầu tiên
+            playCurrentSentence(0);
+        } else {
+            document.body.style.overflow = 'unset';
+            if (soundRef.current) {
+                soundRef.current.unload();
+                soundRef.current = null;
+            }
+            if (timerRef.current) cancelAnimationFrame(timerRef.current);
+            // Reset state
+            setCurrentIndex(0);
+            setUserInput('');
+            setStatus('idle');
+            setFinished(false);
+            setShowAnswer(false);
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen, data]);
+
+    // 2. Hàm phát Audio cho câu hiện tại
+    const playCurrentSentence = (index) => {
+        if (!soundRef.current || !data?.dialogues[index]) return;
+        const sentence = data.dialogues[index];
+        
+        soundRef.current.stop();
+        soundRef.current.seek(sentence.startTime);
+        soundRef.current.play();
+
+        // Vòng lặp kiểm tra dừng audio
+        const checkEnd = () => {
+            if (soundRef.current && soundRef.current.seek() >= sentence.endTime) {
+                soundRef.current.pause();
+                cancelAnimationFrame(timerRef.current);
+            } else {
+                timerRef.current = requestAnimationFrame(checkEnd);
+            }
+        };
+        timerRef.current = requestAnimationFrame(checkEnd);
+    };
+
+    // 3. Hàm kiểm tra đáp án
+    const handleCheckAnswer = () => {
+        if (status === 'correct' || finished) return;
+        
+        const currentSentence = data.dialogues[currentIndex];
+        const cleanedInput = cleanJapanesePunctuation(userInput); // Dọn rác input
+        
+        // Tạo luật Regex và kiểm tra
+        const validatorRegex = buildDictationRegex(currentSentence.ja);
+        const isCorrect = validatorRegex.test(cleanedInput);
+
+        if (isCorrect) {
+            setStatus('correct');
+            setTimeout(() => {
+                if (currentIndex < data.dialogues.length - 1) {
+                    setCurrentIndex(prev => prev + 1);
+                    setUserInput('');
+                    setStatus('idle');
+                    setShowAnswer(false);
+                    playCurrentSentence(currentIndex + 1); // Phát câu tiếp theo
+                } else {
+                    setFinished(true);
+                }
+            }, 800); // Đợi 0.8s cho hiệu ứng xanh lá rồi mới chuyển
+        } else {
+            setStatus('wrong');
+            setShowAnswer(true); // Hiện đáp án cho người dùng đối chiếu
+            playCurrentSentence(currentIndex); // Phát lại câu bị sai
+            setTimeout(() => setStatus('idle'), 500); // Bỏ hiệu ứng rung sau 0.5s
+        }
+    };
+
+    // Hàm render Furigana (tái sử dụng logic cũ)
+    const renderFurigana = (text) => {
+        if (!text) return null;
+        const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+        return parts.map((part, index) => {
+            const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+            if (match) {
+                return (
+                    <ruby key={index} className="leading-loose mx-0.5">
+                        {match[1]}
+                        <rt className="text-[10px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>
+                    </ruby>
+                );
+            }
+            return <span key={index}>{part}</span>;
+        });
+    };
+
+    if (!isOpen || !data) return null;
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
+            {!finished ? (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg p-6 sm:p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+                    
+                    {/* Header */}
+                    <div className="flex justify-between items-center w-full mb-6">
+                        <div className="flex items-center gap-3">
+                            <button onClick={() => playCurrentSentence(currentIndex)} className="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors shadow-sm">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            </button>
+                            <span className="text-[11px] font-black text-zinc-500 uppercase tracking-widest bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200">
+                                CÂU {currentIndex + 1} / {data.dialogues.length}
+                            </span>
+                        </div>
+                        <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:bg-red-50 hover:text-red-500 transition-all shadow-sm">
+                            ✕
+                        </button>
+                    </div>
+
+                    {/* Vùng nhập liệu */}
+                    <div className="w-full space-y-4">
+                        <textarea 
+                            autoFocus
+                            value={userInput} 
+                            onChange={(e) => setUserInput(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && !e.shiftKey) {
+                                    e.preventDefault();
+                                    handleCheckAnswer();
+                                }
+                            }}
+                            placeholder="Gõ lại những gì bạn nghe được..."
+                            className={`w-full p-4 h-32 text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all resize-none ${
+                                status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
+                                status === 'wrong' ? 'border-red-500 bg-red-50 text-red-700 animate-shake' : 
+                                'border-zinc-200 focus:border-indigo-500 bg-zinc-50 shadow-inner'
+                            }`}
+                        />
+                        
+                        <div className="flex justify-between items-center">
+                            <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
+                                Bấm Enter để kiểm tra
+                            </p>
+                            <button onClick={handleCheckAnswer} className="px-6 py-2 bg-zinc-900 text-white rounded-xl text-xs font-black uppercase hover:bg-black active:scale-95 transition-all">
+                                Kiểm tra
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Hiển thị đáp án nếu sai */}
+                    {showAnswer && (
+                        <div className="w-full mt-6 p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl animate-in slide-in-from-top-2">
+                            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Đáp án chuẩn
+                            </p>
+                            <p className="text-lg sm:text-xl font-bold text-zinc-800">
+                                {renderFurigana(data.dialogues[currentIndex].ja)}
+                            </p>
+                            <p className="text-sm font-medium text-zinc-500 mt-2 border-t border-indigo-100/50 pt-2">
+                                {data.dialogues[currentIndex].vi}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[300px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4 animate-bounce">🏆</div>
+                    <h3 className="text-xl font-black text-gray-800 mb-1 uppercase">HOÀN THÀNH!</h3>
+                    <p className="text-gray-500 mb-6 text-xs font-medium">Bạn đã chép chính tả xong bài này.</p>
+                    <div className="space-y-2">
+                        <button onClick={onClose} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] uppercase tracking-widest shadow-lg active:scale-95 transition-all">
+                            Đóng & Thoát
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -6085,6 +6307,8 @@ const App = () => {
     const [verbTargetForm, setVerbTargetForm] = useState(null);
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
+    const [isDictationOpen, setIsDictationOpen] = useState(false);
+    const [dictationData, setDictationData] = useState(null); // <-- Lưu dữ liệu sdn1.json
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -6239,8 +6463,10 @@ React.useEffect(() => {
                 if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
                 else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
                 else setIsVerbEssayOpen(true);
-            } else if (target === 'kaiwa') {    // <--- THÊM MỚI Ở ĐÂY
-                setIsKaiwaOpen(true);           // <--- THÊM MỚI Ở ĐÂY
+            } else if (target === 'kaiwa') {   
+                setIsKaiwaOpen(true);       
+            } else if (target === 'dictation') { // <-- THÊM MỚI Ở ĐÂY
+            setIsDictationOpen(true);        // <-- Mở Popup chọn bài
             }
         }
     };
@@ -6262,13 +6488,25 @@ React.useEffect(() => {
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
     onOpenSetup={(target) => {
-        // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
         if (target === 'kaiwa') {
             setIsKaiwaOpen(true);
+        } else if (target === 'dictation') {
+            // --- THÊM MỚI: Fetch file JSON chuyên dụng cho Luyện Nghe ---
+            fetch('./data/luyennghe/sdn1.json')
+                .then(res => {
+                    if (!res.ok) throw new Error("Không tìm thấy file");
+                    return res.json();
+                })
+                .then(data => {
+                    setDictationData(data);     // Lưu data vào state
+                    setIsDictationOpen(true);   // Bật giao diện Luyện Nghe
+                })
+                .catch(err => {
+                    alert("Lỗi: Chưa có dữ liệu luyện nghe (sdn1.json)!");
+                    console.error(err);
+                });
         } else {
-            // Các tính năng khác vẫn mở bảng Setup bình thường
             setSetupConfig({ isOpen: true, targetAction: target });
-            // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
             if (target === 'conjugate') {
                 handleModeSwitch('vocab'); 
             }
@@ -6405,6 +6643,11 @@ React.useEffect(() => {
                     <KaiwaModal 
         isOpen={isKaiwaOpen} 
         onClose={() => setIsKaiwaOpen(false)} 
+    />
+            <DictationGameModal
+        isOpen={isDictationOpen}
+        onClose={() => setIsDictationOpen(false)}
+        data={dictationData}
     />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
