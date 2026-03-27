@@ -2665,11 +2665,12 @@ React.useEffect(() => {
     }, [isDocsModalOpen]);
     const notifications = [
         { 
-            id: 4, 
-            title: '🔥 LUYỆN KAIWA', 
-            date: '21/03/2026', 
-            content: 'Ra mắt tính năng Luyện Kaiwa cực cháy! Nâng trình giao tiếp với chế độ Shadowing, luyện tập đóng vai, và nghe audio siêu mượt. Vào ngay mục "LUYỆN KAIWA" ở trang chủ để nói tiếng Nhật tự nhiên như người bản xứ nhé!'
+            id: 5, 
+            title: '🔍 HỆ THỐNG KANJI THEO BỘ THỦ', 
+            date: '27/03/2026', 
+            content: 'Giờ đây bạn có thể dễ dàng tra cứu Kanji sắp xếp theo bộ thủ hoặc nhập trực tiếp âm Hán Việt. Bấm ngay vào "TRA CỨU KANJI" ở trang chủ để khám phá nhé!'
         }
+        
     ];
 
     const [readNotifIds, setReadNotifIds] = useState(() => {
@@ -2829,7 +2830,7 @@ React.useEffect(() => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tìm theo 214 Bộ thủ</p>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
                         </div>
                         {/* 1. CHẾ ĐỘ HỌC */}
                         <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
@@ -6099,7 +6100,34 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
     const [selectedKanji, setSelectedKanji] = useState(null);
     const [relatedVocab, setRelatedVocab] = useState([]);
     const [replayKey, setReplayKey] = useState(0); 
-    const [strokeNumbers, setStrokeNumbers] = useState([]); // State lưu số thứ tự nét
+    const [strokeNumbers, setStrokeNumbers] = useState([]);
+
+    // --- TÍNH NĂNG MỚI: BỘ NHỚ TẠM (Màu Tím) VÀ LƯU VỊ TRÍ CUỘN ---
+    const [visitedRadicals, setVisitedRadicals] = useState(new Set());
+    const [visitedKanjis, setVisitedKanjis] = useState(new Set());
+    
+    const scrollRef = useRef(null); // Ref bám vào container cuộn
+    const scrollPositions = useRef({ radicals: 0, kanji_list: 0 }); // Lưu tọa độ cuộn
+
+    // Ghi nhận liên tục vị trí cuộn khi người dùng lướt
+    const handleScroll = (e) => {
+        if (view === 'radicals' || view === 'kanji_list') {
+            scrollPositions.current[view] = e.target.scrollTop;
+        }
+    };
+
+    // Tự động khôi phục vị trí cuộn khi chuyển View
+    useEffect(() => {
+        if (scrollRef.current) {
+            if (view === 'radicals') {
+                scrollRef.current.scrollTop = scrollPositions.current.radicals;
+            } else if (view === 'kanji_list') {
+                scrollRef.current.scrollTop = scrollPositions.current.kanji_list;
+            } else {
+                scrollRef.current.scrollTop = 0; // Màn hình chi tiết luôn hiển thị từ đầu
+            }
+        }
+    }, [view]);
 
     // Logic khóa nền khi mở Modal
     useEffect(() => {
@@ -6109,6 +6137,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
             setView('radicals');
             setSelectedRadical(null);
             setSelectedKanji(null);
+            // Lưu ý: Không reset visitedRadicals/Kanjis ở đây để giữ màu tím đến khi F5
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
@@ -6119,7 +6148,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
             const matches = [];
             Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
                 if (word.includes(selectedKanji)) {
-                    // Viết hoa chữ cái đầu tiên của nghĩa tiếng Việt
                     let formattedMeaning = info.meaning || '';
                     if (formattedMeaning.length > 0) {
                         formattedMeaning = formattedMeaning.charAt(0).toUpperCase() + formattedMeaning.slice(1);
@@ -6166,36 +6194,45 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         onSelectResult={(item) => {
                             if(document.activeElement) document.activeElement.blur();
                             setSelectedKanji(item.char);
+                            setVisitedKanjis(prev => new Set(prev).add(item.char)); // Đánh dấu đã xem Kanji
                             setReplayKey(prev => prev + 1);
                             setView('detail');
                         }} 
                     />
                 </div>
 
-                <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 w-full">
+                <div 
+                    ref={scrollRef} 
+                    onScroll={handleScroll}
+                    className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 w-full"
+                >
                     <div className="flex items-center gap-2 mb-4 w-full">
                         <span className="w-2 h-2 rounded-full bg-zinc-300"></span>
                         <h3 className="text-sm font-black text-zinc-500 uppercase tracking-widest">Tra cứu theo bộ thủ</h3>
                     </div>
 
                     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 w-full pb-8">
-                        {radicalList.map(([rad, info]) => (
-                            <button 
-                                key={rad}
-                                style={{ WebkitTapHighlightColor: 'transparent' }}
-                                onClick={(e) => {
-                                    e.currentTarget.blur();
-                                    setSelectedRadical({ radical: rad, ...info });
-                                    setTimeout(() => {
-                                        setView('kanji_list');
-                                    }, 50);
-                                }}
-                                className="bg-white border border-zinc-200 md:hover:border-zinc-900 rounded-2xl p-4 flex flex-col items-center justify-center transition-all md:hover:-translate-y-1 md:hover:shadow-md active:scale-95 active:bg-zinc-200 group outline-none"
-                            >
-                                <span className="text-3xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-black mb-2">{rad}</span>
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest text-center truncate w-full">{info.name || 'Bộ thủ'}</span>
-                            </button>
-                        ))}
+                        {radicalList.map(([rad, info]) => {
+                            const isVisited = visitedRadicals.has(rad);
+                            return (
+                                <button 
+                                    key={rad}
+                                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                                    onClick={(e) => {
+                                        e.currentTarget.blur();
+                                        setSelectedRadical({ radical: rad, ...info });
+                                        setVisitedRadicals(prev => new Set(prev).add(rad)); // Đánh dấu đã xem Bộ thủ
+                                        setTimeout(() => { setView('kanji_list'); }, 50);
+                                    }}
+                                    className={`border rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
+                                        isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
+                                    }`}
+                                >
+                                    <span className={`text-3xl font-['Klee_One'] font-black mb-2 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-black'}`}>{rad}</span>
+                                    <span className={`text-[10px] font-bold uppercase tracking-widest text-center line-clamp-1 w-full pb-0.5 ${isVisited ? 'text-purple-500' : 'text-zinc-500'}`}>{info.name || 'Bộ thủ'}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -6221,7 +6258,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         });
 
         return (
-            <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 bg-white w-full">
+            <div 
+                ref={scrollRef} 
+                onScroll={handleScroll}
+                className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 bg-white w-full"
+            >
                 <div className="flex items-center gap-4 mb-6 border-b border-zinc-100 pb-4">
                     <span className="text-5xl font-['Klee_One'] font-black text-zinc-900 bg-zinc-50 border border-zinc-200 p-2 rounded-xl">{selectedRadical.radical}</span>
                     <div className="flex flex-col">
@@ -6239,6 +6280,8 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
                                     {groups[level].map(char => {
                                         const info = dbData?.KANJI_DB?.[char] || {};
+                                        const isVisited = visitedKanjis.has(char); // Kiểm tra đã xem Kanji chưa
+                                        
                                         return (
                                             <button 
                                                 key={char}
@@ -6246,15 +6289,16 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                 onClick={(e) => {
                                                     e.currentTarget.blur();
                                                     setSelectedKanji(char);
+                                                    setVisitedKanjis(prev => new Set(prev).add(char)); // Đánh dấu đã xem
                                                     setReplayKey(prev => prev + 1);
-                                                    setTimeout(() => {
-                                                        setView('detail');
-                                                    }, 50);
+                                                    setTimeout(() => { setView('detail'); }, 50);
                                                 }}
-                                                className="border border-zinc-200 bg-zinc-50 md:hover:bg-zinc-900 md:hover:text-white rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 active:bg-zinc-200 group outline-none"
+                                                className={`border rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group outline-none ${
+                                                    isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-zinc-50 border-zinc-200 md:hover:bg-zinc-900 md:hover:text-white'
+                                                }`}
                                             >
-                                                <span className="text-2xl font-['Klee_One'] font-black text-zinc-900 md:group-hover:text-white mb-1">{char}</span>
-                                                <span className="text-[9px] font-bold text-zinc-500 md:group-hover:text-zinc-300 uppercase line-clamp-1 w-full text-center pb-0.5">{info.sound || '---'}</span>
+                                                <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-white'}`}>{char}</span>
+                                                <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{info.sound || '---'}</span>
                                             </button>
                                         );
                                     })}
@@ -6273,68 +6317,38 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
 
         return (
-            <div className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 w-full flex flex-col">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 w-full flex flex-col">
                 <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 flex flex-col md:flex-row gap-6">
                     {/* Ô vẽ Kanji */}
                     <div className="w-full md:w-56 h-56 border border-zinc-200 rounded-2xl flex items-center justify-center bg-white shadow-inner relative overflow-hidden shrink-0">
                         {paths.length > 0 ? (
                             <svg key={replayKey} viewBox="0 0 109 109" className="w-[85%] h-[85%] p-2">
-                                {/* Vẽ số thứ tự nét */}
                                 {strokeNumbers.map((num, idx) => (
-                                    <text 
-                                        key={`num-${idx}`} 
-                                        transform={num.transform} 
-                                        className="stroke-number text-[10px] font-sans fill-gray-400"
-                                        style={{ animationDelay: `${0.4 + (idx * 0.6)}s` }} 
-                                    >
+                                    <text key={`num-${idx}`} transform={num.transform} className="stroke-number text-[10px] font-sans fill-gray-400" style={{ animationDelay: `${0.4 + (idx * 0.6)}s` }}>
                                         {num.value}
                                     </text>
                                 ))}
-                                {/* Vẽ đường đi */}
                                 {paths.map((d, index) => (
-                                    <path 
-                                        key={index} d={d} 
-                                        className="stroke-anim-path" 
-                                        style={{ 
-                                            animationDuration: '3s', 
-                                            animationDelay: `${0.4 + (index * 0.6)}s`, 
-                                            stroke: '#1a1a1a', 
-                                            strokeWidth: 3 
-                                        }} 
-                                    />
+                                    <path key={index} d={d} className="stroke-anim-path" style={{ animationDuration: '3s', animationDelay: `${0.4 + (index * 0.6)}s`, stroke: '#1a1a1a', strokeWidth: 3 }} />
                                 ))}
                             </svg>
                         ) : (
                             <span className="text-7xl font-['Klee_One'] text-zinc-900">{selectedKanji}</span>
                         )}
-                        <button 
-                            style={{ WebkitTapHighlightColor: 'transparent' }}
-                            onClick={(e) => { 
-                                e.currentTarget.blur();
-                                setReplayKey(prev => prev + 1); 
-                            }}
-                            className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md border border-zinc-200 text-zinc-600 hover:text-black active:scale-90 transition-all outline-none"
-                            title="Vẽ lại"
-                        >
+                        <button style={{ WebkitTapHighlightColor: 'transparent' }} onClick={(e) => { e.currentTarget.blur(); setReplayKey(prev => prev + 1); }} className="absolute bottom-2 right-2 p-2 bg-white rounded-full shadow-md border border-zinc-200 text-zinc-600 hover:text-black active:scale-90 transition-all outline-none" title="Vẽ lại">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
                         </button>
                     </div>
 
                     {/* Thông tin Text */}
-                    {/* 1. Bỏ text-center ở thẻ bọc ngoài cùng này để các phần bên trong tự do căn lề */}
                     <div className="flex-1 flex flex-col justify-center min-w-0 w-full mt-4 md:mt-0">
-                        
-                        {/* 2. Chỉ thêm text-center md:text-left vào riêng khối chứa Âm Hán Việt và Ý nghĩa */}
                         <div className="mb-4 w-full text-center md:text-left">
                             <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full pb-1">{info.sound || '---'}</h2>
-                            
-                            {/* 3. Tăng cỡ chữ Ý nghĩa lên text-base md:text-lg (hoặc text-lg tùy ý bạn) */}
                             <p className="text-base md:text-lg font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed pb-1" title={info.meaning || onkun.meanings?.join(', ')}>
                                 {info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}
                             </p>
                         </div>
 
-                        {/* Khối Âm On / Âm Kun: Mặc định sẽ căn trái vì không bị ảnh hưởng bởi text-center nữa */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-left">
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
                                 <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
@@ -6357,7 +6371,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     </div>
                 </div>
 
-                {/* Phần 2: Từ vựng đi kèm */}
+                {/* Từ vựng đi kèm */}
                 <div className="p-4 sm:p-6 w-full">
                     <h3 className="text-xs font-black text-zinc-900 uppercase tracking-widest mb-4 flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -6400,13 +6414,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
                                     e.currentTarget.blur();
-                                    setTimeout(() => {
-                                        if (view === 'detail') {
-                                            setView(selectedRadical ? 'kanji_list' : 'radicals');
-                                        } else {
-                                            setView('radicals');
-                                        }
-                                    }, 50);
+                                    if (view === 'detail') {
+                                        setView(selectedRadical ? 'kanji_list' : 'radicals');
+                                    } else {
+                                        setView('radicals');
+                                    }
                                 }}
                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
                             >
