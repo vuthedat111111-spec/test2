@@ -55,12 +55,12 @@ const calculateSRS = (currentData, quality) => {
 const fetchDataFromGithub = async () => {
   try { 
     // 1. Tải các file cơ sở dữ liệu chính (Đã gỡ bỏ onkun.json và vocab.json)
-    const [dbResponse, tuvungResponse, exceptionResponse] = await Promise.all([
+    const [dbResponse, tuvungResponse, exceptionResponse, onkunResponse, bothuResponse] = await Promise.all([
       fetch('./data/kanji_db.json'),
       fetch('./data/tuvungg.json'),
       fetch('./data/dongtu_dacbiet.json'),
-        fetch('./data/onkun.json'),
-        fetch('./data/bothu_kanji.json')
+      fetch('./data/onkun.json'),
+      fetch('./data/bothu_kanji.json')
     ]);
 
     // 2. Tải thêm 5 file danh sách cấp độ (N5 -> N1)
