@@ -6129,7 +6129,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
 
     const { paths, fullSvg } = useKanjiSvg(selectedKanji || '');
 
-    // Phân tích SVG để lấy số nét vẽ (Fix lỗi 2)
+    // Phân tích SVG để lấy số nét vẽ
     useEffect(() => {
         if (fullSvg) {
             const parser = new DOMParser();
@@ -6159,7 +6159,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         mode="kanji" 
                         dbData={dbData} 
                         onSelectResult={(item) => {
-                            // Chặn Focus Highlight Mobile
                             if(document.activeElement) document.activeElement.blur();
                             setSelectedKanji(item.char);
                             setReplayKey(prev => prev + 1);
@@ -6180,7 +6179,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 key={rad}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-                                    e.currentTarget.blur(); // Fix lỗi 4: viền đen trên điện thoại
+                                    e.currentTarget.blur();
                                     setSelectedRadical({ radical: rad, ...info });
                                     setView('kanji_list');
                                 }}
@@ -6196,7 +6195,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         );
     };
 
-    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ (PHÂN THEO JLPT) ---
+    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ ---
     const renderKanjiList = () => {
         if (!selectedRadical) return null;
         const chars = selectedRadical.chars || [];
@@ -6229,7 +6228,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         if (groups[level].length === 0) return null;
                         return (
                             <div key={level}>
-                                {/* Fix Lỗi 3: Đã bỏ cái gạch xanh bên trái (border-l-4) */}
                                 <h4 className="text-[11px] font-black text-zinc-400 uppercase tracking-widest mb-3">CẤP ĐỘ {level} ({groups[level].length})</h4>
                                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
                                     {groups[level].map(char => {
@@ -6260,7 +6258,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         );
     };
 
-    // --- MÀN 3: CHI TIẾT KANJI (CUỘN ĐƯỢC CẢ TRANG) ---
+    // --- MÀN 3: CHI TIẾT KANJI ---
     const renderDetail = () => {
         const info = dbData?.KANJI_DB?.[selectedKanji] || {};
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
@@ -6269,16 +6267,16 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
             <div className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 w-full flex flex-col">
                 <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 flex flex-col md:flex-row gap-6">
                     {/* Ô vẽ Kanji */}
-                    <div className="w-full md:w-48 h-48 border border-zinc-200 rounded-2xl flex items-center justify-center bg-zinc-50 shadow-inner relative overflow-hidden shrink-0">
+                    <div className="w-full md:w-56 h-56 border border-zinc-200 rounded-2xl flex items-center justify-center bg-white shadow-inner relative overflow-hidden shrink-0">
                         {paths.length > 0 ? (
-                            <svg key={replayKey} viewBox="0 0 109 109" className="w-[85%] h-[85%]">
+                            <svg key={replayKey} viewBox="0 0 109 109" className="w-[85%] h-[85%] p-2">
                                 {/* Vẽ số thứ tự nét */}
                                 {strokeNumbers.map((num, idx) => (
                                     <text 
                                         key={`num-${idx}`} 
                                         transform={num.transform} 
-                                        className="stroke-number text-xs font-sans fill-gray-400"
-                                        style={{ animationDelay: `${0.4 + (idx * 0.4)}s` }} 
+                                        className="stroke-number"
+                                        style={{ animationDelay: `${0.4 + (idx * 0.6)}s` }} 
                                     >
                                         {num.value}
                                     </text>
@@ -6289,8 +6287,8 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                         key={index} d={d} 
                                         className="stroke-anim-path" 
                                         style={{ 
-                                            animationDuration: '2s', 
-                                            animationDelay: `${index * 0.4}s`, 
+                                            animationDuration: '3s', 
+                                            animationDelay: `${0.4 + (index * 0.6)}s`, 
                                             stroke: '#1a1a1a', 
                                             strokeWidth: 3 
                                         }} 
@@ -6317,7 +6315,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                     <div className="flex-1 flex flex-col justify-center min-w-0 w-full">
                         <div className="mb-4 w-full">
                             <h2 className="text-3xl font-black text-zinc-900 uppercase tracking-widest mb-1 truncate w-full">{info.sound || '---'}</h2>
-                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full" title={info.meaning || onkun.meanings?.join(', ')}>
+                            <p className="text-sm font-medium text-zinc-500 italic line-clamp-2 w-full leading-relaxed" title={info.meaning || onkun.meanings?.join(', ')}>
                                 {info.meaning || onkun.meanings?.join(', ') || 'Chưa có dữ liệu nghĩa'}
                             </p>
                         </div>
@@ -6355,11 +6353,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-8">
                             {relatedVocab.map((vocab, i) => (
                                 <div key={i} className="p-3 bg-white border border-zinc-200 rounded-xl hover:border-zinc-400 transition-colors shadow-sm flex items-center justify-between w-full min-w-0">
-                                    <div className="flex flex-col min-w-0 pr-2 flex-1">
-                                        <span className="text-base sm:text-lg font-bold text-zinc-900 truncate w-full">{vocab.word}</span>
-                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 truncate w-full">{vocab.meaning}</span>
+                                    <div className="flex flex-col min-w-0 pr-2 flex-1 justify-center">
+                                        <span className="text-base sm:text-lg font-bold text-zinc-900 truncate w-full leading-tight pb-0.5">{vocab.word}</span>
+                                        <span className="text-[11px] sm:text-xs font-medium text-zinc-500 truncate w-full leading-normal pb-0.5">{vocab.meaning}</span>
                                     </div>
-                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] truncate">
+                                    <span className="text-xs sm:text-sm font-bold text-zinc-600 bg-zinc-100 px-2 sm:px-3 py-1.5 rounded-lg flex-shrink-0 max-w-[45%] truncate leading-normal">
                                         {vocab.reading}
                                     </span>
                                 </div>
@@ -6367,7 +6365,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                         </div>
                     ) : (
                         <div className="text-center py-8 text-zinc-400 text-sm font-medium pb-10">
-                            Không tìm thấy từ vựng nào chứa chữ này.
+                            Không tìm thấy từ vựng nào chứa chữ này trong dữ liệu hiện tại.
                         </div>
                     )}
                 </div>
@@ -6379,17 +6377,15 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         <div className="fixed inset-0 z-[600] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] md:h-[80vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 sm:border border-zinc-200">
                 
-                {/* HEADER - Đảm bảo w-full */}
+                {/* HEADER */}
                 <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
                     <div className="flex items-center gap-3">
-                        {/* Nút Back - Fix lỗi 1: Nhận diện quay về đâu */}
                         {view !== 'radicals' && (
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
                                     e.currentTarget.blur();
                                     if (view === 'detail') {
-                                        // Nếu từ search bay vào, selectedRadical = null -> Quay về radicals
                                         setView(selectedRadical ? 'kanji_list' : 'radicals');
                                     } else {
                                         setView('radicals');
