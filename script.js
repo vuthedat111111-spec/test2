@@ -2646,7 +2646,7 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-// --- COMPONENT MỚI: BẢNG CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG ---
+// --- COMPONENT: BẢNG CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG / ĐỘNG TỪ ---
 const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) => {
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -2669,7 +2669,6 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
         { id: 'essay', title: 'TỰ LUẬN', desc: 'Luyện gõ chữ', action: 'essay', icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> }
     ];
 
-    // Thêm Menu mới cho Chia động từ
     const conjugateMenu = [
         { id: 'essay', title: 'TỰ LUẬN', desc: 'Nhập trực tiếp câu trả lời', action: 'essay', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> },
         { id: 'quiz', title: 'TRẮC NGHIỆM', desc: 'Chọn đáp án đúng', action: 'quiz', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg> },
@@ -2684,7 +2683,7 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
             <div className="bg-white w-full h-full sm:h-auto max-w-sm rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300 border-0 sm:border border-zinc-200" onClick={e => e.stopPropagation()}>
                 
                 {/* Header */}
-                <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+                <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
                     <div className="flex items-center gap-3">
                         <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -2696,8 +2695,7 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
                             <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest mt-0.5">Chọn chế độ học</p>
                         </div>
                     </div>
-                    {/* Nút X */}
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm">✕</button>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm shrink-0">✕</button>
                 </div>
 
                 {/* Body */}
@@ -2920,7 +2918,7 @@ React.useEffect(() => {
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Flashcard, Tự luận...</p>
                         </div>
                         {/* 4. CHIA ĐỘNG TỪ */}
-                        <div onClick={() => onOpenCategory('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden"> 
+                        <div onClick={() => onOpenCategory('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                             </div>
@@ -3860,23 +3858,20 @@ const StudySetupModal = ({
            {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
             <div className="bg-white w-full h-full sm:h-auto max-w-lg rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[85vh] animate-in zoom-in-95 duration-300 border-0 sm:border border-gray-200">
              
-                {/* Header: Đổi chế độ */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
+               {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative shrink-0">
                     <div className="flex items-center gap-3">
-                       {/* Nút Back */}
                         <button onClick={onBack || onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all shadow-sm shrink-0">  
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
                         
-                        {targetAction !== 'conjugate' ? (
-                            <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
-                                {targetAction === 'game' ? 'CHẾ ĐỘ HỌC' : targetAction === 'flashcard' ? 'FLASHCARD' : 'TỰ LUẬN'} {mode === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}
-                            </h2>
-                        ) : (
-                            <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
-                                {verbPracticeMode === 'essay' ? 'TỰ LUẬN' : verbPracticeMode === 'quiz' ? 'TRẮC NGHIỆM' : 'PHẢN XẠ'} ĐỘNG TỪ
-                            </h2>
-                        )}
+                        <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
+                            {targetAction === 'conjugate' ? (
+                                `${verbPracticeMode === 'essay' ? 'TỰ LUẬN' : verbPracticeMode === 'quiz' ? 'TRẮC NGHIỆM' : 'PHẢN XẠ'} ĐỘNG TỪ`
+                            ) : (
+                                `${targetAction === 'game' ? 'CHẾ ĐỘ HỌC' : targetAction === 'flashcard' ? 'FLASHCARD' : 'TỰ LUẬN'} ${mode === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}`
+                            )}
+                        </h2>
                     </div>
                     
                     {/* Nút đóng X đổi thành quay lại bảng chọn */}
@@ -6558,9 +6553,10 @@ const App = () => {
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
     // State cho Modal Thiết lập (StudySetupModal)
-    const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
-  const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
+   const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
+    const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
 
+    // HÀM 1: ĐIỀU HƯỚNG TỪ MENU CHỌN
     const handleSelectCategoryAction = (category, action) => {
         if (category === 'kanji' || category === 'vocab') {
             handleModeSwitch(category);
@@ -6571,32 +6567,73 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
             }
         } else if (category === 'conjugate') {
             handleModeSwitch('vocab'); 
-            setVerbPracticeMode(action); // Ghi nhận chọn Tự luận, Trắc nghiệm hay Phản xạ
+            setVerbPracticeMode(action); // Lưu trạng thái người dùng vừa chọn
             setSetupConfig({ isOpen: true, targetAction: 'conjugate' }); 
         }
     };
 
+    // HÀM 2: TỪ BẢNG NHẬP LIỆU (SETUP) QUAY LẠI MENU CHỌN
     const handleBackToCategory = () => {
         setSetupConfig({ isOpen: false, targetAction: null });
         setIsDictionaryOpen(false);
-        setCategoryModal({ isOpen: true, type: practiceMode });
-    };
-    const [practiceMode, setPracticeMode] = useState('kanji');
-    const [config, setConfig] = useState({ text: '' });
-    // Bộ nhớ tạm để lưu text của 2 chế độ
-    const [textCache, setTextCache] = useState({ kanji: '', vocab: '' });
-
-    // Hàm xử lý chuyển đổi chế độ thông minh
-    const handleModeSwitch = (newMode) => {
-        if (newMode === practiceMode) return;
-        // Lưu dữ liệu của tab hiện tại vào bộ nhớ tạm
-        setTextCache(prev => ({ ...prev, [practiceMode]: config.text }));
-        // Đổi chế độ
-        setPracticeMode(newMode);
-        // Lấy dữ liệu của tab mới từ bộ nhớ tạm (nếu có)
-        setConfig(prev => ({ ...prev, text: textCache[newMode] || '' }));
+        // Động từ thì về menu động từ, Kanji/Từ vựng về menu đó
+        setCategoryModal({ isOpen: true, type: setupConfig.targetAction === 'conjugate' ? 'conjugate' : practiceMode });
     };
 
+    // HÀM 3: TỪ TRONG GAME BẤM THOÁT HOẶC X SẼ VỀ BẢNG NHẬP LIỆU (SETUP)
+    const handleBackToSetup = () => {
+        setIsFlashcardOpen(false);
+        setIsLearnGameOpen(false);
+        setIsEssayOpen(false);
+        setIsVerbEssayOpen(false);
+        setIsVerbQuizOpen(false);
+        setIsVerbReflexOpen(false);
+        // Trở về bảng Setup và GIỮ NGUYÊN cấu hình lúc nãy
+        setSetupConfig(prev => ({ ...prev, isOpen: true }));
+    };
+
+    const handleStartLearning = (target) => {
+        if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
+            setSetupConfig(prev => ({ ...prev, isOpen: false })); // Không clear targetAction
+            setIsVerbPreviewOpen(true);
+            return;
+        }
+        
+        if (target === 'preview') {
+            setSetupConfig(prev => ({ ...prev, isOpen: false }));
+            setIsPreviewListOpen(true);
+        } else {
+            setSetupConfig(prev => ({ ...prev, isOpen: false })); // KHÔNG CLEAR TARGET ACTION ĐỂ CÒN BIẾT ĐƯỜNG VỀ
+            setIsPreviewListOpen(false);
+            setIsVerbPreviewOpen(false);
+            
+            if (target === 'flashcard') setIsFlashcardOpen(true);
+            else if (target === 'game') setIsLearnGameOpen(true);
+            else if (target === 'essay') setIsEssayOpen(true);
+            else if (target === 'conjugate') {
+                if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
+                else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
+                else setIsVerbEssayOpen(true);
+            } else if (target === 'kaiwa') {
+                setIsKaiwaOpen(true);
+            }
+        }
+    };
+
+    // HÀM 4: KHÓA NỀN TOÀN CỤC CHUẨN XÁC NHẤT
+    useEffect(() => {
+        const hasOpenModal = isFlashcardOpen || isLearnGameOpen || isReviewListOpen || isPreviewListOpen || isEssayOpen || isVerbPreviewOpen || isVerbEssayOpen || isVerbQuizOpen || isVerbReflexOpen || isKaiwaOpen || isDictionaryOpen || setupConfig.isOpen || categoryModal.isOpen;
+        
+        // Dùng setTimeout cực ngắn để đè lên mọi hàm rác của component con
+        const timer = setTimeout(() => {
+            if (hasOpenModal) document.body.style.overflow = 'hidden';
+            else document.body.style.overflow = '';
+        }, 50);
+
+        return () => clearTimeout(timer);
+    }, [isFlashcardOpen, isLearnGameOpen, isReviewListOpen, isPreviewListOpen, isEssayOpen, isVerbPreviewOpen, isVerbEssayOpen, isVerbQuizOpen, isVerbReflexOpen, isKaiwaOpen, isDictionaryOpen, setupConfig.isOpen, categoryModal.isOpen]);
+
+    
     
     const [dbData, setDbData] = useState(null);
     const [isDbLoaded, setIsDbLoaded] = useState(false);
@@ -6813,7 +6850,7 @@ React.useEffect(() => {
             {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
                 isOpen={isFlashcardOpen} 
-                onClose={() => { setIsFlashcardOpen(false); handleBackToCategory(); }}
+                onClose={handleBackToSetup}
                 text={config.text} 
                 dbData={dbData} 
                 onSrsUpdate={updateSRSProgress}
@@ -6828,7 +6865,7 @@ React.useEffect(() => {
 
             <LearnGameModal 
                 isOpen={isLearnGameOpen}
-                onClose={() => { setIsLearnGameOpen(false); handleBackToCategory(); }}
+                onClose={handleBackToSetup}
                 text={config.text}
                 dbData={dbData}
                 mode={practiceMode}
@@ -6847,7 +6884,7 @@ React.useEffect(() => {
             />
     <EssayGameModal 
     isOpen={isEssayOpen}
-   onClose={() => { setIsEssayOpen(false); handleBackToCategory(); }}
+  onClose={handleBackToSetup}
     text={config.text}
     dbData={dbData}
     mode={practiceMode}
@@ -6886,19 +6923,19 @@ React.useEffect(() => {
             />
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
-               onClose={() => { setIsVerbEssayOpen(false); handleBackToCategory(); }}
+               onClose={handleBackToSetup}
                 verbsData={verbPracticeData}
                 targetForm={verbTargetForm}
             />
                     <VerbQuizGameModal
     isOpen={isVerbQuizOpen}
-    onClose={() => { setIsVerbQuizOpen(false); handleBackToCategory(); }}
+   onClose={handleBackToSetup}
     verbsData={verbPracticeData}
     selectedForms={verbSelectedForms}
 />
         <VerbReflexGameModal
                 isOpen={isVerbReflexOpen}
-                onClose={() => { setIsVerbReflexOpen(false); handleBackToCategory(); }}
+               onClose={handleBackToSetup}
                 verbsData={verbPracticeData}
                 selectedForms={verbSelectedForms}
             />
