@@ -2649,9 +2649,22 @@ const DonateModal = ({ isOpen, onClose }) => {
 // --- COMPONENT MỚI: BẢNG CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG ---
 const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) => {
     React.useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
-        return () => { document.body.style.overflow = 'unset'; };
+        if (isOpen) {
+            // Tính toán độ rộng của thanh cuộn để bù vào padding, tránh giật layout
+            const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollBarWidth}px`;
+        } else {
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
+        return () => { 
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        };
     }, [isOpen]);
 
     if (!isOpen) return null;
@@ -2669,7 +2682,6 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
         { id: 'essay', title: 'TỰ LUẬN', desc: 'Luyện gõ chữ', action: 'essay', icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> }
     ];
 
-    // Thêm Menu mới cho Chia động từ
     const conjugateMenu = [
         { id: 'essay', title: 'TỰ LUẬN', desc: 'Nhập trực tiếp câu trả lời', action: 'essay', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> },
         { id: 'quiz', title: 'TRẮC NGHIỆM', desc: 'Chọn đáp án đúng', action: 'quiz', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg> },
