@@ -6555,7 +6555,18 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     // State cho Modal Thiết lập (StudySetupModal)
    const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
     const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
-
+const [practiceMode, setPracticeMode] = useState('kanji'); 
+    const [config, setConfig] = useState({ text: '' }); 
+    const [textCache, setTextCache] = useState({ vocab: '', kanji: '' });
+    const handleModeSwitch = (newMode) => {
+        if (practiceMode === 'vocab') {
+            setTextCache(prev => ({ ...prev, vocab: config.text }));
+        } else {
+            setTextCache(prev => ({ ...prev, kanji: config.text }));
+        }
+        setPracticeMode(newMode);
+        setConfig({ text: newMode === 'vocab' ? textCache.vocab : textCache.kanji });
+    };
     // HÀM 1: ĐIỀU HƯỚNG TỪ MENU CHỌN
     const handleSelectCategoryAction = (category, action) => {
         if (category === 'kanji' || category === 'vocab') {
