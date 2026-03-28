@@ -2654,14 +2654,15 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
     const notifRef = useRef(null);
-    const [selectedCategory, setSelectedCategory] = useState(null); // State quản lý nhóm menu
-
-    React.useEffect(() => {
-        if (isDocsModalOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
+    
+React.useEffect(() => {
+        if (isDocsModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isDocsModalOpen]);
-
     const notifications = [
         { 
             id: 5, 
@@ -2669,6 +2670,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
             date: '27/03/2026', 
             content: 'Giờ đây bạn có thể dễ dàng tra cứu Kanji sắp xếp theo bộ thủ hoặc nhập trực tiếp âm Hán Việt. Bấm ngay vào "TRA CỨU KANJI" ở trang chủ để khám phá nhé!'
         }
+        
     ];
 
     const [readNotifIds, setReadNotifIds] = useState(() => {
@@ -2691,7 +2693,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         function handleClickOutside(event) {
             if (notifRef.current && !notifRef.current.contains(event.target)) {
                 setIsNotifOpen(false);
@@ -2713,6 +2715,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
         featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    // --- LOGIC UI THÔNG BÁO CHUNG (Dùng cho cả PC và Mobile) ---
     const NotificationDropdown = () => (
         <div className="absolute top-full right-0 mt-3 w-80 bg-white border border-zinc-200 rounded-2xl shadow-[0_10px_40px_rgb(0,0,0,0.1)] z-50 animate-in fade-in zoom-in-95 duration-200 overflow-hidden origin-top-right">
             <div className="px-4 py-3 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
@@ -2757,7 +2760,9 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
                             <span className="text-xl font-bold tracking-tight">PHÁ ĐẢO<span className="font-light"> TIẾNG NHẬT</span></span>
                         </div>
                         
+                        {/* Menu PC: GIỮ NGUYÊN 100% */}
                         <div className="hidden md:flex items-center gap-5">
+                           
                             <div className="relative flex items-center" ref={notifRef}>
                                 <button onClick={handleToggleNotif} className="relative p-2 text-zinc-500 hover:text-zinc-900 rounded-full hover:bg-zinc-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
@@ -2769,6 +2774,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
                             <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 shadow-sm">Tham gia Nhóm</a>
                         </div>
                         
+                        {/* NÚT MOBILE: ĐÃ THAY 3 GẠCH BẰNG CHUÔNG */}
                         <div className="md:hidden relative flex items-center" ref={notifRef}>
                             <button onClick={handleToggleNotif} className="relative p-2 text-zinc-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
@@ -2784,6 +2790,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
             <section className="pt-28 pb-16 px-6 lg:px-8 max-w-7xl mx-auto min-h-[90vh] flex items-center">
                 <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
                     <div className="animate-in slide-in-from-left-8 duration-700">
+                        {/* Ẩn trên mobile bằng hidden md:inline-block */}
                         <div className="hidden md:inline-block px-3 py-1 mb-5 border border-zinc-200 rounded-full bg-zinc-50">
                             <span className="text-[10px] font-bold text-zinc-600 tracking-wider uppercase">Bước tiếp hành trình của bạn</span>
                         </div>
@@ -2791,6 +2798,7 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
                             Nơi nào có ý chí <br />
                             <span className="text-zinc-400 font-light italic font-serif">nơi đó có con đường</span>
                         </h1>
+                        {/* Ẩn trên mobile bằng hidden md:block */}
                         <p className="hidden md:block text-lg text-zinc-500 mb-8 max-w-md font-medium leading-relaxed">
                             <span className="font-jp">日本語を勉強しましょう。</span>
                         </p>
@@ -2805,145 +2813,110 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
                 </div>
             </section>
 
-            {/* FEATURES SECTION (ĐÃ TRẢ LẠI GIAO DIỆN CŨ - GỘP LOGIC MỚI) */}
+            {/* FEATURES SECTION */}
             <section ref={featuresRef} className="py-20 bg-zinc-50/50 border-t border-zinc-100 min-h-screen flex flex-col justify-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                    
-                    {/* TIÊU ĐỀ */}
-                    <div className="text-center mb-16 relative">
-                        {selectedCategory ? (
-                            <div className="animate-in slide-in-from-right-4 duration-300">
-                                <button onClick={() => setSelectedCategory(null)} className="mb-6 mx-auto px-5 py-2.5 rounded-full bg-white border border-zinc-200 hover:border-zinc-900 hover:shadow-sm text-zinc-700 text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 active:scale-95">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                                    Quay lại Menu Chính
-                                </button>
-                                <h2 className="text-3xl font-bold tracking-tight mb-4 uppercase">
-                                    HỌC {selectedCategory === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}
-                                </h2>
-                                <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Chọn một phương pháp học phù hợp với bạn hôm nay.</p>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold tracking-tight mb-4 uppercase">Hôm nay bạn muốn học gì?</h2>
+                        <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-8">
+                       {/* 8. TỪ ĐIỂN BỘ THỦ */}
+                        <div onClick={onOpenDictionary} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                            <div className="absolute top-4 right-4 bg-indigo-50 text-indigo-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse">
+                                MỚI
                             </div>
-                        ) : (
-                            <div className="animate-in slide-in-from-left-4 duration-300">
-                                <h2 className="text-3xl font-bold tracking-tight mb-4 uppercase">Hôm nay bạn muốn học gì?</h2>
-                                <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
-                        )}
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
+                        </div>
+                        {/* 1. CHẾ ĐỘ HỌC */}
+                        <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                        </div>
+
+                        {/* 2. FLASHCARD */}
+                        <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                        </div>
+
+                        {/* 3. TỰ LUẬN */}
+                        <div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">TỰ LUẬN</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                        </div>
+
+                        {/* 4. CHIA ĐỘNG TỪ */}
+                        <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                            
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
+                        </div>
+    {/* 7. LUYỆN KAIWA */}
+<div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        MỚI
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
+</div>
+
+                        {/* 5. LỊCH TRÌNH HỌC */}
+                        <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                            {dueCharsCount > 0 && (
+                                <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-md">Cần ôn</div>
+                            )}
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
+                        </div>
+{/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
+<div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
+</div>
+
+
+                        {/* 7. LUYỆN JLPT */}
+                        <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
+                            <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                Sắp ra mắt
+                            </div>
+                            <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-400">LUYỆN JLPT</h3>
+                            <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Thi thử, làm đề N5-N1</p>
+                        </div>
+
                     </div>
 
-                    {/* DANH SÁCH MENU THEO GIAO DIỆN CŨ (3 Cột, Căn trái) */}
-                    {!selectedCategory ? (
-                        <div className="grid md:grid-cols-3 gap-8 animate-in fade-in duration-300">
-                            
-                            {/* HỌC KANJI */}
-                            <div onClick={() => setSelectedCategory('kanji')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <span className="text-2xl font-['Klee_One'] font-black">漢</span>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">HỌC KANJI</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tất cả các chế độ</p>
-                            </div>
-
-                            {/* HỌC TỪ VỰNG */}
-                            <div onClick={() => setSelectedCategory('vocab')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <span className="text-xl font-black">Aあ</span>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">HỌC TỪ VỰNG</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tất cả các chế độ</p>
-                            </div>
-
-                            {/* TRA CỨU KANJI */}
-                            <div onClick={onOpenDictionary} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="absolute top-4 right-4 bg-indigo-50 text-indigo-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse">MỚI</div>
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
-                            </div>
-
-                            {/* CHIA ĐỘNG TỪ */}
-                            <div onClick={() => onOpenSetup('conjugate', 'vocab')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ VỰNG & NGỮ PHÁP</p>
-                            </div>
-
-                            {/* KAIWA */}
-                            <div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">MỚI</div>
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">SHADOWING & PHẢN XẠ</p>
-                            </div>
-
-                            {/* LỊCH TRÌNH HỌC */}
-                            <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                {dueCharsCount > 0 && (
-                                    <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full animate-pulse uppercase tracking-wider shadow-md">Cần ôn</div>
-                                )}
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">LỊCH TRÌNH HỌC</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TIẾN ĐỘ THẺ GHI NHỚ</p>
-                            </div>
-
-                            {/* TÀI LIỆU HỌC */}
-                            <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">TÀI LIỆU HỌC</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TỪ N5 ĐẾN N1</p>
-                            </div>
-
-                            {/* LUYỆN JLPT */}
-                            <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
-                                <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                                    Sắp ra mắt
-                                </div>
-                                <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-400">LUYỆN JLPT</h3>
-                                <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">THI THỬ, LÀM ĐỀ N5-N1</p>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="grid md:grid-cols-3 gap-8 animate-in slide-in-from-bottom-8 duration-300">
-                            {/* CHẾ ĐỘ HỌC */}
-                            <div onClick={() => onOpenSetup('game', selectedCategory)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">CHẾ ĐỘ HỌC</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">TRẮC NGHIỆM & THẺ</p>
-                            </div>
-
-                            {/* FLASHCARD */}
-                            <div onClick={() => onOpenSetup('flashcard', selectedCategory)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">FLASHCARD</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">LẶP LẠI NGẮT QUÃNG</p>
-                            </div>
-
-                            {/* TỰ LUẬN */}
-                            <div onClick={() => onOpenSetup('essay', selectedCategory)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                                <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                </div>
-                                <h3 className="text-xl font-bold mb-1 text-zinc-900">TỰ LUẬN</h3>
-                                <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">GÕ LẠI ĐÁP ÁN ĐÚNG</p>
-                            </div>
-                        </div>
-                    )}
+  
                 </div>
             </section>
 
@@ -2951,26 +2924,39 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
             <footer className="bg-white border-t border-zinc-100 py-12 relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex flex-col items-center md:flex-row gap-4 md:gap-6">
+                        
+                        {/* 1. Nút Tiktok */}
                         <a href="https://www.tiktok.com/@phadaotiengnhat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group">
                             <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
                             </div>
                             <span className="font-bold tracking-tight text-zinc-900">Tiktok</span>
                         </a>
+                        
+                        {/* Vách ngăn mờ (Chỉ hiện trên PC) */}
                         <div className="h-4 w-px bg-zinc-200 hidden md:block"></div>
+                        
+                        {/* 2. Nút Mời Cafe (Mới thêm) */}
                         <button onClick={() => setIsDonateModalOpen(true)} className="flex items-center gap-2 group text-zinc-600 hover:text-zinc-900 transition-colors active:scale-95">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-rotate-12 transition-transform"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
                             <span className="font-bold tracking-tight text-sm">Mời cafe</span>
                         </button>
+                        
+                        {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
+                     
                         <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
                     </div>
                     <p className="text-sm text-zinc-500 font-medium">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
             </footer>
 
-            <DonateModal isOpen={isDonateModalOpen} onClose={() => setIsDonateModalOpen(false)} />
+            {/* Gọi DonateModal ở ngay dưới Footer */}
+            <DonateModal 
+                isOpen={isDonateModalOpen} 
+                onClose={() => setIsDonateModalOpen(false)} 
+            />
                     
-            {/* MODAL TÀI LIỆU */}
+            {/* MODAL TÀI LIỆU (Giữ nguyên) */}
              {isDocsModalOpen && (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-gray-200 flex flex-col max-h-[80vh]">
@@ -2978,9 +2964,11 @@ const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary,
             {/* Header của Popup */}
             <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                 <h3 className="text-sm font-bold text-gray-700 uppercase flex items-center gap-2">
+{/* Bắt đầu Icon 2D */}
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600">
     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
 </svg>
+{/* Kết thúc Icon 2D */}
 TÀI LIỆU HỌC TẬP
 </h3>
                 <button onClick={() => setIsDocsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
@@ -2988,8 +2976,10 @@ TÀI LIỆU HỌC TẬP
                 </button>
             </div>
 
-            {/* Danh sách tài liệu */}
+            {/* Danh sách tài liệu (Cuộn được nếu dài) */}
             <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar">
+
+{/* Bộ sách luyện đề */}
                 <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -3001,6 +2991,7 @@ TÀI LIỆU HỌC TẬP
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
                 
+                {/* 2139 kanji */}
                 <a href="https://drive.google.com/file/d/1Q3bbd3Aao7R71wemjESHddbvmXWYe542/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -3012,6 +3003,7 @@ TÀI LIỆU HỌC TẬP
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
 
+                {/* quy tắc chuyển âm */}
                 <a href="https://drive.google.com/file/d/17L2ufF9P0GfLrhzE_yCsAqjXYSYrhTxU/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -3023,6 +3015,7 @@ TÀI LIỆU HỌC TẬP
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
 
+                {/* Flashcard Kanji */}
                 <a href="https://quizlet.com/join/mE5CzMyT7?i=4yxqkk&x=1bqt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -3034,8 +3027,13 @@ TÀI LIỆU HỌC TẬP
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
 
+    
+
+                {/* nhóm học tập */}
                 <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
+                    {/* Đã đổi: bg-blue -> bg-orange */}
                     <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        {/* Đã đổi: Icon File -> Icon Nhóm người */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                             <circle cx="9" cy="7" r="4"></circle>
@@ -3049,9 +3047,10 @@ TÀI LIỆU HỌC TẬP
                     </div>
                     <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
+
             </div>
 
-            {/* Nút đóng */}
+            {/* Nút đóng màu đen */}
             <div className="p-4 pt-2 bg-white">
                 <button 
                     onClick={() => setIsDocsModalOpen(false)}
@@ -3060,6 +3059,7 @@ TÀI LIỆU HỌC TẬP
                     ĐÓNG
                 </button>
             </div>
+
         </div>
     </div>
     )}
@@ -3814,10 +3814,9 @@ const StudySetupModal = ({
               {/* Header: Đổi chế độ */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
                     {targetAction !== 'conjugate' ? (
-                        <div className="flex items-center gap-2">
-                            <span className="px-4 py-1.5 bg-zinc-900 text-white rounded-lg text-[11px] font-black tracking-widest uppercase shadow-sm">
-                                {mode === 'kanji' ? 'ĐANG HỌC: KANJI' : 'ĐANG HỌC: TỪ VỰNG'}
-                            </span>
+                        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
+                            <button onClick={() => setPracticeMode('kanji')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
+                            <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
                         </div>
                     ) : (
                         <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 max-w-[calc(100%-40px)] overflow-x-auto custom-scrollbar no-scrollbar">
@@ -3827,7 +3826,7 @@ const StudySetupModal = ({
                         </div>
                     )}
                     
-                    {/* Nút đóng X */}
+                    {/* Nút đóng X - Cố định vị trí và chỉ giữ 1 nút duy nhất */}
                     <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
                 </div>
                         
@@ -6678,20 +6677,20 @@ React.useEffect(() => {
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-{/* 1. TRANG CHỦ TỐI GIẢN (CÓ MENU) */}
+{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
     onOpenDictionary={() => setIsDictionaryOpen(true)}
-    onOpenSetup={(target, targetMode) => {
+    onOpenSetup={(target) => {
+        // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
         if (target === 'kaiwa') {
             setIsKaiwaOpen(true);
         } else {
+            // Các tính năng khác vẫn mở bảng Setup bình thường
             setSetupConfig({ isOpen: true, targetAction: target });
-            // Nếu có truyền targetMode (kanji / vocab) thì chuyển mode
-            if (targetMode) {
-                handleModeSwitch(targetMode);
-            } else if (target === 'conjugate') {
+            // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
+            if (target === 'conjugate') {
                 handleModeSwitch('vocab'); 
             }
         }
