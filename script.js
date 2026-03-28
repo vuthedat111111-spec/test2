@@ -2669,22 +2669,29 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
         { id: 'essay', title: 'TỰ LUẬN', desc: 'Luyện gõ chữ', action: 'essay', icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> }
     ];
 
-    const currentMenu = category === 'kanji' ? kanjiMenu : vocabMenu;
+    // Thêm Menu mới cho Chia động từ
+    const conjugateMenu = [
+        { id: 'essay', title: 'TỰ LUẬN', desc: 'Nhập trực tiếp câu trả lời', action: 'essay', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> },
+        { id: 'quiz', title: 'TRẮC NGHIỆM', desc: 'Chọn đáp án đúng', action: 'quiz', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg> },
+        { id: 'reflex', title: 'PHẢN XẠ', desc: 'Chớp nhoáng với thời gian', action: 'reflex', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> }
+    ];
 
-   return (
+    const currentMenu = category === 'kanji' ? kanjiMenu : category === 'vocab' ? vocabMenu : conjugateMenu;
+    const modalTitle = category === 'kanji' ? 'HỌC KANJI' : category === 'vocab' ? 'HỌC TỪ VỰNG' : 'CHIA ĐỘNG TỪ';
+
+    return (
         <div className="fixed inset-0 z-[400] flex justify-center items-center bg-zinc-900/80 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200" onClick={onClose}>
             <div className="bg-white w-full h-full sm:h-auto max-w-sm rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300 border-0 sm:border border-zinc-200" onClick={e => e.stopPropagation()}>
                 
                 {/* Header */}
                 <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
                     <div className="flex items-center gap-3">
-                        {/* Nút Back */}
                         <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
                         <div>
                             <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight">
-                                HỌC {category === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}
+                                {modalTitle}
                             </h2>
                             <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest mt-0.5">Chọn chế độ học</p>
                         </div>
@@ -2913,8 +2920,7 @@ React.useEffect(() => {
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Flashcard, Tự luận...</p>
                         </div>
                         {/* 4. CHIA ĐỘNG TỪ */}
-                        <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-                            
+                        <div onClick={() => onOpenCategory('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden"> 
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                             </div>
@@ -3723,26 +3729,14 @@ const StudySetupModal = ({
         }
     }, [isOpen, config.text]);
 
-    // --- 2. FIX KHÓA NỀN CỐ ĐỊNH (Chỉ chạy khi bật/tắt Modal) ---
+    // --- 2. FIX KHÓA NỀN TIÊU CHUẨN ---
     useEffect(() => {
-        if (isOpen) {
-            const scrollY = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflow = 'hidden';
-        } else {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
-            setIsFilterMenuOpen(false); // Reset menu lọc
-            
-            if (scrollY) {
-                window.scrollTo(0, parseInt(scrollY || '0') * -1);
-            }
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else {
+            document.body.style.overflow = 'unset';
+            setIsFilterMenuOpen(false);
         }
+        return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
    useEffect(() => {
         function handleClickOutside(event) {
@@ -3879,16 +3873,14 @@ const StudySetupModal = ({
                                 {targetAction === 'game' ? 'CHẾ ĐỘ HỌC' : targetAction === 'flashcard' ? 'FLASHCARD' : 'TỰ LUẬN'} {mode === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}
                             </h2>
                         ) : (
-                            <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 max-w-[calc(100%-40px)] overflow-x-auto custom-scrollbar no-scrollbar">
-                                <button onClick={() => setVerbPracticeMode('essay')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TỰ LUẬN</button>
-                                <button onClick={() => setVerbPracticeMode('quiz')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TRẮC NGHIỆM</button>
-                                <button onClick={() => setVerbPracticeMode('reflex')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'reflex' ? 'bg-white text-red-600 shadow-sm border border-red-200' : 'text-gray-500'}`}>⚡ PHẢN XẠ</button>
-                            </div>
+                            <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
+                                {verbPracticeMode === 'essay' ? 'TỰ LUẬN' : verbPracticeMode === 'quiz' ? 'TRẮC NGHIỆM' : 'PHẢN XẠ'} ĐỘNG TỪ
+                            </h2>
                         )}
                     </div>
                     
-                    {/* Nút đóng X */}
-                    <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
+                    {/* Nút đóng X đổi thành quay lại bảng chọn */}
+                    <button onClick={onBack || onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
                 </div>
                         
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-5 relative">
@@ -6570,11 +6562,17 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
   const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
 
     const handleSelectCategoryAction = (category, action) => {
-        handleModeSwitch(category);
-        if (action === 'dictionary') {
-            setIsDictionaryOpen(true);
-        } else {
-            setSetupConfig({ isOpen: true, targetAction: action });
+        if (category === 'kanji' || category === 'vocab') {
+            handleModeSwitch(category);
+            if (action === 'dictionary') {
+                setIsDictionaryOpen(true);
+            } else {
+                setSetupConfig({ isOpen: true, targetAction: action });
+            }
+        } else if (category === 'conjugate') {
+            handleModeSwitch('vocab'); 
+            setVerbPracticeMode(action); // Ghi nhận chọn Tự luận, Trắc nghiệm hay Phản xạ
+            setSetupConfig({ isOpen: true, targetAction: 'conjugate' }); 
         }
     };
 
@@ -6815,7 +6813,7 @@ React.useEffect(() => {
             {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
                 isOpen={isFlashcardOpen} 
-                onClose={() => setIsFlashcardOpen(false)} 
+                onClose={() => { setIsFlashcardOpen(false); handleBackToCategory(); }}
                 text={config.text} 
                 dbData={dbData} 
                 onSrsUpdate={updateSRSProgress}
@@ -6830,7 +6828,7 @@ React.useEffect(() => {
 
             <LearnGameModal 
                 isOpen={isLearnGameOpen}
-                onClose={() => setIsLearnGameOpen(false)}
+                onClose={() => { setIsLearnGameOpen(false); handleBackToCategory(); }}
                 text={config.text}
                 dbData={dbData}
                 mode={practiceMode}
@@ -6849,7 +6847,7 @@ React.useEffect(() => {
             />
     <EssayGameModal 
     isOpen={isEssayOpen}
-    onClose={() => setIsEssayOpen(false)}
+   onClose={() => { setIsEssayOpen(false); handleBackToCategory(); }}
     text={config.text}
     dbData={dbData}
     mode={practiceMode}
@@ -6888,19 +6886,19 @@ React.useEffect(() => {
             />
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
-                onClose={() => setIsVerbEssayOpen(false)}
+               onClose={() => { setIsVerbEssayOpen(false); handleBackToCategory(); }}
                 verbsData={verbPracticeData}
                 targetForm={verbTargetForm}
             />
                     <VerbQuizGameModal
     isOpen={isVerbQuizOpen}
-    onClose={() => setIsVerbQuizOpen(false)}
+    onClose={() => { setIsVerbQuizOpen(false); handleBackToCategory(); }}
     verbsData={verbPracticeData}
     selectedForms={verbSelectedForms}
 />
         <VerbReflexGameModal
                 isOpen={isVerbReflexOpen}
-                onClose={() => setIsVerbReflexOpen(false)}
+                onClose={() => { setIsVerbReflexOpen(false); handleBackToCategory(); }}
                 verbsData={verbPracticeData}
                 selectedForms={verbSelectedForms}
             />
@@ -6910,7 +6908,7 @@ React.useEffect(() => {
     />
     <KanjiDictionaryModal 
     isOpen={isDictionaryOpen}
-    onClose={() => setIsDictionaryOpen(false)}
+    onClose={() => { setIsDictionaryOpen(false); handleBackToCategory(); }}
     dbData={dbData}
     config={config}
     setConfig={setConfig}
