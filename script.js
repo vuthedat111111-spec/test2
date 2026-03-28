@@ -6599,13 +6599,7 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
         setConfig(prev => ({ ...prev, text: textCache[newMode] || '' }));
     };
 
-    // HÀM MỚI: Xử lý nút quay lại trang chọn danh mục
-    const handleBackToCategory = () => {
-        setSetupConfig({ isOpen: false, targetAction: null });
-        setIsDictionaryOpen(false);
-        // Mở lại bảng chọn dựa trên chế độ đang học (kanji hoặc vocab)
-        setCategoryModal({ isOpen: true, type: practiceMode });
-    };
+    
     const [dbData, setDbData] = useState(null);
     const [isDbLoaded, setIsDbLoaded] = useState(false);
     
