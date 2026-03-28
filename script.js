@@ -5077,7 +5077,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-        '22baitrungthuongcap': [
+         '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -5315,8 +5315,7 @@ const renderGuideOverlay = () => (
                     {[
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
                         { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
-                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
-                       
+                       { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -6094,7 +6093,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
-const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
+const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setPracticeMode }) => {
     const [view, setView] = useState('radicals'); // 'radicals' | 'kanji_list' | 'detail'
     const [selectedRadical, setSelectedRadical] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
@@ -6179,7 +6178,19 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
     }, [fullSvg]);
 
     if (!isOpen) return null;
+// --- HÀM THÊM KANJI VÀO Ô ÔN TẬP ---
+    const handleAddKanji = () => {
+        if (!selectedKanji) return;
 
+        // Tự động chuyển màn hình chính sang chế độ Kanji
+        if (setPracticeMode) setPracticeMode('kanji');
+
+        const currentText = config?.text || '';
+        // Nếu chữ chưa có trong danh sách thì mới ghép thêm vào
+        if (!currentText.includes(selectedKanji)) {
+            setConfig({ ...config, text: currentText + selectedKanji });
+        }
+    };
     // --- MÀN 1: TÌM KIẾM & DANH SÁCH BỘ THỦ ---
     const renderRadicals = () => {
         const radicals = dbData?.BOTHU_DB || {}; 
@@ -6219,12 +6230,13 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                 <button 
                                     key={rad}
                                     style={{ WebkitTapHighlightColor: 'transparent' }}
-                                    onClick={(e) => {
-                                        e.currentTarget.blur();
-                                        setSelectedRadical({ radical: rad, ...info });
-                                        setVisitedRadicals(prev => new Set(prev).add(rad)); // Đánh dấu đã xem Bộ thủ
-                                        setTimeout(() => { setView('kanji_list'); }, 50);
-                                    }}
+    onClick={(e) => {
+    e.currentTarget.blur();
+    scrollPositions.current.kanji_list = 0; 
+    setSelectedRadical({ radical: rad, ...info });
+    setVisitedRadicals(prev => new Set(prev).add(rad)); 
+    setTimeout(() => { setView('kanji_list'); }, 50);
+}}
                                     className={`border rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
                                         isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
                                     }`}
@@ -6298,14 +6310,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
                                                     isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-zinc-50 border-zinc-200 md:hover:bg-zinc-900 md:hover:text-white'
                                                 }`}
                                             >
-                                              
+                                               
 <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 md:group-hover:text-white'}`}>
     {char}
 </span>
 <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500 md:group-hover:text-zinc-300'}`}>
     {info.sound || '---'}
 </span>
-                                            </button>
+                                                </button>
                                         );
                                     })}
                                 </div>
@@ -6357,23 +6369,48 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-left">
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm ÔN (On'yomi)</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM ON</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_on?.join('、 ')}>
                                     {onkun.readings_on && onkun.readings_on.length > 0 ? onkun.readings_on.join('、 ') : '---'}
                                 </span>
                             </div>
                             <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200 min-w-0 w-full">
-                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">Âm KUN (Kun'yomi)</span>
+                                <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-1">ÂM KUN</span>
                                 <span className="text-sm font-bold text-zinc-900 block truncate w-full pb-0.5" title={onkun.readings_kun?.join('、 ')}>
                                     {onkun.readings_kun && onkun.readings_kun.length > 0 ? onkun.readings_kun.join('、 ') : '---'}
                                 </span>
                             </div>
                         </div>
                         
-                        <div className="mt-4 flex gap-2 w-full justify-center md:justify-start">
-                            {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
-                            {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
-                        </div>
+                        <div className="mt-4 flex gap-2 w-full justify-center md:justify-start items-center">
+    {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
+    {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
+
+    {/* NÚT THÊM KANJI VÀO DANH SÁCH HỌC */}
+    {selectedKanji && (
+        <button
+            onClick={handleAddKanji}
+            className={`flex items-center justify-center px-2.5 py-1 text-[10px] font-black rounded uppercase flex-shrink-0 transition-all active:scale-95 ml-1 ${
+                config?.text?.includes(selectedKanji)
+                    ? 'bg-green-500 text-white border border-green-500 shadow-sm'
+                    : 'bg-indigo-50 text-indigo-600 border border-indigo-200 hover:bg-indigo-100'
+            }`}
+            title="Thêm vào danh sách ôn tập"
+        >
+            {config?.text?.includes(selectedKanji) ? (
+                <span className="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Đã thêm
+                </span>
+            ) : (
+                <span className="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Thêm ôn tập
+                </span>
+            )}
+        </button>
+    )}
+</div>
                     </div>
                 </div>
 
@@ -6410,7 +6447,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
 
     return (
         <div className="fixed inset-0 z-[600] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] md:h-[80vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 sm:border border-zinc-200">
+            <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] md:h-[90vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 sm:border border-zinc-200">
                 
                 {/* HEADER */}
                 <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
@@ -6426,7 +6463,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         setView(selectedRadical ? 'kanji_list' : 'radicals');
     } 
     else if (view === 'kanji_list') {
-      
+
         setView('radicals');
         setSelectedRadical(null); 
     }
@@ -6452,7 +6489,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData }) => {
         </div>
     );
 };
-
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -6791,10 +6827,13 @@ React.useEffect(() => {
         isOpen={isKaiwaOpen} 
         onClose={() => setIsKaiwaOpen(false)} 
     />
-            <KanjiDictionaryModal 
+    <KanjiDictionaryModal 
     isOpen={isDictionaryOpen}
     onClose={() => setIsDictionaryOpen(false)}
     dbData={dbData}
+    config={config}
+    setConfig={setConfig}
+    setPracticeMode={handleModeSwitch}
 />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
