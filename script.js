@@ -860,15 +860,24 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         }
     };
 
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
-            initLesson();
         } else {
             document.body.style.overflow = 'unset';
-            setFinished(false); // Đảm bảo đóng lại là reset pháo hoa
+            setFinished(false); 
         }
-    }, [isOpen, mode]); // Reset khi mode thay đổi hoặc mở lại
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (isOpen) {
+            initLesson();
+        }
+    }, [isOpen, mode]);
+   
+    
 
     const triggerConfetti = React.useCallback(() => {
         if (typeof confetti === 'undefined') return;
