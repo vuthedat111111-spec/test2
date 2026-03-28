@@ -3718,7 +3718,8 @@ const StudySetupModal = ({
     isOpen, onClose, onStart, targetAction, 
     config, onChange, mode, setPracticeMode, dbData, srsData,
     verbTargetForm, setVerbTargetForm,
-    verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms 
+    verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms,
+    onBack 
 }) => {
     const [localText, setLocalText] = useState(config.text);
     const [isLibraryOpen, setIsLibraryOpen] = useState(false); // Quản lý mở Thư viện
@@ -3885,9 +3886,9 @@ const StudySetupModal = ({
                 {/* Header: Đổi chế độ */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
                     <div className="flex items-center gap-3">
-                        {/* Nút Back */}
-                        <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all shadow-sm shrink-0">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                       {/* Nút Back */}
+                        <button onClick={onBack || onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all shadow-sm shrink-0">  
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                         </button>
                         
                         {targetAction !== 'conjugate' ? (
@@ -3907,7 +3908,7 @@ const StudySetupModal = ({
                     <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
                 </div>
                         
-                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative">
+                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-5 relative">
                     {/* Thêm phần chọn Thể nếu đang là chế độ Conjugate */}
 {/* Thêm phần chọn Thể với UI Dropdown Custom */}
 {targetAction === 'conjugate' && (
@@ -4051,12 +4052,12 @@ const StudySetupModal = ({
     />
 )}
 
-                    {/* Textarea Nhập liệu */}
-                    <div className="relative">
+                   {/* Textarea Nhập liệu */}
+                    <div className="relative flex-1 flex flex-col min-h-[180px] sm:min-h-0 sm:block">
                         <textarea 
                             value={localText} onChange={handleInputText} onCompositionStart={handleCompositionStart} onCompositionEnd={handleCompositionEnd} onBlur={handleBlurText}
                             placeholder={getDynamicPlaceholder()} 
-                            className="w-full h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all leading-relaxed [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" 
+                            className="flex-1 w-full sm:h-[120px] p-4 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[18px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 focus:bg-white transition-all leading-relaxed [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" 
                             style={{ fontFamily: "system-ui, -apple-system, sans-serif, 'Klee One'" }}
                         />
                         {localText && (
@@ -4065,7 +4066,7 @@ const StudySetupModal = ({
                     </div>
 
                     {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
-    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-3 shrink-0">
         <button onClick={() => setIsLibraryOpen(true)} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
             <span className="text-sm font-bold uppercase tracking-widest">Thư viện</span>
         </button>
@@ -6170,7 +6171,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
-const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setPracticeMode }) => {
+const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setPracticeMode, onBack }) => {
     const [view, setView] = useState('radicals'); // 'radicals' | 'kanji_list' | 'detail'
     const [selectedRadical, setSelectedRadical] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
@@ -6535,11 +6536,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                 e.currentTarget.blur();
                                 if (view === 'detail') {
                                     setView(selectedRadical ? 'kanji_list' : 'radicals');
-                                } else if (view === 'kanji_list') {
+                               } else if (view === 'kanji_list') {
                                     setView('radicals');
                                     setSelectedRadical(null); 
                                 } else {
-                                    onClose(); // Nếu đang ở gốc thì Back = Thoát
+                                    if (onBack) onBack(); else onClose(); // Quay lại trang chọn chế độ
                                 }
                             }}
                             className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none shrink-0"
@@ -6599,7 +6600,14 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
         // Lấy dữ liệu của tab mới từ bộ nhớ tạm (nếu có)
         setConfig(prev => ({ ...prev, text: textCache[newMode] || '' }));
     };
-    
+
+    // HÀM MỚI: Xử lý nút quay lại trang chọn danh mục
+    const handleBackToCategory = () => {
+        setSetupConfig({ isOpen: false, targetAction: null });
+        setIsDictionaryOpen(false);
+        // Mở lại bảng chọn dựa trên chế độ đang học (kanji hoặc vocab)
+        setCategoryModal({ isOpen: true, type: practiceMode });
+    };
     const [dbData, setDbData] = useState(null);
     const [isDbLoaded, setIsDbLoaded] = useState(false);
     
@@ -6789,6 +6797,7 @@ React.useEffect(() => {
     setVerbPracticeMode={setVerbPracticeMode}
     verbSelectedForms={verbSelectedForms}
     setVerbSelectedForms={setVerbSelectedForms}
+        onBack={handleBackToCategory}
             />
 {/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
             <PreviewListModal
@@ -6908,6 +6917,7 @@ React.useEffect(() => {
     config={config}
     setConfig={setConfig}
     setPracticeMode={handleModeSwitch}
+        onBack={handleBackToCategory}
 />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
