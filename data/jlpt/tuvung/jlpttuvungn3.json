@@ -1,0 +1,5778 @@
+[
+  {
+    "id": 1,
+    "type": "md1n3",
+    "question_jp": "[私](わたし)の<u>[兄](あに)</u>は[大学](だいがく)で[日本語](にほんご)と[日本文学](にほんぶんがく)を[教](おし)えています。",
+    "question_vn": "Anh trai tôi đang dạy tiếng Nhật và văn học Nhật Bản ở trường đại học.",
+    "options": [
+      {
+        "id": 1,
+        "text": "あね",
+        "translation": "chị gái",
+        "explanation": "Sai. 'あね' có nghĩa là chị gái, chữ Hán là [姉](あね)."
+      },
+      {
+        "id": 2,
+        "text": "いもうと",
+        "translation": "em gái",
+        "explanation": "Sai. 'いもうと' có nghĩa là em gái, chữ Hán là [妹](いもうと)."
+      },
+      {
+        "id": 3,
+        "text": "おとうと",
+        "translation": "em trai",
+        "explanation": "Sai. 'おとうと' có nghĩa là em trai, chữ Hán là [弟](おとうと)."
+      },
+      {
+        "id": 4,
+        "text": "あに",
+        "translation": "anh trai",
+        "explanation": "Đúng. Chữ [兄] có cách đọc âm Kun là 'あに' (anh trai)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 2,
+    "type": "md1n3",
+    "question_jp": "<u>[一週間](いっしゅうかん)</u>に3[回](かい)は[酒](さけ)を[飲](の)みに[行](い)っています。",
+    "question_vn": "Một tuần tôi đi uống rượu 3 lần.",
+    "options": [
+      {
+        "id": 1,
+        "text": "いっしゅうかん",
+        "translation": "1 tuần",
+        "explanation": "Đúng. Từ [一週間] được đọc là いっしゅうかん, có cả âm ngắt 'っ' và trường âm 'う'."
+      },
+      {
+        "id": 2,
+        "text": "いちしゅうかん",
+        "translation": "1 tuần (sai chính tả)",
+        "explanation": "Sai. Thiếu âm ngắt, đọc 'いち' là sai quy tắc biến âm."
+      },
+      {
+        "id": 3,
+        "text": "いっしゅかん",
+        "translation": "1 tuần (sai chính tả)",
+        "explanation": "Sai. Thiếu trường âm 'う' ở chữ [週](しゅう)."
+      },
+      {
+        "id": 4,
+        "text": "いちしゅかん",
+        "translation": "1 tuần (sai chính tả)",
+        "explanation": "Sai. Vừa thiếu âm ngắt ở chữ [一], vừa thiếu trường âm ở chữ [週]."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 3,
+    "type": "md1n3",
+    "question_jp": "6[時](じ)<u>[以後](いご)</u>のお[問](と)い[合](あ)わせはこちらの[番号](ばんごう)におかけください。",
+    "question_vn": "Mọi thắc mắc sau 6 giờ xin vui lòng gọi vào số này.",
+    "options": [
+      {
+        "id": 1,
+        "text": "いこう",
+        "translation": "sau đó, từ sau khi",
+        "explanation": "Sai. Đây là cách đọc của từ [以降] (sau đó), không phải [以後]."
+      },
+      {
+        "id": 2,
+        "text": "いごう",
+        "translation": "sau đó (sai chính tả)",
+        "explanation": "Sai. Chữ [後] ở đây đọc là ご, không có trường âm 'う'."
+      },
+      {
+        "id": 3,
+        "text": "いこ",
+        "translation": "sau đó (sai chính tả)",
+        "explanation": "Sai. Chữ [後] phải có biến âm (ten-ten) thành ご."
+      },
+      {
+        "id": 4,
+        "text": "いご",
+        "translation": "sau đó, kể từ sau khi",
+        "explanation": "Đúng. [以後] ghép bởi [以] (い) và [後] (ご)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 4,
+    "type": "md1n3",
+    "question_jp": "[青](あお)い<u>[屋上](おくじょう)</u>のきれいな[家](いえ)が[並](なら)んでいる。",
+    "question_vn": "Những ngôi nhà đẹp có sân thượng màu xanh xếp hàng dài.",
+    "options": [
+      {
+        "id": 1,
+        "text": "やじょう",
+        "translation": "sân thượng (sai cách đọc)",
+        "explanation": "Sai. Chữ [屋] đọc âm On là おく, không đọc là や trong trường hợp này."
+      },
+      {
+        "id": 2,
+        "text": "おくじょう",
+        "translation": "sân thượng",
+        "explanation": "Đúng. [屋上] ghép bởi [屋] (おく) và [上] (じょう)."
+      },
+      {
+        "id": 3,
+        "text": "やうえ",
+        "translation": "sân thượng (sai cách đọc)",
+        "explanation": "Sai. Đây là ghép âm Kun (や và うえ) một cách tùy tiện, từ này phải đọc bằng âm On."
+      },
+      {
+        "id": 4,
+        "text": "おくうえ",
+        "translation": "sân thượng (sai cách đọc)",
+        "explanation": "Sai. Chữ [上] phải đọc bằng âm On là じょう, không phải âm Kun うえ."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 5,
+    "type": "md1n3",
+    "question_jp": "3[時](じ)までに[駅](えき)の[前](まえ)に<u>[集](あつ)まって</u>ください。",
+    "question_vn": "Hãy tập trung trước nhà ga trước 3 giờ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "あつまって",
+        "translation": "tập trung",
+        "explanation": "Đúng. Động từ [集](あつ)まる nghĩa là tập trung, tụ tập."
+      },
+      {
+        "id": 2,
+        "text": "はじまって",
+        "translation": "bắt đầu",
+        "explanation": "Sai. Đây là cách đọc của từ [始](はじ)まる (bắt đầu)."
+      },
+      {
+        "id": 3,
+        "text": "とまって",
+        "translation": "dừng lại",
+        "explanation": "Sai. Đây là cách đọc của từ [止](と)まる (dừng lại) hoặc [泊](と)まる (trọ lại)."
+      },
+      {
+        "id": 4,
+        "text": "きまって",
+        "translation": "được quyết định",
+        "explanation": "Sai. Đây là cách đọc của từ [決](き)まる (được quyết định)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 6,
+    "type": "md1n3",
+    "question_jp": "[卒業](そつぎょう)の<u>お[祝](いわ)い</u>に[電子辞書](でんしじしょ)をもらいました。",
+    "question_vn": "Tôi đã nhận được kim từ điển làm quà chúc mừng tốt nghiệp.",
+    "options": [
+      {
+        "id": 1,
+        "text": "おみまい",
+        "translation": "thăm bệnh",
+        "explanation": "Sai. Từ này viết bằng Hán tự là お[見舞](みま)い."
+      },
+      {
+        "id": 2,
+        "text": "おれい",
+        "translation": "cảm ơn",
+        "explanation": "Sai. Từ này viết bằng Hán tự là お[礼](れい)."
+      },
+      {
+        "id": 3,
+        "text": "おいわい",
+        "translation": "chúc mừng",
+        "explanation": "Đúng. Chữ [祝] đọc là いわ trong お[祝](いわ)い (sự chúc mừng/quà mừng)."
+      },
+      {
+        "id": 4,
+        "text": "おしゅくい",
+        "translation": "chúc mừng (sai cách đọc)",
+        "explanation": "Sai. しゅく là âm On của chữ [祝] (ví dụ trong 祝日 しゅくじつ), nhưng đứng một mình với 'お...い' phải dùng âm Kun là いわ."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 7,
+    "type": "md1n3",
+    "question_jp": "[勉強](べんきょう)するには[静](しず)かで<u>[明](あか)るい</u>ところがいい。",
+    "question_vn": "Để học tập thì nơi yên tĩnh và sáng sủa là tốt nhất.",
+    "options": [
+      {
+        "id": 1,
+        "text": "めいるい",
+        "translation": "sáng sủa (sai cách đọc)",
+        "explanation": "Sai. めい là âm On của chữ [明], không ghép với okurigana るい."
+      },
+      {
+        "id": 2,
+        "text": "あきるい",
+        "translation": "sáng sủa (sai cách đọc)",
+        "explanation": "Sai. Không có cách đọc 'あき' cho chữ Hán này trong tính từ."
+      },
+      {
+        "id": 3,
+        "text": "あがるい",
+        "translation": "sáng sủa (sai cách đọc)",
+        "explanation": "Sai. Âm 'か' không bị biến âm đục thành 'が'."
+      },
+      {
+        "id": 4,
+        "text": "あかるい",
+        "translation": "sáng sủa",
+        "explanation": "Đúng. [明](あか)るい là tính từ đuôi -i mang nghĩa sáng sủa, tươi sáng."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 8,
+    "type": "md1n3",
+    "question_jp": "[子供](こども)の<u>[笑顔](えがお)</u>を[見](み)ると[元気](げんき)になりました。",
+    "question_vn": "Khi nhìn thấy khuôn mặt tươi cười của bọn trẻ, tôi trở nên khỏe khoắn (có tinh thần).",
+    "options": [
+      {
+        "id": 1,
+        "text": "えがお",
+        "translation": "khuôn mặt tươi cười",
+        "explanation": "Đúng. [笑顔] là trường hợp đọc đặc biệt, ghép bởi [笑] (え) và [顔] (かお biến âm thành がお)."
+      },
+      {
+        "id": 2,
+        "text": "わらがお",
+        "translation": "khuôn mặt tươi cười (sai cách đọc)",
+        "explanation": "Sai. Dù [笑] đứng một mình là わらう, nhưng ghép trong từ này phải đọc là え."
+      },
+      {
+        "id": 3,
+        "text": "ほほえみ",
+        "translation": "nụ cười mỉm",
+        "explanation": "Sai. Từ này viết bằng Hán tự là [微笑](ほほえ)み."
+      },
+      {
+        "id": 4,
+        "text": "しょうがん",
+        "translation": "khuôn mặt tươi cười (sai cách đọc)",
+        "explanation": "Sai. Đây là cách ghép âm On (しょう và がん), nhưng từ này người Nhật chỉ dùng cách đọc えがお."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 9,
+    "type": "md2n3",
+    "question_jp": "[一人](ひとり)ではさびしい。<u>いもうと</u>と[一緒](いっしょ)に[行](い)きたい。",
+    "question_vn": "Một mình thì buồn. Tôi muốn đi cùng em gái.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[姉](あね)",
+        "translation": "chị gái",
+        "explanation": "Sai. Nghĩa là chị gái (あね)."
+      },
+      {
+        "id": 2,
+        "text": "[弟](おとうと)",
+        "translation": "em trai",
+        "explanation": "Sai. Nghĩa là em trai (おとうと)."
+      },
+      {
+        "id": 3,
+        "text": "[妹](いもうと)",
+        "translation": "em gái",
+        "explanation": "Đúng. Chữ Muội [妹] đọc là いもうと (em gái)."
+      },
+      {
+        "id": 4,
+        "text": "[好](すき)",
+        "translation": "thích (từ gây nhiễu)",
+        "explanation": "Sai. Chữ Hảo [好] có bộ Nữ nhưng mang nghĩa là thích (すき), không phải từ chỉ người thân."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 10,
+    "type": "md2n3",
+    "question_jp": "[二人](ふたり)の<u>あいだ</u>に[問題](もんだい)ができたようだ。",
+    "question_vn": "Có vẻ như đã có vấn đề phát sinh giữa hai người.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[門](もん)",
+        "translation": "cổng",
+        "explanation": "Sai. Chữ Môn [門] mang nghĩa là cái cổng, đọc là もん."
+      },
+      {
+        "id": 2,
+        "text": "[問](とい)",
+        "translation": "câu hỏi",
+        "explanation": "Sai. Chữ Vấn [問] mang nghĩa hỏi, ở trong từ [問題] (もんだい)."
+      },
+      {
+        "id": 3,
+        "text": "[間](あいだ)",
+        "translation": "giữa, khoảng trống",
+        "explanation": "Đúng. Chữ Gian [間] đọc là あいだ, chỉ khoảng cách, giữa (2 người/vật)."
+      },
+      {
+        "id": 4,
+        "text": "[聞](きく)",
+        "translation": "nghe",
+        "explanation": "Sai. Chữ Văn [聞] mang nghĩa là nghe (きく)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 11,
+    "type": "md2n3",
+    "question_jp": "[東京](とうきょう)に[行](い)ったとき、[田中](たなか)さんが<u>あんない</u>してくれました。",
+    "question_vn": "Khi tôi đến Tokyo, anh Tanaka đã hướng dẫn cho tôi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[安内](あんない)",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ [安] (An) không dùng để tạo từ あんない trong ngữ cảnh hướng dẫn."
+      },
+      {
+        "id": 2,
+        "text": "[案内](あんない)",
+        "translation": "hướng dẫn",
+        "explanation": "Đúng. Chữ Án [案] và Nội [内] ghép lại thành [案内] (あんない - hướng dẫn, dẫn đường)."
+      },
+      {
+        "id": 3,
+        "text": "[安無](あんむ)",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Đây là từ bịa ra để gây nhiễu."
+      },
+      {
+        "id": 4,
+        "text": "[案外](あんがい)",
+        "translation": "không ngờ",
+        "explanation": "Sai. [案外] đọc là あんがい mang nghĩa là ngoài dự tính, không ngờ."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 12,
+    "type": "md2n3",
+    "question_jp": "<u>あたらしい</u>[車](くるま)がほしくてたまらない。",
+    "question_vn": "Tôi muốn có một chiếc xe ô tô mới đến không chịu nổi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[親](した)しい",
+        "translation": "thân thiết",
+        "explanation": "Sai. Chữ Thân [親] đọc là したしい (thân thiết)."
+      },
+      {
+        "id": 2,
+        "text": "[新](あたら)しい",
+        "translation": "mới",
+        "explanation": "Đúng. Chữ Tân [新] kết hợp với okurigana 'しい' đọc là あたらしい (mới mẻ)."
+      },
+      {
+        "id": 3,
+        "text": "[親](した)い",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ [親] phải đi kèm okurigana 'しい', không thể chỉ có 'い'."
+      },
+      {
+        "id": 4,
+        "text": "[新](あたら)い",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ [新] phải đi kèm okurigana 'しい' mới đúng chính tả."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 13,
+    "type": "md2n3",
+    "question_jp": "[友](とも)だちに<u>あって</u>[映画](えいが)をみるつもりです。",
+    "question_vn": "Tôi định gặp bạn rồi cùng xem phim.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[会](あ)って",
+        "translation": "gặp",
+        "explanation": "Đúng. Chữ Hội [会] dùng trong ngữ cảnh gặp gỡ ai đó ([人]に[会]う)."
+      },
+      {
+        "id": 2,
+        "text": "[合](あ)って",
+        "translation": "hợp, vừa",
+        "explanation": "Sai. Chữ Hợp [合] dùng khi nói về sự vừa vặn, khớp nhau, hòa hợp (ví dụ: kích cỡ vừa)."
+      },
+      {
+        "id": 3,
+        "text": "[洗](あら)って",
+        "translation": "rửa",
+        "explanation": "Sai. Chữ Tẩy [洗] mang nghĩa là giặt, rửa (あらう)."
+      },
+      {
+        "id": 4,
+        "text": "[有](あ)って",
+        "translation": "có",
+        "explanation": "Sai. Chữ Hữu [有] mang nghĩa tồn tại, có (sở hữu/tồn tại), không dùng cho người."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 14,
+    "type": "md2n3",
+    "question_jp": "[先生](せんせい)の[健康](けんこう)のためにいつもお<u>いのり</u>いたします。",
+    "question_vn": "Tôi luôn cầu nguyện cho sức khỏe của thầy/cô.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[礼](れい)り",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ Lễ [礼] liên quan đến sự biết ơn, cúi chào, không đọc là いの."
+      },
+      {
+        "id": 2,
+        "text": "[祝](いわ)り",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ Chúc [祝] đọc là いわい (chúc mừng), không phải いのり."
+      },
+      {
+        "id": 3,
+        "text": "[祈](いの)り",
+        "translation": "cầu nguyện",
+        "explanation": "Đúng. Chữ Kỳ [祈] đọc là いのり mang nghĩa sự cầu nguyện."
+      },
+      {
+        "id": 4,
+        "text": "[社](しゃ)り",
+        "translation": "từ gây nhiễu (sai kanji)",
+        "explanation": "Sai. Chữ Xã [社] có bộ Thị (giống chữ 祈) nhưng nghĩa là đền thờ/công ty, không ghép với okurigana 'り'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 15,
+    "type": "md3n3",
+    "question_jp": "[新聞](しんぶん)はよく[読](よ)みますが、[雑誌](ざっし)は（　　　　）[読](よ)みません。",
+    "question_vn": "Tôi thường đọc báo, nhưng tạp chí thì (không) đọc (lắm).",
+    "options": [
+      {
+        "id": 1,
+        "text": "いつも",
+        "translation": "luôn luôn",
+        "explanation": "Sai. 'いつも' (luôn luôn) thường dùng với câu khẳng định mang tính thói quen, không đi với 'ません' trong ngữ cảnh này."
+      },
+      {
+        "id": 2,
+        "text": "あまり",
+        "translation": "không ... lắm",
+        "explanation": "Đúng. Phó từ 'あまり' luôn đi với thể phủ định để tạo nghĩa 'không... lắm' (ít khi)."
+      },
+      {
+        "id": 3,
+        "text": "いっしょうけんめい",
+        "translation": "chăm chỉ, hết sức",
+        "explanation": "Sai. Không phù hợp ý nghĩa (không đọc một cách chăm chỉ)."
+      },
+      {
+        "id": 4,
+        "text": "ちょっと",
+        "translation": "một chút",
+        "explanation": "Sai. Mặc dù 'ちょっと' thỉnh thoảng đứng trước thể phủ định (kiểu từ chối khéo), nhưng để chỉ tần suất trái ngược với 'よく' thì phải dùng 'あまり'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 16,
+    "type": "md3n3",
+    "question_jp": "（　　　　）[勉強](べんきょう)したのに、[試験](しけん)に[落](お)ちてしまいました。",
+    "question_vn": "Mặc dù đã học hành (chăm chỉ) nhưng tôi vẫn bị thi trượt.",
+    "options": [
+      {
+        "id": 1,
+        "text": "たまに",
+        "translation": "thỉnh thoảng",
+        "explanation": "Sai. Nếu chỉ học 'thỉnh thoảng' thì việc thi trượt là điều hiển nhiên, không dùng với 'のに' (thể hiện sự tiếc nuối/bất ngờ)."
+      },
+      {
+        "id": 2,
+        "text": "いよいよ",
+        "translation": "cuối cùng thì, ngày càng",
+        "explanation": "Sai. 'いよいよ' dùng khi một việc mong đợi cuối cùng cũng diễn ra, không hợp ngữ cảnh."
+      },
+      {
+        "id": 3,
+        "text": "いっしょうけんめいに",
+        "translation": "chăm chỉ, hết sức",
+        "explanation": "Đúng. 'いっしょうけんめい(に)' bổ nghĩa cho '勉強した', tạo ra vế đối lập mạnh mẽ với việc thi trượt (đã học chăm chỉ thế mà...)."
+      },
+      {
+        "id": 4,
+        "text": "じょじょに",
+        "translation": "dần dần",
+        "explanation": "Sai. 'じょじょに' (từ từ, từng chút một) thường dùng cho sự biến đổi trạng thái, không dùng bổ nghĩa cho hành động học hành để thi."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 17,
+    "type": "md3n3",
+    "question_jp": "[高](たか)い[果物](くだもの)でもすっぱい（　　　　）がして[食](た)べられない[場合](ばあい)がある。",
+    "question_vn": "Ngay cả trái cây đắt tiền cũng có trường hợp có (vị) chua không thể ăn được.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[味](あじ)",
+        "translation": "vị",
+        "explanation": "Đúng. 'すっぱい' (chua) là từ chỉ vị giác, nên đi kèm với '味' (vị) tạo cụm '味がする' (có vị...)."
+      },
+      {
+        "id": 2,
+        "text": "[音](おと)",
+        "translation": "âm thanh",
+        "explanation": "Sai. Quả chua không phát ra âm thanh chua."
+      },
+      {
+        "id": 3,
+        "text": "[美](び)",
+        "translation": "cái đẹp",
+        "explanation": "Sai. Hoàn toàn không hợp nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[感](かん)じ",
+        "translation": "cảm giác",
+        "explanation": "Sai. '感じがする' (có cảm giác) thường dùng chung chung hoặc cho giác quan bề mặt, vị giác cụ thể phải dùng '味'."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 18,
+    "type": "md3n3",
+    "question_jp": "[仕事](しごと)が[終](お)わったら（　　　　）どうですか。",
+    "question_vn": "Sau khi xong việc, (đi làm một ly) thì thế nào?",
+    "options": [
+      {
+        "id": 1,
+        "text": "[一軒](いっけん)",
+        "translation": "một căn (nhà)",
+        "explanation": "Sai. '軒' là lượng từ đếm nhà cửa."
+      },
+      {
+        "id": 2,
+        "text": "[一枚](いちまい)",
+        "translation": "một tờ, một tấm",
+        "explanation": "Sai. '枚' là lượng từ đếm vật mỏng (giấy, áo...)."
+      },
+      {
+        "id": 3,
+        "text": "[一冊](いっさつ)",
+        "translation": "một cuốn (sách)",
+        "explanation": "Sai. '冊' là lượng từ đếm sách vở."
+      },
+      {
+        "id": 4,
+        "text": "[一杯](いっぱい)",
+        "translation": "một ly, một cốc",
+        "explanation": "Đúng. '一杯どうですか' là thành ngữ giao tiếp rất phổ biến trong tiếng Nhật, rủ rê đi uống rượu/bia."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 19,
+    "type": "md3n3",
+    "question_jp": "[何](なん)でも[食](た)べられるが、1[時間](じかん)（　　　　）に[食](た)べなければならない。",
+    "question_vn": "Cái gì cũng có thể ăn, nhưng phải ăn (trong vòng) 1 tiếng đồng hồ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[以外](いがい)",
+        "translation": "ngoại trừ",
+        "explanation": "Sai. '1時間以外に' mang nghĩa 'ngoại trừ 1 tiếng' -> vô lý."
+      },
+      {
+        "id": 2,
+        "text": "[以下](いか)",
+        "translation": "trở xuống, dưới",
+        "explanation": "Sai. '以下' dùng cho mức độ, số lượng, độ tuổi (từ mức đó trở xuống), ít khi ghép thẳng với giới hạn thời gian để thực hiện hành động."
+      },
+      {
+        "id": 3,
+        "text": "[以上](いじょう)",
+        "translation": "trở lên, trên",
+        "explanation": "Sai. '1時間以上に' mang nghĩa 'trên 1 tiếng', trái với logic 'phải ăn xong'."
+      },
+      {
+        "id": 4,
+        "text": "[以内](いない)",
+        "translation": "trong vòng",
+        "explanation": "Đúng. '時間以内' chỉ giới hạn thời gian thực hiện, nghĩa là 'trong vòng 1 tiếng'."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 20,
+    "type": "md3n3",
+    "question_jp": "[料理](りょうり)がお[口](くち)に（　　　　）よかったです。",
+    "question_vn": "Thật tốt vì món ăn (vừa) miệng bạn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[会](あ)って",
+        "translation": "gặp",
+        "explanation": "Sai. Không dùng '会う' (gặp mặt) với đồ ăn và miệng."
+      },
+      {
+        "id": 2,
+        "text": "[合](あ)って",
+        "translation": "hợp, vừa",
+        "explanation": "Đúng. Thành ngữ 'お口に合う' mang nghĩa là hợp khẩu vị, vừa miệng."
+      },
+      {
+        "id": 3,
+        "text": "[似合](にあ)って",
+        "translation": "hợp (về thời trang)",
+        "explanation": "Sai. '似合う' chỉ sự phù hợp về thẩm mỹ, diện mạo bề ngoài (quần áo, kiểu tóc)."
+      },
+      {
+        "id": 4,
+        "text": "[買](か)って",
+        "translation": "mua",
+        "explanation": "Sai. Hoàn toàn không hợp nghĩa."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 21,
+    "type": "md3n3",
+    "question_jp": "[申](もう)し[込](こ)みのことは（　　　　）で[聞](き)いてみてください。",
+    "question_vn": "Về việc đăng ký xin hãy thử hỏi ở (quầy tiếp tân).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[受付](うけつけ)",
+        "translation": "quầy tiếp tân",
+        "explanation": "Đúng. Đăng ký thủ tục ([申]し[込]み) thì người ta thường phải đến hỏi ở quầy tiếp tân/quầy đăng ký ([受付])."
+      },
+      {
+        "id": 2,
+        "text": "[案内](あんない)",
+        "translation": "hướng dẫn",
+        "explanation": "Sai. Có thể hỏi ở quầy hướng dẫn, nhưng '案内' thường thiên về chỉ đường, giới thiệu. Khi liên quan trực tiếp đến 'đăng ký', dùng [受付] là chính xác nhất."
+      },
+      {
+        "id": 3,
+        "text": "[台所](だいどころ)",
+        "translation": "nhà bếp",
+        "explanation": "Sai. Không ai hỏi thủ tục đăng ký ở nhà bếp."
+      },
+      {
+        "id": 4,
+        "text": "レジ",
+        "translation": "quầy thu ngân",
+        "explanation": "Sai. レジ là nơi để tính tiền mua hàng."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 22,
+    "type": "md3n3",
+    "question_jp": "[彼女](かのじょ)はゆっくりにしか[話](はな)せないから（　　　　）は[無理](むり)だと[思](おも)う。",
+    "question_vn": "Cô ấy chỉ có thể nói chậm rãi nên tôi nghĩ làm (phát thanh viên) là quá sức.",
+    "options": [
+      {
+        "id": 1,
+        "text": "アクセサリー",
+        "translation": "đồ trang sức",
+        "explanation": "Sai. Không liên quan đến việc 'nói'."
+      },
+      {
+        "id": 2,
+        "text": "アクセス",
+        "translation": "truy cập",
+        "explanation": "Sai. Là hành động truy cập mạng, không phải nghề nghiệp hay khả năng giao tiếp."
+      },
+      {
+        "id": 3,
+        "text": "アナウンサー",
+        "translation": "phát thanh viên",
+        "explanation": "Đúng. Phát thanh viên yêu cầu khả năng ăn nói lưu loát, trôi chảy. Khuyết điểm 'chỉ nói được chậm' sẽ khiến công việc này trở nên [無理] (bất khả thi)."
+      },
+      {
+        "id": 4,
+        "text": "アクセント",
+        "translation": "trọng âm",
+        "explanation": "Sai. Trọng âm liên quan đến ngôn ngữ nhưng không đi chung với cấu trúc '[Danh từ] là quá sức'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 23,
+    "type": "md3n3",
+    "question_jp": "[紳士服](しんしふく)の（　　　　）は[何階](なんかい)にありますか。",
+    "question_vn": "(Quầy bán) quần áo nam ở tầng mấy vậy?",
+    "options": [
+      {
+        "id": 1,
+        "text": "[売店](ばいてん)",
+        "translation": "quầy bán đồ",
+        "explanation": "Sai. [売店] thường chỉ những ki-ốt nhỏ bán đồ tạp hóa, bánh kẹo ở ga tàu, trường học."
+      },
+      {
+        "id": 2,
+        "text": "[職場](しょくば)",
+        "translation": "nơi làm việc",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[売](う)り[場](ば)",
+        "translation": "quầy bán hàng",
+        "explanation": "Đúng. Trong các trung tâm thương mại, khu vực chuyên bán một loại mặt hàng nào đó gọi là [売]り[場] (ví dụ: khu bán đồ nam, khu bán giày)."
+      },
+      {
+        "id": 4,
+        "text": "[販売](はんばい)",
+        "translation": "buôn bán",
+        "explanation": "Sai. Đây là danh từ chỉ hành động buôn bán, không chỉ khu vực hay không gian vật lý để hỏi 'nằm ở tầng mấy'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 24,
+    "type": "md3n3",
+    "question_jp": "[寒](さむ)いのに[窓](まど)が（　　　　）いますね。どうしたんでしょうか。",
+    "question_vn": "Trời lạnh mà cửa sổ lại đang (mở) nhỉ. Có chuyện gì vậy nhỉ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[空](あ)いて",
+        "translation": "trống, vắng",
+        "explanation": "Sai. Chữ [空]ku chỉ không gian trống rỗng, ghế trống, bụng đói... không dùng cho hành động mở cửa sổ."
+      },
+      {
+        "id": 2,
+        "text": "[開](あ)いて",
+        "translation": "mở",
+        "explanation": "Đúng. Dùng tự động từ [開]く chỉ trạng thái cửa sổ đang được mở (窓が開いている)."
+      },
+      {
+        "id": 3,
+        "text": "[閉](し)めて",
+        "translation": "đóng",
+        "explanation": "Sai. Về logic: trời lạnh thì cửa đóng là bình thường, không dùng 'のに' (thế mà) tỏ thái độ thắc mắc. Thêm nữa, [閉]める là tha động từ, phải đi với trợ từ を ([窓]を[閉]めている)."
+      },
+      {
+        "id": 4,
+        "text": "[入](はい)って",
+        "translation": "vào",
+        "explanation": "Sai. Cửa sổ không tự 'đi vào' được."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 25,
+    "type": "md3n3",
+    "question_jp": "シャワーを（　　　　）から[行](い)きますから、ちょっと[待](ま)っていてくれますか。",
+    "question_vn": "Tôi sẽ đi sau khi (tắm) vòi sen nên bạn đợi tôi một chút được không?",
+    "options": [
+      {
+        "id": 1,
+        "text": "[洗](あら)って",
+        "translation": "rửa",
+        "explanation": "Sai. Không nói 'rửa' vòi sen trừ khi đang làm vệ sinh nhà tắm, không hợp lý với việc bắt bạn đợi."
+      },
+      {
+        "id": 2,
+        "text": "[浴](あ)びて",
+        "translation": "tắm",
+        "explanation": "Đúng. Cụm từ cố định 'シャワーを浴びる' có nghĩa là tắm vòi sen."
+      },
+      {
+        "id": 3,
+        "text": "[始](はじ)めて",
+        "translation": "bắt đầu",
+        "explanation": "Sai. Không kết hợp 'bắt đầu' với tân ngữ là 'vòi sen'."
+      },
+      {
+        "id": 4,
+        "text": "[急](いそ)いで",
+        "translation": "vội vàng",
+        "explanation": "Sai. Không kết hợp với 'シャワーを'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 26,
+    "type": "md4n3",
+    "question_jp": "<u>[一般的](いっぱんてき)な</u>[考](かんが)え[方](かた)をもっている[人](ひと)なら[反対](はんたい)するしかない。",
+    "question_vn": "Nếu là người có cách suy nghĩ (thông thường) thì chỉ có thể phản đối.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[地味](じみ)な",
+        "translation": "giản dị",
+        "explanation": "Sai. '地味' mang nghĩa giản dị, không phô trương (quần áo, màu sắc, tính cách)."
+      },
+      {
+        "id": 2,
+        "text": "[独特](どくとく)な",
+        "translation": "độc đáo",
+        "explanation": "Sai. Đây là từ trái nghĩa, '独特' là riêng biệt, khác thường."
+      },
+      {
+        "id": 3,
+        "text": "[理想](りそう)の",
+        "translation": "lý tưởng",
+        "explanation": "Sai. Không sát nghĩa với '一般的'."
+      },
+      {
+        "id": 4,
+        "text": "[普通](ふつう)の",
+        "translation": "thông thường",
+        "explanation": "Đúng. '一般的' (mang tính đại chúng, chung chung) đồng nghĩa nhất với '普通' (bình thường, thông thường)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 27,
+    "type": "md4n3",
+    "question_jp": "リンゴなら[青森](あおもり)のリンゴが<u>いちばん</u>です。",
+    "question_vn": "Nếu là táo thì táo của vùng Aomori là (nhất).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[最高](さいこう)",
+        "translation": "tuyệt vời nhất",
+        "explanation": "Đúng. 'いちばん' (số một, nhất) trong câu khen ngợi đồng nghĩa với '最高' (tuyệt vời nhất, cao nhất)."
+      },
+      {
+        "id": 2,
+        "text": "[最後](さいご)",
+        "translation": "cuối cùng",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[最低](さいてい)",
+        "translation": "tệ nhất",
+        "explanation": "Sai. Đây là từ trái nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[最初](さいしょ)",
+        "translation": "đầu tiên",
+        "explanation": "Sai. Khác nghĩa."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 28,
+    "type": "md4n3",
+    "question_jp": "[日本](にほん)には<u>いろいろ</u>な[温泉](おんせん)があります。",
+    "question_vn": "Ở Nhật Bản có (nhiều loại) suối nước nóng.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[様々](さまざま)",
+        "translation": "đa dạng, nhiều loại",
+        "explanation": "Đúng. 'いろいろ' (nhiều loại, phong phú) có từ đồng nghĩa mang tính trang trọng hơn là '様々'."
+      },
+      {
+        "id": 2,
+        "text": "[散々](さんざん)",
+        "translation": "gay go, tơi tả",
+        "explanation": "Sai. Dùng để tả mức độ kinh khủng, tồi tệ (ví dụ bị mắng xối xả)."
+      },
+      {
+        "id": 3,
+        "text": "[個々](ここ)",
+        "translation": "từng cái một",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[別々](べつべつ)",
+        "translation": "riêng biệt",
+        "explanation": "Sai. Thường dùng khi tính tiền riêng, đi riêng, không mang nghĩa 'đa dạng'."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 29,
+    "type": "md4n3",
+    "question_jp": "[遅](おそ)くても[来週](らいしゅう)<u>[辺](あた)り</u>にはできあがると思(おも)います。",
+    "question_vn": "Tôi nghĩ muộn nhất thì (khoảng) tuần sau sẽ hoàn thành.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[近所](きんじょ)",
+        "translation": "hàng xóm",
+        "explanation": "Sai. Từ này dùng cho địa điểm xung quanh nhà, không dùng cho mốc thời gian."
+      },
+      {
+        "id": 2,
+        "text": "[遠](とお)く",
+        "translation": "xa",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[頃](ころ)",
+        "translation": "khoảng (thời gian)",
+        "explanation": "Đúng. Hậu tố '辺り' đằng sau thời gian biểu thị sự ước lượng 'khoảng / loanh quanh' thời điểm đó, đồng nghĩa với '頃'."
+      },
+      {
+        "id": 4,
+        "text": "[時](とき)",
+        "translation": "khi, lúc",
+        "explanation": "Sai. '時' là mốc thời gian chính xác, không mang nét nghĩa 'khoảng chừng' như '辺り'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 30,
+    "type": "md4n3",
+    "question_jp": "[息子](むすこ)がとなりの[窓](まど)を[割](わ)って、<u>[謝](あやま)り</u>に[行](い)ってきました。",
+    "question_vn": "Con trai tôi đã làm vỡ cửa sổ nhà hàng xóm nên đã đi (xin lỗi).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[祝](いわ)いに",
+        "translation": "để chúc mừng",
+        "explanation": "Sai. Làm vỡ cửa sổ thì không thể đi chúc mừng."
+      },
+      {
+        "id": 2,
+        "text": "[見舞](みま)いに",
+        "translation": "để thăm bệnh",
+        "explanation": "Sai. Không liên quan đến ốm đau."
+      },
+      {
+        "id": 3,
+        "text": "[見](み)りに",
+        "translation": "để xem (sai ngữ pháp)",
+        "explanation": "Sai. Sai ngữ pháp (Đúng là 見に) và không đồng nghĩa với xin lỗi."
+      },
+      {
+        "id": 4,
+        "text": "[詫](わ)びに",
+        "translation": "để xin lỗi",
+        "explanation": "Đúng. '謝る' (xin lỗi) đồng nghĩa với động từ '詫びる' hoặc danh từ 'お詫び' (sự tạ lỗi)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 31,
+    "type": "md5n3",
+    "question_jp": "いじめる",
+    "question_vn": "Bắt nạt",
+    "options": [
+      {
+        "id": 1,
+        "text": "[百点](ひゃくてん)をとって[先生](せんせい)に<u>いじめられました</u>。",
+        "translation": "Lấy được 100 điểm nên bị thầy giáo bắt nạt.",
+        "explanation": "Sai. Đạt 100 điểm thì thường được khen (褒められる), việc dùng từ 'bắt nạt' ở đây là sai logic."
+      },
+      {
+        "id": 2,
+        "text": "となりの[窓](まど)を[割](わ)って、[母](はは)に<u>いじめられました</u>。",
+        "translation": "Làm vỡ cửa sổ nhà hàng xóm nên bị mẹ bắt nạt.",
+        "explanation": "Sai. Trẻ con làm lỗi thì bị mẹ mắng (叱られる) hoặc tức giận (怒られる), không gọi hành động giáo dục của cha mẹ là 'bắt nạt'."
+      },
+      {
+        "id": 3,
+        "text": "[友](とも)だちを<u>いじめて</u>はいけませんよ。",
+        "translation": "Không được bắt nạt bạn bè đâu đấy.",
+        "explanation": "Đúng. Lời cảnh báo không được 'bắt nạt' bạn bè hoàn toàn phù hợp về mặt ý nghĩa và ngữ cảnh."
+      },
+      {
+        "id": 4,
+        "text": "どろぼうにお[金](かね)を<u>いじめられました</u>。",
+        "translation": "Bị kẻ trộm bắt nạt tiền.",
+        "explanation": "Sai. Tiền bị trộm lấy cắp thì dùng từ 盗まれた (bị lấy cắp)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 32,
+    "type": "md5n3",
+    "question_jp": "[遠慮](えんりょ)",
+    "question_vn": "Ngại ngùng, kiêng dè, từ chối",
+    "options": [
+      {
+        "id": 1,
+        "text": "[廊下](ろうか)でのタバコはご<u>[遠慮](えんりょ)</u>ください。",
+        "translation": "Xin vui lòng không hút thuốc ở hành lang.",
+        "explanation": "Đúng. 'ご遠慮ください' là một cụm từ lịch sự cố định dùng để yêu cầu ai đó kiềm chế, không làm việc gì (xin đừng hút thuốc)."
+      },
+      {
+        "id": 2,
+        "text": "[彼](かれ)は[真面目](まじめ)な[社員](しゃいん)ですから、<u>[遠慮](えんりょ)</u>ありません。",
+        "translation": "Vì anh ấy là nhân viên chăm chỉ nên không có ngại ngùng.",
+        "explanation": "Sai. Không ghép sự chăm chỉ với việc không e ngại. Nếu muốn nói 'không sao đâu, không có vấn đề gì đâu', người Nhật dùng '心配ありません' hoặc '問題ありません'."
+      },
+      {
+        "id": 3,
+        "text": "どうぞ、<u>[遠慮](えんりょ)</u>しながらお[使](つか)いください。",
+        "translation": "Xin cứ vừa dùng vừa ngại ngùng.",
+        "explanation": "Sai. Khi mời ai dùng gì, người ta nói '遠慮しないで...' (xin đừng ngại mà hãy dùng), không ai bảo khách 'vừa dùng vừa ngại' cả."
+      },
+      {
+        "id": 4,
+        "text": "[困](こま)っている[人](ひと)を<u>[遠慮](えんりょ)</u>しなければなりません。",
+        "translation": "Phải ngại ngùng người đang gặp khó khăn.",
+        "explanation": "Sai. Gặp người khó khăn thì phải 'giúp đỡ' (助ける) chứ không phải 'kiêng dè/ngại ngùng'."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 33,
+    "type": "md5n3",
+    "question_jp": "[浅](あさ)い",
+    "question_vn": "Nông, cạn",
+    "options": [
+      {
+        "id": 1,
+        "text": "[暑](あつ)いから<u>[浅](あさ)い</u>セーターを[着](き)て[出](で)かけよう。",
+        "translation": "Trời nóng nên hãy mặc áo len nông rồi ra ngoài.",
+        "explanation": "Sai. Áo len mỏng thì dùng từ '薄い' (うすい), '浅い' chỉ dùng cho độ sâu của nước, vật chứa hoặc kinh nghiệm."
+      },
+      {
+        "id": 2,
+        "text": "この[町](まち)には<u>[浅](あさ)い</u>[建物](たてもの)がたくさんある。",
+        "translation": "Thành phố này có nhiều tòa nhà nông.",
+        "explanation": "Sai. Tòa nhà thấp phải dùng '低い' (ひくい)."
+      },
+      {
+        "id": 3,
+        "text": "ここはあぶないから<u>[浅](あさ)い</u>ところで[泳](およ)ぎなさい。",
+        "translation": "Chỗ này nguy hiểm nên hãy bơi ở chỗ nông.",
+        "explanation": "Đúng. '浅いところ' chỉ khu vực nước nông, an toàn để bơi."
+      },
+      {
+        "id": 4,
+        "text": "[週末](しゅうまつ)は<u>[浅](あさ)い</u>[山](やま)にでも[登](のぼ)りたい。",
+        "translation": "Cuối tuần tôi muốn leo ngọn núi nông nào đó.",
+        "explanation": "Sai. Núi thấp cũng dùng '低い' (ひくい)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 34,
+    "type": "md5n3",
+    "question_jp": "[安全](あんぜん)",
+    "question_vn": "An toàn",
+    "options": [
+      {
+        "id": 1,
+        "text": "もっと<u>[安全](あんぜん)</u>な[人](ひと)になるためにがんばります。",
+        "translation": "Tôi sẽ cố gắng để trở thành người an toàn hơn.",
+        "explanation": "Sai. Tính từ '安全' không dùng để miêu tả tính cách hay năng lực của con người (có thể dùng 頼もしい - đáng tin cậy)."
+      },
+      {
+        "id": 2,
+        "text": "<u>[安全](あんぜん)</u>な[問題](もんだい)ですから、だれでもできます。",
+        "translation": "Vì là bài toán an toàn nên ai cũng có thể làm.",
+        "explanation": "Sai. Bài toán dễ ai cũng làm được phải dùng '簡単' (かんたん) hoặc '易しい' (やさしい)."
+      },
+      {
+        "id": 3,
+        "text": "[怖](こわ)くありませんから、<u>[安全](あんぜん)</u>してください。",
+        "translation": "Không đáng sợ đâu nên hãy an toàn đi.",
+        "explanation": "Sai. Khuyên người khác bớt sợ hãi thì phải dùng '安心してください' (Hãy an tâm)."
+      },
+      {
+        "id": 4,
+        "text": "子(こ)どもは<u>[安全](あんぜん)</u>なところで[遊](あそ)ばせてください。",
+        "translation": "Hãy cho trẻ em chơi ở nơi an toàn.",
+        "explanation": "Đúng. Nơi an toàn ([安全]なところ) để tránh nguy hiểm, tai nạn là cách kết hợp từ chính xác nhất."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 35,
+    "type": "md5n3",
+    "question_jp": "いつも",
+    "question_vn": "Luôn luôn, lúc nào cũng",
+    "options": [
+      {
+        "id": 1,
+        "text": "お[客](きゃく)さんが<u>いつも</u>[来](こ)ないから、がんばりましょう。",
+        "translation": "Khách hàng luôn luôn không đến nên hãy cố gắng nào.",
+        "explanation": "Sai. 'いつも' ít khi đi trực tiếp với thể phủ định để diễn đạt 'hoàn toàn không'. Thường sẽ dùng '全然来ない' (Hoàn toàn không đến)."
+      },
+      {
+        "id": 2,
+        "text": "この[人](ひと)は<u>いつも</u>[背](せ)が[低](ひく)いですね。",
+        "translation": "Người này lúc nào cũng thấp nhỉ.",
+        "explanation": "Sai. Chiều cao là tính chất cố định sinh lý, không biến đổi theo thời gian nên không dùng 'いつも' (vốn ám chỉ tần suất của hành động/trạng thái thay đổi được)."
+      },
+      {
+        "id": 3,
+        "text": "<u>いつも</u>[勉強](べんきょう)しているからたぶん[不合格](ふごうかく)するだろう。",
+        "translation": "Lúc nào cũng học nên có lẽ sẽ thi trượt.",
+        "explanation": "Sai. Câu này sai về mặt logic. Lúc nào cũng học thì lẽ ra phải thi đỗ (合格する) chứ không phải trượt."
+      },
+      {
+        "id": 4,
+        "text": "この[店](みせ)は[肉](にく)を<u>いつも</u>[安](やす)い[価格](かかく)で[売](う)っている。",
+        "translation": "Cửa hàng này lúc nào cũng bán thịt với giá rẻ.",
+        "explanation": "Đúng. 'いつも' dùng để chỉ một thói quen, trạng thái lặp đi lặp lại không đổi của sự vật, sự việc (cửa hàng duy trì việc bán rẻ thường xuyên)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 36,
+    "type": "md1n3",
+    "question_jp": "[今朝](けさ)は<u>[会議](かいぎ)</u>におくれて[部長](ぶちょう)におこられました。",
+    "question_vn": "Sáng nay tôi đi họp trễ nên bị trưởng phòng mắng.",
+    "options": [
+      {
+        "id": 1,
+        "text": "かいぎ",
+        "translation": "cuộc họp",
+        "explanation": "Đúng. Chữ Hội [会] đọc là かい, chữ Nghị [議] đọc là ぎ. Ghép lại là かいぎ."
+      },
+      {
+        "id": 2,
+        "text": "がいき",
+        "translation": "cuộc họp (sai cách đọc)",
+        "explanation": "Sai. Chữ Hội [会] không bị biến âm đục thành がい."
+      },
+      {
+        "id": 3,
+        "text": "かいき",
+        "translation": "cuộc họp (sai cách đọc)",
+        "explanation": "Sai. Chữ Nghị [議] phải có âm đục ぎ."
+      },
+      {
+        "id": 4,
+        "text": "がいぎ",
+        "translation": "cuộc họp (sai cách đọc)",
+        "explanation": "Sai. Chữ Hội [会] không bị biến âm đục."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 37,
+    "type": "md1n3",
+    "question_jp": "[私](わたし)の[夢](ゆめ)は[有名](ゆうめい)な<u>[歌手](かしゅ)</u>になることです。",
+    "question_vn": "Ước mơ của tôi là trở thành một ca sĩ nổi tiếng.",
+    "options": [
+      {
+        "id": 1,
+        "text": "かしゅう",
+        "translation": "ca sĩ (sai cách đọc)",
+        "explanation": "Sai. Chữ Thủ [手] ở đây đọc là しゅ, không có trường âm."
+      },
+      {
+        "id": 2,
+        "text": "がしゅう",
+        "translation": "ca sĩ (sai cách đọc)",
+        "explanation": "Sai. Chữ Ca [歌] đọc là か, không bị biến âm đục, và chữ [手] không có trường âm."
+      },
+      {
+        "id": 3,
+        "text": "かしゅ",
+        "translation": "ca sĩ",
+        "explanation": "Đúng. Chữ Ca [歌] đọc là か, chữ Thủ [手] đọc là しゅ."
+      },
+      {
+        "id": 4,
+        "text": "がしゅ",
+        "translation": "ca sĩ (sai cách đọc)",
+        "explanation": "Sai. Chữ Ca [歌] không bị biến âm đục thành が."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 38,
+    "type": "md1n3",
+    "question_jp": "<u>[火事](かじ)</u>で[大事](だいじ)な[文化財](ぶんかざい)が[焼](や)けてしまいました。",
+    "question_vn": "Một tài sản văn hóa quan trọng đã bị thiêu rụi trong trận hỏa hoạn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ひし",
+        "translation": "hỏa hoạn (sai cách đọc)",
+        "explanation": "Sai. Âm Kun của chữ [火] là ひ, nhưng trong từ ghép này phải đọc âm On là か."
+      },
+      {
+        "id": 2,
+        "text": "かし",
+        "translation": "hỏa hoạn (sai cách đọc)",
+        "explanation": "Sai. Chữ Sự [事] phải đọc âm đục là じ."
+      },
+      {
+        "id": 3,
+        "text": "ひじ",
+        "translation": "hỏa hoạn (sai cách đọc)",
+        "explanation": "Sai. Đọc lộn xộn giữa âm Kun (ひ) và âm On (じ)."
+      },
+      {
+        "id": 4,
+        "text": "かじ",
+        "translation": "hỏa hoạn",
+        "explanation": "Đúng. Chữ Hỏa [火] đọc là か, chữ Sự [事] đọc là じ."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 39,
+    "type": "md1n3",
+    "question_jp": "[中学生](ちゅうがくせい)になると[自分](じぶん)の[体](からだ)に<u>[関心](かんしん)</u>を[持](も)つようになる。",
+    "question_vn": "Khi trở thành học sinh trung học, các em bắt đầu có sự quan tâm đến cơ thể của chính mình.",
+    "options": [
+      {
+        "id": 1,
+        "text": "かんけい",
+        "translation": "quan hệ",
+        "explanation": "Sai. Đây là cách đọc của từ [関係] (quan hệ)."
+      },
+      {
+        "id": 2,
+        "text": "かんしん",
+        "translation": "quan tâm",
+        "explanation": "Đúng. Chữ Quan [関] đọc là かん, chữ Tâm [心] đọc là しん."
+      },
+      {
+        "id": 3,
+        "text": "かんれん",
+        "translation": "liên quan",
+        "explanation": "Sai. Đây là cách đọc của từ [関連] (liên quan)."
+      },
+      {
+        "id": 4,
+        "text": "かんじん",
+        "translation": "chủ yếu, cốt lõi",
+        "explanation": "Sai. Đây là cách đọc của từ [肝心] (quan trọng, cốt lõi)."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 40,
+    "type": "md1n3",
+    "question_jp": "けんこうのためには[体](からだ)を<u>[動](うご)かした</u>ほうがいいですよ。",
+    "question_vn": "Vì sức khỏe thì bạn nên vận động cơ thể.",
+    "options": [
+      {
+        "id": 1,
+        "text": "うごかした",
+        "translation": "đã làm cho chuyển động",
+        "explanation": "Đúng. Động từ [動]かす nghĩa là cử động, di chuyển, vận động."
+      },
+      {
+        "id": 2,
+        "text": "はたらかした",
+        "translation": "đã bắt làm việc",
+        "explanation": "Sai. Đây là cách đọc của tha động từ [働]かす (bắt làm việc, huy động)."
+      },
+      {
+        "id": 3,
+        "text": "きかした",
+        "translation": "đã cho nghe / phát huy",
+        "explanation": "Sai. Đây là cách đọc của từ [聞]かす (cho nghe) hoặc [効]かす (phát huy tác dụng)."
+      },
+      {
+        "id": 4,
+        "text": "まねかした",
+        "translation": "đã mời",
+        "explanation": "Sai. Động từ [招]く mang nghĩa là mời, không có dạng まねかす."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 41,
+    "type": "md1n3",
+    "question_jp": "このまま<u>[我慢](がまん)</u>していてもいいんですか。",
+    "question_vn": "Cứ chịu đựng thế này mãi liệu có ổn không?",
+    "options": [
+      {
+        "id": 1,
+        "text": "あまん",
+        "translation": "chịu đựng (sai cách đọc)",
+        "explanation": "Sai. Chữ Ngã [我] đọc là が, không đọc là あ."
+      },
+      {
+        "id": 2,
+        "text": "がまん",
+        "translation": "chịu đựng",
+        "explanation": "Đúng. Chữ Ngã [我] đọc là が, chữ Mạn [慢] đọc là まん. Ý nghĩa là nhẫn nhịn, chịu đựng."
+      },
+      {
+        "id": 3,
+        "text": "わまん",
+        "translation": "chịu đựng (sai cách đọc)",
+        "explanation": "Sai. Đọc sai chữ Ngã [我]."
+      },
+      {
+        "id": 4,
+        "text": "らまん",
+        "translation": "chịu đựng (sai cách đọc)",
+        "explanation": "Sai. Đọc sai chữ Ngã [我]."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 42,
+    "type": "md1n3",
+    "question_jp": "[一人](ひとり)で[使](つか)えるように[使](つか)い[方](かた)をよく<u>[覚](おぼ)えて</u>いてください。",
+    "question_vn": "Hãy nhớ kỹ cách sử dụng để có thể tự dùng một mình nhé.",
+    "options": [
+      {
+        "id": 1,
+        "text": "おぼえて",
+        "translation": "nhớ",
+        "explanation": "Đúng. Động từ [覚]える (ghi nhớ, học thuộc) chuyển sang thể te là おぼえて."
+      },
+      {
+        "id": 2,
+        "text": "おもえて",
+        "translation": "có vẻ như, cho rằng",
+        "explanation": "Sai. Đây là cách đọc của từ [思]える (tự nhiên nghĩ rằng, có vẻ như)."
+      },
+      {
+        "id": 3,
+        "text": "さまえて",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Đây là cách đọc bịa ra để gây nhiễu."
+      },
+      {
+        "id": 4,
+        "text": "ざまえて",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Đây là cách đọc bịa ra để gây nhiễu."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 43,
+    "type": "md1n3",
+    "question_jp": "こんな<u>[美](うつく)しい</u>[景色](けしき)は[今](いま)まで[見](み)たことがない。",
+    "question_vn": "Khung cảnh đẹp như thế này từ trước đến nay tôi chưa từng thấy.",
+    "options": [
+      {
+        "id": 1,
+        "text": "うくつしい",
+        "translation": "đẹp (sai cách đọc)",
+        "explanation": "Sai. Phát âm sai, đảo lộn trật tự các âm."
+      },
+      {
+        "id": 2,
+        "text": "うつかしい",
+        "translation": "đẹp (sai cách đọc)",
+        "explanation": "Sai. Cách đọc này dễ nhầm lẫn với [難]しい (khó - むずかしい)."
+      },
+      {
+        "id": 3,
+        "text": "うつくしい",
+        "translation": "đẹp",
+        "explanation": "Đúng. Tính từ [美]しい mang nghĩa là đẹp đẽ."
+      },
+      {
+        "id": 4,
+        "text": "くつうしい",
+        "translation": "đẹp (sai cách đọc)",
+        "explanation": "Sai. Phát âm sai hoàn toàn."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 44,
+    "type": "md2n3",
+    "question_jp": "[木](き)が[減](へ)るにしたがって<u>かみ</u>のねだんも[上](あ)がる[一方](いっぽう)だ。",
+    "question_vn": "Cùng với việc cây cối giảm đi thì giá giấy cũng ngày càng tăng cao.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[紙](かみ)",
+        "translation": "giấy",
+        "explanation": "Đúng. [紙] (かみ) mang nghĩa là giấy, hoàn toàn phù hợp với ngữ cảnh giá cả tăng do cây giảm."
+      },
+      {
+        "id": 2,
+        "text": "[神](かみ)",
+        "translation": "Thần, Chúa trời",
+        "explanation": "Sai. Mang nghĩa là Thần linh, không liên quan đến giá cả nguyên vật liệu."
+      },
+      {
+        "id": 3,
+        "text": "[髪](かみ)",
+        "translation": "tóc",
+        "explanation": "Sai. Mang nghĩa là tóc người, không hợp lý."
+      },
+      {
+        "id": 4,
+        "text": "[絡](からむ)",
+        "translation": "vướng mắc",
+        "explanation": "Sai. Chữ Lạc [絡] có âm On là らく, âm Kun là からむ, không đọc là かみ."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 45,
+    "type": "md2n3",
+    "question_jp": "<u>かぜ</u>をひかないように[気](き)をつけなさい。",
+    "question_vn": "Hãy cẩn thận để không bị cảm cúm nhé.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[風](かぜ)",
+        "translation": "gió",
+        "explanation": "Sai. Mặc dù đọc là かぜ nhưng [風] chỉ có nghĩa là gió thổi. Khi đi với động từ 'ひく' (bị bệnh) thì phải dùng từ cảm cúm."
+      },
+      {
+        "id": 2,
+        "text": "[風芽](ふうが)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ [芽] (nha - mầm non) không ghép với [風] để tạo thành từ có nghĩa trong trường hợp này."
+      },
+      {
+        "id": 3,
+        "text": "[風雅](ふうが)",
+        "translation": "thanh nhã, phong nhã",
+        "explanation": "Sai. Từ này đọc là ふうが, mang nghĩa thanh lịch, không liên quan đến bệnh tật."
+      },
+      {
+        "id": 4,
+        "text": "[風邪](かぜ)",
+        "translation": "cảm cúm",
+        "explanation": "Đúng. Cụm từ cố định [風邪]をひく mang nghĩa là bị nhiễm cảm cúm."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 46,
+    "type": "md2n3",
+    "question_jp": "そんな[危険](きけん)な<u>かんがえかた</u>はすてたほうがいいよ。",
+    "question_vn": "Bạn nên vứt bỏ cách suy nghĩ nguy hiểm đó đi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[考](かんが)え[方](かた) (viết sai)",
+        "translation": "cách suy nghĩ (sai quy tắc okurigana)",
+        "explanation": "Sai. Nếu viết là 考え方 thì thiếu mất chữ 'が' vì động từ gốc là [考](かんが)える."
+      },
+      {
+        "id": 2,
+        "text": "[考](かんが)え[方](かた)",
+        "translation": "cách suy nghĩ",
+        "explanation": "Đúng. Động từ [考](かんが)える bỏ 'る' ghép với [方](かた) thành [考]え[方] (cách suy nghĩ)."
+      },
+      {
+        "id": 3,
+        "text": "[考](かんが)え[万](まん)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Viết sai chữ Phương [方] thành chữ Vạn [万] và sai cả okurigana."
+      },
+      {
+        "id": 4,
+        "text": "[考](かんが)え[万](まん)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Viết sai chữ Phương [方] thành chữ Vạn [万]."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 47,
+    "type": "md2n3",
+    "question_jp": "[試合](しあい)の[内容](ないよう)も[大事](だいじ)だが、<u>かんきゃく</u>のマナーも[大事](だいじ)だ。",
+    "question_vn": "Nội dung trận đấu quan trọng, nhưng thái độ (cách hành xử) của khán giả cũng quan trọng không kém.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[関客](かんきゃく)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Quan [関] trong quan hệ, không dùng để chỉ việc xem."
+      },
+      {
+        "id": 2,
+        "text": "[視客](しきゃく)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Thị [視] đọc là し, không đọc là かん."
+      },
+      {
+        "id": 3,
+        "text": "[観客](かんきゃく)",
+        "translation": "khán giả",
+        "explanation": "Đúng. Chữ Quan [観] (quan sát) và chữ Khách [客] (khách) ghép lại mang nghĩa là người xem, khán giả."
+      },
+      {
+        "id": 4,
+        "text": "[職客](しょっきゃく)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Chức [職] đọc là しょく, không đọc là かん."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 48,
+    "type": "md2n3",
+    "question_jp": "<u>あぶない</u>ところは[子](こ)ども[一人](ひとり)で[行](い)かせないように。",
+    "question_vn": "Chú ý đừng để trẻ em đi một mình tới những nơi nguy hiểm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[危](あやう)い",
+        "translation": "nguy hiểm (cách đọc khác)",
+        "explanation": "Sai. Nếu chỉ có okurigana 'い' thì từ này đọc là あやうい, không phải あぶない."
+      },
+      {
+        "id": 2,
+        "text": "[険](けん)ない",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Hiểm [険] (hiểm trở) kết hợp với しい thành [険]しい (けわしい)."
+      },
+      {
+        "id": 3,
+        "text": "[危](あぶ)ない",
+        "translation": "nguy hiểm",
+        "explanation": "Đúng. Chữ Nguy [危] kết hợp với phần okurigana 'ない' tạo thành tính từ あぶない mang nghĩa nguy hiểm."
+      },
+      {
+        "id": 4,
+        "text": "[険](けわ)い",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Đây là cách viết thiếu okurigana 'し' của từ [険]しい."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 49,
+    "type": "md2n3",
+    "question_jp": "[朝](あさ)から[頭](あたま)が<u>いたくて</u>[学校](がっこう)へ[行](い)けなかった。",
+    "question_vn": "Từ sáng tôi đã bị đau đầu nên không thể đến trường được.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[痛](いた)くて",
+        "translation": "đau",
+        "explanation": "Đúng. Tính từ [痛]い (đau) chia sang thể te để nối câu chỉ nguyên nhân là [痛]くて."
+      },
+      {
+        "id": 2,
+        "text": "[病](やまい)くて",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Bệnh [病] đọc là やまい (danh từ) hoặc âm On là びょう, không phải là tính từ đuôi i."
+      },
+      {
+        "id": 3,
+        "text": "[疲](つか)くて",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Chữ Bì [疲] dùng trong động từ [疲]れる (mệt mỏi), không tạo thành tính từ."
+      },
+      {
+        "id": 4,
+        "text": "[通](とお)くて",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Chữ Thông [通] dùng trong động từ đi lại ([通]る, [通]う), không liên quan đến sự đau nhức."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 50,
+    "type": "md3n3",
+    "question_jp": "[友](とも)だちが[入院](にゅういん)しているので、（　　　　）に行(い)きました。",
+    "question_vn": "Vì bạn tôi đang nằm viện nên tôi đã đi (thăm bệnh).",
+    "options": [
+      {
+        "id": 1,
+        "text": "お[祝](いわ)い",
+        "translation": "chúc mừng",
+        "explanation": "Sai. Nhập viện là chuyện không may, không thể đi 'chúc mừng'."
+      },
+      {
+        "id": 2,
+        "text": "お[見舞](みま)い",
+        "translation": "thăm bệnh",
+        "explanation": "Đúng. 'お[見舞]い' mang nghĩa là thăm viếng người ốm, người bệnh."
+      },
+      {
+        "id": 3,
+        "text": "お[礼](れい)",
+        "translation": "cảm ơn",
+        "explanation": "Sai. Đi thăm người nằm viện không dùng cụm 'đi cảm ơn'."
+      },
+      {
+        "id": 4,
+        "text": "お[祭](まつり)",
+        "translation": "lễ hội",
+        "explanation": "Sai. Hoàn toàn không liên quan đến ngữ cảnh."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 51,
+    "type": "md3n3",
+    "question_jp": "はやく[食](た)べると（　　　　）をこわすからゆっくり[食](た)べなさい。",
+    "question_vn": "Nếu ăn nhanh thì sẽ bị (đau bụng) đấy nên hãy ăn từ từ thôi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[頭](あたま)",
+        "translation": "đầu",
+        "explanation": "Sai. 'Đau đầu' dùng cụm '頭が痛い', không kết hợp với động từ 'こわす'."
+      },
+      {
+        "id": 2,
+        "text": "[腕](うで)",
+        "translation": "cánh tay",
+        "explanation": "Sai. Không liên quan đến việc tiêu hóa thức ăn."
+      },
+      {
+        "id": 3,
+        "text": "[足](あし)",
+        "translation": "chân",
+        "explanation": "Sai. Không liên quan đến ăn uống."
+      },
+      {
+        "id": 4,
+        "text": "お[腹](なか)",
+        "translation": "bụng",
+        "explanation": "Đúng. Thành ngữ 'お[腹]をこわす' mang nghĩa là bị đau bụng, rối loạn tiêu hóa (do ăn nhanh, đồ ăn hỏng...)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 52,
+    "type": "md3n3",
+    "question_jp": "[子](こ)どもが（　　　　）から[今](いま)まで[旅行](りょこう)に[行](い)ったことがない。",
+    "question_vn": "(Từ khi sinh ra) tới giờ, con tôi chưa từng được đi du lịch.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[生](う)んで",
+        "translation": "sinh ra (ai đó)",
+        "explanation": "Sai. Đây là tha động từ (hành động người mẹ đẻ con). Chủ ngữ ở đây là đứa trẻ nên không thể dùng từ này."
+      },
+      {
+        "id": 2,
+        "text": "[生](い)きて",
+        "translation": "sống",
+        "explanation": "Sai. 'Sống cho đến bây giờ' không tạo ra cụm mốc thời gian tự nhiên trong tiếng Nhật như 'từ khi lọt lòng'."
+      },
+      {
+        "id": 3,
+        "text": "[生](う)まれて",
+        "translation": "được sinh ra",
+        "explanation": "Đúng. Cụm '生まれてから今まで' là mẫu câu phổ biến mang nghĩa 'từ khi sinh ra cho đến nay'."
+      },
+      {
+        "id": 4,
+        "text": "[寝](ね)て",
+        "translation": "ngủ",
+        "explanation": "Sai. Không hợp logic của câu nói về trải nghiệm sống."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 53,
+    "type": "md3n3",
+    "question_jp": "[何](なん)でもいいから[好](す)きなものを一(ひと)つ（　　　　）なさい。",
+    "question_vn": "Cái gì cũng được nên hãy (chọn) lấy một thứ mà bạn thích đi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[選](えら)び",
+        "translation": "chọn lựa",
+        "explanation": "Đúng. Động từ '[選]ぶ' (lựa chọn) bỏ đuôi masu thêm 'なさい' tạo thành lời yêu cầu nhẹ nhàng."
+      },
+      {
+        "id": 2,
+        "text": "[起](お)き",
+        "translation": "thức dậy",
+        "explanation": "Sai. Ý nghĩa không phù hợp."
+      },
+      {
+        "id": 3,
+        "text": "[落](お)ち",
+        "translation": "rơi, rớt",
+        "explanation": "Sai. Ý nghĩa không phù hợp."
+      },
+      {
+        "id": 4,
+        "text": "[疑](うたが)い",
+        "translation": "nghi ngờ",
+        "explanation": "Sai. Ý nghĩa không phù hợp."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 54,
+    "type": "md3n3",
+    "question_jp": "そのうわさは（　　　　）から[信](しん)じないほうがよさそうだ。",
+    "question_vn": "Tin đồn đó (đáng ngờ) lắm nên tốt nhất là không nên tin.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[正](ただ)しい",
+        "translation": "chính xác, đúng",
+        "explanation": "Sai. Nếu nó 'đúng' thì vế sau không thể khuyên là 'không nên tin'."
+      },
+      {
+        "id": 2,
+        "text": "うるさい",
+        "translation": "ồn ào, phiền phức",
+        "explanation": "Sai. Ít ai dùng 'ồn ào' để làm lý do không tin vào một tin đồn."
+      },
+      {
+        "id": 3,
+        "text": "あやしい",
+        "translation": "đáng ngờ, khả nghi",
+        "explanation": "Đúng. Vì tin đồn có tính chất 'đáng ngờ' (あやしい) nên mới khuyên nhau không nên tin."
+      },
+      {
+        "id": 4,
+        "text": "あわただしい",
+        "translation": "bận rộn, vội vã",
+        "explanation": "Sai. Tính từ này dùng cho lịch trình hoặc trạng thái cập rập, không dùng cho tin đồn."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 55,
+    "type": "md3n3",
+    "question_jp": "[社会](しゃかい)というところはそんなに（　　　　）ないですよ。",
+    "question_vn": "Cái nơi gọi là xã hội nó không (dễ dãi) đến thế đâu.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[薄](うす)く",
+        "translation": "mỏng, nhạt",
+        "explanation": "Sai. Không mang nghĩa bóng phù hợp."
+      },
+      {
+        "id": 2,
+        "text": "[厚](あつ)く",
+        "translation": "dày",
+        "explanation": "Sai. Không mang nghĩa bóng phù hợp."
+      },
+      {
+        "id": 3,
+        "text": "すっぱく",
+        "translation": "chua",
+        "explanation": "Sai. Không mang nghĩa bóng phù hợp."
+      },
+      {
+        "id": 4,
+        "text": "[甘](あま)く",
+        "translation": "ngọt ngào, dễ dãi",
+        "explanation": "Đúng. Nghĩa đen là 'ngọt', nghĩa bóng dùng để chỉ sự ngây thơ, sự việc diễn ra suôn sẻ, dễ dàng. '甘くない' là không dễ dàng, khắc nghiệt."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 56,
+    "type": "md3n3",
+    "question_jp": "[前半](ぜんはん)は0[対](たい)3だったが、[後半](こうはん)に2[点](てん)を（　　　　）。",
+    "question_vn": "Hiệp một tỉ số là 0-3, nhưng sang hiệp hai đã (gỡ được) 2 điểm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[追](お)い[越](こ)した",
+        "translation": "vượt qua",
+        "explanation": "Sai. Ghi thêm 2 điểm thì tỉ số mới là 2-3, chưa thể vươn lên dẫn trước (vượt qua) được."
+      },
+      {
+        "id": 2,
+        "text": "[追](お)い[付](つ)いた",
+        "translation": "đuổi kịp, bám đuổi",
+        "explanation": "Đúng. Trong thể thao, '[追]い[付]く' mang nghĩa là đuổi kịp, bám đuổi điểm số để rút ngắn khoảng cách. (Dù theo chuẩn xác là gỡ hòa, nhưng trong một số ngữ cảnh thi đấu vẫn dùng để chỉ việc bám sát nút)."
+      },
+      {
+        "id": 3,
+        "text": "[割](わ)り[込](こ)んだ",
+        "translation": "chen ngang",
+        "explanation": "Sai. Không dùng trong ngữ cảnh điểm số thể thao."
+      },
+      {
+        "id": 4,
+        "text": "[乗](の)り[越](こ)えた",
+        "translation": "vượt qua (trở ngại)",
+        "explanation": "Sai. Từ này dùng để chỉ việc vượt qua khó khăn, rào cản, nỗi buồn."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 57,
+    "type": "md3n3",
+    "question_jp": "[肉](にく)や[魚](さかな)なども[食](た)べることは[食](た)べますが、（　　　　）[野菜](やさい)を[食](た)べています。",
+    "question_vn": "Thịt hay cá thì ăn thì cũng có ăn đấy, nhưng tôi ăn (chủ yếu là) rau.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[主](おも)な",
+        "translation": "chủ yếu, chính (tính từ)",
+        "explanation": "Sai. Đây là thể tính từ bổ nghĩa cho danh từ đằng sau (loại rau chính). Tuy nhiên, ngữ pháp chuẩn để bổ nghĩa cho hành động 'ăn' phải là phó từ."
+      },
+      {
+        "id": 2,
+        "text": "[主](おも)の",
+        "translation": "sai ngữ pháp",
+        "explanation": "Sai. Không có cấu trúc kết hợp này."
+      },
+      {
+        "id": 3,
+        "text": "[主](おも)に",
+        "translation": "chủ yếu là (phó từ)",
+        "explanation": "Đúng. Phó từ '主に' bổ nghĩa trực tiếp cho cả cụm động từ '[野菜]を[食]べています' mang nghĩa 'tôi hành động ăn rau là chủ yếu'."
+      },
+      {
+        "id": 4,
+        "text": "[主](おも)から",
+        "translation": "sai ngữ pháp",
+        "explanation": "Sai. Không có cấu trúc này."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 58,
+    "type": "md3n3",
+    "question_jp": "[大事](だいじ)な[試合](しあい)で[負](ま)けてとても（　　　　）しています。",
+    "question_vn": "Vì thua trong một trận đấu quan trọng nên tôi đang rất (thất vọng).",
+    "options": [
+      {
+        "id": 1,
+        "text": "すっかり",
+        "translation": "hoàn toàn",
+        "explanation": "Sai. 'すっかり' mang nghĩa hoàn toàn (quên hoàn toàn, khỏi bệnh hoàn toàn)."
+      },
+      {
+        "id": 2,
+        "text": "うっかり",
+        "translation": "vô ý, lỡ",
+        "explanation": "Sai. Không hợp nghĩa với việc thua trận."
+      },
+      {
+        "id": 3,
+        "text": "しっかり",
+        "translation": "chắc chắn, tỉnh táo",
+        "explanation": "Sai. Nếu động viên nhau thì có thể dùng 'しっかりして' (hãy mạnh mẽ lên), nhưng miêu tả trạng thái sau khi thua thì không hợp."
+      },
+      {
+        "id": 4,
+        "text": "がっかり",
+        "translation": "thất vọng, chán nản",
+        "explanation": "Đúng. Cụm từ 'がっかりする' dùng để diễn tả tâm trạng hụt hẫng, thất vọng khi kết quả không như ý."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 59,
+    "type": "md3n3",
+    "question_jp": "（　　　　）[合格](ごうかく)するとは[言](い)えないが、[可能性](かのうせい)は[高](たか)い。",
+    "question_vn": "(Chưa chắc là) sẽ thi đỗ, nhưng khả năng thì khá cao.",
+    "options": [
+      {
+        "id": 1,
+        "text": "いつも",
+        "translation": "luôn luôn",
+        "explanation": "Sai. Không đi chung với thể phủ định để tạo nghĩa hợp lý trong câu này."
+      },
+      {
+        "id": 2,
+        "text": "ぜんぜん",
+        "translation": "hoàn toàn không",
+        "explanation": "Sai. Đi với phủ định mang nghĩa 'hoàn toàn không thể nói là đậu', mâu thuẫn với vế sau 'khả năng cao'."
+      },
+      {
+        "id": 3,
+        "text": "あまり",
+        "translation": "không... lắm",
+        "explanation": "Sai. 'Không thể nói lắm' không truyền tải đúng trạng thái phỏng đoán tỉ lệ đỗ."
+      },
+      {
+        "id": 4,
+        "text": "かならずしも",
+        "translation": "không hẳn là, chưa chắc đã",
+        "explanation": "Đúng. Cấu trúc '必ずしも～ない' mang nghĩa 'chưa chắc là / không nhất thiết là'. Nhấn mạnh rằng không thể khẳng định 100% nhưng vẫn có hi vọng."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 60,
+    "type": "md3n3",
+    "question_jp": "[外](そと)はけっこう[寒](さむ)いから（　　　　）を[着](き)て[出](で)かけたほうがいい。",
+    "question_vn": "Bên ngoài khá lạnh nên bạn nên mặc (áo khoác) rồi hẵng ra ngoài.",
+    "options": [
+      {
+        "id": 1,
+        "text": "オーバー",
+        "translation": "áo khoác",
+        "explanation": "Đúng. Đây là từ vay mượn từ tiếng Anh 'overcoat', chỉ loại áo khoác ngoài dày mặc mùa đông."
+      },
+      {
+        "id": 2,
+        "text": "エネルギー",
+        "translation": "năng lượng",
+        "explanation": "Sai. Năng lượng thì không thể 'mặc' lên người."
+      },
+      {
+        "id": 3,
+        "text": "オートバイ",
+        "translation": "xe máy",
+        "explanation": "Sai. Không đi liền với động từ '着る' (mặc)."
+      },
+      {
+        "id": 4,
+        "text": "イベント",
+        "translation": "sự kiện",
+        "explanation": "Sai. Không hợp nghĩa."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 61,
+    "type": "md4n3",
+    "question_jp": "この[写真](しゃしん)はアメリカに[行](い)ったとき、<u>[写](うつ)した</u>ものです。",
+    "question_vn": "Bức ảnh này là ảnh tôi đã (chụp) khi đi Mỹ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[買](か)った",
+        "translation": "đã mua",
+        "explanation": "Sai. Không đúng ý nghĩa với từ gốc."
+      },
+      {
+        "id": 2,
+        "text": "[映](うつ)した",
+        "translation": "đã chiếu",
+        "explanation": "Sai. Động từ này dùng cho việc chiếu phim, phản chiếu hình ảnh."
+      },
+      {
+        "id": 3,
+        "text": "[移](うつ)した",
+        "translation": "đã di dời",
+        "explanation": "Sai. Động từ này dùng cho sự di chuyển đồ vật, lây bệnh."
+      },
+      {
+        "id": 4,
+        "text": "[撮](と)った",
+        "translation": "đã chụp",
+        "explanation": "Đúng. Động từ '[写]す' mang nghĩa ghi lại hình ảnh (chụp, sao chép). Trong trường hợp máy ảnh thì nó hoàn toàn đồng nghĩa với '[撮]る' (chụp ảnh)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 62,
+    "type": "md4n3",
+    "question_jp": "[友](とも)だちとけんかして[先生](せんせい)に<u>[怒](おこ)られました</u>。",
+    "question_vn": "Vì cãi nhau với bạn nên tôi đã (bị mắng) bởi thầy giáo.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[誉](ほ)められました",
+        "translation": "đã được khen ngợi",
+        "explanation": "Sai. Đây là từ trái nghĩa."
+      },
+      {
+        "id": 2,
+        "text": "[呼](よ)ばれました",
+        "translation": "đã bị gọi",
+        "explanation": "Sai. Mặc dù cãi nhau có thể bị gọi lên, nhưng không sát nghĩa với từ 'tức giận'."
+      },
+      {
+        "id": 3,
+        "text": "[言](い)われました",
+        "translation": "đã bị nhắc nhở",
+        "explanation": "Sai. Nghĩa quá nhẹ so với từ gốc."
+      },
+      {
+        "id": 4,
+        "text": "[叱](しか)られました",
+        "translation": "đã bị la mắng",
+        "explanation": "Đúng. Động từ bị động '[怒]られる' (bị nổi giận, bị mắng mỏ) mang ý nghĩa tương đương và thường được thay thế bằng '[叱]られる' (bị la mắng để giáo dục)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 63,
+    "type": "md4n3",
+    "question_jp": "どこかに[財布](さいふ)を<u>[落](お)とした</u>が、[覚](おぼ)えていません。",
+    "question_vn": "Tôi đã (đánh rơi) ví ở đâu đó nhưng lại không nhớ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[落](お)ちた",
+        "translation": "rơi, rớt",
+        "explanation": "Sai. '[落]ちる' là tự động từ (ví dụ: quả táo rơi), trong khi câu gốc dùng tha động từ (ai đó làm rơi)."
+      },
+      {
+        "id": 2,
+        "text": "[探](さが)した",
+        "translation": "đã tìm kiếm",
+        "explanation": "Sai. Không khớp ý nghĩa với từ gốc."
+      },
+      {
+        "id": 3,
+        "text": "[売](う)った",
+        "translation": "đã bán",
+        "explanation": "Sai. Hoàn toàn khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "無(な)くした",
+        "translation": "đã làm mất",
+        "explanation": "Đúng. Việc đánh rơi đồ ([落]とす) dẫn đến kết quả là làm mất món đồ đó (無くす)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 64,
+    "type": "md4n3",
+    "question_jp": "あんまり<u>うまく</u>はないですが、やって見(み)ます。",
+    "question_vn": "Tôi không được (giỏi) cho lắm nhưng tôi sẽ thử làm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[丈夫](じょうぶ)では",
+        "translation": "bền, chắc chắn",
+        "explanation": "Sai. Từ này dùng cho vật liệu, sức khỏe."
+      },
+      {
+        "id": 2,
+        "text": "[上手](じょうず)では",
+        "translation": "giỏi, khéo léo",
+        "explanation": "Đúng. Tính từ 'うまい' (うまく) mang nghĩa là khéo léo, giỏi giang, đồng nghĩa với '[上手]'."
+      },
+      {
+        "id": 3,
+        "text": "[綺麗](きれい)では",
+        "translation": "đẹp, sạch sẽ",
+        "explanation": "Sai. Không khớp nghĩa với kĩ năng làm việc."
+      },
+      {
+        "id": 4,
+        "text": "[素敵](すてき)では",
+        "translation": "tuyệt vời",
+        "explanation": "Sai. Không sát nghĩa với việc đánh giá năng lực."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 65,
+    "type": "md4n3",
+    "question_jp": "[友](とも)だちとの[約束](やくそく)を<u>うっかり</u>忘(わす)れていた。",
+    "question_vn": "Tôi đã (vô ý, lỡ) quên mất cuộc hẹn với bạn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "すっかり",
+        "translation": "hoàn toàn",
+        "explanation": "Sai. Nếu nói 'quên sạch sành sanh' thì dùng すっかり, nhưng nó không bao hàm ý nghĩa 'vô tình, bất cẩn' của từ gốc."
+      },
+      {
+        "id": 2,
+        "text": "はっきり",
+        "translation": "rõ ràng",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "つい",
+        "translation": "lỡ (làm gì đó)",
+        "explanation": "Đúng. Cả 'うっかり' và 'つい' đều dùng để diễn tả một hành động xảy ra do vô ý, sơ suất, không có chủ đích trước."
+      },
+      {
+        "id": 4,
+        "text": "しっかり",
+        "translation": "chắc chắn",
+        "explanation": "Sai. Không mang nghĩa sơ suất."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 66,
+    "type": "md5n3",
+    "question_jp": "[送](おく)る",
+    "question_vn": "Gửi đi / Đưa đi, tiễn đi",
+    "options": [
+      {
+        "id": 1,
+        "text": "[部長](ぶちょう)は[今出張](いましゅっちょう)に<u>[送](おく)って</u>います。",
+        "translation": "Trưởng phòng hiện đang đưa đi công tác.",
+        "explanation": "Sai. Trưởng phòng đang đi công tác thì phải dùng động từ '[行]く' (行っています)."
+      },
+      {
+        "id": 2,
+        "text": "[娘](むすめ)を[車](くるま)で[駅](えき)まで<u>[送](おく)って</u>あげた。",
+        "translation": "Tôi đã lái xe đưa con gái ra đến nhà ga.",
+        "explanation": "Đúng. Động từ '[送]る' ở đây mang nghĩa là đưa đón, tiễn ai đó đi đến một địa điểm (ga tàu, sân bay)."
+      },
+      {
+        "id": 3,
+        "text": "ゴミが[落](お)ちていたら<u>[送](おく)って</u>ください。",
+        "translation": "Nếu rác rơi thì xin hãy gửi nó đi.",
+        "explanation": "Sai. Gặp rác thì phải 'nhặt lên' ([拾]って) hoặc 'vứt đi' ([捨]てて)."
+      },
+      {
+        "id": 4,
+        "text": "[部屋](へや)には[手紙](てがみ)が<u>[送](おく)って</u>いました。",
+        "translation": "Có lá thư đang gửi ở trong phòng.",
+        "explanation": "Sai. Thư được chuyển tới nơi rồi thì dùng '[届]いていました' (đã gửi đến) hoặc '[置]いてありました' (được đặt ở đó)."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 67,
+    "type": "md5n3",
+    "question_jp": "[行](おこな)う",
+    "question_vn": "Tổ chức, tiến hành, cử hành",
+    "options": [
+      {
+        "id": 1,
+        "text": "[私](わたし)は[誰](だれ)よりも[早](はや)く[会社](かいしゃ)へ<u>[行](おこな)って</u>います。",
+        "translation": "Tôi tiến hành đến công ty sớm hơn bất cứ ai.",
+        "explanation": "Sai. Ở đây ý tác giả muốn nói 'đi' đến công ty, Hán tự là [行] nhưng đọc là 'いく' (いっています), không thể dùng 'おこなう' (tổ chức)."
+      },
+      {
+        "id": 2,
+        "text": "[今](いま)から[出席](しゅっせき)を<u>[行](おこな)う</u>から[返事](へんじ)をしてください。",
+        "translation": "Từ bây giờ sẽ tiến hành điểm danh nên hãy trả lời nhé.",
+        "explanation": "Sai. Trong tiếng Nhật, việc điểm danh không dùng từ 'tổ chức/tiến hành', mà có cụm từ cố định là '[出席]をとる'."
+      },
+      {
+        "id": 3,
+        "text": "[結婚式](けっこんしき)は12[時](じ)から[本館](ほんかん)の3[階](かい)で<u>[行](おこな)われます</u>。",
+        "translation": "Lễ cưới sẽ được tổ chức ở tầng 3 tòa nhà chính từ 12 giờ.",
+        "explanation": "Đúng. Động từ '[行]う' chia ở thể bị động '[行]われる' mang nghĩa là (sự kiện) được tổ chức, cử hành."
+      },
+      {
+        "id": 4,
+        "text": "[彼](かれ)は[大学](だいがく)で[法律](ほうりつ)の[勉強](べんきょう)を<u>[行](おこな)って</u>います。",
+        "translation": "Anh ấy đang tiến hành việc học luật ở trường đại học.",
+        "explanation": "Sai. Việc học tập cá nhân không dùng từ to tát như '[行]う'. Chỉ cần dùng động từ 'する' (勉強をしています) là đủ."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 68,
+    "type": "md5n3",
+    "question_jp": "[薄](うす)い",
+    "question_vn": "Nhạt, mỏng",
+    "options": [
+      {
+        "id": 1,
+        "text": "[黒板](こくばん)の[字](じ)が<u>[薄](うす)くて</u>よく[見](み)えませんでした。",
+        "translation": "Chữ trên bảng đen nhạt quá nên tôi không nhìn rõ.",
+        "explanation": "Đúng. Tính từ '[薄]い' được dùng để chỉ màu sắc, mực in, nét chữ bị nhạt mờ."
+      },
+      {
+        "id": 2,
+        "text": "この[川](かわ)は<u>[薄](うす)い</u>から[安全](あんぜん)に[遊](あそ)べます。",
+        "translation": "Con sông này mỏng nên có thể chơi an toàn.",
+        "explanation": "Sai. Sông hồ nông, cạn thì phải dùng tính từ '[浅]い' (あさい)."
+      },
+      {
+        "id": 3,
+        "text": "[紙](かみ)が<u>[薄](うす)くて</u>とても[切](き)ることができなかった。",
+        "translation": "Vì tờ giấy mỏng nên tôi hoàn toàn không thể cắt được.",
+        "explanation": "Sai. Logic bị ngược. Giấy khó cắt là do nó 'dày' ([厚]くて - あつくて) hoặc 'cứng' ([硬]くて)."
+      },
+      {
+        "id": 4,
+        "text": "[都会](とかい)には<u>[薄](うす)くて</u>[大](おお)きいビルがたくさんある。",
+        "translation": "Ở thành thị có rất nhiều tòa nhà mỏng và to.",
+        "explanation": "Sai. Tòa nhà thì dùng từ 'cao' ([高]くて - たかくて)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 69,
+    "type": "md5n3",
+    "question_jp": "かわいそう",
+    "question_vn": "Đáng thương, tội nghiệp",
+    "options": [
+      {
+        "id": 1,
+        "text": "[山田君](やまだくん)の[家](いえ)には<u>かわいそうな</u>[人形](にんぎょう)がたくさんある。",
+        "translation": "Nhà Yamada có rất nhiều búp bê đáng thương.",
+        "explanation": "Sai. Búp bê thì dùng tính từ 'dễ thương' (かわいい), không dùng từ đáng thương."
+      },
+      {
+        "id": 2,
+        "text": "[新](あたら)しい[先生](せんせい)はとても<u>かわいそうな</u>[体](からだ)つきをしていた。",
+        "translation": "Cô giáo mới có một dáng vóc rất đáng thương.",
+        "explanation": "Sai. Dáng vóc con người có thể là mảnh mai, xinh xắn (かわいい, きゃしゃな), không ai khen dáng vóc là 'tội nghiệp' cả."
+      },
+      {
+        "id": 3,
+        "text": "<u>かわいそうな</u>[映画](えいが)を[見](み)て[泣](な)いてしまいました。",
+        "translation": "Tôi đã khóc khi xem một bộ phim đáng thương.",
+        "explanation": "Sai. Phim có thể làm ta khóc, nhưng bộ phim đó gọi là phim 'cảm động' ([感動的]な) hoặc phim 'buồn' ([悲]しい), chứ không ai gọi là 'bộ phim tội nghiệp'."
+      },
+      {
+        "id": 4,
+        "text": "<u>かわいそうな</u>[人](ひと)を[助](たす)ける[仕事](しごと)がしたいです。",
+        "translation": "Tôi muốn làm một công việc giúp đỡ những người đáng thương.",
+        "explanation": "Đúng. 'かわいそう' chỉ sự thương cảm trước hoàn cảnh khó khăn của người khác. 'かわいそうな人' là những mảnh đời bất hạnh, tội nghiệp."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 70,
+    "type": "md5n3",
+    "question_jp": "[感動](かんどう)",
+    "question_vn": "Cảm động",
+    "options": [
+      {
+        "id": 1,
+        "text": "[先生](せんせい)の[愛](あい)に<u>[感動](かんどう)</u>して、[泣](な)いてしまった。",
+        "translation": "Cảm động trước tình yêu thương của thầy, tôi đã bật khóc.",
+        "explanation": "Đúng. '[感動]する' là động từ mang ý nghĩa cảm xúc bị lay động sâu sắc trước một việc gì đó."
+      },
+      {
+        "id": 2,
+        "text": "[映画](えいが)はやっぱり[映画館](えいがかん)で<u>[感動](かんどう)</u>した[方](ほう)がいい。",
+        "translation": "Phim thì quả nhiên nên cảm động ở rạp chiếu phim thì hơn.",
+        "explanation": "Sai. Việc 'nên làm' ở rạp chiếu phim là 'xem' ([見]たほうがいい). Ta không thể khuyên răn hay ép buộc bản thân phải 'cảm động' được."
+      },
+      {
+        "id": 3,
+        "text": "この[本](ほん)を[読](よ)んで、いちばん<u>[感動](かんどう)</u>のところはどこですか。",
+        "translation": "Đọc xong cuốn sách này, phân đoạn của cảm động nhất là đâu?",
+        "explanation": "Sai. Không nối trực tiếp danh từ '[感動]' với '[ところ]'. Phải dùng cụm động từ bổ nghĩa là '[感動]したところ' (phân đoạn khiến bạn cảm động)."
+      },
+      {
+        "id": 4,
+        "text": "いつまでも[親](おや)に<u>[感動](かんどう)</u>の[気持](きも)ちを[忘](わす)れてはいけません。",
+        "translation": "Dù bao lâu đi nữa cũng không được quên tấm lòng cảm động đối với cha mẹ.",
+        "explanation": "Sai. Lòng biết ơn đấng sinh thành thì dùng cụm '[感謝](かんしゃ)の[気持]ち', không dùng từ cảm động ở đây."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 71,
+    "type": "md1n3",
+    "question_jp": "あの[子](こ)は[水](みず)は[飲](の)まないで<u>[牛乳](ぎゅうにゅう)</u>ばかり[飲](の)んでいる。",
+    "question_vn": "Đứa bé đó không uống nước mà chỉ uống toàn (sữa bò).",
+    "options": [
+      {
+        "id": 1,
+        "text": "ぎゅにゅう",
+        "translation": "sữa bò (sai chính tả)",
+        "explanation": "Sai. Thiếu trường âm 'う' ở chữ [牛]."
+      },
+      {
+        "id": 2,
+        "text": "ぎゅうにゅう",
+        "translation": "sữa bò",
+        "explanation": "Đúng. Chữ Ngưu [牛] đọc là ぎゅう, chữ Nhũ [乳] đọc là にゅう."
+      },
+      {
+        "id": 3,
+        "text": "ゆにゅう",
+        "translation": "nhập khẩu",
+        "explanation": "Sai. Đây là cách đọc của từ [輸入] (nhập khẩu)."
+      },
+      {
+        "id": 4,
+        "text": "ゆうにゅう",
+        "translation": "nhập khẩu (sai chính tả)",
+        "explanation": "Sai. Đây là từ cố tình làm sai của từ [輸入]."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 72,
+    "type": "md1n3",
+    "question_jp": "この<u>[近所](きんじょ)</u>にはホテルがたくさんある。",
+    "question_vn": "Ở (khu vực lân cận) này có rất nhiều khách sạn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "きんじょう",
+        "translation": "khu vực lân cận (sai chính tả)",
+        "explanation": "Sai. Chữ Sở [所] ở đây đọc là じょ, không có trường âm 'う'."
+      },
+      {
+        "id": 2,
+        "text": "ちかところ",
+        "translation": "khu vực lân cận (sai cách đọc)",
+        "explanation": "Sai. Đây là cách ghép tùy tiện hai âm Kun (ちか và ところ), từ này phải đọc bằng âm On."
+      },
+      {
+        "id": 3,
+        "text": "きんじょ",
+        "translation": "khu vực lân cận, hàng xóm",
+        "explanation": "Đúng. Chữ Cận [近] đọc là きん, chữ Sở [所] đọc là じょ (biến âm từ しょ)."
+      },
+      {
+        "id": 4,
+        "text": "ちかどころ",
+        "translation": "khu vực lân cận (sai cách đọc)",
+        "explanation": "Sai. Không đọc bằng âm Kun trong trường hợp này."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 73,
+    "type": "md1n3",
+    "question_jp": "[動物](どうぶつ)は[肉](にく)をたべるものと<u>[草](くさ)</u>をたべるものに[分](わ)けられる。",
+    "question_vn": "Động vật được chia thành loài ăn thịt và loài ăn (cỏ).",
+    "options": [
+      {
+        "id": 1,
+        "text": "くも",
+        "translation": "mây / nhện",
+        "explanation": "Sai. Đây là cách đọc của chữ [雲] (mây) hoặc [蜘蛛] (nhện)."
+      },
+      {
+        "id": 2,
+        "text": "そう",
+        "translation": "cỏ (âm On)",
+        "explanation": "Sai. そう là âm On của chữ [草], nhưng đứng một mình tạo thành danh từ thì phải dùng âm Kun."
+      },
+      {
+        "id": 3,
+        "text": "くき",
+        "translation": "cuống, thân cây",
+        "explanation": "Sai. Đây là cách đọc của chữ [茎] (thân, cuống cây)."
+      },
+      {
+        "id": 4,
+        "text": "くさ",
+        "translation": "cỏ",
+        "explanation": "Đúng. Chữ Thảo [草] đứng độc lập đọc bằng âm Kun là くさ mang nghĩa là cỏ."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 74,
+    "type": "md1n3",
+    "question_jp": "ねぼうして、<u>[今朝](けさ)</u>は[何](なに)もたべずに[学校](がっこう)へ[行](い)きました。",
+    "question_vn": "Vì ngủ quên nên (sáng nay) tôi đã đi học mà không ăn gì.",
+    "options": [
+      {
+        "id": 1,
+        "text": "けさ",
+        "translation": "sáng nay",
+        "explanation": "Đúng. Từ [今朝] là trường hợp đọc đặc biệt, đọc là けさ."
+      },
+      {
+        "id": 2,
+        "text": "こんさ",
+        "translation": "sáng nay (sai cách đọc)",
+        "explanation": "Sai. Ghép âm lộn xộn."
+      },
+      {
+        "id": 3,
+        "text": "けちょう",
+        "translation": "sáng nay (sai cách đọc)",
+        "explanation": "Sai. Chữ 朝 [Triêu] có âm On là ちょう nhưng không đọc cách này trong từ 今朝."
+      },
+      {
+        "id": 4,
+        "text": "こんちょう",
+        "translation": "sáng nay (sai cách đọc)",
+        "explanation": "Sai. Người Nhật không dùng cách ghép âm On こんちょう cho từ [今朝]."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 75,
+    "type": "md1n3",
+    "question_jp": "[日本](にほん)での[語学](ごがく)<u>[研修](けんしゅう)</u>が[就職](しゅうしょく)に[役立](やくだ)ちました。",
+    "question_vn": "Việc (tu nghiệp/thực tập) ngôn ngữ ở Nhật đã có ích cho việc tìm việc làm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "けんしゅ",
+        "translation": "tu nghiệp (sai chính tả)",
+        "explanation": "Sai. Thiếu trường âm 'う'."
+      },
+      {
+        "id": 2,
+        "text": "けんしゅう",
+        "translation": "tu nghiệp, thực tập",
+        "explanation": "Đúng. Chữ Nghiên [研] đọc là けん, chữ Tu [修] đọc là しゅう."
+      },
+      {
+        "id": 3,
+        "text": "れんしゅ",
+        "translation": "luyện tập (sai chính tả)",
+        "explanation": "Sai. Cách đọc của từ [練習] (luyện tập) nhưng bị thiếu trường âm."
+      },
+      {
+        "id": 4,
+        "text": "れんしゅう",
+        "translation": "luyện tập",
+        "explanation": "Sai. Đây là cách đọc của từ [練習] (luyện tập)."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 76,
+    "type": "md1n3",
+    "question_jp": "[勉強家](べんきょうか)だった[弟](おとうと)は[今](いま)、[医科大学](いかだいがく)に<u>[通](かよ)って</u>います。",
+    "question_vn": "Người em trai từng là người chăm học giờ đang (theo học) ở trường đại học y khoa.",
+    "options": [
+      {
+        "id": 1,
+        "text": "とおって",
+        "translation": "đi qua",
+        "explanation": "Sai. Chữ Thông [通] có động từ [通]る đọc là とおる (đi ngang qua), nhưng cấu trúc 'theo học đại học' không dùng từ này."
+      },
+      {
+        "id": 2,
+        "text": "かよって",
+        "translation": "đi lại, theo học",
+        "explanation": "Đúng. Động từ [通]う (かよう) mang nghĩa là đi lại thường xuyên (đi học, đi làm, đi viện), chia sang thể Te thành かよって."
+      },
+      {
+        "id": 3,
+        "text": "うつって",
+        "translation": "chuyển sang / phản chiếu",
+        "explanation": "Sai. Đây là cách đọc của từ [移]る hoặc [映]る."
+      },
+      {
+        "id": 4,
+        "text": "まよって",
+        "translation": "lạc đường, phân vân",
+        "explanation": "Sai. Đây là cách đọc của từ [迷]う."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 77,
+    "type": "md1n3",
+    "question_jp": "[道](みち)が[込](こ)んでいるとバスは[地下鉄](ちかてつ)よりずっと<u>[遅](おそ)く</u>なる。",
+    "question_vn": "Nếu đường đông thì đi xe buýt sẽ (chậm) hơn nhiều so với tàu điện ngầm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "おそく",
+        "translation": "muộn, chậm",
+        "explanation": "Đúng. Tính từ [遅]い mang nghĩa là chậm trễ, muộn màng. Bỏ đuôi 'い' thêm 'く' để thành phó từ bổ nghĩa cho động từ なる."
+      },
+      {
+        "id": 2,
+        "text": "はやく",
+        "translation": "nhanh, sớm",
+        "explanation": "Sai. Đây là từ trái nghĩa, cách đọc của [早]く hoặc [速]く."
+      },
+      {
+        "id": 3,
+        "text": "のろく",
+        "translation": "chậm chạp",
+        "explanation": "Sai. Từ đồng nghĩa là [鈍]い (のろい - lề mề, chậm chạp) nhưng Hán tự không đúng."
+      },
+      {
+        "id": 4,
+        "text": "あそく",
+        "translation": "chậm (sai cách đọc)",
+        "explanation": "Sai. Sai cách phát âm."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 78,
+    "type": "md1n3",
+    "question_jp": "[頑張](がんば)ったのに、<u>[結果](けっか)</u>はあまりよくなかった。",
+    "question_vn": "Dù đã cố gắng nhưng (kết quả) lại không tốt lắm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "けつか",
+        "translation": "kết quả (sai chính tả)",
+        "explanation": "Sai. Chữ 'つ' phải là âm ngắt nhỏ 'っ'."
+      },
+      {
+        "id": 2,
+        "text": "けが",
+        "translation": "vết thương",
+        "explanation": "Sai. Đây là từ mang nghĩa chấn thương ([怪我])."
+      },
+      {
+        "id": 3,
+        "text": "けっか",
+        "translation": "kết quả",
+        "explanation": "Đúng. Chữ Kết [結] ghép với Quả [果] đọc biến âm có âm ngắt là けっか."
+      },
+      {
+        "id": 4,
+        "text": "けっこう",
+        "translation": "khá là, đủ rồi",
+        "explanation": "Sai. Đây là từ mang nghĩa được rồi, khá là ([結構])."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 79,
+    "type": "md2n3",
+    "question_jp": "[現在](げんざい)、[日本](にほん)には43の「<u>けん</u>」がある。",
+    "question_vn": "Hiện tại, Nhật Bản có 43 (tỉnh).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[県](けん)",
+        "translation": "tỉnh",
+        "explanation": "Đúng. Chữ Huyện [県] đọc là けん, chỉ đơn vị hành chính cấp tỉnh ở Nhật Bản."
+      },
+      {
+        "id": 2,
+        "text": "[軒](けん)",
+        "translation": "căn, nhà",
+        "explanation": "Sai. Chữ Hiên [軒] dùng làm lượng từ đếm nhà cửa."
+      },
+      {
+        "id": 3,
+        "text": "[区](く)",
+        "translation": "quận",
+        "explanation": "Sai. Mang nghĩa là quận/khu vực."
+      },
+      {
+        "id": 4,
+        "text": "[都](と)",
+        "translation": "đô",
+        "explanation": "Sai. Mang nghĩa là thủ đô (như 東京都)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 80,
+    "type": "md2n3",
+    "question_jp": "<u>ぎんこう</u>はあの[角](かど)を[右](みぎ)にまがると[左](ひだり)がわにあります。",
+    "question_vn": "(Ngân hàng) thì rẽ phải ở góc kia sẽ nằm bên tay trái.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[金行](きんこう)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Kim [金] đọc là きん, không phải ぎん."
+      },
+      {
+        "id": 2,
+        "text": "[銀行](ぎんこう)",
+        "translation": "ngân hàng",
+        "explanation": "Đúng. Chữ Ngân [銀] (bạc) và Hành [行] ghép lại mang nghĩa ngân hàng."
+      },
+      {
+        "id": 3,
+        "text": "[銅行](どうこう)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Đồng [銅] đọc là どう."
+      },
+      {
+        "id": 4,
+        "text": "[銭行](せんこう)",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Chữ Tiền [銭] đọc là せん."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 81,
+    "type": "md2n3",
+    "question_jp": "このごろ<u>くび</u>がいたくて[病院](びょういん)にかよっている。",
+    "question_vn": "Dạo này tôi bị đau (cổ) nên đang đi bệnh viện.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[頭](あたま)",
+        "translation": "đầu",
+        "explanation": "Sai. Chữ Đầu [頭] mang nghĩa là cái đầu, đọc là あたま."
+      },
+      {
+        "id": 2,
+        "text": "[耳](みみ)",
+        "translation": "tai",
+        "explanation": "Sai. Chữ Nhĩ [耳] mang nghĩa là tai, đọc là みみ."
+      },
+      {
+        "id": 3,
+        "text": "[口](くち)",
+        "translation": "miệng",
+        "explanation": "Sai. Chữ Khẩu [口] mang nghĩa là cái miệng, đọc là くち."
+      },
+      {
+        "id": 4,
+        "text": "[首](くび)",
+        "translation": "cổ",
+        "explanation": "Đúng. Chữ Thủ [首] mang nghĩa là cái cổ, đọc là くび."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 82,
+    "type": "md2n3",
+    "question_jp": "ちょっと[電話](でんわ)を<u>かして</u>いただけないでしょうか。",
+    "question_vn": "Bạn có thể (cho) tôi (mượn) điện thoại một chút được không.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[借](か)して",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Chữ Tá [借] (đi mượn) chia thành [借]りて (かりて)."
+      },
+      {
+        "id": 2,
+        "text": "[買](か)して",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Chữ Mãi [買] (mua) chia thành [買]って (かって)."
+      },
+      {
+        "id": 3,
+        "text": "[貸](か)して",
+        "translation": "cho mượn",
+        "explanation": "Đúng. Chữ Thải [貸] (cho mượn) có động từ gốc là [貸]す, chia thể Te thành [貸]して."
+      },
+      {
+        "id": 4,
+        "text": "[代](か)して",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Chữ Đại [代] thường gặp trong [代]わる (thay thế)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 83,
+    "type": "md2n3",
+    "question_jp": "[何](なん)でも[他人](たにん)に<u>かたなければ</u>ならない[冷](つめ)たい[世界](せかい)になってしまった。",
+    "question_vn": "Đã trở thành một thế giới lạnh lẽo cái gì cũng phải (thắng) người khác.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[勝](か)たなければ",
+        "translation": "phải thắng",
+        "explanation": "Đúng. Động từ [勝]つ (chiến thắng) chia sang thể phủ định điều kiện 'ければ' mang nghĩa 'nếu không thắng thì không được' (phải thắng)."
+      },
+      {
+        "id": 2,
+        "text": "[負](ま)たなければ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Động từ thua là [負]ける, chia phủ định điều kiện phải là [負]けなければ."
+      },
+      {
+        "id": 3,
+        "text": "[脱](ぬ)たなければ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Động từ cởi là [脱]ぐ, chia là [脱]がなければ."
+      },
+      {
+        "id": 4,
+        "text": "[脇](わき)たなければ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Đây không phải là động từ."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 84,
+    "type": "md2n3",
+    "question_jp": "<u>かなしい</u>ニュースは[読](よ)まないことにしています。",
+    "question_vn": "Tôi quyết định không đọc những tin tức (đáng buồn).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[非](ひ)しい",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Không có tính từ này."
+      },
+      {
+        "id": 2,
+        "text": "[罪](つみ)しい",
+        "translation": "từ sai Hán tự",
+        "explanation": "Sai. Không có tính từ này."
+      },
+      {
+        "id": 3,
+        "text": "[悲](かな)しい",
+        "translation": "đáng buồn, đau buồn",
+        "explanation": "Đúng. Chữ Bi [悲] ghép với 'しい' đọc là かなしい mang ý nghĩa buồn bã, đau thương."
+      },
+      {
+        "id": 4,
+        "text": "[嬉](うれ)しい",
+        "translation": "vui vẻ",
+        "explanation": "Sai. Đây là từ trái nghĩa, đọc là うれしい."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 85,
+    "type": "md3n3",
+    "question_jp": "[学校](がっこう)の（　　　　）はちゃんとまもってください。",
+    "question_vn": "Hãy tuân thủ nghiêm chỉnh (quy tắc) của trường học.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[法律](ほうりつ)",
+        "translation": "pháp luật",
+        "explanation": "Sai. Trường học không ban hành 'pháp luật', từ này quá tầm vóc so với ngữ cảnh."
+      },
+      {
+        "id": 2,
+        "text": "[規則](きそく)",
+        "translation": "quy tắc, nội quy",
+        "explanation": "Đúng. Đi kèm với động từ '守る' (tuân thủ) ở trường học thì từ thích hợp nhất là nội quy/quy tắc."
+      },
+      {
+        "id": 3,
+        "text": "[態度](たいど)",
+        "translation": "thái độ",
+        "explanation": "Sai. Thái độ thì không 'tuân thủ'."
+      },
+      {
+        "id": 4,
+        "text": "[案内](あんない)",
+        "translation": "hướng dẫn",
+        "explanation": "Sai. Hướng dẫn thì không đi với 'tuân thủ'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 86,
+    "type": "md3n3",
+    "question_jp": "[会議](かいぎ)が2[時間](じかん)も[続](つづ)いているのになかなか（　　　　）が[出](で)ない。",
+    "question_vn": "Cuộc họp đã kéo dài 2 tiếng đồng hồ rồi mà mãi chưa đưa ra được (kết luận).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[結論](けつろん)",
+        "translation": "kết luận",
+        "explanation": "Đúng. Trong một cuộc họp kéo dài, thứ mà người ta mong mỏi đạt được nhất là một quyết định/kết luận chung ([結論]が出ない - chưa đưa ra được kết luận)."
+      },
+      {
+        "id": 2,
+        "text": "[主題](しゅだい)",
+        "translation": "chủ đề",
+        "explanation": "Sai. Chủ đề là thứ được xác định trước khi họp."
+      },
+      {
+        "id": 3,
+        "text": "[本文](ほんぶん)",
+        "translation": "bản văn, nội dung chính",
+        "explanation": "Sai. Không liên quan đến ngữ cảnh cuộc họp."
+      },
+      {
+        "id": 4,
+        "text": "[理由](りゆう)",
+        "translation": "lý do",
+        "explanation": "Sai. Hợp lý về mặt ngữ pháp nhưng 'kết luận' mới là mục đích chính của một cuộc họp giải quyết vấn đề."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 87,
+    "type": "md3n3",
+    "question_jp": "ここにお[名前](なまえ)とご[住所](じゅうしょ)をご（　　　　）ください。",
+    "question_vn": "Xin hãy (điền) tên và địa chỉ vào đây.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[記事](きじ)",
+        "translation": "kí sự, bài báo",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 2,
+        "text": "[記名](きめい)",
+        "translation": "ký tên",
+        "explanation": "Sai. Từ này chỉ bao hàm việc ghi tên, trong khi câu yêu cầu điền cả tên lẫn địa chỉ."
+      },
+      {
+        "id": 3,
+        "text": "[記述](きじゅつ)",
+        "translation": "mô tả, ghi chép",
+        "explanation": "Sai. Dùng cho việc miêu tả sự vật, sự việc chi tiết."
+      },
+      {
+        "id": 4,
+        "text": "[記入](きにゅう)",
+        "translation": "điền vào",
+        "explanation": "Đúng. '[記入]する' là động từ chuẩn xác nhất dùng để yêu cầu ai đó điền thông tin (tên, địa chỉ, tuổi tác) vào một tờ đơn (form)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 88,
+    "type": "md3n3",
+    "question_jp": "[娘](むすめ)からもらった[花](はな)を[机](つくえ)のうえに（　　　　）おきました。",
+    "question_vn": "Tôi đã (trang trí / bày) bông hoa nhận từ con gái lên trên bàn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[買](か)って",
+        "translation": "mua",
+        "explanation": "Sai. Hoa đã được tặng (もらいました) thì không thể 'mua' lại."
+      },
+      {
+        "id": 2,
+        "text": "[捨](す)てて",
+        "translation": "vứt đi",
+        "explanation": "Sai. Hoa con gái tặng đem vứt đi là trái với logic thông thường."
+      },
+      {
+        "id": 3,
+        "text": "[折](お)って",
+        "translation": "gấp, bẻ",
+        "explanation": "Sai. Bẻ cành hoa rồi để lên bàn không hợp lý bằng việc cắm/trang trí nó."
+      },
+      {
+        "id": 4,
+        "text": "[飾](かざ)って",
+        "translation": "trang trí, trưng bày",
+        "explanation": "Đúng. Động từ '[飾]る' dùng cho hành động bày biện cái gì đó lên cho đẹp (ở đây là bày hoa lên bàn)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 89,
+    "type": "md3n3",
+    "question_jp": "かたいからよく（　　　　）[食](た)べましょう。",
+    "question_vn": "Vì cứng nên hãy (nhai) kỹ rồi hẵng ăn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[噛](か)んで",
+        "translation": "nhai",
+        "explanation": "Đúng. Hành động phù hợp nhất khi đối mặt với đồ ăn cứng (かたい) là nhai ([噛]む)."
+      },
+      {
+        "id": 2,
+        "text": "[考](かんが)えて",
+        "translation": "suy nghĩ",
+        "explanation": "Sai. Không liên quan đến đồ ăn cứng."
+      },
+      {
+        "id": 3,
+        "text": "[飲](の)んで",
+        "translation": "uống",
+        "explanation": "Sai. Đồ cứng thì không thể uống trọn được."
+      },
+      {
+        "id": 4,
+        "text": "[数](かぞ)えて",
+        "translation": "đếm",
+        "explanation": "Sai. Không liên quan đến việc ăn uống đồ cứng."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 90,
+    "type": "md3n3",
+    "question_jp": "[口](くち)の[中](なか)が（　　　　）きて、[水](みず)を[飲](の)んだ。",
+    "question_vn": "Trong miệng (khô) khốc nên tôi đã uống nước.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[飾](かざ)って",
+        "translation": "trang trí",
+        "explanation": "Sai. Không ai trang trí trong miệng."
+      },
+      {
+        "id": 2,
+        "text": "[変](か)えて",
+        "translation": "thay đổi",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[被](かぶ)って",
+        "translation": "đội",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[乾](かわ)いて",
+        "translation": "khô, khát",
+        "explanation": "Đúng. Động từ '[乾]く' mang nghĩa là khô hanh, cạn nước. Đi với khoang miệng/cổ họng (のどが渇く / 口の中が乾く) biểu thị cơn khát."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 91,
+    "type": "md3n3",
+    "question_jp": "[彼](かれ)は[顔](かお)を（　　　　）、[最後](さいご)まで[見](み)せなかった。",
+    "question_vn": "Anh ấy đã (giấu) mặt và không cho xem đến phút cuối.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[表](あらわ)して",
+        "translation": "biểu hiện, lộ ra",
+        "explanation": "Sai. Trái ngược với vế sau 'không cho xem'."
+      },
+      {
+        "id": 2,
+        "text": "[怒](おこ)って",
+        "translation": "tức giận",
+        "explanation": "Sai. Tuy có biểu hiện giận dữ (顔を怒らせる) nhưng ở đây không khớp động từ và logic che giấu."
+      },
+      {
+        "id": 3,
+        "text": "[消](き)えて",
+        "translation": "biến mất",
+        "explanation": "Sai. Đây là tự động từ, khuôn mặt không thể 'bị biến mất' như một hành động chủ ý che đậy, và sai cấu trúc を."
+      },
+      {
+        "id": 4,
+        "text": "[隠](かく)して",
+        "translation": "giấu, che giấu",
+        "explanation": "Đúng. Tha động từ '[隠]す' mang nghĩa là che giấu, che khuất. Hoàn toàn phù hợp với kết quả là 'không ai nhìn thấy'."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 92,
+    "type": "md3n3",
+    "question_jp": "[試合](しあい)の[前](まえ)に（　　　　）[寝](ね)られたので、コンディションがよかった。",
+    "question_vn": "Trước trận đấu tôi đã ngủ được (say giấc) nên tình trạng cơ thể rất tốt.",
+    "options": [
+      {
+        "id": 1,
+        "text": "すっかり",
+        "translation": "hoàn toàn",
+        "explanation": "Sai. Không dùng để bổ nghĩa cho giấc ngủ."
+      },
+      {
+        "id": 2,
+        "text": "ぐっすり",
+        "translation": "ngủ say, ngủ ngon",
+        "explanation": "Đúng. Phó từ 'ぐっすり' là từ đặc biệt luôn đi kèm với động từ ngủ (寝る) để chỉ một giấc ngủ sâu, không bị quấy rầy."
+      },
+      {
+        "id": 3,
+        "text": "はっきり",
+        "translation": "rõ ràng",
+        "explanation": "Sai. Dùng cho việc nhìn/nghe thấy rõ ràng hoặc trả lời rành mạch."
+      },
+      {
+        "id": 4,
+        "text": "うっかり",
+        "translation": "vô ý, lỡ",
+        "explanation": "Sai. Ngủ là do nhu cầu sinh lý, việc có giấc ngủ ngon trước trận đấu là chuyện tốt, không phải do 'sơ ý'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 93,
+    "type": "md3n3",
+    "question_jp": "ふたごと[言](い)っても[性格](せいかく)は（　　　　）[同](おな)じではない。",
+    "question_vn": "Dù nói là sinh đôi nhưng tính cách (không bao giờ / quyết không) giống nhau.",
+    "options": [
+      {
+        "id": 1,
+        "text": "こっそり",
+        "translation": "lén lút",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 2,
+        "text": "はっきり",
+        "translation": "rõ ràng",
+        "explanation": "Sai. Dù có thể hiểu ngầm là 'rõ ràng là không giống nhau', nhưng trong tiếng Nhật thường dùng cụm khác để nhấn mạnh phủ định."
+      },
+      {
+        "id": 3,
+        "text": "しっかり",
+        "translation": "chắc chắn",
+        "explanation": "Sai. Thường bổ nghĩa cho hành động cần sự vững vàng."
+      },
+      {
+        "id": 4,
+        "text": "けっして",
+        "translation": "tuyệt đối không, quyết không",
+        "explanation": "Đúng. Phó từ '決して' luôn đi với thể phủ định (～ない) để tạo thành cấu trúc mang ý nghĩa nhấn mạnh 'tuyệt đối không / không bao giờ'."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 94,
+    "type": "md3n3",
+    "question_jp": "まだまだ[使](つか)えるから[捨](す)てるのは（　　　　）。",
+    "question_vn": "Vẫn còn dùng được mà vứt đi thì thật (lãng phí / tiếc).",
+    "options": [
+      {
+        "id": 1,
+        "text": "おいしい",
+        "translation": "ngon",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 2,
+        "text": "おかしい",
+        "translation": "kỳ lạ, buồn cười",
+        "explanation": "Sai. Vứt đồ dùng được là phí phạm, không phải điều kỳ lạ hài hước."
+      },
+      {
+        "id": 3,
+        "text": "おもしろい",
+        "translation": "thú vị",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "おしい",
+        "translation": "tiếc nuối, lãng phí",
+        "explanation": "Đúng. Tính từ '惜しい' (おしい) dùng để diễn tả sự tiếc nuối khi phải vứt bỏ thứ vẫn còn giá trị."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 95,
+    "type": "md3n3",
+    "question_jp": "[電車](でんしゃ)の[中](なか)の（　　　　）が[強](つよ)くついていて[風邪](かぜ)をひきそうだった。",
+    "question_vn": "Máy (điều hòa) trong xe điện đang bật mạnh đến mức có vẻ như sắp bị cảm lạnh.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ガス",
+        "translation": "gas",
+        "explanation": "Sai. Khí gas rò rỉ gây ngộ độc, không gây cảm lạnh."
+      },
+      {
+        "id": 2,
+        "text": "ゲーム",
+        "translation": "trò chơi",
+        "explanation": "Sai. Không liên quan đến nhiệt độ."
+      },
+      {
+        "id": 3,
+        "text": "クーラー",
+        "translation": "máy làm mát, điều hòa",
+        "explanation": "Đúng. 'クーラー' (cooler) ám chỉ hệ thống làm mát/điều hòa nhiệt độ. Gió điều hòa bật mạnh (強くついている) là nguyên nhân gây cảm lạnh."
+      },
+      {
+        "id": 4,
+        "text": "テレビ",
+        "translation": "tivi",
+        "explanation": "Sai. Không gây cảm lạnh."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 96,
+    "type": "md4n3",
+    "question_jp": "[今日](きょう)は[体](からだ)の<u>[具合](ぐあい)</u>が[悪](わる)くてどこにも[行](い)きたくありません。",
+    "question_vn": "Hôm nay (tình trạng) cơ thể không tốt nên tôi không muốn đi đâu cả.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[感](かん)じ",
+        "translation": "cảm giác",
+        "explanation": "Sai. Không dùng để chỉ tình trạng sức khỏe cụ thể."
+      },
+      {
+        "id": 2,
+        "text": "[調子](ちょうし)",
+        "translation": "tình trạng, trạng thái",
+        "explanation": "Đúng. '[具合]' mang nghĩa là tình trạng hoạt động (của máy móc) hoặc sức khỏe (của con người), đồng nghĩa với từ '[調子]'."
+      },
+      {
+        "id": 3,
+        "text": "[元気](げんき)",
+        "translation": "khỏe mạnh",
+        "explanation": "Sai. Đây là một danh từ/tính từ chỉ trạng thái tốt, không ghép với '[悪]い' (xấu) theo cấu trúc này."
+      },
+      {
+        "id": 4,
+        "text": "[力](ちから)",
+        "translation": "sức mạnh",
+        "explanation": "Sai. Không mang nghĩa bao quát về trạng thái sức khỏe."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 97,
+    "type": "md4n3",
+    "question_jp": "[自分](じぶん)の[部屋](へや)は[自分](じぶん)で<u>[片付](かたづ)ける</u>ことにしています。",
+    "question_vn": "Phòng của mình thì tôi quyết định sẽ tự (dọn dẹp).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[掃除](そうじ)する",
+        "translation": "dọn dẹp, hút bụi",
+        "explanation": "Đúng. Động từ '[片付]ける' nghĩa là thu dọn, cất gọn đồ đạc. Trong ngữ cảnh dọn phòng, nó đồng nghĩa và có thể được thay thế bằng '[掃除]する' (dọn dẹp vệ sinh)."
+      },
+      {
+        "id": 2,
+        "text": "[飾](かざ)る",
+        "translation": "trang trí",
+        "explanation": "Sai. Hoàn toàn khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[洗](あら)う",
+        "translation": "rửa",
+        "explanation": "Sai. Ta rửa bát, rửa mặt chứ không 'rửa' cả căn phòng."
+      },
+      {
+        "id": 4,
+        "text": "[吹](ふ)く",
+        "translation": "thổi",
+        "explanation": "Sai. Khác nghĩa (ví dụ: gió thổi)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 98,
+    "type": "md4n3",
+    "question_jp": "[静](しず)かな[彼女](かのじょ)もお[酒](さけ)さえ[飲](の)めばとても<u>うるさく</u>なる。",
+    "question_vn": "Cô gái điềm tĩnh ấy cứ uống rượu vào là lại trở nên vô cùng (ồn ào).",
+    "options": [
+      {
+        "id": 1,
+        "text": "おもしろく",
+        "translation": "thú vị",
+        "explanation": "Sai. Không khớp nghĩa, dù việc cô ấy thay đổi có thể là thú vị."
+      },
+      {
+        "id": 2,
+        "text": "うつくしく",
+        "translation": "đẹp",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "やかましく",
+        "translation": "ầm ĩ, ồn ào",
+        "explanation": "Đúng. 'うるさい' (ồn ào, phiền phức) có từ đồng nghĩa mang sắc thái tương tự trong văn nói là 'やかましい' (inh ỏi, ầm ĩ)."
+      },
+      {
+        "id": 4,
+        "text": "やさしく",
+        "translation": "dễ dàng, hiền lành",
+        "explanation": "Sai. Tính cách vốn có của cô ấy đã là tĩnh lặng (静か), uống vào trở nên ồn ào mới tạo sự tương phản, không phải trở nên 'hiền' đi."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 99,
+    "type": "md4n3",
+    "question_jp": "[子](こ)どもたちが<u>きゅうに</u>[飛](と)び[出](だ)してびっくりした。",
+    "question_vn": "Bọn trẻ (đột nhiên) lao ra làm tôi giật mình.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ゆっくり",
+        "translation": "chầm chậm",
+        "explanation": "Sai. Trẻ con lao ra chầm chậm thì không khiến ai giật mình được."
+      },
+      {
+        "id": 2,
+        "text": "ぐっすり",
+        "translation": "say giấc",
+        "explanation": "Sai. Đây là phó từ bổ nghĩa cho giấc ngủ."
+      },
+      {
+        "id": 3,
+        "text": "すっかり",
+        "translation": "hoàn toàn",
+        "explanation": "Sai. Không dùng để bổ nghĩa cho hành động 'lao ra'."
+      },
+      {
+        "id": 4,
+        "text": "とつぜん",
+        "translation": "đột nhiên",
+        "explanation": "Đúng. Phó từ 'きゅうに' (đột ngột, bất thình lình) đồng nghĩa trực tiếp với 'とつぜん' (đột nhiên)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 100,
+    "type": "md4n3",
+    "question_jp": "[田舎](いなか)の[小学校](しょうがっこう)は<u>クラス</u>が[少](すく)なすぎて[問題](もんだい)だ。",
+    "question_vn": "Trường tiểu học ở quê có quá ít (lớp học) nên đúng là một vấn đề.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[学級](がっきゅう)",
+        "translation": "lớp học",
+        "explanation": "Đúng. Từ ngoại lai 'クラス' (Class) ở đây chỉ số lượng các lớp học trong một cấp học, đồng nghĩa với thuật ngữ giáo dục '[学級]'."
+      },
+      {
+        "id": 2,
+        "text": "[学生](がくせい)",
+        "translation": "học sinh, sinh viên",
+        "explanation": "Sai. Ở tiểu học thường gọi là [児童] hoặc [生徒], không gọi là [学生]. Hơn nữa, từ đồng nghĩa của クラス không phải là học sinh."
+      },
+      {
+        "id": 3,
+        "text": "[教師](きょうし)",
+        "translation": "giáo viên",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[運動場](うんどうじょう)",
+        "translation": "sân vận động",
+        "explanation": "Sai. Khác nghĩa."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 101,
+    "type": "md5n3",
+    "question_jp": "[切手](きって)",
+    "question_vn": "Con tem (bưu chính)",
+    "options": [
+      {
+        "id": 1,
+        "text": "[映画](えいが)の<u>[切手](きって)</u>は[買](か)っておきましたか。",
+        "translation": "Đã mua tem xem phim sẵn chưa?",
+        "explanation": "Sai. Để vào xem phim người ta mua 'vé' (チケット / 切符), không dùng con tem bưu chính."
+      },
+      {
+        "id": 2,
+        "text": "[果物](くだもの)を[食](た)べるときは<u>[切手](きって)</u>が[必要](ひつよう)です。",
+        "translation": "Khi ăn hoa quả thì cần có tem.",
+        "explanation": "Sai. Ăn hoa quả cần dao ([包丁] / ナイフ), có lẽ người ra đề cố tình gài bẫy chữ 'Thiết' (cắt) trong từ con tem."
+      },
+      {
+        "id": 3,
+        "text": "<u>[切手](きって)</u>なしでは[公園](こうえん)に[入](はい)ることができません。",
+        "translation": "Nếu không có tem thì không thể vào công viên.",
+        "explanation": "Sai. Vào công viên (có thu phí) cần vé vào cửa ([入場券] / チケット)."
+      },
+      {
+        "id": 4,
+        "text": "<u>[切手](きって)</u>を[買](か)いに[郵便局](ゆうびんきょく)へ[行](い)きました。",
+        "translation": "Tôi đã đi đến bưu điện để mua tem.",
+        "explanation": "Đúng. '切手' (tem dán thư) được bán ở bưu điện ([郵便局])."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 102,
+    "type": "md5n3",
+    "question_jp": "[被](かぶ)る",
+    "question_vn": "Đội (lên đầu)",
+    "options": [
+      {
+        "id": 1,
+        "text": "[赤](あか)い[帽子](ぼうし)を<u>[被](かぶ)った</u>[女](おんな)の[人](ひと)が[歩](ある)いてきた。",
+        "translation": "Một người phụ nữ đội chiếc mũ đỏ đã đi bộ tới.",
+        "explanation": "Đúng. Động từ '[被]る' được sử dụng dành riêng cho hành động đội các vật dụng lên đầu (mũ nón, mũ bảo hiểm)."
+      },
+      {
+        "id": 2,
+        "text": "[手](て)にゆびわを<u>[被](かぶ)って</u>います。",
+        "translation": "Đang đội nhẫn trên tay.",
+        "explanation": "Sai. Đeo nhẫn vào ngón tay thì dùng động từ '[はめる]'."
+      },
+      {
+        "id": 3,
+        "text": "[雨](あめ)が[降](ふ)ってきたから、かさを<u>[被](かぶ)りましょう</u>。",
+        "translation": "Trời đổ mưa rồi nên hãy đội ô nào.",
+        "explanation": "Sai. Động từ dùng cho việc che ô là '[さす]' (傘をさす)."
+      },
+      {
+        "id": 4,
+        "text": "[鈴木](すずき)さんは[白](しろ)い[靴](くつ)を<u>[被](かぶ)って</u>います。",
+        "translation": "Anh Suzuki đang đội đôi giày màu trắng.",
+        "explanation": "Sai. Mang giày dép vào chân thì dùng động từ '[履く]' (はく)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 103,
+    "type": "md5n3",
+    "question_jp": "[思](おも)い[出](だ)す",
+    "question_vn": "Nhớ ra, hồi tưởng lại",
+    "options": [
+      {
+        "id": 1,
+        "text": "[雨](あめ)の[日](ひ)は[行](い)かないほうがいいと<u>[思](おも)い[出](だ)します</u>。",
+        "translation": "Tôi nhớ ra rằng ngày mưa thì không nên đi.",
+        "explanation": "Sai. Ở đây chỉ diễn đạt quan điểm cá nhân 'tôi nghĩ rằng...', phải dùng '[思]います'."
+      },
+      {
+        "id": 2,
+        "text": "[決](き)める[前](まえ)に[深](ふか)く<u>[思](おも)い[出](だ)して</u>みなさい。",
+        "translation": "Trước khi quyết định hãy thử nhớ ra sâu sắc xem sao.",
+        "explanation": "Sai. Trước khi quyết định điều gì thì phải 'suy nghĩ' thấu đáo ([考]えてみなさい)."
+      },
+      {
+        "id": 3,
+        "text": "[先生](せんせい)、わたしのことを<u>[思](おも)い[出](だ)して</u>いますか。",
+        "translation": "Thầy ơi, thầy có đang nhớ ra em không ạ?",
+        "explanation": "Sai. Khi hỏi ai đó còn lưu giữ ký ức về mình không, người ta dùng '[覚]えていますか' (Thầy có còn nhớ em không?)."
+      },
+      {
+        "id": 4,
+        "text": "[急](きゅう)に[高校](こうこう)の[友](とも)だちのことを<u>[思](おも)い[出](だ)しました</u>。",
+        "translation": "Đột nhiên tôi lại nhớ về người bạn thời cấp 3.",
+        "explanation": "Đúng. '[思]い[出]す' dùng để diễn tả một ký ức/hình ảnh đột nhiên ùa về trong tâm trí."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 104,
+    "type": "md5n3",
+    "question_jp": "うらやましい",
+    "question_vn": "Ghen tị, thèm muốn",
+    "options": [
+      {
+        "id": 1,
+        "text": "[遠足](えんそく)に[行](い)ったのに、[雨](あめ)が[降](ふ)って<u>うらやましかった</u>。",
+        "translation": "Rõ ràng đi dã ngoại mà trời lại mưa thật là ghen tị.",
+        "explanation": "Sai. Bị dính mưa khi đi chơi thì cảm giác phải là tiếc nuối ([残年]だった) hoặc buồn ([悲]しかった)."
+      },
+      {
+        "id": 2,
+        "text": "[久](ひさ)しぶりに[友](とも)だちと[会](あ)って<u>うらやましかった</u>。",
+        "translation": "Đã lâu mới gặp lại bạn bè thật là ghen tị.",
+        "explanation": "Sai. Gặp lại bạn thì phải là vui vẻ ([うれしかった]) hoặc hoài niệm (なつかしかった)."
+      },
+      {
+        "id": 3,
+        "text": "[映画](えいが)は[考](かんが)えたよりずっと<u>うらやましかった</u>。",
+        "translation": "Bộ phim ghen tị hơn nhiều so với tôi tưởng tượng.",
+        "explanation": "Sai. Không dùng từ ghen tị để nhận xét phim. Phải là thú vị (おもしろかった) hoặc chán (つまらなかった)."
+      },
+      {
+        "id": 4,
+        "text": "[医者](いしゃ)になった[友](とも)だちが<u>うらやましくて</u>たまらない。",
+        "translation": "Tôi thèm muốn/ghen tị với đứa bạn đã trở thành bác sĩ đến mức không chịu nổi.",
+        "explanation": "Đúng. 'うらやましい' dùng để diễn tả sự thèm khát, ao ước có được hoàn cảnh tốt đẹp giống như người khác."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 105,
+    "type": "md5n3",
+    "question_jp": "きっと",
+    "question_vn": "Chắc chắn là, nhất định là",
+    "options": [
+      {
+        "id": 1,
+        "text": "[日本](にほん)に[来](き)て<u>きっと</u>ここに[住](す)んでいます。",
+        "translation": "Đến Nhật tôi chắc chắn là sống ở đây.",
+        "explanation": "Sai. Diễn tả hành động cư trú xuyên suốt từ quá khứ đến hiện tại thì dùng phó từ 'ずっと' (suốt)."
+      },
+      {
+        "id": 2,
+        "text": "[高橋](たかはし)さんは<u>きっと</u>[合格](ごうかく)すると[思](おも)います。",
+        "translation": "Tôi nghĩ anh Takahashi chắc chắn sẽ thi đỗ.",
+        "explanation": "Đúng. 'きっと' mang ý nghĩa suy đoán với mức độ tự tin rất cao (tin chắc là vậy)."
+      },
+      {
+        "id": 3,
+        "text": "[田中](たなか)さんって、<u>きっと</u>どなたですか。",
+        "translation": "Cái người tên Tanaka đó, chắc chắn là vị nào vậy?",
+        "explanation": "Sai. Trong câu hỏi nhấn mạnh sự thắc mắc 'rốt cuộc là', 'tóm lại là', người Nhật dùng 'いったい'."
+      },
+      {
+        "id": 4,
+        "text": "<u>きっと</u>[立派](りっぱ)なこうぎでした。",
+        "translation": "Đó chắc chắn là một bài giảng xuất sắc.",
+        "explanation": "Sai. Với câu cảm thán/đánh giá kết quả đã diễn ra, thường dùng 'とても' hoặc 'すごく' (rất) thay vì từ phỏng đoán 'きっと'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 106,
+    "type": "md1n3",
+    "question_jp": "<u>[最近](さいきん)</u>、きまぐれな[天気](てんき)がつづいている。",
+    "question_vn": "(Gần đây) thời tiết thất thường cứ kéo dài.",
+    "options": [
+      {
+        "id": 1,
+        "text": "さいしん",
+        "translation": "mới nhất",
+        "explanation": "Sai. Đây là cách đọc của từ [最新] (mới nhất)."
+      },
+      {
+        "id": 2,
+        "text": "さいきん",
+        "translation": "gần đây",
+        "explanation": "Đúng. Chữ Tối [最] đọc là さい, chữ Cận [近] đọc là きん."
+      },
+      {
+        "id": 3,
+        "text": "さいしょ",
+        "translation": "đầu tiên",
+        "explanation": "Sai. Đây là cách đọc của từ [最初] (đầu tiên)."
+      },
+      {
+        "id": 4,
+        "text": "さいちか",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 107,
+    "type": "md1n3",
+    "question_jp": "[外国語](がいこくご)が[上手](じょうず)になるためには<u>[作文](さくぶん)</u>の[練習](れんしゅう)が[必要](ひつよう)だ。",
+    "question_vn": "Để giỏi ngoại ngữ thì cần phải luyện tập (viết văn).",
+    "options": [
+      {
+        "id": 1,
+        "text": "さくぶん",
+        "translation": "viết văn, tập làm văn",
+        "explanation": "Đúng. Chữ Tác [作] đọc là さく, chữ Văn [文] đọc là ぶん."
+      },
+      {
+        "id": 2,
+        "text": "さくもん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "さぶん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "さもん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 108,
+    "type": "md1n3",
+    "question_jp": "[小](ちい)さいときから[正](ただ)しい<u>[行動](こうどう)</u>を[教](おし)えなければならない。",
+    "question_vn": "Phải dạy cho trẻ (hành động) đúng đắn từ khi còn nhỏ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "こうどう",
+        "translation": "hành động",
+        "explanation": "Đúng. Chữ Hành [行] đọc là こう, chữ Động [動] đọc là どう."
+      },
+      {
+        "id": 2,
+        "text": "きょうどう",
+        "translation": "hợp tác, làm chung",
+        "explanation": "Sai. Đây là cách đọc của từ [共同] hoặc [協同]."
+      },
+      {
+        "id": 3,
+        "text": "ごうどう",
+        "translation": "hợp đồng, chung",
+        "explanation": "Sai. Đây là cách đọc của từ [合同]."
+      },
+      {
+        "id": 4,
+        "text": "ぎょうどう",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 109,
+    "type": "md1n3",
+    "question_jp": "[中村](なかむら)さんのお[父](とう)さんは[小学校](しょうがっこう)の<u>[校長](こうちょう)</u>[先生](せんせい)だという。",
+    "question_vn": "Nghe nói bố của Nakamura là (hiệu trưởng) trường tiểu học.",
+    "options": [
+      {
+        "id": 1,
+        "text": "きょうちょう",
+        "translation": "nhấn mạnh",
+        "explanation": "Sai. Đây là cách đọc của từ [強調] (nhấn mạnh)."
+      },
+      {
+        "id": 2,
+        "text": "きょうちょ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "こうちょう",
+        "translation": "hiệu trưởng",
+        "explanation": "Đúng. Chữ Hiệu [校] đọc là こう, chữ Trưởng [長] đọc là ちょう."
+      },
+      {
+        "id": 4,
+        "text": "こうちょ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 110,
+    "type": "md1n3",
+    "question_jp": "[私](わたし)は[寝](ね)る[前](まえ)に<u>[雑誌](ざっし)</u>を[読](よ)むしゅうかんがある。",
+    "question_vn": "Tôi có thói quen đọc (tạp chí) trước khi đi ngủ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ぞうし",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "ざっし",
+        "translation": "tạp chí",
+        "explanation": "Đúng. Chữ Tạp [雑] và chữ Chí [誌] ghép lại biến âm thành ざっし."
+      },
+      {
+        "id": 3,
+        "text": "ざつし",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "そうし",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 111,
+    "type": "md1n3",
+    "question_jp": "[足](あし)がすべって<u>[転](ころ)んだ</u>。",
+    "question_vn": "Tôi bị trượt chân và (ngã).",
+    "options": [
+      {
+        "id": 1,
+        "text": "はこんだ",
+        "translation": "đã vận chuyển",
+        "explanation": "Sai. Đây là cách đọc của động từ [運]ぶ."
+      },
+      {
+        "id": 2,
+        "text": "ころんだ",
+        "translation": "đã ngã",
+        "explanation": "Đúng. Động từ [転]ぶ mang nghĩa là vấp ngã, ngã lộn nhào."
+      },
+      {
+        "id": 3,
+        "text": "なやんだ",
+        "translation": "đã phiền não",
+        "explanation": "Sai. Đây là cách đọc của động từ [悩]む."
+      },
+      {
+        "id": 4,
+        "text": "あそんだ",
+        "translation": "đã chơi",
+        "explanation": "Sai. Đây là cách đọc của động từ [遊]ぶ."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 112,
+    "type": "md1n3",
+    "question_jp": "[買](か)ったばかりのノートパソコンが<u>[壊](こわ)れて</u>しまった。",
+    "question_vn": "Chiếc máy tính xách tay vừa mới mua đã bị (hỏng) mất rồi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "こわれて",
+        "translation": "hỏng",
+        "explanation": "Đúng. Tự động từ [壊]れる mang nghĩa bị hỏng hóc, đổ vỡ."
+      },
+      {
+        "id": 2,
+        "text": "やぶれて",
+        "translation": "rách",
+        "explanation": "Sai. Đây là cách đọc của động từ [破]れる (bị rách)."
+      },
+      {
+        "id": 3,
+        "text": "はかれて",
+        "translation": "bị mặc / bị quét",
+        "explanation": "Sai. Đây là thể bị động của động từ [履]く (mặc, xỏ) hoặc [掃]く (quét)."
+      },
+      {
+        "id": 4,
+        "text": "あわれて",
+        "translation": "bị gặp",
+        "explanation": "Sai. Đây là thể bị động của động từ [会]う hoặc [遭]う."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 113,
+    "type": "md1n3",
+    "question_jp": "[使](つか)う[前](まえ)に[説明書](せつめいしょ)を<u>[軽](かる)く</u>[読](よ)んでみてください。",
+    "question_vn": "Trước khi dùng xin hãy thử đọc (lướt qua / nhẹ) sách hướng dẫn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "あかるく",
+        "translation": "sáng sủa",
+        "explanation": "Sai. Đây là cách đọc của từ [明]るく."
+      },
+      {
+        "id": 2,
+        "text": "くらく",
+        "translation": "tối",
+        "explanation": "Sai. Đây là cách đọc của từ [暗]く."
+      },
+      {
+        "id": 3,
+        "text": "かるく",
+        "translation": "nhẹ, lướt qua",
+        "explanation": "Đúng. Tính từ [軽]い nghĩa đen là nhẹ, ở đây dùng như phó từ mang nghĩa đọc lướt qua, xem sơ qua."
+      },
+      {
+        "id": 4,
+        "text": "おもく",
+        "translation": "nặng",
+        "explanation": "Sai. Đây là cách đọc của từ [重]く."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 114,
+    "type": "md2n3",
+    "question_jp": "<u>こうじ</u>しているところは[危](あぶ)ないから[行](い)かないように。",
+    "question_vn": "Hãy chú ý không đi vào nơi đang (thi công) vì nguy hiểm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[工業](こうぎょう)",
+        "translation": "công nghiệp",
+        "explanation": "Sai. Chữ Công [工] và Nghiệp [業] đọc là こうぎょう."
+      },
+      {
+        "id": 2,
+        "text": "[公事](こうじ)",
+        "translation": "công vụ",
+        "explanation": "Sai. Từ này thường mang nghĩa kiện tụng hoặc việc công, không chỉ hoạt động thi công nguy hiểm."
+      },
+      {
+        "id": 3,
+        "text": "[共事](きょうじ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "[工事](こうじ)",
+        "translation": "thi công, công trường",
+        "explanation": "Đúng. Chữ Công [工] và Sự [事] ghép lại mang nghĩa là công trường đang thi công."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 115,
+    "type": "md2n3",
+    "question_jp": "[東京](とうきょう)は<u>こうつう</u>がべんりなところでした。",
+    "question_vn": "Tokyo từng là một nơi có (giao thông) thuận tiện.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[工通](こうつう)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "[共通](きょうつう)",
+        "translation": "điểm chung",
+        "explanation": "Sai. Chữ Cộng [共] và Thông [通] đọc là きょうつう."
+      },
+      {
+        "id": 3,
+        "text": "[交通](こうつう)",
+        "translation": "giao thông",
+        "explanation": "Đúng. Chữ Giao [交] đọc là こう, Thông [通] đọc là つう."
+      },
+      {
+        "id": 4,
+        "text": "[公通](こうつう)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 116,
+    "type": "md2n3",
+    "question_jp": "よく[分](わ)からないときは[辞書](じしょ)を<u>さんこう</u>にしてください。",
+    "question_vn": "Khi không hiểu rõ xin hãy (tham khảo) từ điển.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[参孝](さんこう)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại (chữ Hiếu [孝] sai)."
+      },
+      {
+        "id": 2,
+        "text": "[賛成](さんせい)",
+        "translation": "tán thành",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[参考](さんこう)",
+        "translation": "tham khảo",
+        "explanation": "Đúng. Chữ Tham [参] và Khảo [考] ghép lại mang nghĩa tham khảo."
+      },
+      {
+        "id": 4,
+        "text": "[参加](さんか)",
+        "translation": "tham gia",
+        "explanation": "Sai. Không ai tham gia vào cuốn từ điển."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 117,
+    "type": "md2n3",
+    "question_jp": "[今](いま)は<u>こくさい</u>[結婚](けっこん)はまれなことではない。",
+    "question_vn": "Ngày nay kết hôn (quốc tế) không phải là chuyện hiếm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[国際](こくさい)",
+        "translation": "quốc tế",
+        "explanation": "Đúng. Chữ Quốc [国] và Tế [際] mang nghĩa quốc tế (kết hôn với người nước ngoài)."
+      },
+      {
+        "id": 2,
+        "text": "[国祭](こくさい)",
+        "translation": "quốc lễ",
+        "explanation": "Sai. Đây là lễ hội quốc gia, sai Hán tự."
+      },
+      {
+        "id": 3,
+        "text": "[国弟](こくてい)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "[国歳](こくさい)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 118,
+    "type": "md2n3",
+    "question_jp": "[韓国人](かんこくじん)は<u>からい</u>ものが[好](す)きだといわれている。",
+    "question_vn": "Người ta nói rằng người Hàn Quốc thích đồ ăn (cay).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[幸](さいわ)い",
+        "translation": "hạnh phúc",
+        "explanation": "Sai. Chữ Hạnh [幸] đọc là さいわい hoặc しあわせ."
+      },
+      {
+        "id": 2,
+        "text": "[辛](から)い",
+        "translation": "cay",
+        "explanation": "Đúng. Chữ Tân [辛] đọc là からい mang nghĩa là vị cay."
+      },
+      {
+        "id": 3,
+        "text": "[苦](にが)い",
+        "translation": "đắng",
+        "explanation": "Sai. Chữ Khổ [苦] đọc là にがい."
+      },
+      {
+        "id": 4,
+        "text": "[甘](あま)い",
+        "translation": "ngọt",
+        "explanation": "Sai. Chữ Cam [甘] đọc là あまい."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 119,
+    "type": "md2n3",
+    "question_jp": "でかける[前](まえ)にかならず[電気](でんき)を<u>けして</u>ください。",
+    "question_vn": "Trước khi ra ngoài nhất định phải (tắt) điện nhé.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[点](とも)して",
+        "translation": "thắp sáng",
+        "explanation": "Sai. Chữ Điểm [点] dùng để bật/thắp lửa, không hợp logic trước khi ra khỏi nhà."
+      },
+      {
+        "id": 2,
+        "text": "[焼](や)して",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Động từ [焼]く chia thể Te phải là [焼]いて."
+      },
+      {
+        "id": 3,
+        "text": "[貸](か)して",
+        "translation": "cho mượn",
+        "explanation": "Sai. Điện thì không thể cho mượn."
+      },
+      {
+        "id": 4,
+        "text": "[消](け)して",
+        "translation": "tắt, xóa",
+        "explanation": "Đúng. Tha động từ [消]す mang nghĩa dập tắt, tắt (điện)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 120,
+    "type": "md3n3",
+    "question_jp": "お[金](かね)を[拾](ひろ)ったら[近](ちか)くの（　　　　）にとどけましょう。",
+    "question_vn": "Nếu nhặt được tiền thì hãy đem nộp cho (đồn cảnh sát) gần đó nhé.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[公園](こうえん)",
+        "translation": "công viên",
+        "explanation": "Sai. Nộp tiền ở công viên không hợp lý."
+      },
+      {
+        "id": 2,
+        "text": "[工場](こうじょう)",
+        "translation": "nhà máy",
+        "explanation": "Sai. Nộp tiền ở nhà máy không hợp lý."
+      },
+      {
+        "id": 3,
+        "text": "[交番](こうばん)",
+        "translation": "đồn cảnh sát",
+        "explanation": "Đúng. Khi nhặt được đồ rơi ([拾]う) thì đem trình báo ở đồn cảnh sát khu vực ([交番])."
+      },
+      {
+        "id": 4,
+        "text": "[広場](ひろば)",
+        "translation": "quảng trường",
+        "explanation": "Sai. Nộp tiền ở quảng trường không hợp lý."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 121,
+    "type": "md3n3",
+    "question_jp": "（　　　　）のような[怖](こわ)い[夢](ゆめ)は[二度](にど)とみたくない。",
+    "question_vn": "Tôi không bao giờ muốn thấy lại giấc mơ đáng sợ như (đêm qua) nữa.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[午後](ごご)",
+        "translation": "buổi chiều",
+        "explanation": "Sai. Giấc mơ thường gặp vào ban đêm, không phải buổi chiều."
+      },
+      {
+        "id": 2,
+        "text": "[来週](らいしゅう)",
+        "translation": "tuần sau",
+        "explanation": "Sai. Tuần sau là tương lai, chưa thể mơ rồi được."
+      },
+      {
+        "id": 3,
+        "text": "[昨夜](ゆうべ)",
+        "translation": "đêm qua",
+        "explanation": "Đúng. Giấc mơ là thứ đã xảy ra nên mốc thời gian quá khứ '[昨夜]' (đêm qua) là hoàn toàn phù hợp."
+      },
+      {
+        "id": 4,
+        "text": "[再来年](さらいねん)",
+        "translation": "năm sau nữa",
+        "explanation": "Sai. Tương lai chưa xảy ra."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 122,
+    "type": "md3n3",
+    "question_jp": "[友](とも)だちの[結婚式](けっこんしき)で（　　　　）をつとめることになった。",
+    "question_vn": "Tôi đã được giao nhiệm vụ làm (người dẫn chương trình / MC) trong đám cưới của bạn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[司会](しかい)",
+        "translation": "người dẫn chương trình, MC",
+        "explanation": "Đúng. Đi kèm với động từ 'đảm nhiệm' ([務]める) trong sự kiện kết hôn thường là vai trò MC ([司会])."
+      },
+      {
+        "id": 2,
+        "text": "[順番](じゅんばん)",
+        "translation": "thứ tự",
+        "explanation": "Sai. Không mang ý nghĩa chức vụ hay vai trò."
+      },
+      {
+        "id": 3,
+        "text": "[指示](しじ)",
+        "translation": "chỉ thị",
+        "explanation": "Sai. Không đảm nhiệm 'chỉ thị' ở đám cưới."
+      },
+      {
+        "id": 4,
+        "text": "[仕事](しごと)",
+        "translation": "công việc",
+        "explanation": "Sai. Dự đám cưới bạn thì không phải là 'công việc', dùng [司会] hợp với bối cảnh thực tế hơn."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 123,
+    "type": "md3n3",
+    "question_jp": "いろんなサイトで[値段](ねだん)をよく（　　　　）[後](あと)で[決](き)めましょう。",
+    "question_vn": "Hãy quyết định sau khi đã (so sánh) kỹ giá cả ở nhiều trang web.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[考](かんが)えた",
+        "translation": "suy nghĩ",
+        "explanation": "Sai. Không 'suy nghĩ' giá cả giữa các bên."
+      },
+      {
+        "id": 2,
+        "text": "[知](し)った",
+        "translation": "biết",
+        "explanation": "Sai. Đã tìm nhiều trang web để xem giá thì hành động chính xác là so sánh."
+      },
+      {
+        "id": 3,
+        "text": "[比](くら)べた",
+        "translation": "so sánh",
+        "explanation": "Đúng. Khi có nhiều sự lựa chọn (nhiều trang web) thì người ta thường phải 'so sánh giá' ([値段]を[比]べる) rồi mới quyết định mua."
+      },
+      {
+        "id": 4,
+        "text": "[理解](りかい)した",
+        "translation": "hiểu",
+        "explanation": "Sai. Không dùng 'hiểu giá'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 124,
+    "type": "md3n3",
+    "question_jp": "（　　　　）いる[電車](でんしゃ)が[嫌](きら)いならもっと[早](はや)く[起](お)きて[家](いえ)を[出](で)ればいいのだ。",
+    "question_vn": "Nếu ghét xe điện (đông đúc) thì chỉ cần dậy sớm hơn và ra khỏi nhà là được.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[込](こ)んで",
+        "translation": "đông đúc",
+        "explanation": "Đúng. Động từ [込]む dùng để tả trạng thái đông đúc. Tàu điện đông ([込]んでいる[電車]) là nỗi sợ của nhiều người, giải pháp là phải đi thật sớm."
+      },
+      {
+        "id": 2,
+        "text": "[空](あ)いて",
+        "translation": "vắng, trống",
+        "explanation": "Sai. Chẳng ai ghét tàu vắng cả."
+      },
+      {
+        "id": 3,
+        "text": "[閉](し)まって",
+        "translation": "đóng cửa",
+        "explanation": "Sai. Tàu đóng cửa thì không thể lên tàu."
+      },
+      {
+        "id": 4,
+        "text": "[開](あ)いて",
+        "translation": "mở",
+        "explanation": "Sai. Không hợp lý."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 125,
+    "type": "md3n3",
+    "question_jp": "ライバルに[負](ま)けて（　　　　）が、これからも[成長](せいちょう)していくと[思](おも)う。",
+    "question_vn": "Thua đối thủ thì (cay cú) thật đấy, nhưng tôi nghĩ từ nay mình sẽ trưởng thành hơn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "くらい",
+        "translation": "tối tăm",
+        "explanation": "Sai. Không mang ý nghĩa tâm lý sau thất bại."
+      },
+      {
+        "id": 2,
+        "text": "くだらない",
+        "translation": "chán phèo, vô nghĩa",
+        "explanation": "Sai. Thua cuộc không phải là điều vô nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "くやしい",
+        "translation": "cay cú, ức chế",
+        "explanation": "Đúng. Tính từ 'くやしい' (hối tiếc, cay cú) diễn tả cảm xúc bực dọc, tiếc nuối khi bị đánh bại."
+      },
+      {
+        "id": 4,
+        "text": "きたない",
+        "translation": "bẩn thỉu",
+        "explanation": "Sai. Không hợp nghĩa."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 126,
+    "type": "md3n3",
+    "question_jp": "[愛](あい)する[家族](かぞく)に[怒](おこ)ってしまい、（　　　　）[気持](きも)ちだ。",
+    "question_vn": "Lỡ nổi giận với gia đình yêu thương, cảm giác thật (đau khổ).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[楽](たの)しい",
+        "translation": "vui vẻ",
+        "explanation": "Sai. Nổi giận với người mình yêu thương không thể mang lại niềm vui."
+      },
+      {
+        "id": 2,
+        "text": "[黒](くろ)い",
+        "translation": "đen tối",
+        "explanation": "Sai. Bầu tâm sự có thể dùng màu đen bóng gió, nhưng không đi kèm chữ cảm giác."
+      },
+      {
+        "id": 3,
+        "text": "[苦](くる)しい",
+        "translation": "đau khổ, dằn vặt",
+        "explanation": "Đúng. Tính từ '[苦]しい' mô tả sự dằn vặt, khó chịu trong tâm trí khi làm điều có lỗi với người nhà."
+      },
+      {
+        "id": 4,
+        "text": "[愛](あい)らしい",
+        "translation": "đáng yêu",
+        "explanation": "Sai. Không hợp ngữ cảnh."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 127,
+    "type": "md3n3",
+    "question_jp": "[日本](にほん)で[一番](いちばん)（　　　　）なスポーツは[何](なん)ですか。",
+    "question_vn": "Môn thể thao (thịnh hành) nhất ở Nhật Bản là gì?",
+    "options": [
+      {
+        "id": 1,
+        "text": "[確](たし)か",
+        "translation": "chắc chắn",
+        "explanation": "Sai. Không đi chung với chủ đề thể thao chung chung."
+      },
+      {
+        "id": 2,
+        "text": "[上手](じょうず)",
+        "translation": "giỏi",
+        "explanation": "Sai. Không dùng 'môn thể thao giỏi nhất' mà phải là 'người chơi giỏi môn thể thao'."
+      },
+      {
+        "id": 3,
+        "text": "[派手](はで)",
+        "translation": "lòe loẹt",
+        "explanation": "Sai. Dùng cho quần áo, màu sắc."
+      },
+      {
+        "id": 4,
+        "text": "[盛](さか)ん",
+        "translation": "phổ biến, thịnh hành",
+        "explanation": "Đúng. Tính từ đuôi na '[盛]んな' dùng để diễn tả một hoạt động, phong trào (như thể thao) đang phát triển mạnh và được nhiều người ưa chuộng."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 128,
+    "type": "md3n3",
+    "question_jp": "[彼](かれ)は（　　　　）で[忙](いそが)しくて[家族](かぞく)と[話](はな)す[時間](じかん)がないという。",
+    "question_vn": "Anh ấy nói rằng vì bận (công việc) nên không có thời gian nói chuyện với gia đình.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[散歩](さんぽ)",
+        "translation": "đi dạo",
+        "explanation": "Sai. Ít ai bận rộn cả ngày chỉ vì đi dạo."
+      },
+      {
+        "id": 2,
+        "text": "[言葉](ことば)",
+        "translation": "từ vựng, ngôn ngữ",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[仕事](しごと)",
+        "translation": "công việc",
+        "explanation": "Đúng. '[仕事]で[忙]しい' (bận rộn vì công việc) là lý do phổ biến nhất dẫn đến việc không có thời gian cho gia đình."
+      },
+      {
+        "id": 4,
+        "text": "[健康](けんこう)",
+        "translation": "sức khỏe",
+        "explanation": "Sai. Không ai bận bịu do 'sức khỏe'."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 129,
+    "type": "md3n3",
+    "question_jp": "[青](あお)い[空](そら)、[涼](すず)しい[風](かぜ)、もう（　　　　）[秋](あき)になりましたね。",
+    "question_vn": "Bầu trời xanh, cơn gió mát, (hoàn toàn) đã sang thu rồi nhỉ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "じゅうぶん",
+        "translation": "đầy đủ, dư dả",
+        "explanation": "Sai. Dùng cho số lượng, mức độ."
+      },
+      {
+        "id": 2,
+        "text": "すっかり",
+        "translation": "hoàn toàn, hẳn",
+        "explanation": "Đúng. Phó từ 'すっかり' diễn tả sự thay đổi trạng thái một cách hoàn toàn (đã chuyển hẳn sang mùa thu rồi)."
+      },
+      {
+        "id": 3,
+        "text": "しっかり",
+        "translation": "chắc chắn",
+        "explanation": "Sai. Dùng để khuyên bảo làm gì đó tử tế, chắc chắn."
+      },
+      {
+        "id": 4,
+        "text": "ぐっすり",
+        "translation": "ngủ say",
+        "explanation": "Sai. Chỉ dùng với giấc ngủ."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 130,
+    "type": "md3n3",
+    "question_jp": "ショパンピアノ（　　　　）で[韓国人](かんこくじん)が[優勝](ゆうしょう)した。",
+    "question_vn": "Người Hàn Quốc đã vô địch tại (cuộc thi) piano Chopin.",
+    "options": [
+      {
+        "id": 1,
+        "text": "コンクール",
+        "translation": "cuộc thi",
+        "explanation": "Đúng. 'コンクール' (concours) chỉ các cuộc thi tài năng nghệ thuật như âm nhạc, hội họa."
+      },
+      {
+        "id": 2,
+        "text": "コンクリート",
+        "translation": "bê tông",
+        "explanation": "Sai. Vật liệu xây dựng."
+      },
+      {
+        "id": 3,
+        "text": "コンセント",
+        "translation": "ổ cắm điện",
+        "explanation": "Sai. Đồ điện."
+      },
+      {
+        "id": 4,
+        "text": "サービス",
+        "translation": "dịch vụ",
+        "explanation": "Sai. Không liên quan."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 131,
+    "type": "md4n3",
+    "question_jp": "<u>この[頃](ごろ)</u>、[物価](ぶっか)が[高](たか)くなってスーパーに[行](い)くのが[怖](こわ)い。",
+    "question_vn": "(Dạo này) vật giá tăng cao nên tôi rất sợ đi siêu thị.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[最新](さいしん)",
+        "translation": "mới nhất",
+        "explanation": "Sai. Dùng cho công nghệ, thông tin."
+      },
+      {
+        "id": 2,
+        "text": "[最近](さいきん)",
+        "translation": "gần đây",
+        "explanation": "Đúng. 'この[頃]' mang nghĩa là dạo gần đây, đồng nghĩa với '[最近]'."
+      },
+      {
+        "id": 3,
+        "text": "[最初](さいしょ)",
+        "translation": "đầu tiên",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[最後](さいご)",
+        "translation": "cuối cùng",
+        "explanation": "Sai. Khác nghĩa."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 132,
+    "type": "md4n3",
+    "question_jp": "35[度](ど)なんて、<u>ずいぶん</u>[暑](あつ)い[日](ひ)ですね。",
+    "question_vn": "Tận 35 độ cơ á, đúng là một ngày (khá) nóng nhỉ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ちょっと",
+        "translation": "một chút",
+        "explanation": "Sai. 35 độ là rất nóng, không thể là 'một chút'."
+      },
+      {
+        "id": 2,
+        "text": "あまり",
+        "translation": "không... lắm",
+        "explanation": "Sai. Từ này phải đi với thể phủ định."
+      },
+      {
+        "id": 3,
+        "text": "かなり",
+        "translation": "khá là, tương đối",
+        "explanation": "Đúng. 'ずいぶん' biểu thị mức độ cao hơn bình thường nhiều, tương đương với 'かなり'."
+      },
+      {
+        "id": 4,
+        "text": "じゅうぶん",
+        "translation": "đầy đủ",
+        "explanation": "Sai. Mang tính chất đáp ứng được nhu cầu."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 133,
+    "type": "md4n3",
+    "question_jp": "[食堂](しょくどう)にはすごい<u>ごちそう</u>が[並](なら)んでいた。",
+    "question_vn": "Ở nhà ăn có bày sẵn những (món ăn ngon) rất tuyệt vời.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[料理](りょうり)",
+        "translation": "món ăn",
+        "explanation": "Đúng. 'ごちそう' ám chỉ đồ ăn thịnh soạn, bữa ăn ngon. Nghĩa cơ bản của nó tương đương với '[料理]' (thức ăn, món ăn)."
+      },
+      {
+        "id": 2,
+        "text": "テーブル",
+        "translation": "cái bàn",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[食器](しょっき)",
+        "translation": "bát đĩa",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "お客(きゃく)さん",
+        "translation": "khách hàng",
+        "explanation": "Sai. Khác nghĩa."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 134,
+    "type": "md4n3",
+    "question_jp": "[彼女](かのじょ)は[犯人](はんにん)の[顔](かお)を<u>しっかり</u>[覚](おぼ)えていた。",
+    "question_vn": "Cô ấy đã nhớ (chắc chắn / rõ ràng) khuôn mặt của thủ phạm.",
+    "options": [
+      {
+        "id": 1,
+        "text": "すっかり",
+        "translation": "hoàn toàn",
+        "explanation": "Sai. Thường dùng với quên (すっかり忘れた - quên sạch)."
+      },
+      {
+        "id": 2,
+        "text": "ぐっすり",
+        "translation": "ngủ say",
+        "explanation": "Sai. Dùng với giấc ngủ."
+      },
+      {
+        "id": 3,
+        "text": "ゆっくり",
+        "translation": "chầm chậm",
+        "explanation": "Sai. Dùng cho tốc độ."
+      },
+      {
+        "id": 4,
+        "text": "はっきり",
+        "translation": "rõ ràng",
+        "explanation": "Đúng. 'しっかり' (chắc chắn, vững vàng) khi nói về trí nhớ có nghĩa là nhớ cặn kẽ, rõ ràng, tương đương với 'はっきり'."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 135,
+    "type": "md4n3",
+    "question_jp": "あの[先生](せんせい)の[講義](こうぎ)は[長](なが)いだけで、[内容](ないよう)は<u>くだらない</u>。",
+    "question_vn": "Bài giảng của thầy giáo đó chỉ được cái dài, chứ nội dung thì (chán phèo / vô giá trị).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[怖](こわ)い",
+        "translation": "đáng sợ",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 2,
+        "text": "[眠](ねむ)い",
+        "translation": "buồn ngủ",
+        "explanation": "Sai. Dù bài chán có thể gây buồn ngủ nhưng không phải nghĩa của từ này."
+      },
+      {
+        "id": 3,
+        "text": "[寂](さび)しい",
+        "translation": "buồn tẻ, cô đơn",
+        "explanation": "Sai. Không đánh giá bài giảng là cô đơn."
+      },
+      {
+        "id": 4,
+        "text": "つまらない",
+        "translation": "nhàm chán, vô vị",
+        "explanation": "Đúng. 'くだらない' nghĩa là không có giá trị, nhảm nhí. Trong ngữ cảnh nghe giảng thì nó đồng nghĩa với việc vô vị, nhàm chán (つまらない)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 136,
+    "type": "md5n3",
+    "question_jp": "[幸](さいわ)い",
+    "question_vn": "Hạnh phúc, may mắn, hân hạnh",
+    "options": [
+      {
+        "id": 1,
+        "text": "<u>[幸](さいわ)いな</u>[人生](じんせい)は[誰](だれ)もが[夢](ゆめ)みるものだ。",
+        "translation": "Một cuộc đời hạnh phúc là thứ ai cũng mơ ước.",
+        "explanation": "Sai. Dùng để bổ nghĩa cho cuộc đời hạnh phúc phải dùng tính từ đuôi na '[幸](しあわ)せな'."
+      },
+      {
+        "id": 2,
+        "text": "[皆](みな)さまに[楽](たの)しんでいただけたら<u>[幸](さいわ)い</u>です。",
+        "translation": "Chúng tôi rất hân hạnh/vui nếu mọi người tận hưởng được.",
+        "explanation": "Đúng. '幸いです' là cách nói lịch sự cực kì phổ biến trong tiếng Nhật (đặc biệt trong email, công việc) mang nghĩa 'tôi sẽ rất vui/biết ơn nếu...'."
+      },
+      {
+        "id": 3,
+        "text": "[彼](かれ)はアメリカで[大](おお)きく[成功](せいこう)し、<u>[幸](さいわ)いに</u>[生](い)きているそうだ。",
+        "translation": "Nghe nói anh ấy thành công lớn ở Mỹ và đang sống hạnh phúc.",
+        "explanation": "Sai. Phải dùng '[幸](しあわ)せに'."
+      },
+      {
+        "id": 4,
+        "text": "[人](ひと)が[人](ひと)を<u>[幸](さいわ)いに</u>してくれるのではない。",
+        "translation": "Không phải con người làm cho con người hạnh phúc.",
+        "explanation": "Sai. Phải dùng '[幸](しあわ)せに'."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 137,
+    "type": "md5n3",
+    "question_jp": "[厳](きび)しい",
+    "question_vn": "Khắt khe, nghiêm khắc, nghiêm nghị",
+    "options": [
+      {
+        "id": 1,
+        "text": "[中田](なかだ)さんは<u>[厳](きび)しい</u>[字](じ)を[書](か)きます。",
+        "translation": "Anh Nakada viết chữ nghiêm khắc.",
+        "explanation": "Sai. Chữ không thể nghiêm khắc. Viết chữ đẹp thì dùng 'きれいな字'."
+      },
+      {
+        "id": 2,
+        "text": "[中田](なかだ)さんは<u>[厳](きび)しい</u>[服](ふく)を[着](き)ています。",
+        "translation": "Anh Nakada mặc bộ quần áo nghiêm khắc.",
+        "explanation": "Sai. Quần áo thì phải là chỉnh tề, trang trọng (きちんとした)."
+      },
+      {
+        "id": 3,
+        "text": "[中田](なかだ)さんは<u>[厳](きび)しい</u>[犬](いぬ)を[飼](か)っています。",
+        "translation": "Anh Nakada nuôi con chó nghiêm khắc.",
+        "explanation": "Sai. Chó hung dữ thì dùng '[怖]い犬' (con chó đáng sợ)."
+      },
+      {
+        "id": 4,
+        "text": "[中田](なかだ)さんは<u>[厳](きび)しい</u>[表情](ひょうじょう)をしています。",
+        "translation": "Anh Nakada có vẻ mặt rất nghiêm nghị.",
+        "explanation": "Đúng. '[厳]しい' dùng để miêu tả sắc mặt, nét mặt căng thẳng, nghiêm túc, không chút nụ cười."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 138,
+    "type": "md5n3",
+    "question_jp": "せっかく",
+    "question_vn": "Cất công, đã mất công",
+    "options": [
+      {
+        "id": 1,
+        "text": "<u>せっかく</u>ここまで[来](き)てくださってありがとうございます。",
+        "translation": "Cảm ơn vì anh đã cất công đến tận đây.",
+        "explanation": "Sai. Cảm ơn ai đó đã cất công vì mình phải dùng 'わざわざ'."
+      },
+      {
+        "id": 2,
+        "text": "ほしくてたまらなかったら、<u>せっかく</u>[買](か)ってしまいなさい。",
+        "translation": "Nếu thèm quá thì hãy cất công mua đi.",
+        "explanation": "Sai. Không ai khuyên 'hãy mất công làm gì'."
+      },
+      {
+        "id": 3,
+        "text": "<u>せっかく</u>[遊](あそ)びに[来](き)たんだから、[仕事](しごと)のことは[忘](わす)れましょう。",
+        "translation": "Đã cất công đến chơi rồi thì hãy quên công việc đi.",
+        "explanation": "Đúng. 'せっかく～んだから' diễn tả ý nghĩa: 'đã hiếm khi/cất công làm được một việc gì rồi, thì hãy tận dụng nó'."
+      },
+      {
+        "id": 4,
+        "text": "[彼女](かのじょ)は<u>せっかく</u>コーヒーをこぼしたにちがいない。",
+        "translation": "Chắc chắn cô ấy đã cất công làm đổ cà phê.",
+        "explanation": "Sai. Làm đổ cà phê là lỡ tay/vô ý (うっかり), không ai cố tình 'cất công' làm thế."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 139,
+    "type": "md5n3",
+    "question_jp": "[暮](く)れる",
+    "question_vn": "Lặn, tàn, hết (ngày, năm, mùa)",
+    "options": [
+      {
+        "id": 1,
+        "text": "[姉](あね)がかわいい[人形](にんぎょう)を<u>[暮](く)れました</u>。",
+        "translation": "Chị gái đã lặn cho tôi búp bê.",
+        "explanation": "Sai. Động từ 'cho tôi' là くれました (chữ Hán là [呉]れる, nhưng thường viết Hiragana)."
+      },
+      {
+        "id": 2,
+        "text": "アメリカに[移民](いみん)して[楽](らく)に<u>[暮](く)れています</u>。",
+        "translation": "Đã di cư sang Mỹ và đang lặn nhàn nhã.",
+        "explanation": "Sai. Động từ 'sinh sống' là [暮]らす (くらしています)."
+      },
+      {
+        "id": 3,
+        "text": "いつの[間](ま)にか[秋](あき)も<u>[暮](く)れて</u>いきますね。",
+        "translation": "Không biết từ lúc nào mùa thu cũng đang dần tàn (qua đi) nhỉ.",
+        "explanation": "Đúng. Động từ '[暮]れる' diễn tả sự kết thúc của một khoảng thời gian (日が暮れる - mặt trời lặn, 秋が暮れる - mùa thu tàn/hết)."
+      },
+      {
+        "id": 4,
+        "text": "<u>[暮](く)れている</u>[日](ひ)は[景色](けしき)がよく[見](み)えます。",
+        "translation": "Ngày lặn thì nhìn cảnh rất rõ.",
+        "explanation": "Sai. Ngày lặn (tối) thì không thể nhìn rõ được. Muốn nhìn rõ thì phải là ngày 'nắng' ([晴]れている日)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 140,
+    "type": "md5n3",
+    "question_jp": "そろそろ",
+    "question_vn": "Sắp sửa, chuẩn bị",
+    "options": [
+      {
+        "id": 1,
+        "text": "[晴](は)れていた[空](そら)から<u>そろそろ</u>[雨](あめ)が[降](ふ)り[出](だ)した。",
+        "translation": "Từ bầu trời đang nắng bỗng chuẩn bị mưa.",
+        "explanation": "Sai. Mưa bất ngờ rơi xuống thì phải dùng '急に' (đột nhiên) hoặc 'ぽつぽつ' (lách tách)."
+      },
+      {
+        "id": 2,
+        "text": "[試合](しあい)に[出](で)るために、<u>そろそろ</u>[運動](うんどう)しています。",
+        "translation": "Để tham gia thi đấu, tôi đang chuẩn bị tập thể dục.",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[日](ひ)も[暮](く)れたし、もう<u>そろそろ</u>[帰](かえ)りましょう。",
+        "translation": "Trời cũng tối rồi, chúng ta chuẩn bị về thôi.",
+        "explanation": "Đúng. 'そろそろ' diễn đạt ý 'đã đến lúc (nên làm gì đó)'. 'そろそろ帰りましょう' là câu cửa miệng khi muốn xin phép ra về."
+      },
+      {
+        "id": 4,
+        "text": "[健康](けんこう)には<u>そろそろ</u>[食](た)べるほうがいいです。",
+        "translation": "Vì sức khỏe thì nên ăn chuẩn bị.",
+        "explanation": "Sai. Ăn vì sức khỏe thì phải ăn 'chậm rãi, từ từ' (ゆっくり)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 141,
+    "type": "md1n3",
+    "question_jp": "<u>[正月](しょうがつ)</u>には[家族](かぞく)といっしょにおせち[料理](りょうり)を[食](た)べる。",
+    "question_vn": "Vào (ngày Tết) tôi sẽ cùng gia đình ăn món Osechi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "せいがつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "しょうげつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "せいげつ",
+        "translation": "tháng sinh",
+        "explanation": "Sai. Đây là cách đọc của từ [生月] (tháng sinh)."
+      },
+      {
+        "id": 4,
+        "text": "しょうがつ",
+        "translation": "ngày Tết, năm mới",
+        "explanation": "Đúng. Chữ Chính [正] đọc là しょう, chữ Nguyệt [月] đọc là がつ."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 142,
+    "type": "md1n3",
+    "question_jp": "[町](まち)の[中](なか)から[木](き)のような<u>[植物](しょくぶつ)</u>がだんだん[減](へ)ってきている。",
+    "question_vn": "Những (thực vật) như cây cối trong thành phố đang dần dần giảm đi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "しょうぶつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "しょくぶつ",
+        "translation": "thực vật",
+        "explanation": "Đúng. Chữ Thực [植] đọc là しょく, chữ Vật [物] đọc là ぶつ."
+      },
+      {
+        "id": 3,
+        "text": "しょうもつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "しょくもつ",
+        "translation": "thực phẩm",
+        "explanation": "Sai. Đây là cách đọc của từ [食物] (thực phẩm)."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 143,
+    "type": "md1n3",
+    "question_jp": "[新](あたら)しい<u>[商品](しょうひん)</u>がたくさん[並](なら)んでいる[店](みせ)がある。",
+    "question_vn": "Có một cửa hàng bày bán rất nhiều (sản phẩm) mới.",
+    "options": [
+      {
+        "id": 1,
+        "text": "しょうひん",
+        "translation": "sản phẩm, hàng hóa",
+        "explanation": "Đúng. Chữ Thương [商] đọc là しょう, chữ Phẩm [品] đọc là ひん."
+      },
+      {
+        "id": 2,
+        "text": "しょひ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "しなもの",
+        "translation": "hàng hóa",
+        "explanation": "Sai. Đây là cách đọc của từ [品物] (hàng hóa)."
+      },
+      {
+        "id": 4,
+        "text": "しなぶつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 144,
+    "type": "md1n3",
+    "question_jp": "この[辺](へん)はくうきはいいが、<u>[食料品](しょくりょうひん)</u>を[売](う)る[店](みせ)がとおすぎる。",
+    "question_vn": "Khu vực này không khí thì tốt, nhưng cửa hàng bán (thực phẩm) lại quá xa.",
+    "options": [
+      {
+        "id": 1,
+        "text": "しょくりょひん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "しょうりょうひん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "しょくりょうひん",
+        "translation": "thực phẩm, lương thực",
+        "explanation": "Đúng. Chữ Thực [食] đọc là しょく, chữ Liệu [料] đọc là りょう, chữ Phẩm [品] đọc là ひん."
+      },
+      {
+        "id": 4,
+        "text": "しょくりょうびん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 145,
+    "type": "md1n3",
+    "question_jp": "<u>[辞書](じしょ)</u>をひいて[知](し)らない[単語](たんご)をしらべておきましょう。",
+    "question_vn": "Hãy tra (từ điển) để tìm hiểu những từ vựng không biết.",
+    "options": [
+      {
+        "id": 1,
+        "text": "じじょ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "じしょう",
+        "translation": "hiện tượng",
+        "explanation": "Sai. Đây là cách đọc của từ [事象] (hiện tượng) hoặc [自称] (tự xưng)."
+      },
+      {
+        "id": 3,
+        "text": "じしょ",
+        "translation": "từ điển",
+        "explanation": "Đúng. Chữ Từ [辞] đọc là じ, chữ Thư [書] đọc là しょ."
+      },
+      {
+        "id": 4,
+        "text": "じじょう",
+        "translation": "tình hình, hoàn cảnh",
+        "explanation": "Sai. Đây là cách đọc của từ [事情] (tình hình, hoàn cảnh)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 146,
+    "type": "md1n3",
+    "question_jp": "「ごめんください」と[大声](おおごえ)で<u>[叫](さけ)んだ</u>。",
+    "question_vn": "Tôi đã (hét lớn) 'Xin lỗi, có ai ở nhà không'."
+    "options": [
+      {
+        "id": 1,
+        "text": "さけんだ",
+        "translation": "đã hét",
+        "explanation": "Đúng. Động từ [叫]ぶ mang nghĩa là kêu gào, la hét."
+      },
+      {
+        "id": 2,
+        "text": "よんだ",
+        "translation": "đã gọi / đã đọc",
+        "explanation": "Sai. Đây là cách đọc của động từ [呼]ぶ hoặc [読]む."
+      },
+      {
+        "id": 3,
+        "text": "たのんだ",
+        "translation": "đã nhờ vả",
+        "explanation": "Sai. Đây là cách đọc của động từ [頼]む."
+      },
+      {
+        "id": 4,
+        "text": "むすんだ",
+        "translation": "đã buộc, kết nối",
+        "explanation": "Sai. Đây là cách đọc của động từ [結]ぶ."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 147,
+    "type": "md1n3",
+    "question_jp": "[先生](せんせい)は<u>[手術](しゅじゅつ)</u>を[受](う)けたので、[今](いま)は[学校](がっこう)にいません。",
+    "question_vn": "Thầy giáo đã làm (phẫu thuật) nên bây giờ không có ở trường.",
+    "options": [
+      {
+        "id": 1,
+        "text": "しゅうじゅつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "しゅずつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "しゅじゅつ",
+        "translation": "phẫu thuật",
+        "explanation": "Đúng. Chữ Thủ [手] đọc là しゅ, chữ Thuật [術] đọc là じゅつ."
+      },
+      {
+        "id": 4,
+        "text": "しゅうずつ",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 148,
+    "type": "md1n3",
+    "question_jp": "この[問題](もんだい)は[簡単](かんたん)ですから1[分](ぷん)で<u>[十分](じゅうぶん)</u>です。",
+    "question_vn": "Bài toán này đơn giản nên 1 phút là (đủ).",
+    "options": [
+      {
+        "id": 1,
+        "text": "じゅっぷん",
+        "translation": "10 phút",
+        "explanation": "Sai. Đây là cách đọc của từ [十分] (10 phút)."
+      },
+      {
+        "id": 2,
+        "text": "じっぷん",
+        "translation": "10 phút",
+        "explanation": "Sai. Đây là cách đọc khác của từ [十分] (10 phút)."
+      },
+      {
+        "id": 3,
+        "text": "じゅうふん",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "じゅうぶん",
+        "translation": "đủ, đầy đủ",
+        "explanation": "Đúng. Chữ Thập [十] đọc là じゅう, chữ Phân [分] đọc là ぶん. Khi mang nghĩa là đủ, từ này đọc là じゅうぶん."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 149,
+    "type": "md2n3",
+    "question_jp": "[若者](わかもの)たちの<u>しつぎょう</u>[問題](もんだい)がニュースによく[出](で)てくる。",
+    "question_vn": "Vấn đề (thất nghiệp) của giới trẻ dạo này hay xuất hiện trên tin tức.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[事件](じけん)",
+        "translation": "sự kiện, vụ án",
+        "explanation": "Sai. Đọc là じけん."
+      },
+      {
+        "id": 2,
+        "text": "[商業](しょうぎょう)",
+        "translation": "thương mại",
+        "explanation": "Sai. Đọc là しょうぎょう."
+      },
+      {
+        "id": 3,
+        "text": "[失業](しつぎょう)",
+        "translation": "thất nghiệp",
+        "explanation": "Đúng. Chữ Thất [失] đọc là しつ, chữ Nghiệp [業] đọc là ぎょう."
+      },
+      {
+        "id": 4,
+        "text": "[紛失](ふんしつ)",
+        "translation": "đánh mất",
+        "explanation": "Sai. Đọc là ふんしつ."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 150,
+    "type": "md2n3",
+    "question_jp": "ここに<u>じゅうしょ</u>とお[名前](なまえ)をお[書](か)きください。",
+    "question_vn": "Xin hãy viết (địa chỉ) và tên vào đây.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[往所](おうしょ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "[主所](しゅしょ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "[住所](じゅうしょ)",
+        "translation": "địa chỉ",
+        "explanation": "Đúng. Chữ Trú [住] đọc là じゅう, chữ Sở [所] đọc là しょ."
+      },
+      {
+        "id": 4,
+        "text": "[注所](ちゅうしょ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 151,
+    "type": "md2n3",
+    "question_jp": "<u>じんるい</u>の[未来](みらい)はまだまだ[明](あか)るいと[思](おも)います。",
+    "question_vn": "Tôi nghĩ tương lai của (nhân loại) vẫn còn sáng sủa chán.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[人類](じんるい)",
+        "translation": "nhân loại, loài người",
+        "explanation": "Đúng. Chữ Nhân [人] đọc là じん, chữ Loại [類] đọc là るい."
+      },
+      {
+        "id": 2,
+        "text": "[人数](にんずう)",
+        "translation": "số người",
+        "explanation": "Sai. Đọc là にんずう."
+      },
+      {
+        "id": 3,
+        "text": "[人顔](ひとがお)",
+        "translation": "khuôn mặt người",
+        "explanation": "Sai. Không mang ý nghĩa bao quát như 'nhân loại'."
+      },
+      {
+        "id": 4,
+        "text": "[人頭](じんとう)",
+        "translation": "số người",
+        "explanation": "Sai. Từ này thường dùng trong ngữ cảnh đếm số lượng người (ví dụ: bình quân đầu người)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 152,
+    "type": "md2n3",
+    "question_jp": "[佐藤](さとう)さんは[大学](だいがく)を[卒業](そつぎょう)してから、3[年間](ねんかん)も[仕事](しごと)を<u>さがして</u>いる。",
+    "question_vn": "Anh Sato đã (tìm) việc suốt 3 năm nay kể từ khi tốt nghiệp đại học.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[深](ふか)して",
+        "translation": "làm sâu sắc thêm",
+        "explanation": "Sai. Đây là cách đọc của động từ [深]める."
+      },
+      {
+        "id": 2,
+        "text": "[拾](ひろ)って",
+        "translation": "nhặt",
+        "explanation": "Sai. Đây là cách đọc của động từ [拾]う."
+      },
+      {
+        "id": 3,
+        "text": "[探](さが)して",
+        "translation": "tìm kiếm",
+        "explanation": "Đúng. Tha động từ [探]す mang nghĩa là tìm kiếm (đồ vật, công việc)."
+      },
+      {
+        "id": 4,
+        "text": "[招](まね)いて",
+        "translation": "mời",
+        "explanation": "Sai. Đây là cách đọc của động từ [招]く."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 153,
+    "type": "md2n3",
+    "question_jp": "[世界人口](せかいじんこう)の[約](やく)2[割](わり)を[中国人](ちゅうごくじん)が<u>しめて</u>いる。",
+    "question_vn": "Người Trung Quốc (chiếm) khoảng 20% dân số thế giới.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[点](とも)めて",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "[占](し)めて",
+        "translation": "chiếm (tỷ lệ)",
+        "explanation": "Đúng. Tha động từ [占]める mang nghĩa là chiếm (vị trí, tỷ lệ)."
+      },
+      {
+        "id": 3,
+        "text": "[閉](し)めて",
+        "translation": "đóng",
+        "explanation": "Sai. Đây là cách đọc của động từ [閉]める."
+      },
+      {
+        "id": 4,
+        "text": "[分](わ)けて",
+        "translation": "chia",
+        "explanation": "Sai. Đây là cách đọc của động từ [分]ける."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 154,
+    "type": "md2n3",
+    "question_jp": "だれにも[話](はな)せない<u>じじょう</u>がありました。",
+    "question_vn": "Có một (hoàn cảnh / lý do) không thể nói với ai.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[仕晴](しはれ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 2,
+        "text": "[仕情](しじょう)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 3,
+        "text": "[事晴](じはれ)",
+        "translation": "từ không tồn tại",
+        "explanation": "Sai. Từ không tồn tại."
+      },
+      {
+        "id": 4,
+        "text": "[事情](じじょう)",
+        "translation": "hoàn cảnh, sự tình",
+        "explanation": "Đúng. Chữ Sự [事] đọc là じ, chữ Tình [情] đọc là じょう."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 155,
+    "type": "md3n3",
+    "question_jp": "[私](わたし)のふるさとは（　　　　）に[囲](かこ)まれた、[静](しず)かなところです。",
+    "question_vn": "Quê hương của tôi là một nơi yên tĩnh, được bao quanh bởi (thiên nhiên).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[自由](じゆう)",
+        "translation": "tự do",
+        "explanation": "Sai. Tự do là một khái niệm trừu tượng, không thể bao quanh một địa điểm."
+      },
+      {
+        "id": 2,
+        "text": "[自然](しぜん)",
+        "translation": "thiên nhiên",
+        "explanation": "Đúng. 'Được bao quanh bởi thiên nhiên' ([自然]に[囲]まれる) là một cụm từ cố định rất hay dùng để tả phong cảnh."
+      },
+      {
+        "id": 3,
+        "text": "[自分](じぶん)",
+        "translation": "bản thân",
+        "explanation": "Sai. Không hợp lý."
+      },
+      {
+        "id": 4,
+        "text": "[自習](じしゅう)",
+        "translation": "tự học",
+        "explanation": "Sai. Không hợp lý."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 156,
+    "type": "md3n3",
+    "question_jp": "いまから（　　　　）をとりますから、[座](すわ)ってください。",
+    "question_vn": "Bây giờ tôi sẽ (điểm danh) nên mọi người hãy ngồi xuống.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[出席](しゅっせき)",
+        "translation": "có mặt",
+        "explanation": "Đúng. Cụm từ '[出席]をとる' mang nghĩa là điểm danh."
+      },
+      {
+        "id": 2,
+        "text": "[出発](しゅっぱつ)",
+        "translation": "xuất phát",
+        "explanation": "Sai. Không dùng với động từ '[とる]'."
+      },
+      {
+        "id": 3,
+        "text": "[出場](しゅつじょう)",
+        "translation": "ra sân, tham gia (thi đấu)",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[欠席](けっせき)",
+        "translation": "vắng mặt",
+        "explanation": "Sai. Điểm danh là kiểm tra sự có mặt, không gọi là 'lấy sự vắng mặt'."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 157,
+    "type": "md3n3",
+    "question_jp": "[地球](ちきゅう)のためには[木](き)や[水](みず)などのむだな（　　　　）を[減](へ)らすべきだ。",
+    "question_vn": "Vì trái đất, chúng ta nên giảm bớt sự (tiêu thụ) lãng phí cây cối hay nước.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[費用](ひよう)",
+        "translation": "chi phí",
+        "explanation": "Sai. Cây và nước trong ngữ cảnh này là tài nguyên, không gọi chung là chi phí."
+      },
+      {
+        "id": 2,
+        "text": "[消費](しょうひ)",
+        "translation": "tiêu thụ",
+        "explanation": "Đúng. '[消費]' dùng cho việc sử dụng tài nguyên, năng lượng, tiền bạc. Giảm thiểu sự tiêu thụ lãng phí (むだな[消費]を[減]らす) là cách diễn đạt chính xác."
+      },
+      {
+        "id": 3,
+        "text": "[会費](かいひ)",
+        "translation": "hội phí",
+        "explanation": "Sai. Không hợp nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[支払](しはら)い",
+        "translation": "thanh toán",
+        "explanation": "Sai. Không hợp nghĩa."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 158,
+    "type": "md3n3",
+    "question_jp": "21[日](にち)の[夜](よる)7[時](じ)、4[名様](めいさま)ですね。はい、（　　　　）いたしました。",
+    "question_vn": "7 giờ tối ngày 21, 4 người phải không ạ. Vâng, tôi đã (tiếp nhận / hiểu rõ) rồi ạ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[約束](やくそく)",
+        "translation": "lời hứa",
+        "explanation": "Sai. Trong ngành dịch vụ (nhà hàng, khách sạn), nhân viên không dùng từ '[約束]' (hứa hẹn) với khách hàng."
+      },
+      {
+        "id": 2,
+        "text": "[満席](まんせき)",
+        "translation": "kín chỗ",
+        "explanation": "Sai. Trái ngược với việc xác nhận đặt bàn."
+      },
+      {
+        "id": 3,
+        "text": "[招待](しょうたい)",
+        "translation": "chiêu đãi, mời",
+        "explanation": "Sai. Khách hàng tự trả tiền thì không gọi là '[招待]'."
+      },
+      {
+        "id": 4,
+        "text": "[承知](しょうち)",
+        "translation": "hiểu rõ, tiếp nhận",
+        "explanation": "Đúng. Cụm từ '[承知]いたしました' là cách nói khiêm nhường ngữ của 'わかりました', được dùng rất phổ biến trong dịch vụ khách hàng để xác nhận thông tin."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 159,
+    "type": "md3n3",
+    "question_jp": "[デパート](でぱーと)の[中](なか)では[子](こ)どもが[商品](しょうひん)に（　　　　）ようにしてください。",
+    "question_vn": "Trong trung tâm thương mại, xin hãy chú ý để trẻ em không (chạm) vào hàng hóa.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[壊](こわ)さない",
+        "translation": "không làm hỏng",
+        "explanation": "Sai. Mặc dù đúng về mặt ngữ nghĩa, nhưng động từ thích hợp và phổ biến hơn trong ngữ cảnh nhắc nhở trẻ em là không 'chạm' vào."
+      },
+      {
+        "id": 2,
+        "text": "[割](わ)らない",
+        "translation": "không làm vỡ",
+        "explanation": "Sai. Giống như đáp án 1."
+      },
+      {
+        "id": 3,
+        "text": "[触](さわ)らない",
+        "translation": "không chạm vào",
+        "explanation": "Đúng. '商品に触る' (chạm vào hàng hóa) là hành động thường bị cấm ở các cửa hàng để tránh làm hỏng hoặc bẩn đồ."
+      },
+      {
+        "id": 4,
+        "text": "[捨](す)てない",
+        "translation": "không vứt đi",
+        "explanation": "Sai. Không hợp lý."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 160,
+    "type": "md3n3",
+    "question_jp": "1[時間](じかん)も[正座](せいざ)をしていたので[足](あし)が（　　　　）。",
+    "question_vn": "Vì ngồi kiểu Seiza (ngồi quỳ) suốt 1 tiếng đồng hồ nên chân tôi bị (tê).",
+    "options": [
+      {
+        "id": 1,
+        "text": "[伸](の)ばした",
+        "translation": "đã duỗi",
+        "explanation": "Sai. Ngồi Seiza thì không thể duỗi chân."
+      },
+      {
+        "id": 2,
+        "text": "しびれた",
+        "translation": "tê",
+        "explanation": "Đúng. Động từ 'しびれる' (tê liệt, tê cứng) diễn tả trạng thái của chân tay sau khi bị chèn ép lâu (như khi ngồi Seiza)."
+      },
+      {
+        "id": 3,
+        "text": "[伸](の)びた",
+        "translation": "đã dài ra",
+        "explanation": "Sai. Chân không tự nhiên dài ra sau 1 tiếng."
+      },
+      {
+        "id": 4,
+        "text": "[折](お)れた",
+        "translation": "đã gãy",
+        "explanation": "Sai. Ngồi Seiza không làm gãy chân."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 161,
+    "type": "md3n3",
+    "question_jp": "[雪](ゆき)が[降](ふ)っている[日](ひ)は（　　　　）やすいから[気](き)をつけましょう。",
+    "question_vn": "Những ngày tuyết rơi thì rất dễ bị (trượt) nên hãy cẩn thận nhé.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[止](と)まり",
+        "translation": "dừng",
+        "explanation": "Sai. Khó dừng lại chứ không phải dễ dừng lại."
+      },
+      {
+        "id": 2,
+        "text": "[走](はし)り",
+        "translation": "chạy",
+        "explanation": "Sai. Trời tuyết không ai nói là 'dễ chạy'."
+      },
+      {
+        "id": 3,
+        "text": "[滑](すべ)り",
+        "translation": "trượt",
+        "explanation": "Đúng. Động từ '[滑]る' (trượt, trượt ngã) kết hợp với đuôi 'やすい' tạo thành cụm '[滑]りやすい' (dễ bị trượt ngã), một cảnh báo phổ biến khi trời tuyết."
+      },
+      {
+        "id": 4,
+        "text": "[歩](ある)き",
+        "translation": "đi bộ",
+        "explanation": "Sai. Trời tuyết đi bộ khó khăn hơn bình thường."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 162,
+    "type": "md3n3",
+    "question_jp": "そんな（　　　　）ことは[気](き)にしなくてもいいじゃないですか。",
+    "question_vn": "Những chuyện (nhỏ nhặt) như vậy thì không cần bận tâm cũng được mà.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[細](ほそ)い",
+        "translation": "thon thả, mỏng manh",
+        "explanation": "Sai. Chỉ dùng cho hình dáng vật chất."
+      },
+      {
+        "id": 2,
+        "text": "[細](こま)かい",
+        "translation": "nhỏ nhặt, chi li",
+        "explanation": "Đúng. '[細]かいこと' là cụm từ chỉ những chuyện lặt vặt, chi tiết nhỏ, không đáng bận tâm."
+      },
+      {
+        "id": 3,
+        "text": "[深刻](しんこく)な",
+        "translation": "nghiêm trọng",
+        "explanation": "Sai. Trái ngược ý nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[重大](じゅうだい)な",
+        "translation": "trọng đại",
+        "explanation": "Sai. Trái ngược ý nghĩa."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 163,
+    "type": "md3n3",
+    "question_jp": "[来週](らいしゅう)は5[月](がつ)だから（　　　　）[暖](あたた)かくなるだろう。",
+    "question_vn": "Tuần sau là tháng 5 rồi nên (có lẽ / chắc là) trời sẽ ấm lên thôi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "たぶん",
+        "translation": "có lẽ, chắc là",
+        "explanation": "Đúng. Phó từ 'たぶん' thường đi kèm với đuôi phỏng đoán 'だろう' hoặc 'でしょう' để diễn đạt sự suy đoán."
+      },
+      {
+        "id": 2,
+        "text": "けっして",
+        "translation": "quyết không",
+        "explanation": "Sai. Phải đi với câu phủ định."
+      },
+      {
+        "id": 3,
+        "text": "たびたび",
+        "translation": "thường xuyên",
+        "explanation": "Sai. Dùng để chỉ tần suất."
+      },
+      {
+        "id": 4,
+        "text": "わざと",
+        "translation": "cố tình",
+        "explanation": "Sai. Không dùng cho hiện tượng tự nhiên."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 164,
+    "type": "md3n3",
+    "question_jp": "やきそばにはマヨネーズを（　　　　）かけたほうがおいしい。",
+    "question_vn": "Yakisoba thì rưới (thật nhiều) sốt Mayonnaise lên sẽ ngon hơn.",
+    "options": [
+      {
+        "id": 1,
+        "text": "だんだん",
+        "translation": "dần dần",
+        "explanation": "Sai. Dùng cho sự biến đổi."
+      },
+      {
+        "id": 2,
+        "text": "たっぷり",
+        "translation": "đầy ắp, nhiều",
+        "explanation": "Đúng. Phó từ 'たっぷり' mang nghĩa là dồi dào, đầy ắp. Dùng rất phổ biến khi nói về lượng gia vị, nước sốt rưới lên đồ ăn."
+      },
+      {
+        "id": 3,
+        "text": "ときどき",
+        "translation": "thỉnh thoảng",
+        "explanation": "Sai. Dùng cho tần suất."
+      },
+      {
+        "id": 4,
+        "text": "のろのろ",
+        "translation": "chậm chạp",
+        "explanation": "Sai. Dùng cho tốc độ."
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "id": 165,
+    "type": "md3n3",
+    "question_jp": "[今日](きょう)は[映画](えいが)を[見](み)るから（　　　　）を[下](お)ろしておいてください。",
+    "question_vn": "Hôm nay chúng ta sẽ xem phim nên hãy kéo (màn chiếu) xuống sẵn đi.",
+    "options": [
+      {
+        "id": 1,
+        "text": "ステレオ",
+        "translation": "âm thanh nổi",
+        "explanation": "Sai. Âm thanh thì không 'kéo xuống' được."
+      },
+      {
+        "id": 2,
+        "text": "グラフ",
+        "translation": "biểu đồ",
+        "explanation": "Sai. Không liên quan."
+      },
+      {
+        "id": 3,
+        "text": "スイッチ",
+        "translation": "công tắc",
+        "explanation": "Sai. Công tắc thì dùng động từ '[入]れる' (bật) hoặc '[切]る' (tắt)."
+      },
+      {
+        "id": 4,
+        "text": "スクリーン",
+        "translation": "màn chiếu",
+        "explanation": "Đúng. 'スクリーン' (screen) là màn hình, màn chiếu. Để xem phim thì cần kéo màn chiếu xuống (スクリーンを下ろす)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 166,
+    "type": "md4n3",
+    "question_jp": "そろそろ[旅行](りょこう)の<u>[支度](したく)</u>をしようか。",
+    "question_vn": "Chúng ta chuẩn bị (sửa soạn) cho chuyến du lịch thôi nhỉ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[用意](ようい)",
+        "translation": "chuẩn bị",
+        "explanation": "Đúng. Danh từ '[支度]' (sửa soạn, chuẩn bị đồ đạc) đồng nghĩa với '[用意]'."
+      },
+      {
+        "id": 2,
+        "text": "[用事](ようじ)",
+        "translation": "việc bận",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[用件](ようけん)",
+        "translation": "việc cần bàn",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 4,
+        "text": "[計画](けいかく)",
+        "translation": "kế hoạch",
+        "explanation": "Sai. Kế hoạch là việc làm trước khi chuẩn bị đồ đạc."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 167,
+    "type": "md4n3",
+    "question_jp": "[最近](さいきん)、[紙](かみ)の<u>[字引](じびき)</u>は[重](おも)くて[人気](にんき)がないようだ。",
+    "question_vn": "Gần đây, (từ điển) giấy có vẻ nặng nên không được ưa chuộng mấy.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[本](ほん)",
+        "translation": "sách",
+        "explanation": "Sai. Nghĩa quá rộng."
+      },
+      {
+        "id": 2,
+        "text": "[教科書](きょうかしょ)",
+        "translation": "sách giáo khoa",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[辞書](じしょ)",
+        "translation": "từ điển",
+        "explanation": "Đúng. '[字引]' (kéo chữ) là một cách gọi khác của từ điển, đồng nghĩa hoàn toàn với '[辞書]'."
+      },
+      {
+        "id": 4,
+        "text": "[漫画](まんが)",
+        "translation": "truyện tranh",
+        "explanation": "Sai. Khác nghĩa."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 168,
+    "type": "md4n3",
+    "question_jp": "[予約](よやく)がちゃんとできているかどうか<u>[調](しら)べて</u>みます。",
+    "question_vn": "Tôi sẽ (kiểm tra / xác nhận) thử xem việc đặt chỗ đã được thực hiện đàng hoàng chưa.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[検査](けんさ)して",
+        "translation": "kiểm tra (bệnh tật, máy móc)",
+        "explanation": "Sai. Thường dùng trong y tế hoặc kỹ thuật."
+      },
+      {
+        "id": 2,
+        "text": "[変更](へんこう)して",
+        "translation": "thay đổi",
+        "explanation": "Sai. Khác nghĩa."
+      },
+      {
+        "id": 3,
+        "text": "[認定](にんてい)して",
+        "translation": "chứng nhận",
+        "explanation": "Sai. Mang tính chất pháp lý, hành chính."
+      },
+      {
+        "id": 4,
+        "text": "[確認](かくにん)して",
+        "translation": "xác nhận",
+        "explanation": "Đúng. Động từ '[調]べる' mang nghĩa chung là điều tra, xem xét. Trong trường hợp kiểm tra tình trạng đặt chỗ, nó đồng nghĩa với '[確認]する' (xác nhận lại)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 169,
+    "type": "md4n3",
+    "question_jp": "[今](いま)まで<u>[育](そだ)てて</u>くれた[祖母](そぼ)のために[立派](りっぱ)な[人](ひと)になりたい。",
+    "question_vn": "Tôi muốn trở thành một người tuyệt vời vì người bà đã (nuôi nấng) tôi cho đến bây giờ.",
+    "options": [
+      {
+        "id": 1,
+        "text": "[手伝](てつだ)って",
+        "translation": "giúp đỡ",
+        "explanation": "Sai. Không mang nghĩa chăm sóc sự trưởng thành."
+      },
+      {
+        "id": 2,
+        "text": "[助](たす)けて",
+        "translation": "cứu giúp",
+        "explanation": "Sai. Dùng khi gặp hoạn nạn."
+      },
+      {
+        "id": 3,
+        "text": "[愛](あい)して",
+        "translation": "yêu thương",
+        "explanation": "Sai. Tuy bà có yêu thương nhưng không sát nghĩa đen của '[育]てる'."
+      },
+      {
+        "id": 4,
+        "text": "[養](やしな)って",
+        "translation": "nuôi dưỡng",
+        "explanation": "Đúng. Tha động từ '[育]てる' (nuôi nấng, dạy dỗ) đồng nghĩa với '[養]う' (nuôi dưỡng, cấp dưỡng)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 170,
+    "type": "md4n3",
+    "question_jp": "[日本語](にほんご)の[勉強](べんきょう)が<u>だんだん</u>[面白](おもしろ)くなってきた。",
+    "question_vn": "Việc học tiếng Nhật đã trở nên thú vị (dần dần).",
+    "options": [
+      {
+        "id": 1,
+        "text": "これから",
+        "translation": "từ bây giờ",
+        "explanation": "Sai. Chỉ một mốc thời gian."
+      },
+      {
+        "id": 2,
+        "text": "いつも",
+        "translation": "luôn luôn",
+        "explanation": "Sai. Chỉ sự liên tục không đổi."
+      },
+      {
+        "id": 3,
+        "text": "とつぜん",
+        "translation": "đột nhiên",
+        "explanation": "Sai. Trái nghĩa với sự thay đổi từ từ."
+      },
+      {
+        "id": 4,
+        "text": "じょじょに",
+        "translation": "dần dần, từ từ",
+        "explanation": "Đúng. Phó từ 'だんだん' chỉ sự thay đổi từng chút một theo thời gian, đồng nghĩa với từ '徐々に' (じょじょに)."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 171,
+    "type": "md5n3",
+    "question_jp": "[邪魔](じゃま)",
+    "question_vn": "Cản trở, làm phiền",
+    "options": [
+      {
+        "id": 1,
+        "text": "<u>[邪魔](じゃま)</u>するんですが、[静](しず)かにしてくれませんか。",
+        "translation": "Đang cản trở đấy, làm ơn trật tự đi.",
+        "explanation": "Sai. Khi xin lỗi vì lỡ làm ồn người khác thì dùng 'お[邪魔]します' (Xin lỗi vì đã làm phiền), nhưng không dùng '[邪魔]するんですが' theo cách nói này."
+      },
+      {
+        "id": 2,
+        "text": "[父](ちち)が[学校](がっこう)の[宿題](しゅくだい)を<u>[邪魔](じゃま)</u>してくれました。",
+        "translation": "Bố đã cản trở bài tập về nhà giúp tôi.",
+        "explanation": "Sai. Bố phải 'giúp đỡ' ([手伝]う) chứ không thể 'cản trở giúp'."
+      },
+      {
+        "id": 3,
+        "text": "[他人](たにん)の[勉強](べんきょう)を<u>[邪魔](じゃま)</u>してはいけません。",
+        "translation": "Không được cản trở việc học của người khác.",
+        "explanation": "Đúng. '[邪魔]する' mang ý nghĩa cản trở, quấy rầy, làm ảnh hưởng tiêu cực đến hành động của ai đó."
+      },
+      {
+        "id": 4,
+        "text": "<u>[邪魔](じゃま)</u>するからちょっと[座](すわ)ってください。",
+        "translation": "Vì cản trở nên hãy ngồi xuống một chút đi.",
+        "explanation": "Sai. Nếu muốn nói 'xin hãy ngồi xuống cho đỡ mỏi' thì dùng '[疲]れるから' (Vì sẽ mệt đấy)."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 172,
+    "type": "md5n3",
+    "question_jp": "[閉](し)める",
+    "question_vn": "Đóng (cửa, nắp...)",
+    "options": [
+      {
+        "id": 1,
+        "text": "[電車](でんしゃ)の[中](なか)では[音楽](おんがく)を<u>[閉](し)めて</u>ください。",
+        "translation": "Trong xe điện xin hãy đóng âm nhạc lại.",
+        "explanation": "Sai. Âm nhạc hay âm thanh thì phải dùng động từ '[消]す' (tắt)."
+      },
+      {
+        "id": 2,
+        "text": "テストを[始](はじ)めますから、[本](ほん)を<u>[閉](し)めて</u>ください。",
+        "translation": "Vì bắt đầu kiểm tra nên xin hãy đóng sách lại.",
+        "explanation": "Sai. Gấp sách lại dùng động từ '[閉]じる' (とじる), '[閉]める' chỉ dùng cho vật dụng có khớp nối/bản lề để ngăn cách không gian."
+      },
+      {
+        "id": 3,
+        "text": "すみませんが、[窓](まど)を<u>[閉](し)めて</u>くれませんか。",
+        "translation": "Xin lỗi, bạn đóng cửa sổ lại giúp tôi được không?",
+        "explanation": "Đúng. Động từ '[閉]める' sử dụng chính xác cho việc đóng cửa sổ ([窓]), cửa chính (ドア)."
+      },
+      {
+        "id": 4,
+        "text": "みんな、[目](め)を<u>[閉](し)めて</u>みましょう。",
+        "translation": "Mọi người hãy thử đóng mắt lại nào.",
+        "explanation": "Sai. Nhắm mắt dùng động từ '[閉]じる' (とじる) hoặc つぶる."
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "id": 173,
+    "type": "md5n3",
+    "question_jp": "[親](した)しい",
+    "question_vn": "Thân thiết, gần gũi",
+    "options": [
+      {
+        "id": 1,
+        "text": "このテレビはとても<u>[親](した)しい</u>ものだ。",
+        "translation": "Cái tivi này là một vật rất thân thiết.",
+        "explanation": "Sai. Không dùng tính từ này cho đồ vật, trừ khi là vật kỉ niệm vô giá (nhưng thường sẽ dùng '[大切]な' - quan trọng)."
+      },
+      {
+        "id": 2,
+        "text": "ひさしぶりに[家族](かぞく)と<u>[親](した)しい</u>[時間](じかん)をすごしました。",
+        "translation": "Đã lâu rồi tôi mới trải qua khoảng thời gian thân thiết với gia đình.",
+        "explanation": "Sai. Thời gian vui vẻ cùng gia đình gọi là '[楽]しい時間' (thời gian vui vẻ) hoặc 'だんらんの時間' (thời gian sum vầy)."
+      },
+      {
+        "id": 3,
+        "text": "[彼](かれ)は[考](かんが)えたより<u>[親](した)しい</u>[性格](せいかく)でした。",
+        "translation": "Anh ấy có tính cách thân thiết hơn tôi tưởng.",
+        "explanation": "Sai. Tính cách dễ gần, thân thiện dùng '[親]しみやすい' (dễ gần)."
+      },
+      {
+        "id": 4,
+        "text": "エリさんと<u>[親](した)しく</u>なりたいです。",
+        "translation": "Tôi muốn trở nên thân thiết với Eri.",
+        "explanation": "Đúng. '[親]しい' dùng để diễn tả mối quan hệ gần gũi, gắn bó sâu sắc giữa con người với nhau."
+      }
+    ],
+    "answer": 4
+  },
+  {
+    "id": 174,
+    "type": "md5n3",
+    "question_jp": "[丈夫](じょうぶ)",
+    "question_vn": "Bền bỉ, khỏe mạnh, chắc chắn",
+    "options": [
+      {
+        "id": 1,
+        "text": "[祖父](そふ)は[今](いま)も<u>[丈夫](じょうぶ)な</u>[足](あし)を[持](も)っています。",
+        "translation": "Ông tôi bây giờ vẫn có đôi chân khỏe mạnh.",
+        "explanation": "Đúng. '[丈夫]' có thể dùng cho sức khỏe hoặc bộ phận cơ thể để biểu thị sự cứng cáp, khỏe mạnh, không dễ ốm đau/gãy nát."
+      },
+      {
+        "id": 2,
+        "text": "このパソコンは[落](お)としても<u>[丈夫](じょうぶ)だ</u>。",
+        "translation": "Cái máy tính này dù làm rơi cũng không sao/bền.",
+        "explanation": "Sai. Trong trường hợp 'không có vấn đề gì xảy ra', người Nhật dùng '[大丈夫]' (daijoubu), không dùng '[丈夫]'."
+      },
+      {
+        "id": 3,
+        "text": "[彼](かれ)は<u>[丈夫](じょうぶ)な</u>[人](ひと)だから、[理解](りかい)してくれるでしょう。",
+        "translation": "Anh ấy là người khỏe mạnh nên chắc sẽ hiểu cho tôi.",
+        "explanation": "Sai. Thấu hiểu là năng lực trí tuệ/tình cảm, không liên quan đến sự 'khỏe mạnh' thể chất."
+      },
+      {
+        "id": 4,
+        "text": "[時間](じかん)は<u>[丈夫](じょうぶ)だ</u>から、ゆっくり[食](た)べよう。",
+        "translation": "Thời gian thì khỏe mạnh nên hãy ăn từ từ thôi.",
+        "explanation": "Sai. Dư dả thời gian phải dùng '[十分]' (じゅうぶん)."
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "id": 175,
+    "type": "md5n3",
+    "question_jp": "たいてい",
+    "question_vn": "Đại để, nói chung, thông thường",
+    "options": [
+      {
+        "id": 1,
+        "text": "[健康](けんこう)を[考](かんが)えて<u>たいてい</u>[勉強](べんきょう)しなさい。",
+        "translation": "Hãy suy nghĩ cho sức khỏe và học tập đại để thôi.",
+        "explanation": "Sai. Khuyên người khác làm việc có chừng mực thì dùng 'ほどほどに'."
+      },
+      {
+        "id": 2,
+        "text": "[忙](いそが)しくて[恋人](こいびと)と<u>たいてい</u>[会](あ)えません。",
+        "translation": "Bận quá nên thông thường tôi không thể gặp người yêu.",
+        "explanation": "Sai. Đi kèm với thể phủ định để nhấn mạnh sự khan hiếm thì dùng 'ほとんど' (hầu như không)."
+      },
+      {
+        "id": 3,
+        "text": "[日曜日](にちようび)は<u>たいてい</u>[教会](きょうかい)に[行](い)っています。",
+        "translation": "Ngày chủ nhật thì tôi thường đi nhà thờ.",
+        "explanation": "Đúng. 'たいてい' (thường thường) dùng để diễn đạt một thói quen hoặc một trạng thái xảy ra với xác suất cao (khoảng 80-90%)."
+      },
+      {
+        "id": 4,
+        "text": "[英語](えいご)が<u>たいてい</u>うまいですね。",
+        "translation": "Tiếng Anh của bạn đại để giỏi nhỉ.",
+        "explanation": "Sai. Khen ngợi mức độ thì dùng 'とても' hoặc 'かなり'."
+      }
+    ],
+    "answer": 3
+  } 
+  
+]
