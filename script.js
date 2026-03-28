@@ -2720,7 +2720,7 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
 };
             
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onSetPracticeMode }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onSetPracticeMode, onOpenCategory }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2744,21 +2744,9 @@ React.useEffect(() => {
         }
         
     ];
-    const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
+    
 
-    const handleSelectCategoryAction = (category, action) => {
-        // Đảm bảo hàm tồn tại trước khi gọi để không bị crash web
-        if (onSetPracticeMode) {
-            onSetPracticeMode(category); 
-        }
-        
-        if (action === 'dictionary') {
-            onOpenDictionary();
-        } else {
-            onOpenSetup(action); 
-        }
-    };
-
+    
     const [readNotifIds, setReadNotifIds] = useState(() => {
         const saved = localStorage.getItem('phadao_read_notifs');
         return saved ? JSON.parse(saved) : [];
@@ -2908,7 +2896,7 @@ React.useEffect(() => {
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
                        {/* 1. HỌC KANJI */}
-                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'kanji' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                        <div onClick={() => onOpenCategory('kanji')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
@@ -2917,7 +2905,7 @@ React.useEffect(() => {
                         </div>
 
                         {/* 2. HỌC TỪ VỰNG */}
-                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'vocab' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                        <div onClick={() => onOpenCategory('vocab')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
                             </div>
@@ -3020,12 +3008,7 @@ React.useEffect(() => {
                 isOpen={isDonateModalOpen} 
                 onClose={() => setIsDonateModalOpen(false)} 
             />
-                    <CategorySelectionModal
-                isOpen={categoryModal.isOpen}
-                onClose={() => setCategoryModal({ ...categoryModal, isOpen: false })}
-                category={categoryModal.type}
-                onSelectAction={handleSelectCategoryAction}
-            />
+                   
                     
             {/* MODAL TÀI LIỆU (Giữ nguyên) */}
              {isDocsModalOpen && (
@@ -6584,7 +6567,22 @@ const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (t
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
-  
+  const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
+
+    const handleSelectCategoryAction = (category, action) => {
+        handleModeSwitch(category);
+        if (action === 'dictionary') {
+            setIsDictionaryOpen(true);
+        } else {
+            setSetupConfig({ isOpen: true, targetAction: action });
+        }
+    };
+
+    const handleBackToCategory = () => {
+        setSetupConfig({ isOpen: false, targetAction: null });
+        setIsDictionaryOpen(false);
+        setCategoryModal({ isOpen: true, type: practiceMode });
+    };
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
     // Bộ nhớ tạm để lưu text của 2 chế độ
@@ -6758,26 +6756,32 @@ React.useEffect(() => {
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
-<LandingPage 
-    srsData={srsData}
-    onOpenReviewList={() => setIsReviewListOpen(true)}
-    onOpenDictionary={() => setIsDictionaryOpen(true)}
-    onSetPracticeMode={handleModeSwitch}
-    onOpenSetup={(target) => {
-        // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
-        if (target === 'kaiwa') {
-            setIsKaiwaOpen(true);
-        } else {
-            // Các tính năng khác vẫn mở bảng Setup bình thường
-            setSetupConfig({ isOpen: true, targetAction: target });
-            // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
-            if (target === 'conjugate') {
-                handleModeSwitch('vocab'); 
-            }
-        }
-    }}
-/>
+{/* 1. TRANG CHỦ TỐI GIẢN */}
+            <LandingPage 
+                srsData={srsData}
+                onOpenReviewList={() => setIsReviewListOpen(true)}
+                onOpenDictionary={() => setIsDictionaryOpen(true)}
+                onSetPracticeMode={handleModeSwitch}
+                onOpenCategory={(type) => setCategoryModal({ isOpen: true, type })}
+                onOpenSetup={(target) => {
+                    if (target === 'kaiwa') {
+                        setIsKaiwaOpen(true);
+                    } else {
+                        setSetupConfig({ isOpen: true, targetAction: target });
+                        if (target === 'conjugate') {
+                            handleModeSwitch('vocab'); 
+                        }
+                    }
+                }}
+            />
+
+            {/* 2. BẢNG CHỌN CHẾ ĐỘ (Đã được dời ra ngoài App) */}
+            <CategorySelectionModal
+                isOpen={categoryModal.isOpen}
+                onClose={() => setCategoryModal({ ...categoryModal, isOpen: false })}
+                category={categoryModal.type}
+                onSelectAction={handleSelectCategoryAction}
+            />
 
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
             <StudySetupModal 
