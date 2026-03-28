@@ -2713,7 +2713,7 @@ const CategorySelectionModal = ({ isOpen, onClose, category, onSelectAction }) =
 };
             
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onSetPracticeMode }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2740,11 +2740,15 @@ React.useEffect(() => {
     const [categoryModal, setCategoryModal] = useState({ isOpen: false, type: 'kanji' });
 
     const handleSelectCategoryAction = (category, action) => {
-        onSetPracticeMode(category); // Set mode (kanji/vocab) ở App
+        // Đảm bảo hàm tồn tại trước khi gọi để không bị crash web
+        if (onSetPracticeMode) {
+            onSetPracticeMode(category); 
+        }
+        
         if (action === 'dictionary') {
             onOpenDictionary();
         } else {
-            onOpenSetup(action); // Mở StudySetupModal với action tương ứng
+            onOpenSetup(action); 
         }
     };
 
@@ -2896,22 +2900,22 @@ React.useEffect(() => {
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                       {/* 1. KANJI (NÚT LỚN) */}
-                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'kanji' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:border-zinc-900 hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden md:col-span-1">
-                            <div className="w-14 h-14 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <span className="text-2xl font-['Klee_One'] font-black">漢</span>
+                       {/* 1. HỌC KANJI */}
+                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'kanji' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
-                            <h3 className="text-2xl font-black mb-1 text-zinc-900 uppercase">HỌC KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-500 mb-4 tracking-wide">Tra cứu, Flashcard, Tự luận...</p>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">HỌC KANJI</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tra cứu, Flashcard...</p>
                         </div>
 
-                        {/* 2. TỪ VỰNG (NÚT LỚN) */}
-                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'vocab' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:border-zinc-900 hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden md:col-span-1">
-                            <div className="w-14 h-14 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <span className="text-2xl font-black">A</span>
+                        {/* 2. HỌC TỪ VỰNG */}
+                        <div onClick={() => setCategoryModal({ isOpen: true, type: 'vocab' })} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
                             </div>
-                            <h3 className="text-2xl font-black mb-1 text-zinc-900 uppercase">HỌC TỪ VỰNG</h3>
-                            <p className="text-sm font-medium text-zinc-500 mb-4 tracking-wide">Trắc nghiệm, Flashcard, Tự luận...</p>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">HỌC TỪ VỰNG</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Flashcard, Tự luận...</p>
                         </div>
                         {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
