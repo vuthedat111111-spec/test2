@@ -603,16 +603,29 @@
         "sentenceEndTime": 311.11
       },
       {
+        "id": "v51",
+        "word": "引っ越し",
+        "reading": "ひっこし",
+        "meaning": "Chuyển nhà",
+        "sentence": "引っ越しを手伝う。",
+        "sentenceVi": "Giúp đỡ chuyển nhà",
+         "wordStartTime": 311.11,
+        "wordEndTime": 313.69,
+        "sentenceStartTime": 313.69,
+        "sentenceEndTime": 316.25
+      },
+      {
         "id": "v52",
         "word": "身長",
         "reading": "しんちょう",
         "meaning": "Chiều cao cơ thể",
         "sentence": "身長を測る。",
         "sentenceVi": "Đo chiều cao cơ thể.",
-        "wordStartTime": 311.11,
-        "wordEndTime": 313.69,
-        "sentenceStartTime": 313.69,
-        "sentenceEndTime": 316.25
+         "wordStartTime": 316.25,
+        "wordEndTime": 318.94,
+        "sentenceStartTime": 318.94,
+        "sentenceEndTime": 321.49
+
       },
       {
         "id": "v53",
@@ -621,10 +634,10 @@
         "meaning": "Cân nặng",
         "sentence": "体重を測る。",
         "sentenceVi": "Đo cân nặng.",
-        "wordStartTime": 316.25,
-        "wordEndTime": 318.94,
-        "sentenceStartTime": 318.94,
-        "sentenceEndTime": 321.49
+        "wordStartTime": 321.49,
+        "wordEndTime": 323.53,
+        "sentenceStartTime": 323.53,
+        "sentenceEndTime": 325.87
       },
       {
         "id": "v54",
@@ -633,10 +646,10 @@
         "meaning": "Vết thương",
         "sentence": "小さなけが。",
         "sentenceVi": "Vết thương nhỏ",
-        "wordStartTime": 321.49,
-        "wordEndTime": 323.53,
-        "sentenceStartTime": 323.53,
-        "sentenceEndTime": 325.87
+        "wordStartTime": 325.87,
+        "wordEndTime": 328.13,
+        "sentenceStartTime": 328.13,
+        "sentenceEndTime": 330.37
       },
       {
         "id": "v55",
@@ -645,10 +658,10 @@
         "meaning": "Bữa tiệc",
         "sentence": "忘年会を開く。",
         "sentenceVi": "Mở tiệc tất niên.",
-        "wordStartTime": 325.87,
-        "wordEndTime": 328.13,
-        "sentenceStartTime": 328.13,
-        "sentenceEndTime": 330.37
+        "wordStartTime": 330.37,
+        "wordEndTime": 332.5,
+        "sentenceStartTime": 332.5,
+        "sentenceEndTime": 335.08
       },
       {
         "id": "v56",
@@ -657,10 +670,10 @@
         "meaning": "Sở thích, gu thẩm mĩ",
         "sentence": "趣味は読書です。",
         "sentenceVi": "Sở thích của tôi là đọc sách.",
-        "wordStartTime": 330.37,
-        "wordEndTime": 332.5,
-        "sentenceStartTime": 332.5,
-        "sentenceEndTime": 335.08
+        "wordStartTime": 335.08,
+        "wordEndTime": 337.43,
+        "sentenceStartTime": 337.43,
+        "sentenceEndTime": 339.83
       },
       {
         "id": "v57",
@@ -669,10 +682,11 @@
         "meaning": "Hứng thú",
         "sentence": "私は歴史に興味がある。",
         "sentenceVi": "Tôi có hứng thú với lịch sử.",
-        "wordStartTime": 335.08,
-        "wordEndTime": 337.43,
-        "sentenceStartTime": 337.43,
-        "sentenceEndTime": 339.83
+        "wordStartTime": 339.83,
+        "wordEndTime": 342.19,
+        "sentenceStartTime": 342.19,
+        "sentenceEndTime": 345.35
+      },
       },
       {
         "id": "v58",
@@ -681,11 +695,10 @@
         "meaning": "Kỉ niệm",
         "sentence": "子どものころの思い出",
         "sentenceVi": "Kỉ niệm thời thơ ấu",
-        "wordStartTime": 339.83,
-        "wordEndTime": 342.19,
-        "sentenceStartTime": 342.19,
-        "sentenceEndTime": 345.35
-      },
+        "wordStartTime": 345.35,
+        "wordEndTime": 347.74,
+        "sentenceStartTime": 347.74,
+        "sentenceEndTime": 350.49
       {
         "id": "v59",
         "word": "冗談",
@@ -693,10 +706,10 @@
         "meaning": "Nói đùa",
         "sentence": "冗談を言ったら、みんなが本気にした。",
         "sentenceVi": "Khi tôi nói đùa, mọi người đều đã tưởng thật.",
-        "wordStartTime": 345.35,
-        "wordEndTime": 347.74,
-        "sentenceStartTime": 347.74,
-        "sentenceEndTime": 350.49
+        "wordStartTime": 350.49,
+        "wordEndTime": 352.98,
+        "sentenceStartTime": 352.98,
+        "sentenceEndTime": 357.19
       },
       {
         "id": "v60",
@@ -705,10 +718,10 @@
         "meaning": "Mục đích",
         "sentence": "日本に来た目的は大学への入学だ。",
         "sentenceVi": "Mục đích đến Nhật của tôi là để học đại học.",
-        "wordStartTime": 350.49,
-        "wordEndTime": 352.98,
-        "sentenceStartTime": 352.98,
-        "sentenceEndTime": 357.19
+        "wordStartTime": 357.19,
+        "wordEndTime": 359.46,
+        "sentenceStartTime": 359.46,
+        "sentenceEndTime": 364.28
       },
       {
         "id": "v61",
@@ -717,10 +730,10 @@
         "meaning": "Hẹn, hứa hẹn",
         "sentence": "彼と結婚の約束をした。",
         "sentenceVi": "Tôi đã hẹn ước kết hôn cùng anh ấy.",
-        "wordStartTime": 357.19,
-        "wordEndTime": 359.46,
-        "sentenceStartTime": 359.46,
-        "sentenceEndTime": 364.28
+         "wordStartTime": 364.28,
+        "wordEndTime": 366.55,
+        "sentenceStartTime": 366.55,
+        "sentenceEndTime": 369.81
       },
       {
         "id": "v62",
@@ -729,10 +742,10 @@
         "meaning": "Nói chuyện, nói nhiều",
         "sentence": "授業中に隣の人とおしゃべりしていて、先生に怒られた。",
         "sentenceVi": "Vì tôi nói chuyện suốt với bạn bên cạnh trong giờ học nên làm giáo viên giận.",
-        "wordStartTime": 364.28,
-        "wordEndTime": 366.55,
-        "sentenceStartTime": 366.55,
-        "sentenceEndTime": 369.81
+        "wordStartTime": 369.81,
+        "wordEndTime": 372.3,
+        "sentenceStartTime": 372.3,
+        "sentenceEndTime": 378.47
       },
       {
         "id": "v63",
@@ -741,10 +754,10 @@
         "meaning": "Khách khí, ngần ngại",
         "sentence": "「遠慮しないで食べてください」。",
         "sentenceVi": "“Hãy ăn đi đừng ngại”",
-        "wordStartTime": 369.81,
-        "wordEndTime": 372.3,
-        "sentenceStartTime": 372.3,
-        "sentenceEndTime": 378.47
+       "wordStartTime": 378.47,
+        "wordEndTime": 380.75,
+        "sentenceStartTime": 380.75,
+        "sentenceEndTime": 383.7
       },
       {
         "id": "v64",
@@ -753,10 +766,10 @@
         "meaning": "Nhẫn nại, chịu đựng",
         "sentence": "痛くてもがまんする。",
         "sentenceVi": "Dù bị đau, tôi cũng cố chịu.",
-        "wordStartTime": 378.47,
-        "wordEndTime": 380.75,
-        "sentenceStartTime": 380.75,
-        "sentenceEndTime": 383.7
+        "wordStartTime": 383.7,
+        "wordEndTime": 386.02,
+        "sentenceStartTime": 386.02,
+        "sentenceEndTime": 388.64
       },
       {
         "id": "v65",
@@ -765,10 +778,10 @@
         "meaning": "Làm phiền, quấy rầy",
         "sentence": "人に迷惑をかけてはいけない。",
         "sentenceVi": "Không được làm phiền người khác.",
-        "wordStartTime": 383.7,
-        "wordEndTime": 386.02,
-        "sentenceStartTime": 386.02,
-        "sentenceEndTime": 388.64
+        "wordStartTime": 388.64,
+        "wordEndTime": 391.18,
+        "sentenceStartTime": 391.18,
+        "sentenceEndTime": 394.75
       },
       {
         "id": "v66",
@@ -777,10 +790,10 @@
         "meaning": "Hy vọng, mong ước",
         "sentence": "最後まで希望を捨ててはいけない。",
         "sentenceVi": "Không được phép từ bỏ hy vọng cho tới thời điểm cuối cùng.",
-        "wordStartTime": 388.64,
-        "wordEndTime": 391.18,
-        "sentenceStartTime": 391.18,
-        "sentenceEndTime": 394.75
+        "wordStartTime": 394.75,
+        "wordEndTime": 397.16,
+        "sentenceStartTime": 397.16,
+        "sentenceEndTime": 400.62
       },
       {
         "id": "v67",
@@ -789,10 +802,10 @@
         "meaning": "Giấc mơ, ước mơ",
         "sentence": "きのう、こわい夢を見た。",
         "sentenceVi": "Hôm qua tôi đã gặp ác mộng.",
-        "wordStartTime": 394.75,
-        "wordEndTime": 397.16,
-        "sentenceStartTime": 397.16,
-        "sentenceEndTime": 400.62
+        "wordStartTime": 400.62,
+        "wordEndTime": 402.31,
+        "sentenceStartTime": 402.31,
+        "sentenceEndTime": 405.72
       },
       {
         "id": "v68",
@@ -801,10 +814,10 @@
         "meaning": "Tán thành, đồng ý",
         "sentence": "「賛成の人は手をあげてください」",
         "sentenceVi": "“Những ai tán thành xin hãy giơ tay!”",
-        "wordStartTime": 400.62,
-        "wordEndTime": 402.31,
-        "sentenceStartTime": 402.31,
-        "sentenceEndTime": 405.72
+         "wordStartTime": 405.72,
+        "wordEndTime": 408.32,
+        "sentenceStartTime": 408.32,
+        "sentenceEndTime": 411.85
       },
       {
         "id": "v69",
@@ -813,10 +826,10 @@
         "meaning": "Đối ngược, phản đối",
         "sentence": "プラスの反対はマイナスだ。",
         "sentenceVi": "Ngược với cộng là trừ.",
-        "wordStartTime": 405.72,
-        "wordEndTime": 408.32,
-        "sentenceStartTime": 408.32,
-        "sentenceEndTime": 411.85
+        "wordStartTime": 411.85,
+        "wordEndTime": 414.37,
+        "sentenceStartTime": 414.37,
+        "sentenceEndTime": 417.99
       },
       {
         "id": "v70",
@@ -825,10 +838,10 @@
         "meaning": "Tưởng tượng",
         "sentence": "想像と現実は違う。",
         "sentenceVi": "Phỏng đoán (tưởng tượng) và hiện thực khác nhau.",
-        "wordStartTime": 411.85,
-        "wordEndTime": 414.37,
-        "sentenceStartTime": 414.37,
-        "sentenceEndTime": 417.99
+       "wordStartTime": 417.99,
+        "wordEndTime": 420.64,
+        "sentenceStartTime": 420.64,
+        "sentenceEndTime": 423.94
       },
       {
         "id": "v71",
@@ -837,10 +850,11 @@
         "meaning": "Nỗ lực, sự cố gắng",
         "sentence": "一生懸命、努力をする。",
         "sentenceVi": "Nỗ lực hết sức có thể.",
-        "wordStartTime": 417.99,
-        "wordEndTime": 420.64,
-        "sentenceStartTime": 420.64,
-        "sentenceEndTime": 423.94
+        "wordStartTime": 423.96, 
+        "wordEndTime": 426.09,
+        "sentenceStartTime": 426.09, 
+        "sentenceEndTime": 429.3
+
       }
     ]
   }
