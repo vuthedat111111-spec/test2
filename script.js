@@ -6306,27 +6306,29 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                         
                                         return (
                                             <button 
-                                                key={char}
-                                                style={{ WebkitTapHighlightColor: 'transparent' }}
-                                                onClick={(e) => {
-                                                    e.currentTarget.blur();
-                                                    setSelectedKanji(char);
-                                                    setVisitedKanjis(prev => new Set(prev).add(char)); // Đánh dấu đã xem
-                                                    setReplayKey(prev => prev + 1);
-                                                    setTimeout(() => { setView('detail'); }, 50);
-                                                }}
-                                                className={`border rounded-xl p-3 flex flex-col items-center justify-center transition-all active:scale-95 group outline-none ${
-                                                    isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-zinc-50 border-zinc-200 md:hover:bg-zinc-900 md:hover:text-white'
-                                                }`}
-                                            >
-                                               
-<span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 md:group-hover:text-white'}`}>
-    {char}
-</span>
-<span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500 md:group-hover:text-zinc-300'}`}>
-    {info.sound || '---'}
-</span>
-                                                </button>
+    key={char}
+    style={{ WebkitTapHighlightColor: 'transparent' }}
+    onClick={(e) => {
+        e.currentTarget.blur();
+        setSelectedKanji(char);
+        setVisitedKanjis(prev => new Set(prev).add(char)); 
+        setReplayKey(prev => prev + 1);
+        setTimeout(() => { setView('detail'); }, 50);
+    }}
+    // 1. Thêm hover:-translate-y-1 và đổi hiệu ứng hover nền thành viền + shadow
+    className={`border rounded-xl p-3 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
+        isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
+    }`}
+>
+    {/* 2. Bỏ hiệu ứng đổi chữ thành màu trắng khi hover */}
+    <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-black'}`}>
+        {char}
+    </span>
+    {/* 3. Bỏ hiệu ứng đổi chữ âm đọc thành màu nhạt khi hover */}
+    <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500'}`}>
+        {info.sound || '---'}
+    </span>
+</button>
                                         );
                                     })}
                                 </div>
