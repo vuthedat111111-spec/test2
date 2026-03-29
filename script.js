@@ -6877,23 +6877,63 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     }, [initLesson]);
 
     // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
+    // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
     const playCurrentAudio = React.useCallback(() => {
         if (queueRef.current.length === 0) return;
 
-        // ... (Giữ nguyên đoạn load new Howl) ...
+        // NẾU CHƯA LOAD FILE AUDIO -> BẮT ĐẦU LOAD
+        if (!soundRef.current) {
+            if (isAudioLoading) return; // Tránh spam load nhiều lần
+            setIsAudioLoading(true);
+
+            const spriteData = {};
+            lessonData.vocabularies.forEach(item => {
+                if (item.wordStartTime !== undefined && item.wordEndTime !== undefined) {
+                    spriteData[`${item.id}_word`] = [item.wordStartTime * 1000, (item.wordEndTime - item.wordStartTime) * 1000];
+                }
+                if (item.sentenceStartTime !== undefined && item.sentenceEndTime !== undefined) {
+                    spriteData[`${item.id}_sentence`] = [item.sentenceStartTime * 1000, (item.sentenceEndTime - item.sentenceStartTime) * 1000];
+                }
+            });
+
+            soundRef.current = new Howl({
+                src: [lessonData.audioPath],
+                sprite: spriteData,
+                // html5: true, // Xóa hoặc comment dòng này đi nếu âm thanh bị lỗi/chập chờn trên điện thoại
+                preload: true,
+                onload: function() {
+                    setIsAudioLoaded(true);
+                    setIsAudioLoading(false);
+                    this.rate(playbackRate); // Áp dụng tốc độ
+                    
+                    // --- LOGIC: Phát ngay lập tức khi load xong ---
+                    const currentItem = queueRef.current[currentIndexRef.current];
+                    const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined;
+                    const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+                    const spriteKey = `${currentItem.id}_${actualMode}`;
+                    
+                    this.play(spriteKey);
+                },
+                onplay: () => setIsPlaying(true),
+                onend: () => setIsPlaying(false),
+                onstop: () => setIsPlaying(false),
+                onloaderror: () => {
+                    alert("Lỗi tải file âm thanh! Hãy kiểm tra lại đường truyền.");
+                    setIsAudioLoaded(false);
+                    setIsAudioLoading(false);
+                }
+            });
+            return;
+        }
 
         // NẾU ĐÃ LOAD XONG RỒI -> CHỈ VIỆC PHÁT
         if (!isAudioLoaded) return;
-        
         const currentItem = queueRef.current[currentIndexRef.current];
         
-        // --- CODE MỚI ---
-        // Kiểm tra xem từ hiện tại có câu ví dụ (text và thời gian) hay không
+        // --- LOGIC: Chọn sprite key đúng ---
         const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined;
-        // Chế độ thực tế: Nếu đang bật Cả câu + Từ này CÓ câu -> Phát câu. Còn lại -> Phát từ.
         const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
         const spriteKey = `${currentItem.id}_${actualMode}`;
-        // --- KẾT THÚC CODE MỚI ---
         
         soundRef.current.stop(); 
         soundRef.current.play(spriteKey);
