@@ -6841,16 +6841,19 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         modeRef.current = mode;
     }, [currentIndex, queue, mode]);
 
-    // --- 1. KHỞI TẠO BÀI HỌC (CHƯA LOAD AUDIO) ---
-    const initLesson = React.useCallback(() => {
+    // --- 1. KHỞI TẠO BÀI HỌC ---
+    const initLesson = React.useCallback((keepAudio = false) => {
         clearTimeout(loopTimerRef.current);
         if (!lessonData || !lessonData.vocabularies) return;
 
-        setIsAudioLoaded(false);
-        setIsAudioLoading(false);
-        if (soundRef.current) {
-            soundRef.current.unload();
-            soundRef.current = null;
+        // Nếu KHÔNG giữ audio (chuyển bài mới) thì mới xóa bộ nhớ
+        if (!keepAudio) {
+            setIsAudioLoaded(false);
+            setIsAudioLoading(false);
+            if (soundRef.current) {
+                soundRef.current.unload();
+                soundRef.current = null;
+            }
         }
 
         const shuffled = [...lessonData.vocabularies].sort(() => Math.random() - 0.5);
@@ -6866,7 +6869,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     }, [lessonData]);
 
     React.useEffect(() => {
-        initLesson();
+        initLesson(false); // Khi mới vào bài thì tải lại từ đầu (không giữ audio)
         return () => {
             clearTimeout(loopTimerRef.current);
             if (soundRef.current) {
@@ -6876,7 +6879,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         };
     }, [initLesson]);
 
-    // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
+
     // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
     const playCurrentAudio = React.useCallback(() => {
         if (queueRef.current.length === 0) return;
@@ -6899,7 +6902,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             soundRef.current = new Howl({
                 src: [lessonData.audioPath],
                 sprite: spriteData,
-                // html5: true, // Xóa hoặc comment dòng này đi nếu âm thanh bị lỗi/chập chờn trên điện thoại
+                html5: true, // Xóa hoặc comment dòng này đi nếu âm thanh bị lỗi/chập chờn trên điện thoại
                 preload: true,
                 onload: function() {
                     setIsAudioLoaded(true);
@@ -7217,7 +7220,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     <h3 className="text-2xl font-black text-zinc-900 mb-2 uppercase tracking-wide">XUẤT SẮC!</h3>
                     <p className="text-zinc-500 mb-8 text-sm font-medium">Bạn đã hoàn thành phần luyện tập chép chính tả.</p>
                     <div className="space-y-3 w-full max-w-xs">
-                        <button onClick={initLesson} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
+                        <button onClick={() => initLesson(true)} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
                             HỌC LẠI TỪ ĐẦU
                         </button>
                         <button onClick={onBack} className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
