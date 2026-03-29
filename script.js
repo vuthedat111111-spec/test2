@@ -6803,7 +6803,7 @@ const DictationModal = ({ isOpen, onClose }) => {
 };
 
 // ==========================================
-// 2. COMPONENT LUYỆN TẬP CHÍNH (DICTATION GAME) - ĐÃ TỐI ƯU SIÊU GỌN
+// 2. COMPONENT LUYỆN TẬP CHÍNH (DICTATION GAME) - ĐÃ FIX AUDIO & GỌN UI
 // ==========================================
 const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     // State bài học
@@ -6813,11 +6813,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [userInput, setUserInput] = React.useState('');
     const [finished, setFinished] = React.useState(false);
     
-    // State tính năng (Cấu hình)
+    // State tính năng
     const [mode, setMode] = React.useState('word'); // 'word' | 'sentence'
     const [showVi, setShowVi] = React.useState(false); 
-    const [isRepeatOn, setIsRepeatOn] = React.useState(false); // Lặp lại liên tục
-    const [playbackRate, setPlaybackRate] = React.useState(1); // Tốc độ phát
+    const [isRepeatOn, setIsRepeatOn] = React.useState(false); 
+    const [playbackRate, setPlaybackRate] = React.useState(1); 
     const [showHint, setShowHint] = React.useState(false); 
 
     // State Audio
@@ -6845,14 +6845,14 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         soundRef.current = new Howl({
             src: [lessonData.audioPath],
             sprite: spriteData,
-            html5: true, 
+            // ĐÃ XÓA html5: true ĐỂ WEB AUDIO API XỬ LÝ SPRITE MƯỢT MÀ
             preload: true,
             onload: () => setIsAudioLoaded(true),
             onplay: () => setIsPlaying(true),
             onend: () => setIsPlaying(false),
             onstop: () => setIsPlaying(false),
             onloaderror: () => {
-                alert("Lỗi tải file âm thanh!");
+                alert("Lỗi tải file âm thanh! (Vui lòng kiểm tra lại đường dẫn audio)");
                 setIsAudioLoaded(false);
             }
         });
@@ -6882,12 +6882,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         const currentItem = queue[currentIndex];
         const spriteKey = mode === 'word' ? `${currentItem.id}_word` : `${currentItem.id}_sentence`;
         
-        soundRef.current.rate(playbackRate); // Set tốc độ trước khi phát
+        soundRef.current.rate(playbackRate); 
         soundRef.current.stop(); 
         soundRef.current.play(spriteKey);
     }, [queue, currentIndex, mode, isAudioLoaded, playbackRate]);
 
-    // Tự động phát khi sang câu mới
     React.useEffect(() => {
         if (!finished && queue.length > 0 && isAudioLoaded) {
             const timer = setTimeout(() => { playCurrentAudio(); }, 300);
@@ -6895,18 +6894,14 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         }
     }, [currentIndex, finished, isAudioLoaded, mode, playCurrentAudio]);
 
-    // TỰ ĐỘNG LẶP LẠI (LOOP) SAU 1 GIÂY NẾU CHƯA TRẢ LỜI ĐÚNG
     React.useEffect(() => {
         let timer;
         if (!isPlaying && isAudioLoaded && isRepeatOn && status !== 'correct' && !finished) {
-            timer = setTimeout(() => {
-                playCurrentAudio();
-            }, 1000); // Trễ 1 giây
+            timer = setTimeout(() => { playCurrentAudio(); }, 1000); 
         }
         return () => clearTimeout(timer);
     }, [isPlaying, isAudioLoaded, isRepeatOn, status, finished, playCurrentAudio]);
 
-    // Chuyển đổi tốc độ
     const cyclePlaybackRate = () => {
         const rates = [0.75, 1, 1.25];
         const next = rates[(rates.indexOf(playbackRate) + 1) % rates.length];
@@ -6930,9 +6925,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         const currentItem = queue[currentIndex];
         let finalInput = userInput.trim();
 
-        if (finalInput.endsWith('n')) {
-            finalInput = finalInput.slice(0, -1) + 'ん';
-        }
+        if (finalInput.endsWith('n')) finalInput = finalInput.slice(0, -1) + 'ん';
 
         const isCorrect = (finalInput === currentItem.word) || (finalInput === currentItem.reading);
 
@@ -6978,7 +6971,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const currentItem = queue[currentIndex];
     const isReveal = showHint || status === 'retyping';
 
-    // --- RENDER ĐỤC LỖ & FURIGANA THÔNG MINH ---
+    // --- RENDER ĐỤC LỖ & FURIGANA ---
     const renderMaskedSentence = (sentence, word, reading) => {
         if (!sentence || !word) return null;
         const parts = sentence.split(word);
@@ -6990,12 +6983,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 {isReveal ? (
                     <span className="inline-flex flex-col items-center justify-end align-bottom leading-none border-b-2 border-indigo-500 text-indigo-600 font-bold mx-1 px-1 min-w-[2rem] -translate-y-1">
                         {word !== reading ? (
-                            <ruby className="leading-none text-xl">
+                            <ruby className="leading-none text-[18px] sm:text-xl">
                                 {word}
-                                <rt className="text-[10px] font-black text-indigo-500 select-none pb-0.5">{reading}</rt>
+                                <rt className="text-[9px] sm:text-[10px] font-black text-indigo-500 select-none pb-0.5">{reading}</rt>
                             </ruby>
                         ) : (
-                            <span className="text-xl">{word}</span>
+                            <span className="text-[18px] sm:text-xl">{word}</span>
                         )}
                     </span>
                 ) : (
@@ -7022,104 +7015,96 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
             </div>
 
-            {/* 2. BODY CONTENT (Gọn gàng, không cần scrollbar) */}
+            {/* 2. BODY CONTENT (Sử dụng gap thay vì margin để ôm sát) */}
             {!finished ? (
-                <div className="flex-1 flex flex-col items-center justify-center p-4 w-full max-w-lg mx-auto relative h-full">
+                <div className="flex-1 overflow-y-auto custom-scrollbar p-4 flex flex-col items-center w-full max-w-lg mx-auto">
                     
-                    {/* BỘ ĐIỀU KHIỂN NẰM NGANG SIÊU GỌN */}
-                    <div className="w-full flex flex-wrap items-center justify-center gap-2 mb-6 bg-zinc-50 p-2 rounded-2xl border border-zinc-100">
-                        {/* Mode */}
-                        <div className="flex bg-zinc-200/60 p-1 rounded-xl">
-                            <button onClick={() => setMode('word')} className={`px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold rounded-lg transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
-                            <button onClick={() => setMode('sentence')} className={`px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold rounded-lg transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
-                        </div>
-                        {/* Dịch */}
-                        <label className="flex items-center gap-1.5 cursor-pointer bg-white px-3 py-1.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm outline-none">
-                            <span className="text-[10px] sm:text-xs font-bold text-zinc-700">Dịch</span>
-                            <input type="checkbox" checked={showVi} onChange={() => setShowVi(!showVi)} className="accent-indigo-600 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm cursor-pointer"/>
-                        </label>
-                        {/* Lặp lại */}
-                        <label className="flex items-center gap-1.5 cursor-pointer bg-white px-3 py-1.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm outline-none">
-                            <span className="text-[10px] sm:text-xs font-bold text-zinc-700">Lặp</span>
-                            <input type="checkbox" checked={isRepeatOn} onChange={() => setIsRepeatOn(!isRepeatOn)} className="accent-indigo-600 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm cursor-pointer"/>
-                        </label>
-                        {/* Speed */}
-                        <button onClick={cyclePlaybackRate} className="bg-white px-3 py-1.5 rounded-xl border border-zinc-200 text-[10px] sm:text-xs font-bold text-zinc-700 hover:bg-zinc-100 transition-colors shadow-sm outline-none w-12 flex justify-center">
-                            {playbackRate}x
-                        </button>
-                    </div>
-
-                    {/* VÙNG ÂM THANH & HIỂN THỊ */}
-                    <div className={`flex flex-col items-center w-full min-h-[140px] justify-center transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
-                        
-                        {/* Nút Play nhỏ gọn hơn */}
-                        <button 
-                            onClick={playCurrentAudio}
-                            disabled={!isAudioLoaded}
-                            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-90 mb-4 outline-none shrink-0 ${!isAudioLoaded ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
-                        >
-                            {!isAudioLoaded ? (
-                                <div className="flex space-x-1">
-                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce"></div>
-                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
-                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
-                                </div>
-                            ) : isPlaying ? (
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
-                            ) : (
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="ml-1"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
-                            )}
-                        </button>
-
-                        {/* TEXT HIỂN THỊ TRUNG TÂM */}
-                        <div className="flex flex-col items-center text-center w-full px-2">
-                            {mode === 'sentence' ? (
-                                <div className="text-lg sm:text-xl font-bold">
-                                    {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
-                                </div>
-                            ) : (
-                                // CHẾ ĐỘ TỪ ĐƠN: Khi bấm xem đáp án thì hiện đáp án thẳng ở đây
-                                <div className="min-h-[36px] flex items-center justify-center">
-                                    {isReveal && (
-                                        <span className="text-xl font-black text-indigo-600 animate-in zoom-in-95 duration-200">
-                                            {currentItem.word !== currentItem.reading ? `${currentItem.word} (${currentItem.reading})` : currentItem.word}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* DỊCH NGHĨA (Nằm ngay sát dưới) */}
-                            {showVi && (
-                                <p className="text-sm font-medium text-zinc-500 mt-2 italic animate-in fade-in">
-                                    {mode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* VÙNG NHẬP LIỆU NẰM SÁT DƯỚI (Fix cứng khoảng cách) */}
-                    <div className="w-full mt-auto mb-2 space-y-3">
-                        <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange}
-                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại đáp án đúng..." : "Nhập Hiragana hoặc Kanji..."}
-                            className={`w-full p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_20px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_20px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
-                        />
-                        
-                        <div className="flex justify-between items-center px-2">
-                            <button onClick={handleHelp} disabled={isReveal} className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${isReveal ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 11v1"/><path d="M12 6a4 4 0 0 0-4 4c0 1.5.5 2 2 3 .5 1 .5 2 .5 3h3c0-1 0-2 .5-3 1.5-1 2-1.5 2-3a4 4 0 0 0-4-4Z"/></svg>
-                                Trợ giúp
+                    <div className="w-full flex flex-col gap-4 my-auto">
+                        {/* BỘ ĐIỀU KHIỂN NẰM NGANG */}
+                        <div className="w-full flex flex-wrap items-center justify-center gap-2 bg-zinc-50 p-2 rounded-2xl border border-zinc-100 shrink-0">
+                            <div className="flex bg-zinc-200/60 p-1 rounded-xl">
+                                <button onClick={() => setMode('word')} className={`px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-lg transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
+                                <button onClick={() => setMode('sentence')} className={`px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-lg transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
+                            </div>
+                            <label className="flex items-center gap-1.5 cursor-pointer bg-white px-3 py-1.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm outline-none">
+                                <span className="text-[10px] sm:text-xs font-bold text-zinc-700">Dịch</span>
+                                <input type="checkbox" checked={showVi} onChange={() => setShowVi(!showVi)} className="accent-indigo-600 w-3.5 h-3.5 rounded-sm cursor-pointer"/>
+                            </label>
+                            <label className="flex items-center gap-1.5 cursor-pointer bg-white px-3 py-1.5 rounded-xl border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm outline-none">
+                                <span className="text-[10px] sm:text-xs font-bold text-zinc-700">Lặp</span>
+                                <input type="checkbox" checked={isRepeatOn} onChange={() => setIsRepeatOn(!isRepeatOn)} className="accent-indigo-600 w-3.5 h-3.5 rounded-sm cursor-pointer"/>
+                            </label>
+                            <button onClick={cyclePlaybackRate} className="bg-white px-3 py-1.5 rounded-xl border border-zinc-200 text-[10px] sm:text-xs font-bold text-zinc-700 hover:bg-zinc-100 transition-colors shadow-sm outline-none w-12 flex justify-center">
+                                {playbackRate}x
                             </button>
-                            <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                Enter để kiểm tra
-                            </span>
+                        </div>
+
+                        {/* VÙNG ÂM THANH & HIỂN THỊ TEXT */}
+                        <div className={`flex flex-col items-center w-full transition-all duration-300 ${status === 'correct' ? 'scale-105 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                            <button 
+                                onClick={playCurrentAudio}
+                                disabled={!isAudioLoaded}
+                                className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-all active:scale-90 mb-3 outline-none shrink-0 ${!isAudioLoaded ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
+                            >
+                                {!isAudioLoaded ? (
+                                    <div className="flex space-x-1">
+                                        <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce"></div>
+                                        <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                                    </div>
+                                ) : isPlaying ? (
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+                                ) : (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
+                                )}
+                            </button>
+
+                            <div className="flex flex-col items-center text-center w-full px-2">
+                                {mode === 'sentence' ? (
+                                    <div className="text-lg sm:text-xl font-bold text-zinc-800">
+                                        {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center justify-center min-h-[32px]">
+                                        {isReveal && (
+                                            <span className="text-lg sm:text-xl font-black text-indigo-600 animate-in zoom-in-95 duration-200">
+                                                {currentItem.word !== currentItem.reading ? `${currentItem.word} (${currentItem.reading})` : currentItem.word}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+
+                                {showVi && (
+                                    <p className="text-xs sm:text-sm font-medium text-zinc-500 mt-2 italic animate-in fade-in">
+                                        {mode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* VÙNG NHẬP LIỆU */}
+                        <div className="w-full space-y-2 pt-2">
+                            <input 
+                                type="text" autoFocus value={userInput} onChange={handleInputChange}
+                                onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                                placeholder={status === 'retyping' ? "Gõ lại đáp án đúng..." : "Nhập Hiragana hoặc Kanji..."}
+                                className={`w-full p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
+                            />
+                            
+                            <div className="flex justify-between items-center px-1">
+                                <button onClick={handleHelp} disabled={isReveal} className={`text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1 outline-none ${isReveal ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 11v1"/><path d="M12 6a4 4 0 0 0-4 4c0 1.5.5 2 2 3 .5 1 .5 2 .5 3h3c0-1 0-2 .5-3 1.5-1 2-1.5 2-3a4 4 0 0 0-4-4Z"/></svg>
+                                    Trợ giúp
+                                </button>
+                                <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                                    Enter
+                                </span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             ) : (
-                // 3. MÀN HÌNH KẾT THÚC
                 <div className="flex-1 flex flex-col items-center justify-center p-6">
                     <div className="text-6xl mb-6 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
                     <h3 className="text-2xl font-black text-zinc-900 mb-2 uppercase tracking-wide">XUẤT SẮC!</h3>
