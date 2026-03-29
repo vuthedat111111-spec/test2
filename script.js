@@ -6813,28 +6813,23 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [userInput, setUserInput] = React.useState('');
     const [finished, setFinished] = React.useState(false);
     const [wrongCount, setWrongCount] = React.useState(0); 
-    const [wrongDetected, setWrongDetected] = React.useState(false); // Đánh dấu đã sai để đẩy xuống cuối
+    const [wrongDetected, setWrongDetected] = React.useState(false); 
     
     // State tính năng
-    const [mode, setMode] = React.useState('word'); // 'word' | 'sentence'
+    const [mode, setMode] = React.useState('word'); 
     const [showVi, setShowVi] = React.useState(false); 
     const [showHint, setShowHint] = React.useState(false); 
     const [isLooping, setIsLooping] = React.useState(false); 
-    const [playbackRate, setPlaybackRate] = React.useState(1); // Tốc độ phát
+    const [playbackRate, setPlaybackRate] = React.useState(1); 
 
     // State Audio
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [isAudioLoaded, setIsAudioLoaded] = React.useState(false);
     const [isAudioLoading, setIsAudioLoading] = React.useState(false);
     
-    // --- Các bộ đếm giờ (Refs) ---
     const soundRef = React.useRef(null);
     const loopTimerRef = React.useRef(null);
-    const autoPlayTimerRef = React.useRef(null); // Quản lý lệnh tự động phát
-    const stopAtTimeRef = React.useRef(null);    // Quản lý mốc thời gian cần dừng
-    const rafRef = React.useRef(null);           // Vòng lặp 60fps
 
-    // Dùng Ref để Callback không bị lấy nhầm data cũ
     const currentIndexRef = React.useRef(currentIndex);
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
@@ -6845,29 +6840,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         modeRef.current = mode;
     }, [currentIndex, queue, mode]);
 
-    // --- 0. BỘ CANH GIỜ CHUẨN XÁC ĐỂ TẮT ÂM THANH (Chống lỗi phát tuốt đến cuối) ---
-    React.useEffect(() => {
-        const watchDog = () => {
-            // Liên tục kiểm tra xem thời gian Audio hiện tại đã vượt qua mốc cần dừng chưa
-            if (soundRef.current && stopAtTimeRef.current !== null) {
-                const currentTime = soundRef.current.seek();
-                if (typeof currentTime === 'number' && currentTime >= stopAtTimeRef.current) {
-                    soundRef.current.stop(); // Đến điểm dừng -> Ra lệnh dừng ngay lập tức
-                    stopAtTimeRef.current = null;
-                }
-            }
-            rafRef.current = requestAnimationFrame(watchDog);
-        };
-        rafRef.current = requestAnimationFrame(watchDog);
-        return () => cancelAnimationFrame(rafRef.current);
-    }, []);
-
     // --- 1. KHỞI TẠO BÀI HỌC ---
     const initLesson = React.useCallback((keepAudio = false) => {
         clearTimeout(loopTimerRef.current);
-        clearTimeout(autoPlayTimerRef.current);
-        stopAtTimeRef.current = null;
-
         if (!lessonData || !lessonData.vocabularies) return;
 
         // Nếu KHÔNG giữ audio (chuyển bài mới) thì mới xóa bộ nhớ
@@ -6895,10 +6870,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     }, [lessonData]);
 
     React.useEffect(() => {
-        initLesson(false); // Khi mới vào bài thì tải lại từ đầu (không giữ audio)
+        initLesson(false); 
         return () => {
             clearTimeout(loopTimerRef.current);
-            clearTimeout(autoPlayTimerRef.current);
             if (soundRef.current) {
                 soundRef.current.unload();
                 soundRef.current = null;
@@ -6906,45 +6880,40 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         };
     }, [initLesson]);
 
-    // --- HÀM KÍCH HOẠT PHÁT TỪ ĐIỂM A ĐẾN ĐIỂM B ---
-    const triggerPlay = () => {
-        const currentItem = queueRef.current[currentIndexRef.current];
-        const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
-        const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
-        
-        const startTime = actualMode === 'sentence' ? currentItem.sentenceStartTime : currentItem.wordStartTime;
-        const endTime = actualMode === 'sentence' ? currentItem.sentenceEndTime : currentItem.wordEndTime;
-
-        if (startTime === undefined || endTime === undefined) return;
-
-        soundRef.current.stop(); // Ngắt hẳn âm thanh cũ
-        soundRef.current.seek(startTime); // Tua đến đầu đoạn
-        soundRef.current.play(); // Bắt đầu phát
-
-        stopAtTimeRef.current = endTime; // Báo cho vòng lặp WatchDog biết bao giờ cần dừng
-    };
-
     // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
     const playCurrentAudio = React.useCallback(() => {
-        clearTimeout(autoPlayTimerRef.current); // KHẮC PHỤC LỖI: Hủy ngay lệnh AutoPlay nếu bị gọi bằng tay (VD: Bấm Trợ giúp)
-
         if (queueRef.current.length === 0) return;
 
-        // NẾU CHƯA LOAD FILE AUDIO -> BẮT ĐẦU LOAD
         if (!soundRef.current) {
-            if (isAudioLoading) return; // Tránh spam load nhiều lần
+            if (isAudioLoading) return; 
             setIsAudioLoading(true);
+
+            const spriteData = {};
+            lessonData.vocabularies.forEach(item => {
+                if (item.wordStartTime !== undefined && item.wordEndTime !== undefined) {
+                    spriteData[`${item.id}_word`] = [item.wordStartTime * 1000, (item.wordEndTime - item.wordStartTime) * 1000];
+                }
+                if (item.sentenceStartTime !== undefined && item.sentenceEndTime !== undefined) {
+                    spriteData[`${item.id}_sentence`] = [item.sentenceStartTime * 1000, (item.sentenceEndTime - item.sentenceStartTime) * 1000];
+                }
+            });
 
             soundRef.current = new Howl({
                 src: [lessonData.audioPath],
-                html5: true, // Bật html5 để giữ nguyên pitch (giọng) khi tua tốc độ
+                sprite: spriteData,
+                html5: true, // Vẫn giữ html5: true để không bị đổi giọng khi tua tốc độ
                 preload: true,
                 onload: function() {
                     setIsAudioLoaded(true);
                     setIsAudioLoading(false);
-                    this.rate(playbackRate); // Áp dụng tốc độ
+                    this.rate(playbackRate); 
                     
-                    triggerPlay();
+                    const currentItem = queueRef.current[currentIndexRef.current];
+                    const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
+                    const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+                    const spriteKey = `${currentItem.id}_${actualMode}`;
+                    
+                    this.play(spriteKey);
                 },
                 onplay: () => setIsPlaying(true),
                 onend: () => setIsPlaying(false),
@@ -6958,26 +6927,30 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-        // NẾU ĐÃ LOAD XONG RỒI -> CHỈ VIỆC PHÁT
         if (!isAudioLoaded) return;
-        triggerPlay();
+        const currentItem = queueRef.current[currentIndexRef.current];
+        
+        const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
+        const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+        const spriteKey = `${currentItem.id}_${actualMode}`;
+        
+        soundRef.current.stop(); 
+        soundRef.current.play(spriteKey);
     }, [lessonData, isAudioLoaded, isAudioLoading, playbackRate]);
 
-    // Auto-play khi chuyển câu (Với tốc độ siêu nhanh 50ms)
+    // Auto-play khi chuyển câu (Dùng Timeout cơ bản)
     React.useEffect(() => {
         if (!finished && queue.length > 0 && isAudioLoaded && soundRef.current) {
-            clearTimeout(autoPlayTimerRef.current);
-            autoPlayTimerRef.current = setTimeout(() => {
+            const timer = setTimeout(() => {
                 playCurrentAudio();
-            }, 50); // CHỈNH VỀ 50ms THEO YÊU CẦU
+            }, 300);
+            return () => clearTimeout(timer);
         }
-        return () => clearTimeout(autoPlayTimerRef.current);
     }, [currentIndex, finished, mode, playCurrentAudio, isAudioLoaded, queue.length]);
 
     // Vòng lặp
     React.useEffect(() => {
         if (!isPlaying && isLooping && !finished && isAudioLoaded) {
-            clearTimeout(loopTimerRef.current);
             loopTimerRef.current = setTimeout(() => {
                 playCurrentAudio();
             }, 500);
@@ -6996,18 +6969,14 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setPlaybackRate(rates[nextIdx]);
     };
 
-    // --- 3. XỬ LÝ NHẬP LIỆU & CHẤM ĐIỂM ---
+    // --- 3. XỬ LÝ NHẬP LIỆU & ĐIỀU HƯỚNG THỦ CÔNG ---
     const handleInputChange = (e) => {
         setUserInput(convertToKana(e.target.value, false)); 
     };
 
-    // Hàm chuyển câu thủ công (Tiến / Lùi)
     const handleManualNext = () => {
         clearTimeout(loopTimerRef.current);
-        clearTimeout(autoPlayTimerRef.current);
-        if (soundRef.current) soundRef.current.stop(); // Dừng âm thanh hiện tại
-        stopAtTimeRef.current = null;
-        
+        if (soundRef.current) soundRef.current.stop();
         if (currentIndex < queue.length - 1) {
             setCurrentIndex(prev => prev + 1);
             setUserInput('');
@@ -7020,10 +6989,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     const handleManualPrev = () => {
         clearTimeout(loopTimerRef.current);
-        clearTimeout(autoPlayTimerRef.current);
-        if (soundRef.current) soundRef.current.stop(); // Dừng âm thanh hiện tại
-        stopAtTimeRef.current = null;
-
+        if (soundRef.current) soundRef.current.stop();
         if (currentIndex > 0) {
             setCurrentIndex(prev => prev - 1);
             setUserInput('');
@@ -7034,10 +7000,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         }
     };
 
-    const handleHelp = () => {
+    // NÚT XEM ĐÁP ÁN (KHÔNG ĐỤNG VÀO AUDIO)
+    const handleShowAnswer = () => {
         const currentItem = queue[currentIndex];
         
-        // Bấm trợ giúp cũng tính là sai -> Đẩy xuống cuối danh sách nếu chưa bị đẩy
+        // Xem đáp án tính là sai -> Đẩy xuống cuối danh sách nếu chưa bị đẩy
         if (!wrongDetected) {
             setQueue(prev => [...prev, currentItem]);
             setWrongDetected(true);
@@ -7046,7 +7013,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setShowHint(true);
         setStatus('retyping');
         setUserInput('');
-        playCurrentAudio(); // Play lại file nghe ngay lập tức (lệnh này sẽ xóa Auto-Play đang chờ)
+        // NOTE: Đã gỡ bỏ lệnh playCurrentAudio() ở đây theo yêu cầu
     };
 
     const checkAnswer = () => {
@@ -7075,20 +7042,18 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
-            setTimeout(() => goToNext(), 300); // CHỈNH VỀ 300ms THEO YÊU CẦU
+            setTimeout(() => goToNext(), 600);
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
             setStatus('wrong');
             playCurrentAudio(); 
             
-            // Lần ĐẦU TIÊN sai -> Đẩy câu này xuống cuối danh sách phát
             if (!wrongDetected) {
                 setQueue(prev => [...prev, currentItem]);
                 setWrongDetected(true);
             }
 
-            // Sai 5 lần -> Bắt gõ lại
             if (newWrongCount >= 5) {
                 setTimeout(() => {
                     setShowHint(true);
@@ -7102,16 +7067,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     const goToNext = () => {
         clearTimeout(loopTimerRef.current);
-        clearTimeout(autoPlayTimerRef.current);
-        stopAtTimeRef.current = null;
-
         if (currentIndex < queue.length - 1) {
             setCurrentIndex(prev => prev + 1);
             setUserInput('');
             setStatus('idle');
             setShowHint(false);
             setWrongCount(0);
-            setWrongDetected(false); // Trả lại trạng thái cho câu mới
+            setWrongDetected(false); 
         } else {
             setFinished(true);
         }
@@ -7146,27 +7108,23 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
 
-    // --- XÁC ĐỊNH CHẾ ĐỘ THỰC TẾ CHO UI RẤT CHẶT CHẼ ---
     const hasSentenceText = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
     const effectiveMode = (mode === 'sentence' && hasSentenceText) ? 'sentence' : 'word';
 
-    // --- Tính toán kích thước nút Play và nút Điều hướng động ---
     const isShowingText = effectiveMode === 'sentence' || showHint || status === 'retyping';
     
-    // Size mặc định
+    // Tính toán kích thước các nút động
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
     let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
     let sideBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
     let sideIconSize = "w-6 h-6 sm:w-7 sm:h-7";
     
     if (isShowingText && showVi) {
-        // Size nhỏ nhất
         playBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
         playIconSize = "w-6 h-6 sm:w-7 sm:h-7";
         sideBtnSize = "w-10 h-10 sm:w-12 sm:h-12";
         sideIconSize = "w-4 h-4 sm:w-5 sm:h-5";
     } else if (isShowingText || showVi) {
-        // Size trung bình
         playBtnSize = "w-16 h-16 sm:w-20 sm:h-20"; 
         playIconSize = "w-7 h-7 sm:w-8 sm:h-8";
         sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14";
@@ -7175,7 +7133,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
-            {/* 1. HEADER (Top bar) */}
+            {/* 1. HEADER */}
             <div className="px-4 py-3 border-b border-zinc-100 flex items-center justify-between z-10 shrink-0">
                 <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors outline-none">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -7191,7 +7149,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             {!finished ? (
                 <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
                     
-                    {/* BỘ ĐIỀU KHIỂN (Cố định ở trên) */}
+                    {/* BỘ ĐIỀU KHIỂN */}
                     <div className="w-full max-w-md mx-auto mb-2 flex flex-wrap gap-2 justify-center bg-zinc-50 p-1.5 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
                         <div className="flex bg-zinc-200/50 p-1 rounded-xl">
                             <button onClick={() => setMode('word')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
@@ -7213,10 +7171,10 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                     <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300">
                         
-                        {/* KHU VỰC NÚT ĐIỀU KHIỂN TRUNG TÂM (PREV - PLAY - NEXT) */}
+                        {/* NÚT ĐIỀU KHIỂN TRUNG TÂM */}
                         <div className="flex items-center justify-center gap-4 sm:gap-6 w-full transition-all duration-300 shrink-0">
                             
-                            {/* NÚT LÙI (PREV) */}
+                            {/* NÚT LÙI */}
                             <button 
                                 onClick={handleManualPrev}
                                 disabled={currentIndex === 0}
@@ -7225,7 +7183,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                 <svg className={sideIconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
 
-                            {/* NÚT PHÁT ÂM THANH CHÍNH */}
+                            {/* NÚT PLAY */}
                             <div className={`transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
                                 <button 
                                     onClick={playCurrentAudio}
@@ -7245,7 +7203,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                 </button>
                             </div>
 
-                            {/* NÚT TIẾN (NEXT) */}
+                            {/* NÚT TIẾN */}
                             <button 
                                 onClick={handleManualNext}
                                 disabled={currentIndex === queue.length - 1}
@@ -7290,9 +7248,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         />
                         
                         <div className="flex justify-between items-center px-2">
-                            <button onClick={handleHelp} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 11v1"/><path d="M12 6a4 4 0 0 0-4 4c0 1.5.5 2 2 3 .5 1 .5 2 .5 3h3c0-1 0-2 .5-3 1.5-1 2-1.5 2-3a4 4 0 0 0-4-4Z"/></svg>
-                                Trợ giúp
+                            <button onClick={handleShowAnswer} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                ĐÁP ÁN
                             </button>
                             <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
