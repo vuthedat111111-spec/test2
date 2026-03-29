@@ -939,7 +939,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
-            setTimeout(() => goToNext(), 600);
+            setTimeout(() => goToNext(), 400);
         } else {
             setCorrectAnswer(target); // Đã có chữ nhờ fix logic target ở trên
             setStatus('wrong');
@@ -6947,7 +6947,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         if (!finished && queue.length > 0 && isAudioLoaded && soundRef.current) {
             const timer = setTimeout(() => {
                 playCurrentAudio();
-            }, 300);
+            }, 100);
             return () => clearTimeout(timer);
         }
     }, [currentIndex, finished, mode, playCurrentAudio, isAudioLoaded, queue.length]);
