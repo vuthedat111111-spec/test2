@@ -7057,7 +7057,31 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setFinished(true);
         }
     };
+const handleManualNext = () => {
+        clearTimeout(loopTimerRef.current);
+        if (soundRef.current) soundRef.current.stop(); // Dừng âm thanh hiện tại
+        if (currentIndex < queue.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+            setWrongCount(0);
+            setWrongDetected(false);
+        }
+    };
 
+    const handleManualPrev = () => {
+        clearTimeout(loopTimerRef.current);
+        if (soundRef.current) soundRef.current.stop(); // Dừng âm thanh hiện tại
+        if (currentIndex > 0) {
+            setCurrentIndex(prev => prev - 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+            setWrongCount(0);
+            setWrongDetected(false);
+        }
+    };
     const triggerConfetti = React.useCallback(() => {
         if (typeof confetti === 'undefined') return;
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
@@ -7093,16 +7117,27 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     // Tính toán kích thước nút Play động dựa trên Nội dung đang hiển thị
     // Sửa 'mode' thành 'effectiveMode'
+    // --- Tính toán kích thước nút Play và nút Điều hướng động ---
     const isShowingText = effectiveMode === 'sentence' || showHint || status === 'retyping';
+    
+    // Size mặc định
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
     let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
+    let sideBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; // Nút phụ nhỏ hơn nút chính một chút cho đẹp
+    let sideIconSize = "w-6 h-6 sm:w-7 sm:h-7";
     
     if (isShowingText && showVi) {
+        // Size nhỏ nhất (Khi hiện cả chữ và dịch)
         playBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
         playIconSize = "w-6 h-6 sm:w-7 sm:h-7";
+        sideBtnSize = "w-10 h-10 sm:w-12 sm:h-12";
+        sideIconSize = "w-4 h-4 sm:w-5 sm:h-5";
     } else if (isShowingText || showVi) {
+        // Size trung bình (Hiện chữ hoặc dịch)
         playBtnSize = "w-16 h-16 sm:w-20 sm:h-20"; 
         playIconSize = "w-7 h-7 sm:w-8 sm:h-8";
+        sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14";
+        sideIconSize = "w-5 h-5 sm:w-6 sm:h-6";
     }
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
@@ -7144,29 +7179,48 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         </button>
                     </div>
 
-                    {/* VÙNG TRUNG TÂM: Co giãn linh hoạt, Tự động chia đều không gian ở chính giữa */}
-                    <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300">
-                        
-                        {/* NÚT PHÁT ÂM THANH ĐỘNG */}
-                        <div className={`transition-all duration-300 shrink-0 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                   {/* KHU VỰC NÚT ĐIỀU KHIỂN TRUNG TÂM (PREV - PLAY - NEXT) */}
+                        <div className="flex items-center justify-center gap-4 sm:gap-6 w-full transition-all duration-300 shrink-0">
+                            
+                            {/* NÚT LÙI (PREV) */}
                             <button 
-                                onClick={playCurrentAudio}
-                                className={`${playBtnSize} rounded-full flex items-center justify-center shadow-md transition-all duration-300 active:scale-90 outline-none ${isAudioLoading ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
+                                onClick={handleManualPrev}
+                                disabled={currentIndex === 0}
+                                className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === 0 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
                             >
-                                {isAudioLoading ? (
-                                    <div className="flex space-x-1">
-                                        <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce"></div>
-                                        <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
-                                        <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
-                                    </div>
-                                ) : isPlaying ? (
-                                    <svg className={playIconSize} viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
-                                ) : (
-                                    <svg className={`${playIconSize} ml-1`} viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
-                                )}
+                                <svg className={sideIconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
-                        </div>
 
+                            {/* NÚT PHÁT ÂM THANH CHÍNH */}
+                            <div className={`transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                                <button 
+                                    onClick={playCurrentAudio}
+                                    className={`${playBtnSize} rounded-full flex items-center justify-center shadow-md transition-all duration-300 active:scale-90 outline-none ${isAudioLoading ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
+                                >
+                                    {isAudioLoading ? (
+                                        <div className="flex space-x-1">
+                                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce"></div>
+                                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                                            <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                                        </div>
+                                    ) : isPlaying ? (
+                                        <svg className={playIconSize} viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+                                    ) : (
+                                        <svg className={`${playIconSize} ml-1`} viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
+                                    )}
+                                </button>
+                            </div>
+
+                            {/* NÚT TIẾN (NEXT) */}
+                            <button 
+                                onClick={handleManualNext}
+                                disabled={currentIndex === queue.length - 1}
+                                className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === queue.length - 1 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
+                            >
+                                <svg className={sideIconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+
+                        </div>
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
 {isShowingText && (
     <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
