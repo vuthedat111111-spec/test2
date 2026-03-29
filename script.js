@@ -3076,24 +3076,25 @@ TÀI LIỆU HỌC TẬP
     );
 };
 // --- COMPONENT: THANH TÌM KIẾM ĐỘC LẬP (BẢN MONOCHROME CÓ TAG JLPT) ---
-const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
+const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll, isDictionary, onKanjiSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const searchInputRef = useRef(null);
     const scrollRef = useRef(null);
 
+    // Kiểm tra xem input có chứa Kanji không
+    const isInputKanji = /[\u4E00-\u9FAF]/.test(searchTerm);
+
     // Cuộn tự động khi dùng phím mũi tên
     useEffect(() => {
         if (scrollRef.current && searchResults.length > 0) {
-            // Offset active index nếu có nút "Thêm tất cả" (mode vocab)
             const indexToScroll = mode === 'vocab' ? activeIndex + 1 : activeIndex;
             const activeItem = scrollRef.current.childNodes[indexToScroll];
             if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }, [activeIndex, searchResults.length, mode]);
 
-    // Hàm lấy cấp độ JLPT
     const getJLPTLevel = (char) => {
         if (!dbData || !dbData.KANJI_LEVELS) return null;
         if (dbData.KANJI_LEVELS.N5?.includes(char)) return 'N5';
@@ -3109,6 +3110,12 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
         const query = val.toLowerCase().trim();
         const queryNoAccent = removeAccents(query);
 
+        // NẾU LÀ TỪ ĐIỂN VÀ NHẬP KANJI -> KHÔNG HIỆN GỢI Ý
+        if (isDictionary && /[\u4E00-\u9FAF]/.test(val)) {
+            setSearchResults([]);
+            return;
+        }
+
         if (!query || !dbData) {
             setSearchResults([]);
             return;
@@ -3117,12 +3124,11 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
         let matches = [];
 
         if (mode === 'vocab') {
-            const isInputKanji = query.match(/[\u4E00-\u9FAF]/);
-            if (!isInputKanji) { setSearchResults([]); return; }
+            const isKanjiVocab = query.match(/[\u4E00-\u9FAF]/);
+            if (!isKanjiVocab) { setSearchResults([]); return; }
 
             if (dbData.TUVUNG_DB) {
                 Object.entries(dbData.TUVUNG_DB).forEach(([word, info]) => {
-                    // Lấy thêm meaning cho từ vựng
                     if (word.includes(val.trim())) matches.push({ char: word, sound: info.reading, meaning: info.meaning, type: 'vocab', length: word.length });
                 });
             }
@@ -3149,7 +3155,6 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                     else if (sound.includes(query)) priority = 3;
                     else if (soundNoAccent.includes(queryNoAccent)) priority = 4;
                     
-                    // Info đã chứa sẵn meaning
                     if (priority < 99) matches.push({ char, ...info, type: 'kanji', priority, sound });
                 }
             });
@@ -3175,27 +3180,59 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
         setSearchTerm('');
         setSearchResults([]);
         searchInputRef.current?.focus();
-    }
+    };
+
+    // Hàm xử lý khi bấm nút Search hoặc Enter với Kanji
+    const handleKanjiSubmit = () => {
+        if (!searchTerm) return;
+        // Lọc SẠCH mọi thứ không phải Kanji (Kể cả dấu câu, chữ la tinh, khoảng trắng)
+        const cleanKanji = searchTerm.replace(/[^\u4E00-\u9FAF]/g, '');
+        // Lọc trùng lặp
+        const uniqueKanji = Array.from(new Set(cleanKanji)).join('');
+        
+        if (uniqueKanji && onKanjiSearch) {
+            onKanjiSearch(uniqueKanji);
+            setSearchTerm('');
+            searchInputRef.current?.blur();
+        }
+    };
+
+    // Lấy Placeholder động
+    let placeholderText = mode === 'vocab' ? "Nhập 1 chữ hán để tìm TỪ VỰNG đi kèm..." : "Nhập âm Hán Việt để tìm KANJI...";
+    if (isDictionary) placeholderText = "Nhập KANJI hoặc âm HÁN VIỆT...";
 
     return (
         <div className="relative w-full z-20">
-            {/* Ô Input Tìm Kiếm */}
             <input 
                 ref={searchInputRef}
                 type="text" 
                 value={searchTerm}
                 onChange={(e) => handleSearchRealtime(e.target.value)}
                 onKeyDown={(e) => {
+                    // Ưu tiên Enter cho Kanji trong từ điển
+                    if (isDictionary && isInputKanji && e.key === 'Enter') {
+                        e.preventDefault();
+                        handleKanjiSubmit();
+                        return;
+                    }
+                    // Logic cũ cho danh sách gợi ý
                     if (searchResults.length > 0) {
                         if (e.key === 'ArrowDown') { e.preventDefault(); setActiveIndex(prev => (prev < searchResults.length - 1 ? prev + 1 : 0)); } 
                         else if (e.key === 'ArrowUp') { e.preventDefault(); setActiveIndex(prev => (prev > 0 ? prev - 1 : searchResults.length - 1)); } 
                         else if (e.key === 'Enter') { e.preventDefault(); handleSelect(searchResults[activeIndex]); }
                     }
                 }}
-                placeholder={mode === 'vocab' ? "Nhập 1 chữ hán để tìm TỪ VỰNG đi kèm..." : "Nhập âm Hán Việt để tìm KANJI..."} 
-                className="w-full pl-10 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-[16px] focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all"
+                placeholder={placeholderText} 
+                className={`w-full pl-10 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl text-[16px] focus:outline-none focus:ring-2 focus:ring-gray-900 font-bold placeholder-gray-400 transition-all ${isDictionary && isInputKanji ? 'pr-20' : 'pr-10'}`}
             />
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path strokeWidth="2" strokeLinecap="round" d="m21 21-4.3-4.3"/></svg>
+
+            {/* Nút Tìm Kiếm KANJI (Kính lúp) */}
+            {isDictionary && isInputKanji && (
+                <button onClick={handleKanjiSubmit} className="absolute right-10 top-1/2 -translate-y-1/2 p-1.5 text-indigo-600 hover:text-white bg-indigo-50 hover:bg-indigo-600 transition-colors rounded-full shadow-sm animate-in zoom-in" title="Tìm các Kanji này">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            )}
 
             {/* Nút Xóa (Dấu X) */}
             {searchTerm && (
@@ -3207,15 +3244,12 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
             {/* Khung Gợi Ý Kết Quả */}
             {searchResults.length > 0 && (
                 <div ref={scrollRef} className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl max-h-60 overflow-y-auto custom-scrollbar p-2">
-                    
-                    {/* Nút thêm tất cả (Từ vựng) */}
                     {mode === 'vocab' && (
                         <button onClick={handleSelectAll} className="w-full mb-2 py-2 bg-gray-900 text-white text-[10px] font-black rounded-xl uppercase tracking-widest hover:bg-black active:scale-95 transition-all">
                             Thêm tất cả ({searchResults.length})
                         </button>
                     )}
 
-                    {/* Danh sách thẻ kết quả */}
                     {searchResults.map((item, idx) => {
                         const level = item.type === 'kanji' ? getJLPTLevel(item.char) : null; 
 
@@ -3225,12 +3259,10 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                                 onClick={() => handleSelect(item)} 
                                 className={`flex items-center gap-3 px-3 py-2 cursor-pointer rounded-xl transition-colors ${idx === activeIndex ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
                             >
-                                {/* 1. CHỮ KANJI (Bên trái) */}
                                 <span className={`font-['Klee_One'] text-gray-900 font-bold flex-shrink-0 ${mode === 'vocab' ? "text-xl" : "text-2xl"}`}>
                                     {item.char}
                                 </span>
 
-                                {/* 2. ÂM ĐỌC & Ý NGHĨA (Ở giữa) */}
                                 <div className="flex flex-col justify-center flex-1 min-w-0">
                                     <span className="text-sm font-bold text-gray-800 uppercase leading-tight truncate">
                                         {item.sound} 
@@ -3242,7 +3274,6 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll }) => {
                                     )}
                                 </div>
 
-                                {/* 3. TAG JLPT HOẶC BỘ THỦ (Bên phải - MONOCHROME) */}
                                 <div className="ml-auto flex-shrink-0 pl-2">
                                     {mode !== 'vocab' && (
                                         level ? (
@@ -6110,21 +6141,21 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
     const [replayKey, setReplayKey] = useState(0); 
     const [strokeNumbers, setStrokeNumbers] = useState([]);
 
-    // --- TÍNH NĂNG MỚI: BỘ NHỚ TẠM (Màu Tím) VÀ LƯU VỊ TRÍ CUỘN ---
+    // State mới để lưu danh sách Kanji tìm kiếm thủ công
+    const [customKanjiList, setCustomKanjiList] = useState(null);
+
     const [visitedRadicals, setVisitedRadicals] = useState(new Set());
     const [visitedKanjis, setVisitedKanjis] = useState(new Set());
     
-    const scrollRef = useRef(null); // Ref bám vào container cuộn
-    const scrollPositions = useRef({ radicals: 0, kanji_list: 0 }); // Lưu tọa độ cuộn
+    const scrollRef = useRef(null); 
+    const scrollPositions = useRef({ radicals: 0, kanji_list: 0 }); 
 
-    // Ghi nhận liên tục vị trí cuộn khi người dùng lướt
     const handleScroll = (e) => {
         if (view === 'radicals' || view === 'kanji_list') {
             scrollPositions.current[view] = e.target.scrollTop;
         }
     };
 
-    // Tự động khôi phục vị trí cuộn khi chuyển View
     useEffect(() => {
         if (scrollRef.current) {
             if (view === 'radicals') {
@@ -6132,12 +6163,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
             } else if (view === 'kanji_list') {
                 scrollRef.current.scrollTop = scrollPositions.current.kanji_list;
             } else {
-                scrollRef.current.scrollTop = 0; // Màn hình chi tiết luôn hiển thị từ đầu
+                scrollRef.current.scrollTop = 0; 
             }
         }
     }, [view]);
 
-    // Logic khóa nền khi mở Modal
     useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else {
@@ -6145,12 +6175,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
             setView('radicals');
             setSelectedRadical(null);
             setSelectedKanji(null);
-            // Lưu ý: Không reset visitedRadicals/Kanjis ở đây để giữ màu tím đến khi F5
+            setCustomKanjiList(null); // Reset danh sách tìm kiếm tự do
         }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
 
-    // Load từ vựng liên quan khi chọn 1 Kanji
     useEffect(() => {
         if (view === 'detail' && selectedKanji && dbData?.TUVUNG_DB) {
             const matches = [];
@@ -6170,7 +6199,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
 
     const { paths, fullSvg } = useKanjiSvg(selectedKanji || '');
 
-    // Phân tích SVG để lấy số nét vẽ
     useEffect(() => {
         if (fullSvg) {
             const parser = new DOMParser();
@@ -6187,19 +6215,37 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
     }, [fullSvg]);
 
     if (!isOpen) return null;
-// --- HÀM THÊM KANJI VÀO Ô ÔN TẬP ---
+
     const handleAddKanji = () => {
         if (!selectedKanji) return;
-
-        // Tự động chuyển màn hình chính sang chế độ Kanji
         if (setPracticeMode) setPracticeMode('kanji');
-
         const currentText = config?.text || '';
-        // Nếu chữ chưa có trong danh sách thì mới ghép thêm vào
         if (!currentText.includes(selectedKanji)) {
             setConfig({ ...config, text: currentText + selectedKanji });
         }
     };
+
+    // --- HÀM XỬ LÝ KHI NGƯỜI DÙNG SEARCH KANJI BẰNG TAY TỪ SEARCH BAR ---
+    const handleKanjiSearch = (kanjiStr) => {
+        if(document.activeElement) document.activeElement.blur();
+        scrollPositions.current.kanji_list = 0; // Reset scroll cho màn hình list
+
+        if (kanjiStr.length === 1) {
+            // Nhập 1 chữ -> Vào thẳng chi tiết
+            setSelectedRadical(null);
+            setCustomKanjiList(null);
+            setSelectedKanji(kanjiStr);
+            setVisitedKanjis(prev => new Set(prev).add(kanjiStr)); 
+            setReplayKey(prev => prev + 1);
+            setView('detail');
+        } else {
+            // Nhập >= 2 chữ -> Vào màn hình danh sách 
+            setSelectedRadical(null);
+            setCustomKanjiList(Array.from(kanjiStr));
+            setView('kanji_list');
+        }
+    };
+
     // --- MÀN 1: TÌM KIẾM & DANH SÁCH BỘ THỦ ---
     const renderRadicals = () => {
         const radicals = dbData?.BOTHU_DB || {}; 
@@ -6211,11 +6257,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                     <SearchBar 
                         mode="kanji" 
                         dbData={dbData} 
+                        isDictionary={true} // Bật cờ Dictionary để nhận UI đặc biệt
+                        onKanjiSearch={handleKanjiSearch} // Callback khi search Kanji
                         onSelectResult={(item) => {
                             if(document.activeElement) document.activeElement.blur();
                             setSelectedRadical(null);
+                            setCustomKanjiList(null);
                             setSelectedKanji(item.char);
-                            setVisitedKanjis(prev => new Set(prev).add(item.char)); // Đánh dấu đã xem Kanji
+                            setVisitedKanjis(prev => new Set(prev).add(item.char));
                             setReplayKey(prev => prev + 1);
                             setView('detail');
                         }} 
@@ -6239,13 +6288,14 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                 <button 
                                     key={rad}
                                     style={{ WebkitTapHighlightColor: 'transparent' }}
-    onClick={(e) => {
-    e.currentTarget.blur();
-    scrollPositions.current.kanji_list = 0; 
-    setSelectedRadical({ radical: rad, ...info });
-    setVisitedRadicals(prev => new Set(prev).add(rad)); 
-    setTimeout(() => { setView('kanji_list'); }, 50);
-}}
+                                    onClick={(e) => {
+                                        e.currentTarget.blur();
+                                        scrollPositions.current.kanji_list = 0; 
+                                        setCustomKanjiList(null); // Clear search list
+                                        setSelectedRadical({ radical: rad, ...info });
+                                        setVisitedRadicals(prev => new Set(prev).add(rad)); 
+                                        setTimeout(() => { setView('kanji_list'); }, 50);
+                                    }}
                                     className={`border rounded-2xl p-4 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
                                         isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
                                     }`}
@@ -6261,10 +6311,13 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         );
     };
 
-    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ ---
+    // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ HOẶC TÌM KIẾM ---
     const renderKanjiList = () => {
-        if (!selectedRadical) return null;
-        const chars = selectedRadical.chars || [];
+        // NẾU KHÔNG CÓ BỘ THỦ CHỌN VÀ KHÔNG CÓ LIST SEARCH THÌ BỎ QUA
+        if (!selectedRadical && !customKanjiList) return null;
+        
+        // Gắn mảng chars tuỳ theo người dùng đang xem Bộ thủ hay xem List Search
+        const chars = customKanjiList || selectedRadical.chars || [];
 
         const groups = { N5: [], N4: [], N3: [], N2: [], N1: [], Khác: [] };
         chars.forEach(char => {
@@ -6286,11 +6339,25 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                 className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 bg-white w-full"
             >
                 <div className="flex items-center gap-4 mb-6 border-b border-zinc-100 pb-4">
-                    <span className="text-5xl font-['Klee_One'] font-black text-zinc-900 bg-zinc-50 border border-zinc-200 p-2 rounded-xl">{selectedRadical.radical}</span>
-                    <div className="flex flex-col">
-                        <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest pb-1">Bộ {selectedRadical.name}</span>
-                        <span className="text-lg font-black text-indigo-600">{chars.length} Kanji</span>
-                    </div>
+                    {customKanjiList ? (
+                        <>
+                            <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 border border-indigo-100">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest pb-1">KẾT QUẢ TÌM KIẾM</span>
+                                <span className="text-lg font-black text-indigo-600">{chars.length} Kanji</span>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <span className="text-5xl font-['Klee_One'] font-black text-zinc-900 bg-zinc-50 border border-zinc-200 p-2 rounded-xl">{selectedRadical.radical}</span>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest pb-1">Bộ {selectedRadical.name}</span>
+                                <span className="text-lg font-black text-indigo-600">{chars.length} Kanji</span>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <div className="space-y-6 pb-8">
@@ -6302,33 +6369,30 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3">
                                     {groups[level].map(char => {
                                         const info = dbData?.KANJI_DB?.[char] || {};
-                                        const isVisited = visitedKanjis.has(char); // Kiểm tra đã xem Kanji chưa
+                                        const isVisited = visitedKanjis.has(char); 
                                         
                                         return (
                                             <button 
-    key={char}
-    style={{ WebkitTapHighlightColor: 'transparent' }}
-    onClick={(e) => {
-        e.currentTarget.blur();
-        setSelectedKanji(char);
-        setVisitedKanjis(prev => new Set(prev).add(char)); 
-        setReplayKey(prev => prev + 1);
-        setTimeout(() => { setView('detail'); }, 50);
-    }}
-    // 1. Thêm hover:-translate-y-1 và đổi hiệu ứng hover nền thành viền + shadow
-    className={`border rounded-xl p-3 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
-        isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
-    }`}
->
-    {/* 2. Bỏ hiệu ứng đổi chữ thành màu trắng khi hover */}
-    <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-black'}`}>
-        {char}
-    </span>
-    {/* 3. Bỏ hiệu ứng đổi chữ âm đọc thành màu nhạt khi hover */}
-    <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500'}`}>
-        {info.sound || '---'}
-    </span>
-</button>
+                                                key={char}
+                                                style={{ WebkitTapHighlightColor: 'transparent' }}
+                                                onClick={(e) => {
+                                                    e.currentTarget.blur();
+                                                    setSelectedKanji(char);
+                                                    setVisitedKanjis(prev => new Set(prev).add(char)); 
+                                                    setReplayKey(prev => prev + 1);
+                                                    setTimeout(() => { setView('detail'); }, 50);
+                                                }}
+                                                className={`border rounded-xl p-3 flex flex-col items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group outline-none ${
+                                                    isVisited ? 'bg-purple-50 border-purple-200 md:hover:border-purple-500' : 'bg-white border-zinc-200 md:hover:border-zinc-900 md:hover:shadow-md'
+                                                }`}
+                                            >
+                                                <span className={`text-2xl font-['Klee_One'] font-black mb-1 ${isVisited ? 'text-purple-600' : 'text-zinc-900 group-hover:text-black'}`}>
+                                                    {char}
+                                                </span>
+                                                <span className={`text-[9px] font-bold uppercase line-clamp-1 w-full text-center pb-0.5 ${isVisited ? 'text-purple-400' : 'text-zinc-500'}`}>
+                                                    {info.sound || '---'}
+                                                </span>
+                                            </button>
                                         );
                                     })}
                                 </div>
@@ -6340,7 +6404,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         );
     };
 
-    // --- MÀN 3: CHI TIẾT KANJI ---
+    // --- MÀN 3: CHI TIẾT KANJI (Giữ nguyên gốc) ---
     const renderDetail = () => {
         const info = dbData?.KANJI_DB?.[selectedKanji] || {};
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
@@ -6394,34 +6458,33 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                         </div>
                         
                         <div className="mt-4 flex gap-2 w-full justify-center md:justify-start items-center">
-    {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
-    {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
+                            {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
+                            {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
 
-    {/* NÚT THÊM KANJI VÀO DANH SÁCH HỌC */}
-    {selectedKanji && (
-        <button
-            onClick={handleAddKanji}
-            className={`flex items-center justify-center px-2.5 py-1 text-[10px] font-black rounded uppercase flex-shrink-0 transition-all active:scale-95 ml-1 ${
-                config?.text?.includes(selectedKanji)
-                    ? 'bg-green-500 text-white border border-green-500 shadow-sm'
-                    : 'bg-indigo-50 text-indigo-600 border border-indigo-200 hover:bg-indigo-100'
-            }`}
-            title="Thêm vào danh sách ôn tập"
-        >
-            {config?.text?.includes(selectedKanji) ? (
-                <span className="flex items-center gap-1">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    Đã thêm
-                </span>
-            ) : (
-                <span className="flex items-center gap-1">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    Thêm ôn tập
-                </span>
-            )}
-        </button>
-    )}
-</div>
+                            {selectedKanji && (
+                                <button
+                                    onClick={handleAddKanji}
+                                    className={`flex items-center justify-center px-2.5 py-1 text-[10px] font-black rounded uppercase flex-shrink-0 transition-all active:scale-95 ml-1 ${
+                                        config?.text?.includes(selectedKanji)
+                                            ? 'bg-green-500 text-white border border-green-500 shadow-sm'
+                                            : 'bg-indigo-50 text-indigo-600 border border-indigo-200 hover:bg-indigo-100'
+                                    }`}
+                                    title="Thêm vào danh sách ôn tập"
+                                >
+                                    {config?.text?.includes(selectedKanji) ? (
+                                        <span className="flex items-center gap-1">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            Đã thêm
+                                        </span>
+                                    ) : (
+                                        <span className="flex items-center gap-1">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                            Thêm ôn tập
+                                        </span>
+                                    )}
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -6467,18 +6530,20 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
-    e.currentTarget.blur();
-    
-    if (view === 'detail') {
-
-        setView(selectedRadical ? 'kanji_list' : 'radicals');
-    } 
-    else if (view === 'kanji_list') {
-
-        setView('radicals');
-        setSelectedRadical(null); 
-    }
-}}
+                                    e.currentTarget.blur();
+                                    
+                                    // --- ĐIỀU HƯỚNG CHUẨN XÁC NÚT QUAY LẠI ---
+                                    if (view === 'detail') {
+                                        // Từ Detail quay lại List search hoặc Bộ thủ
+                                        setView(selectedRadical || customKanjiList ? 'kanji_list' : 'radicals');
+                                    } 
+                                    else if (view === 'kanji_list') {
+                                        // Từ List quay lại Bộ thủ gốc
+                                        setView('radicals');
+                                        setSelectedRadical(null); 
+                                        setCustomKanjiList(null); // Clear search Kanji
+                                    }
+                                }}
                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
