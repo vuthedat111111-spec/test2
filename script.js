@@ -6908,7 +6908,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     
                     // --- LOGIC: Phát ngay lập tức khi load xong ---
                     const currentItem = queueRef.current[currentIndexRef.current];
-                    const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined;
+                    const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
                     const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
                     const spriteKey = `${currentItem.id}_${actualMode}`;
                     
@@ -6931,7 +6931,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         const currentItem = queueRef.current[currentIndexRef.current];
         
         // --- LOGIC: Chọn sprite key đúng ---
-        const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined;
+        const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
         const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
         const spriteKey = `${currentItem.id}_${actualMode}`;
         
@@ -7085,7 +7085,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const currentItem = queue[currentIndex];
 
     // --- CODE MỚI: XÁC ĐỊNH CHẾ ĐỘ THỰC TẾ CHO UI ---
-    const hasSentenceText = currentItem.sentence && currentItem.sentence.trim() !== '';
+    const hasSentenceText = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
     const effectiveMode = (mode === 'sentence' && hasSentenceText) ? 'sentence' : 'word';
 
     // Tính toán kích thước nút Play động dựa trên Nội dung đang hiển thị
