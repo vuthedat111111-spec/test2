@@ -1,0 +1,69 @@
+[
+  {
+    "part": 1,
+    "title": "Phần 1",
+    "audioPath": "./data/audio/nghechinhta/mimin3p1.mp3",
+    "vocabularies": [
+      {
+        "id": "v1",
+        "word": "男性",
+        "reading": "だんせい",
+        "meaning": "Nam giới",
+        "wordStartTime": 0.24,
+        "wordEndTime": 1.71,
+        "sentence": "理想の男性と結婚する。",
+        "sentenceVi": "Kết hôn với người đàn ông lý tưởng.",
+        "sentenceStartTime": 1.71,
+        "sentenceEndTime": 5.28
+      },
+      {
+        "id": "v2",
+        "word": "女性",
+        "reading": "じょせい",
+        "meaning": "Nữ giới",
+        "wordStartTime": 5.28,
+        "wordEndTime": 7.76,
+        "sentence": "あの女性はだれですか。",
+        "sentenceVi": "Người phụ nữ kia là ai?",
+        "sentenceStartTime": 7.76,
+        "sentenceEndTime": 10.53
+      },
+      {
+        "id": "v3",
+        "word": "高齢",
+        "reading": "こうれい",
+        "meaning": "Tuổi cao",
+        "wordStartTime": 10.53,
+        "wordEndTime": 13.12,
+        "sentence": "祖母は高齢だが、まだとても元気だ。",
+        "sentenceVi": "Bà tôi tuy tuổi cao nhưng vẫn rất khỏe.",
+        "sentenceStartTime": 13.12,
+        "sentenceEndTime": 16.92
+      },
+      {
+        "id": "v4",
+        "word": "年上",
+        "reading": "としうえ",
+        "meaning": "Lớn tuổi hơn",
+        "wordStartTime": 16.92,
+        "wordEndTime": 19.46,
+        "sentence": "彼女は私より三つ年上だ。",
+        "sentenceVi": "Cô ấy lớn hơn tôi ba tuổi.",
+        "sentenceStartTime": 19.46,
+        "sentenceEndTime": 22.2
+      },
+      {
+        "id": "v5", 
+        "word": "目上",
+        "reading": "めうえ",
+        "meaning": "Cấp trên, người trên",
+        "wordStartTime": 22.2,
+        "wordEndTime": 24.61,
+        "sentence": "目上の人には敬語で話したほうがいい。",
+        "sentenceVi": "Đối với người bề trên nên nói chuyện bằng kính ngữ thì tốt.",
+        "sentenceStartTime": 24.61,
+        "sentenceEndTime": 29.05
+      }
+    ]
+  }
+]
