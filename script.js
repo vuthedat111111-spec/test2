@@ -939,7 +939,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
-            setTimeout(() => goToNext(), 600);
+            setTimeout(() => goToNext(), 300);
         } else {
             setCorrectAnswer(target); // Đã có chữ nhờ fix logic target ở trên
             setStatus('wrong');
@@ -4578,7 +4578,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
         if (isCorrect) {
             setStatus('correct');
             if (!wrongDetected) setCorrectFirstTimeCount(prev => prev + 1);
-            setTimeout(() => goToNext(), 600);
+            setTimeout(() => goToNext(), 300);
         } else {
             // 5. XỬ LÝ HIỂN THỊ KHI SAI: Chỉ lấy mảng kanaAnswers để show ra màn hình
             const displayAnswer = kanaAnswers.length > 1 
