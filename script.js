@@ -6943,7 +6943,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         if (!finished && queue.length > 0 && isAudioLoaded && soundRef.current) {
             const timer = setTimeout(() => {
                 playCurrentAudio();
-            }, 300);
+            }, 50);
             return () => clearTimeout(timer);
         }
     }, [currentIndex, finished, mode, playCurrentAudio, isAudioLoaded, queue.length]);
@@ -7042,7 +7042,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
-            setTimeout(() => goToNext(), 600);
+            setTimeout(() => goToNext(), 250);
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
