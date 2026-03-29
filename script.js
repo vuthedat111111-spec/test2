@@ -6968,6 +6968,14 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
     const handleHelp = () => {
+        const currentItem = queue[currentIndex];
+        
+        // Bấm trợ giúp cũng tính là sai -> Đẩy xuống cuối danh sách nếu chưa bị đẩy
+        if (!wrongDetected) {
+            setQueue(prev => [...prev, currentItem]);
+            setWrongDetected(true);
+        }
+
         setShowHint(true);
         setStatus('retyping');
         setUserInput('');
@@ -7107,17 +7115,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <button onClick={() => setMode('sentence')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
                         </div>
 
-                        {/* NÚT TỐC ĐỘ */}
-                        <button onClick={cyclePlaybackRate} className="px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
-                            {playbackRate}x
-                        </button>
-
                         <button onClick={() => setShowVi(!showVi)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
                             DỊCH
                         </button>
-                        <button onClick={() => setIsLooping(!isLooping)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none flex items-center gap-1.5 ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                        
+                        <button onClick={() => setIsLooping(!isLooping)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
                             LẶP
+                        </button>
+
+                        {/* NÚT TỐC ĐỘ XUỐNG CUỐI CÙNG */}
+                        <button onClick={cyclePlaybackRate} className="px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
+                            {playbackRate}x
                         </button>
                     </div>
 
@@ -7160,9 +7168,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </div>
                         )}
 
-                        {/* HIỂN THỊ DỊCH NGHĨA */}
+                        {/* HIỂN THỊ DỊCH NGHĨA (Cỡ chữ điện thoại đã được nhích lên text-[13px]) */}
                         {showVi && (
-                            <p className="text-xs sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
+                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
                                 {mode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
                             </p>
                         )}
