@@ -2912,6 +2912,17 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN KAIWA</h3>
     <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Shadowing & Phản xạ</p>
 </div>
+                                 {/* 8. LUYỆN NGHE CHÍNH TẢ */}
+<div onClick={() => onOpenDictation()} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        MỚI
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN NGHE</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Chép chính tả & Đục lỗ</p>
+</div>
 
                         {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
@@ -6615,6 +6626,348 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         </div>
     );
 };
+const DictationMenuModal = ({ isOpen, onClose, onStartGame }) => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [selectedMode, setSelectedMode] = React.useState('word'); // 'word' | 'sentence'
+
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    const handleLoadData = async () => {
+        setIsLoading(true);
+        try {
+            // Tải file JSON bạn vừa tạo
+            const response = await fetch('./data/nghechinhta/mimikaran3.json');
+            if (!response.ok) throw new Error("Lỗi tải data");
+            const data = await response.json();
+            
+            // Giả sử lấy luôn Phần 1 (index 0)
+            const part1Data = data[0].vocabularies; 
+            const audioPath = data[0].audioPath;
+
+            setTimeout(() => {
+                setIsLoading(false);
+                // Truyền data sang Game
+                onStartGame(part1Data, audioPath, selectedMode); 
+            }, 500);
+
+        } catch (error) {
+            alert("Lỗi tải dữ liệu nghe!");
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 border border-zinc-200">
+                <div className="px-6 py-4 border-b border-zinc-200 bg-zinc-50 flex justify-between items-center">
+                    <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight">Cấu hình bài nghe</h2>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 text-zinc-500">✕</button>
+                </div>
+                
+                <div className="p-6 space-y-6">
+                    {/* Chọn bài (Tạm fix cứng Phần 1) */}
+                    <div>
+                        <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-2 block">Giáo trình</label>
+                        <div className="p-4 border-2 border-indigo-600 bg-indigo-50 rounded-xl">
+                            <h3 className="font-black text-indigo-900">Mimikara N3 - Phần 1</h3>
+                            <p className="text-xs text-indigo-600 font-bold mt-1">50 từ vựng</p>
+                        </div>
+                    </div>
+
+                    {/* Chọn chế độ */}
+                    <div>
+                        <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-2 block">Chế độ luyện tập</label>
+                        <div className="flex bg-zinc-100 p-1 rounded-xl">
+                            <button onClick={() => setSelectedMode('word')} className={`flex-1 py-2.5 rounded-lg text-xs font-bold transition-all ${selectedMode === 'word' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}>NGHE TỪ ĐƠN</button>
+                            <button onClick={() => setSelectedMode('sentence')} className={`flex-1 py-2.5 rounded-lg text-xs font-bold transition-all ${selectedMode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}>NGHE CẢ CÂU</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-5 border-t border-zinc-100 bg-white">
+                    <button 
+                        onClick={handleLoadData}
+                        disabled={isLoading}
+                        className="w-full py-4 bg-zinc-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2"
+                    >
+                        {isLoading ? 'ĐANG TẢI...' : 'BẮT ĐẦU NGHE'}
+                        {!isLoading && <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+// ==========================================
+// GAME NGHE CHÍNH TẢ (CORE LOGIC & HOWLER SPRITE)
+// ==========================================
+const DictationGameModal = ({ isOpen, onClose, vocabData, audioPath, mode }) => {
+    // 1. STATE QUẢN LÝ BÀI HỌC
+    const [queue, setQueue] = React.useState([]); 
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [status, setStatus] = React.useState('idle'); // 'idle' | 'correct' | 'wrong' | 'retyping'
+    const [userInput, setUserInput] = React.useState('');
+    const [finished, setFinished] = React.useState(false);
+    const [showHint, setShowHint] = React.useState(false); 
+
+    // 2. STATE QUẢN LÝ AUDIO (HOWLER)
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    const [isAudioLoaded, setIsAudioLoaded] = React.useState(false);
+    const soundRef = React.useRef(null);
+
+    // --- KHỞI TẠO BÀI HỌC & HOWLER SPRITE ---
+    React.useEffect(() => {
+        if (isOpen && vocabData && audioPath) {
+            // 1. Tạo cục Sprite cắt âm thanh từ JSON
+            const spriteData = {};
+            vocabData.forEach(item => {
+                if (item.wordStartTime !== undefined && item.wordEndTime !== undefined) {
+                    spriteData[`${item.id}_word`] = [item.wordStartTime * 1000, (item.wordEndTime - item.wordStartTime) * 1000];
+                }
+                if (item.sentenceStartTime !== undefined && item.sentenceEndTime !== undefined) {
+                    spriteData[`${item.id}_sentence`] = [item.sentenceStartTime * 1000, (item.sentenceEndTime - item.sentenceStartTime) * 1000];
+                }
+            });
+
+            // 2. Khởi tạo âm thanh Howler
+            setIsAudioLoaded(false);
+            soundRef.current = new Howl({
+                src: [audioPath],
+                sprite: spriteData,
+                html5: true, // Dùng HTML5 Audio để load file lớn mượt hơn
+                preload: true,
+                onload: () => setIsAudioLoaded(true),
+                onplay: () => setIsPlaying(true),
+                onend: () => setIsPlaying(false),
+                onstop: () => setIsPlaying(false),
+                onloaderror: () => {
+                    alert("Lỗi tải file âm thanh! Hãy kiểm tra lại đường dẫn.");
+                    setIsAudioLoaded(false);
+                }
+            });
+
+            // 3. Trộn bài và Reset State
+            const shuffled = [...vocabData].sort(() => Math.random() - 0.5);
+            setQueue(shuffled);
+            setCurrentIndex(0);
+            setStatus('idle');
+            setUserInput('');
+            setFinished(false);
+            setShowHint(false);
+
+        } else {
+            // Dọn dẹp âm thanh khi đóng cửa sổ
+            if (soundRef.current) {
+                soundRef.current.unload();
+                soundRef.current = null;
+            }
+            setFinished(false);
+        }
+
+        return () => {
+            if (soundRef.current) {
+                soundRef.current.unload();
+                soundRef.current = null;
+            }
+        };
+    }, [isOpen, vocabData, audioPath, mode]);
+
+    // --- HÀM PHÁT ÂM THANH THEO CÂU HIỆN TẠI ---
+    const playCurrentAudio = React.useCallback(() => {
+        if (!soundRef.current || queue.length === 0 || !isAudioLoaded) return;
+        const currentItem = queue[currentIndex];
+        const spriteKey = mode === 'word' ? `${currentItem.id}_word` : `${currentItem.id}_sentence`;
+        
+        soundRef.current.stop(); // Dừng câu trước (nếu đang phát dở)
+        soundRef.current.play(spriteKey);
+    }, [queue, currentIndex, mode, isAudioLoaded]);
+
+    // Tự động phát âm thanh khi sang câu mới
+    React.useEffect(() => {
+        if (isOpen && !finished && queue.length > 0 && isAudioLoaded) {
+            // Chờ 0.4s cho UI lật trang xong rồi mới phát tiếng cho mượt
+            const timer = setTimeout(() => {
+                playCurrentAudio();
+            }, 400);
+            return () => clearTimeout(timer);
+        }
+    }, [currentIndex, isOpen, finished, isAudioLoaded, playCurrentAudio]);
+
+    // --- XỬ LÝ NHẬP LIỆU (Tự động chuyển Romaji -> Hiragana) ---
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        // Tận dụng hàm convertToKana toàn cục của bạn
+        setUserInput(convertToKana(val, false)); 
+    };
+
+    // --- KIỂM TRA ĐÁP ÁN ---
+    const checkAnswer = () => {
+        if (status === 'correct' || finished) return;
+        const currentItem = queue[currentIndex];
+        let finalInput = userInput.trim();
+
+        // Khử lỗi gõ chữ "n" cuối cùng của Kana
+        if (finalInput.endsWith('n')) {
+            finalInput = finalInput.slice(0, -1) + 'ん';
+        }
+
+        // Chấp nhận gõ đúng Mặt chữ (Kanji) hoặc Cách đọc (Hiragana)
+        const isCorrect = (finalInput === currentItem.word) || (finalInput === currentItem.reading);
+
+        // Nếu đang ở trạng thái phạt (sai/xem hint) -> Bắt gõ đúng mới cho qua
+        if (status === 'retyping' || status === 'wrong') {
+            if (isCorrect) goToNext();
+            else {
+                setStatus('wrong');
+                playCurrentAudio(); // Sai -> Ép nghe lại!
+                setTimeout(() => setStatus('retyping'), 400);
+            }
+            return;
+        }
+
+        // Kiểm tra lần đầu
+        if (isCorrect) {
+            setStatus('correct');
+            // Chuyển câu tự động
+            setTimeout(() => goToNext(), 600);
+        } else {
+            setStatus('wrong');
+            playCurrentAudio(); // Sai -> Ép nghe lại!
+            setTimeout(() => setStatus('retyping'), 500);
+        }
+    };
+
+    const goToNext = () => {
+        if (currentIndex < queue.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+        } else {
+            setFinished(true);
+        }
+    };
+
+    const triggerConfetti = React.useCallback(() => {
+        if (typeof confetti === 'undefined') return;
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+    }, []);
+
+    React.useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen, triggerConfetti]);
+
+    if (!isOpen || queue.length === 0) return null;
+    const currentItem = queue[currentIndex];
+
+    // --- HÀM ĐỤC LỖ CÂU VÍ DỤ ---
+    const renderMaskedSentence = (sentence, word) => {
+        if (!sentence || !word) return null;
+        const parts = sentence.split(word);
+        if (parts.length === 1) return <span className="font-sans">{sentence}</span>; // Đề phòng lỗi không tách được
+        
+        return (
+            <span className="font-sans leading-relaxed">
+                {parts[0]}
+                <span className={`px-2 mx-1 border-b-2 font-bold ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {showHint || status === 'retyping' ? word : '＿＿＿'}
+                </span>
+                {parts.slice(1).join(word)}
+            </span>
+        );
+    };
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/95 backdrop-blur-md p-4 animate-in fade-in duration-300">
+            {!finished ? (
+                <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md p-8 flex flex-col items-center border-4 border-zinc-100 relative">
+                    
+                    {/* Header */}
+                    <div className="w-full flex justify-between items-center mb-8">
+                        <span className="text-[11px] font-black text-zinc-900 bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200/50 shadow-sm">
+                            {currentIndex + 1} / {queue.length}
+                        </span>
+                        <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400 hover:text-red-500 hover:bg-red-50 transition-all shadow-sm">✕</button>
+                    </div>
+
+                    {/* VÙNG ÂM THANH & CÂU HỎI */}
+                    <div className={`flex flex-col items-center text-center mb-8 w-full min-h-[140px] justify-center transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                        
+                        <button 
+                            onClick={playCurrentAudio}
+                            disabled={!isAudioLoaded}
+                            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-90 mb-6 ${!isAudioLoaded ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
+                        >
+                            {!isAudioLoaded ? (
+                                <div className="flex space-x-1">
+                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce"></div>
+                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                                </div>
+                            ) : isPlaying ? (
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+                            ) : (
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="ml-1.5"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
+                            )}
+                        </button>
+
+                        {/* HIỂN THỊ CÂU THEO CHẾ ĐỘ */}
+                        {mode === 'sentence' ? (
+                            <p className="text-xl font-bold text-zinc-800 px-2">
+                                {renderMaskedSentence(currentItem.sentence, currentItem.word)}
+                            </p>
+                        ) : (
+                            <p className="text-sm font-bold text-zinc-400 uppercase tracking-widest mt-2">Hãy nghe và gõ lại từ vựng</p>
+                        )}
+                    </div>
+
+                    {/* VÙNG NHẬP LIỆU */}
+                    <div className="w-full space-y-4">
+                        <input 
+                            type="text" autoFocus value={userInput} onChange={handleInputChange}
+                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                            placeholder={status === 'retyping' ? "Bắt buộc gõ lại từ bị sai..." : (mode === 'word' ? "Nhập Hiragana hoặc Kanji..." : "Điền từ còn thiếu...")}
+                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
+                        />
+                        
+                        <div className="flex justify-between items-center px-1">
+                            <button onClick={() => setShowHint(true)} className="text-[10px] font-bold text-zinc-400 hover:text-indigo-600 uppercase tracking-widest transition-colors flex items-center gap-1">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 11v1"/><path d="M12 6a4 4 0 0 0-4 4c0 1.5.5 2 2 3 .5 1 .5 2 .5 3h3c0-1 0-2 .5-3 1.5-1 2-1.5 2-3a4 4 0 0 0-4-4Z"/></svg>
+                                Trợ giúp
+                            </button>
+                            <span className="text-[9px] text-zinc-300 font-bold uppercase tracking-widest">Enter để kiểm tra</span>
+                        </div>
+
+                        {/* HIỂN THỊ ĐÁP ÁN KHI YÊU CẦU */}
+                        {(showHint || status === 'retyping') && (
+                            <div className="animate-in slide-in-from-top-2 duration-300 text-center bg-indigo-50 border border-indigo-100 rounded-xl p-3 mt-4">
+                                <p className="text-[10px] font-bold text-indigo-400 uppercase mb-1">Đáp án:</p>
+                                <p className="text-xl font-black text-indigo-700">{currentItem.word} <span className="text-sm">({currentItem.reading})</span></p>
+                                {mode === 'sentence' && (
+                                    <p className="text-xs font-medium text-indigo-500 mt-2 italic">{currentItem.sentenceVi}</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
+                    <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
+                    <h3 className="text-lg font-black text-zinc-800 mb-1 uppercase">XUẤT SẮC!</h3>
+                    <p className="text-zinc-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài nghe chính tả.</p>
+                    <div className="space-y-2">
+                        <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">NGHE LẠI TỪ ĐẦU</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -6631,6 +6984,13 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
+  // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
+    const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
+    const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
+    const [dictationData, setDictationData] = useState([]);
+    const [dictationAudioPath, setDictationAudioPath] = useState('');
+    const [dictationMode, setDictationMode] = useState('word');
+    
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
@@ -6808,6 +7168,7 @@ React.useEffect(() => {
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
     onOpenDictionary={() => setIsDictionaryOpen(true)}
+    onOpenDictation={() => setIsDictationMenuOpen(true)}
     onOpenSetup={(target) => {
         // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
         if (target === 'kaiwa') {
@@ -6961,6 +7322,25 @@ React.useEffect(() => {
     setConfig={setConfig}
     setPracticeMode={handleModeSwitch}
 />
+        <DictationMenuModal 
+        isOpen={isDictationMenuOpen}
+        onClose={() => setIsDictationMenuOpen(false)}
+        onStartGame={(data, audio, mode) => {
+            setDictationData(data);
+            setDictationAudioPath(audio);
+            setDictationMode(mode);
+            setIsDictationMenuOpen(false); // Tắt menu
+            setIsDictationGameOpen(true); // Mở Game
+        }}
+    />
+
+    <DictationGameModal
+        isOpen={isDictationGameOpen}
+        onClose={() => setIsDictationGameOpen(false)}
+        vocabData={dictationData}
+        audioPath={dictationAudioPath}
+        mode={dictationMode}
+    />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
