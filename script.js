@@ -787,18 +787,40 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
     );
 };
  // --- BỘ CHUYỂN ĐỔI KANA ---
-    const convertToKana = (rawText, isKatakanaTarget) => {
+    const convertToKana = (rawText, targetKanaString) => {
         const hiraMap = {
             'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
         };
-        const toKata = (hira) => hira.split('').map(c => { const code = c.charCodeAt(0); return (code >= 12353 && code <= 12435) ? String.fromCharCode(code + 96) : c; }).join('');
         let result = rawText.toLowerCase();
-        result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
-        const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
-        for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
-        result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
-        return isKatakanaTarget ? toKata(result) : result;
-    };
+    result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
+    const keys = Object.keys(hiraMap).sort((a, b) => b.length - a.length);
+    for (let key of keys) { result = result.split(key).join(hiraMap[key]); }
+    result = result.replace(/n(?=[bcdfghjklmprstvwz])/g, 'ん');
+
+    // LOGIC MỚI: Khớp từng ký tự với đáp án gốc để phân biệt Hira/Kata
+    if (targetKanaString && typeof targetKanaString === 'string') {
+        let mixedResult = '';
+        for (let i = 0; i < result.length; i++) {
+            const char = result[i];
+            const targetChar = targetKanaString[i];
+
+            // Nếu chữ ở vị trí tương ứng của đáp án là Katakana -> Chuyển thành Katakana
+            if (targetChar && /[\u30A0-\u30FF]/.test(targetChar)) {
+                const code = char.charCodeAt(0);
+                if (code >= 12353 && code <= 12435) {
+                    mixedResult += String.fromCharCode(code + 96);
+                } else {
+                    mixedResult += char;
+                }
+            } else {
+                mixedResult += char; // Giữ nguyên Hiragana
+            }
+        }
+        return mixedResult;
+    }
+
+    return result;
+};
 const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) => {
     const [queue, setQueue] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -848,13 +870,15 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
    
 
-    const checkIsKatakana = (target) => /[\u30A0-\u30FF]/.test(target);
+ 
 
     const handleInputChange = (e) => {
         const val = e.target.value;
         if (mode === 'vocab') {
-            const target = queue[currentIndex] || '';
-            setUserInput(convertToKana(val, checkIsKatakana(target)));
+            const currentItem = queue[currentIndex];
+            // Lấy chính xác cách đọc của từ đó để làm mốc so sánh
+            const targetReading = dbData.TUVUNG_DB[currentItem]?.reading || '';
+            setUserInput(convertToKana(val, targetReading));
         } else {
             setUserInput(val.toUpperCase());
         }
