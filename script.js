@@ -3196,7 +3196,18 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll, isDictionary, on
             searchInputRef.current?.blur();
         }
     };
-
+const handleBlur = () => {
+        if (isDictionary && searchTerm) {
+            if (isInputKanji) {
+                // Nếu có Kanji -> Xóa sạch khoảng trắng, chữ la tinh, dấu câu... chỉ để lại Kanji
+                const cleanKanji = searchTerm.replace(/[^\u4E00-\u9FAF]/g, '');
+                setSearchTerm(cleanKanji);
+            } else {
+                // Nếu không có Kanji (đang gõ Âm Hán Việt) -> Chỉ cắt khoảng trắng thừa 2 đầu
+                setSearchTerm(searchTerm.trim());
+            }
+        }
+    };
     // Lấy Placeholder động
     let placeholderText = mode === 'vocab' ? "Nhập 1 chữ hán để tìm TỪ VỰNG đi kèm..." : "Nhập âm Hán Việt để tìm KANJI...";
     if (isDictionary) placeholderText = "Nhập KANJI hoặc âm HÁN VIỆT...";
@@ -3208,6 +3219,7 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll, isDictionary, on
                 type="text" 
                 value={searchTerm}
                 onChange={(e) => handleSearchRealtime(e.target.value)}
+                onBlur={handleBlur}
                 onKeyDown={(e) => {
                     // Ưu tiên Enter cho Kanji trong từ điển
                     if (isDictionary && isInputKanji && e.key === 'Enter') {
