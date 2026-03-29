@@ -6880,52 +6880,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const playCurrentAudio = React.useCallback(() => {
         if (queueRef.current.length === 0) return;
 
-        // NẾU CHƯA LOAD FILE AUDIO -> BẮT ĐẦU LOAD
-        if (!soundRef.current) {
-            if (isAudioLoading) return; // Tránh spam load nhiều lần
-            setIsAudioLoading(true);
-
-            const spriteData = {};
-            lessonData.vocabularies.forEach(item => {
-                if (item.wordStartTime !== undefined && item.wordEndTime !== undefined) {
-                    spriteData[`${item.id}_word`] = [item.wordStartTime * 1000, (item.wordEndTime - item.wordStartTime) * 1000];
-                }
-                if (item.sentenceStartTime !== undefined && item.sentenceEndTime !== undefined) {
-                    spriteData[`${item.id}_sentence`] = [item.sentenceStartTime * 1000, (item.sentenceEndTime - item.sentenceStartTime) * 1000];
-                }
-            });
-
-            soundRef.current = new Howl({
-                src: [lessonData.audioPath],
-                sprite: spriteData,
-                html5: true, 
-                preload: true,
-                onload: function() {
-                    setIsAudioLoaded(true);
-                    setIsAudioLoading(false);
-                    this.rate(playbackRate); // Áp dụng tốc độ
-                    
-                    // Phát ngay lập tức khi load xong
-                    const currentItem = queueRef.current[currentIndexRef.current];
-                    const spriteKey = modeRef.current === 'word' ? `${currentItem.id}_word` : `${currentItem.id}_sentence`;
-                    this.play(spriteKey);
-                },
-                onplay: () => setIsPlaying(true),
-                onend: () => setIsPlaying(false),
-                onstop: () => setIsPlaying(false),
-                onloaderror: () => {
-                    alert("Lỗi tải file âm thanh! Hãy kiểm tra lại đường truyền.");
-                    setIsAudioLoaded(false);
-                    setIsAudioLoading(false);
-                }
-            });
-            return;
-        }
+        // ... (Giữ nguyên đoạn load new Howl) ...
 
         // NẾU ĐÃ LOAD XONG RỒI -> CHỈ VIỆC PHÁT
         if (!isAudioLoaded) return;
+        
         const currentItem = queueRef.current[currentIndexRef.current];
-        const spriteKey = modeRef.current === 'word' ? `${currentItem.id}_word` : `${currentItem.id}_sentence`;
+        
+        // --- CODE MỚI ---
+        // Kiểm tra xem từ hiện tại có câu ví dụ (text và thời gian) hay không
+        const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined;
+        // Chế độ thực tế: Nếu đang bật Cả câu + Từ này CÓ câu -> Phát câu. Còn lại -> Phát từ.
+        const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+        const spriteKey = `${currentItem.id}_${actualMode}`;
+        // --- KẾT THÚC CODE MỚI ---
         
         soundRef.current.stop(); 
         soundRef.current.play(spriteKey);
@@ -7076,8 +7044,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
 
+    // --- CODE MỚI: XÁC ĐỊNH CHẾ ĐỘ THỰC TẾ CHO UI ---
+    const hasSentenceText = currentItem.sentence && currentItem.sentence.trim() !== '';
+    const effectiveMode = (mode === 'sentence' && hasSentenceText) ? 'sentence' : 'word';
+
     // Tính toán kích thước nút Play động dựa trên Nội dung đang hiển thị
-    const isShowingText = mode === 'sentence' || showHint || status === 'retyping';
+    // Sửa 'mode' thành 'effectiveMode'
+    const isShowingText = effectiveMode === 'sentence' || showHint || status === 'retyping';
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
     let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
     
@@ -7088,7 +7061,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         playBtnSize = "w-16 h-16 sm:w-20 sm:h-20"; 
         playIconSize = "w-7 h-7 sm:w-8 sm:h-8";
     }
-
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
             {/* 1. HEADER (Top bar) */}
@@ -7153,27 +7125,27 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         </div>
 
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
-                        {isShowingText && (
-                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                                {mode === 'sentence' ? (
-                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
-                                        {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
-                                    </div>
-                                ) : (
-                                    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
-                                        <span className="text-2xl sm:text-3xl font-black text-indigo-700 mb-0.5">{currentItem.word}</span>
-                                        <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">{currentItem.reading}</span>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+{isShowingText && (
+    <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
+        {effectiveMode === 'sentence' ? (     /* <--- ĐỔI Ở ĐÂY */
+            <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
+                {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
+            </div>
+        ) : (
+            <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
+                <span className="text-2xl sm:text-3xl font-black text-indigo-700 mb-0.5">{currentItem.word}</span>
+                <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">{currentItem.reading}</span>
+            </div>
+        )}
+    </div>
+)}
 
-                        {/* HIỂN THỊ DỊCH NGHĨA (Cỡ chữ điện thoại đã được nhích lên text-[13px]) */}
-                        {showVi && (
-                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
-                                {mode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
-                            </p>
-                        )}
+                        {/* HIỂN THỊ DỊCH NGHĨA */}
+{showVi && (
+    <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
+        {effectiveMode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}  {/* <--- ĐỔI Ở ĐÂY */}
+    </p>
+)}
                     </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
