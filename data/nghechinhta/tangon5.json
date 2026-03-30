@@ -18,8 +18,8 @@
       },
       {
         "id": "v2",
-        "word": "〜です",
-        "reading": "〜です",
+        "word": "です",
+        "reading": "です",
         "meaning": "là ~",
         "sentence": "わたしは スミスです。",
         "sentenceVi": "Tôi là Smith.",
@@ -30,8 +30,8 @@
       },
       {
         "id": "v3",
-        "word": "〜さん",
-        "reading": "〜さん",
+        "word": "さん",
+        "reading": "さん",
         "meaning": "ông / bà / anh / chị ~",
         "sentence": "A「トムさんですか。」 B「はい。」",
         "sentenceVi": "A: Anh Tom phải không? / B: Vâng.",
@@ -42,8 +42,8 @@
       },
       {
         "id": "v4",
-        "word": "〜ちゃん",
-        "reading": "〜ちゃん",
+        "word": "ちゃん",
+        "reading": "ちゃん",
         "meaning": "bé ~",
         "sentence": "(かのじょは) ララちゃんです。",
         "sentenceVi": "(Cô bé ) Là bé Lala.",
@@ -90,8 +90,8 @@
       },
       {
         "id": "v8",
-        "word": "[お]なまえ",
-        "reading": "[お]なまえ",
+        "word": "おなまえ",
+        "reading": "おなまえ",
         "meaning": "tên (của bạn)",
         "sentence": "A「おなまえは?」 B「トムです。」",
         "sentenceVi": "A: Tên bạn là gì? / B: Là Tom.",
