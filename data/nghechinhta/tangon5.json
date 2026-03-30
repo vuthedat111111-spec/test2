@@ -4,823 +4,1074 @@
     "title": "Phần 1",
     "audioPath": "./data/audio/nghechinhta/tangon5p1.mp3",
     "vocabularies": [
-  {
-    "id": "v1",
-    "word": "わたし",
-    "reading": "わたし",
-    "meaning": "tôi (ngôi thứ nhất số ít)",
-    "sentence": "わたしは アンです。",
-    "sentenceVi": "Tôi (tên) là An."
-  },
-  {
-    "id": "v2",
-    "word": "〜です",
-    "reading": "〜です",
-    "meaning": "là ~",
-    "sentence": "わたしは スミスです。",
-    "sentenceVi": "Tôi là Smith."
-  },
-  {
-    "id": "v3",
-    "word": "〜さん",
-    "reading": "〜さん",
-    "meaning": "ông / bà / anh / chị ~",
-    "sentence": "A「トムさんですか。」 B「はい。」",
-    "sentenceVi": "A: Anh Tom phải không? / B: Vâng."
-  },
-  {
-    "id": "v4",
-    "word": "〜ちゃん",
-    "reading": "〜ちゃん",
-    "meaning": "bé ~",
-    "sentence": "(かのじょは) ララちゃんです。",
-    "sentenceVi": "(Cô bé ) Là bé Lala."
-  },
-  {
-    "id": "v5",
-    "word": "あなた",
-    "reading": "あなた",
-    "meaning": "ông / bà / anh / chị / bạn (ngôi thứ hai số ít)",
-    "sentence": "あなたは トムさんですか。",
-    "sentenceVi": "Anh là anh Tom phải không?"
-  },
-  {
-    "id": "v6",
-    "word": "かれ",
-    "reading": "かれ",
-    "meaning": "anh ấy (ngôi thứ ba số ít), bạn trai",
-    "sentence": "かれは トムさんです。",
-    "sentenceVi": "Anh ấy là anh Tom."
-  },
-  {
-    "id": "v7",
-    "word": "かのじょ",
-    "reading": "かのじょ",
-    "meaning": "cố ấy, chị ấy (ngôi thứ ba số ít), bạn gái",
-    "sentence": "かのじょは ヒエンさんです。",
-    "sentenceVi": "Chị ấy là chị Hiền."
-  },
-  {
-    "id": "v8",
-    "word": "[お]なまえ",
-    "reading": "[お]なまえ",
-    "meaning": "tên (của bạn)",
-    "sentence": "A「おなまえは?」 B「トムです。」",
-    "sentenceVi": "A: Tên bạn là gì? / B: Là Tom."
-  },
-  {
-    "id": "v9",
-    "word": "はい",
-    "reading": "はい",
-    "meaning": "vâng, dạ",
-    "sentence": "A「やまださんですか。」 B「はい。」",
-    "sentenceVi": "A: Anh Yamada phải không? / B: Vâng."
-  },
-  {
-    "id": "v10",
-    "word": "ええ",
-    "reading": "ええ",
-    "meaning": "vâng, dạ",
-    "sentence": "A「やまださんですか。」 B「ええ、そうです。」",
-    "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy."
-  },
-  {
-    "id": "v11",
-    "word": "いいえ",
-    "reading": "いいえ",
-    "meaning": "không",
-    "sentence": "A「やまださんですか。」 C「いいえ。」",
-    "sentenceVi": "A: Anh Yamada phải không? / C: Không."
-  },
-  {
-    "id": "v12",
-    "word": "そうです",
-    "reading": "そうです",
-    "meaning": "đúng vậy",
-    "sentence": "A「やまださんですか。」 B「はい、そうです。」",
-    "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy."
-  },
-  {
-    "id": "v13",
-    "word": "ちがいます",
-    "reading": "ちがいます",
-    "meaning": "không phải",
-    "sentence": "A「やまださんですか。」 B「いいえ、ちがいます。たなかです。」",
-    "sentenceVi": "A: Anh Yamada phải không? / B: Không, không phải. Tôi là Tanaka."
-  },
-  {
-    "id": "v14",
-    "word": "おはよう。",
-    "reading": "おはよう。",
-    "meaning": "Chào. (buổi sáng)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v15",
-    "word": "おはようございます。",
-    "reading": "おはようございます。",
-    "meaning": "Xin chào. (buổi sáng)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v16",
-    "word": "こんにちは。",
-    "reading": "こんにちは。",
-    "meaning": "Xin chào. (buổi trưa)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v17",
-    "word": "こんばんは。",
-    "reading": "こんばんは。",
-    "meaning": "Xin chào. (buổi tối)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v18",
-    "word": "さようなら。",
-    "reading": "さようなら。",
-    "meaning": "Tạm biệt.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v19",
-    "word": "じゃ、また。",
-    "reading": "じゃ、また。",
-    "meaning": "Vậy nhé, gặp lại sau.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v20",
-    "word": "おやすみなさい。",
-    "reading": "おやすみなさい。",
-    "meaning": "Chúc ngủ ngon.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v21",
-    "word": "ありがとう。",
-    "reading": "ありがとう。",
-    "meaning": "Cám ơn.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v22",
-    "word": "どういたしまして。",
-    "reading": "どういたしまして。",
-    "meaning": "Không có chi.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v23",
-    "word": "ありがとうございます。",
-    "reading": "ありがとうございます。",
-    "meaning": "Xin cám ơn.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v24",
-    "word": "どうぞ。",
-    "reading": "どうぞ。",
-    "meaning": "Xin mời.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v25",
-    "word": "どうも。",
-    "reading": "どうも。",
-    "meaning": "Cám ơn.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v26",
-    "word": "はじめまして。",
-    "reading": "はじめまして。",
-    "meaning": "Xin chào. (dùng khi lần đầu tiên gặp mặt)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v27",
-    "word": "どうぞ よろしく。",
-    "reading": "どうぞ よろしく。",
-    "meaning": "Xin vui lòng giúp đỡ.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v28",
-    "word": "こちらこそ。",
-    "reading": "こちらこそ。",
-    "meaning": "Tôi mới phải nhờ. / Tôi mới phải cám ơn./ Tôi mới phải xin lỗi.",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v29",
-    "word": "かぞく",
-    "reading": "かぞく",
-    "meaning": "gia đình",
-    "sentence": "かぞくは 7 にんです。",
-    "sentenceVi": "Gia đình (tôi) có 7 người."
-  },
-  {
-    "id": "v30",
-    "word": "りょうしん",
-    "reading": "りょうしん",
-    "meaning": "cha mẹ, song thân",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v31",
-    "word": "父",
-    "reading": "ちち",
-    "meaning": "cha (tôi), người cha",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v32",
-    "word": "母",
-    "reading": "はは",
-    "meaning": "mẹ (tôi), người mẹ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v33",
-    "word": "あね",
-    "reading": "あね",
-    "meaning": "chị (tôi), người chị",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v34",
-    "word": "あに",
-    "reading": "あに",
-    "meaning": "anh (tôi), người anh",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v35",
-    "word": "おとうと",
-    "reading": "おとうと",
-    "meaning": "em trai (tôi), người em trai",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v36",
-    "word": "いもうと",
-    "reading": "いもうと",
-    "meaning": "em gái (tôi), người em gái",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v37",
-    "word": "きょうだい",
-    "reading": "きょうだい",
-    "meaning": "anh chị em",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v38",
-    "word": "いぬ",
-    "reading": "いぬ",
-    "meaning": "con chó",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v39",
-    "word": "ねこ",
-    "reading": "ねこ",
-    "meaning": "con mèo",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v40",
-    "word": "いる",
-    "reading": "いる",
-    "meaning": "có, ở",
-    "sentence": "① いぬが います。 ② あにが います。",
-    "sentenceVi": "① Có con chó. ② Tôi có anh trai."
-  },
-  {
-    "id": "v41",
-    "word": "うち",
-    "reading": "うち",
-    "meaning": "nhà",
-    "sentence": "うちに ねこが います。",
-    "sentenceVi": "Nhà tôi có con mèo."
-  },
-  {
-    "id": "v42",
-    "word": "おじいさん",
-    "reading": "おじいさん",
-    "meaning": "ông (nội, ngoại), ông cụ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v43",
-    "word": "おばあさん",
-    "reading": "おばあさん",
-    "meaning": "bà (nội, ngoại), bà cụ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v44",
-    "word": "ごりょうしん",
-    "reading": "ごりょうしん",
-    "meaning": "cha mẹ, song thân (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v45",
-    "word": "お父さん",
-    "reading": "おとうさん",
-    "meaning": "bố, người cha (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v46",
-    "word": "お母さん",
-    "reading": "おかあさん",
-    "meaning": "mẹ, người mẹ (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v47",
-    "word": "おねえさん",
-    "reading": "おねえさん",
-    "meaning": "chị gái (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v48",
-    "word": "おにいさん",
-    "reading": "おにいさん",
-    "meaning": "anh trai (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v49",
-    "word": "おとうとさん",
-    "reading": "おとうとさん",
-    "meaning": "em trai (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v50",
-    "word": "いもうとさん",
-    "reading": "いもうとさん",
-    "meaning": "em gái (của người khác)",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v51",
-    "word": "ひとり",
-    "reading": "ひとり",
-    "meaning": "một người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v52",
-    "word": "ふたり",
-    "reading": "ふたり",
-    "meaning": "hai người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v53",
-    "word": "さんにん",
-    "reading": "さんにん",
-    "meaning": "ba người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v54",
-    "word": "よにん",
-    "reading": "よにん",
-    "meaning": "bốn người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v55",
-    "word": "ごにん",
-    "reading": "ごにん",
-    "meaning": "năm người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v56",
-    "word": "ろくにん",
-    "reading": "ろくにん",
-    "meaning": "sáu người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v57",
-    "word": "しち / ななにん",
-    "reading": "しち / ななにん",
-    "meaning": "bảy người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v58",
-    "word": "はちにん",
-    "reading": "はちにん",
-    "meaning": "tám người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v59",
-    "word": "く / きゅうにん",
-    "reading": "く / きゅうにん",
-    "meaning": "chín người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v60",
-    "word": "じゅうにん",
-    "reading": "じゅうにん",
-    "meaning": "mười người",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v61",
-    "word": "なんにん",
-    "reading": "なんにん",
-    "meaning": "mấy người, bao nhiêu người",
-    "sentence": "A「なんにんですか。」 B「3にんです。」",
-    "sentenceVi": "A: Bao nhiêu người? / B: 3 người."
-  },
-  {
-    "id": "v62",
-    "word": "おとな",
-    "reading": "おとな",
-    "meaning": "người lớn",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v63",
-    "word": "こども",
-    "reading": "こども",
-    "meaning": "trẻ em, trẻ con, con cái",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v64",
-    "word": "おとこの ひと",
-    "reading": "おとこの ひと",
-    "meaning": "người đàn ông",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v65",
-    "word": "おんなの ひと",
-    "reading": "おんなの ひと",
-    "meaning": "người phụ nữ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v66",
-    "word": "おとこのこ",
-    "reading": "おとこのこ",
-    "meaning": "cậu bé, đứa bé trai",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v67",
-    "word": "おんなのこ",
-    "reading": "おんなのこ",
-    "meaning": "cô bé, đứa bé gái",
-    "sentence": "",
-    "sentenceVi": ""
-  },
       {
-    "id": "v68",
-    "word": "くに",
-    "reading": "くに",
-    "meaning": "đất nước, nước",
-    "sentence": "(わたしの) くには マレーシアです。",
-    "sentenceVi": "Nước (của tôi) là Malaysia."
-  },
-  {
-    "id": "v69",
-    "word": "ある",
-    "reading": "ある",
-    "meaning": "có, ở",
-    "sentence": "ちゅうごくに ディズニーランドが あります。",
-    "sentenceVi": "Ở Trung Quốc có Disneyland."
-  },
-  {
-    "id": "v70",
-    "word": "どちら",
-    "reading": "どちら",
-    "meaning": "ở đâu, hướng nào",
-    "sentence": "A「(お)くには どちらですか。」 B「ケニアです。」",
-    "sentenceVi": "A: Nước của bạn ở đâu? / B: Kenya."
-  },
-  {
-    "id": "v71",
-    "word": "〜から きました",
-    "reading": "〜から きました",
-    "meaning": "đến từ ~",
-    "sentence": "(わたしは) アメリカから きました。",
-    "sentenceVi": "(Tôi) Đến từ Mỹ."
-  },
-  {
-    "id": "v72",
-    "word": "〜じん",
-    "reading": "〜じん",
-    "meaning": "người ~",
-    "sentence": "わたしは イギリスじんです。",
-    "sentenceVi": "Tôi là người Anh."
-  },
-  {
-    "id": "v73",
-    "word": "ちず",
-    "reading": "ちず",
-    "meaning": "bản đồ",
-    "sentence": "にほんの ちずは ありますか。",
-    "sentenceVi": "Bạn có bản đồ Nhật Bản không?"
-  },
-  {
-    "id": "v74",
-    "word": "せかい",
-    "reading": "せかい",
-    "meaning": "thế giới",
-    "sentence": "せかいの ちずは ありますか。",
-    "sentenceVi": "Bạn có bản đồ thế giới không?"
-  },
-  {
-    "id": "v75",
-    "word": "にほん",
-    "reading": "にほん",
-    "meaning": "Nhật Bản",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v76",
-    "word": "インド",
-    "reading": "インド",
-    "meaning": "Ấn Độ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v77",
-    "word": "インドネシア",
-    "reading": "インドネシア",
-    "meaning": "Indonesia",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v78",
-    "word": "かんこく",
-    "reading": "かんこく",
-    "meaning": "Hàn Quốc",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v79",
-    "word": "タイ",
-    "reading": "タイ",
-    "meaning": "Thái Lan",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v80",
-    "word": "たいわん",
-    "reading": "たいわん",
-    "meaning": "Đài Loan",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v81",
-    "word": "ちゅうごく",
-    "reading": "ちゅうごく",
-    "meaning": "Trung Quốc",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v82",
-    "word": "ネパール",
-    "reading": "ネパール",
-    "meaning": "Nepal",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v83",
-    "word": "フィリピン",
-    "reading": "フィリピン",
-    "meaning": "Phillippine",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v84",
-    "word": "ベトナム",
-    "reading": "ベトナム",
-    "meaning": "Việt Nam",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v85",
-    "word": "マレーシア",
-    "reading": "マレーシア",
-    "meaning": "Malaysia",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v86",
-    "word": "ミャンマー",
-    "reading": "ミャンマー",
-    "meaning": "Myanmar",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v87",
-    "word": "トルコ",
-    "reading": "トルコ",
-    "meaning": "Thổ Nhĩ Kỳ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v88",
-    "word": "オーストラリア",
-    "reading": "オーストラリア",
-    "meaning": "Úc",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v89",
-    "word": "ニュージーランド",
-    "reading": "ニュージーランド",
-    "meaning": "New Zealand",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v90",
-    "word": "アメリカ",
-    "reading": "アメリカ",
-    "meaning": "Mỹ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v91",
-    "word": "カナダ",
-    "reading": "カナダ",
-    "meaning": "Canada",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v92",
-    "word": "メキシコ",
-    "reading": "メキシコ",
-    "meaning": "Mexico",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v93",
-    "word": "ブラジル",
-    "reading": "ブラジル",
-    "meaning": "Brazil",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v94",
-    "word": "ロシア",
-    "reading": "ロシア",
-    "meaning": "Nga",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v95",
-    "word": "イギリス",
-    "reading": "イギリス",
-    "meaning": "Anh",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v96",
-    "word": "フランス",
-    "reading": "フランス",
-    "meaning": "Pháp",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v97",
-    "word": "ドイツ",
-    "reading": "ドイツ",
-    "meaning": "Đức",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v98",
-    "word": "スイス",
-    "reading": "スイス",
-    "meaning": "Thụy Sỹ",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v99",
-    "word": "イタリア",
-    "reading": "イタリア",
-    "meaning": "Ý",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v100",
-    "word": "スペイン",
-    "reading": "スペイン",
-    "meaning": "Tây Ban Nha",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v101",
-    "word": "エジプト",
-    "reading": "エジプト",
-    "meaning": "Ai Cập",
-    "sentence": "",
-    "sentenceVi": ""
-  },
-  {
-    "id": "v102",
-    "word": "ケニア",
-    "reading": "ケニア",
-    "meaning": "Kenya",
-    "sentence": "",
-    "sentenceVi": ""
-  }
+        "id": "v1",
+        "word": "わたし",
+        "reading": "わたし",
+        "meaning": "tôi (ngôi thứ nhất số ít)",
+        "sentence": "わたしは アンです。",
+        "sentenceVi": "Tôi (tên) là An.",
+        "wordStartTime": 0,
+        "wordEndTime": 1.92,
+        "sentenceStartTime": 1.92,
+        "sentenceEndTime": 4.86
+      },
+      {
+        "id": "v2",
+        "word": "〜です",
+        "reading": "〜です",
+        "meaning": "là ~",
+        "sentence": "わたしは スミスです。",
+        "sentenceVi": "Tôi là Smith.",
+        "wordStartTime": 4.86,
+        "wordEndTime": 6.53,
+        "sentenceStartTime": 6.53,
+        "sentenceEndTime": 9.29
+      },
+      {
+        "id": "v3",
+        "word": "〜さん",
+        "reading": "〜さん",
+        "meaning": "ông / bà / anh / chị ~",
+        "sentence": "A「トムさんですか。」 B「はい。」",
+        "sentenceVi": "A: Anh Tom phải không? / B: Vâng.",
+        "wordStartTime": 9.29,
+        "wordEndTime": 10.95,
+        "sentenceStartTime": 10.95,
+        "sentenceEndTime": 14.57
+      },
+      {
+        "id": "v4",
+        "word": "〜ちゃん",
+        "reading": "〜ちゃん",
+        "meaning": "bé ~",
+        "sentence": "(かのじょは) ララちゃんです。",
+        "sentenceVi": "(Cô bé ) Là bé Lala.",
+        "wordStartTime": 14.57,
+        "wordEndTime": 16.41,
+        "sentenceStartTime": 16.41,
+        "sentenceEndTime": 19.36
+      },
+      {
+        "id": "v5",
+        "word": "あなた",
+        "reading": "あなた",
+        "meaning": "ông / bà / anh / chị / bạn (ngôi thứ hai số ít)",
+        "sentence": "あなたは トムさんですか。",
+        "sentenceVi": "Anh là anh Tom phải không?",
+        "wordStartTime": 19.36,
+        "wordEndTime": 21.25,
+        "sentenceStartTime": 21.25,
+        "sentenceEndTime": 24.49
+      },
+      {
+        "id": "v6",
+        "word": "かれ",
+        "reading": "かれ",
+        "meaning": "anh ấy (ngôi thứ ba số ít), bạn trai",
+        "sentence": "かれは トムさんです。",
+        "sentenceVi": "Anh ấy là anh Tom.",
+        "wordStartTime": 24.49,
+        "wordEndTime": 26.08,
+        "sentenceStartTime": 26.08,
+        "sentenceEndTime": 29.01
+      },
+      {
+        "id": "v7",
+        "word": "かのじょ",
+        "reading": "かのじょ",
+        "meaning": "cố ấy, chị ấy (ngôi thứ ba số ít), bạn gái",
+        "sentence": "かのじょは ヒエンさんです。",
+        "sentenceVi": "Chị ấy là chị Hiền.",
+        "wordStartTime": 29.01,
+        "wordEndTime": 30.84,
+        "sentenceStartTime": 30.84,
+        "sentenceEndTime": 33.94
+      },
+      {
+        "id": "v8",
+        "word": "[お]なまえ",
+        "reading": "[お]なまえ",
+        "meaning": "tên (của bạn)",
+        "sentence": "A「おなまえは?」 B「トムです。」",
+        "sentenceVi": "A: Tên bạn là gì? / B: Là Tom.",
+        "wordStartTime": 33.94,
+        "wordEndTime": 37.18,
+        "sentenceStartTime": 37.2,
+        "sentenceEndTime": 39.66
+      },
+      {
+        "id": "v9",
+        "word": "はい",
+        "reading": "はい",
+        "meaning": "vâng, dạ",
+        "sentence": "A「やまださんですか。」 B「はい。」",
+        "sentenceVi": "A: Anh Yamada phải không? / B: Vâng.",
+        "wordStartTime": 39.66,
+        "wordEndTime": 40.74,
+        "sentenceStartTime": 40.74,
+        "sentenceEndTime": 43.27
+      },
+      {
+        "id": "v10",
+        "word": "ええ",
+        "reading": "ええ",
+        "meaning": "vâng, dạ",
+        "sentence": "A「やまださんですか。」 B「ええ、そうです。」",
+        "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy.",
+        "wordStartTime": 43.27,
+        "wordEndTime": 46.27,
+        "sentenceStartTime": 46.27,
+        "sentenceEndTime": 48.42
+      },
+      {
+        "id": "v11",
+        "word": "いいえ",
+        "reading": "いいえ",
+        "meaning": "không",
+        "sentence": "A「やまださんですか。」 C「いいえ。」",
+        "sentenceVi": "A: Anh Yamada phải không? / C: Không.",
+        "wordStartTime": 48.42,
+        "wordEndTime": 53.21,
+        "sentenceStartTime": 53.21,
+        "sentenceEndTime": 55.51
+      },
+      {
+        "id": "v12",
+        "word": "そうです",
+        "reading": "そうです",
+        "meaning": "đúng vậy",
+        "sentence": "A「やまださんですか。」 B「はい、そうです。」",
+        "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy.",
+        "wordStartTime": 55.51,
+        "wordEndTime": 59.06,
+        "sentenceStartTime": 59.06,
+        "sentenceEndTime": 61.68
+      },
+      {
+        "id": "v13",
+        "word": "ちがいます",
+        "reading": "ちがいます",
+        "meaning": "không phải",
+        "sentence": "A「やまださんですか。」 B「いいえ、ちがいます。たなかです。」",
+        "sentenceVi": "A: Anh Yamada phải không? / B: Không, không phải. Tôi là Tanaka.",
+        "wordStartTime": 61.68,
+        "wordEndTime": 66.52,
+        "sentenceStartTime": 66.52,
+        "sentenceEndTime": 68.84
+      },
+      {
+        "id": "v14",
+        "word": "おはよう。",
+        "reading": "おはよう。",
+        "meaning": "Chào. (buổi sáng)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 68.84,
+        "wordEndTime": 75.04
+      },
+      {
+        "id": "v15",
+        "word": "おはようございます。",
+        "reading": "おはようございます。",
+        "meaning": "Xin chào. (buổi sáng)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 75.04,
+        "wordEndTime": 79.97
+      },
+      {
+        "id": "v16",
+        "word": "こんにちは。",
+        "reading": "こんにちは。",
+        "meaning": "Xin chào. (buổi trưa)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 79.97,
+        "wordEndTime": 82.66
+      },
+      {
+        "id": "v17",
+        "word": "こんばんは。",
+        "reading": "こんばんは。",
+        "meaning": "Xin chào. (buổi tối)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 82.68,
+        "wordEndTime": 86.68
+      },
+      {
+        "id": "v18",
+        "word": "さようなら。",
+        "reading": "さようなら。",
+        "meaning": "Tạm biệt.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 86.68,
+        "wordEndTime": 90.54
+      },
+      {
+        "id": "v19",
+        "word": "じゃ、また。",
+        "reading": "じゃ、また。",
+        "meaning": "Vậy nhé, gặp lại sau.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 90.54,
+        "wordEndTime": 94.79
+      },
+      {
+        "id": "v20",
+        "word": "おやすみなさい。",
+        "reading": "おやすみなさい。",
+        "meaning": "Chúc ngủ ngon.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 94.79,
+        "wordEndTime": 98.69
+      },
+      {
+        "id": "v21",
+        "word": "ありがとう。",
+        "reading": "ありがとう。",
+        "meaning": "Cám ơn.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 98.69,
+        "wordEndTime": 104.62
+      },
+      {
+        "id": "v22",
+        "word": "どういたしまして。",
+        "reading": "どういたしまして。",
+        "meaning": "Không có chi.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 104.62,
+        "wordEndTime": 107.96
+      },
+      {
+        "id": "v23",
+        "word": "ありがとうございます。",
+        "reading": "ありがとうございます。",
+        "meaning": "Xin cám ơn.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 107.96,
+        "wordEndTime": 110.13
+      },
+      {
+        "id": "v24",
+        "word": "どうぞ。",
+        "reading": "どうぞ。",
+        "meaning": "Xin mời.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 110.13,
+        "wordEndTime": 113.58
+      },
+      {
+        "id": "v25",
+        "word": "どうも。",
+        "reading": "どうも。",
+        "meaning": "Cám ơn.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 113.58,
+        "wordEndTime": 116.92
+      },
+      {
+        "id": "v26",
+        "word": "はじめまして。",
+        "reading": "はじめまして。",
+        "meaning": "Xin chào. (dùng khi lần đầu tiên gặp mặt)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 116.92,
+        "wordEndTime": 118.41
+      },
+      {
+        "id": "v27",
+        "word": "どうぞ よろしく。",
+        "reading": "どうぞ よろしく。",
+        "meaning": "Xin vui lòng giúp đỡ.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 118.41,
+        "wordEndTime": 122.28
+      },
+      {
+        "id": "v28",
+        "word": "こちらこそ。",
+        "reading": "こちらこそ。",
+        "meaning": "Tôi mới phải nhờ. / Tôi mới phải cám ơn./ Tôi mới phải xin lỗi.",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 122.28,
+        "wordEndTime": 124.62
+      },
+      {
+        "id": "v29",
+        "word": "かぞく",
+        "reading": "かぞく",
+        "meaning": "gia đình",
+        "sentence": "かぞくは 7 にんです。",
+        "sentenceVi": "Gia đình (tôi) có 7 người.",
+        "wordStartTime": 124.62,
+        "wordEndTime": 126.26,
+        "sentenceStartTime": 126.26,
+        "sentenceEndTime": 130.14
+      },
+      {
+        "id": "v30",
+        "word": "りょうしん",
+        "reading": "りょうしん",
+        "meaning": "cha mẹ, song thân",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 130.14,
+        "wordEndTime": 133.52
+      },
+      {
+        "id": "v31",
+        "word": "父",
+        "reading": "ちち",
+        "meaning": "cha (tôi), người cha",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 133.52,
+        "wordEndTime": 137.14
+      },
+      {
+        "id": "v32",
+        "word": "母",
+        "reading": "はは",
+        "meaning": "mẹ (tôi), người mẹ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 137.14,
+        "wordEndTime": 139.59
+      },
+      {
+        "id": "v33",
+        "word": "あね",
+        "reading": "あね",
+        "meaning": "chị (tôi), người chị",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 139.59,
+        "wordEndTime": 141.56
+      },
+      {
+        "id": "v34",
+        "word": "あに",
+        "reading": "あに",
+        "meaning": "anh (tôi), người anh",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 141.56,
+        "wordEndTime": 143.65
+      },
+      {
+        "id": "v35",
+        "word": "おとうと",
+        "reading": "おとうと",
+        "meaning": "em trai (tôi), người em trai",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 143.65,
+        "wordEndTime": 145.75
+      },
+      {
+        "id": "v36",
+        "word": "いもうと",
+        "reading": "いもうと",
+        "meaning": "em gái (tôi), người em gái",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 145.75,
+        "wordEndTime": 148.23
+      },
+      {
+        "id": "v37",
+        "word": "きょうだい",
+        "reading": "きょうだい",
+        "meaning": "anh chị em",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 148.23,
+        "wordEndTime": 150.7
+      },
+      {
+        "id": "v38",
+        "word": "いぬ",
+        "reading": "いぬ",
+        "meaning": "con chó",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 150.7,
+        "wordEndTime": 154.42
+      },
+      {
+        "id": "v39",
+        "word": "ねこ",
+        "reading": "ねこ",
+        "meaning": "con mèo",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 154.42,
+        "wordEndTime": 156.63
+      },
+      {
+        "id": "v40",
+        "word": "いる",
+        "reading": "いる",
+        "meaning": "có, ở",
+        "sentence": "① いぬが います。 ② あにが います。",
+        "sentenceVi": "① Có con chó. ② Tôi có anh trai.",
+        "wordStartTime": 156.63,
+        "wordEndTime": 158.67,
+        "sentenceStartTime": 158.67,
+        "sentenceEndTime": 162.38
+      },
+      {
+        "id": "v41",
+        "word": "うち",
+        "reading": "うち",
+        "meaning": "nhà",
+        "sentence": "うちに ねこが います。",
+        "sentenceVi": "Nhà tôi có con mèo.",
+        "wordStartTime": 162.38,
+        "wordEndTime": 167.16,
+        "sentenceStartTime": 167.16,
+        "sentenceEndTime": 169.38
+      },
+      {
+        "id": "v42",
+        "word": "おじいさん",
+        "reading": "おじいさん",
+        "meaning": "ông (nội, ngoại), ông cụ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 169.38,
+        "wordEndTime": 172.53
+      },
+      {
+        "id": "v43",
+        "word": "おばあさん",
+        "reading": "おばあさん",
+        "meaning": "bà (nội, ngoại), bà cụ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 172.53,
+        "wordEndTime": 175.14
+      },
+      {
+        "id": "v44",
+        "word": "ごりょうしん",
+        "reading": "ごりょうしん",
+        "meaning": "cha mẹ, song thân (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 175.14,
+        "wordEndTime": 177.11
+      },
+      {
+        "id": "v45",
+        "word": "お父さん",
+        "reading": "おとうさん",
+        "meaning": "bố, người cha (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 177.11,
+        "wordEndTime": 180.43
+      },
+      {
+        "id": "v46",
+        "word": "お母さん",
+        "reading": "おかあさん",
+        "meaning": "mẹ, người mẹ (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 180.43,
+        "wordEndTime": 183.07
+      },
+      {
+        "id": "v47",
+        "word": "おねえさん",
+        "reading": "おねえさん",
+        "meaning": "chị gái (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 183.07,
+        "wordEndTime": 185.58
+      },
+      {
+        "id": "v48",
+        "word": "おにいさん",
+        "reading": "おにいさん",
+        "meaning": "anh trai (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 185.58,
+        "wordEndTime": 188.27
+      },
+      {
+        "id": "v49",
+        "word": "おとうとさん",
+        "reading": "おとうとさん",
+        "meaning": "em trai (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 188.27,
+        "wordEndTime": 190.95
+      },
+      {
+        "id": "v50",
+        "word": "いもうとさん",
+        "reading": "いもうとさん",
+        "meaning": "em gái (của người khác)",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 190.95,
+        "wordEndTime": 194.71
+      },
+      {
+        "id": "v51",
+        "word": "ひとり",
+        "reading": "ひとり",
+        "meaning": "một người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 194.71,
+        "wordEndTime": 197.5
+      },
+      {
+        "id": "v52",
+        "word": "ふたり",
+        "reading": "ふたり",
+        "meaning": "hai người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 197.5,
+        "wordEndTime": 200.99
+      },
+      {
+        "id": "v53",
+        "word": "さんにん",
+        "reading": "さんにん",
+        "meaning": "ba người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 200.99,
+        "wordEndTime": 202.93
+      },
+      {
+        "id": "v54",
+        "word": "よにん",
+        "reading": "よにん",
+        "meaning": "bốn người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 202.93,
+        "wordEndTime": 205.21
+      },
+      {
+        "id": "v55",
+        "word": "ごにん",
+        "reading": "ごにん",
+        "meaning": "năm người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 205.21,
+        "wordEndTime": 207.24
+      },
+      {
+        "id": "v56",
+        "word": "ろくにん",
+        "reading": "ろくにん",
+        "meaning": "sáu người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 207.24,
+        "wordEndTime": 209.33
+      },
+      {
+        "id": "v57",
+        "word": "しち / ななにん",
+        "reading": "しち / ななにん",
+        "meaning": "bảy người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 209.33,
+        "wordEndTime": 211.44
+      },
+      {
+        "id": "v58",
+        "word": "はちにん",
+        "reading": "はちにん",
+        "meaning": "tám người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 211.44,
+        "wordEndTime": 215.82
+      },
+      {
+        "id": "v59",
+        "word": "く / きゅうにん",
+        "reading": "く / きゅうにん",
+        "meaning": "chín người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 215.82,
+        "wordEndTime": 218.23
+      },
+      {
+        "id": "v60",
+        "word": "じゅうにん",
+        "reading": "じゅうにん",
+        "meaning": "mười người",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 218.23,
+        "wordEndTime": 222.4
+      },
+      {
+        "id": "v61",
+        "word": "なんにん",
+        "reading": "なんにん",
+        "meaning": "mấy người, bao nhiêu người",
+        "sentence": "A「なんにんですか。」 B「3にんです。」",
+        "sentenceVi": "A: Bao nhiêu người? / B: 3 người.",
+        "wordStartTime": 222.4,
+        "wordEndTime": 224.5,
+        "sentenceStartTime": 224.5,
+        "sentenceEndTime": 227.18
+      },
+      {
+        "id": "v62",
+        "word": "おとな",
+        "reading": "おとな",
+        "meaning": "người lớn",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 227.19,
+        "wordEndTime": 231.87
+      },
+      {
+        "id": "v63",
+        "word": "こども",
+        "reading": "こども",
+        "meaning": "trẻ em, trẻ con, con cái",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 231.87,
+        "wordEndTime": 234.73
+      },
+      {
+        "id": "v64",
+        "word": "おとこの ひと",
+        "reading": "おとこの ひと",
+        "meaning": "người đàn ông",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 234.73,
+        "wordEndTime": 236.76
+      },
+      {
+        "id": "v65",
+        "word": "おんなの ひと",
+        "reading": "おんなの ひと",
+        "meaning": "người phụ nữ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 236.76,
+        "wordEndTime": 239.54
+      },
+      {
+        "id": "v66",
+        "word": "おとこのこ",
+        "reading": "おとこのこ",
+        "meaning": "cậu bé, đứa bé trai",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 239.54,
+        "wordEndTime": 241.84
+      },
+      {
+        "id": "v67",
+        "word": "おんなのこ",
+        "reading": "おんなのこ",
+        "meaning": "cô bé, đứa bé gái",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 241.84,
+        "wordEndTime": 244.35
+      },
+      {
+        "id": "v68",
+        "word": "くに",
+        "reading": "くに",
+        "meaning": "đất nước, nước",
+        "sentence": "(わたしの) くには マレーシアです。",
+        "sentenceVi": "Nước (của tôi) là Malaysia.",
+        "wordStartTime": 244.35,
+        "wordEndTime": 246.69,
+        "sentenceStartTime": 246.69,
+        "sentenceEndTime": 250.36
+      },
+      {
+        "id": "v69",
+        "word": "ある",
+        "reading": "ある",
+        "meaning": "có, ở",
+        "sentence": "ちゅうごくに ディズニーランドが あります。",
+        "sentenceVi": "Ở Trung Quốc có Disneyland.",
+        "wordStartTime": 250.36,
+        "wordEndTime": 254.58,
+        "sentenceStartTime": 254.58,
+        "sentenceEndTime": 256.15
+      },
+      {
+        "id": "v70",
+        "word": "どちら",
+        "reading": "どちら",
+        "meaning": "ở đâu, hướng nào",
+        "sentence": "A「(お)くには どちらですか。」 B「ケニアです。」",
+        "sentenceVi": "A: Nước của bạn ở đâu? / B: Kenya.",
+        "wordStartTime": 256.15,
+        "wordEndTime": 260.32,
+        "sentenceStartTime": 260.32,
+        "sentenceEndTime": 262.3
+      },
+      {
+        "id": "v71",
+        "word": "〜から きました",
+        "reading": "〜から きました",
+        "meaning": "đến từ ~",
+        "sentence": "(わたしは) アメリカから きました。",
+        "sentenceVi": "(Tôi) Đến từ Mỹ.",
+        "wordStartTime": 262.3,
+        "wordEndTime": 267.11,
+        "sentenceStartTime": 267.11,
+        "sentenceEndTime": 270.63
+      },
+      {
+        "id": "v72",
+        "word": "〜じん",
+        "reading": "〜じん",
+        "meaning": "người ~",
+        "sentence": "わたしは イギリスじんです。",
+        "sentenceVi": "Tôi là người Anh.",
+        "wordStartTime": 270.63,
+        "wordEndTime": 274.46,
+        "sentenceStartTime": 274.46,
+        "sentenceEndTime": 276.53
+      },
+      {
+        "id": "v73",
+        "word": "ちず",
+        "reading": "ちず",
+        "meaning": "bản đồ",
+        "sentence": "にほんの ちずは ありますか。",
+        "sentenceVi": "Bạn có bản đồ Nhật Bản không?",
+        "wordStartTime": 276.53,
+        "wordEndTime": 280.29,
+        "sentenceStartTime": 280.29,
+        "sentenceEndTime": 282.42
+      },
+      {
+        "id": "v74",
+        "word": "せかい",
+        "reading": "せかい",
+        "meaning": "thế giới",
+        "sentence": "せかいの ちずは ありますか。",
+        "sentenceVi": "Bạn có bản đồ thế giới không?",
+        "wordStartTime": 282.42,
+        "wordEndTime": 285.96,
+        "sentenceStartTime": 285.96,
+        "sentenceEndTime": 287.87
+      },
+      {
+        "id": "v75",
+        "word": "にほん",
+        "reading": "にほん",
+        "meaning": "Nhật Bản",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 287.87,
+        "wordEndTime": 291.36
+      },
+      {
+        "id": "v76",
+        "word": "インド",
+        "reading": "インド",
+        "meaning": "Ấn Độ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 291.36,
+        "wordEndTime": 293.63
+      },
+      {
+        "id": "v77",
+        "word": "インドネシア",
+        "reading": "インドネシア",
+        "meaning": "Indonesia",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 293.63,
+        "wordEndTime": 295.93
+      },
+      {
+        "id": "v78",
+        "word": "かんこく",
+        "reading": "かんこく",
+        "meaning": "Hàn Quốc",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 295.93,
+        "wordEndTime": 298.6
+      },
+      {
+        "id": "v79",
+        "word": "タイ",
+        "reading": "タイ",
+        "meaning": "Thái Lan",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 298.6,
+        "wordEndTime": 301.03
+      },
+      {
+        "id": "v80",
+        "word": "たいわん",
+        "reading": "たいわん",
+        "meaning": "Đài Loan",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 301.03,
+        "wordEndTime": 303.28
+      },
+      {
+        "id": "v81",
+        "word": "ちゅうごく",
+        "reading": "ちゅうごく",
+        "meaning": "Trung Quốc",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 303.28,
+        "wordEndTime": 305.88
+      },
+      {
+        "id": "v82",
+        "word": "ネパール",
+        "reading": "ネパール",
+        "meaning": "Nepal",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 305.88,
+        "wordEndTime": 308.27
+      },
+      {
+        "id": "v83",
+        "word": "フィリピン",
+        "reading": "フィリピン",
+        "meaning": "Phillippine",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 308.27,
+        "wordEndTime": 310.73
+      },
+      {
+        "id": "v84",
+        "word": "ベトナム",
+        "reading": "ベトナム",
+        "meaning": "Việt Nam",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 310.73,
+        "wordEndTime": 313.18
+      },
+      {
+        "id": "v85",
+        "word": "マレーシア",
+        "reading": "マレーシア",
+        "meaning": "Malaysia",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 313.18,
+        "wordEndTime": 315.84
+      },
+      {
+        "id": "v86",
+        "word": "ミャンマー",
+        "reading": "ミャンマー",
+        "meaning": "Myanmar",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 315.84,
+        "wordEndTime": 318.46
+      },
+      {
+        "id": "v87",
+        "word": "トルコ",
+        "reading": "トルコ",
+        "meaning": "Thổ Nhĩ Kỳ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 318.46,
+        "wordEndTime": 321.06
+      },
+      {
+        "id": "v88",
+        "word": "オーストラリア",
+        "reading": "オーストラリア",
+        "meaning": "Úc",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 321.06,
+        "wordEndTime": 323.38
+      },
+      {
+        "id": "v89",
+        "word": "ニュージーランド",
+        "reading": "ニュージーランド",
+        "meaning": "New Zealand",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 323.38,
+        "wordEndTime": 326.62
+      },
+      {
+        "id": "v90",
+        "word": "アメリカ",
+        "reading": "アメリカ",
+        "meaning": "Mỹ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 326.62,
+        "wordEndTime": 329.59
+      },
+      {
+        "id": "v91",
+        "word": "カナダ",
+        "reading": "カナダ",
+        "meaning": "Canada",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 329.59,
+        "wordEndTime": 331.99
+      },
+      {
+        "id": "v92",
+        "word": "メキシコ",
+        "reading": "メキシコ",
+        "meaning": "Mexico",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 331.99,
+        "wordEndTime": 334.32
+      },
+      {
+        "id": "v93",
+        "word": "ブラジル",
+        "reading": "ブラジル",
+        "meaning": "Brazil",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 334.32,
+        "wordEndTime": 336.85
+      },
+      {
+        "id": "v94",
+        "word": "ロシア",
+        "reading": "ロシア",
+        "meaning": "Nga",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 336.85,
+        "wordEndTime": 340.14
+      },
+      {
+        "id": "v95",
+        "word": "イギリス",
+        "reading": "イギリス",
+        "meaning": "Anh",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 340.14,
+        "wordEndTime": 342.46
+      },
+      {
+        "id": "v96",
+        "word": "フランス",
+        "reading": "フランス",
+        "meaning": "Pháp",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 342.46,
+        "wordEndTime": 344.96
+      },
+      {
+        "id": "v97",
+        "word": "ドイツ",
+        "reading": "ドイツ",
+        "meaning": "Đức",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 344.96,
+        "wordEndTime": 347.24
+      },
+      {
+        "id": "v98",
+        "word": "スイス",
+        "reading": "スイス",
+        "meaning": "Thụy Sỹ",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 347.24,
+        "wordEndTime": 349.49
+      },
+      {
+        "id": "v99",
+        "word": "イタリア",
+        "reading": "イタリア",
+        "meaning": "Ý",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 349.49,
+        "wordEndTime": 351.74
+      },
+      {
+        "id": "v100",
+        "word": "スペイン",
+        "reading": "スペイン",
+        "meaning": "Tây Ban Nha",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 351.74,
+        "wordEndTime": 354.21
+      },
+      {
+        "id": "v101",
+        "word": "エジプト",
+        "reading": "エジプト",
+        "meaning": "Ai Cập",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 354.21,
+        "wordEndTime": 356.7
+      },
+      {
+        "id": "v102",
+        "word": "ケニア",
+        "reading": "ケニア",
+        "meaning": "Kenya",
+        "sentence": "",
+        "sentenceVi": "",
+        "wordStartTime": 356.7,
+        "wordEndTime": 358.98
+      }
     ]
   }
-  
 ]
