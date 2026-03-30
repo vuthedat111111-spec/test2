@@ -7385,8 +7385,17 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     const [editingVocab, setEditingVocab] = useState(null);
 
 React.useEffect(() => {
-        // 1. Chặn chuột phải (Context Menu)
+        // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
         const handleContextMenu = (e) => {
+         
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+          
+            if (isTouchDevice && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+                return; 
+            }
+
+          
             e.preventDefault();
         };
 
