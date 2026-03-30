@@ -6711,6 +6711,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
                 <div className="flex flex-col gap-4">
                     {/* Sách có sẵn */}
+                   //mimikaran3
                     <button 
                         onClick={() => handleLoadBook('mimikaran3', 'Mimikara N3')}
                         className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
@@ -6720,7 +6721,19 @@ const DictationModal = ({ isOpen, onClose }) => {
                                 Mimikara N3
                             </span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">Luyện chép chính tả & phản xạ nghe</span>
+                        //<span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">Luyện chép chính tả & phản xạ nghe</span>
+                    </button>
+                   //tangon5
+                   <button 
+                        onClick={() => handleLoadBook('tangon5', 'Tango N5')}
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                    >
+                        <div className="flex justify-between items-center w-full gap-4">
+                            <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
+                                Tango N5
+                            </span>
+                        </div>
+                        //<span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">luyện nghe n5</span>
                     </button>
 
                     {/* Sách chờ cập nhật */}
