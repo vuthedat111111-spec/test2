@@ -1378,7 +1378,7 @@
     "wordEndTime": 119.88
   },
   {
-    "id": 131.1,
+    "id": 131.01,
     "word": "一月",
     "reading": "いちがつ",
     "meaning": "tháng Một, tháng Giêng",
@@ -1386,7 +1386,7 @@
     "wordEndTime": 122.62
   },
   {
-    "id": 131.2,
+    "id": 131.02,
     "word": "二月",
     "reading": "にがつ",
     "meaning": "tháng Hai",
@@ -1394,7 +1394,7 @@
     "wordEndTime": 124.55
   },
   {
-    "id": 131.3,
+    "id": 131.03,
     "word": "三月",
     "reading": "さんがつ",
     "meaning": "tháng Ba",
@@ -1402,7 +1402,7 @@
     "wordEndTime": 126.84
   },
   {
-    "id": 131.4,
+    "id": 131.04,
     "word": "四月",
     "reading": "しがつ",
     "meaning": "tháng Tư",
@@ -1410,7 +1410,7 @@
     "wordEndTime": 129
   },
   {
-    "id": 131.5,
+    "id": 131.05,
     "word": "五月",
     "reading": "ごがつ",
     "meaning": "tháng Năm",
@@ -1418,7 +1418,7 @@
     "wordEndTime": 131.41
   },
   {
-    "id": 131.6,
+    "id": 131.06,
     "word": "六月",
     "reading": "ろくがつ",
     "meaning": "tháng Sáu",
@@ -1426,7 +1426,7 @@
     "wordEndTime": 133.7
   },
   {
-    "id": 131.7,
+    "id": 131.07,
     "word": "七月",
     "reading": "しちがつ",
     "meaning": "tháng Bảy",
@@ -1434,7 +1434,7 @@
     "wordEndTime": 135.97
   },
   {
-    "id": 131.8,
+    "id": 131.08,
     "word": "八月",
     "reading": "はちがつ",
     "meaning": "tháng Tám",
@@ -1442,7 +1442,7 @@
     "wordEndTime": 138.43
   },
   {
-    "id": 131.9,
+    "id": 131.09,
     "word": "九月",
     "reading": "くがつ",
     "meaning": "tháng Chín",
@@ -1830,7 +1830,7 @@
     "meaning": "một chút",
     "sentence": "漢字が少し分かります。",
     "sentenceVi": "Tôi biết chữ Hán một chút.",
-    "wordStartTime": 309.25,
+    "wordStartTime": 309.15,
     "wordEndTime": 309.91,
     "sentenceStartTime": 311.08,
     "sentenceEndTime": 313.08
@@ -1971,18 +1971,6 @@
   },
   {
     "id": 176,
-    "word": "CD",
-    "reading": "シーディー",
-    "meaning": "đĩa CD",
-    "sentence": "学校でCDを聞きました。",
-    "sentenceVi": "Tôi đã nghe đĩa CD ở trường.",
-    "wordStartTime": 366.03,
-    "wordEndTime": 366.89,
-    "sentenceStartTime": 368.02,
-    "sentenceEndTime": 370.59
-  },
-  {
-    "id": 177,
     "word": "調べる",
     "reading": "しらべる",
     "meaning": "tra, tìm hiểu",
@@ -1996,7 +1984,7 @@
     "sentenceEndTime": 375.78
   },
   {
-    "id": 178,
+    "id": 177,
     "word": "買う",
     "reading": "かう",
     "meaning": "mua",
@@ -2010,7 +1998,7 @@
     "sentenceEndTime": 381.15
   },
   {
-    "id": 179,
+    "id": 178,
     "word": "辞書",
     "reading": "じしょ",
     "meaning": "từ điển",
@@ -2022,7 +2010,7 @@
     "sentenceEndTime": 386.25
   },
   {
-    "id": 180,
+    "id": 179,
     "word": "電子辞書",
     "reading": "でんしじしょ",
     "meaning": "từ điển điện tử",
@@ -2036,7 +2024,7 @@
     "sentenceEndTime": 392.39
   },
   {
-    "id": 181,
+    "id": 180,
     "word": "意味",
     "reading": "いみ",
     "meaning": "ý nghĩa",
@@ -2048,7 +2036,7 @@
     "sentenceEndTime": 398.58
   },
   {
-    "id": 182,
+    "id": 181,
     "word": "頑張る",
     "reading": "がんばる",
     "meaning": "cố gắng",
@@ -2062,7 +2050,7 @@
     "sentenceEndTime": 403.59
   },
   {
-    "id": 183,
+    "id": 182,
     "word": "宿題",
     "reading": "しゅくだい",
     "meaning": "bài tập về nhà",
@@ -2074,7 +2062,7 @@
     "sentenceEndTime": 409.11
   },
   {
-    "id": 184,
+    "id": 183,
     "word": "日記",
     "reading": "にっき",
     "meaning": "nhật ký",
@@ -2086,7 +2074,7 @@
     "sentenceEndTime": 415.07
   },
   {
-    "id": 185,
+    "id": 184,
     "word": "レポート",
     "reading": "レポート",
     "meaning": "bài báo cáo",
@@ -2098,7 +2086,7 @@
     "sentenceEndTime": 421.31
   },
   {
-    "id": 186,
+    "id": 185,
     "word": "図書館",
     "reading": "としょかん",
     "meaning": "thư viện",
@@ -2110,7 +2098,7 @@
     "sentenceEndTime": 426.83
   },
   {
-    "id": 187,
+    "id": 186,
     "word": "本屋",
     "reading": "ほんや",
     "meaning": "tiệm sách",
@@ -2122,7 +2110,7 @@
     "sentenceEndTime": 432.45
   },
   {
-    "id": 188,
+    "id": 187,
     "word": "練習",
     "reading": "れんしゅう",
     "meaning": "luyện tập",
@@ -2136,19 +2124,19 @@
     "sentenceEndTime": 437.61
   },
   {
-    "id": 189,
+    "id": 188,
     "word": "スピーチ",
     "reading": "スピーチ",
     "meaning": "hùng biện, diễn thuyết",
     "sentence": "土曜日に学校でスピーチをしました。",
     "sentenceVi": "Tôi đã hùng biện ở trường vào ngày thứ Bảy.",
-    "wordStartTime": 439.59,
+    "wordStartTime": 439.31,
     "wordEndTime": 440.36,
     "sentenceStartTime": 441.57,
     "sentenceEndTime": 444.93
   },
   {
-    "id": 190,
+    "id": 189,
     "word": "覚える",
     "reading": "おぼえる",
     "meaning": "nhớ, ghi nhớ",
@@ -2162,7 +2150,7 @@
     "sentenceEndTime": 450.5
   },
   {
-    "id": 191,
+    "id": 190,
     "word": "忘れる",
     "reading": "わすれる",
     "meaning": "quên",
@@ -2176,7 +2164,7 @@
     "sentenceEndTime": 455.22
   },
   {
-    "id": 192,
+    "id": 191,
     "word": "問題",
     "reading": "もんだい",
     "meaning": "câu hỏi, vấn đề",
@@ -2188,7 +2176,7 @@
     "sentenceEndTime": 460.05
   },
   {
-    "id": 193,
+    "id": 192,
     "word": "例",
     "reading": "れい",
     "meaning": "ví dụ",
@@ -2200,7 +2188,7 @@
     "sentenceEndTime": 464.88
   },
   {
-    "id": 194,
+    "id": 193,
     "word": "答え",
     "reading": "こたえ",
     "meaning": "câu trả lời",
@@ -2212,7 +2200,7 @@
     "sentenceEndTime": 470.01
   },
   {
-    "id": 195,
+    "id": 194,
     "word": "質問",
     "reading": "しつもん",
     "meaning": "câu hỏi",
@@ -2220,13 +2208,13 @@
     "sentenceVi": "Tôi đặt câu hỏi với thầy / cô giáo.",
     "blankWord": "質問します",
     "blankReading": "しつもんします",
-    "wordStartTime": 471.48,
+    "wordStartTime": 471.26,
     "wordEndTime": 472.07,
     "sentenceStartTime": 473.51,
     "sentenceEndTime": 475.32
   },
   {
-    "id": 196,
+    "id": 195,
     "word": "見学",
     "reading": "けんがく",
     "meaning": "tham quan",
