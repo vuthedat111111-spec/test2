@@ -872,19 +872,27 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
  
 
+   // Khai báo thêm ref để theo dõi trạng thái bàn phím
+    const isComposing = useRef(false);
 
+    // Tách phần convert ra một hàm riêng
     const processInput = (val) => {
-        const currentItem = queue[currentIndex];
-        const targetKana = currentItem?.word || currentItem?.reading || '';
-        setUserInput(convertToKana(val, targetKana));
+        if (mode === 'vocab') {
+            const currentItem = queue[currentIndex];
+            const targetReading = dbData.TUVUNG_DB[currentItem]?.reading || '';
+            setUserInput(convertToKana(val, targetReading));
+        } else {
+            setUserInput(val.toUpperCase());
+        }
     };
 
+    // Chỉ convert khi người dùng KHÔNG TRONG TRẠNG THÁI GOM CHỮ
     const handleInputChange = (e) => {
         const val = e.target.value;
         if (isComposing.current) {
-            setUserInput(val); 
+            setUserInput(val); // Đang gõ dở thì giữ nguyên để bàn phím tự lo
         } else {
-            processInput(val); 
+            processInput(val); // Gõ xong rồi mới ép kiểu/convert
         }
     };
 
@@ -894,7 +902,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
     const handleCompositionEnd = (e) => {
         isComposing.current = false;
-        processInput(e.target.value); 
+        processInput(e.target.value); // Ép kiểu ngay khi vừa xác nhận chữ xong
     };
 
 
@@ -6868,7 +6876,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const currentIndexRef = React.useRef(currentIndex);
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
-    const isComposing = React.useRef(false);
 
     React.useEffect(() => {
         currentIndexRef.current = currentIndex;
@@ -7290,19 +7297,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         )}
                     </div>
 
-                   {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
+                    {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
                         <input 
-                            type="text" autoFocus value={userInput} 
-                            onChange={handleInputChange}
-                            onCompositionStart={handleCompositionStart}
-                            onCompositionEnd={handleCompositionEnd}
-                            onKeyDown={(e) => {
-                                // Nếu đang dùng bàn phím Nhật chọn chữ thì không chấm điểm
-                                if (e.key === 'Enter' && !isComposing.current) {
-                                    checkAnswer();
-                                }
-                            }}
+                            type="text" autoFocus value={userInput} onChange={handleInputChange}
+                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
                             placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
                             className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
                         />
