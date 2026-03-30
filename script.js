@@ -872,16 +872,37 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
  
 
-    const handleInputChange = (e) => {
-        const val = e.target.value;
+   // Khai báo thêm ref để theo dõi trạng thái bàn phím
+    const isComposing = useRef(false);
+
+    // Tách phần convert ra một hàm riêng
+    const processInput = (val) => {
         if (mode === 'vocab') {
             const currentItem = queue[currentIndex];
-            // Lấy chính xác cách đọc của từ đó để làm mốc so sánh
             const targetReading = dbData.TUVUNG_DB[currentItem]?.reading || '';
             setUserInput(convertToKana(val, targetReading));
         } else {
             setUserInput(val.toUpperCase());
         }
+    };
+
+    // Chỉ convert khi người dùng KHÔNG TRONG TRẠNG THÁI GOM CHỮ
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        if (isComposing.current) {
+            setUserInput(val); // Đang gõ dở thì giữ nguyên để bàn phím tự lo
+        } else {
+            processInput(val); // Gõ xong rồi mới ép kiểu/convert
+        }
+    };
+
+    const handleCompositionStart = () => {
+        isComposing.current = true;
+    };
+
+    const handleCompositionEnd = (e) => {
+        isComposing.current = false;
+        processInput(e.target.value); // Ép kiểu ngay khi vừa xác nhận chữ xong
     };
 
 
@@ -993,11 +1014,19 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
                     <div className="w-full space-y-4">
                         <input 
-                            type="text" autoFocus value={userInput} onChange={handleInputChange}
-                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
-                            placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
-                            className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
-                        />
+        type="text" autoFocus value={userInput} 
+        onChange={handleInputChange}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
+        onKeyDown={(e) => {
+           
+            if (e.key === 'Enter' && !isComposing.current) {
+                checkAnswer();
+            }
+        }}
+        placeholder={status === 'retyping' ? "Gõ lại chính xác..." : (mode === 'kanji' ? "Nhập âm Hán Việt..." : "Nhập cách đọc...")}
+        className={`w-full p-4 text-center text-xl font-bold border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-100 focus:border-zinc-900 bg-zinc-50 shadow-inner'}`}
+    />
                         {(status === 'retyping' || status === 'wrong') && (
                             <div className="animate-in slide-in-from-top-2 duration-300 text-center">
                                 <p className="text-[10px] font-bold text-red-400 uppercase mb-1">Đáp án đúng:</p>
@@ -6985,7 +7014,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     // --- 3. XỬ LÝ NHẬP LIỆU & ĐIỀU HƯỚNG THỦ CÔNG ---
     const handleInputChange = (e) => {
-        setUserInput(convertToKana(e.target.value, false)); 
+        // Lấy từ vựng hiện tại trong hàng đợi
+        const currentItem = queue[currentIndex];
+        
+        // Ưu tiên lấy mặt chữ (word) hoặc cách đọc (reading) để làm mốc chuyển Katakana
+        const targetKana = currentItem?.word || currentItem?.reading || '';
+        
+        setUserInput(convertToKana(e.target.value, targetKana)); 
     };
 
     const handleManualNext = () => {
