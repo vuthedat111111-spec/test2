@@ -7066,15 +7066,21 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
     const checkAnswer = () => {
-        if (status === 'correct' || finished) return;
-        const currentItem = queue[currentIndex];
-        let finalInput = userInput.trim();
+    if (status === 'correct' || finished) return;
+    const currentItem = queue[currentIndex];
+    let finalInput = userInput.trim();
 
-        if (finalInput.endsWith('n')) {
-            finalInput = finalInput.slice(0, -1) + 'ん';
-        }
+    if (finalInput.endsWith('n')) {
+        finalInput = finalInput.slice(0, -1) + 'ん';
+    }
 
-        const isCorrect = (finalInput === currentItem.word) || (finalInput === currentItem.reading);
+    // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
+    const targetWord = (mode === 'sentence' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
+    const targetReading = (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
+
+    const isCorrect = (finalInput === targetWord) || (finalInput === targetReading);
+
+  
 
         // Đang bị phạt gõ lại
         if (status === 'retyping') {
@@ -7136,23 +7142,27 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
     // --- RENDER ĐỤC LỖ CÂU VÍ DỤ ---
-    const renderMaskedSentence = (sentence, word, reading) => {
-        if (!sentence || !word) return null;
-        const parts = sentence.split(word);
-        if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
-        
-        return (
-            <span className="font-sans leading-loose">
-                {parts[0]}
-                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                    {showHint || status === 'retyping' ? (
-                        <span className="font-bold whitespace-nowrap">{word} ({reading})</span>
-                    ) : '＿＿＿'}
-                </span>
-                {parts.slice(1).join(word)}
+    const renderMaskedSentence = (sentence, word, reading, blankWord) => {
+    if (!sentence || !word) return null;
+    
+    // Ưu tiên dùng từ đã chia thể (blankWord) để cắt câu, nếu không có thì dùng từ gốc
+    const wordToMask = blankWord || word;
+    const parts = sentence.split(wordToMask);
+    
+    if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
+    
+    return (
+        <span className="font-sans leading-loose">
+            {parts[0]}
+            <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                {showHint || status === 'retyping' ? (
+                    <span className="font-bold whitespace-nowrap">{wordToMask} ({reading})</span>
+                ) : '＿＿＿'}
             </span>
-        );
-    };
+            {parts.slice(1).join(wordToMask)}
+        </span>
+    );
+};
 
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
@@ -7268,7 +7278,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
                                 {effectiveMode === 'sentence' ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
-                                        {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
+                                      {renderMaskedSentence(currentItem.sentence, currentItem.word, (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, currentItem.blankWord)}
                                     </div>
                                 ) : (
                                     <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
