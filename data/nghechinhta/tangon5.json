@@ -4,7 +4,7 @@
     "title": "Phần 1",
     "audioPath": "./data/audio/nghechinhta/tangon5p1.mp3",
     "vocabularies": [
-      {
+      { 
         "id": "v1",
         "word": "わたし",
         "reading": "わたし",
