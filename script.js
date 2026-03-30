@@ -872,19 +872,27 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
  
 
+   // Khai báo thêm ref để theo dõi trạng thái bàn phím
+    const isComposing = useRef(false);
 
+    // Tách phần convert ra một hàm riêng
     const processInput = (val) => {
-        const currentItem = queue[currentIndex];
-        const targetKana = currentItem?.word || currentItem?.reading || '';
-        setUserInput(convertToKana(val, targetKana));
+        if (mode === 'vocab') {
+            const currentItem = queue[currentIndex];
+            const targetReading = dbData.TUVUNG_DB[currentItem]?.reading || '';
+            setUserInput(convertToKana(val, targetReading));
+        } else {
+            setUserInput(val.toUpperCase());
+        }
     };
 
+    // Chỉ convert khi người dùng KHÔNG TRONG TRẠNG THÁI GOM CHỮ
     const handleInputChange = (e) => {
         const val = e.target.value;
         if (isComposing.current) {
-            setUserInput(val); 
+            setUserInput(val); // Đang gõ dở thì giữ nguyên để bàn phím tự lo
         } else {
-            processInput(val); 
+            processInput(val); // Gõ xong rồi mới ép kiểu/convert
         }
     };
 
@@ -894,7 +902,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
     const handleCompositionEnd = (e) => {
         isComposing.current = false;
-        processInput(e.target.value); 
+        processInput(e.target.value); // Ép kiểu ngay khi vừa xác nhận chữ xong
     };
 
 
@@ -5185,7 +5193,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-           '22baitrungthuongcap': [
+             '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -5423,7 +5431,7 @@ const renderGuideOverlay = () => (
                     {[
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
                         { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
-                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
+                          { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -7005,15 +7013,29 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setPlaybackRate(rates[nextIdx]);
     };
 
-    // --- 3. XỬ LÝ NHẬP LIỆU & ĐIỀU HƯỚNG THỦ CÔNG ---
-    const handleInputChange = (e) => {
-        // Lấy từ vựng hiện tại trong hàng đợi
+   // THÊM ĐOẠN CODE MỚI NÀY VÀO:
+    const processInput = (val) => {
         const currentItem = queue[currentIndex];
-        
-        // Ưu tiên lấy mặt chữ (word) hoặc cách đọc (reading) để làm mốc chuyển Katakana
         const targetKana = currentItem?.word || currentItem?.reading || '';
-        
-        setUserInput(convertToKana(e.target.value, targetKana)); 
+        setUserInput(convertToKana(val, targetKana));
+    };
+
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        if (isComposing.current) {
+            setUserInput(val); // Nếu đang gõ dở (gom chữ), giữ nguyên raw value để bộ gõ tự xử lý
+        } else {
+            processInput(val); // Gõ xong rồi mới ép kiểu Katakana/Hiragana
+        }
+    };
+
+    const handleCompositionStart = () => { 
+        isComposing.current = true; 
+    };
+
+    const handleCompositionEnd = (e) => { 
+        isComposing.current = false; 
+        processInput(e.target.value); // Ép kiểu ngay khi vừa xác nhận chữ xong
     };
 
     const handleManualNext = () => {
@@ -7059,21 +7081,15 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
     const checkAnswer = () => {
-    if (status === 'correct' || finished) return;
-    const currentItem = queue[currentIndex];
-    let finalInput = userInput.trim();
+        if (status === 'correct' || finished) return;
+        const currentItem = queue[currentIndex];
+        let finalInput = userInput.trim();
 
-    if (finalInput.endsWith('n')) {
-        finalInput = finalInput.slice(0, -1) + 'ん';
-    }
+        if (finalInput.endsWith('n')) {
+            finalInput = finalInput.slice(0, -1) + 'ん';
+        }
 
-    // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
-    const targetWord = (mode === 'sentence' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
-    const targetReading = (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
-
-    const isCorrect = (finalInput === targetWord) || (finalInput === targetReading);
-
-  
+        const isCorrect = (finalInput === currentItem.word) || (finalInput === currentItem.reading);
 
         // Đang bị phạt gõ lại
         if (status === 'retyping') {
@@ -7135,27 +7151,23 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
     // --- RENDER ĐỤC LỖ CÂU VÍ DỤ ---
-    const renderMaskedSentence = (sentence, word, reading, blankWord) => {
-    if (!sentence || !word) return null;
-    
-    // Ưu tiên dùng từ đã chia thể (blankWord) để cắt câu, nếu không có thì dùng từ gốc
-    const wordToMask = blankWord || word;
-    const parts = sentence.split(wordToMask);
-    
-    if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
-    
-    return (
-        <span className="font-sans leading-loose">
-            {parts[0]}
-            <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                {showHint || status === 'retyping' ? (
-                    <span className="font-bold whitespace-nowrap">{wordToMask} ({reading})</span>
-                ) : '＿＿＿'}
+    const renderMaskedSentence = (sentence, word, reading) => {
+        if (!sentence || !word) return null;
+        const parts = sentence.split(word);
+        if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
+        
+        return (
+            <span className="font-sans leading-loose">
+                {parts[0]}
+                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {showHint || status === 'retyping' ? (
+                        <span className="font-bold whitespace-nowrap">{word} ({reading})</span>
+                    ) : '＿＿＿'}
+                </span>
+                {parts.slice(1).join(word)}
             </span>
-            {parts.slice(1).join(wordToMask)}
-        </span>
-    );
-};
+        );
+    };
 
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
@@ -7271,7 +7283,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
                                 {effectiveMode === 'sentence' ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
-                                      {renderMaskedSentence(currentItem.sentence, currentItem.word, (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, currentItem.blankWord)}
+                                        {renderMaskedSentence(currentItem.sentence, currentItem.word, currentItem.reading)}
                                     </div>
                                 ) : (
                                     <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
@@ -7290,22 +7302,19 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         )}
                     </div>
 
-                   {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
+                    {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
                         <input 
-                            type="text" autoFocus value={userInput} 
-                            onChange={handleInputChange}
-                            onCompositionStart={handleCompositionStart}
-                            onCompositionEnd={handleCompositionEnd}
-                            onKeyDown={(e) => {
-                                // Nếu đang dùng bàn phím Nhật chọn chữ thì không chấm điểm
-                                if (e.key === 'Enter' && !isComposing.current) {
-                                    checkAnswer();
-                                }
-                            }}
-                            placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
-                            className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
-                        />
+    type="text" 
+    autoFocus 
+    value={userInput} 
+    onChange={handleInputChange}
+    onCompositionStart={handleCompositionStart} // Thêm dòng này
+    onCompositionEnd={handleCompositionEnd}     // Thêm dòng này
+    onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+    placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
+    className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
+/>
                         
                         <div className="flex justify-between items-center px-2">
                             <button onClick={handleShowAnswer} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
@@ -7396,17 +7405,17 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     const [editingVocab, setEditingVocab] = useState(null);
 
 React.useEffect(() => {
-        // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
+       // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
         const handleContextMenu = (e) => {
-         
+            // Nhận diện thiết bị cảm ứng (Điện thoại, Máy tính bảng)
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-          
+            // Nếu LÀ ĐIỆN THOẠI và đang bấm vào ô nhập liệu -> Thả cửa cho hiện Copy/Paste
             if (isTouchDevice && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
                 return; 
             }
 
-          
+            // Các trường hợp còn lại (Bao gồm dùng chuột phải trên Máy tính) -> Chặn sạch!
             e.preventDefault();
         };
 
