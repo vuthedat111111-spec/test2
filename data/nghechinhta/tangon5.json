@@ -4,17 +4,17 @@
     "title": "Phần 1",
     "audioPath": "./data/audio/nghechinhta/tangon5p1.mp3",
     "vocabularies": [
-      { 
+      {
         "id": "v1",
         "word": "私",
         "reading": "わたし",
         "meaning": "tôi (ngôi thứ nhất số ít)",
         "sentence": "私は アンです。",
         "sentenceVi": "Tôi (tên) là An.",
-        "wordStartTime": 0,
-        "wordEndTime": 1.92,
-        "sentenceStartTime": 1.92,
-        "sentenceEndTime": 4.86
+        "wordStartTime": 0.96,
+        "wordEndTime": 1.61,
+        "sentenceStartTime": 2.89,
+        "sentenceEndTime": 4.32
       },
       {
         "id": "v2",
@@ -23,34 +23,34 @@
         "meaning": "là ~",
         "sentence": "わたしは スミスです。",
         "sentenceVi": "Tôi là Smith.",
-        "wordStartTime": 4.86,
-        "wordEndTime": 6.53,
-        "sentenceStartTime": 6.53,
-        "sentenceEndTime": 9.29
+        "wordStartTime": 5.55,
+        "wordEndTime": 6.16,
+        "sentenceStartTime": 7.23,
+        "sentenceEndTime": 8.89
       },
       {
         "id": "v3",
         "word": "さん",
         "reading": "さん",
         "meaning": "ông / bà / anh / chị ~",
-        "sentence": "A「トムさんですか。」 B「はい。」",
-        "sentenceVi": "A: Anh Tom phải không? / B: Vâng.",
-        "wordStartTime": 9.29,
-        "wordEndTime": 10.95,
-        "sentenceStartTime": 10.95,
-        "sentenceEndTime": 14.57
+        "sentence": "トムさんですか。",
+        "sentenceVi": "Anh Tom phải không?",
+        "wordStartTime": 10.21,
+        "wordEndTime": 10.69,
+        "sentenceStartTime": 11.71,
+        "sentenceEndTime": 12.92
       },
       {
         "id": "v4",
         "word": "ちゃん",
         "reading": "ちゃん",
         "meaning": "bé ~",
-        "sentence": "(かのじょは) ララちゃんです。",
-        "sentenceVi": "(Cô bé ) Là bé Lala.",
-        "wordStartTime": 14.57,
-        "wordEndTime": 16.41,
-        "sentenceStartTime": 16.41,
-        "sentenceEndTime": 19.36
+        "sentence": "かのじょは ララちゃんです。",
+        "sentenceVi": "Cô bé là bé Lala.",
+        "wordStartTime": 15.58,
+        "wordEndTime": 16.04,
+        "sentenceStartTime": 17.12,
+        "sentenceEndTime": 19.04
       },
       {
         "id": "v5",
@@ -59,10 +59,10 @@
         "meaning": "ông / bà / anh / chị / bạn (ngôi thứ hai số ít)",
         "sentence": "あなたは トムさんですか。",
         "sentenceVi": "Anh là anh Tom phải không?",
-        "wordStartTime": 19.36,
-        "wordEndTime": 21.25,
-        "sentenceStartTime": 21.25,
-        "sentenceEndTime": 24.49
+        "wordStartTime": 20.31,
+        "wordEndTime": 20.92,
+        "sentenceStartTime": 22.11,
+        "sentenceEndTime": 24.28
       },
       {
         "id": "v6",
@@ -71,10 +71,10 @@
         "meaning": "anh ấy (ngôi thứ ba số ít), bạn trai",
         "sentence": "彼は トムさんです。",
         "sentenceVi": "Anh ấy là anh Tom.",
-        "wordStartTime": 24.49,
-        "wordEndTime": 26.08,
-        "sentenceStartTime": 26.08,
-        "sentenceEndTime": 29.01
+        "wordStartTime": 25.28,
+        "wordEndTime": 25.85,
+        "sentenceStartTime": 26.96,
+        "sentenceEndTime": 28.64
       },
       {
         "id": "v7",
@@ -83,22 +83,22 @@
         "meaning": "cố ấy, chị ấy (ngôi thứ ba số ít), bạn gái",
         "sentence": "彼女は ヒエンさんです。",
         "sentenceVi": "Chị ấy là chị Hiền.",
-        "wordStartTime": 29.01,
-        "wordEndTime": 30.84,
-        "sentenceStartTime": 30.84,
-        "sentenceEndTime": 33.94
+        "wordStartTime": 29.83,
+        "wordEndTime": 30.51,
+        "sentenceStartTime": 31.62,
+        "sentenceEndTime": 33.51
       },
       {
         "id": "v8",
         "word": "お名前",
         "reading": "おなまえ",
         "meaning": "tên (của bạn)",
-        "sentence": "A「お名前は?」 B「トムです。」",
-        "sentenceVi": "A: Tên bạn là gì? / B: Là Tom.",
-        "wordStartTime": 33.94,
-        "wordEndTime": 37.18,
-        "sentenceStartTime": 37.2,
-        "sentenceEndTime": 39.66
+        "sentence": "お名前は?",
+        "sentenceVi": "Tên bạn là gì?",
+        "wordStartTime": 35.98,
+        "wordEndTime": 36.79,
+        "sentenceStartTime": 38.03,
+        "sentenceEndTime": 38.98
       },
       {
         "id": "v9",
@@ -107,10 +107,10 @@
         "meaning": "vâng, dạ",
         "sentence": "A「やまださんですか。」 B「はい。」",
         "sentenceVi": "A: Anh Yamada phải không? / B: Vâng.",
-        "wordStartTime": 39.66,
-        "wordEndTime": 40.74,
-        "sentenceStartTime": 40.74,
-        "sentenceEndTime": 43.27
+        "wordStartTime": 41.98,
+        "wordEndTime": 42.43,
+        "sentenceStartTime": 43.75,
+        "sentenceEndTime": 46.1
       },
       {
         "id": "v10",
@@ -119,10 +119,10 @@
         "meaning": "vâng, dạ",
         "sentence": "A「やまださんですか。」 B「ええ、そうです。」",
         "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy.",
-        "wordStartTime": 43.27,
-        "wordEndTime": 46.27,
-        "sentenceStartTime": 46.27,
-        "sentenceEndTime": 48.42
+        "wordStartTime": 47.32,
+        "wordEndTime": 48.15,
+        "sentenceStartTime": 49.3,
+        "sentenceEndTime": 53.15
       },
       {
         "id": "v11",
@@ -131,10 +131,10 @@
         "meaning": "không",
         "sentence": "A「やまださんですか。」 C「いいえ。」",
         "sentenceVi": "A: Anh Yamada phải không? / C: Không.",
-        "wordStartTime": 48.42,
-        "wordEndTime": 53.21,
-        "sentenceStartTime": 53.21,
-        "sentenceEndTime": 55.51
+        "wordStartTime": 54.31,
+        "wordEndTime": 55.13,
+        "sentenceStartTime": 56.16,
+        "sentenceEndTime": 58.94
       },
       {
         "id": "v12",
@@ -143,10 +143,10 @@
         "meaning": "đúng vậy",
         "sentence": "A「やまださんですか。」 B「はい、そうです。」",
         "sentenceVi": "A: Anh Yamada phải không? / B: Vâng, đúng vậy.",
-        "wordStartTime": 55.51,
-        "wordEndTime": 59.06,
-        "sentenceStartTime": 59.06,
-        "sentenceEndTime": 61.68
+        "wordStartTime": 60.74,
+        "wordEndTime": 61.3,
+        "sentenceStartTime": 62.39,
+        "sentenceEndTime": 66.02
       },
       {
         "id": "v13",
@@ -155,160 +155,160 @@
         "meaning": "không phải",
         "sentence": "A「やまださんですか。」 B「いいえ、違います。たなかです。」",
         "sentenceVi": "A: Anh Yamada phải không? / B: Không, không phải. Tôi là Tanaka.",
-        "wordStartTime": 61.68,
-        "wordEndTime": 66.52,
-        "sentenceStartTime": 66.52,
-        "sentenceEndTime": 68.84
+        "wordStartTime": 67.61,
+        "wordEndTime": 68.48,
+        "sentenceStartTime": 69.52,
+        "sentenceEndTime": 74.68
       },
       {
         "id": "v14",
-        "word": "おはよう。",
-        "reading": "おはよう。",
+        "word": "おはよう",
+        "reading": "おはよう",
         "meaning": "Chào. (buổi sáng)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 68.84,
-        "wordEndTime": 75.04
+        "wordStartTime": 78.68,
+        "wordEndTime": 79.59
       },
       {
         "id": "v15",
-        "word": "おはようございます。",
-        "reading": "おはようございます。",
+        "word": "おはようございます",
+        "reading": "おはようございます",
         "meaning": "Xin chào. (buổi sáng)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 75.04,
-        "wordEndTime": 79.97
+        "wordStartTime": 80.85,
+        "wordEndTime": 82.18
       },
       {
         "id": "v16",
-        "word": "こんにちは。",
-        "reading": "こんにちは。",
+        "word": "こんにちは",
+        "reading": "こんにちは",
         "meaning": "Xin chào. (buổi trưa)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 79.97,
-        "wordEndTime": 82.66
+        "wordStartTime": 83.22,
+        "wordEndTime": 84.51
       },
       {
         "id": "v17",
-        "word": "こんばんは。",
-        "reading": "こんばんは。",
+        "word": "こんばんは",
+        "reading": "こんばんは",
         "meaning": "Xin chào. (buổi tối)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 82.68,
-        "wordEndTime": 86.68
+        "wordStartTime": 89.49,
+        "wordEndTime": 90.4
       },
       {
         "id": "v18",
-        "word": "さようなら。",
-        "reading": "さようなら。",
+        "word": "さようなら",
+        "reading": "さようなら",
         "meaning": "Tạm biệt.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 86.68,
-        "wordEndTime": 90.54
+        "wordStartTime": 93.76,
+        "wordEndTime": 94.75
       },
       {
         "id": "v19",
-        "word": "じゃ、また。",
-        "reading": "じゃ、また。",
+        "word": "じゃまた",
+        "reading": "じゃまた",
         "meaning": "Vậy nhé, gặp lại sau.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 90.54,
-        "wordEndTime": 94.79
+        "wordStartTime": 97.01,
+        "wordEndTime": 98.51
       },
       {
         "id": "v20",
-        "word": "おやすみなさい。",
-        "reading": "おやすみなさい。",
+        "word": "おやすみなさい",
+        "reading": "おやすみなさい",
         "meaning": "Chúc ngủ ngon.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 94.79,
-        "wordEndTime": 98.69
+        "wordStartTime": 101.27,
+        "wordEndTime": 102.44
       },
       {
         "id": "v21",
-        "word": "ありがとう。",
-        "reading": "ありがとう。",
+        "word": "ありがとう",
+        "reading": "ありがとう",
         "meaning": "Cám ơn.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 98.69,
-        "wordEndTime": 104.62
+        "wordStartTime": 106.62,
+        "wordEndTime": 107.79
       },
       {
         "id": "v22",
-        "word": "どういたしまして。",
-        "reading": "どういたしまして。",
+        "word": "どういたしまして",
+        "reading": "どういたしまして",
         "meaning": "Không có chi.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 104.62,
-        "wordEndTime": 107.96
+        "wordStartTime": 108.41,
+        "wordEndTime": 109.89
       },
       {
         "id": "v23",
-        "word": "ありがとうございます。",
-        "reading": "ありがとうございます。",
+        "word": "ありがとうございます",
+        "reading": "ありがとうございます",
         "meaning": "Xin cám ơn.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 107.96,
-        "wordEndTime": 110.13
+        "wordStartTime": 111.71,
+        "wordEndTime": 113.09
       },
       {
         "id": "v24",
-        "word": "どうぞ。",
-        "reading": "どうぞ。",
+        "word": "どうぞ",
+        "reading": "どうぞ",
         "meaning": "Xin mời.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 110.13,
-        "wordEndTime": 113.58
+        "wordStartTime": 115.93,
+        "wordEndTime": 116.69
       },
       {
         "id": "v25",
-        "word": "どうも。",
-        "reading": "どうも。",
+        "word": "どうも",
+        "reading": "どうも",
         "meaning": "Cám ơn.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 113.58,
-        "wordEndTime": 116.92
+        "wordStartTime": 117.43,
+        "wordEndTime": 118.31
       },
       {
         "id": "v26",
-        "word": "初めまして。",
-        "reading": "はじめまして。",
+        "word": "初めまして",
+        "reading": "はじめまして",
         "meaning": "Xin chào. (dùng khi lần đầu tiên gặp mặt)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 116.92,
-        "wordEndTime": 118.41
+        "wordStartTime": 121.19,
+        "wordEndTime": 122.18
       },
       {
         "id": "v27",
-        "word": "どうぞよろしく。",
-        "reading": "どうぞよろしく。",
+        "word": "どうぞよろしく",
+        "reading": "どうぞよろしく",
         "meaning": "Xin vui lòng giúp đỡ.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 118.41,
-        "wordEndTime": 122.28
+        "wordStartTime": 122.92,
+        "wordEndTime": 124.44
       },
       {
         "id": "v28",
-        "word": "こちらこそ。",
-        "reading": "こちらこそ。",
+        "word": "こちらこそ",
+        "reading": "こちらこそ",
         "meaning": "Tôi mới phải nhờ. / Tôi mới phải cám ơn./ Tôi mới phải xin lỗi.",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 122.28,
-        "wordEndTime": 124.62
+        "wordStartTime": 124.81,
+        "wordEndTime": 125.98
       },
       {
         "id": "v29",
@@ -317,10 +317,10 @@
         "meaning": "gia đình",
         "sentence": "家族は 7 にんです。",
         "sentenceVi": "Gia đình (tôi) có 7 người.",
-        "wordStartTime": 124.62,
-        "wordEndTime": 126.26,
-        "sentenceStartTime": 126.26,
-        "sentenceEndTime": 130.14
+        "wordStartTime": 129.11,
+        "wordEndTime": 129.93,
+        "sentenceStartTime": 131.13,
+        "sentenceEndTime": 133.14
       },
       {
         "id": "v30",
@@ -329,8 +329,8 @@
         "meaning": "cha mẹ, song thân",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 130.14,
-        "wordEndTime": 133.52
+        "wordStartTime": 135.98,
+        "wordEndTime": 136.99
       },
       {
         "id": "v31",
@@ -339,8 +339,8 @@
         "meaning": "cha (tôi), người cha",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 133.52,
-        "wordEndTime": 137.14
+        "wordStartTime": 138.61,
+        "wordEndTime": 139.54
       },
       {
         "id": "v32",
@@ -349,8 +349,8 @@
         "meaning": "mẹ (tôi), người mẹ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 137.14,
-        "wordEndTime": 139.59
+        "wordStartTime": 140.69,
+        "wordEndTime": 141.44
       },
       {
         "id": "v33",
@@ -359,8 +359,8 @@
         "meaning": "chị (tôi), người chị",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 139.59,
-        "wordEndTime": 141.56
+        "wordStartTime": 142.8,
+        "wordEndTime": 143.55
       },
       {
         "id": "v34",
@@ -369,8 +369,8 @@
         "meaning": "anh (tôi), người anh",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 141.56,
-        "wordEndTime": 143.65
+        "wordStartTime": 144.88,
+        "wordEndTime": 145.72
       },
       {
         "id": "v35",
@@ -379,8 +379,8 @@
         "meaning": "em trai (tôi), người em trai",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 143.65,
-        "wordEndTime": 145.75
+        "wordStartTime": 147.05,
+        "wordEndTime": 148.16
       },
       {
         "id": "v36",
@@ -389,8 +389,8 @@
         "meaning": "em gái (tôi), người em gái",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 145.75,
-        "wordEndTime": 148.23
+        "wordStartTime": 149.4,
+        "wordEndTime": 150.43
       },
       {
         "id": "v37",
@@ -399,8 +399,8 @@
         "meaning": "anh chị em",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 148.23,
-        "wordEndTime": 150.7
+        "wordStartTime": 153.3,
+        "wordEndTime": 154.22
       },
       {
         "id": "v38",
@@ -409,8 +409,8 @@
         "meaning": "con chó",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 150.7,
-        "wordEndTime": 154.42
+        "wordStartTime": 155.69,
+        "wordEndTime": 156.65
       },
       {
         "id": "v39",
@@ -419,18 +419,18 @@
         "meaning": "con mèo",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 154.42,
-        "wordEndTime": 156.63
+        "wordStartTime": 157.77,
+        "wordEndTime": 158.74
       },
       {
         "id": "v40",
         "word": "いる",
         "reading": "いる",
         "meaning": "có, ở",
-        "sentence": "いぬが います。",
+        "sentence": "",
         "sentenceVi": "Có con chó.",
-        "wordStartTime": 156.63,
-        "wordEndTime": 158.67,
+        "wordStartTime": 161.4,
+        "wordEndTime": 162.22,
         "sentenceStartTime": 158.67,
         "sentenceEndTime": 162.38
       },
@@ -441,10 +441,10 @@
         "meaning": "nhà",
         "sentence": "家にねこがいます。",
         "sentenceVi": "Nhà tôi có con mèo.",
-        "wordStartTime": 162.38,
-        "wordEndTime": 167.16,
-        "sentenceStartTime": 167.16,
-        "sentenceEndTime": 169.38
+        "wordStartTime": 168.35,
+        "wordEndTime": 169.12,
+        "sentenceStartTime": 170.08,
+        "sentenceEndTime": 172.09
       },
       {
         "id": "v42",
@@ -453,8 +453,8 @@
         "meaning": "ông (nội, ngoại), ông cụ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 169.38,
-        "wordEndTime": 172.53
+        "wordStartTime": 173.88,
+        "wordEndTime": 174.94
       },
       {
         "id": "v43",
@@ -463,18 +463,18 @@
         "meaning": "bà (nội, ngoại), bà cụ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 172.53,
-        "wordEndTime": 175.14
+        "wordStartTime": 175.9,
+        "wordEndTime": 176.95
       },
       {
         "id": "v44",
         "word": "ご両親",
         "reading": "ごりょうしん",
-        "meaning": "cha mẹ, song thân (của người khác)",
+        "meaning": "cha mẹ (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 175.14,
-        "wordEndTime": 177.11
+        "wordStartTime": 178.99,
+        "wordEndTime": 180.39
       },
       {
         "id": "v45",
@@ -483,8 +483,8 @@
         "meaning": "bố, người cha (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 177.11,
-        "wordEndTime": 180.43
+        "wordStartTime": 181.94,
+        "wordEndTime": 183.18
       },
       {
         "id": "v46",
@@ -493,8 +493,8 @@
         "meaning": "mẹ, người mẹ (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 180.43,
-        "wordEndTime": 183.07
+        "wordStartTime": 184.15,
+        "wordEndTime": 185.46
       },
       {
         "id": "v47",
@@ -503,8 +503,8 @@
         "meaning": "chị gái (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 183.07,
-        "wordEndTime": 185.58
+        "wordStartTime": 187.04,
+        "wordEndTime": 188.42
       },
       {
         "id": "v48",
@@ -513,8 +513,8 @@
         "meaning": "anh trai (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 185.58,
-        "wordEndTime": 188.27
+        "wordStartTime": 189.53,
+        "wordEndTime": 191.03
       },
       {
         "id": "v49",
@@ -523,8 +523,8 @@
         "meaning": "em trai (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 188.27,
-        "wordEndTime": 190.95
+        "wordStartTime": 193.16,
+        "wordEndTime": 194.79
       },
       {
         "id": "v50",
@@ -533,8 +533,8 @@
         "meaning": "em gái (của người khác)",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 190.95,
-        "wordEndTime": 194.71
+        "wordStartTime": 195.87,
+        "wordEndTime": 197.36
       },
       {
         "id": "v51",
@@ -543,8 +543,8 @@
         "meaning": "một người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 194.71,
-        "wordEndTime": 197.5
+        "wordStartTime": 199.99,
+        "wordEndTime": 200.95
       },
       {
         "id": "v52",
@@ -553,8 +553,8 @@
         "meaning": "hai người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 197.5,
-        "wordEndTime": 200.99
+        "wordStartTime": 202.03,
+        "wordEndTime": 202.95
       },
       {
         "id": "v53",
@@ -563,8 +563,8 @@
         "meaning": "ba người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 200.99,
-        "wordEndTime": 202.93
+        "wordStartTime": 204.07,
+        "wordEndTime": 205.14
       },
       {
         "id": "v54",
@@ -573,8 +573,8 @@
         "meaning": "bốn người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 202.93,
-        "wordEndTime": 205.21
+        "wordStartTime": 206.12,
+        "wordEndTime": 207.21
       },
       {
         "id": "v55",
@@ -583,8 +583,8 @@
         "meaning": "năm người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 205.21,
-        "wordEndTime": 207.24
+        "wordStartTime": 208.18,
+        "wordEndTime": 209.35
       },
       {
         "id": "v56",
@@ -593,8 +593,8 @@
         "meaning": "sáu người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 207.24,
-        "wordEndTime": 209.33
+        "wordStartTime": 210.41,
+        "wordEndTime": 211.6
       },
       {
         "id": "v57",
@@ -603,8 +603,8 @@
         "meaning": "bảy người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 209.33,
-        "wordEndTime": 211.44
+        "wordStartTime": 214.73,
+        "wordEndTime": 215.59
       },
       {
         "id": "v58",
@@ -613,8 +613,8 @@
         "meaning": "tám người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 211.44,
-        "wordEndTime": 215.82
+        "wordStartTime": 217.06,
+        "wordEndTime": 218.08
       },
       {
         "id": "v59",
@@ -623,8 +623,8 @@
         "meaning": "chín người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 215.82,
-        "wordEndTime": 218.23
+        "wordStartTime": 221.3,
+        "wordEndTime": 222.05
       },
       {
         "id": "v60",
@@ -633,8 +633,8 @@
         "meaning": "mười người",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 218.23,
-        "wordEndTime": 222.4
+        "wordStartTime": 223.43,
+        "wordEndTime": 224.33
       },
       {
         "id": "v61",
@@ -643,10 +643,10 @@
         "meaning": "mấy người, bao nhiêu người",
         "sentence": "A「何人ですか。」 B「3にんです。」",
         "sentenceVi": "A: Bao nhiêu người? / B: 3 người.",
-        "wordStartTime": 222.4,
-        "wordEndTime": 224.5,
-        "sentenceStartTime": 224.5,
-        "sentenceEndTime": 227.18
+        "wordStartTime": 225.91,
+        "wordEndTime": 226.99,
+        "sentenceStartTime": 228.34,
+        "sentenceEndTime": 231.61
       },
       {
         "id": "v62",
@@ -655,8 +655,8 @@
         "meaning": "người lớn",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 227.19,
-        "wordEndTime": 231.87
+        "wordStartTime": 233.7,
+        "wordEndTime": 234.6
       },
       {
         "id": "v63",
@@ -665,8 +665,8 @@
         "meaning": "trẻ em, trẻ con, con cái",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 231.87,
-        "wordEndTime": 234.73
+        "wordStartTime": 235.63,
+        "wordEndTime": 236.68
       },
       {
         "id": "v64",
@@ -675,8 +675,8 @@
         "meaning": "người đàn ông",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 234.73,
-        "wordEndTime": 236.76
+        "wordStartTime": 237.93,
+        "wordEndTime": 239.34
       },
       {
         "id": "v65",
@@ -685,8 +685,8 @@
         "meaning": "người phụ nữ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 236.76,
-        "wordEndTime": 239.54
+        "wordStartTime": 240.33,
+        "wordEndTime": 241.74
       },
       {
         "id": "v66",
@@ -695,8 +695,8 @@
         "meaning": "cậu bé, đứa bé trai",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 239.54,
-        "wordEndTime": 241.84
+        "wordStartTime": 242.9,
+        "wordEndTime": 244.24
       },
       {
         "id": "v67",
@@ -705,8 +705,8 @@
         "meaning": "cô bé, đứa bé gái",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 241.84,
-        "wordEndTime": 244.35
+        "wordStartTime": 245.32,
+        "wordEndTime": 246.58
       },
       {
         "id": "v68",
@@ -715,10 +715,10 @@
         "meaning": "đất nước, nước",
         "sentence": "わたしの国はマレーシアです。",
         "sentenceVi": "Nước của tôi là Malaysia.",
-        "wordStartTime": 244.35,
-        "wordEndTime": 246.69,
-        "sentenceStartTime": 246.69,
-        "sentenceEndTime": 250.36
+        "wordStartTime": 249.28,
+        "wordEndTime": 250.2,
+        "sentenceStartTime": 251.44,
+        "sentenceEndTime": 254.12
       },
       {
         "id": "v69",
@@ -727,21 +727,20 @@
         "meaning": "có, ở",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 250.36,
-        "wordEndTime": 254.58
-      
+        "wordStartTime": 255.15,
+        "wordEndTime": 256.06
       },
       {
         "id": "v70",
         "word": "どちら",
         "reading": "どちら",
         "meaning": "ở đâu, hướng nào",
-        "sentence": "A「おくには どちらですか。」 B「ケニアです。」",
-        "sentenceVi": "A: Nước của bạn ở đâu? / B: Kenya.",
-        "wordStartTime": 256.15,
-        "wordEndTime": 260.32,
-        "sentenceStartTime": 260.32,
-        "sentenceEndTime": 262.3
+        "sentence": "おくには どちらですか。",
+        "sentenceVi": "Nước của bạn ở đâu? ",
+        "wordStartTime": 261.12,
+        "wordEndTime": 262.06,
+        "sentenceStartTime": 263.27,
+        "sentenceEndTime": 265.33
       },
       {
         "id": "v71",
@@ -750,10 +749,10 @@
         "meaning": "đến từ ~",
         "sentence": "わたしは アメリカから来ました。",
         "sentenceVi": "Tôi đến từ Mỹ.",
-        "wordStartTime": 262.3,
-        "wordEndTime": 267.11,
-        "sentenceStartTime": 267.11,
-        "sentenceEndTime": 270.63
+        "wordStartTime": 268.94,
+        "wordEndTime": 270.42,
+        "sentenceStartTime": 271.56,
+        "sentenceEndTime": 274.21
       },
       {
         "id": "v72",
@@ -762,10 +761,10 @@
         "meaning": "người ~",
         "sentence": "わたしは イギリス人です。",
         "sentenceVi": "Tôi là người Anh.",
-        "wordStartTime": 270.63,
-        "wordEndTime": 274.46,
-        "sentenceStartTime": 274.46,
-        "sentenceEndTime": 276.53
+        "wordStartTime": 275.4,
+        "wordEndTime": 276.51,
+        "sentenceStartTime": 277.62,
+        "sentenceEndTime": 279.96
       },
       {
         "id": "v73",
@@ -774,10 +773,10 @@
         "meaning": "bản đồ",
         "sentence": "にほんの 地図は ありますか。",
         "sentenceVi": "Bạn có bản đồ Nhật Bản không?",
-        "wordStartTime": 276.53,
-        "wordEndTime": 280.29,
-        "sentenceStartTime": 280.29,
-        "sentenceEndTime": 282.42
+        "wordStartTime": 281.36,
+        "wordEndTime": 282.24,
+        "sentenceStartTime": 283.5,
+        "sentenceEndTime": 285.79
       },
       {
         "id": "v74",
@@ -786,10 +785,10 @@
         "meaning": "thế giới",
         "sentence": "世界の ちずは ありますか。",
         "sentenceVi": "Bạn có bản đồ thế giới không?",
-        "wordStartTime": 282.42,
-        "wordEndTime": 285.96,
-        "sentenceStartTime": 285.96,
-        "sentenceEndTime": 287.87
+        "wordStartTime": 286.91,
+        "wordEndTime": 287.79,
+        "sentenceStartTime": 288.83,
+        "sentenceEndTime": 291.18
       },
       {
         "id": "v75",
@@ -798,8 +797,8 @@
         "meaning": "Nhật Bản",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 287.87,
-        "wordEndTime": 291.36
+        "wordStartTime": 292.48,
+        "wordEndTime": 293.43
       },
       {
         "id": "v76",
@@ -808,8 +807,8 @@
         "meaning": "Ấn Độ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 291.36,
-        "wordEndTime": 293.63
+        "wordStartTime": 294.95,
+        "wordEndTime": 295.87
       },
       {
         "id": "v77",
@@ -818,18 +817,18 @@
         "meaning": "Indonesia",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 293.63,
-        "wordEndTime": 295.93
+        "wordStartTime": 297.12,
+        "wordEndTime": 298.65
       },
       {
         "id": "v78",
-        "word": "かんこく",
+        "word": "韓国",
         "reading": "かんこく",
         "meaning": "Hàn Quốc",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 295.93,
-        "wordEndTime": 298.6
+        "wordStartTime": 299.94,
+        "wordEndTime": 301.07
       },
       {
         "id": "v79",
@@ -838,8 +837,8 @@
         "meaning": "Thái Lan",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 298.6,
-        "wordEndTime": 301.03
+        "wordStartTime": 302.47,
+        "wordEndTime": 303.23
       },
       {
         "id": "v80",
@@ -848,8 +847,8 @@
         "meaning": "Đài Loan",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 301.03,
-        "wordEndTime": 303.28
+        "wordStartTime": 304.8,
+        "wordEndTime": 305.87
       },
       {
         "id": "v81",
@@ -858,8 +857,8 @@
         "meaning": "Trung Quốc",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 303.28,
-        "wordEndTime": 305.88
+        "wordStartTime": 307.21,
+        "wordEndTime": 308.32
       },
       {
         "id": "v82",
@@ -868,8 +867,8 @@
         "meaning": "Nepal",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 305.88,
-        "wordEndTime": 308.27
+        "wordStartTime": 309.53,
+        "wordEndTime": 310.66
       },
       {
         "id": "v83",
@@ -878,8 +877,8 @@
         "meaning": "Phillippine",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 308.27,
-        "wordEndTime": 310.73
+        "wordStartTime": 312.18,
+        "wordEndTime": 313.28
       },
       {
         "id": "v84",
@@ -888,8 +887,8 @@
         "meaning": "Việt Nam",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 310.73,
-        "wordEndTime": 313.18
+        "wordStartTime": 314.68,
+        "wordEndTime": 315.75
       },
       {
         "id": "v85",
@@ -898,8 +897,8 @@
         "meaning": "Malaysia",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 313.18,
-        "wordEndTime": 315.84
+        "wordStartTime": 317.29,
+        "wordEndTime": 318.4
       },
       {
         "id": "v86",
@@ -908,8 +907,8 @@
         "meaning": "Myanmar",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 315.84,
-        "wordEndTime": 318.46
+        "wordStartTime": 319.91,
+        "wordEndTime": 321.09
       },
       {
         "id": "v87",
@@ -918,8 +917,8 @@
         "meaning": "Thổ Nhĩ Kỳ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 318.46,
-        "wordEndTime": 321.06
+        "wordStartTime": 322.5,
+        "wordEndTime": 323.53
       },
       {
         "id": "v88",
@@ -928,8 +927,8 @@
         "meaning": "Úc",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 321.06,
-        "wordEndTime": 323.38
+        "wordStartTime": 325.13,
+        "wordEndTime": 326.57
       },
       {
         "id": "v89",
@@ -938,8 +937,8 @@
         "meaning": "New Zealand",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 323.38,
-        "wordEndTime": 326.62
+        "wordStartTime": 328.07,
+        "wordEndTime": 329.59
       },
       {
         "id": "v90",
@@ -948,8 +947,8 @@
         "meaning": "Mỹ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 326.62,
-        "wordEndTime": 329.59
+        "wordStartTime": 330.94,
+        "wordEndTime": 332.02
       },
       {
         "id": "v91",
@@ -958,8 +957,8 @@
         "meaning": "Canada",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 329.59,
-        "wordEndTime": 331.99
+        "wordStartTime": 333.39,
+        "wordEndTime": 334.4
       },
       {
         "id": "v92",
@@ -968,8 +967,8 @@
         "meaning": "Mexico",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 331.99,
-        "wordEndTime": 334.32
+        "wordStartTime": 335.63,
+        "wordEndTime": 336.85
       },
       {
         "id": "v93",
@@ -978,8 +977,8 @@
         "meaning": "Brazil",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 334.32,
-        "wordEndTime": 336.85
+        "wordStartTime": 338.92,
+        "wordEndTime": 340.24
       },
       {
         "id": "v94",
@@ -988,8 +987,8 @@
         "meaning": "Nga",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 336.85,
-        "wordEndTime": 340.14
+        "wordStartTime": 341.38,
+        "wordEndTime": 342.46
       },
       {
         "id": "v95",
@@ -998,8 +997,8 @@
         "meaning": "Anh",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 340.14,
-        "wordEndTime": 342.46
+        "wordStartTime": 343.77,
+        "wordEndTime": 344.94
       },
       {
         "id": "v96",
@@ -1008,8 +1007,8 @@
         "meaning": "Pháp",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 342.46,
-        "wordEndTime": 344.96
+        "wordStartTime": 346.13,
+        "wordEndTime": 347.27
       },
       {
         "id": "v97",
@@ -1018,8 +1017,8 @@
         "meaning": "Đức",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 344.96,
-        "wordEndTime": 347.24
+        "wordStartTime": 348.4,
+        "wordEndTime": 349.49
       },
       {
         "id": "v98",
@@ -1028,8 +1027,8 @@
         "meaning": "Thụy Sỹ",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 347.24,
-        "wordEndTime": 349.49
+        "wordStartTime": 350.85,
+        "wordEndTime": 351.85
       },
       {
         "id": "v99",
@@ -1038,8 +1037,8 @@
         "meaning": "Ý",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 349.49,
-        "wordEndTime": 351.74
+        "wordStartTime": 353.12,
+        "wordEndTime": 354.26
       },
       {
         "id": "v100",
@@ -1048,8 +1047,8 @@
         "meaning": "Tây Ban Nha",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 351.74,
-        "wordEndTime": 354.21
+        "wordStartTime": 355.63,
+        "wordEndTime": 356.7
       },
       {
         "id": "v101",
@@ -1058,8 +1057,8 @@
         "meaning": "Ai Cập",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 354.21,
-        "wordEndTime": 356.7
+        "wordStartTime": 357.85,
+        "wordEndTime": 359.01
       },
       {
         "id": "v102",
@@ -1068,8 +1067,8 @@
         "meaning": "Kenya",
         "sentence": "",
         "sentenceVi": "",
-        "wordStartTime": 356.7,
-        "wordEndTime": 358.98
+        "wordStartTime": 360.42,
+        "wordEndTime": 361.19
       }
     ]
   }
