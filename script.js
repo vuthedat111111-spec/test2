@@ -3931,7 +3931,7 @@ const StudySetupModal = ({
                         {/* Header */}
                         <div className="px-5 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center shrink-0">
                             <h3 className="font-black text-sm text-gray-900 uppercase tracking-wider flex items-center gap-2">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                               
                                 Hướng dẫn thiết lập
                             </h3>
                             <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all shadow-sm outline-none">✕</button>
@@ -3955,7 +3955,7 @@ const StudySetupModal = ({
                                     </div>
                                 
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <p className="text-gray-500 leading-relaxed">Nhập thủ công: Bắt buộc nhập động từ ở <b>thể Masu</b> (VD: 食べます), mỗi từ nằm trên một dòng riêng biệt.</p>
+                                        <p className="text-gray-500 leading-relaxed">Nhập thủ công động từ ở <b>thể Masu</b> (VD: 食べます), mỗi từ nằm trên một dòng riêng biệt.</p>
                                        
                                     </div>
                                 </>
@@ -3978,10 +3978,7 @@ const StudySetupModal = ({
                                         <p className="text-gray-500 leading-relaxed"><b>Kanji:</b> Có thể nhập thủ công bằng cách viết liền nhau thành một chuỗi.<br/><b>Từ vựng:</b> Phân cách mỗi từ bằng một lần xuống dòng.</p>
                                     </div>
                             
-                                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                      
-                                        <p className="text-gray-500 leading-relaxed"><b>Bộ lọc:</b> Tự động tách Kanji với Hiragana, Katakana...</p>
-                                    </div>
+                            
                                 </>
                             )}
                         </div>
