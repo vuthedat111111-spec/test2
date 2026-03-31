@@ -6997,7 +6997,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         if (!isPlaying && isLooping && !finished && isAudioLoaded) {
             loopTimerRef.current = setTimeout(() => {
                 playCurrentAudio();
-            }, 1000);
+            }, 800);
         }
         return () => clearTimeout(loopTimerRef.current);
     }, [isPlaying, isLooping, finished, isAudioLoaded, playCurrentAudio]);
