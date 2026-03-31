@@ -3946,17 +3946,17 @@ const StudySetupModal = ({
                                    ======================================= */
                                 <>
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">1. Chọn chế độ</h4>
+                                       
                                         <p className="text-gray-500 leading-relaxed">Sử dụng các nút ở góc trên cùng để chuyển đổi giữa <b>Tự luận</b>, <b>Trắc nghiệm</b>, hoặc <b>Phản xạ</b>.</p>
                                     </div>
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">2. Cách nhập dữ liệu</h4>
-                                        <p className="text-gray-500 leading-relaxed">Bắt buộc nhập động từ ở <b>thể Masu</b> (VD: 食べます), mỗi từ nằm trên một dòng riêng biệt.</p>
+                                        <p className="text-gray-500 leading-relaxed">Thay vì tự gõ, hãy bấm vào <b>Thư viện</b> để hệ thống lấy tự động động từ từ N5 đến N1 hoặc động từ bất quy tắc.</p>
+                                       
                                     </div>
                                 
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">4. Thư viện có sẵn</h4>
-                                        <p className="text-gray-500 leading-relaxed">Thay vì tự gõ, hãy bấm vào <b>Thư viện</b> để hệ thống lấy tự động động từ từ N5 đến N1 hoặc động từ bất quy tắc.</p>
+                                        <p className="text-gray-500 leading-relaxed">Nhập thủ công: Bắt buộc nhập động từ ở <b>thể Masu</b> (VD: 食べます), mỗi từ nằm trên một dòng riêng biệt.</p>
+                                       
                                     </div>
                                 </>
                             ) : (
@@ -3965,24 +3965,22 @@ const StudySetupModal = ({
                                    ======================================= */
                                 <>
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">1. Chuyển đổi Kanji & Từ vựng</h4>
+                                       
                                         <p className="text-gray-500 leading-relaxed">Bấm nút ở góc trên cùng bên trái để chuyển đổi chế độ <b>Kanji</b> hoặc <b>Từ vựng</b>.</p>
                                     </div>
-                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">2. Thanh tìm kiếm</h4>
-                                        <p className="text-gray-500 leading-relaxed">Nhập âm Hán Việt hoặc Kanji để tra cứu nhanh và thêm trực tiếp vào danh sách bên dưới.</p>
-                                    </div>
-                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">3. Cách nhập thủ công</h4>
-                                        <p className="text-gray-500 leading-relaxed"><b>Kanji:</b> Có thể viết liền nhau thành một chuỗi.<br/><b>Từ vựng:</b> Phân cách mỗi từ bằng một lần xuống dòng (Enter).</p>
-                                    </div>
-                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">4. Thư viện</h4>
+                                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                       
                                         <p className="text-gray-500 leading-relaxed">Chọn nút <b>Thư viện</b> để nạp nhanh Kanji, Từ vựng có sẵn trên hệ thống.</p>
                                     </div>
+                                
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                       
+                                        <p className="text-gray-500 leading-relaxed"><b>Kanji:</b> Có thể nhập thủ công bằng cách viết liền nhau thành một chuỗi.<br/><b>Từ vựng:</b> Phân cách mỗi từ bằng một lần xuống dòng.</p>
+                                    </div>
+                            
                                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">5. Bộ lọc</h4>
-                                        <p className="text-gray-500 leading-relaxed">Tự động tách Kanji với Hiragana, Katakana...</p>
+                                      
+                                        <p className="text-gray-500 leading-relaxed"><b>Bộ lọc:</b> Tự động tách Kanji với Hiragana, Katakana...</p>
                                     </div>
                                 </>
                             )}
