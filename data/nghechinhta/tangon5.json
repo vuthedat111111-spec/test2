@@ -6618,14 +6618,12 @@
     "word": "ご注文は",
     "reading": "ごちゅうもんは",
     "meaning": "Quý khách gọi món gì?",
-    "sentence": "サンドイッチをおねがいします。",
-    "sentenceVi": "Cho tôi sandwich.",
+    "sentence": "",
+    "sentenceVi": "",
     "blankWord": "",
     "blankReading": "",
     "wordStartTime": 448.86,
-    "wordEndTime": 449.89,
-    "sentenceStartTime": 451.46,
-    "sentenceEndTime": 453.2
+    "wordEndTime": 449.89
   },
   {
     "id": 501,
