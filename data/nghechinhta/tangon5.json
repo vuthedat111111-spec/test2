@@ -13795,20 +13795,7 @@
     "sentenceStartTime": 63.11,
     "sentenceEndTime": 63.97
   },
-  {
-    "id": 959,
-    "word": "dat",
-    "reading": "にさんにち",
-    "meaning": "2, 3 ngày",
-    "sentence": "",
-    "sentenceVi": "Tôi nghỉ làm 2, 3 ngày.",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 65.65,
-    "wordEndTime": 66.69,
-    "sentenceStartTime": 68.5,
-    "sentenceEndTime": 71.18
-  },
+  
   {
     "id": 960,
     "word": "痛い",
@@ -14129,18 +14116,7 @@
     "wordStartTime": 221.15,
     "wordEndTime": 222.1
   },
-  {
-    "id": 983,
-    "word": "Dat",
-    "reading": "あっ",
-    "meaning": "Á, a",
-    "sentence": "",
-    "sentenceVi": "",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 223.1,
-    "wordEndTime": 224.25
-  },
+ 
   {
     "id": 984,
     "word": "お元気ですか",
@@ -14263,20 +14239,7 @@
     "sentenceStartTime": 298.39,
     "sentenceEndTime": 300.74
   },
-  {
-    "id": 992.02,
-    "word": "Dat",
-    "reading": "かりる",
-    "meaning": "mượn",
-    "sentence": "",
-    "sentenceVi": "Tôi mượn sách ở thư viện.",
-    "blankWord": "借ります",
-    "blankReading": "かります",
-    "wordStartTime": 301.13,
-    "wordEndTime": 303.42,
-    "sentenceStartTime": 305.26,
-    "sentenceEndTime": 305.54
-  },
+ 
   {
     "id": 993,
     "word": "返す",
@@ -14319,20 +14282,7 @@
     "sentenceStartTime": 320.17,
     "sentenceEndTime": 323.05
   },
-  {
-    "id": 996,
-    "word": "Dat",
-    "reading": "えっ",
-    "meaning": "hả, ơ",
-    "sentence": "",
-    "sentenceVi": "A: Cái máy ảnh này 500.000 yên. / B: Hả?",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 324.62,
-    "wordEndTime": 324.98,
-    "sentenceStartTime": 327.14,
-    "sentenceEndTime": 330.57
-  },
+  
   {
     "id": 997,
     "word": "本当",
@@ -14871,20 +14821,7 @@
     "sentenceStartTime": 572.07,
     "sentenceEndTime": 574.95
   },
-  {
-    "id": 1035.02,
-    "word": "Dat",
-    "reading": "が",
-    "meaning": "~ nhưng",
-    "sentence": "",
-    "sentenceVi": "Nghiên cứu thì khó nhưng thú vị.",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 576.37,
-    "wordEndTime": 579.72,
-    "sentenceStartTime": 580.28,
-    "sentenceEndTime": 580.62
-  },
+  
   {
     "id": 1036.01,
     "word": "けど",
@@ -14899,20 +14836,7 @@
     "sentenceStartTime": 583.9,
     "sentenceEndTime": 586.44
   },
-  {
-    "id": 1036.02,
-    "word": "Dat",
-    "reading": "けど",
-    "meaning": "~ nhưng",
-    "sentence": "",
-    "sentenceVi": "Nghiên cứu thì khó nhưng thú vị.",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 587.87,
-    "wordEndTime": 590.41,
-    "sentenceStartTime": 590.41,
-    "sentenceEndTime": 590.71
-  },
+  
   {
     "id": 1037,
     "word": "そうですね",
@@ -14955,30 +14879,7 @@
     "sentenceStartTime": 615.11,
     "sentenceEndTime": 617.66
   },
-  {
-    "id": 1040,
-    "word": "Dat",
-    "reading": "あのう",
-    "meaning": "xin lỗi, à này",
-    "sentence": "",
-    "sentenceVi": "",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 619.04,
-    "wordEndTime": 619.82
-  },
-  {
-    "id": 1041,
-    "word": "Dat",
-    "reading": "えーっと",
-    "meaning": "à ~ thì",
-    "sentence": "",
-    "sentenceVi": "",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 621.02,
-    "wordEndTime": 621.99
-  },
+  
   {
     "id": 1042,
     "word": "でも",
