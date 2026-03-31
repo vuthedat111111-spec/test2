@@ -4174,41 +4174,42 @@ const StudySetupModal = ({
                         )}
                     </div>
 
-                    {/* Tiện ích (Thư viện, Xáo trộn, BỘ LỌC) */}
-    <div className="grid grid-cols-3 gap-3">
-        <button onClick={() => setIsLibraryOpen(true)} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-            <span className="text-sm font-bold uppercase tracking-widest">Thư viện</span>
+                    {/* Tiện ích (Thư viện, Hướng dẫn, BỘ LỌC) */}
+    <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        <button onClick={() => setIsLibraryOpen(true)} className="h-full flex items-center justify-center py-3 sm:py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+            <span className="text-[10px] sm:text-sm font-bold uppercase tracking-widest text-center leading-tight">Thư viện</span>
         </button>
         
-        <button onClick={() => setIsGuideOpen(true)} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-    <span className="text-sm font-bold uppercase tracking-widest">Hướng dẫn</span>
-</button>
+        <button onClick={() => setIsGuideOpen(true)} className="h-full flex items-center justify-center py-3 sm:py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+            <span className="text-[10px] sm:text-sm font-bold uppercase tracking-widest text-center leading-tight">Hướng dẫn</span>
+        </button>
         
-        <div className="relative" ref={filterRef}>
-            <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full flex items-center justify-center py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
-                <span className="text-sm font-bold uppercase tracking-widest">Bộ lọc</span>
+        <div className="relative h-full" ref={filterRef}>
+            <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full h-full flex items-center justify-center py-3 sm:py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
+                <span className="text-[10px] sm:text-sm font-bold uppercase tracking-widest text-center leading-tight">Bộ lọc</span>
             </button>
 
-                            {isFilterMenuOpen && mode !== 'vocab' && (
-                                <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
-                                    <div className="mb-3 pb-2 border-b border-gray-100">
-                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Cho phép nhập</span>
-                                    </div>
-                                    <div className="space-y-3">
-                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Kanji & Bộ thủ
-                                        </label>
-                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Hiragana
-                                        </label>
-                                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
-                                            <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Katakana
-                                        </label>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+            {/* Popup menu của bộ lọc (giữ nguyên) */}
+            {isFilterMenuOpen && mode !== 'vocab' && (
+                <div className="absolute bottom-full right-0 mb-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 text-left">
+                    <div className="mb-3 pb-2 border-b border-gray-100">
+                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Cho phép nhập</span>
                     </div>
+                    <div className="space-y-3">
+                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                            <input type="checkbox" checked={filterOptions.kanji} onChange={() => handleFilterChange('kanji')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Kanji & Bộ thủ
+                        </label>
+                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                            <input type="checkbox" checked={filterOptions.hiragana} onChange={() => handleFilterChange('hiragana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Hiragana
+                        </label>
+                        <label className="flex items-center gap-3 text-xs font-bold text-gray-700 cursor-pointer hover:text-black">
+                            <input type="checkbox" checked={filterOptions.katakana} onChange={() => handleFilterChange('katakana')} className="accent-gray-900 w-4 h-4 rounded-sm"/> Katakana
+                        </label>
+                    </div>
+                </div>
+            )}
+        </div>
+    </div>
                 </div>
 
                {/* Footer: Nút Tiếp Tục */}
