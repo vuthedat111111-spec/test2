@@ -3764,7 +3764,8 @@ const StudySetupModal = ({
     verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms 
 }) => {
     const [localText, setLocalText] = useState(config.text);
-    const [isLibraryOpen, setIsLibraryOpen] = useState(false); // Quản lý mở Thư viện
+    const [isLibraryOpen, setIsLibraryOpen] = useState(false); 
+    const [isGuideOpen, setIsGuideOpen] = useState(false);
 
     const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
     const [isFormDropdownOpen, setIsFormDropdownOpen] = useState(false);
@@ -3921,6 +3922,83 @@ const StudySetupModal = ({
                     onChange({ ...config, text: newText });
                 }}
             />
+
+                    {/* BẮT ĐẦU: BẢNG HƯỚNG DẪN SETUP (MONOCHROME) */}
+            {isGuideOpen && (
+                <div className="fixed inset-0 z-[700] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsGuideOpen(false)}>
+                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 cursor-default" onClick={e => e.stopPropagation()}>
+                        
+                        {/* Header */}
+                        <div className="px-5 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center shrink-0">
+                            <h3 className="font-black text-sm text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                                Hướng dẫn thiết lập
+                            </h3>
+                            <button onClick={() => setIsGuideOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all shadow-sm outline-none">✕</button>
+                        </div>
+
+                        {/* Nội dung Hướng dẫn tự động đổi theo tính năng */}
+                        <div className="p-6 overflow-y-auto custom-scrollbar text-sm text-gray-600 space-y-4 max-h-[60vh]">
+                            
+                            {targetAction === 'conjugate' ? (
+                                /* =======================================
+                                   1. BẢNG HƯỚNG DẪN: CHIA ĐỘNG TỪ
+                                   ======================================= */
+                                <>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">1. Chọn chế độ</h4>
+                                        <p className="text-gray-500 leading-relaxed">Sử dụng các nút ở góc trên cùng để chuyển đổi giữa <b>Tự luận</b>, <b>Trắc nghiệm</b>, hoặc <b>Phản xạ</b>.</p>
+                                    </div>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">2. Cách nhập dữ liệu</h4>
+                                        <p className="text-gray-500 leading-relaxed">Bắt buộc nhập động từ ở <b>thể Masu</b> (VD: 食べます), mỗi từ nằm trên một dòng riêng biệt.</p>
+                                    </div>
+                                
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">4. Thư viện có sẵn</h4>
+                                        <p className="text-gray-500 leading-relaxed">Thay vì tự gõ, hãy bấm vào <b>Thư viện</b> để hệ thống lấy tự động động từ từ N5 đến N1 hoặc động từ bất quy tắc.</p>
+                                    </div>
+                                </>
+                            ) : (
+                                /* =======================================
+                                   2. BẢNG HƯỚNG DẪN CHUNG: KANJI & TỪ VỰNG
+                                   ======================================= */
+                                <>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">1. Chuyển đổi Kanji & Từ vựng</h4>
+                                        <p className="text-gray-500 leading-relaxed">Bấm nút ở góc trên cùng bên trái để chuyển đổi chế độ <b>Kanji</b> hoặc <b>Từ vựng</b>.</p>
+                                    </div>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">2. Thanh tìm kiếm</h4>
+                                        <p className="text-gray-500 leading-relaxed">Nhập âm Hán Việt hoặc Kanji để tra cứu nhanh và thêm trực tiếp vào danh sách bên dưới.</p>
+                                    </div>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">3. Cách nhập thủ công</h4>
+                                        <p className="text-gray-500 leading-relaxed"><b>Kanji:</b> Có thể viết liền nhau thành một chuỗi.<br/><b>Từ vựng:</b> Phân cách mỗi từ bằng một lần xuống dòng (Enter).</p>
+                                    </div>
+                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">4. Thư viện</h4>
+                                        <p className="text-gray-500 leading-relaxed">Chọn nút <b>Thư viện</b> để nạp nhanh Kanji, Từ vựng có sẵn trên hệ thống.</p>
+                                    </div>
+                                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                        <h4 className="font-black text-gray-900 mb-1 uppercase text-xs">5. Bộ lọc</h4>
+                                        <p className="text-gray-500 leading-relaxed">Tự động tách Kanji với Hiragana, Katakana...</p>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-4 border-t border-gray-100 bg-gray-50 shrink-0">
+                            <button onClick={() => setIsGuideOpen(false)} className="w-full py-3 bg-gray-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest outline-none">
+                                Đã hiểu
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            )}
+            {/* KẾT THÚC BẢNG HƯỚNG DẪN */}
 
             {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
             <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
@@ -4107,9 +4185,9 @@ const StudySetupModal = ({
             <span className="text-sm font-bold uppercase tracking-widest">Thư viện</span>
         </button>
         
-        <button onClick={handleShuffle} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
-            <span className="text-sm font-bold uppercase tracking-widest">Xáo trộn</span>
-        </button>
+        <button onClick={() => setIsGuideOpen(true)} className="flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+    <span className="text-sm font-bold uppercase tracking-widest">Hướng dẫn</span>
+</button>
         
         <div className="relative" ref={filterRef}>
             <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full flex items-center justify-center py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
