@@ -1011,15 +1011,17 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     
     {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
     {mode === 'vocab' && (
-        <div className="relative flex items-center justify-center mt-1 w-full px-10">
+        <div className="flex items-center justify-center gap-2 mt-1 w-full px-4">
+            {/* Đối trọng tàng hình bên trái (Kích thước bằng đúng nút bấm) */}
+            <div className="w-[28px] h-[28px] flex-shrink-0"></div>
+            
             <p className={`text-lg font-medium text-zinc-400 italic leading-snug text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}>
                 "{info?.meaning}"
             </p>
-            <div className="absolute right-0 sm:right-2 flex items-center">
-                <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none">
-                    {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
-                </button>
-            </div>
+            
+            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="w-[28px] h-[28px] flex items-center justify-center bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                {showSub ? ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+            </button>
         </div>
     )}
 </div>
@@ -2079,15 +2081,17 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
 
                                    {/* Text Phụ (Nghĩa hoặc Cách đọc) */}
                                     {currentQuizData.questionDisplay.sub && (
-                                        <div className="absolute bottom-6 flex items-center justify-center w-full px-12">
+                                        <div className="absolute bottom-6 flex items-center justify-center gap-2 w-full px-4">
+                                            {/* Đối trọng tàng hình bên trái */}
+                                            <div className="w-[28px] h-[28px] flex-shrink-0"></div>
+
                                             <div className={`px-4 py-1.5 bg-gray-50 text-gray-500 text-sm font-bold uppercase rounded-full border border-gray-100 truncate text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}>
                                                 {currentQuizData.questionDisplay.sub}
                                             </div>
-                                            <div className="absolute right-4 flex items-center">
-                                                <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none">
-                                                    {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
-                                                </button>
-                                            </div>
+                                            
+                                            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="w-[28px] h-[28px] flex items-center justify-center bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                                {showSub ? ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                                            </button>
                                         </div>
                                     )}
                                 </div>
@@ -4763,15 +4767,17 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                         </h2>
                         {/* HIỂN THỊ HIRAGANA */}
                         {currentItem.finalReading && currentItem.finalReading !== currentItem.vmasu && (
-                            <div className="relative flex items-center justify-center mt-2 w-full px-10">
+                            <div className="flex items-center justify-center gap-2 mt-2 w-full px-4">
+                                {/* Đối trọng tàng hình bên trái */}
+                                <div className="w-[28px] h-[28px] flex-shrink-0"></div>
+
                                 <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}>
                                     {currentItem.finalReading}
                                 </span>
-                                <div className="absolute right-0 sm:right-2 flex items-center">
-                                    <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none">
-                                        {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
-                                    </button>
-                                </div>
+                                
+                                <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="w-[28px] h-[28px] flex items-center justify-center bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                    {showSub ? ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                                </button>
                             </div>
                         )}
                     </div>
@@ -4975,15 +4981,17 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                         <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
                             {currentItem.conjKanji}
                         </h2>
-                        <div className="relative flex items-center justify-center mt-1 w-full px-10">
+                        <div className="flex items-center justify-center gap-2 mt-1 w-full px-4">
+                          
+                            <div className="w-[28px] h-[28px] flex-shrink-0"></div>
+
                             <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}>
                                 {currentItem.conjKana}
                             </span>
-                            <div className="absolute right-0 sm:right-2 flex items-center">
-                                <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none">
-                                    {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
-                                </button>
-                            </div>
+                            
+                            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="w-[28px] h-[28px] flex items-center justify-center bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                {showSub ? ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                            </button>
                         </div>
                                 
                     </div>
