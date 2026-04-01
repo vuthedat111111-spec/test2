@@ -2,6 +2,7 @@ const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
     const { useState, useEffect, useMemo, useRef } = React;
+let globalShowSubText = true;
 
 const calculateSRS = (currentData, quality) => {
   let { level = 0, easeFactor = 2.5, nextReview } = currentData || {};
@@ -831,6 +832,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     const [initialTotal, setInitialTotal] = useState(0); 
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = useState(0);
     const [wrongDetected, setWrongDetected] = useState(false);
+    const [showSub, setShowSub] = useState(globalShowSubText);
 
     // --- HÀM KHỞI ĐỘNG BÀI HỌC ---
     const initLesson = () => {
@@ -908,6 +910,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
 
     useEffect(() => {
         if (isOpen) {
+            setShowSub(globalShowSubText);
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
@@ -1008,7 +1011,14 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     
     {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
     {mode === 'vocab' && (
-        <p className="text-lg font-medium text-zinc-400 italic leading-snug px-2">"{info?.meaning}"</p>
+        <div className="flex items-center justify-center gap-2 mt-1">
+            <p className={`text-lg font-medium text-zinc-400 italic leading-snug px-2 transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                "{info?.meaning}"
+            </p>
+            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+            </button>
+        </div>
     )}
 </div>
 
@@ -1614,6 +1624,8 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
     const [matchedIds, setMatchedIds] = useState([]);
     const [wrongPairIds, setWrongPairIds] = useState([]);
 
+    const [showSub, setShowSub] = useState(globalShowSubText);
+
     useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'unset';
@@ -1738,10 +1750,13 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
     };
 
 
-    useEffect(() => {
-        if (isOpen) initGame();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isOpen, text, dbData, mode]);
+   useEffect(() => {
+        if (isOpen) {
+            setShowSub(globalShowSubText);
+            initGame();
+        }
+   
+    }, [isOpen, text, dbData, mode]);
     
     // 2. SINH DỮ LIỆU CÂU HỎI (QUIZ DATA)
     const currentQuizData = useMemo(() => {
@@ -2060,10 +2075,15 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
    {currentQuizData.questionDisplay.main}
 </div>
 
-                                    {/* Text Phụ (Nghĩa hoặc Cách đọc) */}
+                                   {/* Text Phụ (Nghĩa hoặc Cách đọc) */}
                                     {currentQuizData.questionDisplay.sub && (
-                                        <div className="absolute bottom-6 px-4 py-1.5 bg-gray-50 text-gray-500 text-sm font-bold uppercase rounded-full border border-gray-100 max-w-[90%] truncate">
-                                            {currentQuizData.questionDisplay.sub}
+                                        <div className="absolute bottom-6 flex items-center justify-center gap-2 w-full px-4">
+                                            <div className={`px-4 py-1.5 bg-gray-50 text-gray-500 text-sm font-bold uppercase rounded-full border border-gray-100 truncate transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                                                {currentQuizData.questionDisplay.sub}
+                                            </div>
+                                            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                                {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                                            </button>
                                         </div>
                                     )}
                                 </div>
@@ -4581,6 +4601,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     const [initialTotal, setInitialTotal] = React.useState(0); 
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = React.useState(0);
     const [wrongDetected, setWrongDetected] = React.useState(false);
+    const [showSub, setShowSub] = React.useState(globalShowSubText);
 
     const formLabels = { 
         "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
@@ -4610,7 +4631,8 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
     React.useEffect(() => {
         let rafId;
         if (isOpen) {
-            // Dùng requestAnimationFrame thay vì setTimeout để đảm bảo mượt mà tuyệt đối
+            setShowSub(globalShowSubText);
+            
             rafId = requestAnimationFrame(() => {
                 document.body.style.overflow = 'hidden';
             });
@@ -4735,11 +4757,16 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                         <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
                             {currentItem.vmasu}
                         </h2>
-                        {/* HIỂN THỊ HIRAGANA (Ẩn đi nếu từ gốc đã là Hiragana hoàn toàn) */}
+                        {/* HIỂN THỊ HIRAGANA */}
                         {currentItem.finalReading && currentItem.finalReading !== currentItem.vmasu && (
-                            <span className="text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg">
-                                {currentItem.finalReading}
-                            </span>
+                            <div className="flex items-center justify-center gap-2 mt-2">
+                                <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                                    {currentItem.finalReading}
+                                </span>
+                                <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                    {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                                </button>
+                            </div>
                         )}
                     </div>
 
@@ -4785,6 +4812,7 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
     const [correctFirstTimeCount, setCorrectFirstTimeCount] = React.useState(0);
     const [wrongDetected, setWrongDetected] = React.useState(false);
     const [selectedOpt, setSelectedOpt] = React.useState(null);
+    const [showSub, setShowSub] = React.useState(globalShowSubText);
 
     const formLabels = { 
         "Te": "Thể Te", "Ta": "Thể Ta", "Nai": "Thể Nai", 
@@ -4832,6 +4860,7 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
     // 1. Quản lý việc khởi tạo bài học
     React.useEffect(() => {
         if (isOpen) {
+            setShowSub(globalShowSubText);
             initLesson();
         } else {
             setFinished(false);
@@ -4940,9 +4969,14 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                         <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
                             {currentItem.conjKanji}
                         </h2>
-                        <span className="text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg">
-                            {currentItem.conjKana}
-                        </span>
+                        <div className="flex items-center justify-center gap-2 mt-1">
+                            <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                                {currentItem.conjKana}
+                            </span>
+                            <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
+                                {showSub ? ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ) : ( <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg> )}
+                            </button>
+                        </div>
                     </div>
 
                   {/* 4 NÚT ĐÁP ÁN */}
