@@ -6941,6 +6941,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [isAudioLoaded, setIsAudioLoaded] = React.useState(false);
     const [isAudioLoading, setIsAudioLoading] = React.useState(false);
+    const [isInputFocused, setIsInputFocused] = React.useState(false);
     
     const soundRef = React.useRef(null);
     const loopTimerRef = React.useRef(null);
@@ -7292,7 +7293,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             {/* 2. BODY CONTENT */}
             {!finished ? (
                 <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
-                    
+                    <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
+                
                     {/* BỘ ĐIỀU KHIỂN */}
                     <div className="w-full max-w-md mx-auto mb-2 flex flex-wrap gap-2 justify-center bg-zinc-50 p-1.5 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
                         <div className="flex bg-zinc-200/50 p-1 rounded-xl">
@@ -7314,7 +7316,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     </div>
 
                     <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300">
-                        
+                        <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
+
                         {/* NÚT ĐIỀU KHIỂN TRUNG TÂM */}
                         <div className="flex items-center justify-center gap-4 sm:gap-6 w-full transition-all duration-300 shrink-0">
                             
@@ -7389,9 +7392,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     autoFocus 
     value={userInput} 
     onChange={handleInputChange}
-    onCompositionStart={handleCompositionStart} // Thêm dòng này
-    onCompositionEnd={handleCompositionEnd}     // Thêm dòng này
+    onCompositionStart={handleCompositionStart} 
+    onCompositionEnd={handleCompositionEnd}    
     onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+    onFocus={() => setIsInputFocused(true)} 
+    onBlur={() => setIsInputFocused(false)}
     placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
     className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
 />
