@@ -6992,7 +6992,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [showHint, setShowHint] = React.useState(false); 
     const [isLooping, setIsLooping] = React.useState(false); 
     const [playbackRate, setPlaybackRate] = React.useState(1); 
-    const [hideSentenceSub, setHideSentenceSub] = React.useState(false);
 
     // State Audio
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -7211,25 +7210,21 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
    const checkAnswer = () => {
-        // 1. Nhấn Enter lần 2 khi đã đúng -> Chuyển câu
-        if (status === 'correct') {
-            goToNext();
-            return;
-        }
-        if (finished) return;
+    if (status === 'correct' || finished) return;
+    const currentItem = queue[currentIndex];
+    let finalInput = userInput.trim();
 
-        const currentItem = queue[currentIndex];
-        let finalInput = userInput.trim();
+    if (finalInput.endsWith('n')) {
+        finalInput = finalInput.slice(0, -1) + 'ん';
+    }
 
-        if (finalInput.endsWith('n')) {
-            finalInput = finalInput.slice(0, -1) + 'ん';
-        }
+    // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
+    const targetWord = (mode === 'sentence' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
+    const targetReading = (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
 
-        // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
-        const targetWord = (mode === 'sentence' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
-        const targetReading = (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
+    const isCorrect = (finalInput === targetWord) || (finalInput === targetReading);
 
-        const isCorrect = (finalInput === targetWord) || (finalInput === targetReading);
+ 
 
         // Đang bị phạt gõ lại
         if (status === 'retyping') {
@@ -7246,8 +7241,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
-            // 2. Tự động phát lại audio ngay khi lột mặt nạ (không tự động chuyển câu nữa)
-            playCurrentAudio(); 
+            setTimeout(() => goToNext(), 250);
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
@@ -7425,54 +7419,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </button>
 
                         </div>
-{/* THÊM NÚT ẨN PHỤ ĐỀ (CHỈ HIỆN CHẾ ĐỘ CẢ CÂU) */}
-                        {effectiveMode === 'sentence' && (
-                            <button
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => setHideSentenceSub(!hideSentenceSub)}
-                                className={`mt-5 px-4 py-2 rounded-full flex items-center justify-center gap-2 text-[11px] uppercase tracking-widest font-black transition-all shadow-sm outline-none border ${hideSentenceSub ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-500 border-zinc-200 hover:bg-zinc-100 hover:text-zinc-800'}`}
-                            >
-                                {hideSentenceSub ? (
-                                    <>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                                        Hiện phụ đề
-                                    </>
-                                ) : (
-                                    <>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                        Ẩn phụ đề
-                                    </>
-                                )}
-                            </button>
-                        )}
 
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
                         {isShowingText && (
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
                                 {effectiveMode === 'sentence' ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
-                                        {/* XỬ LÝ LỘT MẶT NẠ / ẨN PHỤ ĐỀ */}
-                                        {status === 'correct' ? (
-                                            <span className="font-sans leading-loose text-green-600">
-                                                {(() => {
-                                                    const wordToMask = currentItem.blankWord || currentItem.word;
-                                                    const readingToMask = (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
-                                                    const parts = currentItem.sentence.split(wordToMask);
-                                                    if (parts.length === 1) return currentItem.sentence;
-                                                    return (
-                                                        <>
-                                                            {parts[0]}
-                                                            <span className="font-bold px-1">{wordToMask} ({readingToMask})</span>
-                                                            {parts.slice(1).join(wordToMask)}
-                                                        </>
-                                                    );
-                                                })()}
-                                            </span>
-                                        ) : hideSentenceSub ? (
-                                            <span className="text-zinc-400 italic text-base">Nhập chính xác cả câu</span>
-                                        ) : (
-                                            renderMaskedSentence(currentItem.sentence, currentItem.word, (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, currentItem.blankWord)
-                                        )}
+                                       {renderMaskedSentence(currentItem.sentence, currentItem.word, (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, currentItem.blankWord)}
                                     </div>
                                 ) : (
                                     <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
@@ -7485,7 +7438,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         {/* HIỂN THỊ DỊCH NGHĨA */}
                         {showVi && (
-                            <p className={`text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2 transition-all duration-300 ${effectiveMode === 'sentence' && hideSentenceSub && status !== 'correct' ? 'blur-sm opacity-40 select-none' : ''}`}>
+                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
                                 {effectiveMode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
                             </p>
                         )}
