@@ -7296,24 +7296,24 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
                 
                     {/* BỘ ĐIỀU KHIỂN */}
-                    <div className="w-full max-w-md mx-auto mb-2 flex flex-wrap gap-2 justify-center bg-zinc-50 p-1.5 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
-                        <div className="flex bg-zinc-200/50 p-1 rounded-xl">
-                            <button onClick={() => setMode('word')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
-                            <button onClick={() => setMode('sentence')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
-                        </div>
+         <div className="w-full max-w-md mx-auto mb-2 flex flex-wrap gap-2 justify-center bg-zinc-50 p-1.5 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
+    <div className="flex bg-zinc-200/50 p-1 rounded-xl">
+        <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
+        <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('sentence')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
+    </div>
 
-                        <button onClick={() => setShowVi(!showVi)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                            DỊCH
-                        </button>
-                        
-                        <button onClick={() => setIsLooping(!isLooping)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                            LẶP
-                        </button>
+    <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+        DỊCH
+    </button>
+    
+    <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+        LẶP
+    </button>
 
-                        <button onClick={cyclePlaybackRate} className="px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
-                            {playbackRate}x
-                        </button>
-                    </div>
+    <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
+        {playbackRate}x
+    </button>
+</div>
 
                    
                         <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
@@ -7323,6 +7323,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             
                             {/* NÚT LÙI */}
                             <button 
+                                onMouseDown={(e) => e.preventDefault()}
                                 onClick={handleManualPrev}
                                 disabled={currentIndex === 0}
                                 className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === 0 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
@@ -7333,6 +7334,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             {/* NÚT PLAY */}
                             <div className={`transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
                                 <button 
+                                    onMouseDown={(e) => e.preventDefault()}
                                     onClick={playCurrentAudio}
                                     className={`${playBtnSize} rounded-full flex items-center justify-center shadow-md transition-all duration-300 active:scale-90 outline-none ${isAudioLoading ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
                                 >
@@ -7352,6 +7354,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                             {/* NÚT TIẾN */}
                             <button 
+                                onMouseDown={(e) => e.preventDefault()}
                                 onClick={handleManualNext}
                                 disabled={currentIndex === queue.length - 1}
                                 className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === queue.length - 1 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
@@ -7389,7 +7392,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
                         <input 
     type="text" 
-    autoFocus 
+    
     value={userInput} 
     onChange={handleInputChange}
     onCompositionStart={handleCompositionStart} 
@@ -7402,10 +7405,10 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 />
                         
                         <div className="flex justify-between items-center px-2">
-                            <button onClick={handleShowAnswer} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                                ĐÁP ÁN
-                            </button>
+                           <button onMouseDown={(e) => e.preventDefault()} onClick={handleShowAnswer} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+    ĐÁP ÁN
+</button>
                             <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
                                 Bấm Enter để kiểm tra
