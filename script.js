@@ -7315,7 +7315,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         </button>
                     </div>
 
-                    <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300">
+                   
                         <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
 
                         {/* NÚT ĐIỀU KHIỂN TRUNG TÂM */}
