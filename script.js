@@ -1011,8 +1011,8 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
     
     {/* CHỈ HIỆN Ý NGHĨA KHI LÀ TỪ VỰNG */}
     {mode === 'vocab' && (
-        <div className="flex items-center justify-center gap-2 mt-1">
-            <p className={`text-lg font-medium text-zinc-400 italic leading-snug px-2 transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+        <div className="flex items-center justify-center gap-2 mt-1 w-full"> {/* Thêm w-full */}
+            <p className={`text-lg font-medium text-zinc-400 italic leading-snug px-2 text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}> {/* Thêm text-center, đổi blur-md thành blur-sm */}
                 "{info?.meaning}"
             </p>
             <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
@@ -2078,7 +2078,7 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
                                    {/* Text Phụ (Nghĩa hoặc Cách đọc) */}
                                     {currentQuizData.questionDisplay.sub && (
                                         <div className="absolute bottom-6 flex items-center justify-center gap-2 w-full px-4">
-                                            <div className={`px-4 py-1.5 bg-gray-50 text-gray-500 text-sm font-bold uppercase rounded-full border border-gray-100 truncate transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                                            <div className={`px-4 py-1.5 bg-gray-50 text-gray-500 text-sm font-bold uppercase rounded-full border border-gray-100 truncate text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}> {/* Thêm text-center, đổi blur-md thành blur-sm */}
                                                 {currentQuizData.questionDisplay.sub}
                                             </div>
                                             <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
@@ -4759,8 +4759,8 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                         </h2>
                         {/* HIỂN THỊ HIRAGANA */}
                         {currentItem.finalReading && currentItem.finalReading !== currentItem.vmasu && (
-                            <div className="flex items-center justify-center gap-2 mt-2">
-                                <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                            <div className="flex items-center justify-center gap-2 mt-2 w-full"> {/* Thêm w-full */}
+                                <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}> {/* Thêm text-center, đổi blur-md thành blur-sm */}
                                     {currentItem.finalReading}
                                 </span>
                                 <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
@@ -4969,8 +4969,8 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                         <h2 className="text-5xl font-bold font-sans text-zinc-800 mb-3">
                             {currentItem.conjKanji}
                         </h2>
-                        <div className="flex items-center justify-center gap-2 mt-1">
-                            <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg transition-all duration-300 ${!showSub ? 'blur-md select-none opacity-40' : ''}`}>
+                        <div className="flex items-center justify-center gap-2 mt-1 w-full"> {/* Thêm w-full */}
+                            <span className={`text-lg font-bold text-indigo-600 tracking-widest bg-indigo-50 px-4 py-1 rounded-lg text-center transition-all duration-300 ${!showSub ? 'blur-sm select-none opacity-40' : ''}`}> {/* Thêm text-center, đổi blur-md thành blur-sm */}
                                 {currentItem.conjKana}
                             </span>
                             <button onMouseDown={e => e.preventDefault()} onClick={(e) => { e.stopPropagation(); globalShowSubText = !showSub; setShowSub(!showSub); }} className="p-1.5 bg-white border border-gray-200 rounded-full text-gray-400 hover:text-gray-700 transition-colors shadow-sm outline-none flex-shrink-0">
