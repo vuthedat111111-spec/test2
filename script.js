@@ -4174,18 +4174,18 @@ const StudySetupModal = ({
                         )}
                     </div>
 
-                   {/* Tiện ích (Thư viện, Hướng dẫn, BỘ LỌC) */}
+                  {/* Tiện ích (Thư viện, Hướng dẫn, BỘ LỌC) */}
     <div className="grid grid-cols-3 gap-3">
-        <button onClick={() => setIsLibraryOpen(true)} className="h-full flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+        <button onClick={() => setIsLibraryOpen(true)} className="h-full flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
             <span className="text-sm font-bold uppercase tracking-widest text-center leading-tight">Thư viện</span>
         </button>
         
-        <button onClick={() => setIsGuideOpen(true)} className="h-full flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
+        <button onClick={() => setIsGuideOpen(true)} className="h-full flex items-center justify-center py-4 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-gray-900 hover:shadow-md text-gray-700 transition-all group">
             <span className="text-sm font-bold uppercase tracking-widest text-center leading-tight">Hướng dẫn</span>
         </button>
         
         <div className="relative h-full" ref={filterRef}>
-            <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full h-full flex items-center justify-center py-4 rounded-2xl border transition-all group ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
+            <button disabled={mode === 'vocab'} onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)} className={`w-full h-full flex items-center justify-center py-4 rounded-2xl border transition-all group shadow-sm ${mode === 'vocab' ? 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed opacity-70' : isFilterMenuOpen ? 'bg-gray-100 border-gray-900 text-gray-900' : 'bg-white border-gray-200 hover:border-gray-900 hover:shadow-md text-gray-700'}`}>
                 <span className="text-sm font-bold uppercase tracking-widest text-center leading-tight">Bộ lọc</span>
             </button>
 
