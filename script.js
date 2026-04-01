@@ -6433,7 +6433,12 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         if (!selectedKanji) return;
         if (setPracticeMode) setPracticeMode('kanji');
         const currentText = config?.text || '';
-        if (!currentText.includes(selectedKanji)) {
+        
+        if (currentText.includes(selectedKanji)) {
+    
+            setConfig({ ...config, text: currentText.replace(selectedKanji, '') });
+        } else {
+          
             setConfig({ ...config, text: currentText + selectedKanji });
         }
     };
