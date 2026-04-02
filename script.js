@@ -5316,7 +5316,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-        '22baitrungthuongcap': [
+         '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -6471,7 +6471,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
         }
         setIsRecognizing(false);
     };
-    
+
     const clearCanvas = () => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -7263,6 +7263,29 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
 
+    // Kiểm tra xem giáo trình có hỗ trợ đục lỗ câu dài không
+    const supportSentence = React.useMemo(() => {
+        if (!lessonData) return true;
+        
+        // 1. Kiểm tra cờ thủ công từ file JSON (nếu bạn có gắn "hasSentences": false)
+        if (lessonData.hasSentences === false) return false;
+        
+        // 2. Tự động quét toàn bộ từ vựng xem có tồn tại câu ví dụ nào không
+        if (lessonData.vocabularies) {
+            const hasAnySentence = lessonData.vocabularies.some(item => item.sentence && item.sentence.trim() !== '');
+            if (!hasAnySentence) return false;
+        }
+        return true;
+    }, [lessonData]);
+
+    // Tự động chuyển về chế độ "TỪ ĐƠN" nếu bài học không hỗ trợ "CẢ CÂU"
+    React.useEffect(() => {
+        if (!supportSentence && mode === 'sentence') {
+            setMode('word');
+        }
+    }, [supportSentence, mode]);
+    // ===================================================
+
     React.useEffect(() => {
         currentIndexRef.current = currentIndex;
         queueRef.current = queue;
@@ -7611,7 +7634,18 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
          <div className="w-full max-w-md mx-auto mb-2 flex flex-wrap gap-2 justify-center bg-zinc-50 p-1.5 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
     <div className="flex bg-zinc-200/50 p-1 rounded-xl">
         <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
-        <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('sentence')} className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
+        <button 
+            onMouseDown={(e) => e.preventDefault()} 
+            onClick={() => supportSentence && setMode('sentence')} 
+            disabled={!supportSentence}
+            title={!supportSentence ? "Giáo trình này chỉ có từ đơn" : ""}
+            className={`px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${
+                !supportSentence ? 'opacity-40 cursor-not-allowed text-zinc-400' : 
+                mode === 'sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'
+            }`}
+        >
+            CẢ CÂU
+        </button>
     </div>
 
     <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
