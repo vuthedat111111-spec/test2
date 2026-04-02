@@ -2755,10 +2755,10 @@ React.useEffect(() => {
     }, [isDocsModalOpen]);
     const notifications = [
         { 
-            id: 5, 
-            title: '🔍 HỆ THỐNG KANJI THEO BỘ THỦ', 
-            date: '27/03/2026', 
-            content: 'Giờ đây bạn có thể dễ dàng tra cứu Kanji sắp xếp theo bộ thủ hoặc nhập trực tiếp âm Hán Việt. Bấm ngay vào "TRA CỨU KANJI" ở trang chủ để khám phá nhé!'
+            id: 6, 
+            title: '🎧 LUYỆN NGHE CHÍNH TẢ', 
+            date: '01/04/2026', 
+            content: 'Tính năng Luyện nghe chép chính tả đã chính thức ra mắt! Bấm ngay vào "LUYỆN NGHE" ở trang chủ để trải nghiệm nhé!'
         }
         
     ];
@@ -2970,7 +2970,7 @@ React.useEffect(() => {
                                  {/* 8. LUYỆN NGHE CHÍNH TẢ */}
 <div onClick={() => onOpenDictation()} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
     <div className="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
-        THỬ NGHIỆM
+        MỚI
     </div>
     <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
@@ -5316,7 +5316,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-         '22baitrungthuongcap': [
+        '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -6332,6 +6332,169 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
+// --- COMPONENT: BẢNG VẼ TAY KANJI (REAL-TIME RECOGNITION) ---
+const HandwritingPad = ({ onSelectKanji }) => {
+    const canvasRef = useRef(null);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [traces, setTraces] = useState([]); // Lưu toàn bộ các nét vẽ
+    const [currentTrace, setCurrentTrace] = useState({ x: [], y: [] }); // Nét đang vẽ
+    const [suggestions, setSuggestions] = useState([]);
+    const [isRecognizing, setIsRecognizing] = useState(false);
+    const timeoutRef = useRef(null);
+
+    // Lấy tọa độ chuẩn xác trên màn hình (hỗ trợ cả cảm ứng & chuột)
+    const getCoordinates = (e) => {
+        const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: Math.round(clientX - rect.left),
+            y: Math.round(clientY - rect.top)
+        };
+    };
+
+    const startDrawing = (e) => {
+        e.preventDefault();
+        setIsDrawing(true);
+        const { x, y } = getCoordinates(e);
+        setCurrentTrace({ x: [x], y: [y] });
+
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#1a1a1a'; // Zen Black
+    };
+
+    const draw = (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const { x, y } = getCoordinates(e);
+        
+        setCurrentTrace(prev => ({
+            x: [...prev.x, x],
+            y: [...prev.y, y]
+        }));
+
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    };
+
+    const stopDrawing = (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        setIsDrawing(false);
+        
+        const newTraces = [...traces, [currentTrace.x, currentTrace.y, []]];
+        setTraces(newTraces);
+
+        // --- LOGIC REAL-TIME (DEBOUNCE) ---
+        // Nếu nhấc bút lên, hủy timer cũ và tạo timer mới 500ms
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+            recognizeKanji(newTraces);
+        }, 500); // 0.5 giây sau nét cuối cùng sẽ tự động nhận diện
+    };
+
+    // Gửi API đến Google Input Tools (Bản chất của handwriting.js)
+    const recognizeKanji = async (traceData) => {
+        if (traceData.length === 0) return;
+        setIsRecognizing(true);
+        
+        const data = JSON.stringify({
+            options: "enable_pre_space",
+            requests: [{
+                writing_guide: {
+                    writing_area_width: canvasRef.current.width,
+                    writing_area_height: canvasRef.current.height
+                },
+                ink: traceData,
+                language: "ja" // Định dạng tiếng Nhật
+            }]
+        });
+
+        try {
+            const response = await fetch("https://inputtools.google.com/request?ime=handwriting&app=mobilesearch&cs=1&oe=UTF-8", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: data
+            });
+            const resData = await response.json();
+            if (resData[0] === "SUCCESS") {
+                // Lấy mảng kết quả gợi ý
+                setSuggestions(resData[1][0][1]);
+            }
+        } catch (error) {
+            console.error("Lỗi nhận diện chữ:", error);
+        }
+        setIsRecognizing(false);
+    };
+
+    const clearCanvas = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setTraces([]);
+        setSuggestions([]);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+
+    return (
+        <div className="flex flex-col items-center w-full mt-4 animate-in slide-in-from-top-4 fade-in duration-300">
+            <div className="relative border-2 border-zinc-300 rounded-2xl bg-[#f8f8f9] overflow-hidden shadow-inner">
+                {/* Nút xóa nằm đè lên góc phải canvas */}
+                {traces.length > 0 && (
+                    <button onClick={clearCanvas} className="absolute top-2 right-2 w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-red-500 shadow-sm z-10">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                    </button>
+                )}
+                
+                {isRecognizing && (
+                    <div className="absolute top-2 left-2 flex gap-1">
+                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></span>
+                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
+                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
+                    </div>
+                )}
+
+                <canvas
+                    ref={canvasRef}
+                    width={280}
+                    height={280}
+                    className="touch-none cursor-crosshair"
+                    onMouseDown={startDrawing}
+                    onMouseMove={draw}
+                    onMouseUp={stopDrawing}
+                    onMouseLeave={stopDrawing}
+                    onTouchStart={startDrawing}
+                    onTouchMove={draw}
+                    onTouchEnd={stopDrawing}
+                />
+            </div>
+
+            {/* BẢNG GỢI Ý TỪ GOOGLE (REAL-TIME) */}
+            <div className="w-full max-w-[280px] mt-3 h-14 bg-white border border-zinc-200 rounded-xl shadow-sm flex overflow-x-auto custom-scrollbar items-center px-2 gap-1">
+                {suggestions.length === 0 ? (
+                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest w-full text-center">Hãy vẽ vào ô trên</span>
+                ) : (
+                    suggestions.map((char, index) => (
+                        <button
+                            key={index}
+                            onClick={() => { onSelectKanji(char); clearCanvas(); }}
+                            className="flex-shrink-0 h-10 min-w-[40px] px-2 text-2xl font-['Klee_One'] font-black text-zinc-800 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition-colors border border-transparent hover:border-indigo-100"
+                        >
+                            {char}
+                        </button>
+                    ))
+                )}
+            </div>
+        </div>
+    );
+};
 const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setPracticeMode }) => {
     const [view, setView] = useState('radicals'); // 'radicals' | 'kanji_list' | 'detail'
     const [selectedRadical, setSelectedRadical] = useState(null);
@@ -6342,6 +6505,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
 
     // State mới để lưu danh sách Kanji tìm kiếm thủ công
     const [customKanjiList, setCustomKanjiList] = useState(null);
+    const [showDrawPad, setShowDrawPad] = useState(false);
 
     const [visitedRadicals, setVisitedRadicals] = useState(new Set());
     const [visitedKanjis, setVisitedKanjis] = useState(new Set());
@@ -6429,20 +6593,19 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
 
     if (!isOpen) return null;
 
-    const handleAddKanji = () => {
+   const handleAddKanji = () => {
         if (!selectedKanji) return;
         if (setPracticeMode) setPracticeMode('kanji');
         const currentText = config?.text || '';
         
         if (currentText.includes(selectedKanji)) {
-    
+           
             setConfig({ ...config, text: currentText.replace(selectedKanji, '') });
         } else {
-          
+           
             setConfig({ ...config, text: currentText + selectedKanji });
         }
     };
-
     // --- HÀM XỬ LÝ KHI NGƯỜI DÙNG SEARCH KANJI BẰNG TAY TỪ SEARCH BAR ---
     const handleKanjiSearch = (kanjiStr) => {
         if(document.activeElement) document.activeElement.blur();
@@ -6472,21 +6635,44 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         return (
             <div className="flex flex-col h-full bg-zinc-50 overflow-hidden w-full">
                 <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 shrink-0">
-                    <SearchBar 
-                        mode="kanji" 
-                        dbData={dbData} 
-                        isDictionary={true} // Bật cờ Dictionary để nhận UI đặc biệt
-                        onKanjiSearch={handleKanjiSearch} // Callback khi search Kanji
-                        onSelectResult={(item) => {
-                            if(document.activeElement) document.activeElement.blur();
-                            setSelectedRadical(null);
-                            setCustomKanjiList(null);
-                            setSelectedKanji(item.char);
-                            setVisitedKanjis(prev => new Set(prev).add(item.char));
-                            setReplayKey(prev => prev + 1);
-                            setView('detail');
-                        }} 
-                    />
+                    <div className="flex gap-2 items-center">
+                        <div className="flex-1">
+                            <SearchBar 
+                                mode="kanji" 
+                                dbData={dbData} 
+                                isDictionary={true} 
+                                onKanjiSearch={handleKanjiSearch} 
+                                onSelectResult={(item) => {
+                                    if(document.activeElement) document.activeElement.blur();
+                                    setSelectedRadical(null);
+                                    setCustomKanjiList(null);
+                                    setSelectedKanji(item.char);
+                                    setVisitedKanjis(prev => new Set(prev).add(item.char));
+                                    setReplayKey(prev => prev + 1);
+                                    setView('detail');
+                                    setShowDrawPad(false); // Ẩn bảng vẽ đi khi xem chi tiết
+                                }} 
+                            />
+                        </div>
+                        {/* NÚT BẬT TẮT BẢNG VẼ */}
+                        <button 
+                            onClick={() => setShowDrawPad(!showDrawPad)} 
+                            className={`p-3.5 rounded-2xl border flex items-center justify-center transition-all active:scale-95 shadow-sm ${showDrawPad ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}
+                            title="Vẽ tay Kanji"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                        </button>
+                    </div>
+
+                    {/* HIỆN BẢNG VẼ NẾU ĐƯỢC BẬT */}
+                    {showDrawPad && (
+                        <HandwritingPad 
+                            onSelectKanji={(char) => {
+                                // Khi bấm vào chữ gợi ý -> Tra cứu chữ đó ngay lập tức
+                                handleKanjiSearch(char);
+                            }}
+                        />
+                    )}
                 </div>
 
                 <div 
