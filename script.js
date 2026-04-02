@@ -6336,13 +6336,12 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
 const HandwritingPad = ({ onSelectKanji }) => {
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
-    const [traces, setTraces] = useState([]); // Lưu toàn bộ các nét vẽ
-    const [currentTrace, setCurrentTrace] = useState({ x: [], y: [] }); // Nét đang vẽ
+    const [traces, setTraces] = useState([]); 
+    const [currentTrace, setCurrentTrace] = useState({ x: [], y: [] }); 
     const [suggestions, setSuggestions] = useState([]);
     const [isRecognizing, setIsRecognizing] = useState(false);
     const timeoutRef = useRef(null);
 
-    // Lấy tọa độ chuẩn xác trên màn hình (hỗ trợ cả cảm ứng & chuột)
     const getCoordinates = (e) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
@@ -6352,6 +6351,29 @@ const HandwritingPad = ({ onSelectKanji }) => {
             x: Math.round(clientX - rect.left),
             y: Math.round(clientY - rect.top)
         };
+    };
+
+    // Hàm vẽ lại Canvas từ mảng traces (Dùng cho Undo)
+    const redrawCanvas = (tracesToDraw) => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#1a1a1a';
+        
+        tracesToDraw.forEach(trace => {
+            const xArr = trace[0];
+            const yArr = trace[1];
+            if (xArr.length === 0) return;
+            ctx.beginPath();
+            ctx.moveTo(xArr[0], yArr[0]);
+            for (let i = 1; i < xArr.length; i++) {
+                ctx.lineTo(xArr[i], yArr[i]);
+            }
+            ctx.stroke();
+        });
     };
 
     const startDrawing = (e) => {
@@ -6366,7 +6388,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.lineWidth = 6;
-        ctx.strokeStyle = '#1a1a1a'; // Zen Black
+        ctx.strokeStyle = '#1a1a1a'; 
     };
 
     const draw = (e) => {
@@ -6392,15 +6414,28 @@ const HandwritingPad = ({ onSelectKanji }) => {
         const newTraces = [...traces, [currentTrace.x, currentTrace.y, []]];
         setTraces(newTraces);
 
-        // --- LOGIC REAL-TIME (DEBOUNCE) ---
-        // Nếu nhấc bút lên, hủy timer cũ và tạo timer mới 500ms
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
             recognizeKanji(newTraces);
-        }, 500); // 0.5 giây sau nét cuối cùng sẽ tự động nhận diện
+        }, 500); 
     };
 
-    // Gửi API đến Google Input Tools (Bản chất của handwriting.js)
+    // --- TÍNH NĂNG HOÀN TÁC (UNDO) ---
+    const undoLastStroke = () => {
+        if (traces.length === 0) return;
+        const newTraces = traces.slice(0, -1);
+        setTraces(newTraces);
+        redrawCanvas(newTraces);
+        
+        // Gửi API lại với mảng nét vẽ mới
+        if (newTraces.length > 0) {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => recognizeKanji(newTraces), 500);
+        } else {
+            setSuggestions([]);
+        }
+    };
+
     const recognizeKanji = async (traceData) => {
         if (traceData.length === 0) return;
         setIsRecognizing(true);
@@ -6413,7 +6448,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
                     writing_area_height: canvasRef.current.height
                 },
                 ink: traceData,
-                language: "ja" // Định dạng tiếng Nhật
+                language: "ja" 
             }]
         });
 
@@ -6425,8 +6460,9 @@ const HandwritingPad = ({ onSelectKanji }) => {
             });
             const resData = await response.json();
             if (resData[0] === "SUCCESS") {
-                // Lấy mảng kết quả gợi ý
-                setSuggestions(resData[1][0][1]);
+                const rawSuggestions = resData[1][0][1];
+                // YÊU CẦU 1: CHỈ LỌC CHỮ ĐƠN (length === 1)
+                setSuggestions(rawSuggestions.filter(char => char.length === 1));
             }
         } catch (error) {
             console.error("Lỗi nhận diện chữ:", error);
@@ -6445,19 +6481,25 @@ const HandwritingPad = ({ onSelectKanji }) => {
 
     return (
         <div className="flex flex-col items-center w-full mt-4 animate-in slide-in-from-top-4 fade-in duration-300">
-            <div className="relative border-2 border-zinc-300 rounded-2xl bg-[#f8f8f9] overflow-hidden shadow-inner">
-                {/* Nút xóa nằm đè lên góc phải canvas */}
+            <div className="relative border-2 border-zinc-200 rounded-2xl bg-[#f8f8f9] overflow-hidden shadow-inner">
+                
+                {/* NÚT HOÀN TÁC & XÓA (YÊU CẦU 3) */}
                 {traces.length > 0 && (
-                    <button onClick={clearCanvas} className="absolute top-2 right-2 w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-red-500 shadow-sm z-10">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                    </button>
+                    <div className="absolute top-2 right-2 flex flex-col gap-2 z-10">
+                        <button onClick={undoLastStroke} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 shadow-sm transition-colors" title="Hoàn tác nét vẽ">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                        </button>
+                        <button onClick={clearCanvas} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-red-500 shadow-sm transition-colors" title="Xóa toàn bộ">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        </button>
+                    </div>
                 )}
                 
                 {isRecognizing && (
                     <div className="absolute top-2 left-2 flex gap-1">
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></span>
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
+                        <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"></span>
+                        <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{animationDelay: '0.15s'}}></span>
+                        <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
                     </div>
                 )}
 
@@ -6465,7 +6507,9 @@ const HandwritingPad = ({ onSelectKanji }) => {
                     ref={canvasRef}
                     width={280}
                     height={280}
-                    className="touch-none cursor-crosshair"
+                    // YÊU CẦU 4: CHUỘT HÌNH BÚT
+                    style={{ cursor: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%231a1a1a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path></svg>') 2 22, auto" }}
+                    className="touch-none"
                     onMouseDown={startDrawing}
                     onMouseMove={draw}
                     onMouseUp={stopDrawing}
@@ -6476,8 +6520,8 @@ const HandwritingPad = ({ onSelectKanji }) => {
                 />
             </div>
 
-            {/* BẢNG GỢI Ý TỪ GOOGLE (REAL-TIME) */}
-            <div className="w-full max-w-[280px] mt-3 h-14 bg-white border border-zinc-200 rounded-xl shadow-sm flex overflow-x-auto custom-scrollbar items-center px-2 gap-1">
+            {/* BẢNG GỢI Ý (YÊU CẦU 2: THANH TRƯỢT MỎNG, ẨN CUỘN DỌC) */}
+            <div className="w-full max-w-[280px] mt-3 h-[3.25rem] bg-white border border-zinc-200 rounded-xl shadow-sm flex overflow-x-auto overflow-y-hidden items-center px-2 gap-1 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:bg-zinc-200 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {suggestions.length === 0 ? (
                     <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest w-full text-center">Hãy vẽ vào ô trên</span>
                 ) : (
@@ -6485,7 +6529,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
                         <button
                             key={index}
                             onClick={() => { onSelectKanji(char); clearCanvas(); }}
-                            className="flex-shrink-0 h-10 min-w-[40px] px-2 text-2xl font-['Klee_One'] font-black text-zinc-800 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition-colors border border-transparent hover:border-indigo-100"
+                            className="flex-shrink-0 h-10 min-w-[40px] px-2 text-2xl font-['Klee_One'] font-black text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors border border-transparent hover:border-zinc-200"
                         >
                             {char}
                         </button>
@@ -6657,10 +6701,10 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                         {/* NÚT BẬT TẮT BẢNG VẼ */}
                         <button 
                             onClick={() => setShowDrawPad(!showDrawPad)} 
-                            className={`p-3.5 rounded-2xl border flex items-center justify-center transition-all active:scale-95 shadow-sm ${showDrawPad ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'}`}
+                            className={`p-3.5 rounded-2xl border flex items-center justify-center transition-all active:scale-95 shadow-sm ${showDrawPad ? 'bg-zinc-900 border-zinc-900 text-white' : 'bg-white border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'}`}
                             title="Vẽ tay Kanji"
                         >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                         </button>
                     </div>
 
@@ -6928,24 +6972,22 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
             <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] md:h-[90vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 sm:border border-zinc-200">
                 
                 {/* HEADER */}
-                <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
-                    <div className="flex items-center gap-3">
+               <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        
+                        {/* NÚT QUAY LẠI CỦA XEM CHI TIẾT */}
                         {view !== 'radicals' && (
                             <button 
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                                 onClick={(e) => {
                                     e.currentTarget.blur();
-                                    
-                                    // --- ĐIỀU HƯỚNG CHUẨN XÁC NÚT QUAY LẠI ---
                                     if (view === 'detail') {
-                                        // Từ Detail quay lại List search hoặc Bộ thủ
                                         setView(selectedRadical || customKanjiList ? 'kanji_list' : 'radicals');
                                     } 
                                     else if (view === 'kanji_list') {
-                                        // Từ List quay lại Bộ thủ gốc
                                         setView('radicals');
                                         setSelectedRadical(null); 
-                                        setCustomKanjiList(null); // Clear search Kanji
+                                        setCustomKanjiList(null);
                                     }
                                 }}
                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
@@ -6953,6 +6995,18 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
                         )}
+
+                        {/* NÚT QUAY LẠI (TẮT) BẢNG VẼ TAY KHI ĐANG HIỆN */}
+                        {showDrawPad && view === 'radicals' && (
+                            <button 
+                                onClick={() => setShowDrawPad(false)}
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none"
+                                title="Đóng bảng vẽ"
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            </button>
+                        )}
+
                         <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
                             TRA CỨU KANJI
                         </h2>
