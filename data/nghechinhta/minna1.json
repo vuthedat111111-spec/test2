@@ -1,5 +1,10 @@
 [
   {
+    "part": 1, 
+    "title": "MINNA - BÀI 1, 2",
+    "audioPath": "",
+    "vocabularies": [
+  {
     "id": 1,
     "word": "私",
     "reading": "わたし",
@@ -420,3 +425,6 @@
     "wordEndTime": 56.29
   }
 ]
+  }
+
+  }
