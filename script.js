@@ -6461,15 +6461,17 @@ const HandwritingPad = ({ onSelectKanji }) => {
             const resData = await response.json();
             if (resData[0] === "SUCCESS") {
                 const rawSuggestions = resData[1][0][1];
-                // YÊU CẦU 1: CHỈ LỌC CHỮ ĐƠN (length === 1)
-                setSuggestions(rawSuggestions.filter(char => char.length === 1));
+                // ĐÃ SỬA: Lọc chữ đơn (length === 1) VÀ bắt buộc phải là Kanji (nằm trong dải Unicode \u4E00-\u9FAF)
+                setSuggestions(rawSuggestions.filter(char => 
+                    char.length === 1 && /[\u4E00-\u9FAF]/.test(char)
+                ));
             }
         } catch (error) {
             console.error("Lỗi nhận diện chữ:", error);
         }
         setIsRecognizing(false);
     };
-
+    
     const clearCanvas = () => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
