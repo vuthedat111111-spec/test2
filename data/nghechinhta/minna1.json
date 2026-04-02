@@ -355,7 +355,7 @@
   {
     "id": 30,
     "word": "どうぞよろしくお願いします",
-    "reading": "どうぞよろしく[おねがいします",
+    "reading": "どうぞよろしくおねがいします",
     "meaning": "Rất mong được sự giúp đỡ của anh/chị, rất vui được làm quen với anh/chị",
     "sentence": "",
     "sentenceVi": "",
@@ -364,18 +364,7 @@
     "wordStartTime": 67.85,
     "wordEndTime": 69.49
   },
-  {
-    "id": 31,
-    "word": "DAT",
-    "reading": "",
-    "meaning": "Đây là anh/chị/ông/bà ~.",
-    "sentence": "",
-    "sentenceVi": "",
-    "blankWord": "",
-    "blankReading": "",
-    "wordStartTime": 71.21,
-    "wordEndTime": 73.06
-  },
+ 
   {
     "id": 32,
     "word": "から来ました",
