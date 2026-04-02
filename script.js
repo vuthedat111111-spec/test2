@@ -7143,10 +7143,10 @@ const DictationModal = ({ isOpen, onClose }) => {
                     >
                         <div className="flex justify-between items-center w-full gap-4">
                             <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
-                                Tango N5
+                                MINNA NO NIHONGO N5
                             </span>
                         </div>
-                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">...từ vựng N5</span>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">25 bài từ vựng</span>
                     </button>
 
                     {/* Sách chờ cập nhật */}
