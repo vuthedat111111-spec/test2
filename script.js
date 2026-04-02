@@ -2,18 +2,6 @@ const removeAccents = (str) => {
 return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 };
     const { useState, useEffect, useMemo, useRef } = React;
-
-   
-    const getGlobalJLPTLevel = (char, dbData) => {
-        if (!dbData || !dbData.KANJI_LEVELS) return null;
-        if (dbData.KANJI_LEVELS.N5?.includes(char)) return '5';
-        if (dbData.KANJI_LEVELS.N4?.includes(char)) return '4';
-        if (dbData.KANJI_LEVELS.N3?.includes(char)) return '3';
-        if (dbData.KANJI_LEVELS.N2?.includes(char)) return '2';
-        if (dbData.KANJI_LEVELS.N1?.includes(char)) return '1';
-        return null;
-    };
-
 let globalShowSubText = true;
 
 const calculateSRS = (currentData, quality) => {
@@ -3197,7 +3185,15 @@ const SearchBar = ({ mode, dbData, onSelectResult, onSelectAll, isDictionary, on
         }
     }, [activeIndex, searchResults.length, mode]);
 
-    
+    const getJLPTLevel = (char) => {
+        if (!dbData || !dbData.KANJI_LEVELS) return null;
+        if (dbData.KANJI_LEVELS.N5?.includes(char)) return 'N5';
+        if (dbData.KANJI_LEVELS.N4?.includes(char)) return 'N4';
+        if (dbData.KANJI_LEVELS.N3?.includes(char)) return 'N3';
+        if (dbData.KANJI_LEVELS.N2?.includes(char)) return 'N2';
+        if (dbData.KANJI_LEVELS.N1?.includes(char)) return 'N1';
+        return null;
+    };
 
     const handleSearchRealtime = (val) => {
         setSearchTerm(val);
@@ -3357,7 +3353,7 @@ const handleBlur = () => {
                     )}
 
                     {searchResults.map((item, idx) => {
-                        const level = item.type === 'kanji' && getGlobalJLPTLevel(item.char, dbData) ? `N${getGlobalJLPTLevel(item.char, dbData)}` : null; 
+                        const level = item.type === 'kanji' ? getJLPTLevel(item.char) : null; 
 
                         return (
                             <div 
@@ -6341,12 +6337,10 @@ const HandwritingPad = ({ onSelectKanji }) => {
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [traces, setTraces] = useState([]); 
+    const [currentTrace, setCurrentTrace] = useState({ x: [], y: [] }); 
     const [suggestions, setSuggestions] = useState([]);
     const [isRecognizing, setIsRecognizing] = useState(false);
     const timeoutRef = useRef(null);
-    
-    // ĐÃ TỐI ƯU: SỬ DỤNG useRef THAY VÌ useState ĐỂ CHỐNG GIẬT LAG
-    const currentTraceRef = useRef({ x: [], y: [] }); 
 
     const getCoordinates = (e) => {
         const canvas = canvasRef.current;
@@ -6359,17 +6353,25 @@ const HandwritingPad = ({ onSelectKanji }) => {
         };
     };
 
+    // Hàm vẽ lại Canvas từ mảng traces (Dùng cho Undo)
     const redrawCanvas = (tracesToDraw) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 6; ctx.strokeStyle = '#1a1a1a';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#1a1a1a';
         
         tracesToDraw.forEach(trace => {
-            const xArr = trace[0]; const yArr = trace[1];
+            const xArr = trace[0];
+            const yArr = trace[1];
             if (xArr.length === 0) return;
-            ctx.beginPath(); ctx.moveTo(xArr[0], yArr[0]);
-            for (let i = 1; i < xArr.length; i++) ctx.lineTo(xArr[i], yArr[i]);
+            ctx.beginPath();
+            ctx.moveTo(xArr[0], yArr[0]);
+            for (let i = 1; i < xArr.length; i++) {
+                ctx.lineTo(xArr[i], yArr[i]);
+            }
             ctx.stroke();
         });
     };
@@ -6378,11 +6380,15 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         setIsDrawing(true);
         const { x, y } = getCoordinates(e);
-        currentTraceRef.current = { x: [x], y: [y] }; // Ghi vào useRef
+        setCurrentTrace({ x: [x], y: [y] });
 
         const ctx = canvasRef.current.getContext('2d');
-        ctx.beginPath(); ctx.moveTo(x, y);
-        ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 6; ctx.strokeStyle = '#1a1a1a'; 
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#1a1a1a'; 
     };
 
     const draw = (e) => {
@@ -6390,11 +6396,14 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         const { x, y } = getCoordinates(e);
         
-        currentTraceRef.current.x.push(x);
-        currentTraceRef.current.y.push(y);
+        setCurrentTrace(prev => ({
+            x: [...prev.x, x],
+            y: [...prev.y, y]
+        }));
 
         const ctx = canvasRef.current.getContext('2d');
-        ctx.lineTo(x, y); ctx.stroke();
+        ctx.lineTo(x, y);
+        ctx.stroke();
     };
 
     const stopDrawing = (e) => {
@@ -6402,19 +6411,23 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         setIsDrawing(false);
         
-        const newTraces = [...traces, [currentTraceRef.current.x, currentTraceRef.current.y, []]];
+        const newTraces = [...traces, [currentTrace.x, currentTrace.y, []]];
         setTraces(newTraces);
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => recognizeKanji(newTraces), 500); 
+        timeoutRef.current = setTimeout(() => {
+            recognizeKanji(newTraces);
+        }, 500); 
     };
 
+    // --- TÍNH NĂNG HOÀN TÁC (UNDO) ---
     const undoLastStroke = () => {
         if (traces.length === 0) return;
         const newTraces = traces.slice(0, -1);
         setTraces(newTraces);
         redrawCanvas(newTraces);
         
+        // Gửi API lại với mảng nét vẽ mới
         if (newTraces.length > 0) {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => recognizeKanji(newTraces), 500);
@@ -6430,45 +6443,60 @@ const HandwritingPad = ({ onSelectKanji }) => {
         const data = JSON.stringify({
             options: "enable_pre_space",
             requests: [{
-                writing_guide: { writing_area_width: canvasRef.current.width, writing_area_height: canvasRef.current.height },
-                ink: traceData, language: "ja" 
+                writing_guide: {
+                    writing_area_width: canvasRef.current.width,
+                    writing_area_height: canvasRef.current.height
+                },
+                ink: traceData,
+                language: "ja" 
             }]
         });
 
         try {
             const response = await fetch("https://inputtools.google.com/request?ime=handwriting&app=mobilesearch&cs=1&oe=UTF-8", {
-                method: "POST", headers: { "Content-Type": "application/json" }, body: data
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: data
             });
             const resData = await response.json();
             if (resData[0] === "SUCCESS") {
                 const rawSuggestions = resData[1][0][1];
-                setSuggestions(rawSuggestions.filter(char => char.length === 1 && /[\u4E00-\u9FAF]/.test(char)));
+                // ĐÃ SỬA: Lọc chữ đơn (length === 1) VÀ bắt buộc phải là Kanji (nằm trong dải Unicode \u4E00-\u9FAF)
+                setSuggestions(rawSuggestions.filter(char => 
+                    char.length === 1 && /[\u4E00-\u9FAF]/.test(char)
+                ));
             }
-        } catch (error) { console.error("Lỗi:", error); }
+        } catch (error) {
+            console.error("Lỗi nhận diện chữ:", error);
+        }
         setIsRecognizing(false);
     };
-
+    
     const clearCanvas = () => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        setTraces([]); setSuggestions([]);
+        setTraces([]);
+        setSuggestions([]);
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
 
     return (
         <div className="flex flex-col items-center w-full mt-4 animate-in slide-in-from-top-4 fade-in duration-300">
             <div className="relative border-2 border-zinc-200 rounded-2xl bg-[#f8f8f9] overflow-hidden shadow-inner">
+                
+                {/* NÚT HOÀN TÁC & XÓA (YÊU CẦU 3) */}
                 {traces.length > 0 && (
                     <div className="absolute top-2 right-2 flex flex-col gap-2 z-10">
-                        <button onClick={undoLastStroke} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 shadow-sm transition-colors" title="Hoàn tác">
+                        <button onClick={undoLastStroke} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 shadow-sm transition-colors" title="Hoàn tác nét vẽ">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
                         </button>
-                        <button onClick={clearCanvas} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-red-500 shadow-sm transition-colors" title="Xóa">
+                        <button onClick={clearCanvas} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-red-500 shadow-sm transition-colors" title="Xóa toàn bộ">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                         </button>
                     </div>
                 )}
+                
                 {isRecognizing && (
                     <div className="absolute top-2 left-2 flex gap-1">
                         <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"></span>
@@ -6476,20 +6504,35 @@ const HandwritingPad = ({ onSelectKanji }) => {
                         <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></span>
                     </div>
                 )}
+
                 <canvas
-                    ref={canvasRef} width={280} height={280}
+                    ref={canvasRef}
+                    width={280}
+                    height={280}
+                    // YÊU CẦU 4: CHUỘT HÌNH BÚT
                     style={{ cursor: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%231a1a1a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path></svg>') 2 22, auto" }}
                     className="touch-none"
-                    onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing}
-                    onTouchStart={startDrawing} onTouchMove={draw} onTouchEnd={stopDrawing}
+                    onMouseDown={startDrawing}
+                    onMouseMove={draw}
+                    onMouseUp={stopDrawing}
+                    onMouseLeave={stopDrawing}
+                    onTouchStart={startDrawing}
+                    onTouchMove={draw}
+                    onTouchEnd={stopDrawing}
                 />
             </div>
+
+            {/* BẢNG GỢI Ý (YÊU CẦU 2: THANH TRƯỢT MỎNG, ẨN CUỘN DỌC) */}
             <div className="w-full max-w-[280px] mt-3 h-[3.25rem] bg-white border border-zinc-200 rounded-xl shadow-sm flex overflow-x-auto overflow-y-hidden items-center px-2 gap-1 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:bg-zinc-200 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {suggestions.length === 0 ? (
                     <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest w-full text-center">Hãy vẽ vào ô trên</span>
                 ) : (
                     suggestions.map((char, index) => (
-                        <button key={index} onClick={() => { onSelectKanji(char); clearCanvas(); }} className="flex-shrink-0 h-10 min-w-[40px] px-2 text-2xl font-['Klee_One'] font-black text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors border border-transparent hover:border-zinc-200">
+                        <button
+                            key={index}
+                            onClick={() => { onSelectKanji(char); clearCanvas(); }}
+                            className="flex-shrink-0 h-10 min-w-[40px] px-2 text-2xl font-['Klee_One'] font-black text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors border border-transparent hover:border-zinc-200"
+                        >
                             {char}
                         </button>
                     ))
@@ -6820,9 +6863,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
     const renderDetail = () => {
         const info = dbData?.KANJI_DB?.[selectedKanji] || {};
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
-        const jlptLevel = getGlobalJLPTLevel(selectedKanji, dbData);
-        const isRadical = !!(dbData?.BOTHU_DB && dbData.BOTHU_DB[selectedKanji]);
-        
         // ĐỒNG BỘ: Dò tìm cấp độ JLPT từ dbData.KANJI_LEVELS thay vì onkun.json
         let jlptLevel = null;
         if (dbData?.KANJI_LEVELS) {
@@ -6882,10 +6922,9 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                         </div>
                         
                         <div className="mt-4 flex gap-2 w-full justify-center md:justify-start items-center">
-                           {jlptLevel && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{jlptLevel}</span>}
-                        
+                            {jlptLevel && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{jlptLevel}</span>}
                             {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
-                             
+
                             {selectedKanji && (
                                 <button
                                     onClick={handleAddKanji}
