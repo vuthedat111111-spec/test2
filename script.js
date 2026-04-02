@@ -6678,8 +6678,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
 
         return (
             <div className="flex flex-col h-full bg-zinc-50 overflow-hidden w-full">
-                <div className="p-4 sm:p-6 bg-white border-b border-zinc-200 shrink-0">
-                    <div className="flex gap-2 items-center">
+                
+                {/* 1. KHU VỰC TÌM KIẾM VÀ BẢNG VẼ */}
+                {/* Đã sửa: Xóa 'md:flex-none' để bảng vẽ luôn chiếm toàn bộ chiều dọc khi mở */}
+                <div className={`p-4 sm:p-6 bg-white border-b border-zinc-200 transition-all duration-300 ${showDrawPad ? 'flex-1 flex flex-col' : 'shrink-0'}`}>
+                    <div className="flex gap-2 items-center shrink-0">
                         <div className="flex-1">
                             <SearchBar 
                                 mode="kanji" 
@@ -6710,19 +6713,22 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
 
                     {/* HIỆN BẢNG VẼ NẾU ĐƯỢC BẬT */}
                     {showDrawPad && (
-                        <HandwritingPad 
-                            onSelectKanji={(char) => {
-                                // Khi bấm vào chữ gợi ý -> Tra cứu chữ đó ngay lập tức
-                                handleKanjiSearch(char);
-                            }}
-                        />
+                        <div className="flex-1 flex flex-col justify-center w-full">
+                            <HandwritingPad 
+                                onSelectKanji={(char) => {
+                                    handleKanjiSearch(char);
+                                }}
+                            />
+                        </div>
                     )}
                 </div>
 
+                {/* 2. DANH SÁCH BỘ THỦ */}
+                {/* Đã sửa: Xóa 'md:block', giờ chỉ cần 'hidden' khi showDrawPad=true */}
                 <div 
                     ref={scrollRef} 
                     onScroll={handleScroll}
-                    className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 w-full"
+                    className={`p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 w-full ${showDrawPad ? 'hidden' : 'block'}`}
                 >
                     <div className="flex items-center gap-2 mb-4 w-full">
                         <span className="w-2 h-2 rounded-full bg-zinc-300"></span>
@@ -6758,7 +6764,6 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
             </div>
         );
     };
-
     // --- MÀN 2: DANH SÁCH KANJI THUỘC BỘ HOẶC TÌM KIẾM ---
     const renderKanjiList = () => {
         // NẾU KHÔNG CÓ BỘ THỦ CHỌN VÀ KHÔNG CÓ LIST SEARCH THÌ BỎ QUA
