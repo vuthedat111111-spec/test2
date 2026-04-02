@@ -7137,6 +7137,18 @@ const DictationModal = ({ isOpen, onClose }) => {
                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">1000 từ vựng kèm ví dụ</span>
                     </button>
 
+                    <button 
+                        onClick={() => handleLoadBook('minna1', 'MINNA NO NIHONGO N5')}
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                    >
+                        <div className="flex justify-between items-center w-full gap-4">
+                            <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
+                                Tango N5
+                            </span>
+                        </div>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">...từ vựng N5</span>
+                    </button>
+
                     {/* Sách chờ cập nhật */}
                     <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
                      <div className="flex justify-between items-center w-full">
@@ -7154,7 +7166,7 @@ const DictationModal = ({ isOpen, onClose }) => {
 
                          <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
                      <div className="flex justify-between items-center w-full">
-                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MINNA NO NIHONGO N5, N4</span>
+                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MINNA NO NIHONGO N4</span>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
                     </button>
