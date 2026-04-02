@@ -6863,6 +6863,15 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
     const renderDetail = () => {
         const info = dbData?.KANJI_DB?.[selectedKanji] || {};
         const onkun = dbData?.ONKUN_DB?.[selectedKanji] || {};
+        // ĐỒNG BỘ: Dò tìm cấp độ JLPT từ dbData.KANJI_LEVELS thay vì onkun.json
+        let jlptLevel = null;
+        if (dbData?.KANJI_LEVELS) {
+            if (dbData.KANJI_LEVELS.N5?.includes(selectedKanji)) jlptLevel = '5';
+            else if (dbData.KANJI_LEVELS.N4?.includes(selectedKanji)) jlptLevel = '4';
+            else if (dbData.KANJI_LEVELS.N3?.includes(selectedKanji)) jlptLevel = '3';
+            else if (dbData.KANJI_LEVELS.N2?.includes(selectedKanji)) jlptLevel = '2';
+            else if (dbData.KANJI_LEVELS.N1?.includes(selectedKanji)) jlptLevel = '1';
+        }
 
         return (
             <div ref={scrollRef} className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-50 w-full flex flex-col">
@@ -6913,7 +6922,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                         </div>
                         
                         <div className="mt-4 flex gap-2 w-full justify-center md:justify-start items-center">
-                            {onkun.jlpt_new && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{onkun.jlpt_new}</span>}
+                            {jlptLevel && <span className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-black rounded uppercase flex-shrink-0">JLPT N{jlptLevel}</span>}
                             {onkun.strokes && <span className="px-2 py-1 border border-zinc-300 text-zinc-600 text-[10px] font-black rounded uppercase flex-shrink-0">{onkun.strokes} Nét</span>}
 
                             {selectedKanji && (
