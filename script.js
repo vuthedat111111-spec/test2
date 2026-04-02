@@ -7792,57 +7792,7 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
 
     const [customVocabData, setCustomVocabData] = useState({}); 
     const [editingVocab, setEditingVocab] = useState(null);
-React.useEffect(() => {
-    // Chỉ nên chạy bẫy này ở môi trường Production (khi đã đưa web lên mạng)
-    // Để lúc bạn tự code (Development) không bị nó đá văng ra ngoài.
-    // Nếu bạn muốn test luôn bây giờ, có thể bỏ dòng if này đi.
-    // if (process.env.NODE_ENV !== 'production') return;
 
-    let warningTimer = null;
-    
-    // 1. Tạo một Object mồi nhử (Dùng Image object là phổ biến nhất)
-    const trapObject = new Image();
-
-    // 2. Gắn bẫy vào thuộc tính 'id'
-    Object.defineProperty(trapObject, 'id', {
-      get: function() {
-        // ĐOẠN CODE NÀY SẼ CHỈ CHẠY KHI F12 ĐANG MỞ
-        
-        // Ngăn chặn việc chạy lại nhiều lần nếu DevTools cứ mở liên tục
-        if (!warningTimer) {
-            console.log("%cPhát hiện Developer Tools!", "color: red; font-size: 20px; font-weight: bold;");
-            
-            // Xử lý hình phạt ở đây:
-            // Ví dụ: Đá văng ra Google ngay lập tức
-            alert("Hệ thống phát hiện bạn đang sử dụng công cụ dành cho nhà phát triển (F12). \n\nVì lý do bảo mật, bạn sẽ bị chuyển hướng.");
-            window.location.href = "https://www.google.com"; 
-            
-            // Hoặc đếm ngược 2 phút như bạn từng thấy:
-            /*
-            warningTimer = setTimeout(() => {
-                window.location.href = "https://www.google.com";
-            }, 120000); // 120,000ms = 2 phút
-            */
-        }
-      }
-    });
-
-    // 3. Thả mồi định kỳ mỗi giây
-    const trapInterval = setInterval(() => {
-        // Trình duyệt sẽ bơ lệnh này nếu F12 đóng
-        console.log('%c', trapObject); 
-        
-        // Cú lừa dọn dẹp: Xóa log ngay lập tức để người dùng mở F12 lên 
-        // cũng không thấy màn hình Console bị rác do lệnh log ở trên
-        console.clear(); 
-    }, 1000);
-
-    // Dọn dẹp khi Component unmount
-    return () => {
-        clearInterval(trapInterval);
-        if (warningTimer) clearTimeout(warningTimer);
-    };
-  }, []);
 React.useEffect(() => {
        // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
         const handleContextMenu = (e) => {
