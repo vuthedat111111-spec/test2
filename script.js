@@ -6332,15 +6332,30 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
         </div>
     )
 }
-// --- COMPONENT: BẢNG VẼ TAY KANJI (REAL-TIME RECOGNITION) ---
+// --- COMPONENT: BẢNG VẼ TAY KANJI (REAL-TIME RECOGNITION - OPTIMIZED) ---
 const HandwritingPad = ({ onSelectKanji }) => {
     const canvasRef = useRef(null);
+    const ctxRef = useRef(null); // Lưu Canvas Context để tái sử dụng
     const [isDrawing, setIsDrawing] = useState(false);
     const [traces, setTraces] = useState([]); 
-    const [currentTrace, setCurrentTrace] = useState({ x: [], y: [] }); 
+    
+    // TỐI ƯU: Dùng useRef thay vì useState cho nét vẽ hiện tại để tránh re-render liên tục
+    const currentTraceRef = useRef({ x: [], y: [] }); 
+    
     const [suggestions, setSuggestions] = useState([]);
     const [isRecognizing, setIsRecognizing] = useState(false);
     const timeoutRef = useRef(null);
+
+    // Khởi tạo Canvas Context 1 lần duy nhất
+    useEffect(() => {
+        if (canvasRef.current) {
+            ctxRef.current = canvasRef.current.getContext('2d');
+            ctxRef.current.lineCap = 'round';
+            ctxRef.current.lineJoin = 'round';
+            ctxRef.current.lineWidth = 6;
+            ctxRef.current.strokeStyle = '#1a1a1a';
+        }
+    }, []);
 
     const getCoordinates = (e) => {
         const canvas = canvasRef.current;
@@ -6353,15 +6368,10 @@ const HandwritingPad = ({ onSelectKanji }) => {
         };
     };
 
-    // Hàm vẽ lại Canvas từ mảng traces (Dùng cho Undo)
     const redrawCanvas = (tracesToDraw) => {
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+        const ctx = ctxRef.current;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = '#1a1a1a';
         
         tracesToDraw.forEach(trace => {
             const xArr = trace[0];
@@ -6380,15 +6390,13 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         setIsDrawing(true);
         const { x, y } = getCoordinates(e);
-        setCurrentTrace({ x: [x], y: [y] });
+        
+        // Reset ref nét hiện tại
+        currentTraceRef.current = { x: [x], y: [y] };
 
-        const ctx = canvasRef.current.getContext('2d');
+        const ctx = ctxRef.current;
         ctx.beginPath();
         ctx.moveTo(x, y);
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = '#1a1a1a'; 
     };
 
     const draw = (e) => {
@@ -6396,12 +6404,11 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         const { x, y } = getCoordinates(e);
         
-        setCurrentTrace(prev => ({
-            x: [...prev.x, x],
-            y: [...prev.y, y]
-        }));
+        // Đẩy tọa độ trực tiếp vào Ref (Mượt hơn, không re-render)
+        currentTraceRef.current.x.push(x);
+        currentTraceRef.current.y.push(y);
 
-        const ctx = canvasRef.current.getContext('2d');
+        const ctx = ctxRef.current;
         ctx.lineTo(x, y);
         ctx.stroke();
     };
@@ -6411,7 +6418,8 @@ const HandwritingPad = ({ onSelectKanji }) => {
         e.preventDefault();
         setIsDrawing(false);
         
-        const newTraces = [...traces, [currentTrace.x, currentTrace.y, []]];
+        // Lưu nét vừa vẽ vào State khi đã nhấc bút (Chỉ re-render 1 lần)
+        const newTraces = [...traces, [currentTraceRef.current.x, currentTraceRef.current.y, []]];
         setTraces(newTraces);
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -6420,14 +6428,12 @@ const HandwritingPad = ({ onSelectKanji }) => {
         }, 500); 
     };
 
-    // --- TÍNH NĂNG HOÀN TÁC (UNDO) ---
     const undoLastStroke = () => {
         if (traces.length === 0) return;
         const newTraces = traces.slice(0, -1);
         setTraces(newTraces);
         redrawCanvas(newTraces);
         
-        // Gửi API lại với mảng nét vẽ mới
         if (newTraces.length > 0) {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => recognizeKanji(newTraces), 500);
@@ -6461,7 +6467,6 @@ const HandwritingPad = ({ onSelectKanji }) => {
             const resData = await response.json();
             if (resData[0] === "SUCCESS") {
                 const rawSuggestions = resData[1][0][1];
-                // ĐÃ SỬA: Lọc chữ đơn (length === 1) VÀ bắt buộc phải là Kanji (nằm trong dải Unicode \u4E00-\u9FAF)
                 setSuggestions(rawSuggestions.filter(char => 
                     char.length === 1 && /[\u4E00-\u9FAF]/.test(char)
                 ));
@@ -6474,18 +6479,20 @@ const HandwritingPad = ({ onSelectKanji }) => {
 
     const clearCanvas = () => {
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+        const ctx = ctxRef.current;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         setTraces([]);
         setSuggestions([]);
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
 
+    // FIX LỖI: Đã đổi fill="none" thành fill="%23ffffff" (màu trắng) để che nét mực bên dưới
+    const customCursor = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"%23ffffff\" stroke=\"%231a1a1a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path></svg>') 2 22, auto";
+
     return (
         <div className="flex flex-col items-center w-full mt-4 animate-in slide-in-from-top-4 fade-in duration-300">
             <div className="relative border-2 border-zinc-200 rounded-2xl bg-[#f8f8f9] overflow-hidden shadow-inner">
                 
-                {/* NÚT HOÀN TÁC & XÓA (YÊU CẦU 3) */}
                 {traces.length > 0 && (
                     <div className="absolute top-2 right-2 flex flex-col gap-2 z-10">
                         <button onClick={undoLastStroke} className="w-8 h-8 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 shadow-sm transition-colors" title="Hoàn tác nét vẽ">
@@ -6509,8 +6516,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
                     ref={canvasRef}
                     width={280}
                     height={280}
-                    // YÊU CẦU 4: CHUỘT HÌNH BÚT
-                    style={{ cursor: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%231a1a1a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path></svg>') 2 22, auto" }}
+                    style={{ cursor: customCursor }}
                     className="touch-none"
                     onMouseDown={startDrawing}
                     onMouseMove={draw}
@@ -6522,7 +6528,6 @@ const HandwritingPad = ({ onSelectKanji }) => {
                 />
             </div>
 
-            {/* BẢNG GỢI Ý (YÊU CẦU 2: THANH TRƯỢT MỎNG, ẨN CUỘN DỌC) */}
             <div className="w-full max-w-[280px] mt-3 h-[3.25rem] bg-white border border-zinc-200 rounded-xl shadow-sm flex overflow-x-auto overflow-y-hidden items-center px-2 gap-1 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:bg-zinc-200 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {suggestions.length === 0 ? (
                     <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest w-full text-center">Hãy vẽ vào ô trên</span>
