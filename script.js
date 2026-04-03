@@ -7304,6 +7304,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             setPartsList([]);
         }
     }, [isOpen]);
+    if (!isOpen) return null;
 
     // Menu lựa chọn đầu tiên
     const renderMenu = () => (
