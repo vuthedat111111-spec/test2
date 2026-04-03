@@ -790,7 +790,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
  // --- BỘ CHUYỂN ĐỔI KANA ---
     const convertToKana = (rawText, targetKanaString) => {
         const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー'
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー','ti':'てぃ'
         };
         let result = rawText.toLowerCase();
     result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
@@ -5316,7 +5316,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-         '22baitrungthuongcap': [
+        '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -5554,7 +5554,7 @@ const renderGuideOverlay = () => (
                     {[
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
                         { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
-                         { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
+                          { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -7734,12 +7734,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
                                        {renderMaskedSentence(currentItem.sentence, currentItem.word, (mode === 'sentence' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, currentItem.blankWord)}
                                     </div>
-                                ) : (
-                                    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl">
-                                        <span className="text-2xl sm:text-3xl font-black text-indigo-700 mb-0.5">{currentItem.word}</span>
-                                        <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">{currentItem.reading}</span>
-                                    </div>
-                                )}
+                               ) : (
+   
+    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-xl">
+        
+      
+        <span className="text-xl sm:text-2xl font-black text-indigo-700 mb-0.5">{currentItem.word}</span>
+        
+      
+        <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">{currentItem.reading}</span>
+    </div>
+)}
                             </div>
                         )}
 
@@ -7971,9 +7976,7 @@ React.useEffect(() => {
             setSetupConfig({ isOpen: false, targetAction: null });
             setIsPreviewListOpen(false);
             setIsVerbPreviewOpen(false);
-            
-            // FIX LỖI: Chuyển đổi thành cấu trúc if - else if để đảm bảo
-            // hệ thống CHỈ MỞ 1 BẢNG DUY NHẤT, không bị mở trùng lặp
+           
             if (target === 'flashcard') {
                 setIsFlashcardOpen(true);
             } else if (target === 'game') {
@@ -7981,16 +7984,16 @@ React.useEffect(() => {
             } else if (target === 'essay') {
                 setIsEssayOpen(true);
             } else if (target === 'conjugate') {
-                // CHỈ mở game động từ khi target thực sự là 'conjugate'
+            
                 if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
                 else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
                 else setIsVerbEssayOpen(true);
-            } else if (target === 'kaiwa') {    // <--- THÊM MỚI Ở ĐÂY
-                setIsKaiwaOpen(true);           // <--- THÊM MỚI Ở ĐÂY
+            } else if (target === 'kaiwa') {   
+                setIsKaiwaOpen(true);         
             }
         }
     };
-    // --- HIỂN THỊ LOADING ---
+ 
     if (!isDbLoaded) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -8010,13 +8013,13 @@ React.useEffect(() => {
     onOpenDictionary={() => setIsDictionaryOpen(true)}
     onOpenDictation={() => setIsDictationMenuOpen(true)}
     onOpenSetup={(target) => {
-        // FIX Ở ĐÂY: Nếu là kaiwa thì mở luôn bảng Kaiwa, chặn không cho mở bảng nhập Text
+    
         if (target === 'kaiwa') {
             setIsKaiwaOpen(true);
         } else {
-            // Các tính năng khác vẫn mở bảng Setup bình thường
+      
             setSetupConfig({ isOpen: true, targetAction: target });
-            // Tự động chuyển sang chế độ Từ vựng nếu là Chia động từ
+           
             if (target === 'conjugate') {
                 handleModeSwitch('vocab'); 
             }
@@ -8120,7 +8123,7 @@ React.useEffect(() => {
                     setVerbPracticeData(finalData);
                     setVerbTargetForm(targetF);
                     
-                    // KIỂM TRA MODE ĐỂ MỞ ĐÚNG GAME (Đoạn này rất quan trọng)
+                   
                     if (verbPracticeMode === 'quiz') {
                         setIsVerbQuizOpen(true);
                     } else if (verbPracticeMode === 'reflex') {
@@ -8175,15 +8178,15 @@ React.useEffect(() => {
     dbData={dbData}
     onResetSRS={handleResetAllSRS}
     onLoadChars={(chars) => {
-        // === FIX LỖI: Tự động lưu cache và chuyển sang chế độ Kanji ===
+       
         if (practiceMode === 'vocab') {
             setTextCache(prev => ({ ...prev, vocab: config.text }));
         }
-        setPracticeMode('kanji'); // Ép sang chế độ Kanji
-        setConfig({ text: chars }); // Đưa danh sách chữ cần ôn vào
+        setPracticeMode('kanji'); 
+        setConfig({ text: chars }); 
         
         setIsReviewListOpen(false);
-        // Tự động mở flashcard ngay lập tức
+    
         setTimeout(() => setIsFlashcardOpen(true), 100);
     }}
 />
