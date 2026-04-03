@@ -2736,58 +2736,7 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-   // --- COMPONENT MỚI: MENU CHỌN TÍNH NĂNG (KANJI / TỪ VỰNG) ---
-const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
-    React.useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen]);
-
-    if (!isOpen) return null;
-
-    const features = type === 'kanji' ? [
-        { id: 'dictionary', title: 'TRA CỨU KANJI', icon: '🔍', desc: 'Tra cứu theo bộ thủ' },
-        { id: 'game', title: 'CHẾ ĐỘ HỌC', icon: '🎯', desc: 'Trắc nghiệm nhớ chữ' },
-        { id: 'flashcard', title: 'FLASHCARD', icon: '🎴', desc: 'Lật thẻ ghi nhớ' },
-        { id: 'essay', title: 'TỰ LUẬN', icon: '✍️', desc: 'Gõ lại mặt chữ' }
-    ] : [
-        { id: 'game', title: 'CHẾ ĐỘ HỌC', icon: '🎯', desc: 'Trắc nghiệm từ vựng' },
-        { id: 'flashcard', title: 'FLASHCARD', icon: '🎴', desc: 'Lật thẻ ghi nhớ' },
-        { id: 'essay', title: 'TỰ LUẬN', icon: '✍️', desc: 'Gõ lại từ vựng' }
-    ];
-
-    return (
-        <div className="fixed inset-0 z-[250] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full h-full sm:max-w-md sm:h-auto sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
-                {/* Header */}
-                <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
-                    <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight">
-                        CHỌN CHẾ ĐỘ {type === 'kanji' ? 'KANJI' : 'TỪ VỰNG'}
-                    </h2>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-500 hover:text-red-500 transition-all shadow-sm outline-none">✕</button>
-                </div>
-                
-                {/* Body */}
-                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4">
-                    {features.map(f => (
-                        <button 
-                            key={f.id}
-                            onClick={() => onSelectFeature(f.id)}
-                            className="w-full p-5 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex items-center gap-4 active:scale-95 group outline-none"
-                        >
-                            <div className="text-3xl">{f.icon}</div>
-                            <div className="flex flex-col items-start text-left">
-                                <span className="text-lg font-black text-zinc-900 group-hover:text-indigo-600 transition-colors uppercase">{f.title}</span>
-                                <span className="text-xs font-bold text-zinc-400 mt-1">{f.desc}</span>
-                            </div>
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};         
+            
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
@@ -2962,23 +2911,42 @@ React.useEffect(() => {
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                       {/* NÚT KANJI */}
-                        <div onClick={() => onOpenSetup('kanji')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                       {/* 8. TỪ ĐIỂN BỘ THỦ */}
+                        <div onClick={onOpenDictionary} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                           
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <span className="text-2xl font-black font-['Klee_One']">漢</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1 text-zinc-900">KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tra cứu, Học, Flashcard...</p>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
+                        </div>
+                        {/* 1. CHẾ ĐỘ HỌC */}
+                        <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
 
-                        {/* NÚT TỪ VỰNG */}
-                        <div onClick={() => onOpenSetup('vocab')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                        {/* 2. FLASHCARD */}
+                        <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <span className="text-2xl font-black font-['Klee_One']">語</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TỪ VỰNG</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Chế độ học, Flashcard...</p>
+                            <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+
+                        {/* 3. TỰ LUẬN */}
+                        <div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">TỰ LUẬN</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                        </div>
+
                         {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             
@@ -3818,7 +3786,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
 
 // --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TINH GỌN VÀ GỌI LIBRARY MODAL) ---
 const StudySetupModal = ({ 
-    isOpen, onClose, onBack, onStart, targetAction, 
+    isOpen, onClose, onStart, targetAction, 
     config, onChange, mode, setPracticeMode, dbData, srsData,
     verbTargetForm, setVerbTargetForm,
     verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms 
@@ -3967,7 +3935,8 @@ const StudySetupModal = ({
     };
 
     return (
-        <div className="fixed inset-0 z-[300] flex justify-center items-center bg-gray-900/90 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[300] flex justify-center items-end sm:items-center bg-gray-900/80 backdrop-blur-sm animate-in fade-in duration-200">
+            
             {/* GỌI MODAL THƯ VIỆN Ở ĐÂY */}
             <LibraryModal 
                 isOpen={isLibraryOpen}
@@ -4055,25 +4024,28 @@ const StudySetupModal = ({
             {/* KẾT THÚC BẢNG HƯỚNG DẪN */}
 
             {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
-           <div className="bg-white w-full h-full sm:max-w-2xl sm:h-[90vh] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200">
+            <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
                 
-              {/* Header: Đã xóa nút chuyển đổi Kanji/Vocab, thay bằng tiêu đề và nút Trở về */}
-                <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white relative z-10 shrink-0">
-                    <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors outline-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                        TRỞ VỀ
-                    </button>
+              {/* Header: Đổi chế độ */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
+                    {targetAction !== 'conjugate' ? (
+                        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
+                            <button onClick={() => setPracticeMode('kanji')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
+                            <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
+                        </div>
+                    ) : (
+                        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 max-w-[calc(100%-40px)] overflow-x-auto custom-scrollbar no-scrollbar">
+                            <button onClick={() => setVerbPracticeMode('essay')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TỰ LUẬN</button>
+                            <button onClick={() => setVerbPracticeMode('quiz')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TRẮC NGHIỆM</button>
+                            <button onClick={() => setVerbPracticeMode('reflex')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'reflex' ? 'bg-white text-red-600 shadow-sm border border-red-200' : 'text-gray-500'}`}>⚡ PHẢN XẠ</button>
+                        </div>
+                    )}
                     
-                    <h2 className="text-sm font-black text-zinc-900 uppercase tracking-tight absolute left-1/2 -translate-x-1/2 text-center w-max">
-                        {targetAction === 'conjugate' ? 'CHIA ĐỘNG TỪ' : (mode === 'kanji' ? 'KANJI' : 'TỪ VỰNG')} 
-                        {targetAction !== 'conjugate' && ` - ${targetAction === 'game' ? 'CHẾ ĐỘ HỌC' : targetAction === 'flashcard' ? 'FLASHCARD' : 'TỰ LUẬN'}`}
-                    </h2>
-
-                    <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm ml-2 outline-none">✕</button>
+                    {/* Nút đóng X - Cố định vị trí và chỉ giữ 1 nút duy nhất */}
+                    <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
                 </div>
                         
-                        
-               <div className="p-4 sm:p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative bg-zinc-50/30">
+                <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative">
                     {/* Thêm phần chọn Thể nếu đang là chế độ Conjugate */}
 {/* Thêm phần chọn Thể với UI Dropdown Custom */}
 {targetAction === 'conjugate' && (
@@ -6574,7 +6546,7 @@ const HandwritingPad = ({ onSelectKanji }) => {
         </div>
     );
 };
-const KanjiDictionaryModal = ({ isOpen, onClose, onBack, dbData, config, setConfig, setPracticeMode }) => {
+const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setPracticeMode }) => {
     const [view, setView] = useState('radicals'); // 'radicals' | 'kanji_list' | 'detail'
     const [selectedRadical, setSelectedRadical] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
@@ -6711,24 +6683,8 @@ const KanjiDictionaryModal = ({ isOpen, onClose, onBack, dbData, config, setConf
         const radicals = dbData?.BOTHU_DB || {}; 
         const radicalList = Object.entries(radicals);
 
-      return (
-        <div className="fixed inset-0 z-[600] flex justify-center items-center bg-zinc-900/90 backdrop-blur-sm p-0 sm:p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full h-full sm:max-w-4xl sm:h-[90vh] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 sm:border border-zinc-200">
-                
-                {/* HEADER CÓ NÚT BACK VÀ X */}
-               <div className="px-4 sm:px-6 py-4 border-b border-zinc-100 bg-white flex justify-between items-center shrink-0 shadow-sm z-10 w-full">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                        <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors outline-none">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                            <span className="hidden sm:inline">TRỞ VỀ</span>
-                        </button>
-
-                        <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
-                            TRA CỨU KANJI
-                        </h2>
-                    </div>
-                    <button style={{ WebkitTapHighlightColor: 'transparent' }} onClick={(e)=>{e.currentTarget.blur(); onClose();}} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all shadow-sm outline-none">✕</button>
-                </div>
+        return (
+            <div className="flex flex-col h-full bg-zinc-50 overflow-hidden w-full">
                 
                 {/* 1. KHU VỰC TÌM KIẾM VÀ BẢNG VẼ */}
                 {/* Đã sửa: Xóa 'md:flex-none' để bảng vẽ luôn chiếm toàn bộ chiều dọc khi mở */}
@@ -7864,14 +7820,6 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
-
-    const closeAllMenus = () => {
-        setMainMenuType(null);
-        setSetupConfig({ isOpen: false, targetAction: null });
-        setIsDictionaryOpen(false);
-    };
-    
-    const [mainMenuType, setMainMenuType] = useState(null);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8058,63 +8006,46 @@ React.useEffect(() => {
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-{/* 1. TRANG CHỦ TỐI GIẢN */}
+{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
-    // GỌI THẲNG NẾU LÀ CHIA ĐỘNG TỪ, NGHE, KAIWA. GỌI MENU NẾU LÀ KANJI/TỪ VỰNG
+    onOpenDictionary={() => setIsDictionaryOpen(true)}
+    onOpenDictation={() => setIsDictationMenuOpen(true)}
     onOpenSetup={(target) => {
-        if (target === 'kanji' || target === 'vocab') {
-            setMainMenuType(target);
-            handleModeSwitch(target); // Gắn sẵn mode
-        } else if (target === 'kaiwa') {
+    
+        if (target === 'kaiwa') {
             setIsKaiwaOpen(true);
-        } else if (target === 'conjugate') {
-            handleModeSwitch('vocab');
-            setSetupConfig({ isOpen: true, targetAction: 'conjugate' });
+        } else {
+      
+            setSetupConfig({ isOpen: true, targetAction: target });
+           
+            if (target === 'conjugate') {
+                handleModeSwitch('vocab'); 
+            }
         }
     }}
-    onOpenDictation={() => setIsDictationMenuOpen(true)}
-    onOpenDictionary={() => setIsDictionaryOpen(true)}
 />
 
-{/* HIỆN MENU TRUNG GIAN KHI BẤM KANJI / TỪ VỰNG */}
-<FeatureMenuModal
-    isOpen={!!mainMenuType}
-    type={mainMenuType}
-    onClose={closeAllMenus}
-    onSelectFeature={(featureId) => {
-        if (featureId === 'dictionary') {
-            setIsDictionaryOpen(true);
-        } else {
-            setSetupConfig({ isOpen: true, targetAction: featureId });
-        }
-    }}
-/>
-           {/* 2. MODAL NHẬP LIỆU */}
-<StudySetupModal 
-    isOpen={setupConfig.isOpen}
-    onClose={closeAllMenus} // Bấm X -> Đóng sạch
-    onBack={() => {
-        // Bấm Trở Về -> Tắt bảng nhập liệu, lùi về Menu (hoặc Home nếu là Chia Động Từ)
-        setSetupConfig({ isOpen: false, targetAction: null });
-    }}
-    onStart={handleStartLearning}
-    targetAction={setupConfig.targetAction}
-    config={config}
-    onChange={setConfig}
-    mode={practiceMode}
-    setPracticeMode={handleModeSwitch}
-    dbData={dbData}
-    srsData={srsData}
-    verbTargetForm={verbTargetForm}
-    setVerbTargetForm={setVerbTargetForm}
-    verbPracticeMode={verbPracticeMode}
+            {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
+            <StudySetupModal 
+                isOpen={setupConfig.isOpen}
+                onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
+                targetAction={setupConfig.targetAction}
+                onStart={handleStartLearning}
+                config={config}
+                onChange={setConfig}
+                mode={practiceMode}
+                setPracticeMode={handleModeSwitch}
+                dbData={dbData}
+                srsData={srsData}
+                    verbTargetForm={verbTargetForm}
+                setVerbTargetForm={setVerbTargetForm}
+                    verbPracticeMode={verbPracticeMode}
     setVerbPracticeMode={setVerbPracticeMode}
     verbSelectedForms={verbSelectedForms}
-    setVerbSelectedForms={setVerbSelectedForms} 
-/>
-        
+    setVerbSelectedForms={setVerbSelectedForms}
+            />
 {/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
             <PreviewListModal
                 isOpen={isPreviewListOpen}
@@ -8228,8 +8159,7 @@ React.useEffect(() => {
     />
     <KanjiDictionaryModal 
     isOpen={isDictionaryOpen}
-    onClose={closeAllMenus} // Bấm X -> Về trang chủ
-    onBack={() => setIsDictionaryOpen(false)} // Bấm <- Lùi về Menu
+    onClose={() => setIsDictionaryOpen(false)}
     dbData={dbData}
     config={config}
     setConfig={setConfig}
