@@ -7802,7 +7802,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         </div>
     );
 };
-// --- COMPONENT: MENU CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG ---
+// ==========================================
+// MENU CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG
+// ==========================================
 const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
     React.useEffect(() => {
         if (isOpen) {
@@ -7870,6 +7872,10 @@ const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
         </div>
     );
 };
+
+// ==========================================
+// ỨNG DỤNG CHÍNH (APP COMPONENT)
+// ==========================================
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -7886,33 +7892,30 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
-    const [activeCategoryMenu, setActiveCategoryMenu] = useState(null); // 'kanji' | 'vocab' | null
-  // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
+    const [activeCategoryMenu, setActiveCategoryMenu] = useState(null); 
+    
+    // State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
     const [dictationData, setDictationData] = useState([]);
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
     
-    // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
-const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
-const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
+    // STATE CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
+    const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); 
+    const [verbSelectedForms, setVerbSelectedForms] = useState([]); 
+    
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
-  
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
-    // Bộ nhớ tạm để lưu text của 2 chế độ
     const [textCache, setTextCache] = useState({ kanji: '', vocab: '' });
 
     // Hàm xử lý chuyển đổi chế độ thông minh
     const handleModeSwitch = (newMode) => {
         if (newMode === practiceMode) return;
-        // Lưu dữ liệu của tab hiện tại vào bộ nhớ tạm
         setTextCache(prev => ({ ...prev, [practiceMode]: config.text }));
-        // Đổi chế độ
         setPracticeMode(newMode);
-        // Lấy dữ liệu của tab mới từ bộ nhớ tạm (nếu có)
         setConfig(prev => ({ ...prev, text: textCache[newMode] || '' }));
     };
     
@@ -7927,56 +7930,32 @@ const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu c
     const [customVocabData, setCustomVocabData] = useState({}); 
     const [editingVocab, setEditingVocab] = useState(null);
 
-React.useEffect(() => {
-       // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
+    React.useEffect(() => {
         const handleContextMenu = (e) => {
-            // Nhận diện thiết bị cảm ứng (Điện thoại, Máy tính bảng)
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-            // Nếu LÀ ĐIỆN THOẠI và đang bấm vào ô nhập liệu -> Thả cửa cho hiện Copy/Paste
             if (isTouchDevice && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
                 return; 
             }
-
-            // Các trường hợp còn lại (Bao gồm dùng chuột phải trên Máy tính) -> Chặn sạch!
             e.preventDefault();
         };
 
-        // 2. Chặn các tổ hợp phím tắt
         const handleKeyDown = (e) => {
-            // Chặn F12
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-            // Chặn Ctrl + U (Xem nguồn trang)
-            if (e.ctrlKey && e.key.toLowerCase() === 'u') {
-                e.preventDefault();
-            }
-            // Chặn Ctrl + Shift + I / J / C (Các kiểu mở DevTools)
-            if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) {
-                e.preventDefault();
-            }
-            // Chặn Ctrl + S (Lưu trang web về máy)
-            if (e.ctrlKey && e.key.toLowerCase() === 's') {
-                e.preventDefault();
-            }
-            // Chặn Ctrl + P (In trang web)
-            if (e.ctrlKey && e.key.toLowerCase() === 'p') {
-                e.preventDefault();
-            }
+            if (e.key === 'F12') e.preventDefault();
+            if (e.ctrlKey && e.key.toLowerCase() === 'u') e.preventDefault();
+            if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) e.preventDefault();
+            if (e.ctrlKey && e.key.toLowerCase() === 's') e.preventDefault();
+            if (e.ctrlKey && e.key.toLowerCase() === 'p') e.preventDefault();
         };
 
-        // Đăng ký bộ lắng nghe sự kiện
         document.addEventListener('contextmenu', handleContextMenu);
         document.addEventListener('keydown', handleKeyDown);
 
-        // Dọn dẹp khi component unmount
         return () => {
             document.removeEventListener('contextmenu', handleContextMenu);
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
-    // --- TẢI DỮ LIỆU KHI VÀO TRANG ---
+
     useEffect(() => {
         fetchDataFromGithub().then(data => {
             if (data) {
@@ -7986,7 +7965,6 @@ React.useEffect(() => {
         });
     }, []);
 
-   // --- CÁC HÀM XỬ LÝ DỮ LIỆU ---
     const handleSaveVocab = (word, newReading, newMeaning, newHanviet) => {
         setCustomVocabData(prev => ({
             ...prev,
@@ -7995,13 +7973,10 @@ React.useEffect(() => {
 
         setDbData(prevDb => {
             if (!prevDb) return prevDb;
-            
-            // BÍ QUYẾT Ở ĐÂY: Lưu lại con trỏ đến dữ liệu JSON gốc trước khi ghi đè lần đầu tiên
             const originalTuvung = prevDb.ORIGINAL_TUVUNG_DB || prevDb.TUVUNG_DB;
-
             return {
                 ...prevDb,
-                ORIGINAL_TUVUNG_DB: originalTuvung, // Giữ lại bản nguyên thủy
+                ORIGINAL_TUVUNG_DB: originalTuvung, 
                 TUVUNG_DB: {
                     ...prevDb.TUVUNG_DB,
                     [word]: {
@@ -8013,9 +7988,9 @@ React.useEffect(() => {
                 }
             };
         });
-        
         setEditingVocab(null); 
     };
+
     const updateSRSProgress = (char, quality) => {
         const newProgress = calculateSRS(srsData[char], quality);
         const newData = { ...srsData, [char]: newProgress };
@@ -8028,7 +8003,7 @@ React.useEffect(() => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-   const handleStartLearning = (target) => {
+    const handleStartLearning = (target) => {
         if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
             setIsVerbPreviewOpen(true);
@@ -8057,7 +8032,6 @@ React.useEffect(() => {
         }
     };
 
-    
     if (!isDbLoaded) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -8067,7 +8041,7 @@ React.useEffect(() => {
         );
     }
 
-   return (
+    return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
             {/* 1. TRANG CHỦ TỐI GIẢN */}
@@ -8290,5 +8264,6 @@ React.useEffect(() => {
         </div>
     );
 };
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
