@@ -2911,23 +2911,42 @@ React.useEffect(() => {
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                       {/* 1. NÚT KANJI TO */}
-                        <div onClick={() => onOpenSetup('menu_kanji')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                       {/* 8. TỪ ĐIỂN BỘ THỦ */}
+                        <div onClick={onOpenDictionary} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+                           
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1 text-zinc-900">KANJI</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tra cứu, Học, Tự luận</p>
+                            <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
+                        </div>
+                        {/* 1. CHẾ ĐỘ HỌC */}
+                        <div onClick={() => onOpenSetup('game')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
 
-                        {/* 2. NÚT TỪ VỰNG TO */}
-                        <div onClick={() => onOpenSetup('menu_vocab')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                        {/* 2. FLASHCARD */}
+                        <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
                             </div>
-                            <h3 className="text-xl font-bold mb-1">TỪ VỰNG</h3>
-                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Học, Flashcard, Tự luận</p>
+                            <h3 className="text-xl font-bold mb-1">FLASHCARD</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+
+                        {/* 3. TỰ LUẬN */}
+                        <div onClick={() => onOpenSetup('essay')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
+                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">TỰ LUẬN</h3>
+                            <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
+                        </div>
+
                         {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             
@@ -3767,7 +3786,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
 
 // --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TINH GỌN VÀ GỌI LIBRARY MODAL) ---
 const StudySetupModal = ({ 
-   isOpen, onClose, onBack, onStart, targetAction,
+    isOpen, onClose, onStart, targetAction, 
     config, onChange, mode, setPracticeMode, dbData, srsData,
     verbTargetForm, setVerbTargetForm,
     verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms 
@@ -4007,21 +4026,14 @@ const StudySetupModal = ({
             {/* BẢNG CHÍNH - GIAO DIỆN SETUP */}
             <div className="bg-white w-full max-w-lg sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-300">
                 
-             {/* Header MỚI */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative shrink-0">
+              {/* Header: Đổi chế độ */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50 relative">
                     {targetAction !== 'conjugate' ? (
-                        <div className="flex items-center gap-3">
-                            {/* NÚT BACK */}
-                            <button onClick={onBack} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm outline-none">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                            </button>
-                            <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest">
-                                {mode === 'kanji' ? 'KANJI - ' : 'TỪ VỰNG - '}
-                                {targetAction === 'flashcard' ? 'FLASHCARD' : targetAction === 'game' ? 'CHẾ ĐỘ HỌC' : 'TỰ LUẬN'}
-                            </h2>
+                        <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200">
+                            <button onClick={() => setPracticeMode('kanji')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'kanji' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>KANJI</button>
+                            <button onClick={() => setPracticeMode('vocab')} className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${mode === 'vocab' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-900'}`}>TỪ VỰNG</button>
                         </div>
                     ) : (
-                        // Giữ nguyên giao diện Chia Động Từ vì nó độc lập
                         <div className="flex bg-gray-200/50 p-1 rounded-xl border border-gray-200 max-w-[calc(100%-40px)] overflow-x-auto custom-scrollbar no-scrollbar">
                             <button onClick={() => setVerbPracticeMode('essay')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'essay' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TỰ LUẬN</button>
                             <button onClick={() => setVerbPracticeMode('quiz')} className={`flex-shrink-0 px-3 py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${verbPracticeMode === 'quiz' ? 'bg-white text-gray-900 shadow-sm border border-gray-200/50' : 'text-gray-500'}`}>TRẮC NGHIỆM</button>
@@ -4029,8 +4041,8 @@ const StudySetupModal = ({
                         </div>
                     )}
                     
-                    {/* Nút đóng X luôn thoát hoàn toàn */}
-                    <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-red-500 transition-colors shadow-sm ml-2 outline-none">✕</button>
+                    {/* Nút đóng X - Cố định vị trí và chỉ giữ 1 nút duy nhất */}
+                    <button onClick={onClose} className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors shadow-sm ml-2">✕</button>
                 </div>
                         
                 <div className="p-6 flex-1 overflow-y-auto custom-scrollbar space-y-5 relative">
@@ -7016,20 +7028,9 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                             </button>
                         )}
 
-{/* NÚT TRỞ VỀ MENU KANJI */}
-                        {!showDrawPad && view === 'radicals' && (
-                            <button 
-                                onClick={() => onClose(true)} 
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none mr-2"
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                            </button>
-                        )}
-
                         <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
                             TRA CỨU KANJI
                         </h2>
-                            
                     </div>
                     <button style={{ WebkitTapHighlightColor: 'transparent' }} onClick={(e)=>{e.currentTarget.blur(); onClose();}} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-900 hover:text-white transition-all shadow-sm outline-none">✕</button>
                 </div>
@@ -7803,74 +7804,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         </div>
     );
 };
-// --- COMPONENT: MENU CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG ---
-const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
-    React.useEffect(() => {
-        if (isOpen) {
-            const scrollY = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflow = 'hidden';
-        } else {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
-            if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        }
-    }, [isOpen]);
-
-    if (!isOpen) return null;
-
-    const features = type === 'kanji' 
-        ? [
-            { id: 'dict', title: 'TRA CỨU KANJI', desc: 'Xếp theo bộ thủ', icon: <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path> },
-            { id: 'game', title: 'CHẾ ĐỘ HỌC', desc: 'Trắc nghiệm Kanji', icon: <path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path> },
-            { id: 'flashcard', title: 'FLASHCARD', desc: 'Ôn tập lặp lại', icon: <path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path> },
-            { id: 'essay', title: 'TỰ LUẬN', desc: 'Gõ đáp án chính xác', icon: <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/> }
-        ]
-        : [
-            { id: 'game', title: 'CHẾ ĐỘ HỌC', desc: 'Trắc nghiệm Từ vựng', icon: <path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path> },
-            { id: 'flashcard', title: 'FLASHCARD', desc: 'Ôn tập lặp lại', icon: <path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path> },
-            { id: 'essay', title: 'TỰ LUẬN', desc: 'Gõ đáp án chính xác', icon: <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/> }
-        ];
-
-    return (
-        <div className="fixed inset-0 z-[500] flex justify-center items-center bg-zinc-900/90 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200">
-            <div className="bg-white w-full h-full sm:h-[90vh] max-w-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
-                <div className="px-4 py-3 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
-                    <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight ml-2">
-                        {type === 'kanji' ? 'MENU KANJI' : 'MENU TỪ VỰNG'}
-                    </h2>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
-                </div>
-                <div className="p-4 sm:p-6 space-y-3 overflow-y-auto custom-scrollbar flex-1 bg-zinc-50">
-                    {features.map((feature) => (
-                        <button 
-                            key={feature.id}
-                            onClick={() => onSelectFeature(feature.id)}
-                            className="w-full p-5 bg-white border border-zinc-200 rounded-2xl text-left hover:border-indigo-400 hover:shadow-md transition-all active:scale-[0.98] flex items-center gap-4 group outline-none"
-                        >
-                            <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center shrink-0 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    {feature.icon}
-                                    {feature.id === 'dict' && <path d="M8 7h6"></path><path d="M8 11h8"></path>}
-                                </svg>
-                            </div>
-                            <div className="flex flex-col flex-1">
-                                <span className="text-lg font-black text-zinc-800 uppercase tracking-wide group-hover:text-indigo-600 transition-colors">{feature.title}</span>
-                                <span className="text-xs font-bold text-zinc-400 mt-1">{feature.desc}</span>
-                            </div>
-                            <svg className="w-5 h-5 text-zinc-300 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -7887,7 +7820,6 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
-    const [activeCategoryMenu, setActiveCategoryMenu] = useState(null); // 'kanji' | 'vocab' | null
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8029,7 +7961,8 @@ React.useEffect(() => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-  const handleStartLearning = (target) => {
+   const handleStartLearning = (target) => {
+        // Nếu đang ở màn chia động từ và bấm tiếp tục
         if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
             setIsVerbPreviewOpen(true);
@@ -8043,12 +7976,15 @@ React.useEffect(() => {
             setSetupConfig({ isOpen: false, targetAction: null });
             setIsPreviewListOpen(false);
             setIsVerbPreviewOpen(false);
-            setActiveCategoryMenu(null); // Đóng menu nếu mở game
+           
+            if (target === 'flashcard') {
+                setIsFlashcardOpen(true);
+            } else if (target === 'game') {
+                setIsLearnGameOpen(true);
+            } else if (target === 'essay') {
+                setIsEssayOpen(true);
+            } else if (target === 'conjugate') {
             
-            if (target === 'flashcard') setIsFlashcardOpen(true);
-            else if (target === 'game') setIsLearnGameOpen(true);
-            else if (target === 'essay') setIsEssayOpen(true);
-            else if (target === 'conjugate') {
                 if (verbPracticeMode === 'quiz') setIsVerbQuizOpen(true);
                 else if (verbPracticeMode === 'reflex') setIsVerbReflexOpen(true);
                 else setIsVerbEssayOpen(true);
@@ -8057,7 +7993,7 @@ React.useEffect(() => {
             }
         }
     };
-    
+ 
     if (!isDbLoaded) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -8072,53 +8008,29 @@ React.useEffect(() => {
             
 {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
-                srsData={srsData}
-                onOpenReviewList={() => setIsReviewListOpen(true)}
-                onOpenDictation={() => setIsDictationMenuOpen(true)}
-                
-                onOpenSetup={(target) => {
-                    if (target === 'kaiwa') setIsKaiwaOpen(true);
-                    else if (target === 'conjugate') setSetupConfig({ isOpen: true, targetAction: 'conjugate' });
-                    else if (target === 'menu_kanji') {
-                        handleModeSwitch('kanji');
-                        setActiveCategoryMenu('kanji');
-                    }
-                    else if (target === 'menu_vocab') {
-                        handleModeSwitch('vocab');
-                        setActiveCategoryMenu('vocab');
-                    }
-                }}
-            />
-
-                    <FeatureMenuModal 
-                isOpen={!!activeCategoryMenu}
-                type={activeCategoryMenu}
-                onClose={() => setActiveCategoryMenu(null)}
-                onSelectFeature={(featureId) => {
-                    if (featureId === 'dict') {
-                        setActiveCategoryMenu(null);
-                        setIsDictionaryOpen(true);
-                    } else {
-                        setSetupConfig({ isOpen: true, targetAction: featureId });
-                    }
-                }}
-            />
+    srsData={srsData}
+    onOpenReviewList={() => setIsReviewListOpen(true)}
+    onOpenDictionary={() => setIsDictionaryOpen(true)}
+    onOpenDictation={() => setIsDictationMenuOpen(true)}
+    onOpenSetup={(target) => {
+    
+        if (target === 'kaiwa') {
+            setIsKaiwaOpen(true);
+        } else {
+      
+            setSetupConfig({ isOpen: true, targetAction: target });
+           
+            if (target === 'conjugate') {
+                handleModeSwitch('vocab'); 
+            }
+        }
+    }}
+/>
 
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
             <StudySetupModal 
-               isOpen={setupConfig.isOpen}
-                // SỬA: Phân biệt onClose (đóng hết) và onBack (về Menu)
-                onClose={() => {
-                    setSetupConfig({ isOpen: false, targetAction: null });
-                    setActiveCategoryMenu(null);
-                }}
-                onBack={() => {
-                    setSetupConfig({ isOpen: false, targetAction: null });
-                    // Hiển thị lại menu cũ nếu không phải là conjugate
-                    if (setupConfig.targetAction !== 'conjugate') {
-                        setActiveCategoryMenu(practiceMode);
-                    }
-                }}
+                isOpen={setupConfig.isOpen}
+                onClose={() => setSetupConfig({ isOpen: false, targetAction: null })}
                 targetAction={setupConfig.targetAction}
                 onStart={handleStartLearning}
                 config={config}
@@ -8151,8 +8063,8 @@ React.useEffect(() => {
             />
             {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
-               isOpen={isFlashcardOpen} 
-                onClose={() => { setIsFlashcardOpen(false); setActiveCategoryMenu(practiceMode); }}
+                isOpen={isFlashcardOpen} 
+                onClose={() => setIsFlashcardOpen(false)} 
                 text={config.text} 
                 dbData={dbData} 
                 onSrsUpdate={updateSRSProgress}
@@ -8166,8 +8078,8 @@ React.useEffect(() => {
             />
 
             <LearnGameModal 
-               isOpen={isLearnGameOpen}
-                onClose={() => { setIsLearnGameOpen(false); setActiveCategoryMenu(practiceMode); }}
+                isOpen={isLearnGameOpen}
+                onClose={() => setIsLearnGameOpen(false)}
                 text={config.text}
                 dbData={dbData}
                 mode={practiceMode}
@@ -8185,8 +8097,8 @@ React.useEffect(() => {
                 dbData={dbData}
             />
     <EssayGameModal 
-   isOpen={isEssayOpen}
-                onClose={() => { setIsEssayOpen(false); setActiveCategoryMenu(practiceMode); }}
+    isOpen={isEssayOpen}
+    onClose={() => setIsEssayOpen(false)}
     text={config.text}
     dbData={dbData}
     mode={practiceMode}
@@ -8246,12 +8158,8 @@ React.useEffect(() => {
         onClose={() => setIsKaiwaOpen(false)} 
     />
     <KanjiDictionaryModal 
-   isOpen={isDictionaryOpen}
-               
-                onClose={(isBack) => { 
-                    setIsDictionaryOpen(false); 
-                    if (isBack === true) setActiveCategoryMenu('kanji'); 
-                }}
+    isOpen={isDictionaryOpen}
+    onClose={() => setIsDictionaryOpen(false)}
     dbData={dbData}
     config={config}
     setConfig={setConfig}
