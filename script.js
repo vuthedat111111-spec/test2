@@ -2911,7 +2911,7 @@ React.useEffect(() => {
                         <p className="text-zinc-500 max-w-2xl mx-auto text-lg">Phương pháp học Flashcard, lặp lại ngắt quãng, và nhiều thứ khác...</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                      {/* 1. NÚT KANJI TO */}
+                       {/* 1. NÚT KANJI TO */}
                         <div onClick={() => onOpenSetup('menu_kanji')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg>
@@ -2928,7 +2928,6 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">TỪ VỰNG</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Học, Flashcard, Tự luận</p>
                         </div>
-
                         {/* 4. CHIA ĐỘNG TỪ */}
                         <div onClick={() => onOpenSetup('conjugate')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
                             
@@ -3768,7 +3767,7 @@ const LibraryModal = ({ isOpen, onClose, mode, dbData, srsData, onSelectData, ta
 
 // --- 2. MODAL THIẾT LẬP BÀI HỌC (ĐÃ TINH GỌN VÀ GỌI LIBRARY MODAL) ---
 const StudySetupModal = ({ 
-    isOpen, onClose, onBack, onStart, targetAction,
+   isOpen, onClose, onBack, onStart, targetAction,
     config, onChange, mode, setPracticeMode, dbData, srsData,
     verbTargetForm, setVerbTargetForm,
     verbPracticeMode, setVerbPracticeMode, verbSelectedForms, setVerbSelectedForms 
@@ -7017,10 +7016,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                             </button>
                         )}
 
-                        <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
-                            TRA CỨU KANJI
-                        </h2>
-                            {/* NÚT TRỞ VỀ MENU KANJI */}
+{/* NÚT TRỞ VỀ MENU KANJI */}
                         {!showDrawPad && view === 'radicals' && (
                             <button 
                                 onClick={() => onClose(true)} 
@@ -7029,6 +7025,11 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
                         )}
+
+                        <h2 className="text-base sm:text-lg font-black text-zinc-900 uppercase tracking-tight">
+                            TRA CỨU KANJI
+                        </h2>
+                            
                     </div>
                     <button style={{ WebkitTapHighlightColor: 'transparent' }} onClick={(e)=>{e.currentTarget.blur(); onClose();}} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-900 hover:text-white transition-all shadow-sm outline-none">✕</button>
                 </div>
@@ -7802,9 +7803,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         </div>
     );
 };
-// ==========================================
-// MENU CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG
-// ==========================================
+// --- COMPONENT: MENU CHỌN CHẾ ĐỘ KANJI / TỪ VỰNG ---
 const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
     React.useEffect(() => {
         if (isOpen) {
@@ -7872,10 +7871,6 @@ const FeatureMenuModal = ({ isOpen, type, onClose, onSelectFeature }) => {
         </div>
     );
 };
-
-// ==========================================
-// ỨNG DỤNG CHÍNH (APP COMPONENT)
-// ==========================================
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -7892,30 +7887,33 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
-    const [activeCategoryMenu, setActiveCategoryMenu] = useState(null); 
-    
-    // State cho Nghe chính tả
+    const [activeCategoryMenu, setActiveCategoryMenu] = useState(null); // 'kanji' | 'vocab' | null
+  // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
     const [dictationData, setDictationData] = useState([]);
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
     
-    // STATE CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
-    const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); 
-    const [verbSelectedForms, setVerbSelectedForms] = useState([]); 
-    
+    // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
+const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
+const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
     // State cho Modal Thiết lập (StudySetupModal)
     const [setupConfig, setSetupConfig] = useState({ isOpen: false, targetAction: null });
+  
     const [practiceMode, setPracticeMode] = useState('kanji');
     const [config, setConfig] = useState({ text: '' });
+    // Bộ nhớ tạm để lưu text của 2 chế độ
     const [textCache, setTextCache] = useState({ kanji: '', vocab: '' });
 
     // Hàm xử lý chuyển đổi chế độ thông minh
     const handleModeSwitch = (newMode) => {
         if (newMode === practiceMode) return;
+        // Lưu dữ liệu của tab hiện tại vào bộ nhớ tạm
         setTextCache(prev => ({ ...prev, [practiceMode]: config.text }));
+        // Đổi chế độ
         setPracticeMode(newMode);
+        // Lấy dữ liệu của tab mới từ bộ nhớ tạm (nếu có)
         setConfig(prev => ({ ...prev, text: textCache[newMode] || '' }));
     };
     
@@ -7930,32 +7928,56 @@ const App = () => {
     const [customVocabData, setCustomVocabData] = useState({}); 
     const [editingVocab, setEditingVocab] = useState(null);
 
-    React.useEffect(() => {
+React.useEffect(() => {
+       // 1. Chặn chuột phải thông minh (Phân biệt Mobile và PC)
         const handleContextMenu = (e) => {
+            // Nhận diện thiết bị cảm ứng (Điện thoại, Máy tính bảng)
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+            // Nếu LÀ ĐIỆN THOẠI và đang bấm vào ô nhập liệu -> Thả cửa cho hiện Copy/Paste
             if (isTouchDevice && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
                 return; 
             }
+
+            // Các trường hợp còn lại (Bao gồm dùng chuột phải trên Máy tính) -> Chặn sạch!
             e.preventDefault();
         };
 
+        // 2. Chặn các tổ hợp phím tắt
         const handleKeyDown = (e) => {
-            if (e.key === 'F12') e.preventDefault();
-            if (e.ctrlKey && e.key.toLowerCase() === 'u') e.preventDefault();
-            if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) e.preventDefault();
-            if (e.ctrlKey && e.key.toLowerCase() === 's') e.preventDefault();
-            if (e.ctrlKey && e.key.toLowerCase() === 'p') e.preventDefault();
+            // Chặn F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + U (Xem nguồn trang)
+            if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + Shift + I / J / C (Các kiểu mở DevTools)
+            if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + S (Lưu trang web về máy)
+            if (e.ctrlKey && e.key.toLowerCase() === 's') {
+                e.preventDefault();
+            }
+            // Chặn Ctrl + P (In trang web)
+            if (e.ctrlKey && e.key.toLowerCase() === 'p') {
+                e.preventDefault();
+            }
         };
 
+        // Đăng ký bộ lắng nghe sự kiện
         document.addEventListener('contextmenu', handleContextMenu);
         document.addEventListener('keydown', handleKeyDown);
 
+        // Dọn dẹp khi component unmount
         return () => {
             document.removeEventListener('contextmenu', handleContextMenu);
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
-
+    // --- TẢI DỮ LIỆU KHI VÀO TRANG ---
     useEffect(() => {
         fetchDataFromGithub().then(data => {
             if (data) {
@@ -7965,6 +7987,7 @@ const App = () => {
         });
     }, []);
 
+   // --- CÁC HÀM XỬ LÝ DỮ LIỆU ---
     const handleSaveVocab = (word, newReading, newMeaning, newHanviet) => {
         setCustomVocabData(prev => ({
             ...prev,
@@ -7973,10 +7996,13 @@ const App = () => {
 
         setDbData(prevDb => {
             if (!prevDb) return prevDb;
+            
+            // BÍ QUYẾT Ở ĐÂY: Lưu lại con trỏ đến dữ liệu JSON gốc trước khi ghi đè lần đầu tiên
             const originalTuvung = prevDb.ORIGINAL_TUVUNG_DB || prevDb.TUVUNG_DB;
+
             return {
                 ...prevDb,
-                ORIGINAL_TUVUNG_DB: originalTuvung, 
+                ORIGINAL_TUVUNG_DB: originalTuvung, // Giữ lại bản nguyên thủy
                 TUVUNG_DB: {
                     ...prevDb.TUVUNG_DB,
                     [word]: {
@@ -7988,9 +8014,9 @@ const App = () => {
                 }
             };
         });
+        
         setEditingVocab(null); 
     };
-
     const updateSRSProgress = (char, quality) => {
         const newProgress = calculateSRS(srsData[char], quality);
         const newData = { ...srsData, [char]: newProgress };
@@ -8003,7 +8029,7 @@ const App = () => {
         localStorage.removeItem('phadao_srs_data'); 
     };
 
-    const handleStartLearning = (target) => {
+  const handleStartLearning = (target) => {
         if (setupConfig.targetAction === 'conjugate' && target === 'preview') {
             setSetupConfig(prev => ({ ...prev, isOpen: false }));
             setIsVerbPreviewOpen(true);
@@ -8031,7 +8057,7 @@ const App = () => {
             }
         }
     };
-
+    
     if (!isDbLoaded) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -8044,11 +8070,12 @@ const App = () => {
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
             
-            {/* 1. TRANG CHỦ TỐI GIẢN */}
-            <LandingPage 
+{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
+<LandingPage 
                 srsData={srsData}
                 onOpenReviewList={() => setIsReviewListOpen(true)}
                 onOpenDictation={() => setIsDictationMenuOpen(true)}
+                
                 onOpenSetup={(target) => {
                     if (target === 'kaiwa') setIsKaiwaOpen(true);
                     else if (target === 'conjugate') setSetupConfig({ isOpen: true, targetAction: 'conjugate' });
@@ -8063,8 +8090,7 @@ const App = () => {
                 }}
             />
 
-            {/* GỌI MENU CHẾ ĐỘ MỚI TẠI ĐÂY */}
-            <FeatureMenuModal 
+                    <FeatureMenuModal 
                 isOpen={!!activeCategoryMenu}
                 type={activeCategoryMenu}
                 onClose={() => setActiveCategoryMenu(null)}
@@ -8076,17 +8102,19 @@ const App = () => {
                         setSetupConfig({ isOpen: true, targetAction: featureId });
                     }
                 }}
-            />  
+            />
 
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
             <StudySetupModal 
-                isOpen={setupConfig.isOpen}
+               isOpen={setupConfig.isOpen}
+                // SỬA: Phân biệt onClose (đóng hết) và onBack (về Menu)
                 onClose={() => {
                     setSetupConfig({ isOpen: false, targetAction: null });
                     setActiveCategoryMenu(null);
                 }}
                 onBack={() => {
                     setSetupConfig({ isOpen: false, targetAction: null });
+                    // Hiển thị lại menu cũ nếu không phải là conjugate
                     if (setupConfig.targetAction !== 'conjugate') {
                         setActiveCategoryMenu(practiceMode);
                     }
@@ -8099,20 +8127,19 @@ const App = () => {
                 setPracticeMode={handleModeSwitch}
                 dbData={dbData}
                 srsData={srsData}
-                verbTargetForm={verbTargetForm}
+                    verbTargetForm={verbTargetForm}
                 setVerbTargetForm={setVerbTargetForm}
-                verbPracticeMode={verbPracticeMode}
-                setVerbPracticeMode={setVerbPracticeMode}
-                verbSelectedForms={verbSelectedForms}
-                setVerbSelectedForms={setVerbSelectedForms}
+                    verbPracticeMode={verbPracticeMode}
+    setVerbPracticeMode={setVerbPracticeMode}
+    verbSelectedForms={verbSelectedForms}
+    setVerbSelectedForms={setVerbSelectedForms}
             />
-
-            {/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
+{/* MODAL: DANH SÁCH XEM TRƯỚC TỪ VỰNG & KANJI */}
             <PreviewListModal
                 isOpen={isPreviewListOpen}
                 onClose={() => {
                     setIsPreviewListOpen(false);
-                    setSetupConfig(prev => ({ ...prev, isOpen: true }));
+                   setSetupConfig(prev => ({ ...prev, isOpen: true }));
                 }}
                 onStart={handleStartLearning}
                 targetAction={setupConfig.targetAction}
@@ -8122,11 +8149,10 @@ const App = () => {
                 customVocabData={customVocabData}
                 onSaveVocab={handleSaveVocab}
             />
-
-            {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH */}
+            {/* 3. CÁC MODAL HỌC TẬP / GAME / DANH SÁCH (GIỮ NGUYÊN 100%) */}
             <FlashcardModal 
-                isOpen={isFlashcardOpen} 
-                onClose={() => { setIsFlashcardOpen(false); setActiveCategoryMenu(practiceMode); }} 
+               isOpen={isFlashcardOpen} 
+                onClose={() => { setIsFlashcardOpen(false); setActiveCategoryMenu(practiceMode); }}
                 text={config.text} 
                 dbData={dbData} 
                 onSrsUpdate={updateSRSProgress}
@@ -8140,7 +8166,7 @@ const App = () => {
             />
 
             <LearnGameModal 
-                isOpen={isLearnGameOpen}
+               isOpen={isLearnGameOpen}
                 onClose={() => { setIsLearnGameOpen(false); setActiveCategoryMenu(practiceMode); }}
                 text={config.text}
                 dbData={dbData}
@@ -8158,18 +8184,15 @@ const App = () => {
                 onSave={handleSaveVocab}
                 dbData={dbData}
             />
-
-            <EssayGameModal 
-                isOpen={isEssayOpen}
+    <EssayGameModal 
+   isOpen={isEssayOpen}
                 onClose={() => { setIsEssayOpen(false); setActiveCategoryMenu(practiceMode); }}
-                text={config.text}
-                dbData={dbData}
-                mode={practiceMode}
-                onSwitchMode={(target) => handleStartLearning(target)} 
-            />
-
-            {/* CÁC GAME LIÊN QUAN ĐẾN ĐỘNG TỪ */}
-            <VerbPreviewListModal 
+    text={config.text}
+    dbData={dbData}
+    mode={practiceMode}
+    onSwitchMode={(target) => handleStartLearning(target)} // Quan trọng để chuyển chế độ nhanh
+/>
+    <VerbPreviewListModal 
                 isOpen={isVerbPreviewOpen}
                 onClose={() => {
                     setIsVerbPreviewOpen(false);
@@ -8188,6 +8211,7 @@ const App = () => {
                     setVerbPracticeData(finalData);
                     setVerbTargetForm(targetF);
                     
+                   
                     if (verbPracticeMode === 'quiz') {
                         setIsVerbQuizOpen(true);
                     } else if (verbPracticeMode === 'reflex') {
@@ -8199,71 +8223,67 @@ const App = () => {
                 globalVerbReadings={globalVerbReadings}
                 setGlobalVerbReadings={setGlobalVerbReadings}
             />
-
             <VerbEssayGameModal
                 isOpen={isVerbEssayOpen}
                 onClose={() => setIsVerbEssayOpen(false)}
                 verbsData={verbPracticeData}
                 targetForm={verbTargetForm}
             />
-            
-            <VerbQuizGameModal
-                isOpen={isVerbQuizOpen}
-                onClose={() => setIsVerbQuizOpen(false)}
-                verbsData={verbPracticeData}
-                selectedForms={verbSelectedForms}
-            />
-            
-            <VerbReflexGameModal
+                    <VerbQuizGameModal
+    isOpen={isVerbQuizOpen}
+    onClose={() => setIsVerbQuizOpen(false)}
+    verbsData={verbPracticeData}
+    selectedForms={verbSelectedForms}
+/>
+        <VerbReflexGameModal
                 isOpen={isVerbReflexOpen}
                 onClose={() => setIsVerbReflexOpen(false)}
                 verbsData={verbPracticeData}
                 selectedForms={verbSelectedForms}
             />
-            
-            {/* TÍNH NĂNG ĐỘC LẬP */}
-            <KaiwaModal 
-                isOpen={isKaiwaOpen} 
-                onClose={() => setIsKaiwaOpen(false)} 
-            />
-            
-            <KanjiDictionaryModal 
-                isOpen={isDictionaryOpen}
+                    <KaiwaModal 
+        isOpen={isKaiwaOpen} 
+        onClose={() => setIsKaiwaOpen(false)} 
+    />
+    <KanjiDictionaryModal 
+   isOpen={isDictionaryOpen}
+               
                 onClose={(isBack) => { 
                     setIsDictionaryOpen(false); 
                     if (isBack === true) setActiveCategoryMenu('kanji'); 
                 }}
-                dbData={dbData}
-                config={config}
-                setConfig={setConfig}
-                setPracticeMode={handleModeSwitch}
-            />
-            
-            <DictationModal 
-                isOpen={isDictationMenuOpen}
-                onClose={() => setIsDictationMenuOpen(false)}
-            />
-            
-            {/* LỊCH TRÌNH ÔN TẬP */} 
+    dbData={dbData}
+    config={config}
+    setConfig={setConfig}
+    setPracticeMode={handleModeSwitch}
+/>
+        
+<DictationModal 
+        isOpen={isDictationMenuOpen}
+        onClose={() => setIsDictationMenuOpen(false)}
+    />
+            {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
-                isOpen={isReviewListOpen}
-                onClose={() => setIsReviewListOpen(false)}
-                srsData={srsData}
-                dbData={dbData}
-                onResetSRS={handleResetAllSRS}
-                onLoadChars={(chars) => {
-                    if (practiceMode === 'vocab') {
-                        setTextCache(prev => ({ ...prev, vocab: config.text }));
-                    }
-                    setPracticeMode('kanji'); 
-                    setConfig({ text: chars }); 
-                    setIsReviewListOpen(false);
-                    setTimeout(() => setIsFlashcardOpen(true), 100);
-                }}
-            />
+    isOpen={isReviewListOpen}
+    onClose={() => setIsReviewListOpen(false)}
+    srsData={srsData}
+    dbData={dbData}
+    onResetSRS={handleResetAllSRS}
+    onLoadChars={(chars) => {
+       
+        if (practiceMode === 'vocab') {
+            setTextCache(prev => ({ ...prev, vocab: config.text }));
+        }
+        setPracticeMode('kanji'); 
+        setConfig({ text: chars }); 
+        
+        setIsReviewListOpen(false);
+    
+        setTimeout(() => setIsFlashcardOpen(true), 100);
+    }}
+/>
         </div>
     );
 };
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
