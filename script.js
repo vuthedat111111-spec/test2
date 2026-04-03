@@ -7045,234 +7045,10 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
     );
 };
 // ==========================================
-// COMPONENT MỚI: FLASHCARD LUYỆN NGHE
-// ==========================================
-const DictationFlashcardView = ({ lessonData, onBack, onClose }) => {
-    const [queue, setQueue] = React.useState([]);
-    const [currentIndex, setCurrentIndex] = React.useState(0);
-    const [isFlipped, setIsFlipped] = React.useState(false);
-    const [knownCount, setKnownCount] = React.useState(0);
-    const [unknownIndices, setUnknownIndices] = React.useState([]);
-    const [isFinished, setIsFinished] = React.useState(false);
-    
-    // Config hiển thị mặt sau
-    const [isConfigOpen, setIsConfigOpen] = React.useState(false);
-    const configRef = React.useRef(null);
-    const [backOptions, setBackOptions] = React.useState({ word: true, reading: true, meaning: true });
-
-    // Audio
-    const soundRef = React.useRef(null);
-    const [isAudioLoaded, setIsAudioLoaded] = React.useState(false);
-    const [isPlaying, setIsPlaying] = React.useState(false);
-    const [isAudioLoading, setIsAudioLoading] = React.useState(false);
-
-    // Drag / Swipe
-    const [dragX, setDragX] = React.useState(0); 
-    const [startX, setStartX] = React.useState(0); 
-    const [isDragging, setIsDragging] = React.useState(false);
-    const [exitDirection, setExitDirection] = React.useState(null);
-    const [btnFeedback, setBtnFeedback] = React.useState(null);
-
-    // Khóa nền
-    React.useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => { document.body.style.overflow = 'unset'; };
-    }, []);
-
-    // Tắt menu config khi bấm ra ngoài
-    React.useEffect(() => {
-        function handleClickOutside(event) {
-            if (isConfigOpen && configRef.current && !configRef.current.contains(event.target)) {
-                setIsConfigOpen(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [isConfigOpen]);
-
-    // Khởi tạo bài học
-    React.useEffect(() => {
-        if (!lessonData || !lessonData.vocabularies) return;
-        const shuffled = [...lessonData.vocabularies].sort(() => Math.random() - 0.5);
-        setQueue(shuffled);
-        
-        // Setup Audio Sprite
-        setIsAudioLoading(true);
-        const spriteData = {};
-        shuffled.forEach(item => {
-            if (item.wordStartTime !== undefined && item.wordEndTime !== undefined) {
-                spriteData[`${item.id}_word`] = [item.wordStartTime * 1000, (item.wordEndTime - item.wordStartTime) * 1000];
-            }
-        });
-
-        soundRef.current = new Howl({
-            src: [lessonData.audioPath],
-            sprite: spriteData,
-            html5: true,
-            preload: true,
-            onload: () => { setIsAudioLoaded(true); setIsAudioLoading(false); },
-            onplay: () => setIsPlaying(true),
-            onend: () => setIsPlaying(false),
-            onstop: () => setIsPlaying(false),
-            onloaderror: () => { alert("Lỗi tải âm thanh!"); setIsAudioLoaded(false); setIsAudioLoading(false); }
-        });
-
-        return () => {
-            if (soundRef.current) { soundRef.current.unload(); soundRef.current = null; }
-        };
-    }, [lessonData]);
-
-    const playAudio = React.useCallback(() => {
-        if (!isAudioLoaded || queue.length === 0 || !soundRef.current) return;
-        const currentItem = queue[currentIndex];
-        const spriteKey = `${currentItem.id}_word`;
-        soundRef.current.stop();
-        soundRef.current.play(spriteKey);
-    }, [isAudioLoaded, queue, currentIndex]);
-
-    // Tự động phát âm thanh khi đổi thẻ
-    React.useEffect(() => {
-        if (!isFinished && !isFlipped) {
-            playAudio();
-        }
-    }, [currentIndex, isFinished, isFlipped, playAudio]);
-
-    const toggleFlip = () => setIsFlipped(!isFlipped);
-
-    const handleNext = React.useCallback((isKnown) => { 
-        if (exitDirection || isFinished || queue.length === 0) return; 
-        const currentChar = queue[currentIndex];
-        setIsFlipped(false); 
-        if (isKnown) { setKnownCount(prev => prev + 1); } else { setUnknownIndices(prev => [...prev, currentIndex]); } 
-        
-        setBtnFeedback(isKnown ? 'right' : 'left'); 
-        setExitDirection(isKnown ? 'right' : 'left'); 
-        setTimeout(() => { 
-            setCurrentIndex((prevIndex) => { 
-                if (prevIndex < queue.length - 1) { setExitDirection(null); setDragX(0); setBtnFeedback(null); return prevIndex + 1; } 
-                else { setIsFinished(true); return prevIndex; } 
-            }); 
-        }, 175); 
-    }, [currentIndex, queue, exitDirection, isFinished]);
-
-    // Drag Handlers
-    const handleDragStart = (e) => { if (exitDirection || isFinished) return; setIsDragging(true); const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; setStartX(clientX); };
-    const handleDragMove = (e) => { if (!isDragging || exitDirection) return; const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; setDragX(clientX - startX); };
-    const handleDragEnd = () => {
-        if (!isDragging) return;
-        setIsDragging(false);
-        if (dragX > 70) handleNext(true);
-        else if (dragX < -70) handleNext(false);
-        else setDragX(0);
-    };
-
-    const dynamicBorder = () => { if (dragX > 70 || btnFeedback === 'right') return '#22c55e'; if (dragX < -70 || btnFeedback === 'left') return '#ef4444'; return 'white'; };
-
-    if (queue.length === 0) return null;
-    const progressRatio = currentIndex / (queue.length - 1 || 1);
-    const currentItem = queue[currentIndex];
-
-    return (
-        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-gray-900/95 backdrop-blur-xl animate-in fade-in duration-200 select-none touch-none" style={{ touchAction: 'none' }}>
-            <div className="w-full max-w-sm flex flex-col items-center relative">
-                {!isFinished ? (
-                    <>
-                        {/* --- NÚT ĐÓNG / QUAY LẠI --- */}
-                        <div className="absolute -top-12 left-0 right-0 flex justify-between px-4">
-                            <button onClick={onBack} className="text-white/60 hover:text-white text-xs font-bold uppercase flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg> Trở về</button>
-                            <button onClick={onClose} className="text-white/60 hover:text-red-500 text-xs font-bold uppercase">Đóng ✕</button>
-                        </div>
-
-                        {/* --- CARD --- */}
-                        <div className={`relative transition-all duration-300 ease-in-out ${exitDirection === 'left' ? '-translate-x-16 -rotate-3' : exitDirection === 'right' ? 'translate-x-16 rotate-3' : ''}`} style={{ transform: !exitDirection && dragX !== 0 ? `translateX(${dragX}px) rotate(${dragX * 0.02}deg)` : '', transition: isDragging ? 'none' : 'all 0.25s ease-out' }}>
-                            <div onClick={() => { if (Math.abs(dragX) < 5) toggleFlip(); }} onMouseDown={handleDragStart} onMouseMove={handleDragMove} onMouseUp={handleDragEnd} onMouseLeave={handleDragEnd} onTouchStart={handleDragStart} onTouchMove={handleDragMove} onTouchEnd={handleDragEnd} className={`relative w-64 h-80 cursor-pointer transition-all duration-500 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
-                                
-                                {/* FRONT: NÚT PLAY */}
-                                <div className="absolute inset-0 bg-white rounded-[2rem] shadow-2xl flex flex-col items-center justify-center border-4 [backface-visibility:hidden] overflow-hidden p-4" style={{ borderColor: dynamicBorder() }}>
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); playAudio(); }}
-                                        className={`w-24 h-24 rounded-full flex items-center justify-center transition-all ${isAudioLoading ? 'bg-zinc-200 cursor-wait' : isPlaying ? 'bg-indigo-600 text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
-                                    >
-                                        {isAudioLoading ? (
-                                            <div className="flex space-x-1"><div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce"></div><div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div><div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div></div>
-                                        ) : isPlaying ? (
-                                            <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
-                                        ) : (
-                                            <svg className="w-12 h-12 ml-2" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
-                                        )}
-                                    </button>
-                                    <p className="absolute bottom-10 text-indigo-400 text-[10px] font-black uppercase tracking-widest animate-pulse">Chạm lề để lật thẻ</p>
-                                </div>
-
-                                {/* BACK: NỘI DUNG TỪ VỰNG */}
-                                <div className="absolute inset-0 bg-indigo-50 rounded-[2rem] shadow-2xl flex flex-col items-center justify-center p-6 [backface-visibility:hidden] [transform:rotateY(180deg)] border-4 overflow-hidden text-center" style={{ borderColor: dynamicBorder() }}>
-                                    {backOptions.word && <h3 className="text-4xl font-bold mb-3 text-zinc-900 leading-tight">{currentItem?.word}</h3>}
-                                    {backOptions.reading && <p className="text-xl font-bold text-indigo-600 mb-2">{currentItem?.reading}</p>}
-                                    {backOptions.meaning && <p className="text-lg font-bold text-gray-700 italic">{currentItem?.meaning}</p>}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* --- THANH TIẾN TRÌNH + NÚT CÀI ĐẶT --- */}
-                        <div className="w-72 mt-8 mb-6 flex items-center gap-3">
-                            <div className="flex-1 relative h-6 flex items-center">
-                                <div className="w-full h-1 bg-white/10 rounded-full relative overflow-hidden"><div className="absolute top-0 left-0 h-full bg-sky-400 transition-all duration-300 ease-out" style={{ width: `${progressRatio * 100}%` }} /></div>
-                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full h-1 pointer-events-none"><div className="absolute right-0 top-1/2 -translate-y-1/2 h-7 w-9 rounded-md flex items-center justify-center bg-white shadow-sm z-0"><span className="text-[10px] font-black text-black leading-none">{queue.length}</span></div></div>
-                                <div className="absolute top-1/2 -translate-y-1/2 w-full h-1 pointer-events-none"><div className="absolute top-1/2 -translate-y-1/2 h-7 w-9 bg-sky-400 rounded-md flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.8)] transition-all duration-300 ease-out z-10" style={{ left: `calc(${progressRatio * 100}% - ${progressRatio * 36}px)` }}><span className="text-[10px] font-black text-white leading-none">{currentIndex + 1}</span></div></div>
-                            </div>
-                            {/* Nút Cài Đặt */}
-                            <div className="relative" ref={configRef}>
-                                <button onClick={() => setIsConfigOpen(!isConfigOpen)} className="w-8 h-8 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all shadow-sm active:scale-95">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                                </button>
-                                {isConfigOpen && (
-                                    <div className="absolute bottom-full right-0 mb-3 bg-white rounded-xl shadow-2xl p-3 w-48 animate-in fade-in zoom-in-95 z-[60] text-gray-800">
-                                        <p className="text-[10px] font-black text-indigo-600 mb-2 uppercase border-b pb-2">Hiển thị mặt sau</p>
-                                        <div className="space-y-2">
-                                            {['word', 'reading', 'meaning'].map(opt => (
-                                                <label key={opt} className="flex items-center gap-2 text-xs p-1 rounded cursor-pointer hover:bg-indigo-50">
-                                                    <input type="checkbox" checked={backOptions[opt]} onChange={() => setBackOptions({...backOptions, [opt]: !backOptions[opt]})} className="accent-indigo-600 w-3.5 h-3.5" />
-                                                    <span className="font-bold">{opt === 'word' ? 'Mặt chữ' : opt === 'reading' ? 'Cách đọc' : 'Ý nghĩa'}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* --- NÚT ĐIỀU HƯỚNG --- */}
-                        <div className="flex gap-3 w-full px-8">
-                            <button onClick={() => handleNext(false)} className="flex-1 py-3 bg-red-500/10 hover:bg-red-500/20 active:bg-red-500 text-red-500 active:text-white border border-red-500/20 rounded-xl font-black text-[10px] transition-all flex items-center justify-center gap-2 uppercase">
-                                CHƯA NHỚ <span className="bg-red-600 text-white min-w-[28px] h-6 px-2 rounded-md flex items-center justify-center text-[10px] font-bold shadow-sm">{unknownIndices.length}</span>
-                            </button>
-                            <button onClick={() => handleNext(true)} className="flex-1 py-3 bg-green-500/10 hover:bg-green-500/20 active:bg-green-500 text-green-500 active:text-white border border-green-500/20 rounded-xl font-black text-[10px] transition-all flex items-center justify-center gap-2 uppercase">
-                                ĐÃ NHỚ <span className="bg-green-600 text-white min-w-[28px] h-6 px-2 rounded-md flex items-center justify-center text-[10px] font-bold shadow-sm">{knownCount}</span>
-                            </button>
-                        </div>
-                    </>
-                ) : (
-                    // MÀN HÌNH KẾT THÚC
-                    <div className="bg-white rounded-[2rem] p-8 w-full max-w-[280px] text-center shadow-2xl border-4 border-indigo-50 animate-in zoom-in-95">
-                        <div className="text-5xl mb-4 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={() => typeof confetti !== 'undefined' && confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 })}>🎉</div>
-                        <h3 className="text-lg font-black text-gray-800 mb-1 uppercase">Hoàn thành!</h3>
-                        <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã nhớ {knownCount}/{queue.length} từ.</p>
-                        <div className="space-y-2">
-                            <button onClick={onBack} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">VỀ DANH SÁCH BÀI</button>
-                            <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
-// ==========================================
-// 1. MODAL CHÍNH LỚN: QUẢN LÝ LUỒNG CHÉP CHÍNH TẢ & FLASHCARD NGHE
+// 1. MODAL CHÍNH LỚN: QUẢN LÝ LUỒNG CHÉP CHÍNH TẢ
 // ==========================================
 const DictationModal = ({ isOpen, onClose }) => {
-    const [view, setView] = React.useState('menu'); // 'menu' | 'books' | 'parts' | 'practice' | 'flashcard_practice'
-    const [dictMode, setDictMode] = React.useState(null); // 'dictation' | 'flashcard'
+    const [view, setView] = React.useState('books'); // 'books' | 'parts' | 'practice'
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
     
@@ -7299,8 +7075,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
             
             // Reset state khi đóng
-            setView('menu');
-            setDictMode(null);
+            setView('books');
             setPartsList([]);
         }
     }, [isOpen]);
@@ -7341,94 +7116,67 @@ const DictationModal = ({ isOpen, onClose }) => {
         }
     };
 
-    // --- VIEW 0: MENU LỰA CHỌN ĐẦU TIÊN ---
-    const renderMenu = () => (
-        <div className="flex flex-col h-full bg-white overflow-hidden relative">
-            <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
-                <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">LUYỆN NGHE TỪ VỰNG</h2>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
-            </div>
-            <div className="p-6 flex flex-col justify-center gap-6 h-full items-center max-w-md mx-auto w-full">
-                <button onClick={() => { setDictMode('dictation'); setView('books'); }} className="w-full p-6 bg-white border border-zinc-200 rounded-2xl hover:border-zinc-900 hover:shadow-xl transition-all flex flex-col items-center justify-center active:scale-95 group outline-none">
-                    <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                    </div>
-                    <span className="text-xl font-black text-zinc-900 uppercase tracking-wide">CHÉP CHÍNH TẢ</span>
-                    <span className="text-sm font-medium text-zinc-500 mt-2 text-center">Nghe âm thanh và gõ lại từ vựng chính xác</span>
-                </button>
-
-                <button onClick={() => { setDictMode('flashcard'); setView('books'); }} className="w-full p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-500 hover:shadow-xl transition-all flex flex-col items-center justify-center active:scale-95 group outline-none">
-                    <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
-                    </div>
-                    <span className="text-xl font-black text-zinc-900 uppercase tracking-wide">FLASHCARD NGHE</span>
-                    <span className="text-sm font-medium text-zinc-500 mt-2 text-center">Thẻ lật phát âm thanh để ghi nhớ thụ động</span>
-                </button>
-            </div>
-        </div>
-    );
-
     // --- VIEW 1: DANH SÁCH SÁCH ---
     const renderBooks = () => (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
+            {/* HEADER */}
             <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
-                <div className="flex items-center gap-3">
-                    <button onClick={() => setView('menu')} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors outline-none">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                    </button>
-                    <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">
-                        {dictMode === 'flashcard' ? 'FLASHCARD NGHE' : 'CHÉP CHÍNH TẢ'}
-                    </h2>
-                </div>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
+                <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Luyện Nghe Chính Tả</h2>
+                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
+            {/* NỘI DUNG */}
             <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
                 <div className="flex flex-col gap-4">
-                    <button 
+                    {/* Sách có sẵn */}
+    
+                   <button 
                         onClick={() => handleLoadBook('tangon5', 'Tango N5')}
-                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden outline-none"
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
                         <div className="flex justify-between items-center w-full gap-4">
                             <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
                                 Tango N5
                             </span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">1000 từ vựng kèm ví dụ</span>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">1000 từ vựng kèm ví dụ</span>
                     </button>
 
                     <button 
                         onClick={() => handleLoadBook('minna1', 'MINNA NO NIHONGO N5')}
-                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden outline-none"
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
                         <div className="flex justify-between items-center w-full gap-4">
                             <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
                                 MINNA NO NIHONGO N5
                             </span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">25 bài từ vựng</span>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">25 bài từ vựng</span>
                     </button>
 
-                    <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden outline-none">
-                        <div className="flex justify-between items-center w-full">
+                    {/* Sách chờ cập nhật */}
+                    <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
+                     <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">TANGO N4, N3, N2, N1</span>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
                     </button>
 
-                    <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden outline-none">
-                        <div className="flex justify-between items-center w-full">
+                         <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
+                     <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MIMIKARA N3, N2, N1</span>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
                     </button>
 
-                    <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden outline-none">
-                        <div className="flex justify-between items-center w-full">
+                         <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
+                     <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MINNA NO NIHONGO N4</span>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
                     </button>
+
+                        
                 </div>
             </div>
         </div>
@@ -7451,10 +7199,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                 {partsList.map((part, idx) => (
                     <button 
                         key={idx}
-                        onClick={() => { 
-                            setCurrentPartIndex(idx); 
-                            setView(dictMode === 'flashcard' ? 'flashcard_practice' : 'practice'); 
-                        }}
+                        onClick={() => { setCurrentPartIndex(idx); setView('practice'); }}
                         className="w-full p-4 sm:p-5 bg-white border border-zinc-200 rounded-xl text-left md:hover:border-indigo-400 md:hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-between group outline-none"
                     >
                         <div className="flex flex-col">
@@ -7487,7 +7232,6 @@ const DictationModal = ({ isOpen, onClose }) => {
                     </div>
                 )}
                 
-                {view === 'menu' && renderMenu()}
                 {view === 'books' && renderBooks()}
                 {view === 'parts' && renderParts()}
                 {view === 'practice' && (
@@ -7497,17 +7241,11 @@ const DictationModal = ({ isOpen, onClose }) => {
                         onClose={onClose}
                     />
                 )}
-                {view === 'flashcard_practice' && (
-                    <DictationFlashcardView 
-                        lessonData={partsList[currentPartIndex]} 
-                        onBack={() => setView('parts')}
-                        onClose={onClose}
-                    />
-                )}
             </div>
         </div>
     );
 };
+
 // ==========================================
 // 2. COMPONENT LUYỆN TẬP CHÍNH (DICTATION GAME)
 // ==========================================
