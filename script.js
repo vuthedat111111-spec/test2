@@ -7483,18 +7483,19 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         let targetKana = '';
 
         if (mode === 'full_sentence') {
-            // Lấy câu gốc (hoặc câu thuần Kana) làm khuôn mẫu để ép kiểu chính xác từng vị trí
-            targetKana = currentItem?.sentenceReading || currentItem?.sentence || '';
+            // FIX: Lột sạch cú pháp [ ]( ) để lấy chuỗi chữ gốc làm khuôn mẫu nắn Katakana
+            const rawSentence = currentItem?.sentence || '';
+            targetKana = rawSentence.replace(/\[(.*?)\]\((.*?)\)/g, "$1"); 
         } else {
-            // Khi gõ từ đơn hoặc từ bị ẩn, chỉ lấy từ đó làm khuôn mẫu
-            targetKana = (mode === 'hidden_word' && currentItem?.blankReading) 
+            // Khi gõ từ đơn hoặc từ bị ẩn
+            const rawTarget = (mode === 'hidden_word' && currentItem?.blankReading) 
                          ? currentItem.blankReading 
                          : (currentItem?.word || currentItem?.reading || '');
+            targetKana = rawTarget.replace(/\[(.*?)\]\((.*?)\)/g, "$1");
         }
 
         setUserInput(convertToKana(val, targetKana));
     };
-
     const handleInputChange = (e) => {
         const val = e.target.value;
         if (isComposing.current) {
