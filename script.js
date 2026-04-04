@@ -7650,43 +7650,85 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
-   const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
+  const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
         if (!rawSentence || !word) return null;
         
         const wordToMask = extractBase(blankWord || word);
         const readingText = extractRuby(reading);
         
-        // Tạo regex tìm từ bị ẩn (Bao quát cả trường hợp đang có Furigana [Từ](đọc) hoặc chữ trơn)
-        const safeWord = wordToMask.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`\\[${safeWord}\\]\\([^)]+\\)|${safeWord}`, 'g');
-        
-        const parts = rawSentence.split(regex);
-        
-        if (parts.length === 1) {
-            // Không tìm thấy từ để đục lỗ -> In nguyên câu có bảo toàn furigana
+        // 1. Lấy chuỗi thuần (không có cú pháp furigana) để tìm vị trí cho chuẩn
+        const plainText = extractBase(rawSentence);
+
+        // 2. Tìm vị trí bắt đầu của từ cần ẩn trong chuỗi thuần
+        const startIndex = plainText.indexOf(wordToMask);
+
+        // Nếu không tìm thấy (do JSON lỗi), trả về nguyên gốc
+        if (startIndex === -1) {
             return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
         }
-        
-        // Tránh lặp chữ (ví dụ: その (その) -> chỉ hiện その)
+
+        const endIndex = startIndex + wordToMask.length;
+
+        // 3. THUẬT TOÁN ÁNH XẠ: Duyệt qua chuỗi gốc rawSentence để tách làm 3 phần: Before, Mask, After
+        let beforeRaw = "";
+        let afterRaw = "";
+
+        let plainCounter = 0;
+        let i = 0;
+        let inParen = false; // Đang ở trong ngoặc đơn (...) của furigana
+
+        // Hàm helper để duyệt 1 ký tự và cập nhật plainCounter
+        const processChar = (char, targetRaw) => {
+            if (char === ']') {
+                if (i + 1 < rawSentence.length && rawSentence[i+1] === '(') {
+                    inParen = true;
+                    if (targetRaw === 'before') beforeRaw += '(';
+                    else if (targetRaw === 'after') afterRaw += '(';
+                    i++; // Bỏ qua dấu '('
+                }
+            } else if (char === ')' && inParen) {
+                inParen = false;
+            } else if (char !== '[' && !inParen) {
+                plainCounter++;
+            }
+        };
+
+        // Lấy phần Before
+        while (i < rawSentence.length && plainCounter < startIndex) {
+            beforeRaw += rawSentence[i];
+            processChar(rawSentence[i], 'before');
+            i++;
+        }
+
+        // Bỏ qua phần Mask (Từ bị đục lỗ)
+        while (i < rawSentence.length && plainCounter < endIndex) {
+            processChar(rawSentence[i], 'mask');
+            i++;
+        }
+
+        // Lấy phần After
+        while (i < rawSentence.length) {
+            afterRaw += rawSentence[i];
+            i++;
+        }
+
+        // 4. Tránh lặp chữ (ví dụ: その (その) -> chỉ hiện その)
         const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
 
         return (
             <span className="font-sans leading-loose text-zinc-900">
-                {parts.map((part, index) => (
-                    <React.Fragment key={index}>
-                        {/* Render phần chữ xung quanh với Furigana nguyên vẹn */}
-                        {renderFurigana(part, true)}
-                        
-                        {/* Chèn ô trống / Đáp án vào giữa */}
-                        {index < parts.length - 1 && (
-                            <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                                {showHint || status === 'retyping' ? (
-                                    <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
-                                ) : '＿＿＿'}
-                            </span>
-                        )}
-                    </React.Fragment>
-                ))}
+                {/* Phần chữ đi trước từ bị đục lỗ */}
+                {renderFurigana(beforeRaw, true)}
+                
+                {/* Phần đục lỗ / Đáp án */}
+                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {showHint || status === 'retyping' ? (
+                        <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
+                    ) : '＿＿＿'}
+                </span>
+
+                {/* Phần chữ đi sau từ bị đục lỗ */}
+                {renderFurigana(afterRaw, true)}
             </span>
         );
     };
