@@ -7953,11 +7953,11 @@ else if (isShowingText || showVi) {
                                       {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
                             ) : effectiveMode === 'full_sentence' ? (
-                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
-                                            <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
-                                                {renderFurigana(currentItem.sentence, true)}
-                                            </span>
-                                        ) : (
+            /* ĐÃ FIX LỖI XUỐNG DÒNG: Đổi thành div, dùng w-full và pt-2 thay cho inline-block */
+            <div className="font-sans leading-loose text-zinc-900 w-full pt-2 break-words">
+                {renderFurigana(currentItem.sentence, true)}
+            </div>
+        ) : (
                                             /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
