@@ -7478,10 +7478,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setPlaybackRate(rates[nextIdx]);
     };
 
-   // THÊM ĐOẠN CODE MỚI NÀY VÀO:
-    const processInput = (val) => {
+   const processInput = (val) => {
         const currentItem = queue[currentIndex];
-        const targetKana = currentItem?.word || currentItem?.reading || '';
+        let targetKana = '';
+
+        if (mode === 'full_sentence') {
+            // Lấy câu gốc (hoặc câu thuần Kana) làm khuôn mẫu để ép kiểu chính xác từng vị trí
+            targetKana = currentItem?.sentenceReading || currentItem?.sentence || '';
+        } else {
+            // Khi gõ từ đơn hoặc từ bị ẩn, chỉ lấy từ đó làm khuôn mẫu
+            targetKana = (mode === 'hidden_word' && currentItem?.blankReading) 
+                         ? currentItem.blankReading 
+                         : (currentItem?.word || currentItem?.reading || '');
+        }
+
         setUserInput(convertToKana(val, targetKana));
     };
 
@@ -7603,10 +7613,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         if (sentenceRegex && sentenceRegex.test(cleanInput)) {
             isCorrect = true;
         }
-    } else {
+   } else {
         // === CHẤM ĐIỂM TỪ ĐƠN / TỪ BỊ ẨN ===
-        const targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
-        const targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
+        let targetWordBase = '';
+        let targetWordRuby = '';
+
+        if (effectiveMode === 'word') {
+            // Chế độ Từ đơn: Luôn lấy từ gốc (word / reading)
+            targetWordBase = extractBase(currentItem.word);
+            targetWordRuby = extractRuby(currentItem.reading);
+        } else {
+            // Chế độ Từ bị ẩn: Ưu tiên từ đã đục lỗ / chia thể (blankWord / blankReading)
+            targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
+            targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
+        }
         
         isCorrect = (cleanInput === cleanText(targetWordBase)) || (cleanInput === cleanText(targetWordRuby));
     }
