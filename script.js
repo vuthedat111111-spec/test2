@@ -7280,6 +7280,31 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
 
+    // ================= BỘ CÔNG CỤ XỬ LÝ FURIGANA =================
+    // Hàm bóc tách chỉ lấy Kanji: [卵](たまご) -> 卵
+    const extractBase = (str) => str ? str.replace(/\[(.*?)\]\([^)]+\)/g, '$1') : '';
+    // Hàm bóc tách chỉ lấy Hiragana: [卵](たまご) -> たまご
+    const extractRuby = (str) => str ? str.replace(/\[.*?\]\(([^)]+)\)/g, '$1') : '';
+
+    // Hàm render Furigana HTML (Giống phần Kaiwa)
+    const renderFurigana = (text, isShow) => {
+        if (!text) return null;
+        const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+        return parts.map((part, index) => {
+            const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+            if (match) {
+                return (
+                    <ruby key={index} className="leading-loose mx-0.5">
+                        {match[1]}
+                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
+                    </ruby>
+                );
+            }
+            return <span key={index}>{part}</span>;
+        });
+    };
+    // ===============================================================
+
     // Kiểm tra xem giáo trình có hỗ trợ đục lỗ câu dài không
     const supportSentence = React.useMemo(() => {
         if (!lessonData) return true;
@@ -7524,43 +7549,47 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     // Chế độ THỰC TẾ: Nếu chọn Cả câu/Từ bị ẩn nhưng không có data câu -> Lùi về Từ đơn
     const effectiveMode = ((mode === 'hidden_word' || mode === 'full_sentence') && hasSentenceData) ? mode : 'word';
 
-    let isCorrect = false;
-
-    // HÀM LỌC SIÊU MẠNH: Xóa sạch A:, B:, dấu câu, số, chữ la tinh... 
-    // Chỉ giữ lại: Hiragana, Katakana, Kanji, dấu trường âm (ー) và dấu lặp (々)
+  // HÀM LỌC SIÊU MẠNH: Xóa sạch dấu câu, giữ lại Kana, Kanji, trường âm
     const cleanText = (str) => {
         if (!str) return '';
         return str.replace(/[^\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\u3005\u30FC]/g, '');
     };
 
-    // Dùng effectiveMode thay vì mode để chấm điểm
+    let isCorrect = false;
+
     if (effectiveMode === 'full_sentence') {
-        // === LOGIC CHẤM ĐIỂM CHẾ ĐỘ CẢ CÂU ===
+        // === CHẤM ĐIỂM CẢ CÂU (Hỗ trợ cú pháp Furigana) ===
         let acceptableAnswers = [];
         
-        if (currentItem.sentence) acceptableAnswers.push(cleanText(currentItem.sentence));
-        if (currentItem.sentenceReading) acceptableAnswers.push(cleanText(currentItem.sentenceReading));
+        // Bóc tách câu gốc thành 2 bản: Thuần Kanji và Thuần Hiragana
+        const baseSentence = extractBase(currentItem.sentence);
+        const kanaSentence = extractRuby(currentItem.sentence);
         
-        if (currentItem.sentence && currentItem.word && currentItem.reading) {
-            acceptableAnswers.push(cleanText(currentItem.sentence.replace(currentItem.word, currentItem.reading)));
+        const targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
+        const targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
+        
+        if (baseSentence) acceptableAnswers.push(cleanText(baseSentence));
+        if (kanaSentence) acceptableAnswers.push(cleanText(kanaSentence));
+        
+        // Trộn chéo: Câu Kanji nhưng chữ đang học viết bằng Hiragana
+        if (baseSentence && targetWordBase && targetWordRuby) {
+            acceptableAnswers.push(cleanText(baseSentence.replace(targetWordBase, targetWordRuby)));
         }
-        
-        if (currentItem.sentenceReading && currentItem.word && currentItem.reading) {
-            acceptableAnswers.push(cleanText(currentItem.sentenceReading.replace(currentItem.reading, currentItem.word)));
+        // Trộn chéo: Câu Hiragana nhưng chữ đang học viết bằng Kanji
+        if (kanaSentence && targetWordRuby && targetWordBase) {
+            acceptableAnswers.push(cleanText(kanaSentence.replace(targetWordRuby, targetWordBase)));
         }
 
         const cleanInput = cleanText(finalInput);
         isCorrect = acceptableAnswers.includes(cleanInput);
 
     } else {
-        // === LOGIC CHẤM ĐIỂM TỪ ĐƠN & TỪ BỊ ẨN ===
-        const targetWord = (mode === 'hidden_word' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
-        const targetReading = (mode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
+        // === CHẤM ĐIỂM TỪ ĐƠN / TỪ BỊ ẨN ===
+        const targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
+        const targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
         
-        // Áp dụng bộ lọc cho cả từ đơn để lỡ người dùng có nhập "食べる。" thì vẫn đúng
-        isCorrect = (cleanText(finalInput) === cleanText(targetWord)) || (cleanText(finalInput) === cleanText(targetReading));
+        isCorrect = (cleanText(finalInput) === cleanText(targetWordBase)) || (cleanText(finalInput) === cleanText(targetWordRuby));
     }
- 
 
         // Đang bị phạt gõ lại
         if (status === 'retyping') {
@@ -7621,27 +7650,33 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
-    const renderMaskedSentence = (sentence, word, reading, blankWord) => {
-    if (!sentence || !word) return null;
-    
-    // Ưu tiên dùng từ đã chia thể (blankWord) để cắt câu, nếu không có thì dùng từ gốc
-    const wordToMask = blankWord || word;
-    const parts = sentence.split(wordToMask);
-    
-    if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
-    
-    return (
-        <span className="font-sans leading-loose">
-            {parts[0]}
-            <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                {showHint || status === 'retyping' ? (
-                    <span className="font-bold whitespace-nowrap">{wordToMask} ({reading})</span>
-                ) : '＿＿＿'}
+   const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
+        if (!rawSentence || !word) return null;
+        
+        // Bóc tách Kanji để cắt câu cho chuẩn
+        const sentence = extractBase(rawSentence); 
+        const wordToMask = extractBase(blankWord || word);
+        const readingText = extractRuby(reading);
+
+        const parts = sentence.split(wordToMask);
+        if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
+        
+        // LOGIC THÔNG MINH: Nếu Mặt chữ GIỐNG HỆT Cách đọc (vd: その, カメラ) -> Không hiện (Cách đọc)
+        const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
+
+        return (
+            <span className="font-sans leading-loose text-zinc-900">
+                {parts[0]}
+                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {showHint || status === 'retyping' ? (
+                        <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
+                    ) : '＿＿＿'}
+                </span>
+                {parts.slice(1).join(wordToMask)}
             </span>
-            {parts.slice(1).join(wordToMask)}
-        </span>
-    );
-};
+        );
+    };
+
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
 
@@ -7773,12 +7808,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
                         {isShowingText && (
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                               {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                              {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
-                                        {/* Nếu là chế độ CẢ CÂU và đang ẩn text -> Hiện dòng gạch trống */}
                                         {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping') ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
+                                        ) : effectiveMode === 'full_sentence' ? (
+                                            /* KHI XEM ĐÁP ÁN CẢ CÂU -> HIỆN ĐẸP VỚI FURIGANA NHƯ BÊN KAIWA */
+                                            <span className="font-sans leading-loose text-zinc-900">
+                                                {renderFurigana(currentItem.sentence, true)}
+                                            </span>
                                         ) : (
+                                            /* KHI LÀ TỪ BỊ ẨN -> HIỆN CÂU ĐỤC LỖ */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
                                                 currentItem.word, 
@@ -7788,7 +7828,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                         )}
                                     </div>
                                ) : (
-   
     <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-xl">
         
       
