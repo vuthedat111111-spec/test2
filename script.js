@@ -7516,7 +7516,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         finalInput = finalInput.slice(0, -1) + 'ん';
     }
 
- // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
+ // Kiểm tra xem từ vựng hiện tại CÓ câu ví dụ hay không
+    const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
+    
+    // Chế độ THỰC TẾ: Nếu chọn Cả câu/Từ bị ẩn nhưng không có data câu -> Lùi về Từ đơn
+    const effectiveMode = ((mode === 'hidden_word' || mode === 'full_sentence') && hasSentenceData) ? mode : 'word';
+
     let isCorrect = false;
 
     // HÀM LỌC SIÊU MẠNH: Xóa sạch A:, B:, dấu câu, số, chữ la tinh... 
@@ -7526,7 +7531,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         return str.replace(/[^\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\u3005\u30FC]/g, '');
     };
 
-    if (mode === 'full_sentence') {
+    // Dùng effectiveMode thay vì mode để chấm điểm
+    if (effectiveMode === 'full_sentence') {
         // === LOGIC CHẤM ĐIỂM CHẾ ĐỘ CẢ CÂU ===
         let acceptableAnswers = [];
         
@@ -7792,11 +7798,10 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 )}
                             </div>
                         )}
-
-                        {showVi && (
+{showVi && (
     <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
-        {/* Nếu là chế độ 'Từ bị ẩn' hoặc 'Cả câu' -> Hiện nghĩa của câu ví dụ */}
-        {(mode === 'hidden_word' || mode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+        {/* Dùng effectiveMode: Tự động lùi về hiển thị nghĩa của từ đơn nếu không có câu ví dụ */}
+        {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
     </p>
 )}
                     </div>
