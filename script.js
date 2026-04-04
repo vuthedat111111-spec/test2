@@ -7661,8 +7661,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
-            // Dừng auto-next ở chế độ Cả câu
-            if (effectiveMode === 'full_sentence') {
+          
+           // Dừng auto-next ở chế độ Cả câu (Áp dụng cho mọi từ kể cả từ không có câu ví dụ)
+            if (mode === 'full_sentence') {
                 // Chờ user bấm Enter lần nữa (đã xử lý ở Bước 1)
             } else {
                 setTimeout(() => goToNext(), 250);
@@ -7805,7 +7806,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         effectiveMode = 'word';
     }
 
-    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (effectiveMode === 'full_sentence' && status === 'correct');
+    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (mode === 'full_sentence' && status === 'correct');
     
     // Tính toán kích thước các nút động
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
@@ -7923,7 +7924,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
                            {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                        {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping') ? (
+                                       {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && status !== 'correct') ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
                                         ) : effectiveMode === 'full_sentence' ? (
                                             /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
@@ -7956,9 +7957,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 )}
                             </div>
                         )}
-{(showVi || (effectiveMode === 'full_sentence' && status === 'correct')) && (
+{(showVi || (mode === 'full_sentence' && status === 'correct')) && (
     <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
-        {/* Dùng effectiveMode: Tự động lùi về hiển thị nghĩa của từ đơn nếu không có câu ví dụ */}
         {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
     </p>
 )}
@@ -7987,7 +7987,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 </button>
                             <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                {status === 'correct' && effectiveMode === 'full_sentence' ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
+                                {status === 'correct' && mode === 'full_sentence' ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
                             </span>
                         </div>
                     </div>
