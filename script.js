@@ -7276,29 +7276,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const soundRef = React.useRef(null);
     const loopTimerRef = React.useRef(null);
 
-    // Lắng nghe sự kiện Enter toàn cục (Giúp PC ấn Enter ở đâu cũng chuyển bài)
-    React.useEffect(() => {
-        const handleGlobalEnter = (e) => {
-            if (e.key === 'Enter' && status === 'correct' && !finished) {
-                e.preventDefault();
-                clearTimeout(loopTimerRef.current);
-                if (currentIndex < queue.length - 1) {
-                    setCurrentIndex(prev => prev + 1);
-                    setUserInput('');
-                    setStatus('idle');
-                    setShowHint(false);
-                    setWrongCount(0);
-                    setWrongDetected(false); 
-                } else {
-                    setFinished(true);
-                }
-            }
-        };
-        
-        window.addEventListener('keydown', handleGlobalEnter);
-        return () => window.removeEventListener('keydown', handleGlobalEnter);
-    }, [status, finished, currentIndex, queue.length]);
-
     const currentIndexRef = React.useRef(currentIndex);
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
@@ -7529,7 +7506,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
     const handleInputChange = (e) => {
-        if (status === 'correct') return;
         const val = e.target.value;
         if (isComposing.current) {
             setUserInput(val); // Nếu đang gõ dở (gom chữ), giữ nguyên raw value để bộ gõ tự xử lý
@@ -7957,20 +7933,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         </div>
 
-                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
-                        {isShowingText && (
-                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                        {/* KHU VỰC CHỮ & DỊCH NGHĨA (Đã fix cứng chiều cao chống xô dịch 100%) */}
+                        <div className="w-full flex flex-col items-center justify-start min-h-[140px] mt-4">
+                            
+                            {/* Khối Tiếng Nhật */}
+                            <div className={`w-full flex justify-center transition-all duration-300 ${isShowingText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                      {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
+                                        {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                            ) : effectiveMode === 'full_sentence' ? (
-                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
+                                        ) : effectiveMode === 'full_sentence' ? (
                                             <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
                                                 {renderFurigana(currentItem.sentence, true)}
                                             </span>
                                         ) : (
-                                            /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
                                                 currentItem.word, 
@@ -7979,28 +7955,28 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                             )
                                         )}
                                     </div>
-                             ) : (
-    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-lg inline-flex w-auto min-w-[80px]">
-        <span className={`text-lg sm:text-xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
-            {currentItem.word}
-        </span>
-        
-        {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
-        {currentItem.word !== currentItem.reading && (
-            <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
-                {currentItem.reading}
-            </span>
-        )}
-    </div>
-)}
+                               ) : (
+                                    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-lg inline-flex w-auto min-w-[80px]">
+                                        <span className={`text-lg sm:text-xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
+                                            {currentItem.word}
+                                        </span>
+                                        {currentItem.word !== currentItem.reading && (
+                                            <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
+                                                {currentItem.reading}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
                             </div>
-                        )}
-{(showVi || (status === 'correct' && isAutoReview)) && (
-                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
-                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
-                            </p>
-                        )}
-                    </div>
+
+                            {/* Khối Dịch Nghĩa */}
+                            <div className={`w-full flex justify-center transition-all duration-300 ${(showVi || (status === 'correct' && isAutoReview)) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                                <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md pt-3"> 
+                                    {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+                                </p>
+                            </div>
+
+                        </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
