@@ -5983,7 +5983,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 return (
                     <ruby key={index} className="leading-loose">
                         {match[1]}
-                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none"><span className="sm:inline-block sm:-translate-y-1">{match[2]}</span></rt>}
+                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none"><span className="sm:inline-block sm:-translate-y-0.5">{match[2]}</span></rt>}
                     </ruby>
                 );
             }
@@ -7298,7 +7298,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 return (
                     <ruby key={index} className="leading-loose mx-0.5">
                         {match[1]}
-                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none"><span className="sm:inline-block sm:-translate-y-1">{match[2]}</span></rt>}
+                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none"><span className="sm:inline-block sm:-translate-y-0.5">{match[2]}</span></rt>}
                     </ruby>
                 );
             }
@@ -7784,7 +7784,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <ruby>
                                 <span className="text-zinc-900">{wordToMask}</span>
                                 {wordToMask !== readingText && (
-                                    <rt className="text-[11px] sm:text-xs text-indigo-600 font-bold select-none"><span className="sm:inline-block sm:-translate-y-1">{readingText}</span></rt>
+                                    <rt className="text-[11px] sm:text-xs text-indigo-600 font-bold select-none"><span className="sm:inline-block sm:-translate-y-0.5">{readingText}</span></rt>
                                 )}
                             </ruby>
                         </span>
@@ -7793,7 +7793,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <ruby>
                                 <span>{wordToMask}</span>
                                 {wordToMask !== readingText && (
-                                    <rt className="text-[11px] sm:text-xs font-bold select-none"><span className="sm:inline-block sm:-translate-y-1">{readingText}</span></rt>
+                                    <rt className="text-[11px] sm:text-xs font-bold select-none"><span className="sm:inline-block sm:-translate-y-0.5">{readingText}</span></rt>
                                 )}
                             </ruby>
                         </span>
