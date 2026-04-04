@@ -7781,12 +7781,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 {renderFurigana(beforeRaw, true)}
                 
                 {/* Vị trí đục lỗ / Hiển thị đáp án */}
-                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                    {showHint || status === 'retyping' ? (
+                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' || status === 'correct' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {showHint || status === 'retyping' || status === 'correct' ? (
                         <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
                     ) : '＿＿＿'}
                 </span>
-                
+
                 {/* Nửa sau của câu */}
                 {renderFurigana(afterRaw, true)}
             </span>
