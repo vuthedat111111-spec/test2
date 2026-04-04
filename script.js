@@ -5983,7 +5983,7 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
                 return (
                     <ruby key={index} className="leading-loose">
                         {match[1]}
-                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
+                        {isShow && <rt className={`lg:pb-0.5 text-[11px] sm:text-xs font-bold select-none ...`}>{tok.kana}</rt>}
                     </ruby>
                 );
             }
@@ -7298,7 +7298,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 return (
                     <ruby key={index} className="leading-loose mx-0.5">
                         {match[1]}
-                        {isShow && <rt className="text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
+                        {isShow && <rt className={`lg:pb-0.5 text-[11px] sm:text-xs font-bold select-none ...`}>{tok.kana}</rt>}
                     </ruby>
                 );
             }
