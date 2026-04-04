@@ -7326,7 +7326,18 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             setMode('word');
         }
     }, [supportSentence, mode]);
-    // ===================================================
+    // FIX LỖI: Tự động reset trạng thái (ẩn đáp án, xóa input) khi chuyển chế độ
+    React.useEffect(() => {
+        setStatus('idle');       // Đưa trạng thái về bình thường
+        setShowHint(false);      // Ẩn đáp án đi
+        setUserInput('');        // Xóa trắng ô nhập liệu
+        setWrongCount(0);        // Xóa bộ đếm số lần sai
+        
+        // Dừng âm thanh của chế độ cũ (nếu đang phát) để nhường chỗ cho âm thanh của chế độ mới
+        if (soundRef.current) {
+            soundRef.current.stop();
+        }
+    }, [mode]);
 
     React.useEffect(() => {
         currentIndexRef.current = currentIndex;
