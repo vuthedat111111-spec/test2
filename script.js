@@ -7933,50 +7933,51 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         </div>
 
-                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
-                        {isShowingText && (
-                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
-                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                      {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
-                                            <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                            ) : effectiveMode === 'full_sentence' ? (
-                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
-                                            <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
-                                                {renderFurigana(currentItem.sentence, true)}
+                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ (Đã fix mượt height) */}
+                        <div className={`w-full grid transition-all duration-300 ease-out ${isShowingText ? 'grid-rows-[1fr] opacity-100 scale-100' : 'grid-rows-[0fr] opacity-0 scale-95'}`}>
+                            <div className="overflow-hidden flex justify-center w-full">
+                                <div className="py-1 flex justify-center w-full">
+                                    {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                                        <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
+                                            {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
+                                                <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
+                                            ) : effectiveMode === 'full_sentence' ? (
+                                                <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
+                                                    {renderFurigana(currentItem.sentence, true)}
+                                                </span>
+                                            ) : (
+                                                renderMaskedSentence(
+                                                    currentItem.sentence, 
+                                                    currentItem.word, 
+                                                    (effectiveMode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, 
+                                                    currentItem.blankWord
+                                                )
+                                            )}
+                                        </div>
+                                   ) : (
+                                        <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-lg inline-flex w-auto min-w-[80px]">
+                                            <span className={`text-lg sm:text-xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
+                                                {currentItem.word}
                                             </span>
-                                        ) : (
-                                            /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
-                                            renderMaskedSentence(
-                                                currentItem.sentence, 
-                                                currentItem.word, 
-                                                (effectiveMode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, 
-                                                currentItem.blankWord
-                                            )
-                                        )}
-                                    </div>
-                               ) : (
-    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-5 py-2 rounded-xl min-w-[100px]">
-        <span className={`text-xl sm:text-2xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
-            {currentItem.word}
-        </span>
-        
-        {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
-        {currentItem.word !== currentItem.reading && (
-            <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">
-                {currentItem.reading}
-            </span>
-        )}
-    </div>
-)}
+                                            {currentItem.word !== currentItem.reading && (
+                                                <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
+                                                    {currentItem.reading}
+                                                </span>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
-{(showVi || (status === 'correct' && isAutoReview)) && (
-                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
-                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
-                            </p>
-                        )}
-                    </div>
+                        </div>
+
+                         {/* DỊCH NGHĨA (Đã fix mượt height) */}
+                        <div className={`w-full grid transition-all duration-300 ease-out ${(showVi || (status === 'correct' && isAutoReview)) ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                            <div className="overflow-hidden flex justify-center w-full">
+                                <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md pb-2 pt-1"> 
+                                    {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+                                </p>
+                            </div>
+                        </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
