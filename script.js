@@ -7379,7 +7379,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     
                     const currentItem = queueRef.current[currentIndexRef.current];
                     const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
-                    const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+
+
+                    const actualMode = ((modeRef.current === 'hidden_word' || modeRef.current === 'full_sentence') && hasSentenceData) ? 'sentence' : 'word';
                     const spriteKey = `${currentItem.id}_${actualMode}`;
                     
                     this.play(spriteKey);
@@ -7514,31 +7516,32 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         finalInput = finalInput.slice(0, -1) + 'ん';
     }
 
-  // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
+ // Tự động xác định từ và cách đọc mục tiêu dựa vào Mode
     let isCorrect = false;
+
+    // HÀM LỌC SIÊU MẠNH: Xóa sạch A:, B:, dấu câu, số, chữ la tinh... 
+    // Chỉ giữ lại: Hiragana, Katakana, Kanji, dấu trường âm (ー) và dấu lặp (々)
+    const cleanText = (str) => {
+        if (!str) return '';
+        return str.replace(/[^\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\u3005\u30FC]/g, '');
+    };
 
     if (mode === 'full_sentence') {
         // === LOGIC CHẤM ĐIỂM CHẾ ĐỘ CẢ CÂU ===
         let acceptableAnswers = [];
         
-        // 1. Ghi nhận câu gốc (Kanji)
-        if (currentItem.sentence) acceptableAnswers.push(currentItem.sentence.replace(/[\s\u3000。、.,!?]/g, ''));
+        if (currentItem.sentence) acceptableAnswers.push(cleanText(currentItem.sentence));
+        if (currentItem.sentenceReading) acceptableAnswers.push(cleanText(currentItem.sentenceReading));
         
-        // 2. Ghi nhận câu thuần Kana (Nếu trong JSON bạn có trường sentenceReading)
-        if (currentItem.sentenceReading) acceptableAnswers.push(currentItem.sentenceReading.replace(/[\s\u3000。、.,!?]/g, ''));
-        
-        // 3. Câu gốc nhưng Từ chính chuyển thành Hiragana (たまごを食べる)
         if (currentItem.sentence && currentItem.word && currentItem.reading) {
-            acceptableAnswers.push(currentItem.sentence.replace(currentItem.word, currentItem.reading).replace(/[\s\u3000。、.,!?]/g, ''));
+            acceptableAnswers.push(cleanText(currentItem.sentence.replace(currentItem.word, currentItem.reading)));
         }
         
-        // 4. Câu Kana nhưng Từ chính chuyển thành Kanji (卵をたべる)
         if (currentItem.sentenceReading && currentItem.word && currentItem.reading) {
-            acceptableAnswers.push(currentItem.sentenceReading.replace(currentItem.reading, currentItem.word).replace(/[\s\u3000。、.,!?]/g, ''));
+            acceptableAnswers.push(cleanText(currentItem.sentenceReading.replace(currentItem.reading, currentItem.word)));
         }
 
-        // Loại bỏ dấu câu của người dùng khi nhập để so sánh cho chuẩn
-        const cleanInput = finalInput.replace(/[\s\u3000。、.,!?]/g, '');
+        const cleanInput = cleanText(finalInput);
         isCorrect = acceptableAnswers.includes(cleanInput);
 
     } else {
@@ -7546,9 +7549,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         const targetWord = (mode === 'hidden_word' && currentItem.blankWord) ? currentItem.blankWord : currentItem.word;
         const targetReading = (mode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading;
         
-        isCorrect = (finalInput === targetWord) || (finalInput === targetReading);
+        // Áp dụng bộ lọc cho cả từ đơn để lỡ người dùng có nhập "食べる。" thì vẫn đúng
+        isCorrect = (cleanText(finalInput) === cleanText(targetWord)) || (cleanText(finalInput) === cleanText(targetReading));
     }
-
  
 
         // Đang bị phạt gõ lại
@@ -7636,13 +7639,15 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
    const hasSentenceText = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
     
-    // Áp dụng chế độ nếu thỏa mãn điều kiện có câu
+    // logic hiển thị UI
     let effectiveMode = mode;
     if ((mode === 'hidden_word' || mode === 'full_sentence') && !hasSentenceText) {
         effectiveMode = 'word';
     }
 
-    // Ở chế độ "Cả câu", CHỈ hiện text khi bấm xem đáp án hoặc bị sai (retyping)
+    // HIỂN THỊ TEXT: 
+    // - Luôn hiện nếu là 'Từ bị ẩn' (để đục lỗ)
+    // - Chỉ hiện khi bấm Đáp án/Gõ sai nếu là 'Cả câu' hoặc 'Từ đơn'
     const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping';
     
     // Tính toán kích thước các nút động
@@ -7788,12 +7793,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </div>
                         )}
 
-                        {/* HIỂN THỊ DỊCH NGHĨA */}
                         {showVi && (
-                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
-                                {effectiveMode === 'sentence' ? currentItem.sentenceVi : currentItem.meaning}
-                            </p>
-                        )}
+    <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
+        {/* Nếu là chế độ 'Từ bị ẩn' hoặc 'Cả câu' -> Hiện nghĩa của câu ví dụ */}
+        {(mode === 'hidden_word' || mode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+    </p>
+)}
                     </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
