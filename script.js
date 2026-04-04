@@ -7484,14 +7484,15 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         // KIỂM TRA THỰC TẾ: Đang ở chế độ Cả câu VÀ item này thực sự có câu ví dụ
         const isRealFullSentence = mode === 'full_sentence' && currentItem?.sentence;
 
-        // Nếu đúng là đang gõ Cả câu -> Tắt tự nắn chữ
         if (isRealFullSentence) {
-            setUserInput(val);
+            // FIX LỖI: Vẫn phải dùng convertToKana để gõ Romaji ra tiếng Nhật.
+            // Nhưng truyền chuỗi rỗng '' để NÓ KHÔNG ÉP Katakana lung tung nữa.
+            setUserInput(convertToKana(val, ''));
             return;
         }
 
         // ==========================================
-        // RƠI VÀO ĐÂY KHI: Gõ Từ đơn, Từ bị ẩn, HOẶC chế độ Cả câu nhưng từ đó KHÔNG có câu ví dụ
+        // CHẾ ĐỘ TỪ ĐƠN / TỪ BỊ ẨN (Giữ nguyên tính năng ép Katakana)
         let targetKana = '';
         
         const rawTarget = (mode === 'hidden_word' && currentItem?.blankReading) 
