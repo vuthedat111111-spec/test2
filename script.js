@@ -7784,7 +7784,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <ruby>
                                 <span className="text-zinc-900">{wordToMask}</span>
                                 {wordToMask !== readingText && (
-                                    <rt className="text-[11px] sm:text-xs text-indigo-600 font-bold select-none">{readingText}</rt>
+                                    <rt className="inline-block leading-none pb-[1px] md:pb-[2px] text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>
                                 )}
                             </ruby>
                         </span>
