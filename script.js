@@ -5316,7 +5316,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-        '22baitrungthuongcap': [
+         '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -5555,7 +5555,6 @@ const renderGuideOverlay = () => (
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
                         { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
                          { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
-                    ].map((item) => (
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -7721,90 +7720,86 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
-const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
-        if (!rawSentence || !word) return null;
-        
-        const wordToMask = extractBase(blankWord || word);
-        const readingText = extractRuby(reading);
-        
-        const tokens = [];
-        const regex = /\[(.*?)\]\((.*?)\)/g;
-        let lastIndex = 0;
-        let match;
-        while ((match = regex.exec(rawSentence)) !== null) {
-            if (match.index > lastIndex) {
-                const textPart = rawSentence.slice(lastIndex, match.index);
-                tokens.push({ type: 'text', raw: textPart, plain: textPart });
-            }
-            tokens.push({ type: 'ruby', raw: match[0], plain: match[1], kana: match[2] });
-            lastIndex = regex.lastIndex;
-        }
-        if (lastIndex < rawSentence.length) {
-            const textPart = rawSentence.slice(lastIndex);
+ const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
+    if (!rawSentence || !word) return null;
+    
+    const wordToMask = extractBase(blankWord || word);
+    const readingText = extractRuby(reading);
+    
+    // --- GIỮ NGUYÊN ĐOẠN PHÂN TÍCH TOKENS NÀY ---
+    const tokens = [];
+    const regex = /\[(.*?)\]\((.*?)\)/g;
+    let lastIndex = 0;
+    let match;
+    while ((match = regex.exec(rawSentence)) !== null) {
+        if (match.index > lastIndex) {
+            const textPart = rawSentence.slice(lastIndex, match.index);
             tokens.push({ type: 'text', raw: textPart, plain: textPart });
         }
+        tokens.push({ type: 'ruby', raw: match[0], plain: match[1], kana: match[2] });
+        lastIndex = regex.lastIndex;
+    }
+    if (lastIndex < rawSentence.length) {
+        const textPart = rawSentence.slice(lastIndex);
+        tokens.push({ type: 'text', raw: textPart, plain: textPart });
+    }
 
-        const fullPlainText = tokens.map(t => t.plain).join('');
-        const startIndex = fullPlainText.indexOf(wordToMask);
-        if (startIndex === -1) return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
-        const endIndex = startIndex + wordToMask.length;
+    const fullPlainText = tokens.map(t => t.plain).join('');
+    const startIndex = fullPlainText.indexOf(wordToMask);
+    if (startIndex === -1) return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
+    const endIndex = startIndex + wordToMask.length;
 
-        let beforeRaw = "";
-        let afterRaw = "";
-        let currentPlainIndex = 0;
-        for (const token of tokens) {
-            const tokenStart = currentPlainIndex;
-            const tokenEnd = currentPlainIndex + token.plain.length;
-            if (tokenEnd <= startIndex) beforeRaw += token.raw;
-            else if (tokenStart >= endIndex) afterRaw += token.raw;
-            else {
-                if (token.type === 'text') {
-                    for (let i = 0; i < token.plain.length; i++) {
-                        const charIndex = tokenStart + i;
-                        if (charIndex < startIndex) beforeRaw += token.plain[i];
-                        else if (charIndex >= endIndex) afterRaw += token.plain[i];
-                    }
+    let beforeRaw = "";
+    let afterRaw = "";
+    let currentPlainIndex = 0;
+    for (const token of tokens) {
+        const tokenStart = currentPlainIndex;
+        const tokenEnd = currentPlainIndex + token.plain.length;
+        if (tokenEnd <= startIndex) beforeRaw += token.raw;
+        else if (tokenStart >= endIndex) afterRaw += token.raw;
+        else {
+            if (token.type === 'text') {
+                for (let i = 0; i < token.plain.length; i++) {
+                    const charIndex = tokenStart + i;
+                    if (charIndex < startIndex) beforeRaw += token.plain[i];
+                    else if (charIndex >= endIndex) afterRaw += token.plain[i];
                 }
             }
-            currentPlainIndex = tokenEnd;
         }
+        currentPlainIndex = tokenEnd;
+    }
+    // --- HẾT ĐOẠN GIỮ NGUYÊN ---
 
-        const isRevealed = showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
+    // --- ĐÂY LÀ PHẦN THAY ĐỔI CHÍNH ĐỂ ẨN HOÀN TOÀN GẠCH KẺ ---
+    const isRevealed = showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
+    const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
 
-        return (
-            <span className="font-sans leading-loose text-zinc-900">
-                {renderFurigana(beforeRaw, true)}
-                
-                {/* 1. Đổi background thành bg-green-100 (Xanh lá sáng)
-                  2. Bỏ text-indigo-600 ở thẻ wrapper để set màu riêng lẻ ở bên trong
-                */}
-                <span className={`px-1.5 mx-1 rounded-md transition-all duration-300 inline-block align-baseline min-w-[50px] leading-none pt-1 pb-0.5 ${isRevealed ? 'bg-green-100 shadow-[0_0_10px_rgba(34,197,94,0.2)]' : 'text-transparent bg-zinc-200'}`}>
-                    {isRevealed ? (
-                        <span className="font-bold animate-in fade-in duration-300 whitespace-nowrap inline-block leading-none">
-                            {/* Dùng thẻ ruby để đặt Furigana lên trên Kanji */}
-                            <ruby>
-                                <span className="text-zinc-900">{wordToMask}</span>
-                                {wordToMask !== readingText && (
-                                    <rt className="text-[11px] sm:text-xs text-indigo-600 font-bold select-none">{readingText}</rt>
-                                )}
-                            </ruby>
-                        </span>
-                    ) : (
-                        <span className="select-none font-bold whitespace-nowrap opacity-0 inline-block leading-none">
-                            <ruby>
-                                <span>{wordToMask}</span>
-                                {wordToMask !== readingText && (
-                                    <rt className="text-[11px] sm:text-xs font-bold select-none">{readingText}</rt>
-                                )}
-                            </ruby>
-                        </span>
-                    )}
-                </span>
-
-                {renderFurigana(afterRaw, true)}
+    return (
+        <span className="font-sans leading-loose text-zinc-900">
+            {renderFurigana(beforeRaw, true)}
+            
+            {/* ĐÃ FIX: 
+                1. Đổi inline-flex thành inline-block align-baseline
+                2. Ép leading-none để khung ôm sát chữ
+                3. Đổi bg-zinc-100 thành bg-zinc-200 để dễ nhìn hơn khi thu nhỏ
+            */}
+            <span className={`px-1.5 mx-1 rounded-md transition-all duration-300 inline-block align-baseline min-w-[50px] leading-none pt-1 pb-0.5 ${isRevealed ? 'text-indigo-600 bg-indigo-50 shadow-[0_0_10px_rgba(79,70,229,0.15)]' : 'text-transparent bg-zinc-200'}`}>
+                {isRevealed ? (
+                    <span className="font-bold animate-in fade-in duration-300 whitespace-nowrap inline-block leading-none">
+                        {wordToMask}{displayReading}
+                    </span>
+                ) : (
+                    /* Khi ẩn, ta vẫn render text màu trong suốt để giữ độ dài câu chuẩn xác */
+                    <span className="select-none font-bold whitespace-nowrap opacity-0 inline-block leading-none">
+                        {wordToMask}{displayReading}
+                    </span>
+                )}
             </span>
-        );
-    };
+
+            {renderFurigana(afterRaw, true)}
+        </span>
+    );
+};
 
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
