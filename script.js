@@ -7821,10 +7821,10 @@ const isWrongReview = showHint || status === 'retyping';      // Đang hiện đ
 const isShowingText = effectiveMode === 'hidden_word' || isCorrectReview || isWrongReview;
 
 // 2. TÍNH TOÁN KÍCH THƯỚC ĐỒNG BỘ
-let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
-let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
-let sideBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
-let sideIconSize = "w-6 h-6 sm:w-7 sm:h-7";
+let playBtnSize = "w-20 h-20 sm:w-24 sm:h-24"; 
+let playIconSize = "w-8 h-8 sm:w-10 sm:h-10";
+let sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14"; 
+let sideIconSize = "w-5 h-5 sm:w-6 sm:h-6";
 
 // ĐIỀU KIỆN MỚI: Nếu đang trong trạng thái REVIEW (Đúng hoặc Sai) 
 // thì ép luôn về size nhỏ nhất để dù có bật/tắt dịch nút cũng không bị nhảy kích cỡ
