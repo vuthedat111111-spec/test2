@@ -7657,22 +7657,19 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-    if (isCorrect) {
+   if (isCorrect) {
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
-            // --- THÊM LOGIC KIỂM TRA CHẾ ĐỘ XEM LẠI ---
             if (isAutoReview) {
+                // Đang bật "Xem lại": Hiện màu xanh và đọc lại âm thanh
                 setStatus('correct');
-                // TỰ ĐỘNG PHÁT LẠI ÂM THANH 1 LẦN NỮA VÀ CHỜ BẤM ENTER
                 setTimeout(() => playCurrentAudio(), 50);
             } else {
-                // NẾU TẮT "XEM LẠI" -> ĐỔI XANH TRONG CHỚP MẮT VÀ QUA CÂU MỚI LUÔN
-                setStatus('correct');
-                setTimeout(() => {
-                    goToNext();
-                }, 50);
+                // Đang tắt "Xem lại": Gọi thẳng hàm qua câu mới, bỏ qua bước đổi màu xanh
+                goToNext(); 
             }
+            
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
@@ -7993,9 +7990,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
     ĐÁP ÁN
 </button>
-                            <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                           <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 transition-all duration-300 ${status === 'correct' ? 'text-red-400/80 animate-pulse' : 'text-zinc-400'}`}>
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                {status === 'correct' && mode === 'full_sentence' ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
+                                {status === 'correct' ? 'Bấm Enter để chuyển câu...' : 'Bấm Enter để kiểm tra'}
                             </span>
                         </div>
                     </div>
