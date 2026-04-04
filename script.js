@@ -7139,7 +7139,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                                 Tango N5
                             </span>
                         </div>
-                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">1000 từ vựng kèm ví dụ</span>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN & VÍ DỤ</span>
                     </button>
 
                     <button 
@@ -7151,7 +7151,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                                 MINNA NO NIHONGO N5
                             </span>
                         </div>
-                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">25 bài từ vựng</span>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN</span>
                     </button>
 
                     {/* Sách chờ cập nhật */}
