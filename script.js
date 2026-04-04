@@ -5316,7 +5316,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-        '22baitrungthuongcap': [
+           '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -7720,89 +7720,86 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
     React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
 
-  const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
-        if (!rawSentence || !word) return null;
-        
-        const wordToMask = extractBase(blankWord || word);
-        const readingText = extractRuby(reading);
-        
-        // 1. Phân tích chuỗi gốc thành các khối (Text thường và Furigana)
-        const tokens = [];
-        const regex = /\[(.*?)\]\((.*?)\)/g;
-        let lastIndex = 0;
-        let match;
-        
-        while ((match = regex.exec(rawSentence)) !== null) {
-            if (match.index > lastIndex) {
-                const textPart = rawSentence.slice(lastIndex, match.index);
-                tokens.push({ type: 'text', raw: textPart, plain: textPart });
-            }
-            tokens.push({ type: 'ruby', raw: match[0], plain: match[1], kana: match[2] });
-            lastIndex = regex.lastIndex;
-        }
-        if (lastIndex < rawSentence.length) {
-            const textPart = rawSentence.slice(lastIndex);
+ const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
+    if (!rawSentence || !word) return null;
+    
+    const wordToMask = extractBase(blankWord || word);
+    const readingText = extractRuby(reading);
+    
+    // --- GIỮ NGUYÊN ĐOẠN PHÂN TÍCH TOKENS NÀY ---
+    const tokens = [];
+    const regex = /\[(.*?)\]\((.*?)\)/g;
+    let lastIndex = 0;
+    let match;
+    while ((match = regex.exec(rawSentence)) !== null) {
+        if (match.index > lastIndex) {
+            const textPart = rawSentence.slice(lastIndex, match.index);
             tokens.push({ type: 'text', raw: textPart, plain: textPart });
         }
+        tokens.push({ type: 'ruby', raw: match[0], plain: match[1], kana: match[2] });
+        lastIndex = regex.lastIndex;
+    }
+    if (lastIndex < rawSentence.length) {
+        const textPart = rawSentence.slice(lastIndex);
+        tokens.push({ type: 'text', raw: textPart, plain: textPart });
+    }
 
-        // 2. Tìm vị trí TỪ CẦN ẨN trên chuỗi chữ thuần (không chứa ngoặc)
-        const fullPlainText = tokens.map(t => t.plain).join('');
-        const startIndex = fullPlainText.indexOf(wordToMask);
-        
-        if (startIndex === -1) {
-            return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
-        }
-        const endIndex = startIndex + wordToMask.length;
+    const fullPlainText = tokens.map(t => t.plain).join('');
+    const startIndex = fullPlainText.indexOf(wordToMask);
+    if (startIndex === -1) return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
+    const endIndex = startIndex + wordToMask.length;
 
-        // 3. Cắt chuỗi thông minh: Chia các khối vào Trước (Before) và Sau (After)
-        let beforeRaw = "";
-        let afterRaw = "";
-        let currentPlainIndex = 0;
-
-        for (const token of tokens) {
-            const tokenStart = currentPlainIndex;
-            const tokenEnd = currentPlainIndex + token.plain.length;
-
-            if (tokenEnd <= startIndex) {
-                // Khối nằm hoàn toàn TRƯỚC từ cần đục lỗ
-                beforeRaw += token.raw;
-            } else if (tokenStart >= endIndex) {
-                // Khối nằm hoàn toàn SAU từ cần đục lỗ
-                afterRaw += token.raw;
-            } else {
-                // Khối bị CHIA CẮT bởi từ cần đục lỗ (ví dụ: đục lỗ một nửa token text)
-                if (token.type === 'text') {
-                    for (let i = 0; i < token.plain.length; i++) {
-                        const charIndex = tokenStart + i;
-                        if (charIndex < startIndex) beforeRaw += token.plain[i];
-                        else if (charIndex >= endIndex) afterRaw += token.plain[i];
-                    }
+    let beforeRaw = "";
+    let afterRaw = "";
+    let currentPlainIndex = 0;
+    for (const token of tokens) {
+        const tokenStart = currentPlainIndex;
+        const tokenEnd = currentPlainIndex + token.plain.length;
+        if (tokenEnd <= startIndex) beforeRaw += token.raw;
+        else if (tokenStart >= endIndex) afterRaw += token.raw;
+        else {
+            if (token.type === 'text') {
+                for (let i = 0; i < token.plain.length; i++) {
+                    const charIndex = tokenStart + i;
+                    if (charIndex < startIndex) beforeRaw += token.plain[i];
+                    else if (charIndex >= endIndex) afterRaw += token.plain[i];
                 }
-                // Nếu khối là Ruby thì nó sẽ bị nuốt chửng hoàn toàn vào ô đục lỗ, không cộng vào đâu cả
             }
-            currentPlainIndex = tokenEnd;
         }
+        currentPlainIndex = tokenEnd;
+    }
+    // --- HẾT ĐOẠN GIỮ NGUYÊN ---
 
-        // 4. Tránh lặp chữ khi mặt chữ và cách đọc giống hệt nhau
-        const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
+   const isRevealed = showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
+const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
 
-        return (
-            <span className="font-sans leading-loose text-zinc-900">
-                {/* Nửa trước của câu */}
-                {renderFurigana(beforeRaw, true)}
-                
-               {/* Vị trí đục lỗ / Hiển thị đáp án */}
-                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${(showHint || status === 'retyping' || (status === 'correct' && isAutoReview)) ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                    {(showHint || status === 'retyping' || (status === 'correct' && isAutoReview)) ? (
-                        <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
-                    ) : '＿＿＿'}
-                </span>
-
-                {/* Nửa sau của câu */}
-                {renderFurigana(afterRaw, true)}
+return (
+    <span className="font-sans text-zinc-900" style={{ lineHeight: '2.4' }}> {/* Giảm line-height xuống mức vừa phải */}
+        {renderFurigana(beforeRaw, true)}
+        
+        <span 
+            className={`px-1 mx-0.5 rounded transition-all duration-300 inline-flex items-center justify-center ${
+                isRevealed 
+                ? 'text-green-600 bg-green-50 font-bold' 
+                : 'text-transparent bg-zinc-100'
+            }`}
+            style={{ 
+                height: '1.1em',        // CHÌA KHÓA: Chiều cao chỉ nhỉnh hơn thân chữ 1 chút (1.1 thay vì mặc định)
+                minWidth: '45px',
+                verticalAlign: 'bottom', // Ép khung nằm trên đường cơ sở của dòng chữ
+                lineHeight: '1',        // Triệt tiêu khoảng cách dòng bên trong khung
+                transform: 'translateY(-2px)' // Nhích khung lên 1 chút để cân đối với Kanji
+            }}
+        >
+            <span className={`whitespace-nowrap px-1 text-[0.95em] ${isRevealed ? 'animate-in fade-in duration-300' : 'opacity-0'}`}>
+                {wordToMask}{displayReading}
             </span>
-        );
-    };
+        </span>
+
+        {renderFurigana(afterRaw, true)}
+    </span>
+);
+};
 
     if (queue.length === 0) return null;
     const currentItem = queue[currentIndex];
@@ -7947,17 +7944,13 @@ else if (isShowingText || showVi) {
 
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
                         {isShowingText && (
-                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
-                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                      {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
-                                            <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                            ) : effectiveMode === 'full_sentence' ? (
-                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
-                                            <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
-                                                {renderFurigana(currentItem.sentence, true)}
-                                            </span>
-                                        ) : (
+    <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
+        {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+            /* Đổi leading về 2.4 - Giao diện sẽ gọn gàng hẳn */
+            <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-[2.4] px-2">
+                {/* ... giữ nguyên logic render bên trong ... */}
+            </div>
+        ) : (
                                             /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
