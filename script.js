@@ -7653,26 +7653,40 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
    const renderMaskedSentence = (rawSentence, word, reading, blankWord) => {
         if (!rawSentence || !word) return null;
         
-        // Bóc tách Kanji để cắt câu cho chuẩn
-        const sentence = extractBase(rawSentence); 
         const wordToMask = extractBase(blankWord || word);
         const readingText = extractRuby(reading);
-
-        const parts = sentence.split(wordToMask);
-        if (parts.length === 1) return <span className="font-sans">{sentence}</span>; 
         
-        // LOGIC THÔNG MINH: Nếu Mặt chữ GIỐNG HỆT Cách đọc (vd: その, カメラ) -> Không hiện (Cách đọc)
+        // Tạo regex tìm từ bị ẩn (Bao quát cả trường hợp đang có Furigana [Từ](đọc) hoặc chữ trơn)
+        const safeWord = wordToMask.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`\\[${safeWord}\\]\\([^)]+\\)|${safeWord}`, 'g');
+        
+        const parts = rawSentence.split(regex);
+        
+        if (parts.length === 1) {
+            // Không tìm thấy từ để đục lỗ -> In nguyên câu có bảo toàn furigana
+            return <span className="font-sans leading-loose text-zinc-900">{renderFurigana(rawSentence, true)}</span>;
+        }
+        
+        // Tránh lặp chữ (ví dụ: その (その) -> chỉ hiện その)
         const displayReading = wordToMask === readingText ? '' : ` (${readingText})`;
 
         return (
             <span className="font-sans leading-loose text-zinc-900">
-                {parts[0]}
-                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                    {showHint || status === 'retyping' ? (
-                        <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
-                    ) : '＿＿＿'}
-                </span>
-                {parts.slice(1).join(wordToMask)}
+                {parts.map((part, index) => (
+                    <React.Fragment key={index}>
+                        {/* Render phần chữ xung quanh với Furigana nguyên vẹn */}
+                        {renderFurigana(part, true)}
+                        
+                        {/* Chèn ô trống / Đáp án vào giữa */}
+                        {index < parts.length - 1 && (
+                            <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                                {showHint || status === 'retyping' ? (
+                                    <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
+                                ) : '＿＿＿'}
+                            </span>
+                        )}
+                    </React.Fragment>
+                ))}
             </span>
         );
     };
@@ -7807,17 +7821,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                         {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
                         {isShowingText && (
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                              {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
-                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-relaxed px-2">
+                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
                                         {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping') ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
                                         ) : effectiveMode === 'full_sentence' ? (
-                                            /* KHI XEM ĐÁP ÁN CẢ CÂU -> HIỆN ĐẸP VỚI FURIGANA NHƯ BÊN KAIWA */
-                                            <span className="font-sans leading-loose text-zinc-900">
+                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
+                                            <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
                                                 {renderFurigana(currentItem.sentence, true)}
                                             </span>
                                         ) : (
-                                            /* KHI LÀ TỪ BỊ ẨN -> HIỆN CÂU ĐỤC LỖ */
+                                            /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
                                                 currentItem.word, 
@@ -7827,13 +7841,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                         )}
                                     </div>
                                ) : (
-    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-xl">
+    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-5 py-2 rounded-xl min-w-[100px]">
+        <span className={`text-xl sm:text-2xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
+            {currentItem.word}
+        </span>
         
-      
-        <span className="text-xl sm:text-2xl font-black text-indigo-700 mb-0.5">{currentItem.word}</span>
-        
-      
-        <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">{currentItem.reading}</span>
+        {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
+        {currentItem.word !== currentItem.reading && (
+            <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">
+                {currentItem.reading}
+            </span>
+        )}
     </div>
 )}
                             </div>
