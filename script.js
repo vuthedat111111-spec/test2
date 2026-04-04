@@ -7815,26 +7815,32 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         effectiveMode = 'word';
     }
 
-  // Thêm điều kiện isAutoReview vào lúc correct để chặn layout shift
-    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
-    
-    // Tính toán kích thước các nút động
-    let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
-    let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
-    let sideBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
-    let sideIconSize = "w-6 h-6 sm:w-7 sm:h-7";
-    
-    if (isShowingText && showVi) {
-        playBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
-        playIconSize = "w-6 h-6 sm:w-7 sm:h-7";
-        sideBtnSize = "w-10 h-10 sm:w-12 sm:h-12";
-        sideIconSize = "w-4 h-4 sm:w-5 sm:h-5";
-    } else if (isShowingText || showVi) {
-        playBtnSize = "w-16 h-16 sm:w-20 sm:h-20"; 
-        playIconSize = "w-7 h-7 sm:w-8 sm:h-8";
-        sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14";
-        sideIconSize = "w-5 h-5 sm:w-6 sm:h-6";
-    }
+  // 1. Xác định các trạng thái đang hiển thị nội dung bổ sung
+const isCorrectReview = status === 'correct' && isAutoReview; // Đang hiện xem lại khi đúng
+const isWrongReview = showHint || status === 'retyping';      // Đang hiện đáp án khi sai
+const isShowingText = effectiveMode === 'hidden_word' || isCorrectReview || isWrongReview;
+
+// 2. TÍNH TOÁN KÍCH THƯỚC ĐỒNG BỘ
+let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
+let playIconSize = "w-10 h-10 sm:w-12 sm:h-12";
+let sideBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
+let sideIconSize = "w-6 h-6 sm:w-7 sm:h-7";
+
+// ĐIỀU KIỆN MỚI: Nếu đang trong trạng thái REVIEW (Đúng hoặc Sai) 
+// thì ép luôn về size nhỏ nhất để dù có bật/tắt dịch nút cũng không bị nhảy kích cỡ
+if (isCorrectReview || isWrongReview || (isShowingText && showVi)) {
+    playBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
+    playIconSize = "w-6 h-6 sm:w-7 sm:h-7";
+    sideBtnSize = "w-10 h-10 sm:w-12 sm:h-12";
+    sideIconSize = "w-4 h-4 sm:w-5 sm:h-5";
+} 
+// Nếu chỉ đang ở chế độ "Từ bị ẩn" bình thường (chưa trả lời) hoặc chỉ bật dịch
+else if (isShowingText || showVi) {
+    playBtnSize = "w-16 h-16 sm:w-20 sm:h-20"; 
+    playIconSize = "w-7 h-7 sm:w-8 sm:h-8";
+    sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14";
+    sideIconSize = "w-5 h-5 sm:w-6 sm:h-6";
+}
 
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden relative">
