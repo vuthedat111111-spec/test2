@@ -7850,16 +7850,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 
                  {/* BỘ ĐIỀU KHIỂN MỚI */}
                     <div className="w-fit max-w-full mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
-                        {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
-                        {supportSentence && (
-                            <div className="flex w-full sm:w-auto justify-center bg-zinc-200/50 p-1 rounded-xl">
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`flex-1 sm:flex-none px-2 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ ĐƠN</button>
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('hidden_word')} className={`flex-1 sm:flex-none px-2 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'hidden_word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>TỪ BỊ ẨN</button>
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('full_sentence')} className={`flex-1 sm:flex-none px-2 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'full_sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>CẢ CÂU</button>
-                            </div>
-                        )}
-
-                        {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
+                       {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
                         {supportSentence && (
                             <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1 bg-zinc-200/50 p-1 rounded-xl">
                                 <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
@@ -7873,6 +7864,22 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                 </button>
                             </div>
                         )}
+
+                        {/* NHÓM 2: CÔNG CỤ (Dàn ngang, chống rớt dòng) */}
+                        <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1.5 sm:gap-2">
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                DỊCH
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                LẶP
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                XEM LẠI
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
+                                {playbackRate}x
+                            </button>
+                        </div>
                     </div>
 
                    
