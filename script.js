@@ -7349,7 +7349,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         };
     }, [initLesson]);
 
-    // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
+   
+     // --- 2. HÀM TẢI (LAZY LOAD) VÀ PHÁT AUDIO ---
     const playCurrentAudio = React.useCallback(() => {
         if (queueRef.current.length === 0) return;
 
@@ -7379,8 +7380,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     
                     const currentItem = queueRef.current[currentIndexRef.current];
                     const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
-
-
+                    
+                    // --- ĐÃ FIX LOGIC Ở ĐÂY (LẦN 1) ---
                     const actualMode = ((modeRef.current === 'hidden_word' || modeRef.current === 'full_sentence') && hasSentenceData) ? 'sentence' : 'word';
                     const spriteKey = `${currentItem.id}_${actualMode}`;
                     
@@ -7402,13 +7403,14 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         const currentItem = queueRef.current[currentIndexRef.current];
         
         const hasSentenceData = currentItem.sentence && currentItem.sentence.trim() !== '' && currentItem.sentenceStartTime !== undefined && currentItem.sentenceEndTime !== undefined;
-        const actualMode = (modeRef.current === 'sentence' && hasSentenceData) ? 'sentence' : 'word';
+        
+        // --- ĐÃ FIX LOGIC Ở ĐÂY (LẦN 2) ---
+        const actualMode = ((modeRef.current === 'hidden_word' || modeRef.current === 'full_sentence') && hasSentenceData) ? 'sentence' : 'word';
         const spriteKey = `${currentItem.id}_${actualMode}`;
         
         soundRef.current.stop(); 
         soundRef.current.play(spriteKey);
     }, [lessonData, isAudioLoaded, isAudioLoading, playbackRate]);
-
     // Auto-play khi chuyển câu (Dùng Timeout cơ bản)
     React.useEffect(() => {
         if (!finished && queue.length > 0 && isAudioLoaded && soundRef.current) {
