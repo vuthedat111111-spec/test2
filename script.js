@@ -7280,6 +7280,26 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
+    const inputRef = React.useRef(null);
+
+    // 1. Tự động Focus (đưa con trỏ) vào ô nhập liệu khi sang câu mới hoặc khi bị phạt gõ lại
+    React.useEffect(() => {
+        if (status === 'idle' || status === 'retyping') {
+            setTimeout(() => inputRef.current?.focus(), 50);
+        }
+    }, [status, currentIndex]);
+
+    // 2. Bắt sự kiện phím Enter toàn cục (dù bấm ra ngoài) khi đang ở trạng thái xem lại (correct)
+    React.useEffect(() => {
+        const handleGlobalEnter = (e) => {
+            if (e.key === 'Enter' && status === 'correct') {
+                e.preventDefault();
+                goToNext(); // Gọi thẳng hàm chuyển câu
+            }
+        };
+        window.addEventListener('keydown', handleGlobalEnter);
+        return () => window.removeEventListener('keydown', handleGlobalEnter);
+    });
 
     // ================= BỘ CÔNG CỤ XỬ LÝ FURIGANA =================
     // Hàm bóc tách chỉ lấy Kanji: [卵](たまご) -> 卵
@@ -7848,40 +7868,40 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
                     <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
                 
-                 {/* BỘ ĐIỀU KHIỂN MỚI */}
-                    <div className="w-fit max-w-full mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
-                       {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
-                        {supportSentence && (
-                            <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1 bg-zinc-200/50 p-1 rounded-xl">
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
-                                    TỪ ĐƠN
+                {/* BỘ ĐIỀU KHIỂN MỚI */}
+                        {/* Đã sửa w-fit thành w-full ở dòng dưới đây */}
+                        <div className="w-full mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
+                            {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
+                            {supportSentence && (
+                                <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1 bg-zinc-200/50 p-1 rounded-xl">
+                                    <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                        TỪ ĐƠN
+                                    </button>
+                                    <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('hidden_word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'hidden_word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                        TỪ BỊ ẨN
+                                    </button>
+                                    <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('full_sentence')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'full_sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                        CẢ CÂU
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* NHÓM 2: CÔNG CỤ (Luôn căn giữa nếu Nhóm 1 bị ẩn) */}
+                            <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1.5 sm:gap-2">
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                    DỊCH
                                 </button>
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('hidden_word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'hidden_word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
-                                    TỪ BỊ ẨN
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                    LẶP
                                 </button>
-                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('full_sentence')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'full_sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
-                                    CẢ CÂU
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                    XEM LẠI
+                                </button>
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
+                                    {playbackRate}x
                                 </button>
                             </div>
-                        )}
-
-                        {/* NHÓM 2: CÔNG CỤ (Dàn ngang, chống rớt dòng) */}
-                        <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1.5 sm:gap-2">
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                DỊCH
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                LẶP
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                XEM LẠI
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
-                                {playbackRate}x
-                            </button>
                         </div>
-                    </div>
-
                    
                         <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
 
@@ -7931,54 +7951,55 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         </div>
 
-                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
-                        {isShowingText && (
-                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
-                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
-                                    <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                       {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && status !== 'correct') ? (
-                                            <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                                        ) : effectiveMode === 'full_sentence' ? (
-                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
-                                            <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
-                                                {renderFurigana(currentItem.sentence, true)}
+                       {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ (Đã thêm min-h-[120px] để chống giật) */}
+                        <div className="w-full flex flex-col items-center justify-start min-h-[120px] shrink-0">
+                            {isShowingText && (
+                                <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
+                                   {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                                        <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
+                                            {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && status !== 'correct') ? (
+                                                <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
+                                            ) : effectiveMode === 'full_sentence' ? (
+                                                <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
+                                                    {renderFurigana(currentItem.sentence, true)}
+                                                </span>
+                                            ) : (
+                                                renderMaskedSentence(
+                                                    currentItem.sentence, 
+                                                    currentItem.word, 
+                                                    (effectiveMode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, 
+                                                    currentItem.blankWord
+                                                )
+                                            )}
+                                        </div>
+                                   ) : (
+                                        <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-5 py-2 rounded-xl min-w-[100px]">
+                                            <span className={`text-xl sm:text-2xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
+                                                {currentItem.word}
                                             </span>
-                                        ) : (
-                                            /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
-                                            renderMaskedSentence(
-                                                currentItem.sentence, 
-                                                currentItem.word, 
-                                                (effectiveMode === 'hidden_word' && currentItem.blankReading) ? currentItem.blankReading : currentItem.reading, 
-                                                currentItem.blankWord
-                                            )
-                                        )}
-                                    </div>
-                               ) : (
-    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-5 py-2 rounded-xl min-w-[100px]">
-        <span className={`text-xl sm:text-2xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
-            {currentItem.word}
-        </span>
-        
-        {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
-        {currentItem.word !== currentItem.reading && (
-            <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">
-                {currentItem.reading}
-            </span>
-        )}
-    </div>
-)}
-                            </div>
-                        )}
-{(showVi || status === 'correct') && (
-    <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
-{(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
-    </p>
-)}
-                    </div>
+                                            
+                                            {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
+                                            {currentItem.word !== currentItem.reading && (
+                                                <span className="text-[11px] sm:text-xs font-bold text-indigo-500 tracking-widest">
+                                                    {currentItem.reading}
+                                                </span>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {(showVi || status === 'correct') && (
+                                <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2 mt-3"> 
+                                    {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+                                </p>
+                            )}
+                        </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
                         <input 
+ref={inputRef}
     type="text" 
     
     value={userInput} 
