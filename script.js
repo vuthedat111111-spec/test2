@@ -7265,6 +7265,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [showHint, setShowHint] = React.useState(false); 
     const [isLooping, setIsLooping] = React.useState(false); 
     const [playbackRate, setPlaybackRate] = React.useState(1); 
+    const [isReviewMode, setIsReviewMode] = React.useState(true);
 
     // State Audio
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -7564,11 +7565,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         // NOTE: Đã gỡ bỏ lệnh playCurrentAudio() ở đây theo yêu cầu
     };
 
-  const checkAnswer = () => {
+ const checkAnswer = () => {
     if (finished) return;
-    // Bấm Enter lần 2 khi đang hiện đáp án đúng ở chế độ Cả câu
+    // Bấm Enter lần 2 khi đã trả lời đúng để qua bài (Chỉ chạy khi bật Xem Lại)
     if (status === 'correct') {
-        goToNext();
+        if (isReviewMode) goToNext();
         return;
     }
     const currentItem = queue[currentIndex];
@@ -7656,18 +7657,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-      if (isCorrect) {
+    if (isCorrect) {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
-            // Dừng auto-next ở chế độ Cả câu (Áp dụng cho mọi từ kể cả từ không có câu ví dụ)
-            if (mode === 'full_sentence') {
-                // TỰ ĐỘNG PHÁT LẠI ÂM THANH 1 LẦN NỮA
+            if (isReviewMode) {
+                // CHẾ ĐỘ XEM LẠI: Phát lại âm thanh 1 lần nữa và chờ bấm Enter
                 setTimeout(() => playCurrentAudio(), 50);
-                // Chờ user bấm Enter lần nữa để qua bài
             } else {
-                setTimeout(() => goToNext(), 250);
+                // CHẾ ĐỘ TỰ CHUYỂN: Tự động qua câu mới ngay lập tức
+                setTimeout(() => goToNext(), 100);
             }
         } else {
             const newWrongCount = wrongCount + 1;
@@ -7807,7 +7807,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         effectiveMode = 'word';
     }
 
-    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (mode === 'full_sentence' && status === 'correct');
+    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || status === 'correct';
     
     // Tính toán kích thước các nút động
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
@@ -7857,6 +7857,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </div>
                         )}
 
+
                         {/* NHÓM 2: CÔNG CỤ (Luôn căn giữa nếu Nhóm 1 bị ẩn) */}
                         <div className="flex w-full sm:w-auto justify-center gap-2">
                             <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
@@ -7867,6 +7868,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </button>
                             <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
                                 {playbackRate}x
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsReviewMode(!isReviewMode)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isReviewMode ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`} title="Dừng lại để xem đáp án khi gõ đúng">
+                                XEM LẠI
                             </button>
                         </div>
                     </div>
@@ -7958,9 +7962,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 )}
                             </div>
                         )}
-{(showVi || (mode === 'full_sentence' && status === 'correct')) && (
+{(showVi || status === 'correct') && (
     <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
-        {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+{(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
     </p>
 )}
                     </div>
@@ -7988,8 +7992,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 </button>
                             <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                {status === 'correct' && mode === 'full_sentence' ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
-                            </span>
+                              {status === 'correct' && isReviewMode ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
                         </div>
                     </div>
 
