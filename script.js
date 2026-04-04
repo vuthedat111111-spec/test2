@@ -7276,6 +7276,29 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const soundRef = React.useRef(null);
     const loopTimerRef = React.useRef(null);
 
+    // Lắng nghe sự kiện Enter toàn cục (Giúp PC ấn Enter ở đâu cũng chuyển bài)
+    React.useEffect(() => {
+        const handleGlobalEnter = (e) => {
+            if (e.key === 'Enter' && status === 'correct' && !finished) {
+                e.preventDefault();
+                clearTimeout(loopTimerRef.current);
+                if (currentIndex < queue.length - 1) {
+                    setCurrentIndex(prev => prev + 1);
+                    setUserInput('');
+                    setStatus('idle');
+                    setShowHint(false);
+                    setWrongCount(0);
+                    setWrongDetected(false); 
+                } else {
+                    setFinished(true);
+                }
+            }
+        };
+        
+        window.addEventListener('keydown', handleGlobalEnter);
+        return () => window.removeEventListener('keydown', handleGlobalEnter);
+    }, [status, finished, currentIndex, queue.length]);
+
     const currentIndexRef = React.useRef(currentIndex);
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
@@ -7506,6 +7529,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     };
 
     const handleInputChange = (e) => {
+        if (status === 'correct') return;
         const val = e.target.value;
         if (isComposing.current) {
             setUserInput(val); // Nếu đang gõ dở (gom chữ), giữ nguyên raw value để bộ gõ tự xử lý
