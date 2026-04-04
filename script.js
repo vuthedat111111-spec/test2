@@ -7560,46 +7560,55 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     // Chế độ THỰC TẾ: Nếu chọn Cả câu/Từ bị ẩn nhưng không có data câu -> Lùi về Từ đơn
     const effectiveMode = ((mode === 'hidden_word' || mode === 'full_sentence') && hasSentenceData) ? mode : 'word';
 
-  // HÀM LỌC SIÊU MẠNH: Xóa sạch dấu câu, giữ lại Kana, Kanji, trường âm
+// HÀM LỌC SIÊU MẠNH: Xóa sạch dấu câu, giữ lại Kana, Kanji, trường âm
     const cleanText = (str) => {
         if (!str) return '';
         return str.replace(/[^\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\u3005\u30FC]/g, '');
     };
 
     let isCorrect = false;
+    const cleanInput = cleanText(finalInput);
 
     if (effectiveMode === 'full_sentence') {
-        // === CHẤM ĐIỂM CẢ CÂU (Hỗ trợ cú pháp Furigana) ===
-        let acceptableAnswers = [];
-        
-        // Bóc tách câu gốc thành 2 bản: Thuần Kanji và Thuần Hiragana
-        const baseSentence = extractBase(currentItem.sentence);
-        const kanaSentence = extractRuby(currentItem.sentence);
-        
-        const targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
-        const targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
-        
-        if (baseSentence) acceptableAnswers.push(cleanText(baseSentence));
-        if (kanaSentence) acceptableAnswers.push(cleanText(kanaSentence));
-        
-        // Trộn chéo: Câu Kanji nhưng chữ đang học viết bằng Hiragana
-        if (baseSentence && targetWordBase && targetWordRuby) {
-            acceptableAnswers.push(cleanText(baseSentence.replace(targetWordBase, targetWordRuby)));
-        }
-        // Trộn chéo: Câu Hiragana nhưng chữ đang học viết bằng Kanji
-        if (kanaSentence && targetWordRuby && targetWordBase) {
-            acceptableAnswers.push(cleanText(kanaSentence.replace(targetWordRuby, targetWordBase)));
-        }
+        // === TỐI ƯU HÓA CHẤM ĐIỂM CẢ CÂU BẰNG REGEX ===
+        // Thuật toán quét cú pháp [Kanji](kana) và tạo ra mẫu so khớp linh hoạt cho TOÀN BỘ CÂU
+        const buildRegexFromFurigana = (str) => {
+            if (!str) return null;
+            const regex = /\[(.*?)\]\((.*?)\)/g;
+            let lastIndex = 0;
+            let match;
+            let pattern = "^";
+            
+            while ((match = regex.exec(str)) !== null) {
+                // Nối phần chữ bình thường phía trước
+                if (match.index > lastIndex) {
+                    pattern += cleanText(str.slice(lastIndex, match.index));
+                }
+                // Tạo nhánh chấp nhận (Kanji HOẶC Kana) cho mỗi cụm Furigana
+                const base = cleanText(match[1]);
+                const ruby = cleanText(match[2]);
+                pattern += `(${base}|${ruby})`;
+                
+                lastIndex = regex.lastIndex;
+            }
+            // Nối phần chữ bình thường còn sót lại ở đuôi câu
+            if (lastIndex < str.length) {
+                pattern += cleanText(str.slice(lastIndex));
+            }
+            pattern += "$";
+            return new RegExp(pattern);
+        };
 
-        const cleanInput = cleanText(finalInput);
-        isCorrect = acceptableAnswers.includes(cleanInput);
-
+        const sentenceRegex = buildRegexFromFurigana(currentItem.sentence);
+        if (sentenceRegex && sentenceRegex.test(cleanInput)) {
+            isCorrect = true;
+        }
     } else {
         // === CHẤM ĐIỂM TỪ ĐƠN / TỪ BỊ ẨN ===
         const targetWordBase = extractBase(currentItem.blankWord || currentItem.word);
         const targetWordRuby = extractRuby(currentItem.blankReading || currentItem.reading);
         
-        isCorrect = (cleanText(finalInput) === cleanText(targetWordBase)) || (cleanText(finalInput) === cleanText(targetWordRuby));
+        isCorrect = (cleanInput === cleanText(targetWordBase)) || (cleanInput === cleanText(targetWordRuby));
     }
 
         // Đang bị phạt gõ lại
