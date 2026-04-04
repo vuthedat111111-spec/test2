@@ -7564,8 +7564,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         // NOTE: Đã gỡ bỏ lệnh playCurrentAudio() ở đây theo yêu cầu
     };
 
-   const checkAnswer = () => {
-    if (status === 'correct' || finished) return;
+  const checkAnswer = () => {
+    if (finished) return;
+    // Bấm Enter lần 2 khi đang hiện đáp án đúng ở chế độ Cả câu
+    if (status === 'correct') {
+        goToNext();
+        return;
+    }
     const currentItem = queue[currentIndex];
     let finalInput = userInput.trim();
 
@@ -7651,11 +7656,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-        if (isCorrect) {
+       if (isCorrect) {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
-            setTimeout(() => goToNext(), 250);
+            
+            // Dừng auto-next ở chế độ Cả câu
+            if (effectiveMode === 'full_sentence') {
+                // Chờ user bấm Enter lần nữa (đã xử lý ở Bước 1)
+            } else {
+                setTimeout(() => goToNext(), 250);
+            }
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
@@ -7794,10 +7805,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         effectiveMode = 'word';
     }
 
-    // HIỂN THỊ TEXT: 
-    // - Luôn hiện nếu là 'Từ bị ẩn' (để đục lỗ)
-    // - Chỉ hiện khi bấm Đáp án/Gõ sai nếu là 'Cả câu' hoặc 'Từ đơn'
-    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping';
+    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (effectiveMode === 'full_sentence' && status === 'correct');
     
     // Tính toán kích thước các nút động
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
@@ -7948,7 +7956,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 )}
                             </div>
                         )}
-{showVi && (
+{(showVi || (effectiveMode === 'full_sentence' && status === 'correct')) && (
     <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2">
         {/* Dùng effectiveMode: Tự động lùi về hiển thị nghĩa của từ đơn nếu không có câu ví dụ */}
         {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
@@ -7979,7 +7987,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 </button>
                             <span className="text-[9px] sm:text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                Bấm Enter để kiểm tra
+                                {status === 'correct' && effectiveMode === 'full_sentence' ? 'Bấm Enter để chuyển câu' : 'Bấm Enter để kiểm tra'}
                             </span>
                         </div>
                     </div>
