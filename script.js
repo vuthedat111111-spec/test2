@@ -7657,7 +7657,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-   if (isCorrect) {
+ if (isCorrect) {
             // CHUNG: Luôn set trạng thái màu xanh trước
             setStatus('correct');
             setWrongCount(0); 
@@ -7665,10 +7665,10 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             
             if (isAutoReview) {
                 // NẾU BẬT XEM LẠI: Phát lại audio và chờ người dùng bấm Enter
-                setTimeout(() => playCurrentAudio(), 70);
+                setTimeout(() => playCurrentAudio(), 100);
             } else {
-                // NẾU TẮT XEM LẠI: Đợi đúng 100ms (hiện xanh lên một chút) rồi tự chuyển câu
-                setTimeout(() => goToNext(), 70);
+                // NẾU TẮT XEM LẠI: Đợi 400ms để hiệu ứng màu xanh hiển thị mượt mà rồi tự chuyển câu
+                setTimeout(() => goToNext(), 100);
             }
             
         } else {
