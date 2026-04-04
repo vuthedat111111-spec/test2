@@ -7658,16 +7658,17 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         }
 
    if (isCorrect) {
+            // CHUNG: Luôn set trạng thái màu xanh trước
+            setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
             if (isAutoReview) {
-                // Đang bật "Xem lại": Hiện màu xanh và đọc lại âm thanh
-                setStatus('correct');
-                setTimeout(() => playCurrentAudio(), 50);
+                // NẾU BẬT XEM LẠI: Phát lại audio và chờ người dùng bấm Enter
+                setTimeout(() => playCurrentAudio(), 70);
             } else {
-                // Đang tắt "Xem lại": Gọi thẳng hàm qua câu mới, bỏ qua bước đổi màu xanh
-                goToNext(); 
+                // NẾU TẮT XEM LẠI: Đợi đúng 100ms (hiện xanh lên một chút) rồi tự chuyển câu
+                setTimeout(() => goToNext(), 70);
             }
             
         } else {
@@ -7858,21 +7859,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </div>
                         )}
 
-                        {/* NHÓM 2: CÔNG CỤ (Luôn căn giữa nếu Nhóm 1 bị ẩn) */}
-                        <div className="flex w-full sm:w-auto justify-center gap-2">
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setShowVi(!showVi)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${showVi ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                DỊCH
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                LẶP
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
-                                XEM LẠI
-                            </button>
-                            <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
-                                {playbackRate}x
-                            </button>
-                        </div>
+                        {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
+                        {supportSentence && (
+                            <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1 bg-zinc-200/50 p-1 rounded-xl">
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                    TỪ ĐƠN
+                                </button>
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('hidden_word')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'hidden_word' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                    TỪ BỊ ẨN
+                                </button>
+                                <button onMouseDown={(e) => e.preventDefault()} onClick={() => setMode('full_sentence')} className={`flex-1 flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all outline-none ${mode === 'full_sentence' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-800'}`}>
+                                    CẢ CÂU
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                    
@@ -7981,6 +7981,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
     onFocus={() => setIsInputFocused(true)} 
     onBlur={() => setIsInputFocused(false)}
+    readOnly={status === 'correct'}
     placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
     className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
 />
