@@ -7656,15 +7656,16 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-       if (isCorrect) {
+      if (isCorrect) {
             setStatus('correct');
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
-          
-           // Dừng auto-next ở chế độ Cả câu (Áp dụng cho mọi từ kể cả từ không có câu ví dụ)
+            // Dừng auto-next ở chế độ Cả câu (Áp dụng cho mọi từ kể cả từ không có câu ví dụ)
             if (mode === 'full_sentence') {
-                // Chờ user bấm Enter lần nữa (đã xử lý ở Bước 1)
+                // TỰ ĐỘNG PHÁT LẠI ÂM THANH 1 LẦN NỮA
+                setTimeout(() => playCurrentAudio(), 50);
+                // Chờ user bấm Enter lần nữa để qua bài
             } else {
                 setTimeout(() => goToNext(), 250);
             }
