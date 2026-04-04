@@ -1961,13 +1961,11 @@
     "reading": "きく",
     "meaning": "nghe",
     "sentence": "",
-    "sentenceVi": "Tôi nghe đĩa CD ở nhà.",
-    "blankWord": "聞きます",
-    "blankReading": "ききます",
+    "sentenceVi": "",
+    "blankWord": "",
+    "blankReading": "",
     "wordStartTime": 360.81,
-    "wordEndTime": 361.36,
-    "sentenceStartTime": 362.69,
-    "sentenceEndTime": 364.88
+    "wordEndTime": 361.36
   },
   {
     "id": 176,
