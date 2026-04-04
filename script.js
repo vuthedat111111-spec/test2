@@ -7281,8 +7281,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
     const inputRef = React.useRef(null);
-
-    // 1. Tự động Focus (đưa con trỏ) vào ô nhập liệu khi sang câu mới hoặc khi bị phạt gõ lại
     React.useEffect(() => {
         if (status === 'idle' || status === 'retyping') {
             setTimeout(() => inputRef.current?.focus(), 50);
@@ -7868,7 +7866,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
                     <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
                 
-                {/* BỘ ĐIỀU KHIỂN MỚI */}
+                 {/* BỘ ĐIỀU KHIỂN MỚI */}
                         {/* Đã sửa w-fit thành w-full ở dòng dưới đây */}
                         <div className="w-full mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
                             {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
@@ -7902,6 +7900,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                 </button>
                             </div>
                         </div>
+
                    
                         <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
 
@@ -7951,7 +7950,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         </div>
 
-                       {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ (Đã thêm min-h-[120px] để chống giật) */}
+                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ (Đã thêm min-h-[120px] để chống giật) */}
                         <div className="w-full flex flex-col items-center justify-start min-h-[120px] shrink-0">
                             {isShowingText && (
                                 <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
