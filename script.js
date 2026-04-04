@@ -888,16 +888,15 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         }
     };
 
-    // Chỉ convert khi người dùng KHÔNG TRONG TRẠNG THÁI GOM CHỮ
     const handleInputChange = (e) => {
-        const val = e.target.value;
-        if (isComposing.current) {
-            setUserInput(val); // Đang gõ dở thì giữ nguyên để bàn phím tự lo
-        } else {
-            processInput(val); // Gõ xong rồi mới ép kiểu/convert
-        }
-    };
-
+    if (status === 'correct') return;
+    const val = e.target.value;
+    if (isComposing.current) {
+        setUserInput(val); 
+    } else {
+        processInput(val); 
+    }
+};
     const handleCompositionStart = () => {
         isComposing.current = true;
     };
@@ -980,6 +979,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
             setStatus('idle');
             setCorrectAnswer('');
             setWrongDetected(false);
+            setTimeout(() => inputRef.current?.focus(), 50);
         } else { setFinished(true); }
     };
 
@@ -7266,6 +7266,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [isLooping, setIsLooping] = React.useState(false); 
     const [isAutoReview, setIsAutoReview] = React.useState(true); 
     const [playbackRate, setPlaybackRate] = React.useState(1); 
+    
 
     // State Audio
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -7280,7 +7281,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const queueRef = React.useRef(queue);
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
-
+   const inputRef = React.useRef(null);
     // ================= BỘ CÔNG CỤ XỬ LÝ FURIGANA =================
     // Hàm bóc tách chỉ lấy Kanji: [卵](たまご) -> 卵
     const extractBase = (str) => str ? str.replace(/\[(.*?)\]\([^)]+\)/g, '$1') : '';
@@ -7562,7 +7563,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setShowHint(true);
         setStatus('retyping');
         setUserInput('');
-        // NOTE: Đã gỡ bỏ lệnh playCurrentAudio() ở đây theo yêu cầu
+        setTimeout(() => inputRef.current?.focus(), 50);
+      
     };
 
  const checkAnswer = () => {
@@ -7686,9 +7688,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 setTimeout(() => {
                     setShowHint(true);
                     setStatus('retyping');
+                    inputRef.current?.focus();
                 }, 500);
             } else {
-                setTimeout(() => setStatus('idle'), 500); 
+                setTimeout(() => {
+                    setStatus('idle');
+                    inputRef.current?.focus(); 
+                }, 500); 
             }
         }
     };
@@ -7933,20 +7939,20 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 
                         </div>
 
-                        {/* KHU VỰC CHỮ & DỊCH NGHĨA (Đã fix cứng chiều cao chống xô dịch 100%) */}
-                        <div className="w-full flex flex-col items-center justify-start min-h-[140px] mt-4">
-                            
-                            {/* Khối Tiếng Nhật */}
-                            <div className={`w-full flex justify-center transition-all duration-300 ${isShowingText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
+                        {/* HIỂN THỊ CHỮ HOẶC CÂU VÍ DỤ */}
+                        {isShowingText && (
+                            <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
+                           {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                        {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
+                                      {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                                        ) : effectiveMode === 'full_sentence' ? (
+                            ) : effectiveMode === 'full_sentence' ? (
+                                            /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
                                             <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
                                                 {renderFurigana(currentItem.sentence, true)}
                                             </span>
                                         ) : (
+                                            /* CÂU ĐỤC LỖ BÂY GIỜ SẼ BẢO TOÀN 100% FURIGANA */
                                             renderMaskedSentence(
                                                 currentItem.sentence, 
                                                 currentItem.word, 
@@ -7955,28 +7961,28 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                                             )
                                         )}
                                     </div>
-                               ) : (
-                                    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-lg inline-flex w-auto min-w-[80px]">
-                                        <span className={`text-lg sm:text-xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
-                                            {currentItem.word}
-                                        </span>
-                                        {currentItem.word !== currentItem.reading && (
-                                            <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
-                                                {currentItem.reading}
-                                            </span>
-                                        )}
-                                    </div>
-                                )}
+                             ) : (
+    <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-lg inline-flex w-auto min-w-[80px]">
+        <span className={`text-lg sm:text-xl font-black text-indigo-700 ${currentItem.word !== currentItem.reading ? 'mb-0.5' : ''}`}>
+            {currentItem.word}
+        </span>
+        
+        {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
+        {currentItem.word !== currentItem.reading && (
+            <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
+                {currentItem.reading}
+            </span>
+        )}
+    </div>
+)}
                             </div>
-
-                            {/* Khối Dịch Nghĩa */}
-                            <div className={`w-full flex justify-center transition-all duration-300 ${(showVi || (status === 'correct' && isAutoReview)) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                                <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md pt-3"> 
-                                    {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
-                                </p>
-                            </div>
-
-                        </div>
+                        )}
+{(showVi || (status === 'correct' && isAutoReview)) && (
+                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
+                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+                            </p>
+                        )}
+                    </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
@@ -7990,7 +7996,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
     onFocus={() => setIsInputFocused(true)} 
     onBlur={() => setIsInputFocused(false)}
-    readOnly={status === 'correct'}
+  
     placeholder={status === 'retyping' ? "Nhập lại từ vựng" : "Nhập từ vựng"}
     className={`w-full p-3.5 sm:p-4 text-center text-lg sm:text-xl font-bold border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
 />
