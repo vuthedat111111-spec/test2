@@ -7159,21 +7159,21 @@ const DictationModal = ({ isOpen, onClose }) => {
                      <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">TANGO N4, N3, N2, N1</span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
+                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
                     </button>
 
                          <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
                      <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MIMIKARA N3, N2, N1</span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
+                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
                     </button>
 
                          <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
                      <div className="flex justify-between items-center w-full">
                             <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MINNA NO NIHONGO N4</span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Đang cập nhật dữ liệu...</span>
+                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
                     </button>
 
                         
