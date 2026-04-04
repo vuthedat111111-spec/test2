@@ -7668,7 +7668,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 setTimeout(() => playCurrentAudio(), 100);
             } else {
                 // NẾU TẮT XEM LẠI: Đợi 400ms để hiệu ứng màu xanh hiển thị mượt mà rồi tự chuyển câu
-                setTimeout(() => goToNext(), 100);
+                setTimeout(() => goToNext(), 400);
             }
             
         } else {
@@ -7785,9 +7785,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 {/* Nửa trước của câu */}
                 {renderFurigana(beforeRaw, true)}
                 
-                {/* Vị trí đục lỗ / Hiển thị đáp án */}
-                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${showHint || status === 'retyping' || status === 'correct' ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
-                    {showHint || status === 'retyping' || status === 'correct' ? (
+               {/* Vị trí đục lỗ / Hiển thị đáp án */}
+                <span className={`px-2 mx-1 border-b-2 transition-colors inline-flex flex-col items-center justify-end align-bottom ${(showHint || status === 'retyping' || (status === 'correct' && isAutoReview)) ? 'text-indigo-600 border-indigo-600' : 'text-zinc-300 border-zinc-400'}`}>
+                    {(showHint || status === 'retyping' || (status === 'correct' && isAutoReview)) ? (
                         <span className="font-bold whitespace-nowrap">{wordToMask}{displayReading}</span>
                     ) : '＿＿＿'}
                 </span>
@@ -7938,9 +7938,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300">
                            {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? (
                                     <div className="text-lg sm:text-xl font-bold text-zinc-800 text-center w-full leading-loose px-2">
-                                       {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && status !== 'correct') ? (
+                                      {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
-                                        ) : effectiveMode === 'full_sentence' ? (
+                            ) : effectiveMode === 'full_sentence' ? (
                                             /* ĐÃ FIX: Thêm inline-block để Furigana không bị cắt xén lề trên */
                                             <span className="font-sans leading-loose text-zinc-900 inline-block mt-2">
                                                 {renderFurigana(currentItem.sentence, true)}
@@ -8002,7 +8002,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 </button>
                            <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 transition-all duration-300 ${status === 'correct' ? 'text-red-400/80 animate-pulse' : 'text-zinc-400'}`}>
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
-                                {status === 'correct' ? 'Bấm Enter để chuyển câu...' : 'Bấm Enter để kiểm tra'}
+                                {status === 'correct' ? (isAutoReview ? 'Bấm Enter để chuyển câu...' : 'Đang tự động chuyển...') : 'Bấm Enter để kiểm tra'}
                             </span>
                         </div>
                     </div>
