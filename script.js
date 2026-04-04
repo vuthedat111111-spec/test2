@@ -7730,9 +7730,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                 <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
                     <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
                 
-                  {/* BỘ ĐIỀU KHIỂN MỚI */}
-                    <div className="w-full max-w-lg mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0">
-                        
+                 {/* BỘ ĐIỀU KHIỂN MỚI */}
+                    <div className="w-fit max-w-full mx-auto mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
                         {/* NHÓM 1: CHỌN CHẾ ĐỘ (Chỉ hiện khi file JSON có câu ví dụ) */}
                         {supportSentence && (
                             <div className="flex w-full sm:w-auto justify-center bg-zinc-200/50 p-1 rounded-xl">
