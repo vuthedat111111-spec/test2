@@ -106,11 +106,9 @@
     "reading": "はい",
     "meaning": "vâng, dạ",
     "sentence": "",
-    "sentenceVi": "A: Anh Yamada phải không? / B: Vâng.",
+    "sentenceVi": "",
     "wordStartTime": 41.98,
-    "wordEndTime": 42.43,
-    "sentenceStartTime": 43.75,
-    "sentenceEndTime": 46.1
+    "wordEndTime": 42.43
   },
   {
     "id": "v10",
@@ -130,11 +128,9 @@
     "reading": "いいえ",
     "meaning": "không",
     "sentence": "",
-    "sentenceVi": "A: Anh Yamada phải không? / C: Không.",
+    "sentenceVi": "",
     "wordStartTime": 54.31,
-    "wordEndTime": 55.13,
-    "sentenceStartTime": 56.16,
-    "sentenceEndTime": 58.94
+    "wordEndTime": 55.13
   },
   {
     "id": "v12",
@@ -1960,6 +1956,8 @@
     "word": "聞く",
     "reading": "きく",
     "meaning": "nghe",
+    "sentence": "",
+    "sentenceVi": "",
     "wordStartTime": 360.81,
     "wordEndTime": 361.36
   },
