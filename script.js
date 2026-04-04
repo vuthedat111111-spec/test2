@@ -7809,7 +7809,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         effectiveMode = 'word';
     }
 
-    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || status === 'correct';
+  // Thêm điều kiện isAutoReview vào lúc correct để chặn layout shift
+    const isShowingText = effectiveMode === 'hidden_word' || showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
     
     // Tính toán kích thước các nút động
     let playBtnSize = "w-24 h-24 sm:w-28 sm:h-28"; 
@@ -7970,11 +7971,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
 )}
                             </div>
                         )}
-{(showVi || status === 'correct') && (
-    <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
-{(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
-    </p>
-)}
+{(showVi || (status === 'correct' && isAutoReview)) && (
+                            <p className="text-[13px] sm:text-sm font-medium text-zinc-500 text-center px-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-2"> 
+                                {(effectiveMode === 'hidden_word' || effectiveMode === 'full_sentence') ? currentItem.sentenceVi : currentItem.meaning}
+                            </p>
+                        )}
                     </div>
 
                     {/* VÙNG NHẬP LIỆU (Cố định ở dưới cùng) */}
