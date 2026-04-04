@@ -7300,7 +7300,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                     <ruby key={index} className="leading-loose mx-0.5">
                         {match[1]}
                        
-                        {isShow && <rt className="inline-block leading-none pb-[1px] md:pb-[2px] text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
+                        {isShow && <rt className="leading-none pb-[1px] md:pb-[2px] text-[11px] sm:text-xs text-indigo-500 font-bold select-none">{match[2]}</rt>}
                     </ruby>
                 );
             }
@@ -7786,7 +7786,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             <ruby>
                                 <span className="text-zinc-900">{wordToMask}</span>
                                 {wordToMask !== readingText && (
-                                    <rt className="inline-block leading-none pb-[1px] md:pb-[2px] text-[11px] sm:text-xs font-bold select-none text-indigo-600">{readingText}</rt>
+                                    <rt className="leading-none pb-[1px] md:pb-[2px] text-[11px] sm:text-xs font-bold select-none text-indigo-600">{readingText}</rt>
                                 )}
                             </ruby>
                         </span>
