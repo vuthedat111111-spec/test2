@@ -7264,6 +7264,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const [showVi, setShowVi] = React.useState(false); 
     const [showHint, setShowHint] = React.useState(false); 
     const [isLooping, setIsLooping] = React.useState(false); 
+    const [isAutoReview, setIsAutoReview] = React.useState(true); 
     const [playbackRate, setPlaybackRate] = React.useState(1); 
 
     // State Audio
@@ -7656,16 +7657,22 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
             return;
         }
 
-     if (isCorrect) {
-            setStatus('correct');
+    if (isCorrect) {
             setWrongCount(0); 
             clearTimeout(loopTimerRef.current);
             
-            // TỰ ĐỘNG PHÁT LẠI ÂM THANH 1 LẦN NỮA
-            setTimeout(() => playCurrentAudio(), 50);
-
-
-        
+            // --- THÊM LOGIC KIỂM TRA CHẾ ĐỘ XEM LẠI ---
+            if (isAutoReview) {
+                setStatus('correct');
+                // TỰ ĐỘNG PHÁT LẠI ÂM THANH 1 LẦN NỮA VÀ CHỜ BẤM ENTER
+                setTimeout(() => playCurrentAudio(), 50);
+            } else {
+                // NẾU TẮT "XEM LẠI" -> ĐỔI XANH TRONG CHỚP MẮT VÀ QUA CÂU MỚI LUÔN
+                setStatus('correct');
+                setTimeout(() => {
+                    goToNext();
+                }, 50);
+            }
         } else {
             const newWrongCount = wrongCount + 1;
             setWrongCount(newWrongCount);
@@ -7861,6 +7868,9 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
                             </button>
                             <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
                                 LẶP
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                XEM LẠI
                             </button>
                             <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
                                 {playbackRate}x
