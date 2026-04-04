@@ -7478,24 +7478,31 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
         setPlaybackRate(rates[nextIdx]);
     };
 
-   const processInput = (val) => {
+ const processInput = (val) => {
         const currentItem = queue[currentIndex];
-        let targetKana = '';
+        
+        // KIỂM TRA THỰC TẾ: Đang ở chế độ Cả câu VÀ item này thực sự có câu ví dụ
+        const isRealFullSentence = mode === 'full_sentence' && currentItem?.sentence;
 
-        if (mode === 'full_sentence') {
-            // FIX: Lột sạch cú pháp [ ]( ) để lấy chuỗi chữ gốc làm khuôn mẫu nắn Katakana
-            const rawSentence = currentItem?.sentence || '';
-            targetKana = rawSentence.replace(/\[(.*?)\]\((.*?)\)/g, "$1"); 
-        } else {
-            // Khi gõ từ đơn hoặc từ bị ẩn
-            const rawTarget = (mode === 'hidden_word' && currentItem?.blankReading) 
-                         ? currentItem.blankReading 
-                         : (currentItem?.word || currentItem?.reading || '');
-            targetKana = rawTarget.replace(/\[(.*?)\]\((.*?)\)/g, "$1");
+        // Nếu đúng là đang gõ Cả câu -> Tắt tự nắn chữ
+        if (isRealFullSentence) {
+            setUserInput(val);
+            return;
         }
+
+        // ==========================================
+        // RƠI VÀO ĐÂY KHI: Gõ Từ đơn, Từ bị ẩn, HOẶC chế độ Cả câu nhưng từ đó KHÔNG có câu ví dụ
+        let targetKana = '';
+        
+        const rawTarget = (mode === 'hidden_word' && currentItem?.blankReading) 
+                     ? currentItem.blankReading 
+                     : (currentItem?.word || currentItem?.reading || '');
+                     
+        targetKana = rawTarget.replace(/\[(.*?)\]\((.*?)\)/g, "$1");
 
         setUserInput(convertToKana(val, targetKana));
     };
+
     const handleInputChange = (e) => {
         const val = e.target.value;
         if (isComposing.current) {
