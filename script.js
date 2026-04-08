@@ -931,13 +931,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
     }, []);
 
-   React.useEffect(() => { 
-        if (finished) {
-            triggerConfetti(); 
-            // Đánh dấu ngầm là đã hoàn thành ít nhất 1 bài trong phiên này
-            localStorage.setItem('dictation_just_finished', 'true');
-        }
-    }, [finished, triggerConfetti]);
+    useEffect(() => { if (finished && isOpen) triggerConfetti(); }, [finished, isOpen]);
 
     const checkAnswer = () => {
         if (status === 'correct' || finished) return;
@@ -8072,9 +8066,14 @@ else if (isShowingText || showVi) {
                         <button onClick={() => initLesson(true)} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
                             HỌC LẠI TỪ ĐẦU
                         </button>
+                        
 <button 
-    onClick={onBack} 
-    className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none"
+    onClick={() => {
+        onBack();
+     
+        window.dispatchEvent(new CustomEvent('checkDictationAd'));
+    }} 
+    className="..."
 >
     VỀ DANH SÁCH BÀI
 </button>
@@ -8490,22 +8489,9 @@ React.useEffect(() => {
 />
         
 <DictationModal 
-    isOpen={isDictationMenuOpen}
-    onClose={() => {
-        setIsDictationMenuOpen(false); // Tắt màn Luyện nghe
-        
-        // Kiểm tra xem nãy giờ có học xong bài nào không?
-        if (localStorage.getItem('dictation_just_finished') === 'true') {
-            // Có học xong -> Gọi kiểm tra cỗ máy quảng cáo 1 tiếng
-            setTimeout(() => {
-                window.dispatchEvent(new CustomEvent('checkDictationAd'));
-            }, 300);
-            
-            // Xóa dấu vết để lần sau tính lại từ đầu
-            localStorage.removeItem('dictation_just_finished'); 
-        }
-    }}
-/>
+        isOpen={isDictationMenuOpen}
+        onClose={() => setIsDictationMenuOpen(false)}
+    />
             {/* 3. RENDER MODAL DANH SÁCH LỊCH TRÌNH */} 
             <ReviewListModal 
     isOpen={isReviewListOpen}
