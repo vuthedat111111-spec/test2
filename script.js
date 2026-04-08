@@ -2673,6 +2673,69 @@ const KanjiOfTheDay = () => {
     );
 };
 
+// --- COMPONENT: MODAL MỜI CAFE (BẢN TỐI GIẢN - CÓ NÚT "LẦN SAU NHÉ") ---
+const DonateModal = ({ isOpen, onClose }) => {
+    const [copied, setCopied] = React.useState(false);
+
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText("99931082002");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+            <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-[280px] overflow-hidden animate-in zoom-in-95 duration-200 border border-zinc-100 p-6 flex flex-col items-center" onClick={e => e.stopPropagation()}>
+                
+                <p className="text-sm font-bold text-zinc-800 mb-5 text-center leading-snug">
+                    Mời mình một ly cafe để tiếp tục duy trì dự án nhé!
+                </p>
+
+                {/* QR Code */}
+                <div className="w-44 h-44 bg-white border border-zinc-200 rounded-xl p-1 mb-4 shadow-sm">
+              
+                    <img src="https://i.ibb.co/JWGwcTL1/3381513652021492183.jpg" alt="QR Code" className="w-full h-full object-contain rounded-lg" />
+                </div>
+
+         
+                <div 
+                    onClick={handleCopy}
+                    className="w-full bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl p-3 mb-4 flex items-center justify-between cursor-pointer transition-all active:scale-95 group"
+                    title="Bấm để copy số tài khoản"
+                >
+                    <div className="flex flex-col items-start">
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">MB Bank</span>
+                        <span className="text-sm font-black text-zinc-900 tracking-wider">99931082002</span>
+                    </div>
+                    <div className="text-zinc-400 group-hover:text-zinc-900 transition-colors">
+                        {copied ? (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-green-500 animate-in zoom-in"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        ) : (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        )}
+                    </div>
+                </div>
+
+      
+                <button 
+                    onClick={onClose} 
+                    className="w-full py-3.5 bg-gray-900 hover:bg-black text-white text-xs font-black rounded-xl shadow-lg transition-transform active:scale-95 uppercase tracking-widest mt-1"
+                >
+                    Lần sau nhé
+                </button>
+
+            </div>
+        </div>
+    );
+};
  // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC (TỐI ƯU PC & MOBILE) ---
 const CourseModal = ({ isOpen, onClose }) => {
     React.useEffect(() => {
@@ -2953,7 +3016,7 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
                         </div>
-                                    {/* KHÓA HỌC (THÊM VÀO ĐÂY) */}
+                                   {/* KHÓA HỌC (THÊM VÀO ĐÂY) */}
 <div onClick={onOpenCourse} className="group bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-indigo-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
     <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
         HOT
@@ -2964,7 +3027,7 @@ React.useEffect(() => {
     <h3 className="text-xl font-bold mb-1 text-indigo-900">KHÓA HỌC</h3>
     <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">Cùng DORA chinh phục JLPT</p>
 </div>
-  {/* 7. LUYỆN KAIWA */}
+ {/* 7. LUYỆN KAIWA */}
 <div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
    
     <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
@@ -3018,7 +3081,7 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">CHIA ĐỘNG TỪ</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Từ vựng & ngữ pháp</p>
                         </div>
-  
+   
 
                         {/* 5. LỊCH TRÌNH HỌC */}
                         <div onClick={onOpenReviewList} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
@@ -3032,7 +3095,7 @@ React.useEffect(() => {
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
 
-                                  
+                                   
                                      
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
 <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
@@ -3079,7 +3142,11 @@ React.useEffect(() => {
                         {/* Vách ngăn mờ (Chỉ hiện trên PC) */}
                         <div className="h-4 w-px bg-zinc-200 hidden md:block"></div>
                         
-                       
+                        {/* 2. Nút Mời Cafe (Mới thêm) */}
+                        <button onClick={() => setIsDonateModalOpen(true)} className="flex items-center gap-2 group text-zinc-600 hover:text-zinc-900 transition-colors active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-rotate-12 transition-transform"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                            <span className="font-bold tracking-tight text-sm">Mời cafe</span>
+                        </button>
                         
                         {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
                      
