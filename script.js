@@ -2757,13 +2757,22 @@ const CourseModal = ({ isOpen, onClose }) => {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
-                {/* NỬA TRÁI: Phần Ảnh Bìa (Trên mobile thì cao 56, trên PC thì full chiều cao và chiếm 1/2 chiều rộng) */}
+                {/* NỬA TRÁI: Phần Ảnh Bìa */}
                 <div className="w-full md:w-1/2 h-56 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
+                    {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI (sẽ tự ẩn trên màn hình máy tính) */}
                     <img 
                         src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
                         alt="Khóa học tiếng Nhật" 
-                        className="w-full h-full object-cover md:object-center"
-                        onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+JAPANESE' }} 
+                        className="w-full h-full object-cover md:hidden"
+                        onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+MOBILE' }} 
+                    />
+
+                    {/* 2. Ảnh dành riêng cho MÁY TÍNH (sẽ tự ẩn trên màn hình điện thoại) */}
+                    <img 
+                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
+                        alt="Khóa học tiếng Nhật" 
+                        className="hidden md:block w-full h-full object-cover object-center"
+                        onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
                     />
                 </div>
 
