@@ -8067,16 +8067,9 @@ else if (isShowingText || showVi) {
                             HỌC LẠI TỪ ĐẦU
                         </button>
                         
-<button 
-    onClick={() => {
-        onBack();
-     
-        window.dispatchEvent(new CustomEvent('checkDictationAd'));
-    }} 
-    className="..."
->
-    VỀ DANH SÁCH BÀI
-</button>
+                       <button onClick={onBack} className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
+                            VỀ DANH SÁCH BÀI
+                        </button>
                     </div>
                 </div>
             )}
