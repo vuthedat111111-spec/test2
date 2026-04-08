@@ -2736,7 +2736,7 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-           // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC ---
+    // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC (TỐI ƯU PC & MOBILE) ---
 const CourseModal = ({ isOpen, onClose }) => {
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -2748,54 +2748,86 @@ const CourseModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 relative flex flex-col" onClick={e => e.stopPropagation()}>
+            
+            {/* WRAPPER CHÍNH: Thay đổi max-w-sm thành md:max-w-4xl và flex-col thành md:flex-row */}
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm md:max-w-4xl overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 relative flex flex-col md:flex-row" onClick={e => e.stopPropagation()}>
                 
-                {/* Nút Đóng (X) nổi trên ảnh */}
-                <button onClick={onClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/30 text-white hover:bg-black/50 backdrop-blur-md transition-all z-10 outline-none">
+                {/* Nút Đóng (X) */}
+                <button onClick={onClose} className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 md:bg-gray-100 md:hover:bg-gray-200 text-white md:text-gray-500 md:hover:text-gray-900 backdrop-blur-md transition-all z-20 outline-none">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
-                {/* Phần Ảnh Bìa (Sửa link src thành link ảnh từ Github của bạn) */}
-                <div className="w-full h-48 bg-indigo-50 relative overflow-hidden">
+                {/* NỬA TRÁI: Phần Ảnh Bìa (Trên mobile thì cao 56, trên PC thì full chiều cao và chiếm 1/2 chiều rộng) */}
+                <div className="w-full md:w-1/2 h-56 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
                     <img 
                         src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
                         alt="Khóa học tiếng Nhật" 
-                        className="w-full h-full object-cover"
-                        // Ảnh dự phòng nếu link Github bị lỗi
-                        onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+JAPANESE' }} 
+                        className="w-full h-full object-cover md:object-center"
+                        onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+JAPANESE' }} 
                     />
                 </div>
 
-                {/* Phần Nội Dung Quảng Cáo */}
-                <div className="p-6 flex flex-col text-center">
-                    <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-2 animate-pulse">
+                {/* NỬA PHẢI: Phần Nội Dung Quảng Cáo */}
+                <div className="p-6 md:p-10 flex flex-col justify-center text-center md:text-left md:w-1/2 bg-white relative z-10">
+                    
+                    <span className="text-[10px] md:text-xs font-black text-indigo-500 uppercase tracking-widest mb-2 md:mb-3 animate-pulse">
                         Đăng ký ngay hôm nay
                     </span>
-                    <h3 className="text-2xl font-black text-gray-900 mb-3 leading-tight">
-                        Chinh phục tiếng Nhật<br/><span className="text-indigo-600">cùng DORA</span>
+                    
+                    <h3 className="text-2xl md:text-4xl font-black text-gray-900 mb-3 md:mb-5 leading-tight">
+                        Chinh phục tiếng Nhật<br className="hidden md:block"/><span className="text-indigo-600"> cùng DORA</span>
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6 leading-relaxed font-medium">
-                        Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình cá nhân hóa, ép kỷ luật hằng ngày và cam kết đầu ra JLPT.
+                    
+                    <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-8 leading-relaxed font-medium">
+                        Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình cá nhân hóa và được ép kỷ luật hằng ngày bởi các Sensei tận tâm.
                     </p>
 
-                    {/* Nút Call-to-action (Thay link Zalo/FB của bạn vào href) */}
-                    <a 
-                        href="https://zalo.me/YOUR_ZALO_PHONE_OR_LINK" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-95 uppercase tracking-widest text-xs flex items-center justify-center gap-2"
-                    >
-                        NHẬN TƯ VẤN MIỄN PHÍ
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </a>
-                    <p className="text-[10px] text-gray-400 mt-4 italic font-medium">
-                        * Nhấn vào nút trên để mở Zalo/Facebook và chat trực tiếp với đội ngũ tư vấn.
-                    </p>
+                    {/* HIGHLIGHT CAM KẾT */}
+                    <div className="bg-red-50 border border-red-100 rounded-2xl p-4 md:p-5 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform">
+                        <p className="text-sm md:text-base font-black text-red-600 uppercase flex items-center justify-center md:justify-start gap-2">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Cam kết đỗ JLPT
+                        </p>
+                        <p className="text-[13px] md:text-sm font-bold text-red-500 mt-1 md:mt-1.5">
+                            Không đỗ học lại MIỄN PHÍ!
+                        </p>
+                    </div>
+
+                    {/* LIÊN HỆ TƯ VẤN (Facebook & Zalo) */}
+                    <div className="flex flex-col gap-2.5">
+                        <p className="text-[11px] md:text-xs font-black text-gray-400 uppercase tracking-widest mb-1">
+                            Nhận tư vấn miễn phí qua:
+                        </p>
+                        <div className="flex gap-3 flex-row">
+                            {/* Nút Facebook */}
+                            <a 
+                                href="https://m.me/LINK_FANPAGE_CUA_BAN" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex-1 py-3.5 md:py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-wider text-[11px] md:text-xs"
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                Facebook
+                            </a>
+                            
+                            {/* Nút Zalo */}
+                            <a 
+                                href="https://zalo.me/SO_DIEN_THOAI_ZALO_CUA_BAN" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex-1 py-3.5 md:py-4 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-lg shadow-sky-200 transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-wider text-[11px] md:text-xs"
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                Zalo
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     );
-}; 
+};
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
 const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
