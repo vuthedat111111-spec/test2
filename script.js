@@ -2758,7 +2758,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                 {/* Phần Ảnh Bìa (Sửa link src thành link ảnh từ Github của bạn) */}
                 <div className="w-full h-48 bg-indigo-50 relative overflow-hidden">
                     <img 
-                        src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/data/banner-khoa-hoc.jpg" 
+                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
                         alt="Khóa học tiếng Nhật" 
                         className="w-full h-full object-cover"
                         // Ảnh dự phòng nếu link Github bị lỗi
