@@ -2736,9 +2736,68 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-            
+           // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC ---
+const CourseModal = ({ isOpen, onClose }) => {
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 relative flex flex-col" onClick={e => e.stopPropagation()}>
+                
+                {/* Nút Đóng (X) nổi trên ảnh */}
+                <button onClick={onClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/30 text-white hover:bg-black/50 backdrop-blur-md transition-all z-10 outline-none">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+
+                {/* Phần Ảnh Bìa (Sửa link src thành link ảnh từ Github của bạn) */}
+                <div className="w-full h-48 bg-indigo-50 relative overflow-hidden">
+                    <img 
+                        src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/data/banner-khoa-hoc.jpg" 
+                        alt="Khóa học tiếng Nhật" 
+                        className="w-full h-full object-cover"
+                        // Ảnh dự phòng nếu link Github bị lỗi
+                        onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+JAPANESE' }} 
+                    />
+                </div>
+
+                {/* Phần Nội Dung Quảng Cáo */}
+                <div className="p-6 flex flex-col text-center">
+                    <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-2 animate-pulse">
+                        Đăng ký ngay hôm nay
+                    </span>
+                    <h3 className="text-2xl font-black text-gray-900 mb-3 leading-tight">
+                        Chinh phục tiếng Nhật<br/><span className="text-indigo-600">cùng DORA</span>
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-6 leading-relaxed font-medium">
+                        Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình cá nhân hóa, ép kỷ luật hằng ngày và cam kết đầu ra JLPT.
+                    </p>
+
+                    {/* Nút Call-to-action (Thay link Zalo/FB của bạn vào href) */}
+                    <a 
+                        href="https://zalo.me/YOUR_ZALO_PHONE_OR_LINK" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="w-full py-4 bg-gray-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-95 uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+                    >
+                        NHẬN TƯ VẤN MIỄN PHÍ
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                    <p className="text-[10px] text-gray-400 mt-4 italic font-medium">
+                        * Nhấn vào nút trên để mở Zalo/Facebook và chat trực tiếp với đội ngũ tư vấn.
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+}; 
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse }) => {
     const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -2861,7 +2920,7 @@ React.useEffect(() => {
                                 {isNotifOpen && <NotificationDropdown />}
                             </div>
                             <div className="h-4 w-px bg-zinc-200 mx-2"></div>
-                            <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 shadow-sm">Tham gia Nhóm</a>
+                            <a href="https://zalo.me/g/fygkrdp0dbzlcikkkn05" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-sm font-bold hover:bg-zinc-800 shadow-sm">Tham gia Nhóm</a>
                         </div>
                         
                         {/* NÚT MOBILE: ĐÃ THAY 3 GẠCH BẰNG CHUÔNG */}
@@ -2990,6 +3049,20 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
+
+                                     {/* KHÓA HỌC (THÊM VÀO ĐÂY) */}
+<div onClick={onOpenCourse} className="group bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-indigo-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        HOT
+    </div>
+    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-indigo-900">KHÓA HỌC</h3>
+    <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">Cùng DORA chinh phục JLPT</p>
+</div>
+
+                                     
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
 <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
     
@@ -3043,7 +3116,7 @@ React.useEffect(() => {
                         
                         {/* Nút Mobile (Sẽ bị ẩn trên giao diện lớn) */}
                      
-                        <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
+                        <a href="https://zalo.me/g/fygkrdp0dbzlcikkkn05" target="_blank" rel="noopener noreferrer" className="md:hidden text-sm font-bold text-zinc-600 uppercase tracking-widest">Nhóm học tập</a>
                     </div>
                     <p className="text-sm text-zinc-500 font-medium">© 2026 Phá Đảo Tiếng Nhật.</p>
                 </div>
@@ -3129,7 +3202,7 @@ TÀI LIỆU HỌC TẬP
     
 
                 {/* nhóm học tập */}
-                <a href="https://zalo.me/g/pe2rgziiyugzdwok74bd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
+                <a href="https://zalo.me/g/fygkrdp0dbzlcikkkn05" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
                     {/* Đã đổi: bg-blue -> bg-orange */}
                     <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         {/* Đã đổi: Icon File -> Icon Nhóm người */}
@@ -5316,7 +5389,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
             { title: "HÌNH THÁI HỘI THOẠI", desc: "Gồm 6 bài", lessonCount: 6 },
             { title: "MỤC ĐÍCH HỘI THOẠI", desc: "Gồm 11 bài", lessonCount: 11 }
         ],
-         '22baitrungthuongcap': [
+        '22baitrungthuongcap': [
             { title: "Phần 1", desc: "Gia đình, người yêu", lessonCount: 5 },
             { title: "Phần 2", desc: "Bạn bè", lessonCount: 5 },
             { title: "Phần 3", desc: "Người quen, hàng xóm", lessonCount: 5 },
@@ -5554,7 +5627,7 @@ const renderGuideOverlay = () => (
                     {[
                         { id: '42baisotrungcap', title: '42 BÀI KAIWA N5-N3', desc: 'Hội thoại hàng ngày' },
                         { id: 'nameraka', title: '23 BÀI KAIWA N3', desc: 'Hội thoại tiếng Nhật tự nhiên' },
-                         { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
+                        { id: '22baitrungthuongcap', title: '22 BÀI KAIWA N3-N1', desc: 'Hội thoại theo các mối quan hệ' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -7953,7 +8026,7 @@ else if (isShowingText || showVi) {
                                       {(effectiveMode === 'full_sentence' && !showHint && status !== 'retyping' && !(status === 'correct' && isAutoReview)) ? (
                                             <span className="text-zinc-300 font-sans tracking-widest">＿＿＿＿＿＿＿＿＿＿＿＿</span>
                             ) : effectiveMode === 'full_sentence' ? (
-            /* ĐÃ FIX LỖI XUỐNG DÒNG: Đổi thành div, dùng w-full và pt-2 thay cho inline-block */
+           
             <div className="font-sans leading-loose text-zinc-900 w-full pt-2 break-words">
                 {renderFurigana(currentItem.sentence, true)}
             </div>
@@ -7975,7 +8048,7 @@ else if (isShowingText || showVi) {
         
         {/* CHỈ HIỆN CÁCH ĐỌC NẾU NÓ KHÁC VỚI MẶT CHỮ */}
         {currentItem.word !== currentItem.reading && (
-            <span className="text-[10px] sm:text-[11px] font-bold text-indigo-500 tracking-widest">
+            <span className="text-sm sm:text-base font-bold text-indigo-500 tracking-widest">
                 {currentItem.reading}
             </span>
         )}
@@ -8055,12 +8128,14 @@ const App = () => {
     const [globalVerbReadings, setGlobalVerbReadings] = useState({});
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
+    const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
     const [dictationData, setDictationData] = useState([]);
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
+    
     
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
@@ -8247,6 +8322,7 @@ React.useEffect(() => {
     onOpenReviewList={() => setIsReviewListOpen(true)}
     onOpenDictionary={() => setIsDictionaryOpen(true)}
     onOpenDictation={() => setIsDictationMenuOpen(true)}
+    onOpenCourse={() => setIsCourseModalOpen(true)}
     onOpenSetup={(target) => {
     
         if (target === 'kaiwa') {
@@ -8261,7 +8337,11 @@ React.useEffect(() => {
         }
     }}
 />
-
+{/* GỌI POPUP KHÓA HỌC */}
+<CourseModal 
+    isOpen={isCourseModalOpen} 
+    onClose={() => setIsCourseModalOpen(false)} 
+/>
             {/* 2. MODAL NHẬP LIỆU & THIẾT LẬP BÀI HỌC CHUNG */}
             <StudySetupModal 
                 isOpen={setupConfig.isOpen}
