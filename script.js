@@ -1060,7 +1060,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                     <div className="space-y-2">
                         <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN FLASHCARD</button>
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={() => handleExitSession(setIsEssayOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -1439,7 +1439,7 @@ const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, o
                         <div className="space-y-2">
                             {unknownIndices.length > 0 && (<button onClick={() => startNewSession(isShuffleOn ? shuffleArray(unknownIndices.map(idx => queue[idx])) : unknownIndices.map(idx => queue[idx]))} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN LẠI {unknownIndices.length} THẺ ĐANG HỌC</button>)}
                             <button onClick={() => startNewSession(isShuffleOn ? shuffleArray(originalQueue) : originalQueue)} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                            <button onClick={() => handleExitSession(setIsFlashcardOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                            <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                         </div>
                     </div>
                 )}
@@ -2039,7 +2039,7 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
                         <button onClick={handleRestart} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">
                             HỌC LẠI TỪ ĐẦU
                         </button>
-                        <button onClick={() => handleExitSession(setIsLearnGameOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">
+                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">
                             THOÁT
                         </button>
                     </div>
@@ -4843,7 +4843,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                     <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
                     <div className="space-y-2">
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={() => handleExitSession(setIsVerbEssayOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -5073,7 +5073,7 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                     <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi trắc nghiệm.</p>
                     <div className="space-y-2">
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={() => handleExitSession(setIsVerbQuizOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -5326,7 +5326,7 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                     <div className="space-y-3">
                         <button onClick={() => initLesson()} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">CHƠI LẠI TỪ ĐẦU</button>
-                        <button onClick={() => handleExitSession(setIsVerbReflexOpen)} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -8108,32 +8108,33 @@ const App = () => {
     const [dictationMode, setDictationMode] = useState('word');
     
 
-const triggerCourseAdWithFrequency = () => {
-    const now = Date.now();
-    const lastShown = localStorage.getItem('phadao_last_ad_time') || 0;
-    const ONE_HOUR = 60 * 60 * 1000; // 3600000 ms
 
-    if (now - lastShown > ONE_HOUR) {
-        // Nếu đã quá 1 tiếng
-        setIsCourseModalOpen(true);
-        localStorage.setItem('phadao_last_ad_time', now.toString());
-    }
-};
+// === CỖ MÁY CHẶN NGỘP (QUẢN LÝ HIỆN QUẢNG CÁO) ===
+    React.useEffect(() => {
+        const handleTriggerAd = () => {
+            try {
+                const now = Date.now();
+                const lastShown = parseInt(localStorage.getItem('phadao_last_ad_time') || '0', 10);
+                const ONE_HOUR = 60 * 60 * 1000; // 1 tiếng
 
-// Hàm xử lý thoát cho các chế độ (Học, Flashcard, Tự luận, Động từ)
-const handleExitSession = (closeModalFunc) => {
-    closeModalFunc(false); // Đóng modal hiện tại
-    setTimeout(() => {
-        triggerCourseAdWithFrequency();
-    }, 300); // Delay nhẹ để hiệu ứng đóng modal cũ mượt hơn
-};
-    useEffect(() => {
-    const handleDictationAd = () => {
-        triggerCourseAdWithFrequency();
-    };
-    window.addEventListener('checkDictationAd', handleDictationAd);
-    return () => window.removeEventListener('checkDictationAd', handleDictationAd);
-}, []);
+                if (now - lastShown > ONE_HOUR) {
+                    setIsCourseModalOpen(true);
+                    localStorage.setItem('phadao_last_ad_time', now.toString());
+                }
+            } catch (error) {
+                console.error("Lỗi chặn quảng cáo:", error);
+            }
+        };
+
+        // Lắng nghe tín hiệu từ tất cả các chế độ học và luyện nghe
+        window.addEventListener('triggerAd', handleTriggerAd);
+        window.addEventListener('checkDictationAd', handleTriggerAd);
+
+        return () => {
+            window.removeEventListener('triggerAd', handleTriggerAd);
+            window.removeEventListener('checkDictationAd', handleTriggerAd);
+        };
+    }, []);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
