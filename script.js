@@ -7889,8 +7889,8 @@ else if (isShowingText || showVi) {
                 <span className="absolute left-1/2 -translate-x-1/2 text-[10px] font-black text-zinc-800 tracking-widest bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200">
                     {currentIndex + 1} / {queue.length}
                 </span>
-                <div className="w-8 h-8"></div>
-                 </div>
+                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
+            </div>
 
             {/* 2. BODY CONTENT */}
             {!finished ? (
@@ -8067,24 +8067,9 @@ else if (isShowingText || showVi) {
                             HỌC LẠI TỪ ĐẦU
                         </button>
                         
-                      <div className="space-y-3 w-full max-w-xs">
-    <button onClick={() => initLesson(true)} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
-        HỌC LẠI TỪ ĐẦU
-    </button>
-    
-    <button 
-        onClick={() => {
-            onBack();
-        }} 
-        className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95 uppercase tracking-widest outline-none"
-    >
-        VỀ DANH SÁCH BÀI
-    </button>
-
-    <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
-        THOÁT
-    </button>
-</div>
+                       <button onClick={onBack} className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
+                            VỀ DANH SÁCH BÀI
+                        </button>
                     </div>
                 </div>
             )}
