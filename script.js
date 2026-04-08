@@ -2788,7 +2788,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                     </p>
 
                     {/* HIGHLIGHT CAM KẾT (Ôm sát nội dung hơn bằng w-fit và mx-auto trên mobile) */}
-                    <div className="bg-red-50 border border-red-100 rounded-2xl p-3 md:p-4 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform w-fit mx-auto md:mx-0">
+                    <div className="bg-red-50 border border-red-100 rounded-2xl p-3 md:p-4 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform">
                         <p className="text-sm md:text-base font-black text-red-600 uppercase flex items-center justify-center md:justify-start gap-2">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                             Cam kết đỗ JLPT
@@ -2806,7 +2806,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                         <div className="flex gap-3 flex-row">
                             {/* Nút Facebook */}
                             <a 
-                                href="https://m.me/LINK_FANPAGE_CUA_BAN" 
+                                href="https://www.messenger.com/t/874210086055767/?messaging_source=source%3Apages%3Amessage_shortlink&source_id=1441792&recurring_notification=0" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 className="flex-1 py-3.5 md:py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-wider text-[11px] md:text-xs"
@@ -2817,7 +2817,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                             
                             {/* Nút Zalo */}
                             <a 
-                                href="https://zalo.me/SO_DIEN_THOAI_ZALO_CUA_BAN" 
+                                href="https://zalo.me/0332660529" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 className="flex-1 py-3.5 md:py-4 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-lg shadow-sky-200 transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-wider text-[11px] md:text-xs"
