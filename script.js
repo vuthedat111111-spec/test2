@@ -2736,7 +2736,7 @@ const DonateModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-    // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC (TỐI ƯU PC & MOBILE) ---
+ // --- COMPONENT: POPUP QUẢNG CÁO KHÓA HỌC (TỐI ƯU PC & MOBILE) ---
 const CourseModal = ({ isOpen, onClose }) => {
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -2757,8 +2757,8 @@ const CourseModal = ({ isOpen, onClose }) => {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
-                {/* NỬA TRÁI: Phần Ảnh Bìa */}
-                <div className="w-full md:w-1/2 h-56 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
+                {/* NỬA TRÁI: Phần Ảnh Bìa (Giảm chiều cao h-56 xuống h-40 trên mobile) */}
+                <div className="w-full md:w-1/2 h-40 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
                     {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI (sẽ tự ẩn trên màn hình máy tính) */}
                     <img 
                         src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
@@ -2779,8 +2779,6 @@ const CourseModal = ({ isOpen, onClose }) => {
                 {/* NỬA PHẢI: Phần Nội Dung Quảng Cáo */}
                 <div className="p-6 md:p-10 flex flex-col justify-center text-center md:text-left md:w-1/2 bg-white relative z-10">
                     
-                   
-                    
                     <h3 className="text-2xl md:text-4xl font-black text-gray-900 mb-3 md:mb-5 leading-tight">
                         Phá đảo tiếng Nhật<br className="hidden md:block"/><span className="text-indigo-600"> cùng DORA</span>
                     </h3>
@@ -2789,13 +2787,13 @@ const CourseModal = ({ isOpen, onClose }) => {
                         Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình học và được ép kỷ luật hằng ngày bởi các Sensei tận tâm.
                     </p>
 
-                    {/* HIGHLIGHT CAM KẾT */}
-                    <div className="bg-red-50 border border-red-100 rounded-2xl p-4 md:p-5 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform">
+                    {/* HIGHLIGHT CAM KẾT (Ôm sát nội dung hơn bằng w-fit và mx-auto trên mobile) */}
+                    <div className="bg-red-50 border border-red-100 rounded-2xl p-3 md:p-4 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform w-fit mx-auto md:mx-0">
                         <p className="text-sm md:text-base font-black text-red-600 uppercase flex items-center justify-center md:justify-start gap-2">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                             Cam kết đỗ JLPT
                         </p>
-                        <p className="text-[13px] md:text-sm font-bold text-red-500 mt-1 md:mt-1.5">
+                        <p className="text-[13px] md:text-sm font-bold text-red-500 mt-1">
                             Không đỗ học lại MIỄN PHÍ!
                         </p>
                     </div>
