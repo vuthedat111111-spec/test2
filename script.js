@@ -3016,17 +3016,7 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1 text-zinc-900">TRA CỨU KANJI</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">XẾP THEO BỘ THỦ</p>
                         </div>
-                                   {/* KHÓA HỌC (THÊM VÀO ĐÂY) */}
-<div onClick={onOpenCourse} className="group bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-indigo-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
-        HOT
-    </div>
-    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-indigo-900">KHÓA HỌC</h3>
-    <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">Cùng DORA chinh phục JLPT</p>
-</div>
+                                  
  {/* 7. LUYỆN KAIWA */}
 <div onClick={() => onOpenSetup('kaiwa')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
    
@@ -3053,6 +3043,17 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">CHẾ ĐỘ HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji & từ vựng</p>
                         </div>
+                                  {/* KHÓA HỌC (THÊM VÀO ĐÂY) */}
+<div onClick={onOpenCourse} className="group bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-indigo-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md animate-pulse">
+        HOT
+    </div>
+    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-indigo-900">KHÓA HỌC</h3>
+    <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">Cùng DORA chinh phục JLPT</p>
+</div>
 
                         {/* 2. FLASHCARD */}
                         <div onClick={() => onOpenSetup('flashcard')} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1">
