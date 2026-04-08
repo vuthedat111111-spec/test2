@@ -2779,16 +2779,14 @@ const CourseModal = ({ isOpen, onClose }) => {
                 {/* NỬA PHẢI: Phần Nội Dung Quảng Cáo */}
                 <div className="p-6 md:p-10 flex flex-col justify-center text-center md:text-left md:w-1/2 bg-white relative z-10">
                     
-                    <span className="text-[10px] md:text-xs font-black text-indigo-500 uppercase tracking-widest mb-2 md:mb-3 animate-pulse">
-                        Đăng ký ngay hôm nay
-                    </span>
+                   
                     
                     <h3 className="text-2xl md:text-4xl font-black text-gray-900 mb-3 md:mb-5 leading-tight">
-                        Chinh phục tiếng Nhật<br className="hidden md:block"/><span className="text-indigo-600"> cùng DORA</span>
+                        Phá đảo tiếng Nhật<br className="hidden md:block"/><span className="text-indigo-600"> cùng DORA</span>
                     </h3>
                     
                     <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-8 leading-relaxed font-medium">
-                        Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình cá nhân hóa và được ép kỷ luật hằng ngày bởi các Sensei tận tâm.
+                        Bạn đang loay hoay tự học? Đừng lo! Nhận ngay lộ trình học và được ép kỷ luật hằng ngày bởi các Sensei tận tâm.
                     </p>
 
                     {/* HIGHLIGHT CAM KẾT */}
@@ -2804,9 +2802,9 @@ const CourseModal = ({ isOpen, onClose }) => {
 
                     {/* LIÊN HỆ TƯ VẤN (Facebook & Zalo) */}
                     <div className="flex flex-col gap-2.5">
-                        <p className="text-[11px] md:text-xs font-black text-gray-400 uppercase tracking-widest mb-1">
-                            Nhận tư vấn miễn phí qua:
-                        </p>
+                        <span className="text-[10px] md:text-xs font-black text-indigo-500 uppercase tracking-widest mb-2 md:mb-3 animate-pulse">
+                        NHẬN TƯ VẤN MIỄN PHÍ QUA:
+                    </span>
                         <div className="flex gap-3 flex-row">
                             {/* Nút Facebook */}
                             <a 
