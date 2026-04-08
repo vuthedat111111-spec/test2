@@ -2685,7 +2685,7 @@ const CourseModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
             
             {/* WRAPPER CHÍNH: Thay đổi max-w-sm thành md:max-w-4xl và flex-col thành md:flex-row */}
             <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm md:max-w-4xl overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 relative flex flex-col md:flex-row" onClick={e => e.stopPropagation()}>
@@ -8107,7 +8107,16 @@ const App = () => {
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
     
-
+// === PRELOAD ẢNH QUẢNG CÁO KHÓA HỌC ===
+    React.useEffect(() => {
+        // Tải trước ảnh cho PC
+        const imgPC = new Image();
+        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png";
+        
+        // Tải trước ảnh cho Mobile (Thay link của bạn vào đây nếu bạn dùng 2 ảnh khác nhau)
+        const imgMobile = new Image();
+        imgMobile.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png"; 
+    }, []);
 
 // === CỖ MÁY CHẶN NGỘP (QUẢN LÝ HIỆN QUẢNG CÁO) ===
     React.useEffect(() => {
