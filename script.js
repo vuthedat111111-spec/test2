@@ -1060,7 +1060,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                     <div className="space-y-2">
                         <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN FLASHCARD</button>
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => handleExitSession(setIsEssayOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -1439,7 +1439,7 @@ const FlashcardModal = ({ isOpen, onClose, text, dbData, onSrsUpdate, srsData, o
                         <div className="space-y-2">
                             {unknownIndices.length > 0 && (<button onClick={() => startNewSession(isShuffleOn ? shuffleArray(unknownIndices.map(idx => queue[idx])) : unknownIndices.map(idx => queue[idx]))} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN LẠI {unknownIndices.length} THẺ ĐANG HỌC</button>)}
                             <button onClick={() => startNewSession(isShuffleOn ? shuffleArray(originalQueue) : originalQueue)} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                            <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                            <button onClick={() => handleExitSession(setIsFlashcardOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                         </div>
                     </div>
                 )}
@@ -2039,7 +2039,7 @@ const LearnGameModal = ({ isOpen, onClose, text, dbData, onSwitchToFlashcard, mo
                         <button onClick={handleRestart} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">
                             HỌC LẠI TỪ ĐẦU
                         </button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">
+                        <button onClick={() => handleExitSession(setIsLearnGameOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">
                             THOÁT
                         </button>
                     </div>
@@ -2990,7 +2990,7 @@ React.useEffect(() => {
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
     </div>
     <h3 className="text-xl font-bold mb-1 text-indigo-900">KHÓA HỌC</h3>
-    <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">Cùng DORA chinh phục JLPT</p>
+    <p className="text-sm font-medium text-indigo-600/80 mb-4 uppercase tracking-wide">JLPT tích hợp KAIWA</p>
 </div>
 
                         {/* 2. FLASHCARD */}
@@ -4843,7 +4843,7 @@ const VerbEssayGameModal = ({ isOpen, onClose, verbsData, targetForm }) => {
                     <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi tự luận.</p>
                     <div className="space-y-2">
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => handleExitSession(setIsVerbEssayOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -5073,7 +5073,7 @@ const VerbQuizGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
                     <p className="text-gray-400 mb-6 text-[11px] font-medium italic">Bạn đã hoàn thành bài thi trắc nghiệm.</p>
                     <div className="space-y-2">
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => handleExitSession(setIsVerbQuizOpen)} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -5326,7 +5326,7 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 
                     <div className="space-y-3">
                         <button onClick={() => initLesson()} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">CHƠI LẠI TỪ ĐẦU</button>
-                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={() => handleExitSession(setIsVerbReflexOpen)} className="w-full py-3.5 bg-white border-2 border-zinc-200 text-zinc-400 hover:text-red-600 hover:border-red-600 font-black text-xs uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -8066,9 +8066,17 @@ else if (isShowingText || showVi) {
                         <button onClick={() => initLesson(true)} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
                             HỌC LẠI TỪ ĐẦU
                         </button>
-                        <button onClick={onBack} className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
-                            VỀ DANH SÁCH BÀI
-                        </button>
+                        
+<button 
+    onClick={() => {
+        onBack();
+     
+        window.dispatchEvent(new CustomEvent('checkDictationAd'));
+    }} 
+    className="..."
+>
+    VỀ DANH SÁCH BÀI
+</button>
                     </div>
                 </div>
             )}
@@ -8099,7 +8107,33 @@ const App = () => {
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
     
-    
+
+const triggerCourseAdWithFrequency = () => {
+    const now = Date.now();
+    const lastShown = localStorage.getItem('phadao_last_ad_time') || 0;
+    const ONE_HOUR = 60 * 60 * 1000; // 3600000 ms
+
+    if (now - lastShown > ONE_HOUR) {
+        // Nếu đã quá 1 tiếng
+        setIsCourseModalOpen(true);
+        localStorage.setItem('phadao_last_ad_time', now.toString());
+    }
+};
+
+// Hàm xử lý thoát cho các chế độ (Học, Flashcard, Tự luận, Động từ)
+const handleExitSession = (closeModalFunc) => {
+    closeModalFunc(false); // Đóng modal hiện tại
+    setTimeout(() => {
+        triggerCourseAdWithFrequency();
+    }, 300); // Delay nhẹ để hiệu ứng đóng modal cũ mượt hơn
+};
+    useEffect(() => {
+    const handleDictationAd = () => {
+        triggerCourseAdWithFrequency();
+    };
+    window.addEventListener('checkDictationAd', handleDictationAd);
+    return () => window.removeEventListener('checkDictationAd', handleDictationAd);
+}, []);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
