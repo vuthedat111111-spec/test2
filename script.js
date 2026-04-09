@@ -7231,6 +7231,18 @@ const DictationModal = ({ isOpen, onClose }) => {
                         </div>
                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN</span>
                     </button>
+ <button 
+                        onClick={() => handleLoadBook('minna2', 'MINNA NO NIHONGO N4')}
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                    >
+                        <div className="flex justify-between items-center w-full gap-4">
+                            <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
+                                MINNA NO NIHONGO N4
+                            </span>
+                        </div>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN</span>
+                    </button>
+
 
                     {/* Sách chờ cập nhật */}
                     <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
