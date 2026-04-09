@@ -7238,7 +7238,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                     </button>
                     <h2 className="text-sm font-black text-zinc-900 uppercase">{selectedBookTitle}</h2>
                 </div>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
+                <button onClick={handleClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
             </div>
             
             <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar flex-1">
