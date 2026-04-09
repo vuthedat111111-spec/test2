@@ -5668,7 +5668,7 @@ const renderGuideOverlay = () => (
                     </button>
                     <h2 className="text-sm font-black text-zinc-900 uppercase">Chọn phần học</h2>
                 </div>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
+                <button onClick={handleClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
             </div>
             <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar flex-1">
                 {parts.map((part, idx) => (
@@ -7087,6 +7087,15 @@ const DictationModal = ({ isOpen, onClose }) => {
     const [view, setView] = React.useState('books'); // 'books' | 'parts' | 'practice'
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
+    const [hasFinishedLesson, setHasFinishedLesson] = React.useState(false);
+    const handleClose = () => {
+        onClose(); // Đóng modal hệ thống
+        if (hasFinishedLesson) {
+            // Nếu cờ hoàn thành đã bật thì mới gọi quảng cáo
+            setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500);
+            setHasFinishedLesson(false); // Xong thì reset lại
+        }
+    };
     
     // Data states
     const [bookCache, setBookCache] = React.useState({});
@@ -7113,6 +7122,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             // Reset state khi đóng
             setView('books');
             setPartsList([]);
+            setHasFinishedLesson(false);
         }
     }, [isOpen]);
 
@@ -7158,7 +7168,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             {/* HEADER */}
             <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
                 <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Luyện Nghe Chính Tả</h2>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
+                <button onClick={handleClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
             {/* NỘI DUNG */}
@@ -7274,7 +7284,8 @@ const DictationModal = ({ isOpen, onClose }) => {
                     <DictationPracticeView 
                         lessonData={partsList[currentPartIndex]} 
                         onBack={() => setView('parts')}
-                        onClose={onClose}
+                        onClose={handleClose}
+                        onLessonComplete={() => setHasFinishedLesson(true)}
                     />
                 )}
             </div>
@@ -7285,7 +7296,7 @@ const DictationModal = ({ isOpen, onClose }) => {
 // ==========================================
 // 2. COMPONENT LUYỆN TẬP CHÍNH (DICTATION GAME)
 // ==========================================
-const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
+const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }) => {
     // State bài học
     const [queue, setQueue] = React.useState([]); 
     const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -7318,6 +7329,11 @@ const DictationPracticeView = ({ lessonData, onBack, onClose }) => {
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
    const inputRef = React.useRef(null);
+    React.useEffect(() => {
+        if (finished && onLessonComplete) {
+            onLessonComplete();
+        }
+    }, [finished, onLessonComplete]);
     // ================= BỘ CÔNG CỤ XỬ LÝ FURIGANA =================
     // Hàm bóc tách chỉ lấy Kanji: [卵](たまご) -> 卵
     const extractBase = (str) => str ? str.replace(/\[(.*?)\]\([^)]+\)/g, '$1') : '';
