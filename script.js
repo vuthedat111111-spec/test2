@@ -7087,15 +7087,15 @@ const DictationModal = ({ isOpen, onClose }) => {
     const [view, setView] = React.useState('books'); // 'books' | 'parts' | 'practice'
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
-    const [hasFinishedLesson, setHasFinishedLesson] = React.useState(false);
-    const handleClose = () => {
-        onClose(); // Đóng modal hệ thống
-        if (hasFinishedLesson) {
-            // Nếu cờ hoàn thành đã bật thì mới gọi quảng cáo
-            setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500);
-            setHasFinishedLesson(false); // Xong thì reset lại
-        }
-    };
+    const hasFinishedRef = React.useRef(false);
+   const handleClose = () => {
+    onClose(); // Đóng modal trước
+    if (hasFinishedRef.current) {
+        // Nếu cờ trong két sắt báo 'true' -> Gọi quảng cáo
+        setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500);
+        hasFinishedRef.current = false; // Bắn xong thì reset cờ về false
+    }
+};
     
     // Data states
     const [bookCache, setBookCache] = React.useState({});
@@ -7284,8 +7284,11 @@ const DictationModal = ({ isOpen, onClose }) => {
                     <DictationPracticeView 
                         lessonData={partsList[currentPartIndex]} 
                         onBack={() => setView('parts')}
-                        onClose={handleClose}
-                        onLessonComplete={() => setHasFinishedLesson(true)}
+                        onClose={handleClose} // Đổi từ onClose thành handleClose
+                        onLessonComplete={() => {
+                            // Cắm cờ vào két sắt khi học xong
+                            hasFinishedRef.current = true;
+                        }}
                     />
                 )}
             </div>
@@ -7329,11 +7332,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
     const modeRef = React.useRef(mode);
     const isComposing = React.useRef(false);
    const inputRef = React.useRef(null);
-    React.useEffect(() => {
-        if (finished && onLessonComplete) {
-            onLessonComplete();
-        }
-    }, [finished, onLessonComplete]);
+   
     // ================= BỘ CÔNG CỤ XỬ LÝ FURIGANA =================
     // Hàm bóc tách chỉ lấy Kanji: [卵](たまご) -> 卵
     const extractBase = (str) => str ? str.replace(/\[(.*?)\]\([^)]+\)/g, '$1') : '';
@@ -7762,6 +7761,8 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
             setWrongDetected(false); 
         } else {
             setFinished(true);
+            // GỌI TRỰC TIẾP Ở ĐÂY ĐỂ BÁO CÁO LÊN CHA
+            if (onLessonComplete) onLessonComplete(); 
         }
     };
 
