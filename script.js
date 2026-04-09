@@ -1060,7 +1060,7 @@ const EssayGameModal = ({ isOpen, onClose, text, dbData, mode, onSwitchMode }) =
                     <div className="space-y-2">
                         <button onClick={() => { onClose(); onSwitchMode('flashcard'); }} className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] shadow-lg active:scale-95 transition-colors">ÔN FLASHCARD</button>
                         <button onClick={() => initLesson()} className="w-full py-3.5 bg-blue-50 border-2 border-blue-100 text-blue-500 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 rounded-xl font-black text-[11px] transition-all active:scale-95">HỌC LẠI TỪ ĐẦU</button>
-                        <button onClick={() => { onClose(); setTimeout(() => window.dispatchEvent(new CustomEvent('triggerAd')), 500); }} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
+                        <button onClick={onClose} className="w-full py-3.5 bg-white border-2 border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-600 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95">THOÁT</button>
                     </div>
                 </div>
             )}
@@ -5338,6 +5338,24 @@ const VerbReflexGameModal = ({ isOpen, onClose, verbsData, selectedForms }) => {
 // ==========================================
 const KaiwaModal = ({ isOpen, onClose }) => {
     // --- BẢN ĐỒ CẤU HÌNH NHÓM BÀI THỦ CÔNG ---
+    const playTimeRef = React.useRef(0); // Bộ đếm số giây đã nghe
+    const shouldShowAdRef = React.useRef(false); // Cờ báo hiệu đủ 5 phút
+    const handleTick = React.useCallback(() => {
+        playTimeRef.current += 1; // Mỗi giây cộng thêm 1
+        if (playTimeRef.current >= 300 && !shouldShowAdRef.current) { // 300 giây = 5 phút
+            shouldShowAdRef.current = true; // Cắm cờ đòi quà!
+        }
+    }, []);
+
+    const handleClose = () => {
+        onClose(); // Đóng giao diện Kaiwa
+        if (shouldShowAdRef.current) {
+            // Bắn sự kiện ép buộc hiện pop up
+            setTimeout(() => window.dispatchEvent(new CustomEvent('forceTriggerAd')), 500);
+            shouldShowAdRef.current = false; // Reset cờ
+            playTimeRef.current = 0; // Reset bộ đếm giờ cho lần học sau
+        }
+    };
     // Đã phân chia chuẩn xác theo dữ liệu JSON của bạn
     const MANUAL_PARTS_CONFIG = {
         '42baisotrungcap': [
@@ -5375,6 +5393,7 @@ const KaiwaModal = ({ isOpen, onClose }) => {
     const [progress, setProgress] = React.useState(0);
     const [courseCache, setCourseCache] = React.useState({});
     const [isGuideOpen, setIsGuideOpen] = React.useState(false);
+    
 
     React.useEffect(() => {
         if (isOpen) document.body.style.overflow = 'hidden';
@@ -5579,7 +5598,7 @@ const renderGuideOverlay = () => (
             {/* HEADER CỐ ĐỊNH KHÔNG BỊ TRÔI */}
             <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-100 bg-white z-10 shadow-sm shrink-0">
                 <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">Chọn bộ giáo trình</h2>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
+               <button onClick={handleClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
             </div>
             
             {/* NỘI DUNG CUỘN ĐƯỢC BÊN DƯỚI */}
@@ -5706,7 +5725,7 @@ const renderGuideOverlay = () => (
                         </button>
                         <h2 className="text-sm font-black text-zinc-900 uppercase">{currentPart.title}</h2>
                     </div>
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
+                    <button onClick={handleClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all">✕</button>
                 </div>
                 <div className="p-4 space-y-2 overflow-y-auto custom-scrollbar flex-1">
                     {currentPart.lessons.map((lesson, idx) => {
@@ -5755,9 +5774,10 @@ const renderGuideOverlay = () => (
                         total={allLessons.length}
                         currentIndex={currentLessonIdx}
                         onBack={() => setView('list')} 
-                        onClose={onClose} 
+                        onClose={handleClose} 
                         onNext={() => setCurrentLessonIdx(prev => Math.min(prev + 1, allLessons.length - 1))}
                         onPrev={() => setCurrentLessonIdx(prev => Math.max(prev - 1, 0))}
+                        onTick={handleTick} 
                     />
                 )}
             </div>
@@ -5769,7 +5789,7 @@ let hasWarnedAudioGlobal = false;
 // ==========================================
 // COMPONENT: KAIWA PRACTICE VIEW (SỬ DỤNG HOWLER.JS SIÊU MƯỢT)
 // ==========================================
-const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev }) => {
+const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNext, onPrev, onTick }) => {
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [isAudioLoading, setIsAudioLoading] = React.useState(false);
     const [showTranslation, setShowTranslation] = React.useState(false);
@@ -5801,6 +5821,18 @@ const KaiwaPracticeView = ({ lesson, total, currentIndex, onBack, onClose, onNex
     const scrollRef = React.useRef(null);
     const stopAtTimeRef = React.useRef(null);
     const isMutedRef = React.useRef(false);
+    // ================= BỘ ĐẾM GIỜ LÀM NHIỆM VỤ =================
+    React.useEffect(() => {
+        let interval;
+        if (isPlaying) {
+            // Nếu đang phát nhạc, cứ đúng 1 giây (1000ms) lại gõ cửa cha 1 lần
+            interval = setInterval(() => {
+                if (onTick) onTick();
+            }, 1000);
+        }
+        return () => clearInterval(interval); // Dừng đếm khi tắt nhạc
+    }, [isPlaying, onTick]);
+    // ===========================================================
 
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
     // --- HÀM TẢI VÀ PHÁT AUDIO THỦ CÔNG (LAZY LOAD) ---
@@ -8129,31 +8161,38 @@ const App = () => {
     }, []);
 
 // === CỖ MÁY CHẶN NGỘP (QUẢN LÝ HIỆN QUẢNG CÁO) ===
-    React.useEffect(() => {
-        const handleTriggerAd = () => {
-            try {
-                const now = Date.now();
-                const lastShown = parseInt(localStorage.getItem('phadao_last_ad_time') || '0', 10);
-                const ONE_HOUR = 60 * 60 * 1000; // 1 tiếng
+React.useEffect(() => {
+    const handleTriggerAd = () => {
+        try {
+            const now = Date.now();
+            const lastShown = parseInt(localStorage.getItem('phadao_last_ad_time') || '0', 10);
+            const ONE_HOUR = 60 * 60 * 1000; // 1 tiếng
 
-                if (now - lastShown > ONE_HOUR) {
-                    setIsCourseModalOpen(true);
-                    localStorage.setItem('phadao_last_ad_time', now.toString());
-                }
-            } catch (error) {
-                console.error("Lỗi chặn quảng cáo:", error);
+            if (now - lastShown > ONE_HOUR) {
+                setIsCourseModalOpen(true);
+                localStorage.setItem('phadao_last_ad_time', now.toString());
             }
-        };
+        } catch (error) {
+            console.error("Lỗi chặn quảng cáo:", error);
+        }
+    };
 
-        // Lắng nghe tín hiệu từ tất cả các chế độ học và luyện nghe
-        window.addEventListener('triggerAd', handleTriggerAd);
-        window.addEventListener('checkDictationAd', handleTriggerAd);
+    // THÊM HÀM NÀY: Bỏ qua luật 1 tiếng, ép buộc hiện pop up
+    const handleForceTriggerAd = () => {
+        setIsCourseModalOpen(true);
+        localStorage.setItem('phadao_last_ad_time', Date.now().toString());
+    };
 
-        return () => {
-            window.removeEventListener('triggerAd', handleTriggerAd);
-            window.removeEventListener('checkDictationAd', handleTriggerAd);
-        };
-    }, []);
+    window.addEventListener('triggerAd', handleTriggerAd);
+    window.addEventListener('checkDictationAd', handleTriggerAd);
+    window.addEventListener('forceTriggerAd', handleForceTriggerAd); // Lắng nghe sự kiện ép buộc
+
+    return () => {
+        window.removeEventListener('triggerAd', handleTriggerAd);
+        window.removeEventListener('checkDictationAd', handleTriggerAd);
+        window.removeEventListener('forceTriggerAd', handleForceTriggerAd); // Xóa lắng nghe
+    };
+}, []);
     // STATE MỚI CHO TÍNH NĂNG TRẮC NGHIỆM ĐỘNG TỪ
 const [verbPracticeMode, setVerbPracticeMode] = useState('essay'); // 'essay' (tự luận) hoặc 'quiz' (trắc nghiệm)
 const [verbSelectedForms, setVerbSelectedForms] = useState([]); // Mảng lưu các thể đã chọn (ít nhất 4)
