@@ -7122,7 +7122,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             // Reset state khi đóng
             setView('books');
             setPartsList([]);
-            setHasFinishedLesson(false);
+            hasFinishedRef.current = false;
         }
     }, [isOpen]);
 
