@@ -2699,7 +2699,7 @@ const CourseModal = ({ isOpen, onClose }) => {
 <div className="w-full md:w-1/2 h-40 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
     {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI */}
     <img 
-        src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhdt.jpg" 
+        src="https://cdn.jsdelivr.net/gh/datto02/luyenvietkanji@main/anhdt.jpg" 
         alt="Khóa học tiếng Nhật" 
         className="w-full h-full object-cover md:hidden"
         onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+MOBILE' }} 
@@ -2707,7 +2707,7 @@ const CourseModal = ({ isOpen, onClose }) => {
 
     {/* 2. Ảnh dành riêng cho MÁY TÍNH */}
     <img 
-        src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhmt.png" 
+        src="https://cdn.jsdelivr.net/gh/datto02/luyenvietkanji@main/anhmt.png" 
         alt="Khóa học tiếng Nhật" 
         className="hidden md:block w-full h-full object-cover object-center"
         onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
@@ -8377,8 +8377,8 @@ React.useEffect(() => {
 
 {/* THÊM ĐOẠN NÀY ĐỂ ÉP LOAD ẢNH VÀO BỘ NHỚ TRÌNH DUYỆT */}
             <div style={{ display: 'none' }}>
-                <img src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhmt.png" alt="preload pc" />
-                <img src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhdt.jpg" alt="preload mobile" />
+                <img src="https://cdn.jsdelivr.net/gh/datto02/luyenvietkanji@main/anhmt.png" alt="preload pc" />
+                <img src="https://cdn.jsdelivr.net/gh/datto02/luyenvietkanji@main/anhdt.jpg" alt="preload mobile" />
             </div>
             
 {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
