@@ -8161,16 +8161,7 @@ const App = () => {
     const [dictationAudioPath, setDictationAudioPath] = useState('');
     const [dictationMode, setDictationMode] = useState('word');
     
-// === PRELOAD ẢNH QUẢNG CÁO KHÓA HỌC ===
-    React.useEffect(() => {
-        // Tải trước ảnh cho PC
-        const imgPC = new Image();
-        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.png";
-        
-        // Tải trước ảnh cho Mobile (Thay link của bạn vào đây nếu bạn dùng 2 ảnh khác nhau)
-        const imgMobile = new Image();
-        imgMobile.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.jpg"; 
-    }, []);
+
 
 // === CỖ MÁY CHẶN NGỘP (QUẢN LÝ HIỆN QUẢNG CÁO) ===
 React.useEffect(() => {
