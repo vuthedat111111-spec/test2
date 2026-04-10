@@ -2729,10 +2729,10 @@ const CourseModal = ({ isOpen, onClose }) => {
                     <div className="bg-red-50 border border-red-100 rounded-2xl p-3 md:p-4 mb-6 md:mb-8 shadow-sm transform hover:scale-[1.02] transition-transform">
                         <p className="text-sm md:text-base font-black text-red-600 uppercase flex items-center justify-center md:justify-start gap-2">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                            Cam kết đỗ JLPT
+                            Cam kết đỗ JLPT chỉ 1 lần thi
                         </p>
                         <p className="text-[13px] md:text-sm font-bold text-red-500 mt-1">
-                            Không đỗ học lại MIỄN PHÍ!
+                            Không đỗ học lại MIỄN PHÍ 0Đ!
                         </p>
                     </div>
 
