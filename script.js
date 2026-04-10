@@ -2707,7 +2707,7 @@ const CourseModal = ({ isOpen, onClose }) => {
 
                     {/* 2. Ảnh dành riêng cho MÁY TÍNH (sẽ tự ẩn trên màn hình điện thoại) */}
                     <img 
-                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.jpg" 
+                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.png" 
                         alt="Khóa học tiếng Nhật" 
                         className="hidden md:block w-full h-full object-cover object-center"
                         onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
@@ -8165,7 +8165,7 @@ const App = () => {
     React.useEffect(() => {
         // Tải trước ảnh cho PC
         const imgPC = new Image();
-        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.jpg";
+        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.png";
         
         // Tải trước ảnh cho Mobile (Thay link của bạn vào đây nếu bạn dùng 2 ảnh khác nhau)
         const imgMobile = new Image();
