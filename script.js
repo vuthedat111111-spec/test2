@@ -8165,11 +8165,11 @@ const App = () => {
     React.useEffect(() => {
         // Tải trước ảnh cho PC
         const imgPC = new Image();
-        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png";
+        imgPC.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.png";
         
         // Tải trước ảnh cho Mobile (Thay link của bạn vào đây nếu bạn dùng 2 ảnh khác nhau)
         const imgMobile = new Image();
-        imgMobile.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png"; 
+        imgMobile.src = "https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.png"; 
     }, []);
 
 // === CỖ MÁY CHẶN NGỘP (QUẢN LÝ HIỆN QUẢNG CÁO) ===
