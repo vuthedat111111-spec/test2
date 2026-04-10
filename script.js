@@ -2699,7 +2699,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                 <div className="w-full md:w-1/2 h-40 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
                     {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI (sẽ tự ẩn trên màn hình máy tính) */}
                     <img 
-                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
+                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.png" 
                         alt="Khóa học tiếng Nhật" 
                         className="w-full h-full object-cover md:hidden"
                         onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+MOBILE' }} 
@@ -2707,7 +2707,7 @@ const CourseModal = ({ isOpen, onClose }) => {
 
                     {/* 2. Ảnh dành riêng cho MÁY TÍNH (sẽ tự ẩn trên màn hình điện thoại) */}
                     <img 
-                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/LKG%20T4.png" 
+                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.png" 
                         alt="Khóa học tiếng Nhật" 
                         className="hidden md:block w-full h-full object-cover object-center"
                         onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
