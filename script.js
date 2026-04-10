@@ -2695,24 +2695,24 @@ const CourseModal = ({ isOpen, onClose }) => {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
-                {/* NỬA TRÁI: Phần Ảnh Bìa (Giảm chiều cao h-56 xuống h-40 trên mobile) */}
-                <div className="w-full md:w-1/2 h-40 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
-                    {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI (sẽ tự ẩn trên màn hình máy tính) */}
-                    <img 
-                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhdt.jpg" 
-                        alt="Khóa học tiếng Nhật" 
-                        className="w-full h-full object-cover md:hidden"
-                        onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+MOBILE' }} 
-                    />
+               {/* NỬA TRÁI: Phần Ảnh Bìa */}
+<div className="w-full md:w-1/2 h-40 md:h-auto bg-indigo-50 relative overflow-hidden shrink-0">
+    {/* 1. Ảnh dành riêng cho ĐIỆN THOẠI */}
+    <img 
+        src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhdt.jpg" 
+        alt="Khóa học tiếng Nhật" 
+        className="w-full h-full object-cover md:hidden"
+        onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0e7ff/4f46e5?text=DORA+MOBILE' }} 
+    />
 
-                    {/* 2. Ảnh dành riêng cho MÁY TÍNH (sẽ tự ẩn trên màn hình điện thoại) */}
-                    <img 
-                        src="https://raw.githubusercontent.com/vuthedat111111-spec/test2/main/anhmt.png" 
-                        alt="Khóa học tiếng Nhật" 
-                        className="hidden md:block w-full h-full object-cover object-center"
-                        onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
-                    />
-                </div>
+    {/* 2. Ảnh dành riêng cho MÁY TÍNH */}
+    <img 
+        src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhmt.png" 
+        alt="Khóa học tiếng Nhật" 
+        className="hidden md:block w-full h-full object-cover object-center"
+        onError={(e) => { e.target.src = 'https://placehold.co/600x800/e0e7ff/4f46e5?text=DORA+PC' }} 
+    />
+</div>
 
                 {/* NỬA PHẢI: Phần Nội Dung Quảng Cáo */}
                 <div className="p-6 md:p-10 flex flex-col justify-center text-center md:text-left md:w-1/2 bg-white relative z-10">
@@ -8383,6 +8383,12 @@ React.useEffect(() => {
 
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-200">
+
+{/* THÊM ĐOẠN NÀY ĐỂ ÉP LOAD ẢNH VÀO BỘ NHỚ TRÌNH DUYỆT */}
+            <div style={{ display: 'none' }}>
+                <img src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhmt.png" alt="preload pc" />
+                <img src="https://cdn.jsdelivr.net/gh/vuthedat111111-spec/test2@main/anhdt.jpg" alt="preload mobile" />
+            </div>
             
 {/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
