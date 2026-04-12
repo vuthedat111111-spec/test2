@@ -2772,7 +2772,7 @@ const CourseModal = ({ isOpen, onClose }) => {
     );
 };
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse, onOpenNumberDictation }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse }) => {
   
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -3033,14 +3033,7 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-{/* 9. LUYỆN NGHE SỐ ĐẾM */}
-<div onClick={() => onOpenNumberDictation()} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-900">PHẢN XẠ SỐ ĐẾM</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tiền, Giờ, Tuổi, Lượng từ</p>
-</div>
+
                                    
                                      
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
@@ -8412,8 +8405,7 @@ const App = () => {
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
     const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
-    // THÊM MỚI Ở ĐÂY: State cho Luyện nghe số đếm
-  const [isNumberDictationOpen, setIsNumberDictationOpen] = useState(false);
+
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8661,13 +8653,8 @@ React.useEffect(() => {
             }
         }
     }}
-onOpenNumberDictation={() => setIsNumberDictationOpen(true)}
 />
-{/* MODAL LUYỆN NGHE SỐ ĐẾM */}
-<NumberDictationModal 
-    isOpen={isNumberDictationOpen} 
-    onClose={() => setIsNumberDictationOpen(false)} 
-/>
+
 {/* GỌI POPUP KHÓA HỌC */}
 <CourseModal 
     isOpen={isCourseModalOpen} 
