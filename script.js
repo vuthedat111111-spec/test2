@@ -2772,7 +2772,7 @@ const CourseModal = ({ isOpen, onClose }) => {
     );
 };
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse, onOpenNumberDictation }) => {
   
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
@@ -3033,7 +3033,14 @@ React.useEffect(() => {
                             <h3 className="text-xl font-bold mb-1">LỊCH TRÌNH HỌC</h3>
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
-
+{/* 9. LUYỆN NGHE SỐ ĐẾM */}
+<div onClick={() => onOpenNumberDictation()} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">PHẢN XẠ SỐ ĐẾM</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Tiền, Giờ, Tuổi, Lượng từ</p>
+</div>
                                    
                                      
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
@@ -8137,6 +8144,189 @@ else if (isShowingText || showVi) {
         </div>
     );
 };
+// ==========================================
+// COMPONENT: LUYỆN NGHE SỐ ĐẾM & LƯỢNG TỪ
+// ==========================================
+const COUNTER_CATEGORIES = [
+    { id: 'normal', name: 'Số thường (1-1000)', unit: '', min: 1, max: 1000 },
+    { id: 'yen', name: 'Tiền (Yên)', unit: '円', min: 1, max: 100000 },
+    { id: 'hour', name: 'Giờ', unit: '時', min: 1, max: 12 },
+    { id: 'minute', name: 'Phút', unit: '分', min: 1, max: 59 },
+    { id: 'month', name: 'Tháng', unit: '月', min: 1, max: 12 },
+    { id: 'day', name: 'Ngày', unit: '日', min: 1, max: 31 },
+    { id: 'age', name: 'Tuổi', unit: '歳', min: 1, max: 100 },
+    { id: 'general', name: 'Đồ vật (つ)', unit: 'つ', min: 1, max: 10 },
+    { id: 'people', name: 'Người (人)', unit: '人', min: 1, max: 100 },
+    { id: 'long', name: 'Vật dài (本)', unit: '本', min: 1, max: 100 },
+    { id: 'animal', name: 'Con vật nhỏ (匹)', unit: '匹', min: 1, max: 100 },
+    { id: 'machine', name: 'Máy móc (台)', unit: '台', min: 1, max: 100 },
+    { id: 'flat', name: 'Vật mỏng (枚)', unit: '枚', min: 1, max: 100 }
+];
+
+const NumberDictationModal = ({ isOpen, onClose }) => {
+    const [view, setView] = useState('setup'); // 'setup' | 'practice'
+    const [selectedCats, setSelectedCats] = useState(['normal', 'yen', 'hour', 'minute']);
+    const [target, setTarget] = useState(null); // { number, unit, fullText }
+    const [inputNum, setInputNum] = useState('');
+    const [inputUnit, setInputUnit] = useState('');
+    const [status, setStatus] = useState('idle'); // 'idle' | 'correct' | 'wrong'
+    const [showAnswer, setShowAnswer] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else {
+            document.body.style.overflow = 'unset';
+            setView('setup');
+            setStatus('idle');
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    const playAudio = (text) => {
+        if (!text) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.85; // Đọc chậm lại một chút để dễ nghe
+        window.speechSynthesis.speak(utterance);
+    };
+
+    const generateQuestion = () => {
+        const activeCats = COUNTER_CATEGORIES.filter(c => selectedCats.includes(c.id));
+        if (activeCats.length === 0) return;
+        
+        const cat = activeCats[Math.floor(Math.random() * activeCats.length)];
+        const num = Math.floor(Math.random() * (cat.max - cat.min + 1)) + cat.min;
+        
+        const newTarget = {
+            number: num,
+            unit: cat.unit,
+            fullText: `${num}${cat.unit}`
+        };
+        
+        setTarget(newTarget);
+        setInputNum('');
+        setInputUnit(activeCats.length === 1 ? cat.unit : ''); // Tự chọn lượng từ nếu chỉ học 1 loại
+        setStatus('idle');
+        setShowAnswer(false);
+        setTimeout(() => playAudio(newTarget.fullText), 300);
+    };
+
+    const handleStart = () => {
+        if (selectedCats.length === 0) return alert('Vui lòng chọn ít nhất 1 loại lượng từ!');
+        setView('practice');
+        generateQuestion();
+    };
+
+    const checkAnswer = () => {
+        if (status === 'correct') return generateQuestion();
+        if (!inputNum) return;
+
+        const isCorrect = parseInt(inputNum) === target.number && (selectedCats.length === 1 || inputUnit === target.unit);
+        
+        if (isCorrect) {
+            setStatus('correct');
+            setTimeout(generateQuestion, 1000); // Tự động qua câu
+        } else {
+            setStatus('wrong');
+            playAudio(target.fullText);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 max-h-[85vh]">
+                
+                {/* Header */}
+                <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
+                    <h2 className="text-sm font-black text-zinc-900 uppercase tracking-widest flex items-center gap-2">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                        Phản xạ Số & Lượng từ
+                    </h2>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 text-zinc-500 transition-colors outline-none">✕</button>
+                </div>
+
+                {view === 'setup' ? (
+                    <div className="p-6 flex-1 overflow-y-auto custom-scrollbar flex flex-col">
+                        <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Chọn loại muốn luyện tập</p>
+                        <div className="grid grid-cols-2 gap-3 flex-1">
+                            {COUNTER_CATEGORIES.map(cat => {
+                                const isSelected = selectedCats.includes(cat.id);
+                                return (
+                                    <button 
+                                        key={cat.id} 
+                                        onClick={() => setSelectedCats(prev => isSelected ? prev.filter(id => id !== cat.id) : [...prev, cat.id])}
+                                        className={`p-3 rounded-xl border-2 text-left transition-all active:scale-95 flex flex-col ${isSelected ? 'border-indigo-600 bg-indigo-50 shadow-sm' : 'border-zinc-200 bg-white hover:border-zinc-300 hover:bg-zinc-50'}`}
+                                    >
+                                        <span className={`text-xl font-black mb-1 ${isSelected ? 'text-indigo-600' : 'text-zinc-800'}`}>
+                                            {cat.unit || '123'}
+                                        </span>
+                                        <span className={`text-[10px] font-bold uppercase tracking-wide line-clamp-1 ${isSelected ? 'text-indigo-500' : 'text-zinc-400'}`}>
+                                            {cat.name}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <button onClick={handleStart} className="w-full mt-6 py-4 bg-zinc-900 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-[0.98] uppercase tracking-widest flex justify-center items-center gap-2">
+                            BẮT ĐẦU LUYỆN TẬP
+                        </button>
+                    </div>
+                ) : (
+                    <div className="p-6 flex-1 flex flex-col items-center justify-center relative">
+                        <button onClick={() => setView('setup')} className="absolute top-4 left-4 text-xs font-bold text-zinc-400 hover:text-zinc-800 uppercase tracking-wider flex items-center gap-1">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m15 18-6-6 6-6"/></svg> Cài đặt
+                        </button>
+
+                        <button 
+                            onClick={() => playAudio(target?.fullText)}
+                            className="w-20 h-20 bg-indigo-600 text-white rounded-full flex items-center justify-center mb-8 shadow-[0_10px_25px_rgba(79,70,229,0.3)] hover:scale-105 active:scale-95 transition-all outline-none"
+                        >
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+
+                        <div className="w-full space-y-4">
+                            <div className="flex gap-2">
+                                <input 
+                                    type="number" 
+                                    autoFocus
+                                    value={inputNum} 
+                                    onChange={e => setInputNum(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                                    placeholder="Nhập số..."
+                                    className={`flex-1 p-4 text-center text-2xl font-black border-2 rounded-2xl outline-none transition-all ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' ? 'border-red-500 bg-red-50 text-red-700 animate-shake' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
+                                />
+                                {selectedCats.length > 1 && (
+                                    <select 
+                                        value={inputUnit} 
+                                        onChange={e => setInputUnit(e.target.value)}
+                                        className={`w-28 p-4 text-center text-lg font-bold border-2 rounded-2xl outline-none transition-all appearance-none cursor-pointer ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : status === 'wrong' ? 'border-red-500 bg-red-50 text-red-700' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
+                                    >
+                                        <option value="" disabled>Đơn vị</option>
+                                        {COUNTER_CATEGORIES.filter(c => selectedCats.includes(c.id)).map(c => (
+                                            <option key={c.id} value={c.unit}>{c.unit || '(Trống)'}</option>
+                                        ))}
+                                    </select>
+                                )}
+                            </div>
+
+                            <div className="flex justify-between items-center px-2">
+                                <button onClick={() => { setShowAnswer(true); setStatus('wrong'); }} className="text-[11px] font-bold text-zinc-400 hover:text-indigo-600 uppercase tracking-widest outline-none">
+                                    {showAnswer ? <span className="text-red-500">ĐÁP ÁN: {target?.fullText}</span> : 'XEM ĐÁP ÁN'}
+                                </button>
+                                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+                                    {status === 'correct' ? 'Tự chuyển câu...' : 'Enter để kiểm tra'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -8154,6 +8344,8 @@ const App = () => {
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
     const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+    // THÊM MỚI Ở ĐÂY: State cho Luyện nghe số đếm
+  const [isNumberDictationOpen, setIsNumberDictationOpen] = useState(false);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8401,6 +8593,12 @@ React.useEffect(() => {
             }
         }
     }}
+onOpenNumberDictation={() => setIsNumberDictationOpen(true)}
+/>
+{/* MODAL LUYỆN NGHE SỐ ĐẾM */}
+<NumberDictationModal 
+    isOpen={isNumberDictationOpen} 
+    onClose={() => setIsNumberDictationOpen(false)} 
 />
 {/* GỌI POPUP KHÓA HỌC */}
 <CourseModal 
