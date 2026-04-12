@@ -7295,17 +7295,409 @@ const NumberDictationPracticeView = ({ config, onBack, onClose }) => {
     );
 };
 // ==========================================
+// COMPONENT: GAME NGHE SỐ ĐẾM (CHUẨN UI 100%)
+// ==========================================
+// Helper: Chuyển số thành Hiragana
+const getNumberKana = (num) => {
+    if (num === 0) return 'ゼロ';
+    const digits = ['', 'いち', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう'];
+    const tens = ['', 'じゅう', 'にじゅう', 'さんじゅう', 'よんじゅう', 'ごじゅう', 'ろくじゅう', 'ななじゅう', 'はちじゅう', 'きゅうじゅう'];
+    const hundreds = ['', 'ひゃく', 'にひゃく', 'さんびゃく', 'よんひゃく', 'ごひゃく', 'ろっぴゃく', 'ななひゃく', 'はっぴゃく', 'きゅうひゃく'];
+    const thousands = ['', 'せん', 'にせん', 'さんぜん', 'よんせん', 'ごせん', 'ろくせん', 'ななせん', 'はっせん', 'きゅうせん'];
+
+    let res = '';
+    const man = Math.floor(num / 10000);
+    const remainder = num % 10000;
+
+    if (man > 0) {
+        res += (man === 1 ? 'いち' : getNumberKana(man)) + 'まん';
+    }
+
+    const sen = Math.floor(remainder / 1000);
+    const hyaku = Math.floor((remainder % 1000) / 100);
+    const juu = Math.floor((remainder % 100) / 10);
+    const ichi = remainder % 10;
+
+    res += thousands[sen] + hundreds[hyaku] + tens[juu] + digits[ichi];
+    return res;
+};
+
+const NumberDictationPracticeView = ({ config, onBack, onClose, onLessonComplete }) => {
+    const [queue, setQueue] = React.useState([]); 
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [status, setStatus] = React.useState('idle'); 
+    const [userInput, setUserInput] = React.useState('');
+    const [finished, setFinished] = React.useState(false);
+    const [wrongCount, setWrongCount] = React.useState(0); 
+    const [wrongDetected, setWrongDetected] = React.useState(false); 
+    const [correctAnswer, setCorrectAnswer] = React.useState(null); // Lưu object {num, kana}
+    
+    const [isLooping, setIsLooping] = React.useState(false); 
+    const [isAutoReview, setIsAutoReview] = React.useState(true); 
+    const [playbackRate, setPlaybackRate] = React.useState(1); 
+    const [showHint, setShowHint] = React.useState(false); 
+
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    const [isInputFocused, setIsInputFocused] = React.useState(false);
+    
+    const loopTimerRef = React.useRef(null);
+    const inputRef = React.useRef(null);
+
+    // 1. Tạo câu hỏi & Cài bẫy số dễ sai
+    const initLesson = React.useCallback(() => {
+        clearTimeout(loopTimerRef.current);
+        window.speechSynthesis.cancel();
+
+        const newQueue = [];
+        for (let i = 0; i < config.count; i++) {
+            let num = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+            
+            // Thuật toán tạo bẫy 300, 600, 800, 3000... (40% xác suất)
+            if (Math.random() < 0.4 && config.max >= 300) {
+                let strNum = num.toString().split('');
+                if (strNum.length >= 3 && Math.random() > 0.5) {
+                    strNum[strNum.length - 3] = ['3', '6', '8'][Math.floor(Math.random() * 3)];
+                } else if (strNum.length >= 4) {
+                    strNum[strNum.length - 4] = ['3', '8'][Math.floor(Math.random() * 2)];
+                }
+                let trapNum = parseInt(strNum.join(''));
+                if (trapNum >= config.min && trapNum <= config.max) num = trapNum;
+            }
+
+            newQueue.push({ num, kana: getNumberKana(num) });
+        }
+        
+        setQueue(newQueue);
+        setCurrentIndex(0);
+        setStatus('idle');
+        setUserInput('');
+        setFinished(false);
+        setShowHint(false);
+        setWrongCount(0);
+        setWrongDetected(false);
+    }, [config]);
+
+    React.useEffect(() => {
+        initLesson();
+        return () => {
+            clearTimeout(loopTimerRef.current);
+            window.speechSynthesis.cancel();
+        };
+    }, [initLesson]);
+
+    // 2. Phát âm thanh
+    const playAudio = React.useCallback((num) => {
+        if (num === undefined || num === null) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(num.toString());
+        utterance.lang = 'ja-JP';
+        utterance.rate = playbackRate * 0.85; 
+        
+        utterance.onstart = () => setIsPlaying(true);
+        utterance.onend = () => setIsPlaying(false);
+        utterance.onerror = () => setIsPlaying(false);
+
+        window.speechSynthesis.speak(utterance);
+    }, [playbackRate]);
+
+    React.useEffect(() => {
+        if (!finished && queue.length > 0 && status !== 'retyping') {
+            const timer = setTimeout(() => { playAudio(queue[currentIndex]?.num); }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [currentIndex, finished, playAudio, queue]);
+
+    React.useEffect(() => {
+        if (!isPlaying && isLooping && !finished && status !== 'retyping') {
+            loopTimerRef.current = setTimeout(() => { playAudio(queue[currentIndex]?.num); }, 800);
+        }
+        return () => clearTimeout(loopTimerRef.current);
+    }, [isPlaying, isLooping, finished, currentIndex, queue, playAudio, status]);
+
+    const cyclePlaybackRate = () => {
+        const rates = [0.5, 0.75, 1, 1.25, 1.5];
+        const nextIdx = (rates.indexOf(playbackRate) + 1) % rates.length;
+        setPlaybackRate(rates[nextIdx]);
+    };
+
+    // 3. Logic Chấm điểm
+    const checkAnswer = () => {
+        if (finished) return;
+        if (status === 'correct') { goToNext(); return; }
+
+        const currentItem = queue[currentIndex];
+        let finalInput = userInput.trim();
+        const isCorrect = parseInt(finalInput) === currentItem.num;
+
+        if (status === 'retyping' || status === 'wrong') {
+            if (isCorrect) goToNext();
+            else {
+                setStatus('wrong');
+                playAudio(currentItem.num);
+                setTimeout(() => setStatus('retyping'), 400);
+            }
+            return;
+        }
+
+        if (isCorrect) {
+            setStatus('correct');
+            setWrongCount(0); 
+            clearTimeout(loopTimerRef.current);
+            if (isAutoReview) setTimeout(() => playAudio(currentItem.num), 100);
+            else setTimeout(() => goToNext(), 400);
+        } else {
+            const newWrongCount = wrongCount + 1;
+            setWrongCount(newWrongCount);
+            setStatus('wrong');
+            playAudio(currentItem.num); 
+            
+            if (!wrongDetected) {
+                setQueue(prev => [...prev, currentItem]);
+                setWrongDetected(true);
+            }
+
+            if (newWrongCount >= 3) {
+                setTimeout(() => {
+                    setCorrectAnswer(currentItem);
+                    setShowHint(true);
+                    setStatus('retyping');
+                    inputRef.current?.focus();
+                }, 500);
+            } else {
+                setTimeout(() => { setStatus('idle'); inputRef.current?.focus(); }, 500); 
+            }
+        }
+    };
+
+    const goToNext = () => {
+        clearTimeout(loopTimerRef.current);
+        window.speechSynthesis.cancel();
+        if (currentIndex < queue.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+            setWrongCount(0);
+            setWrongDetected(false); 
+            setTimeout(() => inputRef.current?.focus(), 50);
+        } else {
+            setFinished(true);
+            if (onLessonComplete) onLessonComplete(); 
+        }
+    };
+
+    const handleManualNext = () => {
+        clearTimeout(loopTimerRef.current);
+        window.speechSynthesis.cancel();
+        if (currentIndex < queue.length - 1) {
+            setCurrentIndex(prev => prev + 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+            setWrongCount(0);
+            setWrongDetected(false);
+            setTimeout(() => inputRef.current?.focus(), 50);
+        }
+    };
+
+    const handleManualPrev = () => {
+        clearTimeout(loopTimerRef.current);
+        window.speechSynthesis.cancel();
+        if (currentIndex > 0) {
+            setCurrentIndex(prev => prev - 1);
+            setUserInput('');
+            setStatus('idle');
+            setShowHint(false);
+            setWrongCount(0);
+            setWrongDetected(false);
+            setTimeout(() => inputRef.current?.focus(), 50);
+        }
+    };
+
+    const handleShowAnswer = () => {
+        const currentItem = queue[currentIndex];
+        if (!wrongDetected) {
+            setQueue(prev => [...prev, currentItem]);
+            setWrongDetected(true);
+        }
+        setCorrectAnswer(currentItem);
+        setShowHint(true);
+        setStatus('retyping');
+        setUserInput('');
+        setTimeout(() => inputRef.current?.focus(), 50);
+    };
+
+    const triggerConfetti = React.useCallback(() => {
+        if (typeof confetti === 'undefined') return;
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+    }, []);
+
+    React.useEffect(() => { if (finished) triggerConfetti(); }, [finished, triggerConfetti]);
+
+    if (queue.length === 0) return null;
+    const currentItem = queue[currentIndex];
+
+    const isRevealed = showHint || status === 'retyping' || (status === 'correct' && isAutoReview);
+    const isCorrectReview = status === 'correct' && isAutoReview;
+    const isWrongReview = showHint || status === 'retyping';
+    
+    let playBtnSize = "w-20 h-20 sm:w-24 sm:h-24"; 
+    let playIconSize = "w-8 h-8 sm:w-10 sm:h-10";
+    let sideBtnSize = "w-12 h-12 sm:w-14 sm:h-14"; 
+    let sideIconSize = "w-5 h-5 sm:w-6 sm:h-6";
+
+    if (isCorrectReview || isWrongReview) {
+        playBtnSize = "w-14 h-14 sm:w-16 sm:h-16"; 
+        playIconSize = "w-6 h-6 sm:w-7 sm:h-7";
+        sideBtnSize = "w-10 h-10 sm:w-12 sm:h-12";
+        sideIconSize = "w-4 h-4 sm:w-5 sm:h-5";
+    } 
+
+    return (
+        <div className="flex flex-col h-full bg-white overflow-hidden relative">
+            {/* HEADER */}
+            <div className="px-4 py-3 border-b border-zinc-100 flex items-center justify-between z-10 shrink-0">
+                <button onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors outline-none">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    QUAY LẠI
+                </button>
+                <span className="absolute left-1/2 -translate-x-1/2 text-[10px] font-black text-zinc-800 tracking-widest bg-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200">
+                    {currentIndex + 1} / {queue.length}
+                </span>
+                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-all outline-none">✕</button>
+            </div>
+
+            {!finished ? (
+                <div className="flex-1 flex flex-col p-4 sm:p-6 w-full h-full relative pb-6 sm:pb-10">
+                    <div className={`transition-all duration-300 ${isInputFocused ? 'flex-1 sm:flex-none sm:hidden' : 'hidden'}`}></div>
+                
+                    {/* BỘ ĐIỀU KHIỂN GIỐNG TỪ VỰNG NHƯNG BỎ NÚT DỊCH */}
+                    <div className="w-full mx-auto mb-2 flex justify-center items-center bg-zinc-50 p-1.5 sm:p-2 rounded-2xl border border-zinc-100 shadow-sm shrink-0"> 
+                        <div className="flex w-full sm:w-auto justify-between sm:justify-center gap-1.5 sm:gap-2">
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsLooping(!isLooping)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-6 sm:px-8 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isLooping ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                LẶP
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={() => setIsAutoReview(!isAutoReview)} className={`flex-1 flex items-center justify-center whitespace-nowrap px-6 sm:px-8 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none ${isAutoReview ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100'}`}>
+                                XEM LẠI
+                            </button>
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={cyclePlaybackRate} className="flex-1 flex items-center justify-center whitespace-nowrap px-6 sm:px-8 py-1.5 rounded-xl text-[10px] font-bold border transition-all shadow-sm outline-none bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100">
+                                {playbackRate}x
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className={`flex flex-col items-center w-full max-w-lg mx-auto gap-4 sm:gap-5 transition-all duration-300 ${isInputFocused ? 'flex-none justify-end sm:flex-1 sm:justify-center' : 'flex-1 justify-center'}`}>
+
+                        {/* NÚT ĐIỀU KHIỂN TRUNG TÂM */}
+                        <div className="flex items-center justify-center gap-4 sm:gap-6 w-full transition-all duration-300 shrink-0">
+                            <button 
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={handleManualPrev}
+                                disabled={currentIndex === 0}
+                                className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === 0 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
+                            >
+                                <svg className={sideIconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            </button>
+
+                            <div className={`transition-all duration-300 ${status === 'correct' ? 'scale-110 opacity-50' : status === 'wrong' ? 'animate-shake' : ''}`}>
+                                <button 
+                                    onMouseDown={(e) => e.preventDefault()}
+                                    onClick={() => playAudio(queue[currentIndex]?.num)}
+                                    className={`${playBtnSize} rounded-full flex items-center justify-center shadow-md transition-all duration-300 active:scale-90 outline-none ${isPlaying ? 'bg-indigo-600 text-white shadow-indigo-300 animate-pulse' : 'bg-zinc-900 text-white hover:bg-black'}`}
+                                >
+                                    {isPlaying ? (
+                                        <svg className={playIconSize} viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+                                    ) : (
+                                        <svg className={`${playIconSize} ml-1`} viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"></polygon></svg>
+                                    )}
+                                </button>
+                            </div>
+
+                            <button 
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={handleManualNext}
+                                disabled={currentIndex === queue.length - 1}
+                                className={`${sideBtnSize} rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 outline-none ${currentIndex === queue.length - 1 ? 'bg-zinc-50 text-zinc-300 border border-zinc-100 cursor-not-allowed' : 'bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm'}`}
+                            >
+                                <svg className={sideIconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                        </div>
+
+                        {/* HIỂN THỊ ĐÁP ÁN KHI XEM LẠI HOẶC SAU */}
+                        <div className="w-full flex justify-center animate-in fade-in zoom-in-95 duration-300 min-h-[80px]">
+                            {isRevealed ? (
+                                <div className="text-center flex flex-col items-center justify-center bg-indigo-50 border border-indigo-100 px-6 py-2.5 rounded-2xl inline-flex w-auto min-w-[120px]">
+                                    <span className="text-4xl sm:text-5xl font-black text-indigo-700 mb-0.5">
+                                        {currentItem.num}
+                                    </span>
+                                    <span className="text-[13px] sm:text-sm font-bold text-indigo-500 tracking-widest">
+                                        {currentItem.kana}
+                                    </span>
+                                </div>
+                            ) : (
+                                <h2 className="text-5xl font-bold font-sans text-zinc-800 flex items-center h-full">
+                                    <span className="text-zinc-300 tracking-widest leading-none">＿＿＿＿</span>
+                                </h2>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* VÙNG NHẬP LIỆU */}
+                    <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
+                        <input 
+                            type="number" 
+                            autoFocus
+                            ref={inputRef}
+                            value={userInput} 
+                            onChange={(e) => setUserInput(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && checkAnswer()}
+                            onFocus={() => setIsInputFocused(true)} 
+                            onBlur={() => setIsInputFocused(false)}
+                            placeholder={status === 'retyping' ? "Nhập lại số cho đúng" : "Nhập số nghe được..."}
+                            className={`w-full p-3.5 sm:p-4 text-center text-xl sm:text-2xl font-black border-2 rounded-2xl outline-none transition-all shadow-sm ${status === 'correct' ? 'border-green-500 bg-green-50 text-green-700 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : status === 'wrong' || status === 'retyping' ? 'border-red-500 bg-red-50 text-red-700 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-zinc-200 focus:border-indigo-500 bg-zinc-50'}`}
+                        />
+                        
+                        <div className="flex justify-between items-center px-2">
+                            <button onMouseDown={(e) => e.preventDefault()} onClick={handleShowAnswer} disabled={showHint || status === 'retyping'} className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 outline-none ${showHint || status === 'retyping' ? 'text-zinc-300 cursor-not-allowed' : 'text-zinc-500 hover:text-indigo-600 active:scale-95'}`}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                ĐÁP ÁN
+                            </button>
+                            <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 transition-all duration-300 ${status === 'correct' ? 'text-red-400/80 animate-pulse' : 'text-zinc-400'}`}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+                                {status === 'correct' ? (isAutoReview ? 'Bấm Enter để chuyển câu...' : 'Đang tự động chuyển...') : 'Bấm Enter để kiểm tra'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className="flex-1 flex flex-col items-center justify-center p-6">
+                    <div className="text-6xl mb-6 animate-bounce cursor-pointer hover:scale-125 transition-transform" onClick={triggerConfetti}>🎉</div>
+                    <h3 className="text-2xl font-black text-zinc-900 mb-2 uppercase tracking-wide">XUẤT SẮC!</h3>
+                    <p className="text-zinc-500 mb-8 text-sm font-medium">Bạn đã hoàn thành bài luyện nghe số.</p>
+                    <div className="space-y-3 w-full max-w-xs">
+                        <button onClick={() => initLesson()} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[11px] tracking-widest uppercase shadow-lg shadow-indigo-200 active:scale-95 transition-all outline-none">
+                            LUYỆN TẬP TIẾP
+                        </button>
+                        <button onClick={onBack} className="w-full py-4 bg-white border-2 border-zinc-200 text-zinc-500 hover:text-zinc-800 hover:border-zinc-800 font-black text-[11px] uppercase tracking-widest rounded-xl transition-all active:scale-95 outline-none">
+                            VỀ MÀN HÌNH CÀI ĐẶT
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+// ==========================================
 // 1. MODAL CHÍNH LỚN: QUẢN LÝ LUỒNG CHÉP CHÍNH TẢ
 // ==========================================
 const DictationModal = ({ isOpen, onClose }) => {
-    // THAY ĐỔI: Thêm các view mới cho phần nghe số
     const [view, setView] = React.useState('books'); // 'books' | 'parts' | 'practice' | 'number_setup' | 'number_practice'
     const [isLoading, setIsLoading] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
     const hasFinishedRef = React.useRef(false);
     
-    // Config cho phần nghe số
-    const [numberConfig, setNumberConfig] = React.useState({ min: 1, max: 100, count: 10 });
+    // Cấu hình sinh số
+    const [numberConfig, setNumberConfig] = React.useState({ min: 1, max: 1000, count: 10 });
 
     const handleClose = () => {
         onClose();
@@ -7396,7 +7788,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                                 LUYỆN NGHE SỐ ĐẾM
                             </span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-indigo-500 mt-1.5 text-left">TUỲ CHỈNH MIN - MAX</span>
+                        <span className="text-xs sm:text-sm font-bold text-indigo-500 mt-1.5 text-left">TỪ ĐƠN GIẢN ĐẾN HÀNG VẠN</span>
                     </button>
 
                     <div className="h-px bg-zinc-100 my-2"></div>
@@ -7455,7 +7847,7 @@ const DictationModal = ({ isOpen, onClose }) => {
         </div>
     );
 
-    // --- VIEW MỚI: CÀI ĐẶT LUYỆN SỐ ---
+    // --- MÀN CÀI ĐẶT SỐ LƯỢNG SỐ ---
     const renderNumberSetup = () => (
         <div className="flex flex-col h-full bg-zinc-50 overflow-hidden">
             <div className="p-4 bg-white border-b border-zinc-200 flex items-center justify-between sticky top-0 z-10 shadow-sm">
@@ -7471,7 +7863,7 @@ const DictationModal = ({ isOpen, onClose }) => {
             <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar flex-1">
                 <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-sm space-y-5">
                     <div>
-                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Số nhỏ nhất (Min)</label>
+                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Phạm vi nhỏ nhất (Min)</label>
                         <input 
                             type="number" 
                             value={numberConfig.min} 
@@ -7480,7 +7872,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Số lớn nhất (Max)</label>
+                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Phạm vi lớn nhất (Max)</label>
                         <input 
                             type="number" 
                             value={numberConfig.max} 
@@ -7489,7 +7881,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         />
                     </div>
                     <div className="pt-2 border-t border-zinc-100">
-                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Số lượng câu hỏi</label>
+                        <label className="block text-[11px] font-black text-zinc-500 uppercase tracking-widest mb-2">Số lượng câu hỏi cần làm</label>
                         <input 
                             type="number" 
                             value={numberConfig.count} 
@@ -7573,6 +7965,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         config={numberConfig} 
                         onBack={() => setView('number_setup')} 
                         onClose={handleClose} 
+                        onLessonComplete={() => { hasFinishedRef.current = true; }}
                     />
                 )}
                 
