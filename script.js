@@ -7169,6 +7169,7 @@ const KanjiDictionaryModal = ({ isOpen, onClose, dbData, config, setConfig, setP
         </div>
     );
 };
+
 // ==========================================
 // 1. MODAL CHÍNH LỚN: QUẢN LÝ LUỒNG CHÉP CHÍNH TẢ
 // ==========================================
@@ -7265,7 +7266,7 @@ const DictationModal = ({ isOpen, onClose }) => {
         // Tạo dữ liệu ảo đóng giả làm 1 part để truyền vào DictationPracticeView
         setPartsList([{ 
             title: `Luyện Số (${min} - ${max})`, 
-            isNumbers: true, // Cờ đặc biệt báo hiệu dùng TTS
+            isNumbers: true, // Cờ đặc biệt báo hiệu dùng TTS Google
             vocabularies 
         }]);
         setCurrentPartIndex(0);
@@ -7418,7 +7419,9 @@ const DictationModal = ({ isOpen, onClose }) => {
                         lessonData={partsList[currentPartIndex]} 
                         onBack={() => {
                             setView(partsList[currentPartIndex]?.isNumbers ? 'number_setup' : 'parts');
-                            window.speechSynthesis.cancel();
+                            if (soundRef.current) {
+                                soundRef.current.stop();
+                            }
                         }}
                         onClose={handleClose} 
                         onLessonComplete={() => { hasFinishedRef.current = true; }}
@@ -7428,6 +7431,7 @@ const DictationModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+
 // ==========================================
 // 2. COMPONENT LUYỆN TẬP CHÍNH (DICTATION GAME)
 // ==========================================
@@ -7457,6 +7461,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
     
     const soundRef = React.useRef(null);
     const loopTimerRef = React.useRef(null);
+    const lastTtsUrlRef = React.useRef(null); // Track URL để tái sử dụng file TTS
 
     const currentIndexRef = React.useRef(currentIndex);
     const queueRef = React.useRef(queue);
@@ -7511,8 +7516,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         setUserInput('');        
         setWrongCount(0);        
         
-        if (isNumberMode) window.speechSynthesis.cancel();
-        else if (soundRef.current) soundRef.current.stop();
+        if (soundRef.current) soundRef.current.stop();
     }, [mode, isNumberMode]);
 
     React.useEffect(() => {
@@ -7529,16 +7533,13 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         if (!keepAudio) {
             setIsAudioLoaded(false);
             setIsAudioLoading(false);
-            if (isNumberMode) {
-                window.speechSynthesis.cancel();
-                setIsAudioLoaded(true); // TTS luôn sẵn sàng
-            } else if (soundRef.current) {
+            if (soundRef.current) {
                 soundRef.current.unload();
                 soundRef.current = null;
             }
+            lastTtsUrlRef.current = null;
         } else {
-            if (isNumberMode) window.speechSynthesis.cancel();
-            else if (soundRef.current) soundRef.current.stop();
+            if (soundRef.current) soundRef.current.stop();
         }
 
         const shuffled = [...lessonData.vocabularies].sort(() => Math.random() - 0.5);
@@ -7557,7 +7558,6 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         initLesson(false); 
         return () => {
             clearTimeout(loopTimerRef.current);
-            window.speechSynthesis.cancel(); // Clean up TTS
             if (soundRef.current) {
                 soundRef.current.unload();
                 soundRef.current = null;
@@ -7565,16 +7565,27 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         };
     }, [initLesson]);
 
-// LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE (Cực mượt, 1 giọng chung trên mọi máy)
-        if (isNumberMode) {
-            if (isAudioLoading) return;
-            setIsAudioLoading(true);
+    
+     // --- 2. HÀM TẢI VÀ PHÁT AUDIO (API GOOGLE HOẶC HOWLER MP3) ---
+    const playCurrentAudio = React.useCallback(() => {
+        if (queueRef.current.length === 0) return;
+        const currentItem = queueRef.current[currentIndexRef.current];
 
-            // Tạo đường dẫn lấy trực tiếp file mp3 từ máy chủ Google Dịch
+        // LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE
+        if (isNumberMode) {
             const textToSpeak = encodeURIComponent(currentItem.word);
             const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ja&client=tw-ob&q=${textToSpeak}`;
 
-            // Dùng ngay thư viện Howler (giống các bài khác) để phát
+            // Tái sử dụng file âm thanh nếu là cùng 1 câu hỏi (chưa bấm sang số khác)
+            if (soundRef.current && lastTtsUrlRef.current === googleTtsUrl) {
+                soundRef.current.rate(playbackRate);
+                soundRef.current.play();
+                return;
+            }
+
+            if (isAudioLoading) return;
+            setIsAudioLoading(true);
+
             if (soundRef.current) {
                 soundRef.current.unload();
             }
@@ -7595,13 +7606,15 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
                 onloaderror: () => {
                     setIsAudioLoading(false);
                     setIsPlaying(false);
-                    // Rơi vào đây nếu mạng lỗi hoặc Google chặn, nhưng hiếm khi xảy ra
-                    console.log("Lỗi tải giọng Google");
+                    console.log("Lỗi tải giọng Google, thử lại...");
                 }
             });
+            
+            lastTtsUrlRef.current = googleTtsUrl;
             return;
         }
-        // LOGIC PHÁT FILE BẰNG HOWLER.JS
+
+        // LOGIC PHÁT FILE CHÍNH TẢ BẰNG HOWLER.JS NHƯ CŨ
         if (!soundRef.current) {
             if (isAudioLoading) return; 
             setIsAudioLoading(true);
@@ -7673,9 +7686,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
 
     // Cập nhật tốc độ audio
     React.useEffect(() => {
-        if (isNumberMode) {
-            // TTS rate is updated on next play call
-        } else if (soundRef.current) {
+        if (soundRef.current) {
             soundRef.current.rate(playbackRate);
         }
     }, [playbackRate, isNumberMode]);
@@ -7725,8 +7736,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
 
     const handleManualNext = () => {
         clearTimeout(loopTimerRef.current);
-        if (isNumberMode) window.speechSynthesis.cancel();
-        else if (soundRef.current) soundRef.current.stop();
+        if (soundRef.current) soundRef.current.stop();
 
         if (currentIndex < queue.length - 1) {
             setCurrentIndex(prev => prev + 1);
@@ -7740,8 +7750,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
 
     const handleManualPrev = () => {
         clearTimeout(loopTimerRef.current);
-        if (isNumberMode) window.speechSynthesis.cancel();
-        else if (soundRef.current) soundRef.current.stop();
+        if (soundRef.current) soundRef.current.stop();
 
         if (currentIndex > 0) {
             setCurrentIndex(prev => prev - 1);
@@ -8153,7 +8162,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
 
                     <div className="w-full max-w-md mx-auto shrink-0 space-y-2 mt-4">
                         <input 
-                            type={isNumberMode ? "tel" : "text"} // Hỗ trợ bàn phím số tốt hơn trên mobile nếu là số đếm
+                            type={isNumberMode ? "tel" : "text"} 
                             ref={inputRef}
                             value={userInput} 
                             onChange={handleInputChange}
