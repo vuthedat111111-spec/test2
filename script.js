@@ -7571,53 +7571,47 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         if (queueRef.current.length === 0) return;
         const currentItem = queueRef.current[currentIndexRef.current];
 
-       // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Nhanh & Không bị chặn)
+       // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Không bị chặn & Mượt)
         if (isNumberMode) {
-            if (isAudioLoading) return;
-            setIsAudioLoading(true);
-
-            // Dọn dẹp âm thanh cũ nếu có
-            if (soundRef.current && typeof soundRef.current.unload === 'function') {
-                soundRef.current.unload();
-            }
+            setIsAudioLoading(false); 
+            setIsAudioLoaded(true);
+            window.speechSynthesis.cancel(); // Xóa bộ đệm giọng nói cũ nếu có
 
             const textToSpeak = currentItem.word;
-
-            // Khởi tạo trình đọc
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.lang = 'ja-JP'; // Ép đọc giọng tiếng Nhật
             utterance.rate = playbackRate;
+            
+            // Khắc phục lỗi trình duyệt (Chrome/Safari) tự động hủy giọng đọc giữa chừng
+            window._ttsUtterance = utterance;
 
-            // Đóng giả cấu trúc của Howler để tương thích với các nút bấm của bạn
+            // Đóng giả cấu trúc Howler để tích hợp với các nút Player của bạn
             soundRef.current = {
                 play: () => {
-                    window.speechSynthesis.cancel(); // Dừng câu cũ trước khi đọc câu mới
+                    window.speechSynthesis.cancel();
                     window.speechSynthesis.speak(utterance);
                 },
-                stop: () => window.speechSynthesis.cancel(),
+                stop: () => {
+                    window.speechSynthesis.cancel();
+                    setIsPlaying(false);
+                },
                 unload: () => window.speechSynthesis.cancel(),
                 rate: (speed) => { utterance.rate = speed; }
             };
 
-            // Bắt các sự kiện
-            utterance.onstart = () => {
-                setIsAudioLoaded(true);
-                setIsAudioLoading(false);
-                setIsPlaying(true);
+            utterance.onstart = () => setIsPlaying(true);
+            
+            utterance.onend = () => {
+                setIsPlaying(false);
+                window._ttsUtterance = null; // Giải phóng bộ nhớ
             };
-
-            utterance.onend = () => setIsPlaying(false);
             
             utterance.onerror = (e) => {
-                console.error("Lỗi Text-to-Speech:", e);
-                setIsAudioLoading(false);
+                console.error("Lỗi TTS:", e);
                 setIsPlaying(false);
             };
 
-            // Lưu dấu vết để tối ưu (trick dùng lại biến của bạn)
-            lastTtsUrlRef.current = textToSpeak;
-            
-            // Phát luôn
+            // Gọi lệnh phát âm thanh
             soundRef.current.play();
             return;
         }
