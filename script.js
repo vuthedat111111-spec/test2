@@ -7571,21 +7571,36 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         if (queueRef.current.length === 0) return;
         const currentItem = queueRef.current[currentIndexRef.current];
 
-       // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Không bị chặn & Mượt)
+      // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Không bị chặn & Ép giọng Nhật)
         if (isNumberMode) {
-            setIsAudioLoading(false); 
-            setIsAudioLoaded(true);
-            window.speechSynthesis.cancel(); // Xóa bộ đệm giọng nói cũ nếu có
+            if (isAudioLoading) return;
+            setIsAudioLoading(true);
+
+            // Dọn dẹp âm thanh cũ nếu có
+            if (soundRef.current && typeof soundRef.current.unload === 'function') {
+                soundRef.current.unload();
+            }
 
             const textToSpeak = currentItem.word;
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'ja-JP'; // Ép đọc giọng tiếng Nhật
-            utterance.rate = playbackRate;
             
-            // Khắc phục lỗi trình duyệt (Chrome/Safari) tự động hủy giọng đọc giữa chừng
+            utterance.lang = 'ja-JP'; 
+            utterance.rate = playbackRate;
+
+            // === FIX LỖI ĐỌC TIẾNG VIỆT TRÊN ĐIỆN THOẠI ===
+            // Lấy danh sách toàn bộ giọng đọc trong máy và ép chọn giọng tiếng Nhật
+            const voices = window.speechSynthesis.getVoices();
+            const japaneseVoice = voices.find(voice => voice.lang.includes('ja') || voice.lang.includes('JP'));
+            
+            if (japaneseVoice) {
+                utterance.voice = japaneseVoice;
+            }
+            // ==============================================
+            
+            // Khắc phục lỗi trình duyệt tự động hủy giọng đọc giữa chừng
             window._ttsUtterance = utterance;
 
-            // Đóng giả cấu trúc Howler để tích hợp với các nút Player của bạn
+            // Đóng giả cấu trúc Howler
             soundRef.current = {
                 play: () => {
                     window.speechSynthesis.cancel();
@@ -7599,19 +7614,24 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
                 rate: (speed) => { utterance.rate = speed; }
             };
 
-            utterance.onstart = () => setIsPlaying(true);
+            utterance.onstart = () => {
+                setIsAudioLoaded(true);
+                setIsAudioLoading(false);
+                setIsPlaying(true);
+            };
             
             utterance.onend = () => {
                 setIsPlaying(false);
-                window._ttsUtterance = null; // Giải phóng bộ nhớ
+                window._ttsUtterance = null;
             };
             
             utterance.onerror = (e) => {
                 console.error("Lỗi TTS:", e);
+                setIsAudioLoading(false);
                 setIsPlaying(false);
             };
 
-            // Gọi lệnh phát âm thanh
+            lastTtsUrlRef.current = textToSpeak;
             soundRef.current.play();
             return;
         }
