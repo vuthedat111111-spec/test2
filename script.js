@@ -7571,12 +7571,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         if (queueRef.current.length === 0) return;
         const currentItem = queueRef.current[currentIndexRef.current];
 
-        // LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE
+       // LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE (Audio thuần)
         if (isNumberMode) {
             const textToSpeak = encodeURIComponent(currentItem.word);
             const googleTtsUrl = `https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=ja&q=${textToSpeak}`;
 
-            // Tái sử dụng file âm thanh nếu là cùng 1 câu hỏi (chưa bấm sang số khác)
+            // Tái sử dụng file âm thanh nếu là cùng 1 câu hỏi
             if (soundRef.current && lastTtsUrlRef.current === googleTtsUrl) {
                 soundRef.current.rate(playbackRate);
                 soundRef.current.play();
@@ -7587,33 +7587,37 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
             setIsAudioLoading(true);
 
             if (soundRef.current) {
-                soundRef.current.unload();
+                if (typeof soundRef.current.unload === 'function') soundRef.current.unload();
             }
 
-            soundRef.current = new Howl({
-                src: [googleTtsUrl],
-                html5: true,
-                format: ['mp3'],
-                onload: function() {
-                    setIsAudioLoaded(true);
-                    setIsAudioLoading(false);
-                    this.rate(playbackRate);
-                    this.play();
-                },
-                onplay: () => setIsPlaying(true),
-                onend: () => setIsPlaying(false),
-                onstop: () => setIsPlaying(false),
-                onloaderror: () => {
-                    setIsAudioLoading(false);
-                    setIsPlaying(false);
-                    console.log("Lỗi tải giọng Google, thử lại...");
-                }
-            });
-            
+            // Dùng Audio thuần gốc của trình duyệt để né lỗi chặn CORS
+            const audio = new Audio(googleTtsUrl);
+            audio.playbackRate = playbackRate;
+
+            // Bọc (Wrap) lại để "đóng giả" thư viện Howler, tránh làm sập các hàm stop() ở nơi khác
+            soundRef.current = {
+                play: () => audio.play().catch(() => setIsPlaying(false)),
+                stop: () => { audio.pause(); audio.currentTime = 0; },
+                unload: () => { audio.pause(); audio.removeAttribute('src'); },
+                rate: (speed) => { audio.playbackRate = speed; }
+            };
+
+            audio.oncanplay = () => {
+                setIsAudioLoaded(true);
+                setIsAudioLoading(false);
+                soundRef.current.play();
+            };
+
+            audio.onplay = () => setIsPlaying(true);
+            audio.onended = () => setIsPlaying(false);
+            audio.onerror = () => {
+                setIsAudioLoading(false);
+                setIsPlaying(false);
+            };
+
             lastTtsUrlRef.current = googleTtsUrl;
             return;
         }
-
         // LOGIC PHÁT FILE CHÍNH TẢ BẰNG HOWLER.JS NHƯ CŨ
         if (!soundRef.current) {
             if (isAudioLoading) return; 
