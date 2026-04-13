@@ -7571,18 +7571,33 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         if (queueRef.current.length === 0) return;
         const currentItem = queueRef.current[currentIndexRef.current];
 
-        // LOGIC PHÁT SỐ ĐẾM BẰNG TTS (Web Speech API)
+       // LOGIC PHÁT SỐ ĐẾM BẰNG TTS (Web Speech API)
         if (isNumberMode) {
             window.speechSynthesis.cancel(); 
             const utterance = new SpeechSynthesisUtterance(currentItem.word);
+            
+            // 1. Vẫn set ngôn ngữ như cũ
             utterance.lang = 'ja-JP';
+
+            // 2. ÉP BUỘC TÌM GIỌNG TIẾNG NHẬT (FIX LỖI IPHONE)
+            const voices = window.speechSynthesis.getVoices();
+            const japaneseVoice = voices.find(voice => voice.lang === 'ja-JP' || voice.lang.includes('ja'));
+            
+            // Nếu tìm thấy giọng Nhật cài sẵn trong máy, ép nó phải dùng giọng này
+            if (japaneseVoice) {
+                utterance.voice = japaneseVoice;
+            }
+
             utterance.rate = playbackRate;
             utterance.onstart = () => setIsPlaying(true);
+            
+            // Thêm onerror để tránh kẹt nút Play (sáng mãi không tắt) nếu iOS lỡ chặn audio
+            utterance.onerror = () => setIsPlaying(false); 
             utterance.onend = () => setIsPlaying(false);
+            
             window.speechSynthesis.speak(utterance);
             return;
         }
-
         // LOGIC PHÁT FILE BẰNG HOWLER.JS
         if (!soundRef.current) {
             if (isAudioLoading) return; 
