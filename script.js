@@ -7566,38 +7566,43 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
     }, [initLesson]);
 
     
-     // --- 2. HÀM TẢI VÀ PHÁT AUDIO (TTS HOẶC HOWLER) ---
-    const playCurrentAudio = React.useCallback(() => {
-        if (queueRef.current.length === 0) return;
-        const currentItem = queueRef.current[currentIndexRef.current];
+  // --- THÊM USE EFFECT NÀY: Mai phục để bắt bằng được giọng Nhật XỊN ---
+    React.useEffect(() => {
+        if (!isNumberMode) return;
 
-       // LOGIC PHÁT SỐ ĐẾM BẰNG TTS (Web Speech API)
-        if (isNumberMode) {
-            window.speechSynthesis.cancel(); 
-            const utterance = new SpeechSynthesisUtterance(currentItem.word);
-            
-            // 1. Vẫn set ngôn ngữ như cũ
-            utterance.lang = 'ja-JP';
-
-            // 2. ÉP BUỘC TÌM GIỌNG TIẾNG NHẬT (FIX LỖI IPHONE)
+        const loadVoices = () => {
             const voices = window.speechSynthesis.getVoices();
-            const japaneseVoice = voices.find(voice => voice.lang === 'ja-JP' || voice.lang.includes('ja'));
+            // 1. Lọc ra toàn bộ các giọng Tiếng Nhật đang có trong máy
+            const jpVoices = voices.filter(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
             
-            // Nếu tìm thấy giọng Nhật cài sẵn trong máy, ép nó phải dùng giọng này
-            if (japaneseVoice) {
-                utterance.voice = japaneseVoice;
-            }
+            if (jpVoices.length > 0) {
+                // 2. Thuật toán tìm giọng XỊN NHẤT
+                // Ưu tiên 1: Giọng của Google (Cực mượt trên Android/Chrome)
+                let bestVoice = jpVoices.find(v => v.name.includes('Google'));
+                
+                // Ưu tiên 2: Giọng Premium/Enhanced của iOS (Nghe rất tự nhiên)
+                if (!bestVoice) bestVoice = jpVoices.find(v => v.name.includes('Premium') || v.name.includes('Enhanced'));
+                
+                // Ưu tiên 3: Tìm đích danh giọng Kyoko, Hattori, Otoya (Giọng tốt của Apple)
+                if (!bestVoice) bestVoice = jpVoices.find(v => v.name.includes('Kyoko') || v.name.includes('Hattori') || v.name.includes('Otoya'));
+                
+                // Nếu đen quá máy không có giọng xịn nào, đành lấy giọng Nhật đầu tiên tìm được
+                if (!bestVoice) bestVoice = jpVoices[0];
 
-            utterance.rate = playbackRate;
-            utterance.onstart = () => setIsPlaying(true);
-            
-            // Thêm onerror để tránh kẹt nút Play (sáng mãi không tắt) nếu iOS lỡ chặn audio
-            utterance.onerror = () => setIsPlaying(false); 
-            utterance.onend = () => setIsPlaying(false);
-            
-            window.speechSynthesis.speak(utterance);
-            return;
+                setJpVoice(bestVoice);
+            }
+        };
+
+        loadVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
         }
+        return () => {
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = null;
+            }
+        };
+    }, [isNumberMode]);
         // LOGIC PHÁT FILE BẰNG HOWLER.JS
         if (!soundRef.current) {
             if (isAudioLoading) return; 
