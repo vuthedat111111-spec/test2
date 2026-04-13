@@ -7574,7 +7574,7 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         // LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE
         if (isNumberMode) {
             const textToSpeak = encodeURIComponent(currentItem.word);
-            const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ja&client=tw-ob&q=${textToSpeak}`;
+            const googleTtsUrl = `https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=ja&q=${textToSpeak}`;
 
             // Tái sử dụng file âm thanh nếu là cùng 1 câu hỏi (chưa bấm sang số khác)
             if (soundRef.current && lastTtsUrlRef.current === googleTtsUrl) {
