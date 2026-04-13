@@ -7565,44 +7565,42 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
         };
     }, [initLesson]);
 
-    
-  // --- THÊM USE EFFECT NÀY: Mai phục để bắt bằng được giọng Nhật XỊN ---
-    React.useEffect(() => {
-        if (!isNumberMode) return;
+// LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE (Cực mượt, 1 giọng chung trên mọi máy)
+        if (isNumberMode) {
+            if (isAudioLoading) return;
+            setIsAudioLoading(true);
 
-        const loadVoices = () => {
-            const voices = window.speechSynthesis.getVoices();
-            // 1. Lọc ra toàn bộ các giọng Tiếng Nhật đang có trong máy
-            const jpVoices = voices.filter(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
-            
-            if (jpVoices.length > 0) {
-                // 2. Thuật toán tìm giọng XỊN NHẤT
-                // Ưu tiên 1: Giọng của Google (Cực mượt trên Android/Chrome)
-                let bestVoice = jpVoices.find(v => v.name.includes('Google'));
-                
-                // Ưu tiên 2: Giọng Premium/Enhanced của iOS (Nghe rất tự nhiên)
-                if (!bestVoice) bestVoice = jpVoices.find(v => v.name.includes('Premium') || v.name.includes('Enhanced'));
-                
-                // Ưu tiên 3: Tìm đích danh giọng Kyoko, Hattori, Otoya (Giọng tốt của Apple)
-                if (!bestVoice) bestVoice = jpVoices.find(v => v.name.includes('Kyoko') || v.name.includes('Hattori') || v.name.includes('Otoya'));
-                
-                // Nếu đen quá máy không có giọng xịn nào, đành lấy giọng Nhật đầu tiên tìm được
-                if (!bestVoice) bestVoice = jpVoices[0];
+            // Tạo đường dẫn lấy trực tiếp file mp3 từ máy chủ Google Dịch
+            const textToSpeak = encodeURIComponent(currentItem.word);
+            const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ja&client=tw-ob&q=${textToSpeak}`;
 
-                setJpVoice(bestVoice);
+            // Dùng ngay thư viện Howler (giống các bài khác) để phát
+            if (soundRef.current) {
+                soundRef.current.unload();
             }
-        };
 
-        loadVoices();
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
+            soundRef.current = new Howl({
+                src: [googleTtsUrl],
+                html5: true,
+                format: ['mp3'],
+                onload: function() {
+                    setIsAudioLoaded(true);
+                    setIsAudioLoading(false);
+                    this.rate(playbackRate);
+                    this.play();
+                },
+                onplay: () => setIsPlaying(true),
+                onend: () => setIsPlaying(false),
+                onstop: () => setIsPlaying(false),
+                onloaderror: () => {
+                    setIsAudioLoading(false);
+                    setIsPlaying(false);
+                    // Rơi vào đây nếu mạng lỗi hoặc Google chặn, nhưng hiếm khi xảy ra
+                    console.log("Lỗi tải giọng Google");
+                }
+            });
+            return;
         }
-        return () => {
-            if (speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = null;
-            }
-        };
-    }, [isNumberMode]);
         // LOGIC PHÁT FILE BẰNG HOWLER.JS
         if (!soundRef.current) {
             if (isAudioLoading) return; 
