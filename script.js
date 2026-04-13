@@ -7566,7 +7566,12 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
     }, [initLesson]);
 
     
-  // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Nhanh & Không bị chặn)
+     // --- 2. HÀM TẢI VÀ PHÁT AUDIO (API GOOGLE HOẶC HOWLER MP3) ---
+    const playCurrentAudio = React.useCallback(() => {
+        if (queueRef.current.length === 0) return;
+        const currentItem = queueRef.current[currentIndexRef.current];
+
+       // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Nhanh & Không bị chặn)
         if (isNumberMode) {
             if (isAudioLoading) return;
             setIsAudioLoading(true);
