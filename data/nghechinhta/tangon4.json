@@ -377,7 +377,7 @@
     "word": "ペット",
     "reading": "ぺっと",
     "meaning": "thú cưng, vật nuôi",
-    "sentence": この [アパート](あぱーと)で [ペット](ぺっと)は [飼](か)えません。",
+    "sentence": "この [アパート](あぱーと)で [ペット](ぺっと)は [飼](か)えません。",
     "sentenceVi": "Không thể nuôi thú cưng ở căn hộ chung cư này."
   },
   {
@@ -420,7 +420,7 @@
     "sentence": "うさぎを [飼](か)って みたいです。",
     "sentenceVi": "Tôi muốn thử nuôi một con thỏ."
   },
-{
+  {
     "id": "v53",
     "word": "アパート",
     "reading": "あぱーと",
@@ -884,7 +884,7 @@
     "sentence": "[電気](でんき)が [消](き)えているので、[田中](たなか)さんは [部屋](へや)に いないでしょう。",
     "sentenceVi": "Vì đèn tắt nên có lẽ anh/ chị Tanaka không ở trong phòng."
   },
-{
+  {
     "id": "v111",
     "word": "起きる",
     "reading": "おきる",
@@ -913,7 +913,7 @@
     "word": "寝坊する",
     "reading": "ねぼうする",
     "meaning": "việc ngủ nướng, ngủ dậy trễ",
-    "sentence": お[酒](さけ)を [飲](の)みすぎて、[寝坊](ねぼう)しました。",
+    "sentence": "お[酒](さけ)を [飲](の)みすぎて、[寝坊](ねぼう)しました。",
     "sentenceVi": "Vì uống rượu quá nhiều nên tôi ngủ dậy trễ."
   },
   {
@@ -1025,7 +1025,7 @@
     "word": "洗濯機",
     "reading": "せんたくき",
     "meaning": "máy giặt",
-    "sentence": うちの [洗濯機](せんたくき)は [音](おと)が うるさいです。",
+    "sentence": "うちの [洗濯機](せんたくき)は [音](おと)が うるさいです。",
     "sentenceVi": "Máy giặt nhà tôi tiếng rất ồn."
   },
   {
@@ -1156,8 +1156,7 @@
     "sentence": "[毎朝](まいあさ)、りんご[ジュース](じゅーす)を [飲](の)むのが [習慣](しゅうかん)です。",
     "sentenceVi": "Uống nước táo mỗi sáng là thói quen (của tôi)."
   }
-
- ]
+]
 }
 
 ]
