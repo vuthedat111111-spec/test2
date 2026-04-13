@@ -7566,56 +7566,54 @@ const DictationPracticeView = ({ lessonData, onBack, onClose, onLessonComplete }
     }, [initLesson]);
 
     
-     // --- 2. HÀM TẢI VÀ PHÁT AUDIO (API GOOGLE HOẶC HOWLER MP3) ---
-    const playCurrentAudio = React.useCallback(() => {
-        if (queueRef.current.length === 0) return;
-        const currentItem = queueRef.current[currentIndexRef.current];
-
-       // LOGIC PHÁT SỐ ĐẾM BẰNG API GOOGLE TRANSLATE (Audio thuần)
+  // LOGIC PHÁT SỐ ĐẾM BẰNG WEB SPEECH API (Nhanh & Không bị chặn)
         if (isNumberMode) {
-            const textToSpeak = encodeURIComponent(currentItem.word);
-            const googleTtsUrl = `https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=ja&q=${textToSpeak}`;
-
-            // Tái sử dụng file âm thanh nếu là cùng 1 câu hỏi
-            if (soundRef.current && lastTtsUrlRef.current === googleTtsUrl) {
-                soundRef.current.rate(playbackRate);
-                soundRef.current.play();
-                return;
-            }
-
             if (isAudioLoading) return;
             setIsAudioLoading(true);
 
-            if (soundRef.current) {
-                if (typeof soundRef.current.unload === 'function') soundRef.current.unload();
+            // Dọn dẹp âm thanh cũ nếu có
+            if (soundRef.current && typeof soundRef.current.unload === 'function') {
+                soundRef.current.unload();
             }
 
-            // Dùng Audio thuần gốc của trình duyệt để né lỗi chặn CORS
-            const audio = new Audio(googleTtsUrl);
-            audio.playbackRate = playbackRate;
+            const textToSpeak = currentItem.word;
 
-            // Bọc (Wrap) lại để "đóng giả" thư viện Howler, tránh làm sập các hàm stop() ở nơi khác
+            // Khởi tạo trình đọc
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'ja-JP'; // Ép đọc giọng tiếng Nhật
+            utterance.rate = playbackRate;
+
+            // Đóng giả cấu trúc của Howler để tương thích với các nút bấm của bạn
             soundRef.current = {
-                play: () => audio.play().catch(() => setIsPlaying(false)),
-                stop: () => { audio.pause(); audio.currentTime = 0; },
-                unload: () => { audio.pause(); audio.removeAttribute('src'); },
-                rate: (speed) => { audio.playbackRate = speed; }
+                play: () => {
+                    window.speechSynthesis.cancel(); // Dừng câu cũ trước khi đọc câu mới
+                    window.speechSynthesis.speak(utterance);
+                },
+                stop: () => window.speechSynthesis.cancel(),
+                unload: () => window.speechSynthesis.cancel(),
+                rate: (speed) => { utterance.rate = speed; }
             };
 
-            audio.oncanplay = () => {
+            // Bắt các sự kiện
+            utterance.onstart = () => {
                 setIsAudioLoaded(true);
                 setIsAudioLoading(false);
-                soundRef.current.play();
+                setIsPlaying(true);
             };
 
-            audio.onplay = () => setIsPlaying(true);
-            audio.onended = () => setIsPlaying(false);
-            audio.onerror = () => {
+            utterance.onend = () => setIsPlaying(false);
+            
+            utterance.onerror = (e) => {
+                console.error("Lỗi Text-to-Speech:", e);
                 setIsAudioLoading(false);
                 setIsPlaying(false);
             };
 
-            lastTtsUrlRef.current = googleTtsUrl;
+            // Lưu dấu vết để tối ưu (trick dùng lại biến của bạn)
+            lastTtsUrlRef.current = textToSpeak;
+            
+            // Phát luôn
+            soundRef.current.play();
             return;
         }
         // LOGIC PHÁT FILE CHÍNH TẢ BẰNG HOWLER.JS NHƯ CŨ
