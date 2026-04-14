@@ -4,13 +4,17 @@
     "title": "PHẦN 1 - TỰ GIỚI THIỆU",
     "audioPath": "./data/audio/nghechinhta/tangon5p1.mp3",
     "vocabularies": [
-    {
+  {
     "id": "v1",
     "word": "たった今",
     "reading": "たったいま",
     "meaning": "vừa mới, mới tức thì",
-    "sentence": "[電車](でんしゃ)は [たった今](たったいま) [出](で)た ところです。",
-    "sentenceVi": "Tàu điện vừa mới xuất phát."
+    "sentence": "[電車](でんしゃ)は たった[今](いま) [出](で)た ところです。",
+    "sentenceVi": "Tàu điện vừa mới xuất phát.",
+    "wordStartTime": 0.58,
+    "wordEndTime": 1.61,
+    "sentenceStartTime": 2.92,
+    "sentenceEndTime": 5.96
   },
   {
     "id": "v2",
@@ -18,23 +22,35 @@
     "reading": "いまにも",
     "meaning": "ngay bây giờ",
     "sentence": "[空](そら)が [暗](くら)くなって、[今](いま)にも [雨](あめ)が [降](ふ)りそうです。",
-    "sentenceVi": "Bầu trời trở nên tối, trời có vẻ muốn mưa ngay bây giờ."
+    "sentenceVi": "Bầu trời trở nên tối, trời có vẻ muốn mưa ngay bây giờ.",
+    "wordStartTime": 8,
+    "wordEndTime": 8.78,
+    "sentenceStartTime": 9.92,
+    "sentenceEndTime": 14.13
   },
   {
     "id": "v3",
     "word": "もうすぐ",
     "reading": "もうすぐ",
     "meaning": "sắp",
-    "sentence": "[今](いま) 11[時半](じはん)。もうすぐ [ランチ](らんち)の [時間](じかん)です。",
-    "sentenceVi": "Bây giờ là 11 giờ rưỡi. Sắp đến giờ cơm trưa."
+    "sentence": "もうすぐ [ランチ](らんち)の [時間](じかん)です。",
+    "sentenceVi": "Sắp đến giờ cơm trưa.",
+    "wordStartTime": 16.17,
+    "wordEndTime": 16.98,
+    "sentenceStartTime": 20.93,
+    "sentenceEndTime": 23.24
   },
   {
     "id": "v4",
     "word": "さっき",
     "reading": "さっき",
     "meaning": "lúc nãy",
-    "sentence": "A「[山下](やました)さんは？」 B「[山下](やました)さんなら、さっき [帰](かえ)りましたよ。」",
-    "sentenceVi": "A: Anh/chị Yamashita đâu? B: Anh/ chị Yamashita (thì) về lúc nãy rồi."
+    "sentence": "[山下](やました)さんなら、さっき [帰](かえ)りましたよ。",
+    "sentenceVi": "Anh/ chị Yamashita (thì) về lúc nãy rồi.",
+    "wordStartTime": 25.36,
+    "wordEndTime": 26.09,
+    "sentenceStartTime": 29.29,
+    "sentenceEndTime": 32.59
   },
   {
     "id": "v5",
@@ -42,7 +58,11 @@
     "reading": "このごろ",
     "meaning": "gần đây, dạo này",
     "sentence": "この[頃](ごろ)、[寒](さむ)い[日](ひ)が [多](おお)いですね。",
-    "sentenceVi": "Gần đây, những ngày lạnh nhiều nhỉ."
+    "sentenceVi": "Gần đây, những ngày lạnh nhiều nhỉ.",
+    "wordStartTime": 34.7,
+    "wordEndTime": 35.49,
+    "sentenceStartTime": 36.65,
+    "sentenceEndTime": 39.41
   },
   {
     "id": "v6",
@@ -50,31 +70,47 @@
     "reading": "さいきん",
     "meaning": "gần đây",
     "sentence": "[最近](さいきん)、[スペイン](すぺいん)[語](ご)を [勉強](べんきょう)しています。",
-    "sentenceVi": "Gần đây, tôi đang học tiếng Tây Ban Nha."
+    "sentenceVi": "Gần đây, tôi đang học tiếng Tây Ban Nha.",
+    "wordStartTime": 41.42,
+    "wordEndTime": 42.31,
+    "sentenceStartTime": 43.36,
+    "sentenceEndTime": 46.38
   },
   {
     "id": "v7",
     "word": "この間",
     "reading": "このあいだ",
     "meaning": "gần đây, cách đây không lâu",
-    "sentence": "A「[田中](たなか)さんは[元気](げんき)ですか。」 B「ええ。この[間](あいだ) [会](あ)いましたよ。」",
-    "sentenceVi": "A: Anh/ chị Tanaka khỏe chứ? B: Vâng. Tôi mới gặp cách đây không lâu đấy."
+    "sentence": "この[間](あいだ) [会](あ)いましたよ。",
+    "sentenceVi": " Tôi mới gặp cách đây không lâu đấy.",
+    "wordStartTime": 48.41,
+    "wordEndTime": 49.35,
+    "sentenceStartTime": 54.4,
+    "sentenceEndTime": 56.3
   },
   {
     "id": "v8",
     "word": "今度",
     "reading": "こんど",
     "meaning": "lần này, lần tới",
-    "sentence": "①[今度](こんど)の [テスト](てすと)は とても むずかしかった。 ②A「[今度](こんど)、お[酒](さけ)を [飲](の)みに [行](い)きましょう。」 B「ええ、ぜひ。」",
-    "sentenceVi": "①Bài kiểm tra lần này (đã) rất khó. ②A: Lần tới, đi uống rượu nào. B: Vâng, nhất định."
+    "sentence": "[今度](こんど)、お[酒](さけ)を [飲](の)みに [行](い)きましょう。",
+    "sentenceVi": "Lần tới, đi uống rượu nào",
+    "wordStartTime": 58.17,
+    "wordEndTime": 58.86,
+    "sentenceStartTime": 64.59,
+    "sentenceEndTime": 67.3
   },
   {
     "id": "v9",
     "word": "いつでも",
     "reading": "いつでも",
     "meaning": "khi nào cũng, bất kỳ lúc nào",
-    "sentence": "A「[食事](しょくじ)するなら、いつが いいですか。」 B「[私](わたし)は いつでも いいですよ。」",
-    "sentenceVi": "A: Nếu dùng bữa thì khi nào được? B: Tôi thì khi nào cũng được."
+    "sentence": "[私](わたし)は いつでも いいですよ。",
+    "sentenceVi": "Tôi thì khi nào cũng được.",
+    "wordStartTime": 71.46,
+    "wordEndTime": 72.24,
+    "sentenceStartTime": 77.24,
+    "sentenceEndTime": 79.74
   },
   {
     "id": "v10",
@@ -82,7 +118,11 @@
     "reading": "いつか",
     "meaning": "một lúc nào đó, một ngày nào đó",
     "sentence": "いつか [家族](かぞく)で [世界旅行](せかいりょこう)を したいです。",
-    "sentenceVi": "Một ngày nào đó, tôi muốn đi du lịch thế giới với gia đình."
+    "sentenceVi": "Một ngày nào đó, tôi muốn đi du lịch thế giới với gia đình.",
+    "wordStartTime": 81.87,
+    "wordEndTime": 82.58,
+    "sentenceStartTime": 84.1,
+    "sentenceEndTime": 87.39
   },
   {
     "id": "v11",
@@ -90,7 +130,11 @@
     "reading": "しょうらい",
     "meaning": "tương lai",
     "sentence": "[将来](しょうらい)、[医者](いしゃ)に なりたいと [思](おも)っています。",
-    "sentenceVi": "Trong tương lai, tôi muốn trở thành bác sỹ."
+    "sentenceVi": "Trong tương lai, tôi muốn trở thành bác sỹ.",
+    "wordStartTime": 89.42,
+    "wordEndTime": 90.2,
+    "sentenceStartTime": 91.41,
+    "sentenceEndTime": 94.2
   },
   {
     "id": "v12",
@@ -98,7 +142,11 @@
     "reading": "むかし",
     "meaning": "ngày xưa",
     "sentence": "[昔](むかし)、ここは [海](うみ)でした。",
-    "sentenceVi": "Ngày xưa, nơi này là biển."
+    "sentenceVi": "Ngày xưa, nơi này là biển.",
+    "wordStartTime": 96.23,
+    "wordEndTime": 97.02,
+    "sentenceStartTime": 98.4,
+    "sentenceEndTime": 100.96
   },
   {
     "id": "v13",
@@ -106,7 +154,11 @@
     "reading": "あるひ",
     "meaning": "một ngày nọ",
     "sentence": "ある[日](ひ)、[家](いえ)の [前](まえ)に [黒猫](くろねこ)が いました。",
-    "sentenceVi": "Một ngày nọ, có con mèo đen trước nhà."
+    "sentenceVi": "Một ngày nọ, có con mèo đen trước nhà.",
+    "wordStartTime": 102.84,
+    "wordEndTime": 103.52,
+    "sentenceStartTime": 104.67,
+    "sentenceEndTime": 108.34
   },
   {
     "id": "v14",
@@ -114,7 +166,11 @@
     "reading": "ひるま",
     "meaning": "ban ngày",
     "sentence": "このあたりは [昼間](ひるま)は [人](ひと)が [多](おお)いですが、[夜](よる)は しずかです。",
-    "sentenceVi": "Khu vực này ban ngày thì đông người nhưng buổi tối thì yên tĩnh."
+    "sentenceVi": "Khu vực này ban ngày thì đông người nhưng buổi tối thì yên tĩnh.",
+    "wordStartTime": 110.26,
+    "wordEndTime": 110.95,
+    "sentenceStartTime": 112.15,
+    "sentenceEndTime": 117.13
   },
   {
     "id": "v15",
@@ -122,7 +178,11 @@
     "reading": "ゆうがた",
     "meaning": "chiều tối",
     "sentence": "[夕方](ゆうがた)から [強](つよ)い [雨](あめ)が [降](ふ)るそうです。",
-    "sentenceVi": "Nghe nói từ chiều tối trời sẽ mưa lớn."
+    "sentenceVi": "Nghe nói từ chiều tối trời sẽ mưa lớn.",
+    "wordStartTime": 119.17,
+    "wordEndTime": 120.02,
+    "sentenceStartTime": 121.27,
+    "sentenceEndTime": 124.24
   },
   {
     "id": "v16",
@@ -130,7 +190,11 @@
     "reading": "よなか",
     "meaning": "đêm, khuya",
     "sentence": "[毎日](まいにち)、[夜中](よなか)まで [勉強](べんきょう)しています。",
-    "sentenceVi": "Hàng ngày, tôi học bài đến tối khuya."
+    "sentenceVi": "Hàng ngày, tôi học bài đến tối khuya.",
+    "wordStartTime": 126.29,
+    "wordEndTime": 127.07,
+    "sentenceStartTime": 128.29,
+    "sentenceEndTime": 131.48
   },
   {
     "id": "v17",
@@ -138,7 +202,11 @@
     "reading": "あす",
     "meaning": "ngày mai",
     "sentence": "[明日](あす)の [午後](ごご)までに [メール](めーる)を [送](おく)ってください。",
-    "sentenceVi": "Cho đến chiều ngày mai, vui lòng gửi e-mail."
+    "sentenceVi": "Cho đến chiều ngày mai, vui lòng gửi e-mail.",
+    "wordStartTime": 133.53,
+    "wordEndTime": 134.16,
+    "sentenceStartTime": 135.44,
+    "sentenceEndTime": 138.75
   },
   {
     "id": "v18",
@@ -146,7 +214,11 @@
     "reading": "おととい",
     "meaning": "hôm kia, ngày kia",
     "sentence": "かぜを ひいて、[一昨日](おととい)から [熱](ねつ)が あります。",
-    "sentenceVi": "Tôi bị cảm, sốt từ hôm kia."
+    "sentenceVi": "Tôi bị cảm, sốt từ hôm kia.",
+    "wordStartTime": 140.6,
+    "wordEndTime": 141.41,
+    "sentenceStartTime": 142.67,
+    "sentenceEndTime": 146.43
   },
   {
     "id": "v19",
@@ -154,7 +226,11 @@
     "reading": "ゆうべ",
     "meaning": "tối hôm qua",
     "sentence": "[昨夜](ゆうべ)、うちで [パーティー](ぱーてぃー)を しました。",
-    "sentenceVi": "Tối hôm qua, tôi đã làm tiệc ở nhà."
+    "sentenceVi": "Tối hôm qua, tôi đã làm tiệc ở nhà.",
+    "wordStartTime": 148.46,
+    "wordEndTime": 149.2,
+    "sentenceStartTime": 150.41,
+    "sentenceEndTime": 153.57
   },
   {
     "id": "v20",
@@ -162,7 +238,11 @@
     "reading": "こんや",
     "meaning": "tối nay",
     "sentence": "[今夜](こんや)は とても [寒](さむ)いです。",
-    "sentenceVi": "Đêm nay sẽ rất lạnh."
+    "sentenceVi": "Đêm nay sẽ rất lạnh.",
+    "wordStartTime": 155.41,
+    "wordEndTime": 156.11,
+    "sentenceStartTime": 157.28,
+    "sentenceEndTime": 159.73
   },
   {
     "id": "v21",
@@ -170,15 +250,23 @@
     "reading": "こんしゅう",
     "meaning": "tuần này",
     "sentence": "[今週](こんしゅう)は、あまり いそがしくないです。",
-    "sentenceVi": "Tuần này tôi không bận rộn lắm."
+    "sentenceVi": "Tuần này tôi không bận rộn lắm.",
+    "wordStartTime": 161.76,
+    "wordEndTime": 162.7,
+    "sentenceStartTime": 163.67,
+    "sentenceEndTime": 166.82
   },
   {
     "id": "v22",
     "word": "今月",
     "reading": "こんげつ",
     "meaning": "tháng này",
-    "sentence": "[今月](こんげつ)、[大切](たいせつ)な [テスト](てすと)が 3つも あります。",
-    "sentenceVi": "Tháng này có tới 3 bài kiểm tra quan trọng."
+    "sentence": "[今月](こんげつ)、[大切](たいせつ)な [テスト](てすと)が [3つ](みっつ)も あります。",
+    "sentenceVi": "Tháng này có tới 3 bài kiểm tra quan trọng.",
+    "wordStartTime": 168.87,
+    "wordEndTime": 169.74,
+    "sentenceStartTime": 170.91,
+    "sentenceEndTime": 174.79
   },
   {
     "id": "v23",
@@ -186,7 +274,11 @@
     "reading": "さらいしゅう",
     "meaning": "tuần tới nữa (2 tuần sau)",
     "sentence": "[来週](らいしゅう)は いそがしいので、[再来週](さらいしゅう) [会](あ)いましょう。",
-    "sentenceVi": "Vì tuần tới tôi bận, nên tuần tới nữa gặp nhau nhé."
+    "sentenceVi": "Vì tuần tới tôi bận, nên tuần tới nữa gặp nhau nhé.",
+    "wordStartTime": 176.92,
+    "wordEndTime": 178.03,
+    "sentenceStartTime": 179.15,
+    "sentenceEndTime": 183.33
   },
   {
     "id": "v24",
@@ -194,7 +286,11 @@
     "reading": "さらいげつ",
     "meaning": "tháng tới nữa (2 tháng sau)",
     "sentence": "[再来月](さらいげつ)から 1[年間](ねんかん) [ニューヨーク](にゅーよーく)へ [行](い)きます。",
-    "sentenceVi": "Từ tháng tới nữa tôi sẽ đi New York 1 năm."
+    "sentenceVi": "Từ tháng tới nữa tôi sẽ đi New York 1 năm.",
+    "wordStartTime": 185.26,
+    "wordEndTime": 186.24,
+    "sentenceStartTime": 187.34,
+    "sentenceEndTime": 191.17
   },
   {
     "id": "v25",
@@ -202,7 +298,11 @@
     "reading": "さらいねん",
     "meaning": "năm tới nữa (2 năm sau)",
     "sentence": "[再来年](さらいねん)、この[国](くに)で [オリンピック](おりんぴっく)が あります。",
-    "sentenceVi": "Năm tới nữa sẽ có Olympic ở nước này."
+    "sentenceVi": "Năm tới nữa sẽ có Olympic ở nước này.",
+    "wordStartTime": 193.26,
+    "wordEndTime": 194.25,
+    "sentenceStartTime": 195.3,
+    "sentenceEndTime": 198.97
   },
   {
     "id": "v26",
@@ -210,7 +310,11 @@
     "reading": "おととし",
     "meaning": "năm kia",
     "sentence": "[日本](にほん)へ [来](き)たのは [一昨年](おととし)の 4[月](がつ)です。",
-    "sentenceVi": "Tôi đã đến Nhật vào tháng 4 năm kia."
+    "sentenceVi": "Tôi đã đến Nhật vào tháng 4 năm kia.",
+    "wordStartTime": 201,
+    "wordEndTime": 201.87,
+    "sentenceStartTime": 203.05,
+    "sentenceEndTime": 206.59
   },
   {
     "id": "v27",
@@ -218,7 +322,11 @@
     "reading": "まいしゅう",
     "meaning": "mỗi tuần, hàng tuần",
     "sentence": "[毎週](まいしゅう) [土曜日](どようび)は [友](とも)だちと [テニス](てにす)を しています。",
-    "sentenceVi": "Thứ Bảy hàng tuần, tôi chơi quần vợt với bạn."
+    "sentenceVi": "Thứ Bảy hàng tuần, tôi chơi quần vợt với bạn.",
+    "wordStartTime": 208.61,
+    "wordEndTime": 209.67,
+    "sentenceStartTime": 210.7,
+    "sentenceEndTime": 214.91
   },
   {
     "id": "v28",
@@ -226,7 +334,11 @@
     "reading": "まいつき",
     "meaning": "mỗi tháng, hàng tháng",
     "sentence": "[毎月](まいつき) [二十日](はつか)に [アルバイト](あるばいと)[代](だい)が もらえます。",
-    "sentenceVi": "Có thể nhận lương làm thêm vào ngày 20 mỗi tháng."
+    "sentenceVi": "Có thể nhận lương làm thêm vào ngày 20 mỗi tháng.",
+    "wordStartTime": 216.96,
+    "wordEndTime": 217.87,
+    "sentenceStartTime": 219.1,
+    "sentenceEndTime": 222.71
   },
   {
     "id": "v29",
@@ -234,7 +346,11 @@
     "reading": "まいとし",
     "meaning": "mỗi năm, hàng năm",
     "sentence": "[毎年](まいとし)、[クリスマス](くりすます)に [国](くに)へ [帰](かえ)ります。",
-    "sentenceVi": "Hàng năm tôi về nước vào dịp Giáng sinh."
+    "sentenceVi": "Hàng năm tôi về nước vào dịp Giáng sinh.",
+    "wordStartTime": 224.76,
+    "wordEndTime": 225.67,
+    "sentenceStartTime": 226.77,
+    "sentenceEndTime": 230.31
   },
   {
     "id": "v30",
@@ -242,15 +358,23 @@
     "reading": "へいじつ",
     "meaning": "ngày thường (chỉ thứ Hai~ thứ Sáu)",
     "sentence": "[平日](へいじつ)は [仕事](しごと)が とても いそがしいです。",
-    "sentenceVi": "Ngày thường công việc rất bận rộn."
+    "sentenceVi": "Ngày thường công việc rất bận rộn.",
+    "wordStartTime": 232.34,
+    "wordEndTime": 233.19,
+    "sentenceStartTime": 234.44,
+    "sentenceEndTime": 237.97
   },
   {
     "id": "v31",
     "word": "最初",
     "reading": "さいしょ",
     "meaning": "trước tiên, lúc đầu",
-    "sentence": "[最初](さいしょ)に「あいうえお」を おぼえました。",
-    "sentenceVi": "Trước tiên, tôi ghi nhớ a i u e o."
+    "sentence": "[最初](さいしょ)に「あいうえお」を [覚](おぼ)えました。",
+    "sentenceVi": "Trước tiên, tôi ghi nhớ a i u e o.",
+    "wordStartTime": 240.1,
+    "wordEndTime": 240.87,
+    "sentenceStartTime": 242.09,
+    "sentenceEndTime": 245.25
   },
   {
     "id": "v32",
@@ -258,7 +382,11 @@
     "reading": "さいちゅう",
     "meaning": "giữa chừng, trong lúc",
     "sentence": "[テスト](てすと)の [最中](さいちゅう)に [教室](きょうしつ)を [出](で)ては いけません。",
-    "sentenceVi": "Trong lúc làm kiểm tra, không được ra khỏi lớp học."
+    "sentenceVi": "Trong lúc làm kiểm tra, không được ra khỏi lớp học.",
+    "wordStartTime": 247.18,
+    "wordEndTime": 248.13,
+    "sentenceStartTime": 249.3,
+    "sentenceEndTime": 253.4
   },
   {
     "id": "v33",
@@ -266,15 +394,23 @@
     "reading": "さいご",
     "meaning": "cuối cùng",
     "sentence": "この[バス](ばす)は [最後](さいご)に [東京駅](とうきょうえき)に [着](つ)きます。",
-    "sentenceVi": "Xe buýt này sẽ đến ga Tokyo cuối cùng."
+    "sentenceVi": "Xe buýt này sẽ đến ga Tokyo cuối cùng.",
+    "wordStartTime": 255.34,
+    "wordEndTime": 256.01,
+    "sentenceStartTime": 257.26,
+    "sentenceEndTime": 261.06
   },
   {
     "id": "v34",
     "word": "先に",
     "reading": "さきに",
     "meaning": "(làm gì đó) trước",
-    "sentence": "A「お[昼](ひる)ごはんに [行](い)きましょう。」 B「[私](わたし)は まだ [仕事](しごと)が あるので、[先](さき)に [行](い)ってください。」",
-    "sentenceVi": "A: Chúng ta đi ăn trưa nào. B: Vì tôi vẫn còn công việc, bạn hãy đi trước đi."
+    "sentence": "[私](わたし)は まだ [仕事](しごと)が あるので、[先](さき)に [行](い)ってください。",
+    "sentenceVi": "Vì tôi vẫn còn công việc, bạn hãy đi trước đi.",
+    "wordStartTime": 263.22,
+    "wordEndTime": 263.99,
+    "sentenceStartTime": 267.88,
+    "sentenceEndTime": 272.61
   },
   {
     "id": "v35",
@@ -282,7 +418,11 @@
     "reading": "おっと",
     "meaning": "người chồng, chồng tôi",
     "sentence": "[夫](おっと)は [毎日](まいにち) おそくまで [仕事](しごと)を しています。",
-    "sentenceVi": "Chồng tôi hàng ngày làm việc về trễ."
+    "sentenceVi": "Chồng tôi hàng ngày làm việc về trễ.",
+    "wordStartTime": 274.73,
+    "wordEndTime": 275.55,
+    "sentenceStartTime": 277.16,
+    "sentenceEndTime": 281.17
   },
   {
     "id": "v36",
@@ -290,7 +430,11 @@
     "reading": "つま",
     "meaning": "người vợ, vợ tôi",
     "sentence": "[妻](つま)は [カレー](かれー)が [大好](だいす)きです。",
-    "sentenceVi": "Vợ tôi rất thích cà ri."
+    "sentenceVi": "Vợ tôi rất thích cà ri.",
+    "wordStartTime": 283.3,
+    "wordEndTime": 283.8,
+    "sentenceStartTime": 285.05,
+    "sentenceEndTime": 287.25
   },
   {
     "id": "v37",
@@ -298,7 +442,11 @@
     "reading": "りょうしん",
     "meaning": "cha mẹ",
     "sentence": "[両親](りょうしん)は [イギリス](いぎりす)に [住](す)んでいます。",
-    "sentenceVi": "Cha mẹ tôi sống ở Anh."
+    "sentenceVi": "Cha mẹ tôi sống ở Anh.",
+    "wordStartTime": 289.26,
+    "wordEndTime": 290.12,
+    "sentenceStartTime": 291.1,
+    "sentenceEndTime": 293.8
   },
   {
     "id": "v38",
@@ -306,7 +454,11 @@
     "reading": "むすこ",
     "meaning": "con trai",
     "sentence": "[息子](むすこ)は [小学校](しょうがっこう)から [サッカー](さっかー)を やっています。",
-    "sentenceVi": "Con trai tôi chơi bóng đá từ thời tiểu học."
+    "sentenceVi": "Con trai tôi chơi bóng đá từ thời tiểu học.",
+    "wordStartTime": 295.81,
+    "wordEndTime": 296.63,
+    "sentenceStartTime": 297.79,
+    "sentenceEndTime": 301.77
   },
   {
     "id": "v39",
@@ -314,7 +466,11 @@
     "reading": "むすめ",
     "meaning": "con gái",
     "sentence": "[娘](むすめ)は [勉強](べんきょう)より [スポーツ](すぽーつ)のほうが [好](す)きです。",
-    "sentenceVi": "Con gái tôi thích thể thao hơn việc học."
+    "sentenceVi": "Con gái tôi thích thể thao hơn việc học.",
+    "wordStartTime": 303.75,
+    "wordEndTime": 304.52,
+    "sentenceStartTime": 305.66,
+    "sentenceEndTime": 309.63
   },
   {
     "id": "v40",
@@ -322,7 +478,11 @@
     "reading": "おこさん",
     "meaning": "con (kính ngữ)",
     "sentence": "[先生](せんせい)の お[子](こ)さんは [今](いま) [中学生](ちゅうがくせい)ですか。",
-    "sentenceVi": "Con của thầy/ cô bây giờ là học sinh phổ thông phải không?"
+    "sentenceVi": "Con của thầy/ cô bây giờ là học sinh phổ thông phải không?",
+    "wordStartTime": 311.65,
+    "wordEndTime": 312.57,
+    "sentenceStartTime": 313.69,
+    "sentenceEndTime": 317.39
   },
   {
     "id": "v41",
@@ -330,7 +490,11 @@
     "reading": "そふ",
     "meaning": "ông tôi",
     "sentence": "[祖父](そふ)は [小学校](しょうがっこう)の [先生](せんせい)でした。",
-    "sentenceVi": "Ông tôi đã từng là giáo viên trường tiểu học."
+    "sentenceVi": "Ông tôi đã từng là giáo viên trường tiểu học.",
+    "wordStartTime": 319.45,
+    "wordEndTime": 320.02,
+    "sentenceStartTime": 321.15,
+    "sentenceEndTime": 324.02
   },
   {
     "id": "v42",
@@ -338,15 +502,23 @@
     "reading": "そぼ",
     "meaning": "bà tôi",
     "sentence": "[私](わたし)は [祖母](そぼ)が [大好](だいす)きです。",
-    "sentenceVi": "Tôi rất yêu bà tôi."
+    "sentenceVi": "Tôi rất yêu bà tôi.",
+    "wordStartTime": 326.01,
+    "wordEndTime": 326.56,
+    "sentenceStartTime": 327.47,
+    "sentenceEndTime": 329.79
   },
   {
     "id": "v43",
     "word": "孫",
     "reading": "まご",
     "meaning": "cháu",
-    "sentence": "[祖父](そふ)と [祖母](そぼ)には [孫](まご)が 8[人](にん) います。",
-    "sentenceVi": "Ông bà tôi có 8 người cháu."
+    "sentence": "[祖父](そふ)と [祖母](そぼ)には [孫](まご)が [8](はち)[人](にん) います。",
+    "sentenceVi": "Ông bà tôi có 8 người cháu.",
+    "wordStartTime": 331.79,
+    "wordEndTime": 332.42,
+    "sentenceStartTime": 333.59,
+    "sentenceEndTime": 336.94
   },
   {
     "id": "v44",
@@ -354,7 +526,11 @@
     "reading": "おじ",
     "meaning": "bác tôi, chú tôi, cậu tôi",
     "sentence": "この [叔父](おじ)は [母](はは)の [弟](おとうと)です。",
-    "sentenceVi": "Người cậu này là em trai của mẹ tôi."
+    "sentenceVi": "Người cậu này là em trai của mẹ tôi.",
+    "wordStartTime": 338.93,
+    "wordEndTime": 339.51,
+    "sentenceStartTime": 340.76,
+    "sentenceEndTime": 343.3
   },
   {
     "id": "v45",
@@ -362,7 +538,11 @@
     "reading": "おば",
     "meaning": "bác tôi, cô tôi, dì tôi",
     "sentence": "[叔母](おば)は とても [料理](りょうり)が [上手](じょうず)です。",
-    "sentenceVi": "Cô tôi nấu ăn rất giỏi."
+    "sentenceVi": "Cô tôi nấu ăn rất giỏi.",
+    "wordStartTime": 345.3,
+    "wordEndTime": 345.86,
+    "sentenceStartTime": 347.12,
+    "sentenceEndTime": 349.7
   },
   {
     "id": "v46",
@@ -370,7 +550,11 @@
     "reading": "しんせき",
     "meaning": "bà con, họ hàng",
     "sentence": "[姉](あね)の [結婚式](けっこんしき)に [親戚](しんせき)が たくさん [来](き)ます。",
-    "sentenceVi": "Nhiều người bà con sẽ đến dự lễ kết hôn của chị tôi."
+    "sentenceVi": "Nhiều người bà con sẽ đến dự lễ kết hôn của chị tôi.",
+    "wordStartTime": 351.8,
+    "wordEndTime": 352.75,
+    "sentenceStartTime": 353.72,
+    "sentenceEndTime": 357.47
   },
   {
     "id": "v47",
@@ -378,7 +562,11 @@
     "reading": "ぺっと",
     "meaning": "thú cưng, vật nuôi",
     "sentence": "この [アパート](あぱーと)で [ペット](ぺっと)は [飼](か)えません。",
-    "sentenceVi": "Không thể nuôi thú cưng ở căn hộ chung cư này."
+    "sentenceVi": "Không thể nuôi thú cưng ở căn hộ chung cư này.",
+    "wordStartTime": 359.5,
+    "wordEndTime": 360.26,
+    "sentenceStartTime": 361.47,
+    "sentenceEndTime": 364.32
   },
   {
     "id": "v48",
@@ -386,7 +574,13 @@
     "reading": "にる",
     "meaning": "giống nhau, tương tự nhau",
     "sentence": "[私](わたし)は [母](はは)に、[姉](あね)は [父](ちち)に [似](に)ています。",
-    "sentenceVi": "Tôi giống mẹ, chị tôi giống cha."
+    "sentenceVi": "Tôi giống mẹ, chị tôi giống cha.",
+    "wordStartTime": 366.2,
+    "wordEndTime": 366.78,
+    "sentenceStartTime": 368.12,
+    "sentenceEndTime": 372.07,
+    "blankWord": "似て",
+    "blankReading": "にて"
   },
   {
     "id": "v49",
@@ -394,7 +588,13 @@
     "reading": "しんぱいをかける",
     "meaning": "làm cho (lo lắng), gây (lo lắng)",
     "sentence": "[両親](りょうしん)に [心配](しんぱい)を かけては いけません。",
-    "sentenceVi": "Không được làm cho cha mẹ lo lắng."
+    "sentenceVi": "Không được làm cho cha mẹ lo lắng.",
+    "wordStartTime": 374.18,
+    "wordEndTime": 375.82,
+    "sentenceStartTime": 377.01,
+    "sentenceEndTime": 380.26,
+    "blankWord": "心配をかけて",
+    "blankReading": "しんぱいをかけて"
   },
   {
     "id": "v50",
@@ -402,7 +602,13 @@
     "reading": "しかる",
     "meaning": "la, mắng, rầy",
     "sentence": "[子](こ)どもの とき、[母](はは)に よく [叱](しか)られました。",
-    "sentenceVi": "Khi còn nhỏ, tôi thường bị mẹ mắng."
+    "sentenceVi": "Khi còn nhỏ, tôi thường bị mẹ mắng.",
+    "wordStartTime": 382.31,
+    "wordEndTime": 382.99,
+    "sentenceStartTime": 384.33,
+    "sentenceEndTime": 387.82,
+    "blankWord": "叱られました",
+    "blankReading": "しかられました"
   },
   {
     "id": "v51",
@@ -410,7 +616,13 @@
     "reading": "ほめる",
     "meaning": "khen, khen ngợi",
     "sentence": "[テスト](てすと)で 100[点](てん)を とって、[父](ちち)に [褒](ほ)められました。",
-    "sentenceVi": "Tôi đạt 100 điểm bài kiểm tra nên được cha khen."
+    "sentenceVi": "Tôi đạt 100 điểm bài kiểm tra nên được cha khen.",
+    "wordStartTime": 389.74,
+    "wordEndTime": 390.45,
+    "sentenceStartTime": 391.78,
+    "sentenceEndTime": 395.53,
+    "blankWord": "褒められました",
+    "blankReading": "ほめられました"
   },
   {
     "id": "v52",
@@ -418,7 +630,13 @@
     "reading": "かう",
     "meaning": "nuôi (thú)",
     "sentence": "うさぎを [飼](か)って みたいです。",
-    "sentenceVi": "Tôi muốn thử nuôi một con thỏ."
+    "sentenceVi": "Tôi muốn thử nuôi một con thỏ.",
+    "wordStartTime": 397.39,
+    "wordEndTime": 398.15,
+    "sentenceStartTime": 399.04,
+    "sentenceEndTime": 400.79,
+    "blankWord": "飼って",
+    "blankReading": "かって"
   },
   {
     "id": "v53",
@@ -426,15 +644,23 @@
     "reading": "あぱーと",
     "meaning": "phòng trọ, căn hộ chung cư",
     "sentence": "[今](いま)の [アパート](あぱーと)は [前](まえ)の ところより [広](ひろ)いです。",
-    "sentenceVi": "Phòng trọ bây giờ rộng hơn chỗ lúc trước."
+    "sentenceVi": "Phòng trọ bây giờ rộng hơn chỗ lúc trước.",
+    "wordStartTime": 402.88,
+    "wordEndTime": 403.74,
+    "sentenceStartTime": 405.21,
+    "sentenceEndTime": 409.1
   },
   {
     "id": "v54",
     "word": "マンション",
     "reading": "まんしょん",
     "meaning": "chung cư cao tầng, căn hộ chung cư",
-    "sentence": "うちの [マンション](まんしょん)は [駅](えき)から [歩](ある)いて 3[分](ぷん)です。",
-    "sentenceVi": "Chung cư của tôi cách nhà ga 3 phút đi bộ."
+    "sentence": "うちの [マンション](まんしょん)は [駅](えき)から [歩](ある)いて [3](さん)[分](ぷん)です。",
+    "sentenceVi": "Chung cư của tôi cách nhà ga 3 phút đi bộ.",
+    "wordStartTime": 411.12,
+    "wordEndTime": 412.02,
+    "sentenceStartTime": 413.43,
+    "sentenceEndTime": 417.72
   },
   {
     "id": "v55",
@@ -442,7 +668,11 @@
     "reading": "やちん",
     "meaning": "tiền nhà",
     "sentence": "[来月](らいげつ)から [家賃](やちん)が [少](すこ)し [高](たか)くなります。",
-    "sentenceVi": "Từ tháng tới, tiền nhà sẽ tăng lên một chút."
+    "sentenceVi": "Từ tháng tới, tiền nhà sẽ tăng lên một chút.",
+    "wordStartTime": 419.8,
+    "wordEndTime": 420.59,
+    "sentenceStartTime": 421.87,
+    "sentenceEndTime": 425.7
   },
   {
     "id": "v56",
@@ -450,7 +680,11 @@
     "reading": "かんりにん",
     "meaning": "người quản lý",
     "sentence": "[マンション](まんしょん)には いつも [管理人](かんりにん)さんが います。",
-    "sentenceVi": "Ở chung cư lúc nào cũng có người quản lý."
+    "sentenceVi": "Ở chung cư lúc nào cũng có người quản lý.",
+    "wordStartTime": 427.73,
+    "wordEndTime": 428.79,
+    "sentenceStartTime": 429.81,
+    "sentenceEndTime": 433.47
   },
   {
     "id": "v57",
@@ -458,7 +692,11 @@
     "reading": "じゅうしょ",
     "meaning": "địa chỉ",
     "sentence": "[田中](たなか)さんの [住所](じゅうしょ)を [知](し)っていますか。",
-    "sentenceVi": "Bạn có biết địa chỉ của anh/ chị Tanaka không?"
+    "sentenceVi": "Bạn có biết địa chỉ của anh/ chị Tanaka không?",
+    "wordStartTime": 435.49,
+    "wordEndTime": 436.29,
+    "sentenceStartTime": 437.58,
+    "sentenceEndTime": 440.61
   },
   {
     "id": "v58",
@@ -466,7 +704,13 @@
     "reading": "たてる",
     "meaning": "xây, xây dựng",
     "sentence": "[将来](しょうらい)、[大](おお)きい [家](いえ)を [建](た)てたいです。",
-    "sentenceVi": "Trong tương lai, tôi muốn xây một ngôi nhà lớn."
+    "sentenceVi": "Trong tương lai, tôi muốn xây một ngôi nhà lớn.",
+    "wordStartTime": 442.46,
+    "wordEndTime": 443.16,
+    "sentenceStartTime": 444.45,
+    "sentenceEndTime": 447.5,
+    "blankWord": "建てたい",
+    "blankReading": "たてたい"
   },
   {
     "id": "v59",
@@ -474,7 +718,13 @@
     "reading": "たつ",
     "meaning": "được xây, được dựng lên",
     "sentence": "となりに [大](おお)きい [ビル](びる)が [建](た)ちました。",
-    "sentenceVi": "Một tòa nhà lớn đã được xây lên bên cạnh."
+    "sentenceVi": "Một tòa nhà lớn đã được xây lên bên cạnh.",
+    "wordStartTime": 449.52,
+    "wordEndTime": 450.14,
+    "sentenceStartTime": 451.38,
+    "sentenceEndTime": 454.49,
+    "blankWord": "建ちました",
+    "blankReading": "たちました"
   },
   {
     "id": "v60",
@@ -482,7 +732,13 @@
     "reading": "たてる",
     "meaning": "dựng, để đứng",
     "sentence": "[ドア](どあ)の ところに かさを [立](た)てて おきます。",
-    "sentenceVi": "Dựng sẵn cây dù ở chỗ cửa ra vào."
+    "sentenceVi": "Dựng sẵn cây dù ở chỗ cửa ra vào.",
+    "wordStartTime": 456.38,
+    "wordEndTime": 457.12,
+    "sentenceStartTime": 458.4,
+    "sentenceEndTime": 461.54,
+    "blankWord": "立てて",
+    "blankReading": "たてて"
   },
   {
     "id": "v61",
@@ -490,15 +746,25 @@
     "reading": "たつ",
     "meaning": "đứng",
     "sentence": "[家](いえ)の [前](まえ)に [大](おお)きい [木](き)が [立](た)っています。",
-    "sentenceVi": "Có một cái cây lớn (mọc) đứng trước nhà."
+    "sentenceVi": "Có một cái cây lớn (mọc) đứng trước nhà.",
+    "wordStartTime": 463.57,
+    "wordEndTime": 464.19,
+    "sentenceStartTime": 465.56,
+    "sentenceEndTime": 468.98,
+    "blankWord": "立って",
+    "blankReading": "たって"
   },
   {
     "id": "v62",
-    "word": "引っ越しする",
-    "reading": "ひっこしする",
+    "word": "引っ越し",
+    "reading": "ひっこし",
     "meaning": "việc dọn nhà, chuyển chỗ ở",
     "sentence": "[明日](あした)は [引](ひ)っ[越](こ)しです。",
-    "sentenceVi": "Ngày mai tôi sẽ chuyển chỗ ở."
+    "sentenceVi": "Ngày mai tôi sẽ chuyển chỗ ở.",
+    "wordStartTime": 470.94,
+    "wordEndTime": 471.95,
+    "sentenceStartTime": 473.2,
+    "sentenceEndTime": 475.02
   },
   {
     "id": "v63",
@@ -506,7 +772,13 @@
     "reading": "うつす",
     "meaning": "chuyển sang",
     "sentence": "となりの [部屋](へや)に [テーブル](てーぶる)を [移](うつ)しました。",
-    "sentenceVi": "Tôi đã chuyển cái bàn sang phòng bên cạnh."
+    "sentenceVi": "Tôi đã chuyển cái bàn sang phòng bên cạnh.",
+    "wordStartTime": 476.84,
+    "wordEndTime": 477.83,
+    "sentenceStartTime": 479.11,
+    "sentenceEndTime": 482.4,
+    "blankWord": "移しました",
+    "blankReading": "うつしました"
   },
   {
     "id": "v64",
@@ -514,7 +786,13 @@
     "reading": "うつる",
     "meaning": "được chuyển sang",
     "sentence": "[駅前](えきまえ)の [ビル](びる)に [郵便局](ゆうびんきょく)が [移](うつ)ります。",
-    "sentenceVi": "Bưu điện sẽ được chuyển sang tòa nhà trước nhà ga."
+    "sentenceVi": "Bưu điện sẽ được chuyển sang tòa nhà trước nhà ga.",
+    "wordStartTime": 484.3,
+    "wordEndTime": 485.03,
+    "sentenceStartTime": 486.24,
+    "sentenceEndTime": 489.75,
+    "blankWord": "移ります",
+    "blankReading": "うつります"
   },
   {
     "id": "v65",
@@ -522,7 +800,11 @@
     "reading": "じたく",
     "meaning": "nhà riêng",
     "sentence": "これは [私](わたし)の [自宅](じたく)の [電話番号](でんわばんごう)です。",
-    "sentenceVi": "Đây là số điện thoại nhà riêng của tôi."
+    "sentenceVi": "Đây là số điện thoại nhà riêng của tôi.",
+    "wordStartTime": 491.81,
+    "wordEndTime": 492.65,
+    "sentenceStartTime": 494.18,
+    "sentenceEndTime": 497.71
   },
   {
     "id": "v66",
@@ -530,23 +812,35 @@
     "reading": "おたく",
     "meaning": "nhà riêng (kính ngữ)",
     "sentence": "[先生](せんせい)の お[宅](たく)は どちらですか。",
-    "sentenceVi": "Nhà riêng của thầy/cô ở đâu ạ?"
+    "sentenceVi": "Nhà riêng của thầy/cô ở đâu ạ?",
+    "wordStartTime": 499.75,
+    "wordEndTime": 500.55,
+    "sentenceStartTime": 501.92,
+    "sentenceEndTime": 504.65
   },
   {
     "id": "v67",
-    "word": "訪問する",
-    "reading": "ほうもんする",
+    "word": "訪問",
+    "reading": "ほうもん",
     "meaning": "sự thăm viếng, chuyến viếng thăm",
     "sentence": "[明日](あした)、[友](とも)だちの [家](いえ)を [訪問](ほうもん)します。",
-    "sentenceVi": "Ngày mai tôi sẽ đến thăm nhà bạn tôi."
+    "sentenceVi": "Ngày mai tôi sẽ đến thăm nhà bạn tôi.",
+    "wordStartTime": 506.53,
+    "wordEndTime": 507.37,
+    "sentenceStartTime": 508.63,
+    "sentenceEndTime": 511.86
   },
   {
     "id": "v68",
-    "word": "招待する",
-    "reading": "しょうたいする",
+    "word": "招待",
+    "reading": "しょうたい",
     "meaning": "lời mời, sự chiêu đãi",
     "sentence": "[今度](こんど)の [週末](しゅうまつ)、[友](とも)だちを [家](いえ)に [招待](しょうたい)します。",
-    "sentenceVi": "Cuối tuần này, tôi sẽ mời bạn tôi đến nhà."
+    "sentenceVi": "Cuối tuần này, tôi sẽ mời bạn tôi đến nhà.",
+    "wordStartTime": 513.93,
+    "wordEndTime": 514.71,
+    "sentenceStartTime": 516.14,
+    "sentenceEndTime": 520.45
   },
   {
     "id": "v69",
@@ -554,7 +848,11 @@
     "reading": "きんじょ",
     "meaning": "hàng xóm, láng giềng, gần nhà",
     "sentence": "[近所](きんじょ)に [有名人](ゆうめいじん)が [住](す)んでいます。",
-    "sentenceVi": "Gần nhà tôi có người nổi tiếng sinh sống."
+    "sentenceVi": "Gần nhà tôi có người nổi tiếng sinh sống.",
+    "wordStartTime": 522.56,
+    "wordEndTime": 523.3,
+    "sentenceStartTime": 524.58,
+    "sentenceEndTime": 527.51
   },
   {
     "id": "v70",
@@ -562,7 +860,11 @@
     "reading": "まわり",
     "meaning": "chung quanh",
     "sentence": "[家](いえ)の [周](まわ)りに さくらの [木](き)が あります。",
-    "sentenceVi": "Chung quanh nhà có cây hoa anh đào."
+    "sentenceVi": "Chung quanh nhà có cây hoa anh đào.",
+    "wordStartTime": 529.59,
+    "wordEndTime": 530.34,
+    "sentenceStartTime": 531.71,
+    "sentenceEndTime": 534.76
   },
   {
     "id": "v71",
@@ -570,7 +872,11 @@
     "reading": "げんかん",
     "meaning": "lối vào nhà",
     "sentence": "[玄関](げんかん)に くつが たくさん あります。",
-    "sentenceVi": "Lối vào nhà có rất nhiều giày."
+    "sentenceVi": "Lối vào nhà có rất nhiều giày.",
+    "wordStartTime": 536.86,
+    "wordEndTime": 537.74,
+    "sentenceStartTime": 538.81,
+    "sentenceEndTime": 541.69
   },
   {
     "id": "v72",
@@ -578,7 +884,11 @@
     "reading": "いりぐち",
     "meaning": "cửa vào",
     "sentence": "[入](い)り[口](ぐち)で [部屋](へや)の [番号](ばんごう)を [押](お)してください。",
-    "sentenceVi": "Vui lòng nhấn số phòng ở cửa vào."
+    "sentenceVi": "Vui lòng nhấn số phòng ở cửa vào.",
+    "wordStartTime": 543.74,
+    "wordEndTime": 544.65,
+    "sentenceStartTime": 546.08,
+    "sentenceEndTime": 549.7
   },
   {
     "id": "v73",
@@ -586,7 +896,13 @@
     "reading": "かぎをかける",
     "meaning": "khóa (cửa)",
     "sentence": "[出](で)かける ときは [鍵](かぎ)を [掛](か)けて ください。",
-    "sentenceVi": "Khi đi ra ngoài, hãy vui lòng khóa cửa."
+    "sentenceVi": "Khi đi ra ngoài, hãy vui lòng khóa cửa.",
+    "wordStartTime": 551.58,
+    "wordEndTime": 552.85,
+    "sentenceStartTime": 554.38,
+    "sentenceEndTime": 557.57,
+    "blankWord": "鍵を掛けて",
+    "blankReading": "かぎをかけて"
   },
   {
     "id": "v74",
@@ -594,7 +910,13 @@
     "reading": "かぎがかかる",
     "meaning": "(cửa) khóa",
     "sentence": "[玄関](げんかん)の [ドア](どあ)は [鍵](かぎ)が [掛](か)かっています。",
-    "sentenceVi": "Cửa ở lối vào nhà đã được khóa."
+    "sentenceVi": "Cửa ở lối vào nhà đã được khóa.",
+    "wordStartTime": 559.46,
+    "wordEndTime": 560.68,
+    "sentenceStartTime": 562.03,
+    "sentenceEndTime": 565.11,
+    "blankWord": "鍵が掛かって",
+    "blankReading": "かぎをかかって"
   },
   {
     "id": "v75",
@@ -602,7 +924,11 @@
     "reading": "かべ",
     "meaning": "tường",
     "sentence": "[部屋](へや)の [壁](かべ)を [明](あか)るく したいです。",
-    "sentenceVi": "Tôi muốn làm tường của căn phòng sáng lên."
+    "sentenceVi": "Tôi muốn làm tường của căn phòng sáng lên.",
+    "wordStartTime": 567.18,
+    "wordEndTime": 567.75,
+    "sentenceStartTime": 569.29,
+    "sentenceEndTime": 571.83
   },
   {
     "id": "v76",
@@ -610,7 +936,11 @@
     "reading": "ろうか",
     "meaning": "hành lang",
     "sentence": "この [廊下](ろうか)の [右](みぎ)に [トイレ](といれ)が あります。",
-    "sentenceVi": "Bên phải hành lang này có nhà vệ sinh."
+    "sentenceVi": "Bên phải hành lang này có nhà vệ sinh.",
+    "wordStartTime": 573.89,
+    "wordEndTime": 574.67,
+    "sentenceStartTime": 576.22,
+    "sentenceEndTime": 579.13
   },
   {
     "id": "v77",
@@ -618,7 +948,11 @@
     "reading": "だいどころ",
     "meaning": "nhà bếp, phòng bếp",
     "sentence": "うちの [台所](だいどころ)は [使](つか)いやすいです。",
-    "sentenceVi": "Phòng bếp nhà tôi dễ sử dụng."
+    "sentenceVi": "Phòng bếp nhà tôi dễ sử dụng.",
+    "wordStartTime": 581.23,
+    "wordEndTime": 582.16,
+    "sentenceStartTime": 583.49,
+    "sentenceEndTime": 586.31
   },
   {
     "id": "v78",
@@ -626,7 +960,11 @@
     "reading": "すいどう",
     "meaning": "nước máy, hệ thống nước máy",
     "sentence": "[水道](すいどう)の [水](みず)を [飲](のん)でも [大丈夫](だいじょうぶ)です。",
-    "sentenceVi": "Uống nước máy cũng được."
+    "sentenceVi": "Uống nước máy cũng được.",
+    "wordStartTime": 588.45,
+    "wordEndTime": 589.33,
+    "sentenceStartTime": 590.95,
+    "sentenceEndTime": 593.97
   },
   {
     "id": "v79",
@@ -634,7 +972,11 @@
     "reading": "がす",
     "meaning": "ga",
     "sentence": "[地震](じしん)で [ガス](がす)が [止](と)まって しまいました。",
-    "sentenceVi": "Vì động đất nên ga đã tắt (ngừng)."
+    "sentenceVi": "Vì động đất nên ga đã tắt (ngừng).",
+    "wordStartTime": 596.05,
+    "wordEndTime": 596.68,
+    "sentenceStartTime": 597.92,
+    "sentenceEndTime": 601.07
   },
   {
     "id": "v80",
@@ -642,7 +984,11 @@
     "reading": "わしつ",
     "meaning": "phòng kiểu Nhật",
     "sentence": "[私](わたし)は [和室](わしつ)が [好](す)きです。",
-    "sentenceVi": "Tôi thích phòng kiểu Nhật."
+    "sentenceVi": "Tôi thích phòng kiểu Nhật.",
+    "wordStartTime": 603.17,
+    "wordEndTime": 603.97,
+    "sentenceStartTime": 605.61,
+    "sentenceEndTime": 607.87
   },
   {
     "id": "v81",
@@ -650,7 +996,11 @@
     "reading": "たたみ",
     "meaning": "chiếu",
     "sentence": "[畳](たたみ)の [部屋](へや)が ある [アパート](あぱーと)に [住](す)みたいです。",
-    "sentenceVi": "Tôi muốn sống ở căn hộ có phòng chiếu."
+    "sentenceVi": "Tôi muốn sống ở căn hộ có phòng chiếu.",
+    "wordStartTime": 609.9,
+    "wordEndTime": 610.64,
+    "sentenceStartTime": 612.09,
+    "sentenceEndTime": 614.85
   },
   {
     "id": "v82",
@@ -658,7 +1008,11 @@
     "reading": "おしいれ",
     "meaning": "tủ âm tường",
     "sentence": "[部屋](へや)に [押](お)し[入](い)れが あると、[便利](べんり)です。",
-    "sentenceVi": "Có tủ âm tường trong phòng thì tiện lợi."
+    "sentenceVi": "Có tủ âm tường trong phòng thì tiện lợi.",
+    "wordStartTime": 616.83,
+    "wordEndTime": 617.74,
+    "sentenceStartTime": 619.06,
+    "sentenceEndTime": 621.75
   },
   {
     "id": "v83",
@@ -666,7 +1020,11 @@
     "reading": "ふとん",
     "meaning": "nệm, chăn đắp",
     "sentence": "[私](わたし)は [ベッド](べっど)より [布団](ふとん)の ほうが [好](す)きです。",
-    "sentenceVi": "Tôi thích nệm hơn giường."
+    "sentenceVi": "Tôi thích nệm hơn giường.",
+    "wordStartTime": 623.76,
+    "wordEndTime": 624.46,
+    "sentenceStartTime": 625.79,
+    "sentenceEndTime": 629.26
   },
   {
     "id": "v84",
@@ -674,7 +1032,11 @@
     "reading": "がらす",
     "meaning": "kính",
     "sentence": "[窓](まど)[ガラス](がらす)を きれいに しましょう。",
-    "sentenceVi": "Hãy làm sạch kính cửa sổ nào."
+    "sentenceVi": "Hãy làm sạch kính cửa sổ nào.",
+    "wordStartTime": 631.26,
+    "wordEndTime": 632.05,
+    "sentenceStartTime": 633.23,
+    "sentenceEndTime": 635.75
   },
   {
     "id": "v85",
@@ -682,7 +1044,11 @@
     "reading": "かーてん",
     "meaning": "màn cửa",
     "sentence": "[明](あか)るい [色](いろ)の [カーテン](かーてん)を [買](か)います。",
-    "sentenceVi": "Tôi sẽ mua màn cửa màu sáng."
+    "sentenceVi": "Tôi sẽ mua màn cửa màu sáng.",
+    "wordStartTime": 637.63,
+    "wordEndTime": 638.46,
+    "sentenceStartTime": 639.56,
+    "sentenceEndTime": 641.88
   },
   {
     "id": "v86",
@@ -690,7 +1056,11 @@
     "reading": "すみ",
     "meaning": "góc",
     "sentence": "[部屋](へや)の [隅](すみ)に [机](つくえ)を [置](お)いています。",
-    "sentenceVi": "Tôi đặt cái bàn ở góc phòng."
+    "sentenceVi": "Tôi đặt cái bàn ở góc phòng.",
+    "wordStartTime": 644,
+    "wordEndTime": 644.53,
+    "sentenceStartTime": 645.88,
+    "sentenceEndTime": 648.5
   },
   {
     "id": "v87",
@@ -698,7 +1068,11 @@
     "reading": "かぐ",
     "meaning": "gia dụng",
     "sentence": "[私](わたし)は [木](き)の [家具](かぐ)が [好](す)きです。",
-    "sentenceVi": "Tôi thích đồ gia dụng bằng gỗ."
+    "sentenceVi": "Tôi thích đồ gia dụng bằng gỗ.",
+    "wordStartTime": 650.4,
+    "wordEndTime": 651.17,
+    "sentenceStartTime": 652.28,
+    "sentenceEndTime": 654.74
   },
   {
     "id": "v88",
@@ -706,7 +1080,11 @@
     "reading": "たな",
     "meaning": "kệ",
     "sentence": "[棚](たな)には DVDが [置](お)いて あります。",
-    "sentenceVi": "Trên kệ có để DVD."
+    "sentenceVi": "Trên kệ có để DVD.",
+    "wordStartTime": 656.74,
+    "wordEndTime": 657.32,
+    "sentenceStartTime": 658.55,
+    "sentenceEndTime": 661.4
   },
   {
     "id": "v89",
@@ -714,7 +1092,13 @@
     "reading": "くみたてる",
     "meaning": "lắp ráp",
     "sentence": "この [ベッド](べっど)は [自分](じぶん)で [組](く)み[立](た)てて ください。",
-    "sentenceVi": "Bạn hãy tự mình lắp ráp cái giường này."
+    "sentenceVi": "Bạn hãy tự mình lắp ráp cái giường này.",
+    "wordStartTime": 663.4,
+    "wordEndTime": 664.48,
+    "sentenceStartTime": 665.73,
+    "sentenceEndTime": 668.91,
+    "blankWord": "組み立てて",
+    "blankReading": "くみたてて"
   },
   {
     "id": "v90",
@@ -722,7 +1106,11 @@
     "reading": "ひきだし",
     "meaning": "ngăn kéo",
     "sentence": "[パスポート](ぱすぽーと)は [机](つくえ)の [引](ひ)き[出](だ)しの [中](なか)に あります。",
-    "sentenceVi": "Hộ chiếu ở trong ngăn kéo của cái bàn."
+    "sentenceVi": "Hộ chiếu ở trong ngăn kéo của cái bàn.",
+    "wordStartTime": 670.86,
+    "wordEndTime": 671.8,
+    "sentenceStartTime": 673.12,
+    "sentenceEndTime": 676.62
   },
   {
     "id": "v91",
@@ -730,7 +1118,13 @@
     "reading": "かたづける",
     "meaning": "dọn dẹp",
     "sentence": "[友](とも)だちが [来](く)るので、[部屋](へや)を [片付](かたづ)けました。",
-    "sentenceVi": "Vì bạn tôi sẽ đến nên tôi đã dọn dẹp phòng ốc."
+    "sentenceVi": "Vì bạn tôi sẽ đến nên tôi đã dọn dẹp phòng ốc.",
+    "wordStartTime": 678.63,
+    "wordEndTime": 679.71,
+    "sentenceStartTime": 681.11,
+    "sentenceEndTime": 684.37,
+    "blankWord": "片付けました",
+    "blankReading": "かたづけました"
   },
   {
     "id": "v92",
@@ -738,15 +1132,25 @@
     "reading": "かたづく",
     "meaning": "được dọn dẹp, ngăn nắp",
     "sentence": "いつも [部屋](へや)が [片付](かたづ)いています。",
-    "sentenceVi": "Lúc nào phòng cũng được dọn dẹp ngăn nắp."
+    "sentenceVi": "Lúc nào phòng cũng được dọn dẹp ngăn nắp.",
+    "wordStartTime": 686.26,
+    "wordEndTime": 687.17,
+    "sentenceStartTime": 688.5,
+    "sentenceEndTime": 690.48,
+    "blankWord": "片付いて",
+    "blankReading": "かたづいて"
   },
   {
     "id": "v93",
-    "word": "整理する",
-    "reading": "せいりする",
+    "word": "整理",
+    "reading": "せいり",
     "meaning": "sự sắp xếp",
     "sentence": "[机](つくえ)の [上](うえ)を きれいに [整理](せいり)して ください。",
-    "sentenceVi": "Hãy sắp xếp trên bàn cho đẹp."
+    "sentenceVi": "Hãy sắp xếp trên bàn cho đẹp.",
+    "wordStartTime": 692.59,
+    "wordEndTime": 693.21,
+    "sentenceStartTime": 694.55,
+    "sentenceEndTime": 697.65
   },
   {
     "id": "v94",
@@ -754,7 +1158,13 @@
     "reading": "うごかす",
     "meaning": "dịch chuyển, di chuyển",
     "sentence": "みんなで [大](おお)きい [テーブル](てーぶる)を [動](うご)かします。",
-    "sentenceVi": "Mọi người cùng dịch chuyển cái bàn lớn."
+    "sentenceVi": "Mọi người cùng dịch chuyển cái bàn lớn.",
+    "wordStartTime": 699.51,
+    "wordEndTime": 700.48,
+    "sentenceStartTime": 701.8,
+    "sentenceEndTime": 704.88,
+    "blankWord": "動かします",
+    "blankReading": "うごかします"
   },
   {
     "id": "v95",
@@ -762,7 +1172,11 @@
     "reading": "うごく",
     "meaning": "chuyển động, hoạt động",
     "sentence": "[エレベーター](えれべーたー)が [動](うご)いています。",
-    "sentenceVi": "Thang máy đang hoạt động."
+    "sentenceVi": "Thang máy đang hoạt động.",
+    "wordStartTime": 706.9,
+    "wordEndTime": 707.65,
+    "sentenceStartTime": 708.77,
+    "sentenceEndTime": 710.82
   },
   {
     "id": "v96",
@@ -770,7 +1184,11 @@
     "reading": "かびん",
     "meaning": "bình hoa",
     "sentence": "[家](いえ)には [小](ちい)さい [花瓶](かびん)しか ありません。",
-    "sentenceVi": "Ở nhà chỉ có bình hoa nhỏ."
+    "sentenceVi": "Ở nhà chỉ có bình hoa nhỏ.",
+    "wordStartTime": 712.85,
+    "wordEndTime": 713.55,
+    "sentenceStartTime": 714.75,
+    "sentenceEndTime": 718.02
   },
   {
     "id": "v97",
@@ -778,7 +1196,11 @@
     "reading": "かれんだー",
     "meaning": "lịch",
     "sentence": "かわいい [猫](ねこ)の [カレンダー](かれんだー)を [買](か)いました。",
-    "sentenceVi": "Tôi đã mua lịch có hình con mèo dễ thương."
+    "sentenceVi": "Tôi đã mua lịch có hình con mèo dễ thương.",
+    "wordStartTime": 719.94,
+    "wordEndTime": 720.95,
+    "sentenceStartTime": 722.28,
+    "sentenceEndTime": 724.99
   },
   {
     "id": "v98",
@@ -786,7 +1208,11 @@
     "reading": "ぽすたー",
     "meaning": "áp phích",
     "sentence": "[犬](いぬ)の [ポスター](ぽすたー)が ほしいです。",
-    "sentenceVi": "Tôi muốn có tờ áp phích hình con chó."
+    "sentenceVi": "Tôi muốn có tờ áp phích hình con chó.",
+    "wordStartTime": 726.92,
+    "wordEndTime": 727.83,
+    "sentenceStartTime": 729.07,
+    "sentenceEndTime": 730.97
   },
   {
     "id": "v99",
@@ -794,7 +1220,13 @@
     "reading": "かざる",
     "meaning": "trang hoàng, trang trí",
     "sentence": "[玄関](げんかん)に [花](はな)を [飾](かざ)りたいです。",
-    "sentenceVi": "Tôi muốn trang trí hoa ở lối vào nhà."
+    "sentenceVi": "Tôi muốn trang trí hoa ở lối vào nhà.",
+    "wordStartTime": 733,
+    "wordEndTime": 733.73,
+    "sentenceStartTime": 734.98,
+    "sentenceEndTime": 737.63,
+    "blankWord": "飾りたい",
+    "blankReading": "かざりたい"
   },
   {
     "id": "v100",
@@ -802,7 +1234,13 @@
     "reading": "はる",
     "meaning": "dán",
     "sentence": "[冷蔵庫](れいぞうこ)に [メモ](めも)を [貼](は)っています。",
-    "sentenceVi": "Tôi dán tờ ghi chú lên tủ lạnh."
+    "sentenceVi": "Tôi dán tờ ghi chú lên tủ lạnh.",
+    "wordStartTime": 739.7,
+    "wordEndTime": 740.21,
+    "sentenceStartTime": 741.73,
+    "sentenceEndTime": 744.35,
+    "blankWord": "貼って",
+    "blankReading": "はって"
   },
   {
     "id": "v101",
@@ -810,7 +1248,13 @@
     "reading": "えをかける",
     "meaning": "treo (tranh)",
     "sentence": "[玄関](げんかん)に きれいな [絵](え)を [掛](か)けました。",
-    "sentenceVi": "Tôi đã treo bức tranh đẹp ở lối vào nhà."
+    "sentenceVi": "Tôi đã treo bức tranh đẹp ở lối vào nhà.",
+    "wordStartTime": 746.35,
+    "wordEndTime": 747.51,
+    "sentenceStartTime": 748.71,
+    "sentenceEndTime": 751.76,
+    "blankWord": "絵をかけました",
+    "blankReading": "えをかけました"
   },
   {
     "id": "v102",
@@ -818,7 +1262,13 @@
     "reading": "かれんだーがかかる",
     "meaning": "(lịch) được treo, có treo",
     "sentence": "きれいな [カレンダー](かれんだー)が [掛](か)かっていますね。",
-    "sentenceVi": "(Có) Treo tờ lịch đẹp nhỉ."
+    "sentenceVi": "(Có) Treo tờ lịch đẹp nhỉ.",
+    "wordStartTime": 753.7,
+    "wordEndTime": 755.45,
+    "sentenceStartTime": 756.84,
+    "sentenceEndTime": 759.52,
+    "blankWord": "カレンダーが掛かって",
+    "blankReading": "カレンダーがかかって"
   },
   {
     "id": "v103",
@@ -826,7 +1276,13 @@
     "reading": "いすにかける",
     "meaning": "ngồi (xuống ghế)",
     "sentence": "この [椅子](いす)に [掛](か)けても いいですか。",
-    "sentenceVi": "Tôi ngồi xuống ghế này được không?"
+    "sentenceVi": "Tôi ngồi xuống ghế này được không?",
+    "wordStartTime": 761.43,
+    "wordEndTime": 762.71,
+    "sentenceStartTime": 764.09,
+    "sentenceEndTime": 766.33,
+    "blankWord": "椅子に掛けても",
+    "blankReading": "いすにかけても"
   },
   {
     "id": "v104",
@@ -834,7 +1290,11 @@
     "reading": "だんぼう",
     "meaning": "máy sưởi",
     "sentence": "[今日](きょう)は [寒](さむ)いので、[暖房](だんぼう)を つけましょう。",
-    "sentenceVi": "Vì hôm nay trời lạnh nên hãy mở máy sưởi nào."
+    "sentenceVi": "Vì hôm nay trời lạnh nên hãy mở máy sưởi nào.",
+    "wordStartTime": 768.2,
+    "wordEndTime": 769.16,
+    "sentenceStartTime": 770.35,
+    "sentenceEndTime": 773.55
   },
   {
     "id": "v105",
@@ -842,7 +1302,13 @@
     "reading": "あげる",
     "meaning": "nâng lên, tăng lên",
     "sentence": "ちょっと [エアコン](えあこん)の [温度](おんど)を [上](あ)げて ください。",
-    "sentenceVi": "Vui lòng tăng nhiệt độ máy điều hòa một chút."
+    "sentenceVi": "Vui lòng tăng nhiệt độ máy điều hòa một chút.",
+    "wordStartTime": 775.51,
+    "wordEndTime": 776.25,
+    "sentenceStartTime": 777.66,
+    "sentenceEndTime": 780.8,
+    "blankWord": "上げて",
+    "blankReading": "あげて"
   },
   {
     "id": "v106",
@@ -850,7 +1316,11 @@
     "reading": "でんげん",
     "meaning": "ổ cắm điện",
     "sentence": "この [部屋](へや)は [電源](でんげん)が [少](すく)なくて、[不便](ふべん)です。",
-    "sentenceVi": "Phòng này ít ổ cắm điện nên bất tiện."
+    "sentenceVi": "Phòng này ít ổ cắm điện nên bất tiện.",
+    "wordStartTime": 782.7,
+    "wordEndTime": 783.58,
+    "sentenceStartTime": 784.74,
+    "sentenceEndTime": 788.2
   },
   {
     "id": "v107",
@@ -858,7 +1328,13 @@
     "reading": "でんきをつける",
     "meaning": "bật (đèn), mở (đèn)",
     "sentence": "[部屋](へや)が [暗](くら)いので、[電気](でんき)を [点](つ)けましょう。",
-    "sentenceVi": "Vì phòng tối nên bật đèn lên nào."
+    "sentenceVi": "Vì phòng tối nên bật đèn lên nào.",
+    "wordStartTime": 790.2,
+    "wordEndTime": 791.62,
+    "sentenceStartTime": 792.91,
+    "sentenceEndTime": 796.02,
+    "blankWord": "電気を点けましょう",
+    "blankReading": "でんきをつけましょう"
   },
   {
     "id": "v108",
@@ -866,7 +1342,13 @@
     "reading": "てれびがつく",
     "meaning": "(tivi) mở, bật",
     "sentence": "ここを [押](お)すと、[テレビ](てれび)が [点](つ)きます。",
-    "sentenceVi": "Bấm chỗ này, tivi sẽ bật lên."
+    "sentenceVi": "Bấm chỗ này, tivi sẽ bật lên.",
+    "wordStartTime": 797.91,
+    "wordEndTime": 799.18,
+    "sentenceStartTime": 800.39,
+    "sentenceEndTime": 802.97,
+    "blankWord": "テレビが点きます",
+    "blankReading": "てれびがつきます"
   },
   {
     "id": "v109",
@@ -874,7 +1356,11 @@
     "reading": "けす",
     "meaning": "tắt (cái gì đó)",
     "sentence": "[教室](きょうしつ)を [出](で)る ときは [電気](でんき)を [消](け)して ください。",
-    "sentenceVi": "Khi ra khỏi phòng học, hãy tắt đèn."
+    "sentenceVi": "Khi ra khỏi phòng học, hãy tắt đèn.",
+    "wordStartTime": 804.97,
+    "wordEndTime": 805.59,
+    "sentenceStartTime": 807.01,
+    "sentenceEndTime": 810.54
   },
   {
     "id": "v110",
@@ -882,7 +1368,11 @@
     "reading": "きえる",
     "meaning": "(cái gì đó) tắt",
     "sentence": "[電気](でんき)が [消](き)えているので、[田中](たなか)さんは [部屋](へや)に いないでしょう。",
-    "sentenceVi": "Vì đèn tắt nên có lẽ anh/ chị Tanaka không ở trong phòng."
+    "sentenceVi": "Vì đèn tắt nên có lẽ anh/ chị Tanaka không ở trong phòng.",
+    "wordStartTime": 812.47,
+    "wordEndTime": 813.16,
+    "sentenceStartTime": 814.23,
+    "sentenceEndTime": 819.16
   },
   {
     "id": "v111",
@@ -890,7 +1380,13 @@
     "reading": "おきる",
     "meaning": "thức dậy",
     "sentence": "[休](やす)みの [日](ひ)は お[昼](ひる)ごろ [起](お)きます。",
-    "sentenceVi": "Ngày nghỉ tôi thức dậy vào khoảng trưa."
+    "sentenceVi": "Ngày nghỉ tôi thức dậy vào khoảng trưa.",
+    "wordStartTime": 821.3,
+    "wordEndTime": 821.99,
+    "sentenceStartTime": 823.62,
+    "sentenceEndTime": 826.65,
+    "blankWord": "起きます",
+    "blankReading": "おきます"
   },
   {
     "id": "v112",
@@ -898,7 +1394,13 @@
     "reading": "おこす",
     "meaning": "đánh thức",
     "sentence": "[毎朝](まいあさ)、[母](はは)が [私](わたし)を [起](お)こしてくれます。",
-    "sentenceVi": "Mỗi sáng, mẹ đánh thức tôi dậy."
+    "sentenceVi": "Mỗi sáng, mẹ đánh thức tôi dậy.",
+    "wordStartTime": 828.69,
+    "wordEndTime": 829.46,
+    "sentenceStartTime": 830.68,
+    "sentenceEndTime": 834.46,
+    "blankWord": "起こして",
+    "blankReading": "おこして"
   },
   {
     "id": "v113",
@@ -906,23 +1408,39 @@
     "reading": "はやおきする",
     "meaning": "việc dậy sớm",
     "sentence": "[毎日](まいにち)、[早起](はやお)きして います。",
-    "sentenceVi": "Tôi dậy sớm mỗi ngày."
+    "sentenceVi": "Tôi dậy sớm mỗi ngày.",
+    "wordStartTime": 836.53,
+    "wordEndTime": 837.4,
+    "sentenceStartTime": 838.59,
+    "sentenceEndTime": 840.92,
+    "blankWord": "早起きして",
+    "blankReading": "はやおきして"
   },
   {
     "id": "v114",
-    "word": "寝坊する",
-    "reading": "ねぼうする",
+    "word": "寝坊",
+    "reading": "ねぼう",
     "meaning": "việc ngủ nướng, ngủ dậy trễ",
     "sentence": "お[酒](さけ)を [飲](の)みすぎて、[寝坊](ねぼう)しました。",
-    "sentenceVi": "Vì uống rượu quá nhiều nên tôi ngủ dậy trễ."
+    "sentenceVi": "Vì uống rượu quá nhiều nên tôi ngủ dậy trễ.",
+    "wordStartTime": 842.99,
+    "wordEndTime": 843.84,
+    "sentenceStartTime": 844.97,
+    "sentenceEndTime": 848.07
   },
   {
     "id": "v115",
     "word": "磨く",
     "reading": "みがく",
     "meaning": "đánh, chải",
-    "sentence": "1[日](にち) 3[回](かい)、[歯](は)を [磨](みが)きましょう。",
-    "sentenceVi": "Hãy đánh răng mỗi ngày 3 lần."
+    "sentence": "[1](いち)[日](にち) [3](さん)[回](かい)、[歯](は)を [磨](みが)きましょう。",
+    "sentenceVi": "Hãy đánh răng mỗi ngày 3 lần.",
+    "wordStartTime": 849.95,
+    "wordEndTime": 850.8,
+    "sentenceStartTime": 852.16,
+    "sentenceEndTime": 855.31,
+    "blankWord": "磨きましょう",
+    "blankReading": "みがきましょう"
   },
   {
     "id": "v116",
@@ -930,7 +1448,11 @@
     "reading": "けーたい",
     "meaning": "điện thoại di động",
     "sentence": "[朝](あさ)、[ケータイ](けーたい)を [バッグ](ばっぐ)に [入](い)れます。",
-    "sentenceVi": "Buổi sáng, tôi cho điện thoại di động vào giỏ xách."
+    "sentenceVi": "Buổi sáng, tôi cho điện thoại di động vào giỏ xách.",
+    "wordStartTime": 857.22,
+    "wordEndTime": 858.01,
+    "sentenceStartTime": 859.15,
+    "sentenceEndTime": 862.21
   },
   {
     "id": "v117",
@@ -938,7 +1460,13 @@
     "reading": "なる",
     "meaning": "reo, kêu, reng",
     "sentence": "[ケータイ](けーたい)が [大](おお)きな [音](おと)で [鳴](な)って います。",
-    "sentenceVi": "Điện thoại di động reo với âm thanh lớn."
+    "sentenceVi": "Điện thoại di động reo với âm thanh lớn.",
+    "wordStartTime": 864.24,
+    "wordEndTime": 864.83,
+    "sentenceStartTime": 866.28,
+    "sentenceEndTime": 869.58,
+    "blankWord": "鳴って",
+    "blankReading": "なって"
   },
   {
     "id": "v118",
@@ -946,7 +1474,11 @@
     "reading": "ごみ",
     "meaning": "rác",
     "sentence": "ごみは ごみ[箱](ばこ)に [入](い)れましょう。",
-    "sentenceVi": "Hãy bỏ rác vào thùng rác."
+    "sentenceVi": "Hãy bỏ rác vào thùng rác.",
+    "wordStartTime": 871.67,
+    "wordEndTime": 872.26,
+    "sentenceStartTime": 873.52,
+    "sentenceEndTime": 876.28
   },
   {
     "id": "v119",
@@ -954,7 +1486,11 @@
     "reading": "びん",
     "meaning": "bình, chai (thủy tinh)",
     "sentence": "この [瓶](びん)に [何](なに)が [入](はい)って いますか。",
-    "sentenceVi": "Có cái gì trong bình này?"
+    "sentenceVi": "Có cái gì trong bình này?",
+    "wordStartTime": 878.22,
+    "wordEndTime": 878.75,
+    "sentenceStartTime": 880.23,
+    "sentenceEndTime": 883.15
   },
   {
     "id": "v120",
@@ -962,7 +1498,11 @@
     "reading": "かん",
     "meaning": "vỏ lon, vỏ đồ hộp",
     "sentence": "[カン](かん)は [月曜日](げつようび)に [出](だ)して ください。",
-    "sentenceVi": "Vỏ lon (đồ hộp) thì hãy đổ vào ngày thứ Hai."
+    "sentenceVi": "Vỏ lon (đồ hộp) thì hãy đổ vào ngày thứ Hai.",
+    "wordStartTime": 885.01,
+    "wordEndTime": 885.58,
+    "sentenceStartTime": 886.64,
+    "sentenceEndTime": 889.64
   },
   {
     "id": "v121",
@@ -970,7 +1510,11 @@
     "reading": "ぺっとぼとる",
     "meaning": "chai nhựa",
     "sentence": "いつも お[茶](ちゃ)の [ペットボトル](ぺっとぼとる)を [持](も)って います。",
-    "sentenceVi": "Lúc nào tôi cũng đem theo chai nước trà."
+    "sentenceVi": "Lúc nào tôi cũng đem theo chai nước trà.",
+    "wordStartTime": 891.5,
+    "wordEndTime": 892.6,
+    "sentenceStartTime": 894.01,
+    "sentenceEndTime": 897.14
   },
   {
     "id": "v122",
@@ -978,7 +1522,11 @@
     "reading": "りさいくる",
     "meaning": "tái sử dụng, tái chế",
     "sentence": "[コート](こーと)を [リサイクル](りさいくる)に [出](だ)しました。",
-    "sentenceVi": "Tôi đã bỏ áo choàng để tái sử dụng (đồ cũ)."
+    "sentenceVi": "Tôi đã bỏ áo choàng để tái sử dụng (đồ cũ).",
+    "wordStartTime": 899.26,
+    "wordEndTime": 900.18,
+    "sentenceStartTime": 901.62,
+    "sentenceEndTime": 904.38
   },
   {
     "id": "v123",
@@ -986,15 +1534,25 @@
     "reading": "だす",
     "meaning": "đổ (rác)",
     "sentence": "[今朝](けさ)、ごみを [出](だ)すのを [忘](わす)れました。",
-    "sentenceVi": "Sáng nay tôi đã quên đổ rác."
+    "sentenceVi": "Sáng nay tôi đã quên đổ rác.",
+    "wordStartTime": 906.25,
+    "wordEndTime": 906.91,
+    "sentenceStartTime": 908.27,
+    "sentenceEndTime": 911.28
   },
   {
     "id": "v124",
     "word": "出る",
     "reading": "でる",
     "meaning": "ra khỏi, rời đi, xuất phát, xuất hiện",
-    "sentence": "10[時](じ)に [バス](ばす)が [出](で)ます。",
-    "sentenceVi": "Xe buýt sẽ xuất phát lúc 10 giờ."
+    "sentence": "[10時](じゅうじ)に [バス](ばす)が [出](で)ます。",
+    "sentenceVi": "Xe buýt sẽ xuất phát lúc 10 giờ.",
+    "wordStartTime": 913.14,
+    "wordEndTime": 913.75,
+    "sentenceStartTime": 915.04,
+    "sentenceEndTime": 917.13,
+    "blankWord": "出ます",
+    "blankReading": "でます"
   },
   {
     "id": "v125",
@@ -1002,7 +1560,11 @@
     "reading": "もえる",
     "meaning": "đốt được",
     "sentence": "[火曜日](かようび)と [金曜日](きんようび)は [燃](も)える ごみの [日](ひ)です。",
-    "sentenceVi": "Thứ Ba và thứ Sáu là ngày đổ rác đốt được."
+    "sentenceVi": "Thứ Ba và thứ Sáu là ngày đổ rác đốt được.",
+    "wordStartTime": 919.22,
+    "wordEndTime": 919.95,
+    "sentenceStartTime": 921.41,
+    "sentenceEndTime": 925.16
   },
   {
     "id": "v126",
@@ -1010,15 +1572,23 @@
     "reading": "せっけん",
     "meaning": "xà bông, xà phòng",
     "sentence": "[石鹸](せっけん)で [手](て)を [洗](あら)いましょう。",
-    "sentenceVi": "Hãy rửa tay bằng xà bông."
+    "sentenceVi": "Hãy rửa tay bằng xà bông.",
+    "wordStartTime": 927.22,
+    "wordEndTime": 928.21,
+    "sentenceStartTime": 929.59,
+    "sentenceEndTime": 932.14
   },
   {
     "id": "v127",
-    "word": "シャンプーする",
-    "reading": "しゃんぷーする",
+    "word": "シャンプー",
+    "reading": "しゃんぷー",
     "meaning": "dầu gội đầu",
     "sentence": "この [シャンプー](しゃんぷー)は とても [安](やす)いです。",
-    "sentenceVi": "Dầu gội đầu này rất rẻ."
+    "sentenceVi": "Dầu gội đầu này rất rẻ.",
+    "wordStartTime": 934.01,
+    "wordEndTime": 934.95,
+    "sentenceStartTime": 936.17,
+    "sentenceEndTime": 939.14
   },
   {
     "id": "v128",
@@ -1026,7 +1596,11 @@
     "reading": "せんたくき",
     "meaning": "máy giặt",
     "sentence": "うちの [洗濯機](せんたくき)は [音](おと)が うるさいです。",
-    "sentenceVi": "Máy giặt nhà tôi tiếng rất ồn."
+    "sentenceVi": "Máy giặt nhà tôi tiếng rất ồn.",
+    "wordStartTime": 941.26,
+    "wordEndTime": 942.23,
+    "sentenceStartTime": 943.75,
+    "sentenceEndTime": 946.97
   },
   {
     "id": "v129",
@@ -1034,7 +1608,11 @@
     "reading": "せんたくもの",
     "meaning": "đồ giặt",
     "sentence": "[洗濯物](せんたくもの)を [片付](かたづ)けてから [出](で)かけます。",
-    "sentenceVi": "Sau khi dọn đồ giặt thì tôi sẽ đi ra ngoài."
+    "sentenceVi": "Sau khi dọn đồ giặt thì tôi sẽ đi ra ngoài.",
+    "wordStartTime": 949.07,
+    "wordEndTime": 950.15,
+    "sentenceStartTime": 951.51,
+    "sentenceEndTime": 954.45
   },
   {
     "id": "v130",
@@ -1042,7 +1620,11 @@
     "reading": "くりーにんぐ",
     "meaning": "tiệm giặt ủi",
     "sentence": "[スーツ](すーつ)を [クリーニング](くりーにんぐ)に [出](だ)します。",
-    "sentenceVi": "Tôi đưa đồ vét ra tiệm giặt ủi."
+    "sentenceVi": "Tôi đưa đồ vét ra tiệm giặt ủi.",
+    "wordStartTime": 956.53,
+    "wordEndTime": 957.56,
+    "sentenceStartTime": 958.86,
+    "sentenceEndTime": 961.33
   },
   {
     "id": "v131",
@@ -1050,7 +1632,11 @@
     "reading": "たおる",
     "meaning": "khăn",
     "sentence": "[トイレ](といれ)で [ピンク](ぴんく)の [タオル](たおる)を [使](つか)っています。",
-    "sentenceVi": "Trong nhà vệ sinh tôi sử dụng khăn màu hồng."
+    "sentenceVi": "Trong nhà vệ sinh tôi sử dụng khăn màu hồng.",
+    "wordStartTime": 963.36,
+    "wordEndTime": 964.02,
+    "sentenceStartTime": 965.38,
+    "sentenceEndTime": 968.5
   },
   {
     "id": "v132",
@@ -1058,15 +1644,13 @@
     "reading": "かわかす",
     "meaning": "phơi, hong, làm cho khô",
     "sentence": "[玄関](げんかん)で [傘](かさ)を [乾](かわ)かして います。",
-    "sentenceVi": "Tôi phơi cây dù ở lối vào nhà."
-  },
-  {
-    "id": "v133",
-    "word": "乾く",
-    "reading": "かわく",
-    "meaning": "(khăn) khô",
-    "sentence": "[天気](てんき)が いいので、もう [タオル](たおる)が [乾](かわ)きました。",
-    "sentenceVi": "Vì trời nắng ráo nên khăn đã khô rồi."
+    "sentenceVi": "Tôi phơi cây dù ở lối vào nhà.",
+    "wordStartTime": 970.53,
+    "wordEndTime": 971.44,
+    "sentenceStartTime": 972.81,
+    "sentenceEndTime": 975.73,
+    "blankWord": "乾かして",
+    "blankReading": "かわかして"
   },
   {
     "id": "v134",
@@ -1074,15 +1658,23 @@
     "reading": "えさ",
     "meaning": "mồi, thức ăn cho vật nuôi",
     "sentence": "[毎日](まいにち)、[弟](おとうと)が [犬](いぬ)に [餌](えさ)を やっています。",
-    "sentenceVi": "Hàng ngày em trai tôi cho chó ăn."
+    "sentenceVi": "Hàng ngày em trai tôi cho chó ăn.",
+    "wordStartTime": 986.31,
+    "wordEndTime": 986.89,
+    "sentenceStartTime": 988.09,
+    "sentenceEndTime": 992.18
   },
   {
     "id": "v135",
-    "word": "世話する",
-    "reading": "せわする",
+    "word": "世話",
+    "reading": "せわ",
     "meaning": "chăm sóc",
     "sentence": "[犬](いぬ)を [世話](せわ)するのは とても [楽](たの)しいです。",
-    "sentenceVi": "Chăm sóc chó rất vui."
+    "sentenceVi": "Chăm sóc chó rất vui.",
+    "wordStartTime": 994.3,
+    "wordEndTime": 994.81,
+    "sentenceStartTime": 996.38,
+    "sentenceEndTime": 999.75
   },
   {
     "id": "v136",
@@ -1090,7 +1682,11 @@
     "reading": "るす",
     "meaning": "sự vắng nhà",
     "sentence": "[平日](へいじつ)の [昼間](ひるま)は [留守](るす)が [多](おお)いです。",
-    "sentenceVi": "Tôi thường vắng nhà vào ban ngày những ngày thường."
+    "sentenceVi": "Tôi thường vắng nhà vào ban ngày những ngày thường.",
+    "wordStartTime": 1001.69,
+    "wordEndTime": 1002.44,
+    "sentenceStartTime": 1004.25,
+    "sentenceEndTime": 1007.39
   },
   {
     "id": "v137",
@@ -1098,7 +1694,11 @@
     "reading": "たくはいびん",
     "meaning": "bưu phẩm, chuyển phát",
     "sentence": "[留守](るす)の [間](あいだ)に [宅配便](たくはいびん)が [来](き)たようです。",
-    "sentenceVi": "Hình như trong lúc tôi vắng nhà thì có bưu phẩm đến."
+    "sentenceVi": "Hình như trong lúc tôi vắng nhà thì có bưu phẩm đến.",
+    "wordStartTime": 1009.45,
+    "wordEndTime": 1010.6,
+    "sentenceStartTime": 1011.78,
+    "sentenceEndTime": 1015.11
   },
   {
     "id": "v138",
@@ -1106,7 +1706,13 @@
     "reading": "とどく",
     "meaning": "được gửi đến, đến nơi",
     "sentence": "[国](くに)から [手紙](てがみ)が [届](とど)きました。",
-    "sentenceVi": "Thư (gửi) từ nước tôi đã đến."
+    "sentenceVi": "Thư (gửi) từ nước tôi đã đến.",
+    "wordStartTime": 1017.15,
+    "wordEndTime": 1017.88,
+    "sentenceStartTime": 1019.39,
+    "sentenceEndTime": 1021.73,
+    "blankWord": "届きました",
+    "blankReading": "とどきました"
   },
   {
     "id": "v139",
@@ -1114,7 +1720,13 @@
     "reading": "とどける",
     "meaning": "đem đến, phát (hàng hóa)",
     "sentence": "[荷物](にもつ)を [届](とど)けて もらいました。",
-    "sentenceVi": "Tôi đã được phát hàng (bưu phẩm)."
+    "sentenceVi": "Tôi đã được phát hàng (bưu phẩm).",
+    "wordStartTime": 1023.6,
+    "wordEndTime": 1024.39,
+    "sentenceStartTime": 1025.72,
+    "sentenceEndTime": 1028.07,
+    "blankWord": "届けて",
+    "blankReading": "とどけて"
   },
   {
     "id": "v140",
@@ -1122,7 +1734,11 @@
     "reading": "にっき",
     "meaning": "nhật ký",
     "sentence": "[小学生](しょうがくせい)の ときから [日記](にっき)を つけています。",
-    "sentenceVi": "Tôi viết nhật ký từ khi là học sinh tiểu học."
+    "sentenceVi": "Tôi viết nhật ký từ khi là học sinh tiểu học.",
+    "wordStartTime": 1029.92,
+    "wordEndTime": 1030.74,
+    "sentenceStartTime": 1032.23,
+    "sentenceEndTime": 1035.69
   },
   {
     "id": "v141",
@@ -1130,15 +1746,25 @@
     "reading": "ねむる",
     "meaning": "ngủ",
     "sentence": "たくさん [運動](うんどう)すると、よく [眠](ねむ)れます。",
-    "sentenceVi": "Hễ vận động nhiều thì sẽ ngủ ngon."
+    "sentenceVi": "Hễ vận động nhiều thì sẽ ngủ ngon.",
+    "wordStartTime": 1037.71,
+    "wordEndTime": 1038.49,
+    "sentenceStartTime": 1039.82,
+    "sentenceEndTime": 1043.04,
+    "blankWord": "眠れます",
+    "blankReading": "ねむれます"
   },
   {
     "id": "v142",
-    "word": "生活する",
-    "reading": "せいかつする",
+    "word": "生活",
+    "reading": "せいかつ",
     "meaning": "sinh hoạt, cuộc sống",
     "sentence": "[日本](にほん)の [生活](せいかつ)は [大変](たいへん)ですが、とても [楽](たの)しいです。",
-    "sentenceVi": "Cuộc sống ở Nhật vất vả nhưng rất vui."
+    "sentenceVi": "Cuộc sống ở Nhật vất vả nhưng rất vui.",
+    "wordStartTime": 1045.12,
+    "wordEndTime": 1045.96,
+    "sentenceStartTime": 1047.41,
+    "sentenceEndTime": 1051.86
   },
   {
     "id": "v143",
@@ -1146,7 +1772,13 @@
     "reading": "くらす",
     "meaning": "sống, sinh sống",
     "sentence": "ずっと [日本](にほん)で [暮](く)らしたいと [思](おも)っています。",
-    "sentenceVi": "Tôi muốn sống luôn ở Nhật."
+    "sentenceVi": "Tôi muốn sống luôn ở Nhật.",
+    "wordStartTime": 1053.91,
+    "wordEndTime": 1054.65,
+    "sentenceStartTime": 1056.19,
+    "sentenceEndTime": 1059.19,
+    "blankWord": " 暮らしたい",
+    "blankReading": "くらしたい"
   },
   {
     "id": "v144",
@@ -1154,7 +1786,11 @@
     "reading": "しゅうかん",
     "meaning": "thói quen",
     "sentence": "[毎朝](まいあさ)、りんご[ジュース](じゅーす)を [飲](の)むのが [習慣](しゅうかん)です。",
-    "sentenceVi": "Uống nước táo mỗi sáng là thói quen (của tôi)."
+    "sentenceVi": "Uống nước táo mỗi sáng là thói quen (của tôi).",
+    "wordStartTime": 1061.26,
+    "wordEndTime": 1062.15,
+    "sentenceStartTime": 1063.37,
+    "sentenceEndTime": 1067.25
   }
 ]
 }
