@@ -8198,26 +8198,14 @@ else if (isShowingText || showVi) {
 };
 const JLPTPrepModal = ({ isOpen, onClose }) => {
     React.useEffect(() => {
-    if (isOpen) {
-        // Lấy vị trí cuộn hiện tại và "đóng băng" body
-        const scrollY = window.scrollY;
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
-    } else {
-        // Mở khóa và khôi phục lại vị trí cuộn
-        const scrollY = document.body.style.top;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        
-        if (scrollY) {
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
         }
-    }
-}, [isOpen]);
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
