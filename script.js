@@ -2772,7 +2772,7 @@ const CourseModal = ({ isOpen, onClose }) => {
     );
 };
 // --- COMPONENT: TRANG CHỦ CHUYÊN NGHIỆP ---
-const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse }) => {
+const LandingPage = ({ srsData, onOpenReviewList, onOpenSetup, onOpenDictionary, dbData, onOpenDictation, onOpenCourse, onOpenJLPT }) => {
   
     const featuresRef = useRef(null);
     const [isDocsModalOpen, setIsDocsModalOpen] = useState(false);
