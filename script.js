@@ -7278,6 +7278,17 @@ const DictationModal = ({ isOpen, onClose }) => {
                         </div>
                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN & VÍ DỤ</span>
                     </button>
+                            <button 
+                        onClick={() => handleLoadBook('tangon4', 'Tango N4')}
+                        className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
+                    >
+                        <div className="flex justify-between items-center w-full gap-4">
+                            <span className="text-lg sm:text-xl font-black text-zinc-900 uppercase text-left leading-tight group-hover:text-indigo-600 transition-colors">
+                                Tango N4
+                            </span>
+                        </div>
+                       <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN & VÍ DỤ</span>
+                    </button>
 
                     <button 
                         onClick={() => handleLoadBook('minna1', 'MINNA NO NIHONGO N5')}
