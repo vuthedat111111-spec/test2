@@ -3034,7 +3034,17 @@ React.useEffect(() => {
                             <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Kanji</p>
                         </div>
 
-                                   
+                                {/* 7. LUYỆN JLPT - ĐÃ MỞ KHÓA */}
+<div onClick={onOpenJLPT} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md z-10">
+        MIỄN PHÍ
+    </div>
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900 uppercase">ÔN LUYỆN JLPT</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Dành cho người bận</p>
+</div>   
                                      
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
 <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
@@ -3047,17 +3057,7 @@ React.useEffect(() => {
 </div>
 
 
-                        {/* 7. LUYỆN JLPT */}
-                        <div className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm opacity-50 cursor-not-allowed relative overflow-hidden">
-                            <div className="absolute top-4 right-4 bg-zinc-200 text-zinc-500 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                                Sắp ra mắt
-                            </div>
-                            <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center mb-6 text-zinc-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-bold mb-1 text-zinc-400">LUYỆN JLPT</h3>
-                            <p className="text-sm font-medium text-zinc-300 mb-4 uppercase tracking-wide">Thi thử, làm đề N5-N1</p>
-                        </div>
+                        
 
                     </div>
 
@@ -8194,6 +8194,74 @@ else if (isShowingText || showVi) {
         </div>
     );
 };
+const JLPTModal = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-[600] flex items-center justify-center bg-zinc-900/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={onClose}>
+            <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative" onClick={e => e.stopPropagation()}>
+                
+                {/* Nút đóng */}
+                <button onClick={onClose} className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-400 hover:text-red-500 hover:bg-red-50 transition-all z-20 outline-none">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+
+                <div className="p-8 sm:p-10 flex flex-col items-center">
+                    {/* Nhãn Miễn Phí Xanh Lá */}
+                    <div className="bg-emerald-500 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] mb-6 shadow-lg shadow-emerald-200 animate-pulse">
+                        MIỄN PHÍ 0Đ
+                    </div>
+
+                    <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 mb-6 text-center leading-tight uppercase tracking-tight">
+                        Lò luyện thi JLPT <br/> <span className="text-zinc-400 font-light italic font-serif normal-case">DORA NIHONGO</span>
+                    </h2>
+
+                    {/* Nội dung giới thiệu */}
+                    <div className="space-y-4 text-center mb-8">
+                        <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-medium">
+                            Dành riêng cho anh em ở Nhật bận rộn, muốn đỗ <span className="text-zinc-900 font-bold">N5-N3</span> nhưng lười. 
+                            Chúng tôi tạo ra môi trường để <span className="underline decoration-emerald-400 decoration-2 underline-offset-4 font-bold text-zinc-800">ép nhau học mỗi ngày</span>.
+                        </p>
+                        <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+                            10 phút mỗi ngày • Livestream chữa đề • Kỷ luật thép
+                        </p>
+                    </div>
+
+                    {/* 3 Nút Nhóm Zalo Hàng Ngang */}
+                    <div className="grid grid-cols-3 gap-3 w-full">
+                        {[
+                            { id: 'N5', link: 'https://zalo.me/g/rky9oqbibm4retvqmidh' },
+                            { id: 'N4', link: 'https://zalo.me/g/gmorq9fx2ctiia0nnekt' },
+                            { id: 'N3', link: 'https://zalo.me/g/exn2luuvzoh4mws4bn5n' }
+                        ].map((lvl) => (
+                            <a 
+                                key={lvl.id}
+                                href={lvl.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex flex-col items-center justify-center py-5 bg-white border-2 border-zinc-100 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 transition-all active:scale-95 group shadow-sm"
+                            >
+                                <span className="text-2xl font-black text-zinc-900 group-hover:text-emerald-600 transition-colors">{lvl.id}</span>
+                                <span className="text-[9px] font-black text-zinc-400 mt-1 uppercase tracking-widest">Tham gia</span>
+                            </a>
+                        ))}
+                    </div>
+
+                    <div className="mt-8 flex items-center gap-2 text-zinc-400">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m9 18 6-6-6-6"/></svg>
+                        <span className="text-[10px] font-black uppercase tracking-widest">Vào lớp ngay bây giờ</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="rotate-180"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+
+                {/* Footer chân trang */}
+                <div className="bg-zinc-900 py-4 text-center">
+                    <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.3em]">phadaotiengnhat.com</p>
+                </div>
+            </div>
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -8211,6 +8279,7 @@ const App = () => {
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
     const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+    const [isJLPTModalOpen, setIsJLPTModalOpen] = useState(false);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8458,6 +8527,7 @@ React.useEffect(() => {
             }
         }
     }}
+onOpenJLPT={() => setIsJLPTModalOpen(true)}
 />
 {/* GỌI POPUP KHÓA HỌC */}
 <CourseModal 
@@ -8602,7 +8672,10 @@ React.useEffect(() => {
     setConfig={setConfig}
     setPracticeMode={handleModeSwitch}
 />
-        
+      <JLPTModal 
+    isOpen={isJLPTModalOpen} 
+    onClose={() => setIsJLPTModalOpen(false)} 
+/>  
 <DictationModal 
         isOpen={isDictationMenuOpen}
         onClose={() => setIsDictationMenuOpen(false)}
