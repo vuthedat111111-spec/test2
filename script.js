@@ -3035,7 +3035,19 @@ React.useEffect(() => {
                         </div>
 
                                    
-                                     
+                                   {/* 7. LUYỆN JLPT - ĐÃ MỞ KHÓA */}
+<div onClick={onOpenJLPT} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
+    <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+        MIỄN PHÍ
+    </div>
+    {/* Đã sửa group-hover:bg-emerald-500 thành group-hover:bg-zinc-900 ở dòng dưới */}
+    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+    </div>
+    <h3 className="text-xl font-bold mb-1 text-zinc-900">ÔN LUYỆN JLPT</h3>
+    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Dành cho người bận</p>
+</div>
+        
 {/* 6. TÀI LIỆU HỌC (Thêm mới vào đây) */}
 <div onClick={() => setIsDocsModalOpen(true)} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
     
@@ -3047,18 +3059,7 @@ React.useEffect(() => {
 </div>
 
 
-                     {/* 7. LUYỆN JLPT - ĐÃ MỞ KHÓA */}
-<div onClick={onOpenJLPT} className="group bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden">
-    <div className="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">
-        MIỄN PHÍ
-    </div>
-    {/* Đã sửa group-hover:bg-emerald-500 thành group-hover:bg-zinc-900 ở dòng dưới */}
-    <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mb-6 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
-    </div>
-    <h3 className="text-xl font-bold mb-1 text-zinc-900">LUYỆN JLPT</h3>
-    <p className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">Lớp luyện đề N5 - N3</p>
-</div>
+                   
 
                     </div>
 
@@ -8196,6 +8197,14 @@ else if (isShowingText || showVi) {
     );
 };
 const JLPTPrepModal = ({ isOpen, onClose }) => {
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
     if (!isOpen) return null;
 
     return (
@@ -8219,8 +8228,8 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
 
                     <div className="bg-zinc-50 border border-zinc-100 rounded-2xl p-5 mb-8 text-center">
                         <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-medium">
-                            Dành riêng cho anh em ở Nhật bận rộn nhưng muốn đỗ N5-N3. 
-                            Học trọng tâm, không lan man, thiết kế để làm ngay trong 10 phút giải lao. 
+                            Dành riêng cho anh em ở Nhật Bản bận rộn nhưng muốn đỗ JLPT. 
+                            Học trọng tâm, không lan man, học ngay trong 10 phút giải lao. 
                             <span className="block mt-2 font-bold text-zinc-800 italic">"Làm tốt có thưởng - Lười biếng sẽ bị nghe chửi!"</span>
                         </p>
                     </div>
@@ -8266,7 +8275,7 @@ const App = () => {
     const [isKaiwaOpen, setIsKaiwaOpen] = useState(false);
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
     const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
-    const [isJLPTPrepOpen, setIsJLPTPrepOpen] = useState(false);
+    const [isJLPTPrepOpen, setIsJLPTPrepOpen] = useState(true);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
