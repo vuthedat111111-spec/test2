@@ -901,8 +901,8 @@
     "wordEndTime": 552.85,
     "sentenceStartTime": 554.38,
     "sentenceEndTime": 557.57,
-    "blankWord": "鍵を掛けて",
-    "blankReading": "かぎをかけて"
+    "blankWord": "掛けて",
+    "blankReading": "かけて"
   },
   {
     "id": "v74",
@@ -915,8 +915,8 @@
     "wordEndTime": 560.68,
     "sentenceStartTime": 562.03,
     "sentenceEndTime": 565.11,
-    "blankWord": "鍵が掛かって",
-    "blankReading": "かぎをかかって"
+    "blankWord": "掛かって",
+    "blankReading": "かかって"
   },
   {
     "id": "v75",
@@ -1173,6 +1173,8 @@
     "meaning": "chuyển động, hoạt động",
     "sentence": "[エレベーター](えれべーたー)が [動](うご)いています。",
     "sentenceVi": "Thang máy đang hoạt động.",
+    "blankWord": "動いて",
+    "blankReading": "うごいて",
     "wordStartTime": 706.9,
     "wordEndTime": 707.65,
     "sentenceStartTime": 708.77,
@@ -1253,8 +1255,8 @@
     "wordEndTime": 747.51,
     "sentenceStartTime": 748.71,
     "sentenceEndTime": 751.76,
-    "blankWord": "絵をかけました",
-    "blankReading": "えをかけました"
+    "blankWord": "かけました",
+    "blankReading": "かけました"
   },
   {
     "id": "v102",
@@ -1267,8 +1269,8 @@
     "wordEndTime": 755.45,
     "sentenceStartTime": 756.84,
     "sentenceEndTime": 759.52,
-    "blankWord": "カレンダーが掛かって",
-    "blankReading": "カレンダーがかかって"
+    "blankWord": "掛かって",
+    "blankReading": "かかって"
   },
   {
     "id": "v103",
@@ -1281,8 +1283,8 @@
     "wordEndTime": 762.71,
     "sentenceStartTime": 764.09,
     "sentenceEndTime": 766.33,
-    "blankWord": "椅子に掛けても",
-    "blankReading": "いすにかけても"
+    "blankWord": "掛けても",
+    "blankReading": "かけても"
   },
   {
     "id": "v104",
@@ -1333,8 +1335,8 @@
     "wordEndTime": 791.62,
     "sentenceStartTime": 792.91,
     "sentenceEndTime": 796.02,
-    "blankWord": "電気を点けましょう",
-    "blankReading": "でんきをつけましょう"
+    "blankWord": "点けましょう",
+    "blankReading": "つけましょう"
   },
   {
     "id": "v108",
@@ -1347,8 +1349,8 @@
     "wordEndTime": 799.18,
     "sentenceStartTime": 800.39,
     "sentenceEndTime": 802.97,
-    "blankWord": "テレビが点きます",
-    "blankReading": "てれびがつきます"
+    "blankWord": "点きます",
+    "blankReading": "つきます"
   },
   {
     "id": "v109",
@@ -1357,6 +1359,8 @@
     "meaning": "tắt (cái gì đó)",
     "sentence": "[教室](きょうしつ)を [出](で)る ときは [電気](でんき)を [消](け)して ください。",
     "sentenceVi": "Khi ra khỏi phòng học, hãy tắt đèn.",
+    "blankWord": "消して",
+    "blankReading": "けして",
     "wordStartTime": 804.97,
     "wordEndTime": 805.59,
     "sentenceStartTime": 807.01,
@@ -1369,6 +1373,8 @@
     "meaning": "(cái gì đó) tắt",
     "sentence": "[電気](でんき)が [消](き)えているので、[田中](たなか)さんは [部屋](へや)に いないでしょう。",
     "sentenceVi": "Vì đèn tắt nên có lẽ anh/ chị Tanaka không ở trong phòng.",
+    "blankWord": "消えて",
+    "blankReading": "きえて",
     "wordStartTime": 812.47,
     "wordEndTime": 813.16,
     "sentenceStartTime": 814.23,
