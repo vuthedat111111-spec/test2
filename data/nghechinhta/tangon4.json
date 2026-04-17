@@ -583,20 +583,6 @@
     "blankReading": "にて"
   },
   {
-    "id": "v49",
-    "word": "心配をかける",
-    "reading": "しんぱいをかける",
-    "meaning": "làm cho (lo lắng), gây (lo lắng)",
-    "sentence": "[両親](りょうしん)に [心配](しんぱい)をかけては いけません。",
-    "sentenceVi": "Không được làm cho cha mẹ lo lắng.",
-    "wordStartTime": 374.18,
-    "wordEndTime": 375.82,
-    "sentenceStartTime": 377.01,
-    "sentenceEndTime": 380.26,
-    "blankWord": "かけて",
-    "blankReading": "かけて"
-  },
-  {
     "id": "v50",
     "word": "叱る",
     "reading": "しかる",
@@ -1074,18 +1060,7 @@
     "sentenceStartTime": 652.28,
     "sentenceEndTime": 654.74
   },
-  {
-    "id": "v88",
-    "word": "棚",
-    "reading": "たな",
-    "meaning": "kệ",
-    "sentence": "[棚](たな)には DVDが [置](お)いて あります。",
-    "sentenceVi": "Trên kệ có để DVD.",
-    "wordStartTime": 656.74,
-    "wordEndTime": 657.32,
-    "sentenceStartTime": 658.55,
-    "sentenceEndTime": 661.4
-  },
+
   {
     "id": "v89",
     "word": "組み立てる",
