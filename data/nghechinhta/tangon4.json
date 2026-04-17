@@ -1260,8 +1260,8 @@
   },
   {
     "id": "v102",
-    "word": "掛かる",
-    "reading": "かかる",
+    "word": "カレンダーが掛かる",
+    "reading": "カレンダーがかかる",
     "meaning": "(lịch) được treo, có treo",
     "sentence": "きれいな [カレンダー](かれんだー)が [掛](か)かっていますね。",
     "sentenceVi": "(Có) Treo tờ lịch đẹp nhỉ.",
@@ -1341,7 +1341,7 @@
   {
     "id": "v108",
     "word": "テレビが点く",
-    "reading": "てれびがつく",
+    "reading": "テレビがつく",
     "meaning": "(tivi) mở, bật",
     "sentence": "ここを [押](お)すと、[テレビ](てれび)が [点](つ)きます。",
     "sentenceVi": "Bấm chỗ này, tivi sẽ bật lên.",
