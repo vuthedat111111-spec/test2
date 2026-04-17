@@ -587,14 +587,14 @@
     "word": "心配をかける",
     "reading": "しんぱいをかける",
     "meaning": "làm cho (lo lắng), gây (lo lắng)",
-    "sentence": "[両親](りょうしん)に [心配](しんぱい)を かけては いけません。",
+    "sentence": "[両親](りょうしん)に [心配](しんぱい)をかけては いけません。",
     "sentenceVi": "Không được làm cho cha mẹ lo lắng.",
     "wordStartTime": 374.18,
     "wordEndTime": 375.82,
     "sentenceStartTime": 377.01,
     "sentenceEndTime": 380.26,
-    "blankWord": "心配をかけて",
-    "blankReading": "しんぱいをかけて"
+    "blankWord": "かけて",
+    "blankReading": "かけて"
   },
   {
     "id": "v50",
