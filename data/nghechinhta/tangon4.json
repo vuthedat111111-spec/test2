@@ -6158,18 +6158,6 @@
     "sentenceEndTime": 896.77
   },
   {
-    "id": "v402",
-    "word": "DAT",
-    "reading": "すきーじょう",
-    "meaning": "khu (sân) trượt tuyết",
-    "sentence": "あと [1時間](いちじかん)で [スキー場](すきーじょう)に [着](つ)きます。",
-    "wordStartTime": 898.88,
-    "wordEndTime": 899.94,
-    "sentenceStartTime": 901.07,
-    "sentenceEndTime": 904.2,
-    "blankWord": ""
-  },
-  {
     "id": "v403",
     "word": "温泉",
     "reading": "おんせん",
@@ -6348,19 +6336,6 @@
     "wordEndTime": 1012.08,
     "sentenceStartTime": 1013.47,
     "sentenceEndTime": 1017
-  },
-  {
-    "id": "v419",
-    "word": "DAT",
-    "reading": "できる",
-    "meaning": "(tòa nhà) được dựng lên",
-    "sentence": "[駅](えき)の [前](まえ)に [大](おお)きい ビルが できました。",
-    "blankWord": "できました",
-    "blankReading": "できました",
-    "wordStartTime": 1018.94,
-    "wordEndTime": 1020.09,
-    "sentenceStartTime": 1021.21,
-    "sentenceEndTime": 1024.66
   }
 ]
   }
