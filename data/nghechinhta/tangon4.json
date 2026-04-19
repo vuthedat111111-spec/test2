@@ -2121,6 +2121,8 @@
     "meaning": "dễ, đơn giản",
     "sentence": "[昨日](きのう)の [テスト](てすと)は とても [易](やさ)しかったです。",
     "sentenceVi": "Bài kiểm tra hôm qua rất dễ.",
+    "blankWord": "易しかった",
+    "blankReading": "やさしかった",
     "wordStartTime": 202.91,
     "wordEndTime": 203.92,
     "sentenceStartTime": 205.16,
