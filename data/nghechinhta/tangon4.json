@@ -1774,6 +1774,1077 @@
     "sentenceEndTime": 1067.25
   }
 ]
-}
+},
+  {
+    "part": 2, 
+    "title": "PHẦN 2 - ",
+    "audioPath": "./data/audio/nghechinhta/tangon4p2.mp3",
+    "vocabularies": [
+      {
+    "id": "v145",
+    "word": "[小学校](しょうがっこう)",
+    "reading": "しょうがっこう",
+    "meaning": "trường tiểu học (cấp I)",
+    "sentence": "[日本](にほん)の [小学校](しょうがっこう)は [1年生](いちねんせい)から [6年生](ろくねんせい)までです。",
+    "sentenceVi": "Trường tiểu học của Nhật có từ lớp 1 đến lớp 6."
+  },
+  {
+    "id": "v146",
+    "word": "[中学校](ちゅうがっこう)",
+    "reading": "ちゅうがっこう",
+    "meaning": "trường trung học cơ sở (cấp II)",
+    "sentence": "[山下](やました)さんは [中学校](ちゅうがっこう)で [フランス語](ふらんすご)を [勉強](べんきょう)しました。",
+    "sentenceVi": "Anh/ chị Yamashita đã học tiếng Pháp ở trường cấp II."
+  },
+  {
+    "id": "v147",
+    "word": "[高校](こうこう)",
+    "reading": "こうこう",
+    "meaning": "trường trung học phổ thông (cấp III)",
+    "sentence": "[今](いま)でも [高校](こうこう)の [友](とも)だちと [会](あ)います。",
+    "sentenceVi": "Đến bây giờ tôi vẫn gặp bạn thời trung học."
+  },
+  {
+    "id": "v148",
+    "word": "[幼稚園](ようちえん)",
+    "reading": "ようちえん",
+    "meaning": "mẫu giáo",
+    "sentence": "[幼稚園](ようちえん)から [子](こ)どもたちの [声](こえ)が [聞](き)こえます。",
+    "sentenceVi": "Có thể nghe được tiếng trẻ em từ trường mẫu giáo."
+  },
+  {
+    "id": "v149",
+    "word": "[専門学校](せんもんがっこう)",
+    "reading": "せんもんがっこう",
+    "meaning": "trường dạy nghề",
+    "sentence": "[音楽](おんがく)の [専門学校](せんもんがっこう)に [入学](にゅうがく)します。",
+    "sentenceVi": "Tôi sẽ vào học trường dạy nghề âm nhạc."
+  },
+  {
+    "id": "v150",
+    "word": "[入学](にゅうがく)する",
+    "reading": "にゅうがくする",
+    "meaning": "sự nhập học, vào trường",
+    "sentence": "[妹](いもうと)が [中学校](ちゅうがっこう)に [入学](にゅうがく)します。",
+    "sentenceVi": "Em gái tôi sẽ vào trường cấp II."
+  },
+  {
+    "id": "v151",
+    "word": "[卒業](そつぎょう)する",
+    "reading": "そつぎょうする",
+    "meaning": "sự tốt nghiệp",
+    "sentence": "[父](ちち)は [30年前](さんじゅうねんまえ)、この[高校](こうこう)を [卒業](そつぎょう)しました。",
+    "sentenceVi": "Cha tôi đã tốt nghiệp trường trung học này 30 năm trước."
+  },
+  {
+    "id": "v152",
+    "word": "[教育](きょういく)する",
+    "reading": "きょういくする",
+    "meaning": "việc giáo dục, nền giáo dục",
+    "sentence": "[子](こ)どもの [教育](きょういく)は とても [大切](たいせつ)です。",
+    "sentenceVi": "Việc giáo dục trẻ em rất quan trọng."
+  },
+  {
+    "id": "v153",
+    "word": "[生徒](せいと)",
+    "reading": "せいと",
+    "meaning": "học sinh",
+    "sentence": "この [学校](がっこう)の [生徒](せいと)は [何人](なんにん)ですか。",
+    "sentenceVi": "Học sinh trường này có bao nhiêu người?"
+  },
+  {
+    "id": "v154",
+    "word": "[授業](じゅぎょう)",
+    "reading": "じゅぎょう",
+    "meaning": "giờ học, tiết học",
+    "sentence": "[今日](きょう)は [4時](よじ)まで [授業](じゅぎょう)があります。",
+    "sentenceVi": "Hôm nay có giờ học đến 4 giờ."
+  },
+  {
+    "id": "v155",
+    "word": "[始](はじ)まる",
+    "reading": "はじまる",
+    "meaning": "được bắt đầu, (~) bắt đầu",
+    "sentence": "[4月](しがつ)に [学校](がっこう)が [始](はじ)まります。",
+    "sentenceVi": "Trường học bắt đầu vào tháng Tư."
+  },
+  {
+    "id": "v156",
+    "word": "[始](はじ)める",
+    "reading": "はじめる",
+    "meaning": "bắt đầu (~)",
+    "sentence": "[今日](きょう)の [勉強](べんきょう)を [始](はじ)めましょう。",
+    "sentenceVi": "Chúng ta bắt đầu bài học hôm nay nào."
+  },
+  {
+    "id": "v157",
+    "word": "[質問](しつもん)する",
+    "reading": "しつもんする",
+    "meaning": "câu hỏi",
+    "sentence": "[質問](しつもん)を よく [読](よ)んで ください。",
+    "sentenceVi": "Hãy đọc kỹ câu hỏi."
+  },
+  {
+    "id": "v158",
+    "word": "[答](こた)える",
+    "reading": "こたえる",
+    "meaning": "trả lời",
+    "sentence": "[先生](せんせい)の [質問](しつもん)に [答](こた)えます。",
+    "sentenceVi": "Tôi trả lời câu hỏi của giáo viên."
+  },
+  {
+    "id": "v159",
+    "word": "[数学](すうがく)",
+    "reading": "すうがく",
+    "meaning": "toán học",
+    "sentence": "[英語](えいご)は [好](す)きですが、[数学](すうがく)は きらいです。",
+    "sentenceVi": "Tôi thích tiếng Anh nhưng ghét toán."
+  },
+  {
+    "id": "v160",
+    "word": "[歴史](れきし)",
+    "reading": "れきし",
+    "meaning": "lịch sử",
+    "sentence": "[世界](せかい)の [歴史](れきし)を もっと [勉強](べんきょう)したいです。",
+    "sentenceVi": "Tôi muốn học lịch sử thế giới nhiều hơn nữa."
+  },
+  {
+    "id": "v161",
+    "word": "[地理](ちり)",
+    "reading": "ちり",
+    "meaning": "địa lý",
+    "sentence": "[子](こ)どもの ころから [地理](ちり)が [大好](だいす)きでした。",
+    "sentenceVi": "Từ nhỏ, tôi đã thích môn địa lý."
+  },
+  {
+    "id": "v162",
+    "word": "[テキスト](てきすと)",
+    "reading": "てきすと",
+    "meaning": "sách học, sách giáo khoa",
+    "sentence": "この [テキスト](てきすと)は [明日](あした) [使](つか)います。",
+    "sentenceVi": "Ngày mai sẽ sử dụng sách này."
+  },
+  {
+    "id": "v163",
+    "word": "[開](ひら)く",
+    "reading": "ひらく",
+    "meaning": "mở, lật",
+    "sentence": "[教科書](きょうかしょ)の [60](ろくじゅう)ページを [開](ひら)いて ください。",
+    "sentenceVi": "Hãy mở sách giáo khoa trang 60."
+  },
+  {
+    "id": "v164",
+    "word": "[プリント](ぷりんと)",
+    "reading": "ぷりんと",
+    "meaning": "bài giảng (giáo viên soạn sẵn phát cho sinh viên)",
+    "sentence": "これは [今日](きょう)の [授業](じゅぎょう)の [プリント](ぷりんと)です。",
+    "sentenceVi": "Đây là tờ bài giảng của giờ học hôm nay."
+  },
+  {
+    "id": "v165",
+    "word": "[表](おもて)",
+    "reading": "おもて",
+    "meaning": "mặt trước",
+    "sentence": "[プリント](ぷりんと)の [表](おもて)を [見](み)て ください。",
+    "sentenceVi": "Hãy xem mặt trước của tờ bài giảng."
+  },
+  {
+    "id": "v166",
+    "word": "[テスト](てすと)",
+    "reading": "てすと",
+    "meaning": "bài kiểm tra",
+    "sentence": "[今日](きょう)の [テスト](てすと)は とても むずかしかったです。",
+    "sentenceVi": "Bài kiểm tra hôm nay (đã) rất khó."
+  },
+  {
+    "id": "v167",
+    "word": "[通](かよ)う",
+    "reading": "かよう",
+    "meaning": "đi (học), chỉ hành động lui tới thường xuyên",
+    "sentence": "[毎日](まいにち)、[バス](ばす)で [学校](がっこう)に [通](かよ)っています。",
+    "sentenceVi": "Hàng ngày, tôi đi học bằng xe buýt."
+  },
+  {
+    "id": "v168",
+    "word": "[成績](せいせき)",
+    "reading": "せいせき",
+    "meaning": "thành tích học tập",
+    "sentence": "[成績](せいせき)が [悪](わる)くて、[母](はは)に しかられました。",
+    "sentenceVi": "Thành tích học tập của tôi tệ nên bị mẹ mắng."
+  },
+  {
+    "id": "v169",
+    "word": "[点](てん)",
+    "reading": "てん",
+    "meaning": "điểm",
+    "sentence": "きのうの [テスト](てすと)の [点](てん)は よくなかったです。",
+    "sentenceVi": "Điểm bài kiểm tra hôm qua không tốt."
+  },
+  {
+    "id": "v170",
+    "word": "[丸](まる)",
+    "reading": "まる",
+    "meaning": "khoanh tròn (maru: ý là đúng, đạt)",
+    "sentence": "[テスト](てすと)で [丸](まる)を たくさん もらいました。",
+    "sentenceVi": "Tôi được nhiều khoanh tròn (maru) trong bài kiểm tra."
+  },
+  {
+    "id": "v171",
+    "word": "[作文](さくぶん)",
+    "reading": "さくぶん",
+    "meaning": "bài văn",
+    "sentence": "[自分](じぶん)の [国](くに)について [作文](さくぶん)を [書](か)きましょう。",
+    "sentenceVi": "Hãy viết bài văn về đất nước của mình."
+  },
+  {
+    "id": "v172",
+    "word": "([勉強](べんきょう)が)[出来](でき)る",
+    "reading": "できる",
+    "meaning": "(học) được, (học) giỏi",
+    "sentence": "[弟](おとうと)は [勉強](べんきょう)が よく [出来](でき)ます。",
+    "sentenceVi": "Em trai tôi học giỏi."
+  },
+  {
+    "id": "v173",
+    "word": "[易](やさ)しい",
+    "reading": "やさしい",
+    "meaning": "dễ, đơn giản",
+    "sentence": "きのうの [テスト](てすと)は とても [易](やさ)しかったです。",
+    "sentenceVi": "Bài kiểm tra hôm qua rất dễ."
+  },
+  {
+    "id": "v174",
+    "word": "[簡単](かんたん)な",
+    "reading": "かんたんな",
+    "meaning": "đơn giản",
+    "sentence": "この [テスト](てすと)は とても [簡単](かんたん)です。",
+    "sentenceVi": "Bài kiểm tra này rất đơn giản."
+  },
+  {
+    "id": "v175",
+    "word": "[間違](まちが)える",
+    "reading": "まちがえる",
+    "meaning": "sai, nhầm",
+    "sentence": "[易](やさ)しい [問題](もんだい)を [間違](まちが)えて しまいました。",
+    "sentenceVi": "Tôi đã làm sai câu hỏi dễ."
+  },
+  {
+    "id": "v176",
+    "word": "[チェック](ちぇっく)する",
+    "reading": "ちぇっくする",
+    "meaning": "sự kiểm tra, việc kiểm tra",
+    "sentence": "[作文](さくぶん)を [日本人](にほんじん)の [友](とも)だちに [チェック](ちぇっく)して もらいました。",
+    "sentenceVi": "Tôi được bạn người Nhật kiểm tra giúp bài văn."
+  },
+  {
+    "id": "v177",
+    "word": "[熱心](ねっしん)な",
+    "reading": "ねっしんな",
+    "meaning": "nhiệt tình",
+    "sentence": "[田中先生](たなかせんせい)は とても [熱心](ねっしん)です。",
+    "sentenceVi": "Thầy/ cô Tanaka rất nhiệt tình."
+  },
+  {
+    "id": "v178",
+    "word": "[優](やさ)しい",
+    "reading": "やさしい",
+    "meaning": "hiền, tử tế",
+    "sentence": "[山田先生](やまだせんせい)は とても [優](やさ)しいです。",
+    "sentenceVi": "Thầy/ cô Yamada rất hiền."
+  },
+  {
+    "id": "v179",
+    "word": "[厳](きび)しい",
+    "reading": "きびしい",
+    "meaning": "nghiêm khắc",
+    "sentence": "[木村先生](きむらせんせい)は ときどき [厳](きび)しいです。",
+    "sentenceVi": "Thầy/ cô Kimura đôi khi nghiêm khắc."
+  },
+  {
+    "id": "v180",
+    "word": "[真面目](まじめ)な",
+    "reading": "まじめな",
+    "meaning": "nghiêm túc, chăm chỉ",
+    "sentence": "[彼](かれ)は とても [真面目](まじめ)な [学生](がくせい)です。",
+    "sentenceVi": "Anh ấy là một sinh viên rất chăm chỉ."
+  },
+  {
+    "id": "v181",
+    "word": "[偉](えら)い",
+    "reading": "えらい",
+    "meaning": "cao quý, ưu tú",
+    "sentence": "[A国](えーこく)の [偉](えら)い [人](ひと)が [日本](にほん)へ [来](き)ます。",
+    "sentenceVi": "Một người cao quý nước A sẽ đến Nhật."
+  },
+  {
+    "id": "v182",
+    "word": "[設備](せつび)",
+    "reading": "せつび",
+    "meaning": "thiết bị",
+    "sentence": "この [学校](がっこう)の [設備](せつび)は [新](あたら)しいです。",
+    "sentenceVi": "Thiết bị của trường này mới."
+  },
+  {
+    "id": "v183",
+    "word": "[ベル](べる)",
+    "reading": "べる",
+    "meaning": "chuông",
+    "sentence": "[12時半](じゅうにじはん)に [ベル](べる)が [鳴](な)ります。",
+    "sentenceVi": "12 giờ rưỡi chuông sẽ reo."
+  },
+      {
+    "id": "v184",
+    "word": "[大学生](だいがくせい)",
+    "reading": "だいがくせい",
+    "meaning": "sinh viên",
+    "sentence": "[早](はや)く [大学生](だいがくせい)に [な](な)りたいです。",
+    "sentenceVi": "Tôi muốn mau trở thành sinh viên đại học."
+  },
+  {
+    "id": "v185",
+    "word": "[受](う)ける",
+    "reading": "うける",
+    "meaning": "dự (thi)",
+    "sentence": "[日本](にほん)の [大学](だいがく)を [受](う)けたいです。",
+    "sentenceVi": "Tôi muốn dự thi vào trường đại học của Nhật."
+  },
+  {
+    "id": "v186",
+    "word": "[受](う)かる",
+    "reading": "うかる",
+    "meaning": "đậu (kỳ thi)",
+    "sentence": "[行](い)きたかった [大学](だいがく)に [受](う)かりました。",
+    "sentenceVi": "Tôi đã đậu vào đại học mà tôi muốn."
+  },
+  {
+    "id": "v187",
+    "word": "[留学](りゅうがく)する",
+    "reading": "りゅうがくする",
+    "meaning": "việc du học",
+    "sentence": "[デザイン](でざいん)の [勉強](べんきょう)のために [留学](りゅうがく)しました。",
+    "sentenceVi": "Tôi đã du học để học thiết kế."
+  },
+  {
+    "id": "v188",
+    "word": "[目的](もくてき)",
+    "reading": "もくてき",
+    "meaning": "mục đích",
+    "sentence": "[留学](りゅうがく)する [目的](もくてき)は [何](なん)ですか。",
+    "sentenceVi": "Mục đích du học của bạn là gì?"
+  },
+  {
+    "id": "v189",
+    "word": "[夢](ゆめ)",
+    "reading": "ゆめ",
+    "meaning": "ước mơ, giấc mơ",
+    "sentence": "[私](わたし)の [夢](ゆめ)は [世界旅行](せかいりょこう)です。",
+    "sentenceVi": "Ước mơ của tôi là du lịch thế giới."
+  },
+  {
+    "id": "v190",
+    "word": "[学部](がくぶ)",
+    "reading": "がくぶ",
+    "meaning": "ngành, khoa",
+    "sentence": "どの [学部](がくぶ)に [行](い)くか まだ [わかりません](わかりません)。",
+    "sentenceVi": "Tôi chưa biết mình sẽ đi ngành nào."
+  },
+  {
+    "id": "v191",
+    "word": "[専門](せんもん)",
+    "reading": "せんもん",
+    "meaning": "chuyên môn",
+    "sentence": "[私](わたし)の [専門](せんもん)は [教育学](きょういくがく)です。",
+    "sentenceVi": "Chuyên môn của tôi là Giáo dục học."
+  },
+  {
+    "id": "v192",
+    "word": "[科学](かがく)",
+    "reading": "かがく",
+    "meaning": "khoa học",
+    "sentence": "[子](こ)どものときから [科学](かがく)が [好](す)きでした。",
+    "sentenceVi": "Tôi thích khoa học từ khi còn nhỏ."
+  },
+  {
+    "id": "v193",
+    "word": "[医学](いがく)",
+    "reading": "いがく",
+    "meaning": "y học",
+    "sentence": "[医者](いしゃ)に なるために [医学部](いがくぶ)に [入](はい)りました。",
+    "sentenceVi": "Tôi đã vào ngành Y để trở thành bác sĩ."
+  },
+  {
+    "id": "v194",
+    "word": "[文学](ぶんがく)",
+    "reading": "ぶんがく",
+    "meaning": "văn học",
+    "sentence": "[フランス](ふらんす)の [文学](ぶんがく)を [勉強](べんきょう)しています。",
+    "sentenceVi": "Tôi học văn học Pháp."
+  },
+  {
+    "id": "v195",
+    "word": "[法律](ほうりつ)",
+    "reading": "ほうりつ",
+    "meaning": "luật pháp",
+    "sentence": "[大学](だいがく)で [法律](ほうりつ)を [勉強](べんきょう)しています。",
+    "sentenceVi": "Ở đại học tôi học luật."
+  },
+  {
+    "id": "v196",
+    "word": "[講義](こうぎ)する",
+    "reading": "こうぎする",
+    "meaning": "giờ học, tiết học",
+    "sentence": "[山下先生](やましたせんせい)の [講義](こうぎ)は [わかりやすい](わかりやすい)です。",
+    "sentenceVi": "Giờ học của thầy/cô Yamashita dễ hiểu."
+  },
+  {
+    "id": "v197",
+    "word": "[出席](しゅっせき)する",
+    "reading": "しゅっせきする",
+    "meaning": "sự tham dự, có mặt",
+    "sentence": "[毎日](まいにち)、[大学](だいがく)の [授業](じゅぎょう)に [出席](しゅっせき)しています。",
+    "sentenceVi": "Tôi có mặt trong các giờ học ở trường đại học hàng ngày."
+  },
+  {
+    "id": "v198",
+    "word": "[欠席](けっせき)する",
+    "reading": "けっせきする",
+    "meaning": "sự vắng mặt, nghỉ học",
+    "sentence": "[かぜ](かぜ)で [授業](じゅぎょう)を [欠席](けっせき)しました。",
+    "sentenceVi": "Tôi đã vắng mặt (nghỉ học) vì bị cảm."
+  },
+  {
+    "id": "v199",
+    "word": "[レポート](れぽーと)",
+    "reading": "れぽーと",
+    "meaning": "bài báo cáo",
+    "sentence": "[英語](えいご)で [レポート](れぽーと)を [書](か)かなければ [なりません](なりません)。",
+    "sentenceVi": "Phải viết báo cáo bằng tiếng Anh."
+  },
+  {
+    "id": "v200",
+    "word": "[論文](ろんぶん)",
+    "reading": "ろんぶん",
+    "meaning": "luận văn",
+    "sentence": "[来週](らいしゅう)までに [論文](ろんぶん)を [出](だ)して ください。",
+    "sentenceVi": "Hãy nộp bài luận văn cho đến tuần sau."
+  },
+  {
+    "id": "v201",
+    "word": "[締切](しめきり)",
+    "reading": "しめきり",
+    "meaning": "hạn chót",
+    "sentence": "[レポート](れぽーと)の [締切](しめきり)は [明日](あした)です。",
+    "sentenceVi": "Hạn chót (nộp) bài báo cáo là ngày mai."
+  },
+  {
+    "id": "v202",
+    "word": "[研究](けんきゅう)する",
+    "reading": "けんきゅうする",
+    "meaning": "sự nghiên cứu",
+    "sentence": "[大学院](だいがくいん)で [数学](すうがく)を [研究](けんきゅう)したいです。",
+    "sentenceVi": "Tôi muốn nghiên cứu toán học ở bậc cao học."
+  },
+  {
+    "id": "v203",
+    "word": "[実験](じっけん)する",
+    "reading": "じっけんする",
+    "meaning": "thí nghiệm",
+    "sentence": "[実験](じっけん)は [たいへん](たいへん)ですが、[おもしろい](おもしろい)です。",
+    "sentenceVi": "Thí nghiệm (thì) vất vả nhưng thú vị."
+  },
+  {
+    "id": "v204",
+    "word": "[纏](まと)める",
+    "reading": "まとめる",
+    "meaning": "tóm tắt (~)",
+    "sentence": "[週末](しゅうまつ)までに [研究](けんきゅう)を [纏](まと)めます。",
+    "sentenceVi": "Tôi tóm tắt bài nghiên cứu cho đến cuối tuần."
+  },
+  {
+    "id": "v205",
+    "word": "[ボランティア](ぼらんてぃあ)",
+    "reading": "ぼらんてぃあ",
+    "meaning": "công việc tình nguyện",
+    "sentence": "[休](やす)みの [日](ひ)に [ボランティア](ぼらんてぃあ)を しています。",
+    "sentenceVi": "Ngày nghỉ tôi làm công việc tình nguyện."
+  },
+  {
+    "id": "v206",
+    "word": "[複雑](ふくざつ)な",
+    "reading": "ふくざつな",
+    "meaning": "phức tạp",
+    "sentence": "この [文](ぶん)は [複雑](ふくざつ)で よく [わかりません](わかりません)。",
+    "sentenceVi": "Câu văn này phức tạp nên tôi không hiểu lắm."
+  },
+  {
+    "id": "v207",
+    "word": "[必要](ひつよう)な",
+    "reading": "ひつような",
+    "meaning": "sự cần thiết (cần thiết)",
+    "sentence": "[学校](がっこう)では [学生カード](がくせいかーど)を [作](つく)る [必要](ひつよう)が あります。",
+    "sentenceVi": "Cần làm thẻ sinh viên ở trường."
+  },
+  {
+    "id": "v208",
+    "word": "[考](かんが)える",
+    "reading": "かんがえる",
+    "meaning": "suy nghĩ, nghĩ",
+    "sentence": "[むずかしく](むずかしく)ても、よく [考](かんが)えれば [わかり](わかり)ます。",
+    "sentenceVi": "Dù khó mà nếu suy nghĩ kỹ thì sẽ hiểu."
+  },
+  {
+    "id": "v209",
+    "word": "[辞典](じてん)",
+    "reading": "じてん",
+    "meaning": "tự điển",
+    "sentence": "[カタカナ](かたかな)ことばの [辞典](じてん)を [買](か)いたいです。",
+    "sentenceVi": "Tôi muốn mua tự điển từ Katakana."
+  },
+  {
+    "id": "v210",
+    "word": "[調](しら)べる",
+    "reading": "しらべる",
+    "meaning": "tra, tìm",
+    "sentence": "[わから](わから)ない ことばは [自分](じぶん)で [調](しら)べて ください。",
+    "sentenceVi": "Hãy tự mình tra từ không biết."
+  },
+  {
+    "id": "v211",
+    "word": "[確](たし)かめる",
+    "reading": "たしかめる",
+    "meaning": "kiểm tra, xác nhận",
+    "sentence": "[レポート](れぽーと)を [書](か)いたら、[確](たし)かめて ください。",
+    "sentenceVi": "Nếu viết báo cáo xong rồi, hãy kiểm tra lại."
+  },
+  {
+    "id": "v212",
+    "word": "[予習](よしゅう)する",
+    "reading": "よしゅうする",
+    "meaning": "việc học trước, sự chuẩn bị bài",
+    "sentence": "[毎日](まいにち)、[漢字](かんじ)を [予習](よしゅう)して きて ください。",
+    "sentenceVi": "Hàng ngày hãy học trước chữ Kanji."
+  },
+  {
+    "id": "v213",
+    "word": "[復習](ふくしゅう)する",
+    "reading": "ふくしゅうする",
+    "meaning": "việc ôn tập",
+    "sentence": "[復習](ふくしゅう)しないと、ことばが [おぼえられません](おぼえられません)。",
+    "sentenceVi": "Hễ không ôn tập là tôi không thể nào nhớ từ."
+  },
+  {
+    "id": "v214",
+    "word": "[思](おも)い[出](だ)す",
+    "reading": "おもいだす",
+    "meaning": "nhớ ra",
+    "sentence": "[きのう](きのう) [復習](ふくしゅう)したのに、[漢字](かんじ)が [思](おも)い[出](だ)せません。",
+    "sentenceVi": "Hôm qua tôi đã ôn tập vậy mà không thể nhớ ra chữ Kanji."
+  },
+  {
+    "id": "v215",
+    "word": "[塾](じゅく)",
+    "reading": "じゅく",
+    "meaning": "lớp học thêm, lớp luyện thi",
+    "sentence": "[学校](がっこう)が [終](お)わったら、[塾](じゅく)に [行](い)きます。",
+    "sentenceVi": "Sau khi giờ học kết thúc, tôi sẽ đi học thêm."
+  },
+  {
+    "id": "v216",
+    "word": "[遣](や)る",
+    "reading": "やる",
+    "meaning": "làm",
+    "sentence": "[家](いえ)に [帰](かえ)ったら、すぐ [宿題](しゅくだい)を [遣](や)ります。",
+    "sentenceVi": "Sau khi về nhà, tôi làm bài tập ngay."
+  },
+  {
+    "id": "v217",
+    "word": "[頑張](がんば)る",
+    "reading": "がんばる",
+    "meaning": "cố gắng",
+    "sentence": "[勉強](べんきょう)も [スポーツ](すぽーつ)も [頑張](がんば)って います。",
+    "sentenceVi": "Tôi cố gắng cả việc học lẫn thể thao."
+  },
+  {
+    "id": "v218",
+    "word": "[字](じ)",
+    "reading": "じ",
+    "meaning": "chữ, chữ viết",
+    "sentence": "[リー](りー)さんは [字](じ)が とても [きれい](きれい)です。",
+    "sentenceVi": "Chữ (anh/chị) Ly rất đẹp."
+  },
+  {
+    "id": "v219",
+    "word": "[振](ふ)り[仮名](がな)",
+    "reading": "ふりがな",
+    "meaning": "phiên âm",
+    "sentence": "[振](ふ)り[仮名](がな)が ないと、[漢字](かんじ)が [読](よ)めません。",
+    "sentenceVi": "Nếu không có phiên âm, tôi không thể đọc được chữ Kanji."
+  },
+  {
+    "id": "v220",
+    "word": "[メモ](めも)する",
+    "reading": "めもする",
+    "meaning": "việc ghi chép",
+    "sentence": "[大切](たいせつ)な ことを [メモ](めも)して おきます。",
+    "sentenceVi": "Tôi ghi chép lại các việc quan trọng."
+  },
+  {
+    "id": "v221",
+    "word": "[文法](ぶんぽう)",
+    "reading": "ぶんぽう",
+    "meaning": "văn phạm, ngữ pháp",
+    "sentence": "[N4](えぬよん)の [文法](ぶんぽう)を [おぼえましょう](おぼえましょう)。",
+    "sentenceVi": "Hãy ghi nhớ văn phạm N4."
+  },
+  {
+    "id": "v222",
+    "word": "[説明](せつめい)する",
+    "reading": "せつめいする",
+    "meaning": "việc giải thích",
+    "sentence": "この [文法](ぶんぽう)の [説明](せつめい)は よく [わかりません](わかりません)。",
+    "sentenceVi": "Tôi không hiểu rõ lắm phần giải thích văn phạm này."
+  },
+  {
+    "id": "v223",
+    "word": "[発音](ほつおん)する",
+    "reading": "はつおんする",
+    "meaning": "việc phát âm",
+    "sentence": "[マリア](まりあ)さんの [発音](ほつおん)は とても [きれい](きれい)です。",
+    "sentenceVi": "Phát âm của (chị) Maria rất hay."
+  },
+  {
+    "id": "v224",
+    "word": "[会話](かいわ)する",
+    "reading": "かいわする",
+    "meaning": "cuộc nói chuyện, đoạn hội thoại",
+    "sentence": "[日本語](にほんご)だけで [会話](かいわ)しましょう。",
+    "sentenceVi": "Hãy nói chuyện chỉ bằng tiếng Nhật."
+  },
+  {
+    "id": "v225",
+    "word": "[足](た)す",
+    "reading": "たす",
+    "meaning": "thêm vào, cộng",
+    "sentence": "[25](にじゅうご)に [47](よんじゅうなな)を [足](た)すと、[72](ななじゅうに)に なります。",
+    "sentenceVi": "25 cộng thêm 47 bằng 72."
+  },
+  {
+    "id": "v226",
+    "word": "[役](やく)に[立](た)つ",
+    "reading": "やくにたつ",
+    "meaning": "có ích",
+    "sentence": "この [本](ほん)は とても [役](やく)に[立](た)ちます。",
+    "sentenceVi": "Quyển sách này rất có ích."
+  },
+  {
+    "id": "v227",
+    "word": "[勉強中](べんきょうちゅう)",
+    "reading": "べんきょうちゅう",
+    "meaning": "đang học",
+    "sentence": "[今](いま)、[テスト](てすと)の ための [勉強中](べんきょうちゅう)です。",
+    "sentenceVi": "Bây giờ tôi đang học bài kiểm tra."
+  },
+      {
+    "id": "v228",
+    "word": "[勤](つと)める",
+    "reading": "つとめる",
+    "meaning": "làm việc",
+    "sentence": "[私](わたし)は [IT](あいてぃー)の [会社](かいしゃ)に [勤](つと)めています。",
+    "sentenceVi": "Tôi đang làm việc tại một công ty IT."
+  },
+  {
+    "id": "v229",
+    "word": "[給料](きゅうりょう)",
+    "reading": "きゅうりょう",
+    "meaning": "lương",
+    "sentence": "[今日](きょう)、[始](はじ)めての [給料](きゅうりょう)を [貰](もら)いました。",
+    "sentenceVi": "Hôm nay tôi lãnh lương lần đầu tiên."
+  },
+  {
+    "id": "v230",
+    "word": "[ボーナス](ぼーなす)",
+    "reading": "ぼーなす",
+    "meaning": "tiền thưởng",
+    "sentence": "[夏](なつ)と [冬](ふゆ)に [ボーナス](ぼーなす)が あります。",
+    "sentenceVi": "Có tiền thưởng vào mùa hè và mùa đông."
+  },
+  {
+    "id": "v231",
+    "word": "[貯金](ちょきん)する",
+    "reading": "ちょきんする",
+    "meaning": "việc tiết kiệm",
+    "sentence": "[旅行](りょこう)の ために [貯金](ちょきん)します。",
+    "sentenceVi": "Tôi tiết kiệm tiền để đi du lịch."
+  },
+  {
+    "id": "v232",
+    "word": "[受付](うけつけ)",
+    "reading": "うけつけ",
+    "meaning": "tiếp tân, quầy tiếp tân",
+    "sentence": "[受付](うけつけ)は [3階](さんがい)に あります。",
+    "sentenceVi": "Tiếp tân ở tầng 3."
+  },
+  {
+    "id": "v233",
+    "word": "[名刺](めいし)",
+    "reading": "めいし",
+    "meaning": "danh thiếp",
+    "sentence": "[名刺](めいし)の [名前](なまえ)が [間違](まちが)っていました。",
+    "sentenceVi": "Tên trên danh thiếp bị sai."
+  },
+  {
+    "id": "v234",
+    "word": "[営業](えいぎょう)する",
+    "reading": "えいぎょうする",
+    "meaning": "việc kinh doanh",
+    "sentence": "[営業](えいぎょう)の [仕事](しごと)は [楽](たの)しいです。",
+    "sentenceVi": "Công việc kinh doanh thì vui."
+  },
+  {
+    "id": "v235",
+    "word": "[挨拶](あいさつ)する",
+    "reading": "あいさつする",
+    "meaning": "lời chào hỏi",
+    "sentence": "いつも [元気](げんき)に [挨拶](あいさつ)しています。",
+    "sentenceVi": "Lúc nào cũng chào hỏi vui vẻ."
+  },
+  {
+    "id": "v236",
+    "word": "[会議](かいぎ)する",
+    "reading": "かいぎする",
+    "meaning": "cuộc họp, buổi họp",
+    "sentence": "[今日](きょう)の [会議](かいぎ)は [午後](ごご) [3時](さんじ)から です。",
+    "sentenceVi": "Cuộc họp hôm nay (bắt đầu) từ 3 giờ chiều."
+  },
+  {
+    "id": "v237",
+    "word": "[ミーティング](みーてぃんぐ)",
+    "reading": "みーてぃんぐ",
+    "meaning": "cuộc họp, gặp gỡ, bàn bạc",
+    "sentence": "[昼](ひる)ごはんを [食](た)べながら [ミーティング](みーてぃんぐ)を しましょう。",
+    "sentenceVi": "Hãy vừa ăn trưa vừa họp nào."
+  },
+  {
+    "id": "v238",
+    "word": "[意見](いけん)",
+    "reading": "いけん",
+    "meaning": "ý kiến",
+    "sentence": "[人](ひと)の [意見](いけん)を よく [聞](き)きましょう。",
+    "sentenceVi": "Hãy lắng nghe ý kiến người khác."
+  },
+  {
+    "id": "v239",
+    "word": "[アイディア](あいでぃあ)",
+    "reading": "あいでぃあ",
+    "meaning": "ý tưởng",
+    "sentence": "[部長](ぶちょう)の [アイディア](あいでぃあ)は おもしろいです。",
+    "sentenceVi": "Ý tưởng của trưởng phòng thật thú vị."
+  },
+  {
+    "id": "v240",
+    "word": "[スケジュール](すけじゅーる)",
+    "reading": "すけじゅーる",
+    "meaning": "thời khóa biểu, lịch trình",
+    "sentence": "[社長](しゃちょう)の [スケジュール](すけじゅーる)を [知](し)っていますか。",
+    "sentenceVi": "Bạn có biết lịch trình của giám đốc không?"
+  },
+  {
+    "id": "v241",
+    "word": "[出張](しゅっちょう)する",
+    "reading": "しゅっちょうする",
+    "meaning": "chuyến công tác",
+    "sentence": "[父](ちち)は よく [アメリカ](あめりか)へ [出張](しゅっちょう)しています。",
+    "sentenceVi": "Cha tôi thường đi Mỹ công tác."
+  },
+  {
+    "id": "v242",
+    "word": "[戻](もど)る",
+    "reading": "もどる",
+    "meaning": "quay lại",
+    "sentence": "A 「[田中](たなか)さんが [戻](もど)るのは [何時](なんじ)ですか。」 B 「[3時](さんじ)ごろだと [思](おも)います。」",
+    "sentenceVi": "A: Anh/chị Tanaka sẽ quay lại lúc mấy giờ? B: Tôi nghĩ là khoảng 3 giờ."
+  },
+  {
+    "id": "v243",
+    "word": "[戻](もど)す",
+    "reading": "もどす",
+    "meaning": "trả lại",
+    "sentence": "[新聞](しんぶん)を [読](よ)んだら、ここに [戻](もど)して ください。",
+    "sentenceVi": "Sau khi đọc báo thì vui lòng trả lại vào chỗ này."
+  },
+  {
+    "id": "v244",
+    "word": "[本社](ほんしゃ)",
+    "reading": "ほんしゃ",
+    "meaning": "trụ sở chính",
+    "sentence": "[春](はる)から [東京](とうきょう)の [本社](ほんしゃ)に [行](い)きます。",
+    "sentenceVi": "Từ mùa xuân tôi sẽ đi làm ở trụ sở chính của công ty."
+  },
+  {
+    "id": "v245",
+    "word": "[社長](しゃちょう)",
+    "reading": "しゃちょう",
+    "meaning": "giám đốc",
+    "sentence": "[私](わたし)の [会社](かいしゃ)の [社長](しゃちょう)は [若](わか)いです。",
+    "sentenceVi": "Giám đốc công ty tôi thì trẻ."
+  },
+  {
+    "id": "v246",
+    "word": "[ルール](るーる)",
+    "reading": "るーる",
+    "meaning": "luật lệ, qui định",
+    "sentence": "[会社](かいしゃ)の [ルール](るーる)を よく [読](よ)んで ください。",
+    "sentenceVi": "Vui lòng đọc kỹ qui định của công ty."
+  },
+  {
+    "id": "v247",
+    "word": "[規則](きそく)",
+    "reading": "きそく",
+    "meaning": "quy tắc",
+    "sentence": "この [会社](かいしゃ)の [規則](きそく)を [知](し)っていますか。",
+    "sentenceVi": "Bạn có biết qui tắc của công ty này không?"
+  },
+  {
+    "id": "v248",
+    "word": "[決](き)まる",
+    "reading": "きまる",
+    "meaning": "được quyết định",
+    "sentence": "[新](あたら)しい [アルバイト](あるばいと)が [決](き)まりました。",
+    "sentenceVi": "Tôi đã có công việc làm thêm mới."
+  },
+  {
+    "id": "v249",
+    "word": "[決](き)める",
+    "reading": "きめる",
+    "meaning": "quyết định",
+    "sentence": "[会議](かいぎ)の [時間](じかん)を [決](き)めましょう。",
+    "sentenceVi": "Hãy quyết định thời gian họp."
+  },
+  {
+    "id": "v250",
+    "word": "[許可](きょか)する",
+    "reading": "きょかする",
+    "meaning": "sự cho phép",
+    "sentence": "[休](やす)むときは [許可](きょか)を もらってください。",
+    "sentenceVi": "Khi nghỉ, hãy xin phép."
+  },
+  {
+    "id": "v251",
+    "word": "([判子](はんこ)を)[押](お)す",
+    "reading": "おす",
+    "meaning": "đóng (dấu)",
+    "sentence": "ここに [判子](はんこ)を [押](お)して ください。",
+    "sentenceVi": "Vui lòng đóng con dấu vào đây."
+  },
+  {
+    "id": "v252",
+    "word": "[遅刻](ちこく)する",
+    "reading": "ちこくする",
+    "meaning": "sự trễ giờ",
+    "sentence": "[1分](いっぷん)でも [遅刻](ちこく)しては いけません。",
+    "sentenceVi": "Không được đi trễ dù chỉ 1 phút."
+  },
+  {
+    "id": "v253",
+    "word": "[技術](ぎじゅつ)",
+    "reading": "ぎじゅつ",
+    "meaning": "kỹ thuật",
+    "sentence": "この [会社](かいしゃ)には どんな [技術](ぎじゅつ)が ありますか。",
+    "sentenceVi": "Công ty này có kỹ thuật như thế nào?"
+  },
+  {
+    "id": "v254",
+    "word": "[パソコン](ぱそこん)",
+    "reading": "ぱそこん",
+    "meaning": "máy vi tính",
+    "sentence": "[パソコン](ぱそこん)を [見](み)ていると、[目](め)が [疲](つか)れます。",
+    "sentenceVi": "Hễ nhìn vào máy vi tính, mắt sẽ mỏi."
+  },
+  {
+    "id": "v255",
+    "word": "[ソフト](そふと)",
+    "reading": "そふと",
+    "meaning": "phần mềm",
+    "sentence": "[パソコン](ぱそこん)の [ソフト](そふと)を [作](つく)る [仕事](しごと)が したいです。",
+    "sentenceVi": "Tôi muốn làm công việc tạo ra phần mềm máy vi tính."
+  },
+  {
+    "id": "v256",
+    "word": "[書類](しょるい)",
+    "reading": "しょるい",
+    "meaning": "hồ sơ",
+    "sentence": "[明日](あした)までに この [書類](しょるい)を [出](だ)して ください。",
+    "sentenceVi": "Cho đến ngày mai, hãy nộp hồ sơ này."
+  },
+  {
+    "id": "v257",
+    "word": "[ファイル](ふぁいる)",
+    "reading": "ふぁいる",
+    "meaning": "bìa hồ sơ",
+    "sentence": "[資料](しりょう)を [ファイル](ふぁいる)に [入](い)れます。",
+    "sentenceVi": "Tôi cất tài liệu vào bìa hồ sơ."
+  },
+  {
+    "id": "v258",
+    "word": "[入力](にゅうりょく)する",
+    "reading": "にゅうりょくする",
+    "meaning": "việc đánh máy, nhập (dữ liệu)",
+    "sentence": "ここに [英語](えいご)で [入力](にゅうりょく)して ください。",
+    "sentenceVi": "Vui lòng nhập tiếng Anh vào đây."
+  },
+  {
+    "id": "v259",
+    "word": "[翻訳](ほんやく)する",
+    "reading": "ほんやくする",
+    "meaning": "công việc dịch thuật, biên dịch",
+    "sentence": "[中国語](ちゅうごくご)を [日本語](にほんご)に [翻訳](ほんやく)します。",
+    "sentenceVi": "Tôi sẽ dịch từ tiếng Trung Quốc sang tiếng Nhật."
+  },
+  {
+    "id": "v260",
+    "word": "[通訳](つうやく)する",
+    "reading": "つうやくする",
+    "meaning": "công việc phiên dịch, thông dịch",
+    "sentence": "[小学生](しょうがくせい)の ころから [通訳](つうやく)に なりたかったです。",
+    "sentenceVi": "Từ thời tiểu học, tôi đã muốn trở thành thông dịch."
+  },
+  {
+    "id": "v261",
+    "word": "[方法](ほうほう)",
+    "reading": "ほうほう",
+    "meaning": "phương pháp",
+    "sentence": "[日本語](にほんご)が [上手](じょうず)に なる [方法](ほうほう)を [教](おし)えて ください。",
+    "sentenceVi": "Vui lòng chỉ cho tôi phương pháp để giỏi tiếng Nhật."
+  },
+  {
+    "id": "v262",
+    "word": "[仕方](しかた)",
+    "reading": "しかた",
+    "meaning": "phương pháp, cách làm",
+    "sentence": "[仕事](しごと)の [仕方](しかた)を すぐに [覚](おぼ)えました。",
+    "sentenceVi": "Tôi đã nhớ cách làm việc ngay."
+  },
+  {
+    "id": "v263",
+    "word": "[慣](な)れる",
+    "reading": "なれる",
+    "meaning": "quen",
+    "sentence": "[最近](さいきん)、[仕事](しごと)に [慣](な)れました。",
+    "sentenceVi": "Gần đây tôi đã quen với công việc."
+  },
+  {
+    "id": "v264",
+    "word": "([上手](うま)く)[行](い)く",
+    "reading": "いく",
+    "meaning": "suôn sẻ, tiến hành (thuận lợi)",
+    "sentence": "[明日](あした)の [スピーチ](すぴーち)は [上手](うま)く [行](い)くでしょう。",
+    "sentenceVi": "Hẳn là bài hùng biện ngày mai sẽ tốt thôi."
+  },
+  {
+    "id": "v265",
+    "word": "[成功](せいこう)する",
+    "reading": "せいこうする",
+    "meaning": "sự thành công",
+    "sentence": "[田中](たなか)さんは [仕事](しごと)で [成功](せいこう)しました。",
+    "sentenceVi": "Anh/chị Tanaka đã thành công trong công việc."
+  },
+  {
+    "id": "v266",
+    "word": "[頼](たの)む",
+    "reading": "たのむ",
+    "meaning": "nhờ, yêu cầu",
+    "sentence": "[店長](てんちょう)に [仕事](しごと)を [頼](たの)まれました。",
+    "sentenceVi": "Tôi được cửa hàng trưởng nhờ công việc."
+  },
+  {
+    "id": "v267",
+    "word": "[手伝](てつだ)う",
+    "reading": "てつだう",
+    "meaning": "giúp đỡ",
+    "sentence": "[フランス語](ふらんすご)の [通訳](つうやく)を [手伝](てつだ)って ください。",
+    "sentenceVi": "Vui lòng giúp tôi thông dịch tiếng Pháp."
+  },
+  {
+    "id": "id268",
+    "word": "[残業](ざんぎょう)する",
+    "reading": "ざんぎょうする",
+    "meaning": "việc làm ngoài giờ",
+    "sentence": "[忙](いそが)しいときは [残業](ざんぎょう)します。",
+    "sentenceVi": "Khi bận rộn thì tôi làm ngoài giờ."
+  },
+  {
+    "id": "v269",
+    "word": "[無理](むり)な",
+    "reading": "むりな",
+    "meaning": "việc khó khăn (không thể)",
+    "sentence": "そんな [無理](むり)を [言](い)わないで ください。[毎日](まいにち) [アルバイト](あるばいと)を するのは [無理](むり)です。",
+    "sentenceVi": "Xin đừng nói việc khó khăn như thế. Làm thêm hàng ngày là không thể."
+  },
+  {
+    "id": "v270",
+    "word": "[急](いそ)ぐ",
+    "reading": "いそぐ",
+    "meaning": "gấp rút, vội vàng",
+    "sentence": "[時間](じかん)が ないので、[急](いそ)いで ください。",
+    "sentenceVi": "Vì không có thời gian nên hãy gấp rút lên."
+  },
+  {
+    "id": "v271",
+    "word": "[昼休](ひるやす)み",
+    "reading": "ひるやすみ",
+    "meaning": "giờ nghỉ trưa",
+    "sentence": "[昼休](ひるやす)みは [12時](じゅうにじ)から [1時間](いちじかん)です。",
+    "sentenceVi": "Nghỉ trưa 1 tiếng đồng hồ, từ 12 giờ."
+  },
+  {
+    "id": "v272",
+    "word": "[休憩](きゅうけい)する",
+    "reading": "きゅうけいする",
+    "meaning": "việc nghỉ giải lao, giờ nghỉ giải lao",
+    "sentence": "[3時](さんじ)ですから、ちょっと [休憩](きゅうけい)しましょう。",
+    "sentenceVi": "3 giờ rồi nên hãy nghỉ giải lao một chút nào."
+  },
+  {
+    "id": "v273",
+    "word": "[忘年会](ぼうねんかい)",
+    "reading": "ぼうねんかい",
+    "meaning": "tiệc tất niên",
+    "sentence": "[来週](らいしゅう)、[忘年会](ぼうねんかい)を しませんか。",
+    "sentenceVi": "Tuần sau làm tiệc tất niên không?"
+  },
+  {
+    "id": "v274",
+    "word": "[公務員](こうむいん)",
+    "reading": "こうむいん",
+    "meaning": "công chức, nhân viên nhà nước",
+    "sentence": "[父](ちち)も [母](はは)も [公務員](こうむいん)です。",
+    "sentenceVi": "Cả cha và mẹ tôi đều là nhân viên nhà nước."
+  },
+  {
+    "id": "v275",
+    "word": "[弁護士](べんごし)",
+    "reading": "べんごし",
+    "meaning": "luật sư",
+    "sentence": "[弁護士](べんごし)に なるのは [難](むずか)しいです。",
+    "sentenceVi": "Trở thành luật sư thì khó khăn."
+  },
+  {
+    "id": "v276",
+    "word": "[工場](こうじょう)",
+    "reading": "こうじょう",
+    "meaning": "nhà máy, xưởng",
+    "sentence": "[パン](ぱん)の [工場](こうじょう)で [アルバイト](あるばいと)していました。",
+    "sentenceVi": "Tôi đã làm thêm tại xưởng bánh mì."
+  },
+  {
+    "id": "v277",
+    "word": "[事務所](じむしょ)",
+    "reading": "じむしょ",
+    "meaning": "văn phòng",
+    "sentence": "[事務所](じむしょ)で [昼](ひる)ごはんを [食](た)べて います。",
+    "sentenceVi": "Tôi ăn cơm trưa tại văn phòng."
+  }
+    ]
+  }
 
 ]
