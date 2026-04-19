@@ -2135,6 +2135,8 @@
     "meaning": "đơn giản",
     "sentence": "この [テスト](てすと)は とても [簡単](かんたん)です。",
     "sentenceVi": "Bài kiểm tra này rất đơn giản.",
+    "blankWord": "簡単",
+    "blankReading": "かんたん",
     "wordStartTime": 210.24,
     "wordEndTime": 211.35,
     "sentenceStartTime": 212.6,
