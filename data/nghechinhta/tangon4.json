@@ -1777,16 +1777,20 @@
 },
   {
     "part": 2, 
-    "title": "PHẦN 2 - ",
+    "title": "PHẦN 2 - HỌC TẬP VÀ CÔNG VIỆC",
     "audioPath": "./data/audio/nghechinhta/tangon4p2.mp3",
     "vocabularies": [
-      {
+  {
     "id": "v145",
     "word": "小学校",
     "reading": "しょうがっこう",
     "meaning": "trường tiểu học (cấp I)",
     "sentence": "[日本](にほん)の [小学校](しょうがっこう)は [1年生](いちねんせい)から [6年生](ろくねんせい)までです。",
-    "sentenceVi": "Trường tiểu học của Nhật có từ lớp 1 đến lớp 6."
+    "sentenceVi": "Trường tiểu học của Nhật có từ lớp 1 đến lớp 6.",
+    "wordStartTime": 1.51,
+    "wordEndTime": 2.73,
+    "sentenceStartTime": 4.01,
+    "sentenceEndTime": 9.01
   },
   {
     "id": "v146",
@@ -1794,7 +1798,11 @@
     "reading": "ちゅうがっこう",
     "meaning": "trường trung học cơ sở (cấp II)",
     "sentence": "[山下](やました)さんは [中学校](ちゅうがっこう)で [フランス](ふらんす)[語](ご)を [勉強](べんきょう)しました。",
-    "sentenceVi": "Anh/ chị Yamashita đã học tiếng Pháp ở trường cấp II."
+    "sentenceVi": "Anh/ chị Yamashita đã học tiếng Pháp ở trường cấp II.",
+    "wordStartTime": 11.07,
+    "wordEndTime": 12.19,
+    "sentenceStartTime": 13.25,
+    "sentenceEndTime": 17.98
   },
   {
     "id": "v147",
@@ -1802,7 +1810,11 @@
     "reading": "こうこう",
     "meaning": "trường trung học phổ thông (cấp III)",
     "sentence": "[今](いま)でも [高校](こうこう)の [友達](ともだち)と [会](あ)います。",
-    "sentenceVi": "Đến bây giờ tôi vẫn gặp bạn thời trung học."
+    "sentenceVi": "Đến bây giờ tôi vẫn gặp bạn thời trung học.",
+    "wordStartTime": 19.89,
+    "wordEndTime": 20.82,
+    "sentenceStartTime": 22,
+    "sentenceEndTime": 24.83
   },
   {
     "id": "v148",
@@ -1810,7 +1822,11 @@
     "reading": "ようちえん",
     "meaning": "mẫu giáo",
     "sentence": "[幼稚園](ようちえん)から [子供達](こどもたち)の [声](こえ)が [聞](き)こえます。",
-    "sentenceVi": "Có thể nghe được tiếng trẻ em từ trường mẫu giáo."
+    "sentenceVi": "Có thể nghe được tiếng trẻ em từ trường mẫu giáo.",
+    "wordStartTime": 26.86,
+    "wordEndTime": 27.86,
+    "sentenceStartTime": 28.97,
+    "sentenceEndTime": 32.44
   },
   {
     "id": "v149",
@@ -1818,7 +1834,11 @@
     "reading": "せんもんがっこう",
     "meaning": "trường dạy nghề",
     "sentence": "[音楽](おんがく)の [専門学校](せんもんがっこう)に [入学](にゅうがく)します。",
-    "sentenceVi": "Tôi sẽ vào học trường dạy nghề âm nhạc."
+    "sentenceVi": "Tôi sẽ vào học trường dạy nghề âm nhạc.",
+    "wordStartTime": 34.53,
+    "wordEndTime": 35.97,
+    "sentenceStartTime": 37.03,
+    "sentenceEndTime": 39.86
   },
   {
     "id": "v150",
@@ -1826,7 +1846,11 @@
     "reading": "にゅうがく",
     "meaning": "sự nhập học, vào trường",
     "sentence": "[妹](いもうと)が [中学校](ちゅうがっこう)に [入学](にゅうがく)します。",
-    "sentenceVi": "Em gái tôi sẽ vào trường cấp II."
+    "sentenceVi": "Em gái tôi sẽ vào trường cấp II.",
+    "wordStartTime": 41.86,
+    "wordEndTime": 42.75,
+    "sentenceStartTime": 43.82,
+    "sentenceEndTime": 46.84
   },
   {
     "id": "v151",
@@ -1834,7 +1858,11 @@
     "reading": "そつぎょう",
     "meaning": "sự tốt nghiệp",
     "sentence": "[父](ちち)は [30年前](さんじゅうねんまえ)、この[高校](こうこう)を [卒業](そつぎょう)しました。",
-    "sentenceVi": "Cha tôi đã tốt nghiệp trường trung học này 30 năm trước."
+    "sentenceVi": "Cha tôi đã tốt nghiệp trường trung học này 30 năm trước.",
+    "wordStartTime": 48.89,
+    "wordEndTime": 49.83,
+    "sentenceStartTime": 50.94,
+    "sentenceEndTime": 55.27
   },
   {
     "id": "v152",
@@ -1842,7 +1870,11 @@
     "reading": "きょういく",
     "meaning": "việc giáo dục, nền giáo dục",
     "sentence": "[子供](こども)の [教育](きょういく)は とても [大切](たいせつ)です。",
-    "sentenceVi": "Việc giáo dục trẻ em rất quan trọng."
+    "sentenceVi": "Việc giáo dục trẻ em rất quan trọng.",
+    "wordStartTime": 57.11,
+    "wordEndTime": 58.07,
+    "sentenceStartTime": 59.14,
+    "sentenceEndTime": 62
   },
   {
     "id": "v153",
@@ -1850,7 +1882,11 @@
     "reading": "せいと",
     "meaning": "học sinh",
     "sentence": "この [学校](がっこう)の [生徒](せいと)は [何人](なんにん)ですか。",
-    "sentenceVi": "Học sinh trường này có bao nhiêu người?"
+    "sentenceVi": "Học sinh trường này có bao nhiêu người?",
+    "wordStartTime": 64.09,
+    "wordEndTime": 64.83,
+    "sentenceStartTime": 66.2,
+    "sentenceEndTime": 69.26
   },
   {
     "id": "v154",
@@ -1858,7 +1894,11 @@
     "reading": "じゅぎょう",
     "meaning": "giờ học, tiết học",
     "sentence": "[今日](きょう)は [4時](よじ)まで [授業](じゅぎょう)があります。",
-    "sentenceVi": "Hôm nay có giờ học đến 4 giờ."
+    "sentenceVi": "Hôm nay có giờ học đến 4 giờ.",
+    "wordStartTime": 71.16,
+    "wordEndTime": 71.86,
+    "sentenceStartTime": 73.09,
+    "sentenceEndTime": 76.02
   },
   {
     "id": "v155",
@@ -1868,7 +1908,11 @@
     "sentence": "[4月](しがつ)に [学校](がっこう)が [始](はじ)まります。",
     "sentenceVi": "Trường học bắt đầu vào tháng Tư.",
     "blankWord": "始まります",
-    "blankReading": "はじまります"
+    "blankReading": "はじまります",
+    "wordStartTime": 78.02,
+    "wordEndTime": 78.89,
+    "sentenceStartTime": 80.19,
+    "sentenceEndTime": 82.67
   },
   {
     "id": "v156",
@@ -1878,7 +1922,11 @@
     "sentence": "[今日](きょう)の [勉強](べんきょう)を [始](はじ)めましょう。",
     "sentenceVi": "Chúng ta bắt đầu bài học hôm nay nào.",
     "blankWord": "始めましょう",
-    "blankReading": "はじめましょう"
+    "blankReading": "はじめましょう",
+    "wordStartTime": 84.67,
+    "wordEndTime": 85.53,
+    "sentenceStartTime": 86.74,
+    "sentenceEndTime": 88.9
   },
   {
     "id": "v157",
@@ -1886,7 +1934,11 @@
     "reading": "しつもん",
     "meaning": "câu hỏi",
     "sentence": "[質問](しつもん)を よく [読](よ)んで ください。",
-    "sentenceVi": "Hãy đọc kỹ câu hỏi."
+    "sentenceVi": "Hãy đọc kỹ câu hỏi.",
+    "wordStartTime": 90.86,
+    "wordEndTime": 91.71,
+    "sentenceStartTime": 92.78,
+    "sentenceEndTime": 95.21
   },
   {
     "id": "v158",
@@ -1896,7 +1948,11 @@
     "sentence": "[先生](せんせい)の [質問](しつもん)に [答](こた)えます。",
     "sentenceVi": "Tôi trả lời câu hỏi của giáo viên.",
     "blankWord": "答えます",
-    "blankReading": "こたえます"
+    "blankReading": "こたえます",
+    "wordStartTime": 97.17,
+    "wordEndTime": 98.03,
+    "sentenceStartTime": 99.41,
+    "sentenceEndTime": 101.49
   },
   {
     "id": "v159",
@@ -1904,7 +1960,11 @@
     "reading": "すうがく",
     "meaning": "toán học",
     "sentence": "[英語](えいご)は [好](す)きですが、[数学](すうがく)は [嫌](きら)いです。",
-    "sentenceVi": "Tôi thích tiếng Anh nhưng ghét toán."
+    "sentenceVi": "Tôi thích tiếng Anh nhưng ghét toán.",
+    "wordStartTime": 103.61,
+    "wordEndTime": 104.53,
+    "sentenceStartTime": 105.91,
+    "sentenceEndTime": 109.28
   },
   {
     "id": "v160",
@@ -1912,7 +1972,11 @@
     "reading": "れきし",
     "meaning": "lịch sử",
     "sentence": "[世界](せかい)の [歴史](れきし)を もっと [勉強](べんきょう)したいです。",
-    "sentenceVi": "Tôi muốn học lịch sử thế giới nhiều hơn nữa."
+    "sentenceVi": "Tôi muốn học lịch sử thế giới nhiều hơn nữa.",
+    "wordStartTime": 111.3,
+    "wordEndTime": 112.08,
+    "sentenceStartTime": 113.42,
+    "sentenceEndTime": 116.47
   },
   {
     "id": "v161",
@@ -1920,7 +1984,11 @@
     "reading": "ちり",
     "meaning": "địa lý",
     "sentence": "[子供](こども)の ころから [地理](ちり)が [大好](だいす)きでした。",
-    "sentenceVi": "Từ nhỏ, tôi đã thích môn địa lý."
+    "sentenceVi": "Từ nhỏ, tôi đã thích môn địa lý.",
+    "wordStartTime": 118.54,
+    "wordEndTime": 119.05,
+    "sentenceStartTime": 120.29,
+    "sentenceEndTime": 123.4
   },
   {
     "id": "v162",
@@ -1928,7 +1996,11 @@
     "reading": "てきすと",
     "meaning": "sách học, sách giáo khoa",
     "sentence": "この [テキスト](てきすと)は [明日](あした) [使](つか)います。",
-    "sentenceVi": "Ngày mai sẽ sử dụng sách này."
+    "sentenceVi": "Ngày mai sẽ sử dụng sách này.",
+    "wordStartTime": 125.27,
+    "wordEndTime": 126.13,
+    "sentenceStartTime": 127.41,
+    "sentenceEndTime": 130.03
   },
   {
     "id": "v163",
@@ -1938,7 +2010,11 @@
     "sentence": "[教科書](きょうかしょ)の [60](ろくじゅう)[ページ](ぺーじ)を [開](ひら)いて ください。",
     "sentenceVi": "Hãy mở sách giáo khoa trang 60.",
     "blankWord": "開いて",
-    "blankReading": "ひらいて"
+    "blankReading": "ひらいて",
+    "wordStartTime": 132.08,
+    "wordEndTime": 132.77,
+    "sentenceStartTime": 134.14,
+    "sentenceEndTime": 137.13
   },
   {
     "id": "v164",
@@ -1946,7 +2022,11 @@
     "reading": "ぷりんと",
     "meaning": "bài giảng (giáo viên soạn sẵn phát cho sinh viên)",
     "sentence": "これは [今日](きょう)の [授業](じゅぎょう)の [プリント](ぷりんと)です。",
-    "sentenceVi": "Đây là tờ bài giảng của giờ học hôm nay."
+    "sentenceVi": "Đây là tờ bài giảng của giờ học hôm nay.",
+    "wordStartTime": 139.01,
+    "wordEndTime": 139.85,
+    "sentenceStartTime": 140.94,
+    "sentenceEndTime": 143.63
   },
   {
     "id": "v165",
@@ -1954,7 +2034,11 @@
     "reading": "おもて",
     "meaning": "mặt trước",
     "sentence": "[プリント](ぷりんと)の [表](おもて)を [見](み)て ください。",
-    "sentenceVi": "Hãy xem mặt trước của tờ bài giảng."
+    "sentenceVi": "Hãy xem mặt trước của tờ bài giảng.",
+    "wordStartTime": 145.62,
+    "wordEndTime": 146.38,
+    "sentenceStartTime": 147.64,
+    "sentenceEndTime": 149.83
   },
   {
     "id": "v166",
@@ -1962,7 +2046,11 @@
     "reading": "てすと",
     "meaning": "bài kiểm tra",
     "sentence": "[今日](きょう)の [テスト](てすと)は とても [難](むずか)しかったです。",
-    "sentenceVi": "Bài kiểm tra hôm nay (đã) rất khó."
+    "sentenceVi": "Bài kiểm tra hôm nay (đã) rất khó.",
+    "wordStartTime": 151.7,
+    "wordEndTime": 152.47,
+    "sentenceStartTime": 153.76,
+    "sentenceEndTime": 156.81
   },
   {
     "id": "v167",
@@ -1972,7 +2060,11 @@
     "sentence": "[毎日](まいにち)、[バス](ばす)で [学校](がっこう)に [通](かよ)っています。",
     "sentenceVi": "Hàng ngày, tôi đi học bằng xe buýt.",
     "blankWord": "通っています",
-    "blankReading": "かよっています"
+    "blankReading": "かよっています",
+    "wordStartTime": 158.82,
+    "wordEndTime": 159.56,
+    "sentenceStartTime": 161.07,
+    "sentenceEndTime": 164.4
   },
   {
     "id": "v168",
@@ -1980,7 +2072,11 @@
     "reading": "せいせき",
     "meaning": "thành tích học tập",
     "sentence": "[成績](せいせき)が [悪](わる)くて、[母](はは)に しかられました。",
-    "sentenceVi": "Thành tích học tập của tôi tệ nên bị mẹ mắng."
+    "sentenceVi": "Thành tích học tập của tôi tệ nên bị mẹ mắng.",
+    "wordStartTime": 166.51,
+    "wordEndTime": 167.4,
+    "sentenceStartTime": 168.76,
+    "sentenceEndTime": 171.99
   },
   {
     "id": "v169",
@@ -1988,7 +2084,11 @@
     "reading": "てん",
     "meaning": "điểm",
     "sentence": "[昨日](きのう)の [テスト](てすと)の [点](てん)は よくなかったです。",
-    "sentenceVi": "Điểm bài kiểm tra hôm qua không tốt."
+    "sentenceVi": "Điểm bài kiểm tra hôm qua không tốt.",
+    "wordStartTime": 173.89,
+    "wordEndTime": 174.41,
+    "sentenceStartTime": 176.04,
+    "sentenceEndTime": 179.14
   },
   {
     "id": "v170",
@@ -1996,7 +2096,11 @@
     "reading": "まる",
     "meaning": "khoanh tròn (maru: ý là đúng, đạt)",
     "sentence": "[テスト](てすと)で [丸](まる)を たくさん もらいました。",
-    "sentenceVi": "Tôi được nhiều khoanh tròn (maru) trong bài kiểm tra."
+    "sentenceVi": "Tôi được nhiều khoanh tròn (maru) trong bài kiểm tra.",
+    "wordStartTime": 181.11,
+    "wordEndTime": 181.66,
+    "sentenceStartTime": 183.14,
+    "sentenceEndTime": 186.15
   },
   {
     "id": "v171",
@@ -2004,17 +2108,11 @@
     "reading": "さくぶん",
     "meaning": "bài văn",
     "sentence": "[自分](じぶん)の [国](くに)について [作文](さくぶん)を [書](か)きましょう。",
-    "sentenceVi": "Hãy viết bài văn về đất nước của mình."
-  },
-  {
-    "id": "v172",
-    "word": "出来る",
-    "reading": "できる",
-    "meaning": "(học) được, (học) giỏi",
-    "sentence": "[弟](おとうと)は [勉強](べんきょう)が よく [出来](でき)ます。",
-    "sentenceVi": "Em trai tôi học giỏi.",
-    "blankWord": "できます",
-    "blankReading": "できます"
+    "sentenceVi": "Hãy viết bài văn về đất nước của mình.",
+    "wordStartTime": 188.1,
+    "wordEndTime": 188.95,
+    "sentenceStartTime": 190.04,
+    "sentenceEndTime": 193.55
   },
   {
     "id": "v173",
@@ -2022,7 +2120,11 @@
     "reading": "やさしい",
     "meaning": "dễ, đơn giản",
     "sentence": "[昨日](きのう)の [テスト](てすと)は とても [易](やさ)しかったです。",
-    "sentenceVi": "Bài kiểm tra hôm qua rất dễ."
+    "sentenceVi": "Bài kiểm tra hôm qua rất dễ.",
+    "wordStartTime": 202.91,
+    "wordEndTime": 203.92,
+    "sentenceStartTime": 205.16,
+    "sentenceEndTime": 208.24
   },
   {
     "id": "v174",
@@ -2030,7 +2132,11 @@
     "reading": "かんたんな",
     "meaning": "đơn giản",
     "sentence": "この [テスト](てすと)は とても [簡単](かんたん)です。",
-    "sentenceVi": "Bài kiểm tra này rất đơn giản."
+    "sentenceVi": "Bài kiểm tra này rất đơn giản.",
+    "wordStartTime": 210.24,
+    "wordEndTime": 211.35,
+    "sentenceStartTime": 212.6,
+    "sentenceEndTime": 215.24
   },
   {
     "id": "v175",
@@ -2040,7 +2146,11 @@
     "sentence": "[易](やさ)しい [問題](もんだい)を [間違](まちが)えて しまいました。",
     "sentenceVi": "Tôi đã làm sai câu hỏi dễ.",
     "blankWord": "間違えて",
-    "blankReading": "まちがえて"
+    "blankReading": "まちがえて",
+    "wordStartTime": 217.23,
+    "wordEndTime": 218.3,
+    "sentenceStartTime": 219.48,
+    "sentenceEndTime": 222.74
   },
   {
     "id": "v176",
@@ -2048,7 +2158,11 @@
     "reading": "ちぇっく",
     "meaning": "sự kiểm tra, việc kiểm tra",
     "sentence": "[作文](さくぶん)を [日本人](にほんじん)の [友達](ともだち)に [チェック](ちぇっく)して もらいました。",
-    "sentenceVi": "Tôi được bạn người Nhật kiểm tra giúp bài văn."
+    "sentenceVi": "Tôi được bạn người Nhật kiểm tra giúp bài văn.",
+    "wordStartTime": 224.67,
+    "wordEndTime": 225.4,
+    "sentenceStartTime": 226.8,
+    "sentenceEndTime": 231.2
   },
   {
     "id": "v177",
@@ -2056,7 +2170,11 @@
     "reading": "ねっしんな",
     "meaning": "nhiệt tình",
     "sentence": "[田中先生](たなかせんせい)は とても [熱心](ねっしん)です。",
-    "sentenceVi": "Thầy/ cô Tanaka rất nhiệt tình."
+    "sentenceVi": "Thầy/ cô Tanaka rất nhiệt tình.",
+    "wordStartTime": 233.09,
+    "wordEndTime": 234.19,
+    "sentenceStartTime": 235.49,
+    "sentenceEndTime": 238.3
   },
   {
     "id": "v178",
@@ -2064,7 +2182,11 @@
     "reading": "やさしい",
     "meaning": "hiền, tử tế",
     "sentence": "[山田先生](やまだせんせい)は とても [優](やさ)しいです。",
-    "sentenceVi": "Thầy/ cô Yamada rất hiền."
+    "sentenceVi": "Thầy/ cô Yamada rất hiền.",
+    "wordStartTime": 240.3,
+    "wordEndTime": 241.28,
+    "sentenceStartTime": 242.4,
+    "sentenceEndTime": 245.42
   },
   {
     "id": "v179",
@@ -2072,7 +2194,11 @@
     "reading": "きびしい",
     "meaning": "nghiêm khắc",
     "sentence": "[木村先生](きむらせんせい)は ときどき [厳](きび)しいです。",
-    "sentenceVi": "Thầy/ cô Kimura đôi khi nghiêm khắc."
+    "sentenceVi": "Thầy/ cô Kimura đôi khi nghiêm khắc.",
+    "wordStartTime": 247.47,
+    "wordEndTime": 248.34,
+    "sentenceStartTime": 249.84,
+    "sentenceEndTime": 253.27
   },
   {
     "id": "v180",
@@ -2080,7 +2206,11 @@
     "reading": "まじめな",
     "meaning": "nghiêm túc, chăm chỉ",
     "sentence": "[彼](かれ)は とても [真面目](まじめ)な [学生](がくせい)です。",
-    "sentenceVi": "Anh ấy là một sinh viên rất chăm chỉ."
+    "sentenceVi": "Anh ấy là một sinh viên rất chăm chỉ.",
+    "wordStartTime": 255.29,
+    "wordEndTime": 256.25,
+    "sentenceStartTime": 257.51,
+    "sentenceEndTime": 260.34
   },
   {
     "id": "v181",
@@ -2088,7 +2218,11 @@
     "reading": "えらい",
     "meaning": "cao quý, ưu tú",
     "sentence": "[A国](Aこく)の [偉](えら)い [人](ひと)が [日本](にほん)へ [来](き)ます。",
-    "sentenceVi": "Một người cao quý nước A sẽ đến Nhật."
+    "sentenceVi": "Một người cao quý nước A sẽ đến Nhật.",
+    "wordStartTime": 262.43,
+    "wordEndTime": 263.1,
+    "sentenceStartTime": 264.33,
+    "sentenceEndTime": 267.32
   },
   {
     "id": "v182",
@@ -2096,7 +2230,11 @@
     "reading": "せつび",
     "meaning": "thiết bị",
     "sentence": "この [学校](がっこう)の [設備](せつび)は [新](あたら)しいです。",
-    "sentenceVi": "Thiết bị của trường này mới."
+    "sentenceVi": "Thiết bị của trường này mới.",
+    "wordStartTime": 269.42,
+    "wordEndTime": 270.14,
+    "sentenceStartTime": 271.44,
+    "sentenceEndTime": 274.19
   },
   {
     "id": "v183",
@@ -2104,15 +2242,23 @@
     "reading": "べる",
     "meaning": "chuông",
     "sentence": "[12時半](じゅうにじはん)に [ベル](べる)が [鳴](な)ります。",
-    "sentenceVi": "12 giờ rưỡi chuông sẽ reo."
+    "sentenceVi": "12 giờ rưỡi chuông sẽ reo.",
+    "wordStartTime": 276.2,
+    "wordEndTime": 276.7,
+    "sentenceStartTime": 278.03,
+    "sentenceEndTime": 280.51
   },
-      {
+  {
     "id": "v184",
     "word": "大学生",
     "reading": "だいがくせい",
     "meaning": "sinh viên",
     "sentence": "[早](はや)く [大学生](だいがくせい)に [な](な)りたいです。",
-    "sentenceVi": "Tôi muốn mau trở thành sinh viên đại học."
+    "sentenceVi": "Tôi muốn mau trở thành sinh viên đại học.",
+    "wordStartTime": 282.75,
+    "wordEndTime": 283.88,
+    "sentenceStartTime": 285.25,
+    "sentenceEndTime": 288.27
   },
   {
     "id": "v185",
@@ -2122,7 +2268,11 @@
     "sentence": "[日本](にほん)の [大学](だいがく)を [受](う)けたいです。",
     "sentenceVi": "Tôi muốn dự thi vào trường đại học của Nhật.",
     "blankWord": "受けたい",
-    "blankReading": "うけたい"
+    "blankReading": "うけたい",
+    "wordStartTime": 290.27,
+    "wordEndTime": 290.98,
+    "sentenceStartTime": 292.27,
+    "sentenceEndTime": 294.7
   },
   {
     "id": "v186",
@@ -2132,7 +2282,11 @@
     "sentence": "[行](い)きたかった [大学](だいがく)に [受](う)かりました。",
     "sentenceVi": "Tôi đã đậu vào đại học mà tôi muốn.",
     "blankWord": "受かりました",
-    "blankReading": "うかりました"
+    "blankReading": "うかりました",
+    "wordStartTime": 296.74,
+    "wordEndTime": 297.44,
+    "sentenceStartTime": 298.67,
+    "sentenceEndTime": 301.59
   },
   {
     "id": "v187",
@@ -2140,7 +2294,11 @@
     "reading": "りゅうがく",
     "meaning": "việc du học",
     "sentence": "[デザイン](でざいん)の [勉強](べんきょう)のために [留学](りゅうがく)しました。",
-    "sentenceVi": "Tôi đã du học để học thiết kế."
+    "sentenceVi": "Tôi đã du học để học thiết kế.",
+    "wordStartTime": 303.48,
+    "wordEndTime": 304.35,
+    "sentenceStartTime": 305.69,
+    "sentenceEndTime": 309.4
   },
   {
     "id": "v188",
@@ -2148,7 +2306,11 @@
     "reading": "もくてき",
     "meaning": "mục đích",
     "sentence": "[留学](りゅうがく)する [目的](もくてき)は [何](なん)ですか。",
-    "sentenceVi": "Mục đích du học của bạn là gì?"
+    "sentenceVi": "Mục đích du học của bạn là gì?",
+    "wordStartTime": 311.28,
+    "wordEndTime": 312.18,
+    "sentenceStartTime": 313.44,
+    "sentenceEndTime": 316.31
   },
   {
     "id": "v189",
@@ -2156,7 +2318,11 @@
     "reading": "ゆめ",
     "meaning": "ước mơ, giấc mơ",
     "sentence": "[私](わたし)の [夢](ゆめ)は [世界旅行](せかいりょこう)です。",
-    "sentenceVi": "Ước mơ của tôi là du lịch thế giới."
+    "sentenceVi": "Ước mơ của tôi là du lịch thế giới.",
+    "wordStartTime": 318.17,
+    "wordEndTime": 318.75,
+    "sentenceStartTime": 320.22,
+    "sentenceEndTime": 322.93
   },
   {
     "id": "v190",
@@ -2164,7 +2330,11 @@
     "reading": "がくぶ",
     "meaning": "ngành, khoa",
     "sentence": "どの [学部](がくぶ)に [行](い)くか まだ [分](わ)かりません。",
-    "sentenceVi": "Tôi chưa biết mình sẽ đi ngành nào."
+    "sentenceVi": "Tôi chưa biết mình sẽ đi ngành nào.",
+    "wordStartTime": 330.35,
+    "wordEndTime": 331.27,
+    "sentenceStartTime": 332.77,
+    "sentenceEndTime": 336.1
   },
   {
     "id": "v191",
@@ -2172,7 +2342,11 @@
     "reading": "せんもん",
     "meaning": "chuyên môn",
     "sentence": "[私](わたし)の [専門](せんもん)は [教育学](きょういくがく)です。",
-    "sentenceVi": "Chuyên môn của tôi là Giáo dục học."
+    "sentenceVi": "Chuyên môn của tôi là Giáo dục học.",
+    "wordStartTime": 338.04,
+    "wordEndTime": 338.89,
+    "sentenceStartTime": 340.1,
+    "sentenceEndTime": 343.24
   },
   {
     "id": "v192",
@@ -2180,7 +2354,11 @@
     "reading": "かがく",
     "meaning": "khoa học",
     "sentence": "[子供](こども)のときから [科学](かがく)が [好](す)きでした。",
-    "sentenceVi": "Tôi thích khoa học từ khi còn nhỏ."
+    "sentenceVi": "Tôi thích khoa học từ khi còn nhỏ.",
+    "wordStartTime": 345.26,
+    "wordEndTime": 346.06,
+    "sentenceStartTime": 347.66,
+    "sentenceEndTime": 350.93
   },
   {
     "id": "v193",
@@ -2188,7 +2366,11 @@
     "reading": "いがく",
     "meaning": "y học",
     "sentence": "[医者](いしゃ)に なるために [医学部](いがくぶ)に [入](はい)りました。",
-    "sentenceVi": "Tôi đã vào ngành Y để trở thành bác sĩ."
+    "sentenceVi": "Tôi đã vào ngành Y để trở thành bác sĩ.",
+    "wordStartTime": 352.82,
+    "wordEndTime": 353.56,
+    "sentenceStartTime": 354.94,
+    "sentenceEndTime": 358.4
   },
   {
     "id": "v194",
@@ -2196,7 +2378,11 @@
     "reading": "ぶんがく",
     "meaning": "văn học",
     "sentence": "[フランス](ふらんす)の [文学](ぶんがく)を [勉強](べんきょう)しています。",
-    "sentenceVi": "Tôi học văn học Pháp."
+    "sentenceVi": "Tôi học văn học Pháp.",
+    "wordStartTime": 360.27,
+    "wordEndTime": 361.15,
+    "sentenceStartTime": 362.62,
+    "sentenceEndTime": 365.51
   },
   {
     "id": "v195",
@@ -2204,7 +2390,11 @@
     "reading": "ほうりつ",
     "meaning": "luật pháp",
     "sentence": "[大学](だいがく)で [法律](ほうりつ)を [勉強](べんきょう)しています。",
-    "sentenceVi": "Ở đại học tôi học luật."
+    "sentenceVi": "Ở đại học tôi học luật.",
+    "wordStartTime": 367.57,
+    "wordEndTime": 368.37,
+    "sentenceStartTime": 369.55,
+    "sentenceEndTime": 372.68
   },
   {
     "id": "v196",
@@ -2212,7 +2402,11 @@
     "reading": "こうぎ",
     "meaning": "giờ học, tiết học",
     "sentence": "[山下先生](やましたせんせい)の [講義](こうぎ)は [分](わ)かりやすいです。",
-    "sentenceVi": "Giờ học của thầy/cô Yamashita dễ hiểu."
+    "sentenceVi": "Giờ học của thầy/cô Yamashita dễ hiểu.",
+    "wordStartTime": 374.74,
+    "wordEndTime": 375.36,
+    "sentenceStartTime": 376.9,
+    "sentenceEndTime": 380.53
   },
   {
     "id": "v197",
@@ -2220,7 +2414,11 @@
     "reading": "しゅっせき",
     "meaning": "sự tham dự, có mặt",
     "sentence": "[毎日](まいにち)、[大学](だいがく)の [授業](じゅぎょう)に [出席](しゅっせき)しています。",
-    "sentenceVi": "Tôi có mặt trong các giờ học ở trường đại học hàng ngày."
+    "sentenceVi": "Tôi có mặt trong các giờ học ở trường đại học hàng ngày.",
+    "wordStartTime": 382.61,
+    "wordEndTime": 383.49,
+    "sentenceStartTime": 384.75,
+    "sentenceEndTime": 388.63
   },
   {
     "id": "v198",
@@ -2228,15 +2426,23 @@
     "reading": "けっせき",
     "meaning": "sự vắng mặt, nghỉ học",
     "sentence": "[かぜ](かぜ)で [授業](じゅぎょう)を [欠席](けっせき)しました。",
-    "sentenceVi": "Tôi đã vắng mặt (nghỉ học) vì bị cảm."
+    "sentenceVi": "Tôi đã vắng mặt (nghỉ học) vì bị cảm.",
+    "wordStartTime": 390.68,
+    "wordEndTime": 391.52,
+    "sentenceStartTime": 392.94,
+    "sentenceEndTime": 395.76
   },
   {
     "id": "v199",
     "word": "レポート",
     "reading": "れぽーと",
     "meaning": "bài báo cáo",
-    "sentence": "[英語](えいご)で [レポート](れぽーと)を [書](か)かなければ [なりません](なりません)。",
-    "sentenceVi": "Phải viết báo cáo bằng tiếng Anh."
+    "sentence": "[英語](えいご)で [レポート](れぽーと)を [書](か)かなければなりません。",
+    "sentenceVi": "Phải viết báo cáo bằng tiếng Anh.",
+    "wordStartTime": 397.63,
+    "wordEndTime": 398.52,
+    "sentenceStartTime": 399.82,
+    "sentenceEndTime": 403.2
   },
   {
     "id": "v200",
@@ -2244,7 +2450,11 @@
     "reading": "ろんぶん",
     "meaning": "luận văn",
     "sentence": "[来週](らいしゅう)までに [論文](ろんぶん)を [出](だ)して ください。",
-    "sentenceVi": "Hãy nộp bài luận văn cho đến tuần sau."
+    "sentenceVi": "Hãy nộp bài luận văn cho đến tuần sau.",
+    "wordStartTime": 405.06,
+    "wordEndTime": 405.92,
+    "sentenceStartTime": 407.17,
+    "sentenceEndTime": 410.46
   },
   {
     "id": "v201",
@@ -2252,7 +2462,11 @@
     "reading": "しめきり",
     "meaning": "hạn chót",
     "sentence": "[レポート](れぽーと)の [締切](しめきり)は [明日](あした)です。",
-    "sentenceVi": "Hạn chót (nộp) bài báo cáo là ngày mai."
+    "sentenceVi": "Hạn chót (nộp) bài báo cáo là ngày mai.",
+    "wordStartTime": 412.39,
+    "wordEndTime": 413.24,
+    "sentenceStartTime": 414.61,
+    "sentenceEndTime": 417.38
   },
   {
     "id": "v202",
@@ -2260,7 +2474,11 @@
     "reading": "けんきゅう",
     "meaning": "sự nghiên cứu",
     "sentence": "[大学院](だいがくいん)で [数学](すうがく)を [研究](けんきゅう)したいです。",
-    "sentenceVi": "Tôi muốn nghiên cứu toán học ở bậc cao học."
+    "sentenceVi": "Tôi muốn nghiên cứu toán học ở bậc cao học.",
+    "wordStartTime": 419.46,
+    "wordEndTime": 420.4,
+    "sentenceStartTime": 421.66,
+    "sentenceEndTime": 425.2
   },
   {
     "id": "v203",
@@ -2268,7 +2486,11 @@
     "reading": "じっけん",
     "meaning": "thí nghiệm",
     "sentence": "[実験](じっけん)は [大変](たいへん)ですが、[面白](おもしろ)いです。",
-    "sentenceVi": "Thí nghiệm (thì) vất vả nhưng thú vị."
+    "sentenceVi": "Thí nghiệm (thì) vất vả nhưng thú vị.",
+    "wordStartTime": 427.24,
+    "wordEndTime": 428.21,
+    "sentenceStartTime": 429.76,
+    "sentenceEndTime": 432.95
   },
   {
     "id": "v204",
@@ -2276,7 +2498,11 @@
     "reading": "まとめる",
     "meaning": "tóm tắt (~)",
     "sentence": "[週末](しゅうまつ)までに [研究](けんきゅう)を まとめます。",
-    "sentenceVi": "Tôi tóm tắt bài nghiên cứu cho đến cuối tuần."
+    "sentenceVi": "Tôi tóm tắt bài nghiên cứu cho đến cuối tuần.",
+    "wordStartTime": 435,
+    "wordEndTime": 435.92,
+    "sentenceStartTime": 437.34,
+    "sentenceEndTime": 440.35
   },
   {
     "id": "v205",
@@ -2284,7 +2510,11 @@
     "reading": "ぼらんてぃあ",
     "meaning": "công việc tình nguyện",
     "sentence": "[休](やす)みの [日](ひ)に [ボランティア](ぼらんてぃあ)を しています。",
-    "sentenceVi": "Ngày nghỉ tôi làm công việc tình nguyện."
+    "sentenceVi": "Ngày nghỉ tôi làm công việc tình nguyện.",
+    "wordStartTime": 442.41,
+    "wordEndTime": 443.44,
+    "sentenceStartTime": 444.76,
+    "sentenceEndTime": 447.7
   },
   {
     "id": "v206",
@@ -2292,7 +2522,11 @@
     "reading": "ふくざつな",
     "meaning": "phức tạp",
     "sentence": "この [文](ぶん)は [複雑](ふくざつ)で よく [分](わ)かりません。",
-    "sentenceVi": "Câu văn này phức tạp nên tôi không hiểu lắm."
+    "sentenceVi": "Câu văn này phức tạp nên tôi không hiểu lắm.",
+    "wordStartTime": 449.82,
+    "wordEndTime": 450.74,
+    "sentenceStartTime": 452.23,
+    "sentenceEndTime": 455.69
   },
   {
     "id": "v207",
@@ -2300,7 +2534,11 @@
     "reading": "ひつような",
     "meaning": "sự cần thiết (cần thiết)",
     "sentence": "[学校](がっこう)では [学生](がくせい)[カード](かーど)を [作](つく)る [必要](ひつよう)が あります。",
-    "sentenceVi": "Cần làm thẻ sinh viên ở trường."
+    "sentenceVi": "Cần làm thẻ sinh viên ở trường.",
+    "wordStartTime": 457.6,
+    "wordEndTime": 458.58,
+    "sentenceStartTime": 462.66,
+    "sentenceEndTime": 467.04
   },
   {
     "id": "v208",
@@ -2308,7 +2546,11 @@
     "reading": "かんがえる",
     "meaning": "suy nghĩ, nghĩ",
     "sentence": "[難](むずか)しくても、よく [考](かんが)えれば [分](わ)かります。",
-    "sentenceVi": "Dù khó mà nếu suy nghĩ kỹ thì sẽ hiểu."
+    "sentenceVi": "Dù khó mà nếu suy nghĩ kỹ thì sẽ hiểu.",
+    "wordStartTime": 474.14,
+    "wordEndTime": 475.37,
+    "sentenceStartTime": 476.59,
+    "sentenceEndTime": 480.16
   },
   {
     "id": "v209",
@@ -2316,7 +2558,11 @@
     "reading": "じてん",
     "meaning": "tự điển",
     "sentence": "[カタカナ](かたかな)ことばの [辞典](じてん)を [買](か)いたいです。",
-    "sentenceVi": "Tôi muốn mua tự điển từ Katakana."
+    "sentenceVi": "Tôi muốn mua tự điển từ Katakana.",
+    "wordStartTime": 482.17,
+    "wordEndTime": 482.86,
+    "sentenceStartTime": 484.16,
+    "sentenceEndTime": 486.95
   },
   {
     "id": "v210",
@@ -2324,7 +2570,11 @@
     "reading": "しらべる",
     "meaning": "tra, tìm",
     "sentence": "[分](わ)からない [言葉](ことば)は [自分](じぶん)で [調](しら)べて ください。",
-    "sentenceVi": "Hãy tự mình tra từ không biết."
+    "sentenceVi": "Hãy tự mình tra từ không biết.",
+    "wordStartTime": 489.07,
+    "wordEndTime": 489.84,
+    "sentenceStartTime": 491.22,
+    "sentenceEndTime": 494.72
   },
   {
     "id": "v211",
@@ -2334,7 +2584,11 @@
     "sentence": "[レポート](れぽーと)を [書](か)いたら、[確](たし)かめて ください。",
     "sentenceVi": "Nếu viết báo cáo xong rồi, hãy kiểm tra lại.",
     "blankWord": "確かめて",
-    "blankReading": "たしかめて"
+    "blankReading": "たしかめて",
+    "wordStartTime": 496.6,
+    "wordEndTime": 497.62,
+    "sentenceStartTime": 498.83,
+    "sentenceEndTime": 501.99
   },
   {
     "id": "v212",
@@ -2342,7 +2596,11 @@
     "reading": "よしゅう",
     "meaning": "việc học trước, sự chuẩn bị bài",
     "sentence": "[毎日](まいにち)、[漢字](かんじ)を [予習](よしゅう)して きて ください。",
-    "sentenceVi": "Hàng ngày hãy học trước chữ Kanji."
+    "sentenceVi": "Hàng ngày hãy học trước chữ Kanji.",
+    "wordStartTime": 503.85,
+    "wordEndTime": 504.7,
+    "sentenceStartTime": 505.92,
+    "sentenceEndTime": 509.46
   },
   {
     "id": "v213",
@@ -2350,7 +2608,11 @@
     "reading": "ふくしゅう",
     "meaning": "việc ôn tập",
     "sentence": "[復習](ふくしゅう)しないと、[ことば](ことば)が [覚](おぼ)えられません。",
-    "sentenceVi": "Hễ không ôn tập là tôi không thể nào nhớ từ."
+    "sentenceVi": "Hễ không ôn tập là tôi không thể nào nhớ từ.",
+    "wordStartTime": 511.31,
+    "wordEndTime": 512.28,
+    "sentenceStartTime": 513.72,
+    "sentenceEndTime": 517.31
   },
   {
     "id": "v214",
@@ -2360,7 +2622,11 @@
     "sentence": "[昨日](きのう) [復習](ふくしゅう)したのに、[漢字](かんじ)が [思](おも)い[出](だ)せません。",
     "sentenceVi": "Hôm qua tôi đã ôn tập vậy mà không thể nhớ ra chữ Kanji.",
     "blankWord": "思い出せません",
-    "blankReading": "おもいだせません"
+    "blankReading": "おもいだせません",
+    "wordStartTime": 519.16,
+    "wordEndTime": 520.2,
+    "sentenceStartTime": 521.56,
+    "sentenceEndTime": 525.79
   },
   {
     "id": "v215",
@@ -2368,7 +2634,11 @@
     "reading": "じゅく",
     "meaning": "lớp học thêm, lớp luyện thi",
     "sentence": "[学校](がっこう)が [終](お)わったら、[塾](じゅく)に [行](い)きます。",
-    "sentenceVi": "Sau khi giờ học kết thúc, tôi sẽ đi học thêm."
+    "sentenceVi": "Sau khi giờ học kết thúc, tôi sẽ đi học thêm.",
+    "wordStartTime": 527.68,
+    "wordEndTime": 528.23,
+    "sentenceStartTime": 529.52,
+    "sentenceEndTime": 532.52
   },
   {
     "id": "v216",
@@ -2378,7 +2648,11 @@
     "sentence": "[家](いえ)に [帰](かえ)ったら、すぐ [宿題](しゅくだい)を やります。",
     "sentenceVi": "Sau khi về nhà, tôi làm bài tập ngay.",
     "blankWord": "やります",
-    "blankReading": "やります"
+    "blankReading": "やります",
+    "wordStartTime": 534.5,
+    "wordEndTime": 535.05,
+    "sentenceStartTime": 536.23,
+    "sentenceEndTime": 539.66
   },
   {
     "id": "v217",
@@ -2388,7 +2662,11 @@
     "sentence": "[勉強](べんきょう)も [スポーツ](すぽーつ)も [頑張](がんば)って います。",
     "sentenceVi": "Tôi cố gắng cả việc học lẫn thể thao.",
     "blankWord": "頑張って",
-    "blankReading": "がんばって"
+    "blankReading": "がんばって",
+    "wordStartTime": 541.65,
+    "wordEndTime": 542.53,
+    "sentenceStartTime": 543.62,
+    "sentenceEndTime": 546.37
   },
   {
     "id": "v218",
@@ -2396,7 +2674,11 @@
     "reading": "じ",
     "meaning": "chữ, chữ viết",
     "sentence": "[リー](りー)さんは [字](じ)が とても [綺麗](きれい)です。",
-    "sentenceVi": "Chữ (anh/chị) Ly rất đẹp."
+    "sentenceVi": "Chữ (anh/chị) Ly rất đẹp.",
+    "wordStartTime": 548.4,
+    "wordEndTime": 548.77,
+    "sentenceStartTime": 550.13,
+    "sentenceEndTime": 552.98
   },
   {
     "id": "v219",
@@ -2404,7 +2686,11 @@
     "reading": "ふりがな",
     "meaning": "phiên âm",
     "sentence": "[振](ふ)り[仮名](がな)が ないと、[漢字](かんじ)が [読](よ)めません。",
-    "sentenceVi": "Nếu không có phiên âm, tôi không thể đọc được chữ Kanji."
+    "sentenceVi": "Nếu không có phiên âm, tôi không thể đọc được chữ Kanji.",
+    "wordStartTime": 554.98,
+    "wordEndTime": 555.84,
+    "sentenceStartTime": 557.2,
+    "sentenceEndTime": 560.25
   },
   {
     "id": "v220",
@@ -2412,7 +2698,11 @@
     "reading": "めも",
     "meaning": "việc ghi chép",
     "sentence": "[大切](たいせつ)な ことを [メモ](めも)して おきます。",
-    "sentenceVi": "Tôi ghi chép lại các việc quan trọng."
+    "sentenceVi": "Tôi ghi chép lại các việc quan trọng.",
+    "wordStartTime": 562.11,
+    "wordEndTime": 562.68,
+    "sentenceStartTime": 564.1,
+    "sentenceEndTime": 566.68
   },
   {
     "id": "v221",
@@ -2420,7 +2710,11 @@
     "reading": "ぶんぽう",
     "meaning": "văn phạm, ngữ pháp",
     "sentence": "[N4](えぬよん)の [文法](ぶんぽう)を [覚](おぼ)えましょう。",
-    "sentenceVi": "Hãy ghi nhớ văn phạm N4."
+    "sentenceVi": "Hãy ghi nhớ văn phạm N4.",
+    "wordStartTime": 568.66,
+    "wordEndTime": 569.63,
+    "sentenceStartTime": 570.91,
+    "sentenceEndTime": 573.59
   },
   {
     "id": "v222",
@@ -2428,7 +2722,11 @@
     "reading": "せつめい",
     "meaning": "việc giải thích",
     "sentence": "この [文法](ぶんぽう)の [説明](せつめい)は よく [分](わ)かりません。",
-    "sentenceVi": "Tôi không hiểu rõ lắm phần giải thích văn phạm này."
+    "sentenceVi": "Tôi không hiểu rõ lắm phần giải thích văn phạm này.",
+    "wordStartTime": 575.58,
+    "wordEndTime": 576.56,
+    "sentenceStartTime": 577.85,
+    "sentenceEndTime": 581.31
   },
   {
     "id": "v223",
@@ -2436,7 +2734,11 @@
     "reading": "はつおん",
     "meaning": "việc phát âm",
     "sentence": "[マリア](まりあ)さんの [発音](ほつおん)は とても [綺麗](きれい)です。",
-    "sentenceVi": "Phát âm của (chị) Maria rất hay."
+    "sentenceVi": "Phát âm của (chị) Maria rất hay.",
+    "wordStartTime": 583.18,
+    "wordEndTime": 584.11,
+    "sentenceStartTime": 585.32,
+    "sentenceEndTime": 588.5
   },
   {
     "id": "v224",
@@ -2446,7 +2748,11 @@
     "sentence": "[日本語](にほんご)だけで [会話](かいわ)しましょう。",
     "sentenceVi": "Hãy nói chuyện chỉ bằng tiếng Nhật.",
     "blankWord": "会話しましょう",
-    "blankReading": "かいわしましょう"
+    "blankReading": "かいわしましょう",
+    "wordStartTime": 590.52,
+    "wordEndTime": 591.26,
+    "sentenceStartTime": 592.57,
+    "sentenceEndTime": 594.96
   },
   {
     "id": "v225",
@@ -2454,7 +2760,11 @@
     "reading": "たす",
     "meaning": "thêm vào, cộng",
     "sentence": "[25](にじゅうご)に [47](よんじゅうなな)を [足](た)すと、[72](ななじゅうに)に なります。",
-    "sentenceVi": "25 cộng thêm 47 bằng 72."
+    "sentenceVi": "25 cộng thêm 47 bằng 72.",
+    "wordStartTime": 596.84,
+    "wordEndTime": 597.45,
+    "sentenceStartTime": 598.82,
+    "sentenceEndTime": 603.95
   },
   {
     "id": "v226",
@@ -2464,7 +2774,11 @@
     "sentence": "この [本](ほん)は とても [役](やく)に[立](た)ちます。",
     "sentenceVi": "Quyển sách này rất có ích.",
     "blankWord": "役に立ちます",
-    "blankReading": "やくにたちます"
+    "blankReading": "やくにたちます",
+    "wordStartTime": 605.93,
+    "wordEndTime": 607.08,
+    "sentenceStartTime": 608.66,
+    "sentenceEndTime": 611.57
   },
   {
     "id": "v227",
@@ -2472,9 +2786,13 @@
     "reading": "べんきょうちゅう",
     "meaning": "đang học",
     "sentence": "[今](いま)、[テスト](てすと)の ための [勉強中](べんきょうちゅう)です。",
-    "sentenceVi": "Bây giờ tôi đang học bài kiểm tra."
+    "sentenceVi": "Bây giờ tôi đang học bài kiểm tra.",
+    "wordStartTime": 613.57,
+    "wordEndTime": 614.86,
+    "sentenceStartTime": 615.86,
+    "sentenceEndTime": 619.05
   },
-      {
+  {
     "id": "v228",
     "word": "勤める",
     "reading": "つとめる",
@@ -2482,7 +2800,11 @@
     "sentence": "[私](わたし)は [IT](あいてぃー)の [会社](かいしゃ)に [勤](つと)めています。",
     "sentenceVi": "Tôi đang làm việc tại một công ty IT.",
     "blankWord": "勤めています",
-    "blankReading": "つとめています"
+    "blankReading": "つとめています",
+    "wordStartTime": 621.23,
+    "wordEndTime": 622,
+    "sentenceStartTime": 623.64,
+    "sentenceEndTime": 627.13
   },
   {
     "id": "v229",
@@ -2490,7 +2812,11 @@
     "reading": "きゅうりょう",
     "meaning": "lương",
     "sentence": "[今日](きょう)、[始](はじ)めての [給料](きゅうりょう)を [貰](もら)いました。",
-    "sentenceVi": "Hôm nay tôi lãnh lương lần đầu tiên."
+    "sentenceVi": "Hôm nay tôi lãnh lương lần đầu tiên.",
+    "wordStartTime": 629.19,
+    "wordEndTime": 630.01,
+    "sentenceStartTime": 631.07,
+    "sentenceEndTime": 634.36
   },
   {
     "id": "v230",
@@ -2498,7 +2824,11 @@
     "reading": "ぼーなす",
     "meaning": "tiền thưởng",
     "sentence": "[夏](なつ)と [冬](ふゆ)に [ボーナス](ぼーなす)が あります。",
-    "sentenceVi": "Có tiền thưởng vào mùa hè và mùa đông."
+    "sentenceVi": "Có tiền thưởng vào mùa hè và mùa đông.",
+    "wordStartTime": 636.22,
+    "wordEndTime": 636.87,
+    "sentenceStartTime": 638.15,
+    "sentenceEndTime": 640.97
   },
   {
     "id": "v231",
@@ -2506,7 +2836,11 @@
     "reading": "ちょきん",
     "meaning": "việc tiết kiệm",
     "sentence": "[旅行](りょこう)の ために [貯金](ちょきん)します。",
-    "sentenceVi": "Tôi tiết kiệm tiền để đi du lịch."
+    "sentenceVi": "Tôi tiết kiệm tiền để đi du lịch.",
+    "wordStartTime": 643.02,
+    "wordEndTime": 643.8,
+    "sentenceStartTime": 645.07,
+    "sentenceEndTime": 647.57
   },
   {
     "id": "v232",
@@ -2514,7 +2848,11 @@
     "reading": "うけつけ",
     "meaning": "tiếp tân, quầy tiếp tân",
     "sentence": "[受付](うけつけ)は [3階](さんがい)に あります。",
-    "sentenceVi": "Tiếp tân ở tầng 3."
+    "sentenceVi": "Tiếp tân ở tầng 3.",
+    "wordStartTime": 649.58,
+    "wordEndTime": 650.44,
+    "sentenceStartTime": 651.76,
+    "sentenceEndTime": 654.21
   },
   {
     "id": "v233",
@@ -2522,7 +2860,11 @@
     "reading": "めいし",
     "meaning": "danh thiếp",
     "sentence": "[名刺](めいし)の [名前](なまえ)が [間違](まちが)っていました。",
-    "sentenceVi": "Tên trên danh thiếp bị sai."
+    "sentenceVi": "Tên trên danh thiếp bị sai.",
+    "wordStartTime": 656.25,
+    "wordEndTime": 657.06,
+    "sentenceStartTime": 658.09,
+    "sentenceEndTime": 661.14
   },
   {
     "id": "v234",
@@ -2530,7 +2872,11 @@
     "reading": "えいぎょう",
     "meaning": "việc kinh doanh",
     "sentence": "[営業](えいぎょう)の [仕事](しごと)は [楽](たの)しいです。",
-    "sentenceVi": "Công việc kinh doanh thì vui."
+    "sentenceVi": "Công việc kinh doanh thì vui.",
+    "wordStartTime": 663.01,
+    "wordEndTime": 663.93,
+    "sentenceStartTime": 665.28,
+    "sentenceEndTime": 667.9
   },
   {
     "id": "v235",
@@ -2540,7 +2886,11 @@
     "sentence": "いつも [元気](げんき)に [挨拶](あいさつ)しています。",
     "sentenceVi": "Lúc nào cũng chào hỏi vui vẻ.",
     "blankWord": "挨拶しています",
-    "blankReading": "あいさつしています"
+    "blankReading": "あいさつしています",
+    "wordStartTime": 669.94,
+    "wordEndTime": 670.59,
+    "sentenceStartTime": 672.15,
+    "sentenceEndTime": 675.12
   },
   {
     "id": "v236",
@@ -2548,7 +2898,11 @@
     "reading": "かいぎ",
     "meaning": "cuộc họp, buổi họp",
     "sentence": "[今日](きょう)の [会議](かいぎ)は [午後](ごご) [3時](さんじ)から です。",
-    "sentenceVi": "Cuộc họp hôm nay (bắt đầu) từ 3 giờ chiều."
+    "sentenceVi": "Cuộc họp hôm nay (bắt đầu) từ 3 giờ chiều.",
+    "wordStartTime": 677.17,
+    "wordEndTime": 677.84,
+    "sentenceStartTime": 679.08,
+    "sentenceEndTime": 682.31
   },
   {
     "id": "v237",
@@ -2556,7 +2910,11 @@
     "reading": "みーてぃんぐ",
     "meaning": "cuộc họp, gặp gỡ, bàn bạc",
     "sentence": "[昼](ひる)ごはんを [食](た)べながら [ミーティング](みーてぃんぐ)を しましょう。",
-    "sentenceVi": "Hãy vừa ăn trưa vừa họp nào."
+    "sentenceVi": "Hãy vừa ăn trưa vừa họp nào.",
+    "wordStartTime": 684.33,
+    "wordEndTime": 685.36,
+    "sentenceStartTime": 686.7,
+    "sentenceEndTime": 690.34
   },
   {
     "id": "v238",
@@ -2564,7 +2922,11 @@
     "reading": "いけん",
     "meaning": "ý kiến",
     "sentence": "[人](ひと)の [意見](いけん)を よく [聞](き)きましょう。",
-    "sentenceVi": "Hãy lắng nghe ý kiến người khác."
+    "sentenceVi": "Hãy lắng nghe ý kiến người khác.",
+    "wordStartTime": 692.17,
+    "wordEndTime": 692.81,
+    "sentenceStartTime": 694.29,
+    "sentenceEndTime": 697.07
   },
   {
     "id": "v239",
@@ -2572,7 +2934,11 @@
     "reading": "あいでぃあ",
     "meaning": "ý tưởng",
     "sentence": "[部長](ぶちょう)の [アイディア](あいでぃあ)は おもしろいです。",
-    "sentenceVi": "Ý tưởng của trưởng phòng thật thú vị."
+    "sentenceVi": "Ý tưởng của trưởng phòng thật thú vị.",
+    "wordStartTime": 698.91,
+    "wordEndTime": 699.69,
+    "sentenceStartTime": 700.98,
+    "sentenceEndTime": 703.65
   },
   {
     "id": "v240",
@@ -2580,7 +2946,11 @@
     "reading": "すけじゅーる",
     "meaning": "thời khóa biểu, lịch trình",
     "sentence": "[社長](しゃちょう)の [スケジュール](すけじゅーる)を [知](し)っていますか。",
-    "sentenceVi": "Bạn có biết lịch trình của giám đốc không?"
+    "sentenceVi": "Bạn có biết lịch trình của giám đốc không?",
+    "wordStartTime": 705.75,
+    "wordEndTime": 706.63,
+    "sentenceStartTime": 707.82,
+    "sentenceEndTime": 710.61
   },
   {
     "id": "v241",
@@ -2588,7 +2958,11 @@
     "reading": "しゅっちょう",
     "meaning": "chuyến công tác",
     "sentence": "[父](ちち)は よく [アメリカ](あめりか)へ [出張](しゅっちょう)しています。",
-    "sentenceVi": "Cha tôi thường đi Mỹ công tác."
+    "sentenceVi": "Cha tôi thường đi Mỹ công tác.",
+    "wordStartTime": 712.5,
+    "wordEndTime": 713.48,
+    "sentenceStartTime": 714.65,
+    "sentenceEndTime": 718.13
   },
   {
     "id": "v242",
@@ -2596,7 +2970,11 @@
     "reading": "もどる",
     "meaning": "quay lại",
     "sentence": "[田中](たなか)さんが [戻](もど)るのは [何時](なんじ)ですか。",
-    "sentenceVi": "Anh/chị Tanaka sẽ quay lại lúc mấy giờ?"
+    "sentenceVi": "Anh/chị Tanaka sẽ quay lại lúc mấy giờ?",
+    "wordStartTime": 720.16,
+    "wordEndTime": 720.87,
+    "sentenceStartTime": 722.27,
+    "sentenceEndTime": 725.3
   },
   {
     "id": "v243",
@@ -2606,7 +2984,11 @@
     "sentence": "[新聞](しんぶん)を [読](よ)んだら、ここに [戻](もど)して ください。",
     "sentenceVi": "Sau khi đọc báo thì vui lòng trả lại vào chỗ này.",
     "blankWord": "戻して",
-    "blankReading": "もどして"
+    "blankReading": "もどして",
+    "wordStartTime": 730.02,
+    "wordEndTime": 730.79,
+    "sentenceStartTime": 732.27,
+    "sentenceEndTime": 735.76
   },
   {
     "id": "v244",
@@ -2614,7 +2996,11 @@
     "reading": "ほんしゃ",
     "meaning": "trụ sở chính",
     "sentence": "[春](はる)から [東京](とうきょう)の [本社](ほんしゃ)に [行](い)きます。",
-    "sentenceVi": "Từ mùa xuân tôi sẽ đi làm ở trụ sở chính của công ty."
+    "sentenceVi": "Từ mùa xuân tôi sẽ đi làm ở trụ sở chính của công ty.",
+    "wordStartTime": 737.63,
+    "wordEndTime": 738.33,
+    "sentenceStartTime": 740,
+    "sentenceEndTime": 743.02
   },
   {
     "id": "v245",
@@ -2622,7 +3008,11 @@
     "reading": "しゃちょう",
     "meaning": "giám đốc",
     "sentence": "[私](わたし)の [会社](かいしゃ)の [社長](しゃちょう)は [若](わか)いです。",
-    "sentenceVi": "Giám đốc công ty tôi thì trẻ."
+    "sentenceVi": "Giám đốc công ty tôi thì trẻ.",
+    "wordStartTime": 745.09,
+    "wordEndTime": 745.91,
+    "sentenceStartTime": 747.31,
+    "sentenceEndTime": 750.23
   },
   {
     "id": "v246",
@@ -2630,7 +3020,11 @@
     "reading": "るーる",
     "meaning": "luật lệ, qui định",
     "sentence": "[会社](かいしゃ)の [ルール](るーる)を よく [読](よ)んで ください。",
-    "sentenceVi": "Vui lòng đọc kỹ qui định của công ty."
+    "sentenceVi": "Vui lòng đọc kỹ qui định của công ty.",
+    "wordStartTime": 752.26,
+    "wordEndTime": 752.93,
+    "sentenceStartTime": 754.53,
+    "sentenceEndTime": 757.47
   },
   {
     "id": "v247",
@@ -2638,7 +3032,11 @@
     "reading": "きそく",
     "meaning": "quy tắc",
     "sentence": "この [会社](かいしゃ)の [規則](きそく)を [知](し)っていますか。",
-    "sentenceVi": "Bạn có biết qui tắc của công ty này không?"
+    "sentenceVi": "Bạn có biết qui tắc của công ty này không?",
+    "wordStartTime": 759.4,
+    "wordEndTime": 760.11,
+    "sentenceStartTime": 761.56,
+    "sentenceEndTime": 764.53
   },
   {
     "id": "v248",
@@ -2648,7 +3046,11 @@
     "sentence": "[新](あたら)しい [アルバイト](あるばいと)が [決](き)まりました。",
     "sentenceVi": "Tôi đã có công việc làm thêm mới.",
     "blankWord": "決まりました",
-    "blankReading": "きまりました"
+    "blankReading": "きまりました",
+    "wordStartTime": 766.45,
+    "wordEndTime": 767.13,
+    "sentenceStartTime": 768.42,
+    "sentenceEndTime": 771.25
   },
   {
     "id": "v249",
@@ -2658,7 +3060,11 @@
     "sentence": "[会議](かいぎ)の [時間](じかん)を [決](き)めましょう。",
     "sentenceVi": "Hãy quyết định thời gian họp.",
     "blankWord": "決めましょう",
-    "blankReading": "きめましょう"
+    "blankReading": "きめましょう",
+    "wordStartTime": 773.15,
+    "wordEndTime": 773.8,
+    "sentenceStartTime": 775.07,
+    "sentenceEndTime": 777.43
   },
   {
     "id": "v250",
@@ -2666,17 +3072,11 @@
     "reading": "きょか",
     "meaning": "sự cho phép",
     "sentence": "[休](やす)むときは [許可](きょか)を もらってください。",
-    "sentenceVi": "Khi nghỉ, hãy xin phép."
-  },
-  {
-    "id": "v251",
-    "word": "押す",
-    "reading": "おす",
-    "meaning": "đóng (dấu)",
-    "sentence": "ここに [判子](はんこ)を [押](お)して ください。",
-    "sentenceVi": "Vui lòng đóng con dấu vào đây.",
-    "blankWord": "押して",
-    "blankReading": "おして"
+    "sentenceVi": "Khi nghỉ, hãy xin phép.",
+    "wordStartTime": 779.3,
+    "wordEndTime": 779.84,
+    "sentenceStartTime": 781.2,
+    "sentenceEndTime": 784.36
   },
   {
     "id": "v252",
@@ -2684,7 +3084,11 @@
     "reading": "ちこく",
     "meaning": "sự trễ giờ",
     "sentence": "[1分](いっぷん)でも [遅刻](ちこく)しては いけません。",
-    "sentenceVi": "Không được đi trễ dù chỉ 1 phút."
+    "sentenceVi": "Không được đi trễ dù chỉ 1 phút.",
+    "wordStartTime": 793.41,
+    "wordEndTime": 794.16,
+    "sentenceStartTime": 795.57,
+    "sentenceEndTime": 798.62
   },
   {
     "id": "v253",
@@ -2692,7 +3096,11 @@
     "reading": "ぎじゅつ",
     "meaning": "kỹ thuật",
     "sentence": "この [会社](かいしゃ)には どんな [技術](ぎじゅつ)が ありますか。",
-    "sentenceVi": "Công ty này có kỹ thuật như thế nào?"
+    "sentenceVi": "Công ty này có kỹ thuật như thế nào?",
+    "wordStartTime": 800.63,
+    "wordEndTime": 801.42,
+    "sentenceStartTime": 802.86,
+    "sentenceEndTime": 806.14
   },
   {
     "id": "v254",
@@ -2700,7 +3108,11 @@
     "reading": "ぱそこん",
     "meaning": "máy vi tính",
     "sentence": "[パソコン](ぱそこん)を [見](み)ていると、[目](め)が [疲](つか)れます。",
-    "sentenceVi": "Hễ nhìn vào máy vi tính, mắt sẽ mỏi."
+    "sentenceVi": "Hễ nhìn vào máy vi tính, mắt sẽ mỏi.",
+    "wordStartTime": 808.06,
+    "wordEndTime": 808.97,
+    "sentenceStartTime": 810.11,
+    "sentenceEndTime": 813.1
   },
   {
     "id": "v255",
@@ -2708,15 +3120,23 @@
     "reading": "そふと",
     "meaning": "phần mềm",
     "sentence": "[パソコン](ぱそこん)の [ソフト](そふと)を [作](つく)る [仕事](しごと)が したいです。",
-    "sentenceVi": "Tôi muốn làm công việc tạo ra phần mềm máy vi tính."
+    "sentenceVi": "Tôi muốn làm công việc tạo ra phần mềm máy vi tính.",
+    "wordStartTime": 815.11,
+    "wordEndTime": 815.88,
+    "sentenceStartTime": 817.21,
+    "sentenceEndTime": 820.17
   },
   {
     "id": "v256",
     "word": "書類",
     "reading": "しょるい",
     "meaning": "hồ sơ",
-    "sentence": "[明日](あした)までに この [書類](しょるい)を [出](だ)して ください。",
-    "sentenceVi": "Cho đến ngày mai, hãy nộp hồ sơ này."
+    "sentence": "[明日](あす)までに この [書類](しょるい)を [出](だ)して ください。",
+    "sentenceVi": "Cho đến ngày mai, hãy nộp hồ sơ này.",
+    "wordStartTime": 822.24,
+    "wordEndTime": 822.94,
+    "sentenceStartTime": 824.33,
+    "sentenceEndTime": 827.44
   },
   {
     "id": "v257",
@@ -2724,7 +3144,11 @@
     "reading": "ふぁいる",
     "meaning": "bìa hồ sơ",
     "sentence": "[資料](しりょう)を [ファイル](ふぁいる)に [入](い)れます。",
-    "sentenceVi": "Tôi cất tài liệu vào bìa hồ sơ."
+    "sentenceVi": "Tôi cất tài liệu vào bìa hồ sơ.",
+    "wordStartTime": 829.31,
+    "wordEndTime": 829.94,
+    "sentenceStartTime": 831.23,
+    "sentenceEndTime": 833.19
   },
   {
     "id": "v258",
@@ -2732,7 +3156,11 @@
     "reading": "にゅうりょく",
     "meaning": "việc đánh máy, nhập (dữ liệu)",
     "sentence": "ここに [英語](えいご)で [入力](にゅうりょく)して ください。",
-    "sentenceVi": "Vui lòng nhập tiếng Anh vào đây."
+    "sentenceVi": "Vui lòng nhập tiếng Anh vào đây.",
+    "wordStartTime": 835.2,
+    "wordEndTime": 836.07,
+    "sentenceStartTime": 837.16,
+    "sentenceEndTime": 840.09
   },
   {
     "id": "v259",
@@ -2740,7 +3168,11 @@
     "reading": "ほんやく",
     "meaning": "công việc dịch thuật, biên dịch",
     "sentence": "[中国語](ちゅうごくご)を [日本語](にほんご)に [翻訳](ほんやく)します。",
-    "sentenceVi": "Tôi sẽ dịch từ tiếng Trung Quốc sang tiếng Nhật."
+    "sentenceVi": "Tôi sẽ dịch từ tiếng Trung Quốc sang tiếng Nhật.",
+    "wordStartTime": 841.96,
+    "wordEndTime": 842.83,
+    "sentenceStartTime": 843.98,
+    "sentenceEndTime": 846.95
   },
   {
     "id": "v260",
@@ -2748,7 +3180,11 @@
     "reading": "つうやく",
     "meaning": "công việc phiên dịch, thông dịch",
     "sentence": "[小学生](しょうがくせい)の ころから [通訳](つうやく)に なりたかったです。",
-    "sentenceVi": "Từ thời tiểu học, tôi đã muốn trở thành thông dịch."
+    "sentenceVi": "Từ thời tiểu học, tôi đã muốn trở thành thông dịch.",
+    "wordStartTime": 849.05,
+    "wordEndTime": 849.87,
+    "sentenceStartTime": 851,
+    "sentenceEndTime": 854.5
   },
   {
     "id": "v261",
@@ -2756,7 +3192,11 @@
     "reading": "ほうほう",
     "meaning": "phương pháp",
     "sentence": "[日本語](にほんご)が [上手](じょうず)に なる [方法](ほうほう)を [教](おし)えて ください。",
-    "sentenceVi": "Vui lòng chỉ cho tôi phương pháp để giỏi tiếng Nhật."
+    "sentenceVi": "Vui lòng chỉ cho tôi phương pháp để giỏi tiếng Nhật.",
+    "wordStartTime": 856.51,
+    "wordEndTime": 857.44,
+    "sentenceStartTime": 858.63,
+    "sentenceEndTime": 862.03
   },
   {
     "id": "v262",
@@ -2764,7 +3204,11 @@
     "reading": "しかた",
     "meaning": "phương pháp, cách làm",
     "sentence": "[仕事](しごと)の [仕方](しかた)を すぐに [覚](おぼ)えました。",
-    "sentenceVi": "Tôi đã nhớ cách làm việc ngay."
+    "sentenceVi": "Tôi đã nhớ cách làm việc ngay.",
+    "wordStartTime": 864.04,
+    "wordEndTime": 864.74,
+    "sentenceStartTime": 866.15,
+    "sentenceEndTime": 868.96
   },
   {
     "id": "v263",
@@ -2774,7 +3218,11 @@
     "sentence": "[最近](さいきん)、[仕事](しごと)に [慣](な)れました。",
     "sentenceVi": "Gần đây tôi đã quen với công việc.",
     "blankWord": "慣れました",
-    "blankReading": "なれました"
+    "blankReading": "なれました",
+    "wordStartTime": 870.86,
+    "wordEndTime": 871.54,
+    "sentenceStartTime": 872.87,
+    "sentenceEndTime": 875.28
   },
   {
     "id": "v264",
@@ -2782,7 +3230,11 @@
     "reading": "うまくいく",
     "meaning": "suôn sẻ, tiến hành (thuận lợi)",
     "sentence": "[明日](あした)の [スピーチ](すぴーち)は [上手](うま)く[行](い)くでしょう。",
-    "sentenceVi": "Hẳn là bài hùng biện ngày mai sẽ tốt thôi."
+    "sentenceVi": "Hẳn là bài hùng biện ngày mai sẽ tốt thôi.",
+    "wordStartTime": 877.13,
+    "wordEndTime": 878.25,
+    "sentenceStartTime": 879.55,
+    "sentenceEndTime": 882.5
   },
   {
     "id": "v265",
@@ -2790,7 +3242,11 @@
     "reading": "せいこう",
     "meaning": "sự thành công",
     "sentence": "[田中](たなか)さんは [仕事](しごと)で [成功](せいこう)しました。",
-    "sentenceVi": "Anh/chị Tanaka đã thành công trong công việc."
+    "sentenceVi": "Anh/chị Tanaka đã thành công trong công việc.",
+    "wordStartTime": 884.51,
+    "wordEndTime": 885.46,
+    "sentenceStartTime": 886.72,
+    "sentenceEndTime": 889.78
   },
   {
     "id": "v266",
@@ -2800,7 +3256,11 @@
     "sentence": "[店長](てんちょう)に [仕事](しごと)を [頼](たの)まれました。",
     "sentenceVi": "Tôi được cửa hàng trưởng nhờ công việc.",
     "blankWord": "頼まれました",
-    "blankReading": "たのまれました"
+    "blankReading": "たのまれました",
+    "wordStartTime": 891.68,
+    "wordEndTime": 892.36,
+    "sentenceStartTime": 893.7,
+    "sentenceEndTime": 896.44
   },
   {
     "id": "v267",
@@ -2810,7 +3270,11 @@
     "sentence": "[フランス語](ふらんすご)の [通訳](つうやく)を [手伝](てつだ)って ください。",
     "sentenceVi": "Vui lòng giúp tôi thông dịch tiếng Pháp.",
     "blankWord": "手伝って",
-    "blankReading": "てつだって"
+    "blankReading": "てつだって",
+    "wordStartTime": 898.31,
+    "wordEndTime": 899.16,
+    "sentenceStartTime": 900.35,
+    "sentenceEndTime": 903.28
   },
   {
     "id": "id268",
@@ -2818,15 +3282,23 @@
     "reading": "ざんぎょう",
     "meaning": "việc làm ngoài giờ",
     "sentence": "[忙](いそが)しいときは [残業](ざんぎょう)します。",
-    "sentenceVi": "Khi bận rộn thì tôi làm ngoài giờ."
+    "sentenceVi": "Khi bận rộn thì tôi làm ngoài giờ.",
+    "wordStartTime": 905.17,
+    "wordEndTime": 906.1,
+    "sentenceStartTime": 907.15,
+    "sentenceEndTime": 909.61
   },
   {
     "id": "v269",
-    "word": "無理な",
-    "reading": "むりな",
+    "word": "無理",
+    "reading": "むり",
     "meaning": "việc khó khăn (không thể)",
-    "sentence": "そんな [無理](むり)を [言](い)わないで ください。[毎日](まいにち) [アルバイト](あるばいと)を するのは [無理](むり)です。",
-    "sentenceVi": "Xin đừng nói việc khó khăn như thế. Làm thêm hàng ngày là không thể."
+    "sentence": "そんな [無理](むり)を [言](い)わないで ください。",
+    "sentenceVi": "Xin đừng nói việc khó khăn như thế. Làm thêm hàng ngày là không thể.",
+    "wordStartTime": 911.61,
+    "wordEndTime": 912.14,
+    "sentenceStartTime": 915.1,
+    "sentenceEndTime": 917.45
   },
   {
     "id": "v270",
@@ -2836,7 +3308,11 @@
     "sentence": "[時間](じかん)が ないので、[急](いそ)いで ください。",
     "sentenceVi": "Vì không có thời gian nên hãy gấp rút lên.",
     "blankWord": "急いで",
-    "blankReading": "いそいで"
+    "blankReading": "いそいで",
+    "wordStartTime": 924.33,
+    "wordEndTime": 925.05,
+    "sentenceStartTime": 926.56,
+    "sentenceEndTime": 929.29
   },
   {
     "id": "v271",
@@ -2844,7 +3320,11 @@
     "reading": "ひるやすみ",
     "meaning": "giờ nghỉ trưa",
     "sentence": "[昼休](ひるやす)みは [12時](じゅうにじ)から [1時間](いちじかん)です。",
-    "sentenceVi": "Nghỉ trưa 1 tiếng đồng hồ, từ 12 giờ."
+    "sentenceVi": "Nghỉ trưa 1 tiếng đồng hồ, từ 12 giờ.",
+    "wordStartTime": 931.23,
+    "wordEndTime": 932.23,
+    "sentenceStartTime": 933.57,
+    "sentenceEndTime": 936.93
   },
   {
     "id": "v272",
@@ -2852,7 +3332,11 @@
     "reading": "きゅうけい",
     "meaning": "việc nghỉ giải lao, giờ nghỉ giải lao",
     "sentence": "[3時](さんじ)ですから、ちょっと [休憩](きゅうけい)しましょう。",
-    "sentenceVi": "3 giờ rồi nên hãy nghỉ giải lao một chút nào."
+    "sentenceVi": "3 giờ rồi nên hãy nghỉ giải lao một chút nào.",
+    "wordStartTime": 938.98,
+    "wordEndTime": 939.87,
+    "sentenceStartTime": 940.97,
+    "sentenceEndTime": 944.14
   },
   {
     "id": "v273",
@@ -2860,7 +3344,11 @@
     "reading": "ぼうねんかい",
     "meaning": "tiệc tất niên",
     "sentence": "[来週](らいしゅう)、[忘年会](ぼうねんかい)を しませんか。",
-    "sentenceVi": "Tuần sau làm tiệc tất niên không?"
+    "sentenceVi": "Tuần sau làm tiệc tất niên không?",
+    "wordStartTime": 946,
+    "wordEndTime": 947.07,
+    "sentenceStartTime": 948.48,
+    "sentenceEndTime": 951.6
   },
   {
     "id": "v274",
@@ -2868,7 +3356,11 @@
     "reading": "こうむいん",
     "meaning": "công chức, nhân viên nhà nước",
     "sentence": "[父](ちち)も [母](はは)も [公務員](こうむいん)です。",
-    "sentenceVi": "Cả cha và mẹ tôi đều là nhân viên nhà nước."
+    "sentenceVi": "Cả cha và mẹ tôi đều là nhân viên nhà nước.",
+    "wordStartTime": 953.49,
+    "wordEndTime": 954.45,
+    "sentenceStartTime": 955.61,
+    "sentenceEndTime": 958
   },
   {
     "id": "v275",
@@ -2876,7 +3368,11 @@
     "reading": "べんごし",
     "meaning": "luật sư",
     "sentence": "[弁護士](べんごし)に なるのは [難](むずか)しいです。",
-    "sentenceVi": "Trở thành luật sư thì khó khăn."
+    "sentenceVi": "Trở thành luật sư thì khó khăn.",
+    "wordStartTime": 959.98,
+    "wordEndTime": 960.9,
+    "sentenceStartTime": 962.27,
+    "sentenceEndTime": 964.85
   },
   {
     "id": "v276",
@@ -2884,7 +3380,11 @@
     "reading": "こうじょう",
     "meaning": "nhà máy, xưởng",
     "sentence": "[パン](ぱん)の [工場](こうじょう)で [アルバイト](あるばいと)していました。",
-    "sentenceVi": "Tôi đã làm thêm tại xưởng bánh mì."
+    "sentenceVi": "Tôi đã làm thêm tại xưởng bánh mì.",
+    "wordStartTime": 966.88,
+    "wordEndTime": 967.76,
+    "sentenceStartTime": 969.02,
+    "sentenceEndTime": 971.91
   },
   {
     "id": "v277",
@@ -2892,9 +3392,13 @@
     "reading": "じむしょ",
     "meaning": "văn phòng",
     "sentence": "[事務所](じむしょ)で [昼](ひる)ごはんを [食](た)べて います。",
-    "sentenceVi": "Tôi ăn cơm trưa tại văn phòng."
+    "sentenceVi": "Tôi ăn cơm trưa tại văn phòng.",
+    "wordStartTime": 973.81,
+    "wordEndTime": 974.53,
+    "sentenceStartTime": 975.81,
+    "sentenceEndTime": 978.45
   }
-    ]
+]
   }
 
 ]
