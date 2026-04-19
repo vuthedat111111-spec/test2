@@ -2153,18 +2153,6 @@
     "sentenceEndTime": 222.74
   },
   {
-    "id": "v176",
-    "word": "チェック",
-    "reading": "ちぇっく",
-    "meaning": "sự kiểm tra, việc kiểm tra",
-    "sentence": "[作文](さくぶん)を [日本人](にほんじん)の [友達](ともだち)に [チェック](ちぇっく)して もらいました。",
-    "sentenceVi": "Tôi được bạn người Nhật kiểm tra giúp bài văn.",
-    "wordStartTime": 224.67,
-    "wordEndTime": 225.4,
-    "sentenceStartTime": 226.8,
-    "sentenceEndTime": 231.2
-  },
-  {
     "id": "v177",
     "word": "熱心な",
     "reading": "ねっしんな",
@@ -2530,8 +2518,8 @@
   },
   {
     "id": "v207",
-    "word": "必要な",
-    "reading": "ひつような",
+    "word": "必要",
+    "reading": "ひつよう",
     "meaning": "sự cần thiết (cần thiết)",
     "sentence": "[学校](がっこう)では [学生](がくせい)[カード](かーど)を [作](つく)る [必要](ひつよう)が あります。",
     "sentenceVi": "Cần làm thẻ sinh viên ở trường.",
@@ -2927,18 +2915,6 @@
     "wordEndTime": 692.81,
     "sentenceStartTime": 694.29,
     "sentenceEndTime": 697.07
-  },
-  {
-    "id": "v239",
-    "word": "アイディア",
-    "reading": "あいでぃあ",
-    "meaning": "ý tưởng",
-    "sentence": "[部長](ぶちょう)の [アイディア](あいでぃあ)は おもしろいです。",
-    "sentenceVi": "Ý tưởng của trưởng phòng thật thú vị.",
-    "wordStartTime": 698.91,
-    "wordEndTime": 699.69,
-    "sentenceStartTime": 700.98,
-    "sentenceEndTime": 703.65
   },
   {
     "id": "v240",
