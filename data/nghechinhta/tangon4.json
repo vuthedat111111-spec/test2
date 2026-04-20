@@ -5689,10 +5689,10 @@
   },
   {
     "id": "v463",
-    "word": "夜行バス",
+    "word": "やこうバス",
     "reading": "やこうばす",
     "meaning": "xe buýt đêm",
-    "sentence": "[夜行](やこう)[バス](ばす)で [朝](あさ)[8時](はちじ)ごろ [京都](きょうと)に [着](つ)きました。",
+    "sentence": "やこう[バス](ばす)で [朝](あさ)[8時](はちじ)ごろ [京都](きょうと)に [着](つ)きました。",
     "sentenceVi": "Tôi đã đến Kyoto vào khoảng 8 giờ sáng bằng xe buýt đêm.",
     "blankWord": "着きました",
     "blankReading": "つきました",
@@ -5748,20 +5748,6 @@
     "wordEndTime": 331.43,
     "sentenceStartTime": 332.48,
     "sentenceEndTime": 335.5
-  },
-  {
-    "id": "v468",
-    "word": "利用",
-    "reading": "りよう",
-    "meaning": "việc sử dụng",
-    "sentence": "いつも [地下鉄](ちかてつ)を [利用](りよう)しています。",
-    "sentenceVi": "Tôi luôn sử dụng tàu điện ngầm.",
-    "blankWord": "利用しています",
-    "blankReading": "りようしています",
-    "wordStartTime": 337.42,
-    "wordEndTime": 338.24,
-    "sentenceStartTime": 339.39,
-    "sentenceEndTime": 341.81
   },
   {
     "id": "v469",
