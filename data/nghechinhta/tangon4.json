@@ -5140,6 +5140,960 @@
     "sentenceEndTime": 1017
   }
 ]
+  },
+
+{
+    "part": 4, 
+    "title": "PHẦN 4 - HÃY ĐI RA NGOÀI NÀO!",
+    "audioPath": "./data/audio/nghechinhta/tangon4p4.mp3",
+    "vocabularies": [
+ {
+    "id": "v420",
+    "word": "天気予報",
+    "reading": "てんきよほう",
+    "meaning": "dự báo thời tiết",
+    "sentence": "[毎朝](まいあさ)、[天気予報](てんきよほう)を [チェック](ちぇっく)します。",
+    "sentenceVi": "Mỗi sáng tôi đều theo dõi (kiểm tra) dự báo thời tiết."
+  },
+  {
+    "id": "v421",
+    "word": "青空",
+    "reading": "あおぞら",
+    "meaning": "bầu trời xanh",
+    "sentence": "[今日](きょう)は とても [綺麗](きれい)な [青空](あおぞら)です。",
+    "sentenceVi": "Hôm nay trời xanh rất đẹp."
+  },
+  {
+    "id": "v422",
+    "word": "晴れる",
+    "reading": "はれる",
+    "meaning": "(trời) nắng",
+    "sentence": "[明日](あした)は [晴](は)れるでしょう。",
+    "sentenceVi": "Ngày mai có lẽ trời nắng ráo.",
+    "blankWord": "晴れるでしょう",
+    "blankReading": "はれるでしょう"
+  },
+  {
+    "id": "v423",
+    "word": "くもり",
+    "reading": "くもり",
+    "meaning": "thời tiết âm u, trời âm u",
+    "sentence": "[今週](こんしゅう)は [毎日](まいにち) [くもり](くもり)です。",
+    "sentenceVi": "Tuần này trời âm u mỗi ngày."
+  },
+  {
+    "id": "v424",
+    "word": "風",
+    "reading": "かぜ",
+    "meaning": "gió",
+    "sentence": "[強](つよ)い [風](かぜ)で [電車](でんしゃ)が [止](と)まって しまいました。",
+    "sentenceVi": "Vì gió lớn nên tàu điện ngừng mất rồi."
+  },
+  {
+    "id": "v425",
+    "word": "吹く",
+    "reading": "ふく",
+    "meaning": "thổi",
+    "sentence": "[今日](きょう)は とても [強](つよ)い [風](かぜ)が [吹](ふ)いています。",
+    "sentenceVi": "Hôm nay gió thổi rất mạnh.",
+    "blankWord": "吹いています",
+    "blankReading": "ふいています"
+  },
+  {
+    "id": "v426",
+    "word": "やむ",
+    "reading": "やむ",
+    "meaning": "tạnh, ngưng",
+    "sentence": "[雨](あめ)は もうすぐ [やむでしょう](やむでしょう)。",
+    "sentenceVi": "Có lẽ mưa sắp tạnh.",
+    "blankWord": "やむでしょう",
+    "blankReading": "やむでしょう"
+  },
+  {
+    "id": "v427",
+    "word": "台風",
+    "reading": "たいふう",
+    "meaning": "bão",
+    "sentence": "[大](おお)きい [台風](たいふう)が [来](く)るかもしれません。",
+    "sentenceVi": "Có thể một cơn bão lớn sẽ đến."
+  },
+  {
+    "id": "v428",
+    "word": "かみなり",
+    "reading": "かみなり",
+    "meaning": "sấm",
+    "sentence": "[私](わたし)は [かみなり](かみなり)が [大嫌](だいきら)いです。",
+    "sentenceVi": "Tôi rất ghét sấm."
+  },
+  {
+    "id": "v429",
+    "word": "レインコート",
+    "reading": "れいんこーと",
+    "meaning": "áo mưa",
+    "sentence": "[明日](あした)は [レインコート](れいんこーと)を [着](き)て、[出](で)かけます。",
+    "sentenceVi": "Ngày mai tôi sẽ mặc áo mưa để ra ngoài."
+  },
+  {
+    "id": "v430",
+    "word": "さす",
+    "reading": "さす",
+    "meaning": "che (dù)",
+    "sentence": "[たくさん](たくさん)の [人](ひと)が [かさ](かさ)を [さしています](さしています)。",
+    "sentenceVi": "Nhiều người đang che dù.",
+    "blankWord": "さしています",
+    "blankReading": "さしています"
+  },
+  {
+    "id": "v431",
+    "word": "ぬれる",
+    "reading": "ぬれる",
+    "meaning": "bị ướt",
+    "sentence": "[かさ](かさ)が なくて、[服](ふく)が [ぬれて](ぬれて) しまいました。",
+    "sentenceVi": "Vì không có dù nên tôi bị ướt hết áo quần.",
+    "blankWord": "ぬれて",
+    "blankReading": "ぬれて"
+  },
+  {
+    "id": "v432",
+    "word": "波",
+    "reading": "なみ",
+    "meaning": "sóng",
+    "sentence": "[今日](きょう)は [波](なみ)が [高](たか)いです。",
+    "sentenceVi": "Hôm nay sóng lớn (cao)."
+  },
+  {
+    "id": "v433",
+    "word": "気温",
+    "reading": "きおん",
+    "meaning": "nhiệt độ (thời tiết)",
+    "sentence": "[今日](きょう)は [気温](きおん)が [上](あ)がりそうです。",
+    "sentenceVi": "Hôm nay nhiệt độ có vẻ tăng."
+  },
+  {
+    "id": "v434",
+    "word": "冷える",
+    "reading": "ひえる",
+    "meaning": "bị lạnh",
+    "sentence": "ずっと [外](そと)に いたので、[体](からだ)が [冷](ひ)えました。",
+    "sentenceVi": "Vì ở ngoài trời suốt nên cơ thể bị lạnh.",
+    "blankWord": "冷えました",
+    "blankReading": "ひえました"
+  },
+  {
+    "id": "v435",
+    "word": "比べる",
+    "reading": "くらべる",
+    "meaning": "so sánh",
+    "sentence": "[日本](にほん)と [比](くら)べると、[私](わたし)の [国](くに)は とても [寒](さむ)いです。",
+    "sentenceVi": "So với Nhật, nước tôi rất lạnh.",
+    "blankWord": "比べると",
+    "blankReading": "くらべると"
+  },
+  {
+    "id": "v436",
+    "word": "地震",
+    "reading": "じしん",
+    "meaning": "động đất",
+    "sentence": "[昨日](きのう)の [夜](よる)、[小](ちい)さな [地震](じしん)が ありました。",
+    "sentenceVi": "Tối hôm qua có một trận động đất nhỏ."
+  },
+  {
+    "id": "v437",
+    "word": "津波",
+    "reading": "つなみ",
+    "meaning": "sóng thần",
+    "sentence": "[地震](じしん)の ときは [津波](つなみ)が [心配](しんぱい)です。",
+    "sentenceVi": "Khi có động đất thì lo có sóng thần."
+  },
+  {
+    "id": "v438",
+    "word": "太陽",
+    "reading": "たいよう",
+    "meaning": "mặt trời",
+    "sentence": "[夏](なつ)は [太陽](たいよう)が とても [高](たか)くなります。",
+    "sentenceVi": "Mùa hè mặt trời trở nên cao."
+  },
+  {
+    "id": "v439",
+    "word": "空",
+    "reading": "そら",
+    "meaning": "bầu trời",
+    "sentence": "[くも](くも)が ない [綺麗](きれい)な [空](そら)です。",
+    "sentenceVi": "Bầu trời đẹp không mây."
+  },
+  {
+    "id": "v440",
+    "word": "月",
+    "reading": "つき",
+    "meaning": "mặt trăng",
+    "sentence": "[今晩](こんばん)は [月](つき)が [明](あか)るく [見](み)えます。",
+    "sentenceVi": "Tối nay có thể thấy trăng sáng."
+  },
+  {
+    "id": "v441",
+    "word": "星",
+    "reading": "ほし",
+    "meaning": "ngôi sao",
+    "sentence": "[今晩](こんばん)は [星](ほし)が たくさん [見](み)えます。",
+    "sentenceVi": "Đêm nay có thể thấy nhiều sao."
+  },
+  {
+    "id": "v442",
+    "word": "光る",
+    "reading": "ひかる",
+    "meaning": "chiếu sáng",
+    "sentence": "[星](ほし)が [光](ひか)って、[綺麗](きれい)です。",
+    "sentenceVi": "Ngôi sao chiếu sáng rất đẹp.",
+    "blankWord": "光って",
+    "blankReading": "ひかって"
+  },
+  {
+    "id": "v443",
+    "word": "宇宙",
+    "reading": "うちゅう",
+    "meaning": "vũ trụ",
+    "sentence": "いつか [宇宙](うちゅう)に [行](い)って みたいです。",
+    "sentenceVi": "Một ngày nào đó tôi muốn đi vũ trụ thử."
+  },
+  {
+    "id": "v444",
+    "word": "空気",
+    "reading": "くうき",
+    "meaning": "không khí",
+    "sentence": "いなかの [空気](くうき)は とても [美味](おい)しいです。",
+    "sentenceVi": "Ở miền quê không khí rất trong lành."
+  },
+  {
+    "id": "v445",
+    "word": "島",
+    "reading": "しま",
+    "meaning": "đảo",
+    "sentence": "[日本](にほん)には [6800](ろくせんはっぴゃく)の [島](しま)が あるそうです。",
+    "sentenceVi": "Nghe nói ở Nhật có 6800 hòn đảo."
+  },
+  {
+    "id": "v446",
+    "word": "海岸",
+    "reading": "かいがん",
+    "meaning": "bờ biển",
+    "sentence": "この [町](まち)には [綺麗](きれい)な [海岸](かいがん)が あります。",
+    "sentenceVi": "Thị trấn này có bờ biển đẹp."
+  },
+  {
+    "id": "v447",
+    "word": "林",
+    "reading": "はやし",
+    "meaning": "rừng",
+    "sentence": "[林](はやし)の [中](なか)に いろいろな [動物](どうぶつ)が います。",
+    "sentenceVi": "Trong rừng có nhiều loại động vật."
+  },
+  {
+    "id": "v448",
+    "word": "湖",
+    "reading": "みずうみ",
+    "meaning": "hồ",
+    "sentence": "[公園](こうえん)に [大](おお)きい [湖](みずうみ)が あります。",
+    "sentenceVi": "Trong công viên có một cái hồ lớn."
+  },
+  {
+    "id": "v449",
+    "word": "池",
+    "reading": "いけ",
+    "meaning": "ao",
+    "sentence": "むかし、よく この [池](いけ)で [泳](およ)ぎました。",
+    "sentenceVi": "Ngày xưa tôi thường bơi ở cái ao này."
+  },
+  {
+    "id": "v450",
+    "word": "虫",
+    "reading": "むし",
+    "meaning": "sâu, côn trùng",
+    "sentence": "[兄](あに)と よく [虫](むし)を とりに [行](い)きました。",
+    "sentenceVi": "Tôi thường đi bắt côn trùng với anh trai."
+  },
+  {
+    "id": "v451",
+    "word": "鳥",
+    "reading": "とり",
+    "meaning": "chim",
+    "sentence": "[鳥](とり)の かわいい [声](こえ)で [起](お)きました。",
+    "sentenceVi": "Tôi thức dậy vì tiếng chim (hót) dễ thương."
+  },
+  {
+    "id": "v452",
+    "word": "季節",
+    "reading": "きせつ",
+    "meaning": "mùa",
+    "sentence": "[私](わたし)が いちばん [好](す)きな [季節](きせつ)は [秋](あき)です。",
+    "sentenceVi": "Mùa tôi thích nhất là mùa thu."
+  },
+  {
+    "id": "v453",
+    "word": "紅葉",
+    "reading": "こうよう",
+    "meaning": "lá đỏ",
+    "sentence": "もうすぐ [紅葉](こうよう)の [季節](きせつ)です。",
+    "sentenceVi": "Sắp đến mùa lá đỏ."
+  },
+  {
+    "id": "v454",
+    "word": "花見",
+    "reading": "はなみ",
+    "meaning": "ngắm hoa",
+    "sentence": "[週末](しゅうまつ)、お[花見](はなみ)を するつもりです。",
+    "sentenceVi": "Cuối tuần tôi định đi ngắm hoa."
+  },
+  {
+    "id": "v455",
+    "word": "咲く",
+    "reading": "さく",
+    "meaning": "nở",
+    "sentence": "[公園](こうえん)に [花](はな)が [咲](さ)いています。",
+    "sentenceVi": "Trong công viên hoa đang nở.",
+    "blankWord": "咲いています",
+    "blankReading": "さいています"
+  },
+  {
+    "id": "v456",
+    "word": "葉",
+    "reading": "は",
+    "meaning": "lá",
+    "sentence": "この [花](はな)の [葉](は)は [綺麗](きれい)です。",
+    "sentenceVi": "Lá của bông hoa này đẹp."
+  },
+  {
+    "id": "v457",
+    "word": "枝",
+    "reading": "えだ",
+    "meaning": "cành cây",
+    "sentence": "[木](き)の [枝](えだ)に [鳥](とり)が [止](と)まっています。",
+    "sentenceVi": "Con chim đang đậu trên cành cây."
+  },
+  {
+    "id": "v458",
+    "word": "折れる",
+    "reading": "おれる",
+    "meaning": "bị gãy",
+    "sentence": "[台風](たいふう)で [木](き)が [折](お)れて しまいました。",
+    "sentenceVi": "Cây cối đã bị gãy vì bão.",
+    "blankWord": "折れて",
+    "blankReading": "おれて"
+  },
+  {
+    "id": "v459",
+    "word": "折る",
+    "reading": "おる",
+    "meaning": "bẻ gãy",
+    "sentence": "さくらの [枝](えだ)を [折](お)っては いけません。",
+    "sentenceVi": "Không được bẻ cành cây hoa anh đào.",
+    "blankWord": "折っては",
+    "blankReading": "おっては"
+  },
+  {
+    "id": "v460",
+    "word": "植える",
+    "reading": "うえる",
+    "meaning": "trồng",
+    "sentence": "[庭](にわ)に さくらの [木](き)を [植](う)えました。",
+    "sentenceVi": "Tôi đã trồng cây anh đào trong vườn.",
+    "blankWord": "植えました",
+    "blankReading": "うえました"
+  },
+  {
+    "id": "v461",
+    "word": "新幹線",
+    "reading": "しんかんせん",
+    "meaning": "tàu shinkansen",
+    "sentence": "[大阪](おおさか)まで [新幹線](しんかんせん)で [2時間半](にじかんはん)くらいです。",
+    "sentenceVi": "Đến Osaka bằng tàu shinkansen mất khoảng 2 tiếng rưỡi."
+  },
+  {
+    "id": "v462",
+    "word": "急行",
+    "reading": "きゅうこう",
+    "meaning": "tàu tốc hành",
+    "sentence": "[東京駅](とうきょうえき)まで [急行](きゅうこう)で [15分](じゅうごふん)くらいです。",
+    "sentenceVi": "Đi tàu tốc hành đến ga Tokyo khoảng 15 phút."
+  },
+  {
+    "id": "v463",
+    "word": "夜行バス",
+    "reading": "やこうばす",
+    "meaning": "xe buýt đêm",
+    "sentence": "[夜行](やこう)[バス](ばす)で [朝](あさ)[8時](はちじ)ごろ [京都](きょうと)に [着](つ)きました。",
+    "sentenceVi": "Tôi đã đến Kyoto vào khoảng 8 giờ sáng bằng xe buýt đêm.",
+    "blankWord": "着きました",
+    "blankReading": "つきました"
+  },
+  {
+    "id": "v464",
+    "word": "自動車",
+    "reading": "じじょうしゃ",
+    "meaning": "xe hơi, xe 4 bánh các loại",
+    "sentence": "[小](ちい)さい [自動車](じどうしゃ)が [人気](にんき)です。",
+    "sentenceVi": "Xe hơi nhỏ được ưa chuộng."
+  },
+  {
+    "id": "v465",
+    "word": "オートバイ",
+    "reading": "おーとばい",
+    "meaning": "xe máy, xe mô-tô",
+    "sentence": "[週末](しゅうまつ)、[友](とも)だちと [オートバイ](おーとばい)で [出](で)かけます。",
+    "sentenceVi": "Cuối tuần tôi sẽ đi chơi bằng xe máy với bạn tôi."
+  },
+  {
+    "id": "v466",
+    "word": "船",
+    "reading": "ふね",
+    "meaning": "tàu, thuyền",
+    "sentence": "いつか [船](ふね)で [世界](せかい)を [旅行](りょこう)したいです。",
+    "sentenceVi": "Một lúc nào đó tôi muốn đi du lịch thế giới bằng thuyền."
+  },
+  {
+    "id": "v467",
+    "word": "交通",
+    "reading": "こうつう",
+    "meaning": "giao thông",
+    "sentence": "[東京](とうきょう)は [交通](こうつう)が とても [便利](べんり)です。",
+    "sentenceVi": "Giao thông Tokyo rất tiện lợi."
+  },
+  {
+    "id": "v468",
+    "word": "利用",
+    "reading": "りよう",
+    "meaning": "việc sử dụng",
+    "sentence": "いつも [地下鉄](ちかてつ)を [利用](りよう)しています。",
+    "sentenceVi": "Tôi luôn sử dụng tàu điện ngầm.",
+    "blankWord": "利用しています",
+    "blankReading": "りようしています"
+  },
+  {
+    "id": "v469",
+    "word": "降りる",
+    "reading": "おりる",
+    "meaning": "xuống (xe, tàu)",
+    "sentence": "ここで [バス](ばす)を [降](お)ります。",
+    "sentenceVi": "Xuống xe buýt tại đây.",
+    "blankWord": "降ります",
+    "blankReading": "おります"
+  },
+  {
+    "id": "v470",
+    "word": "乗りかえる",
+    "reading": "のりかえる",
+    "meaning": "đổi (xe, tàu)",
+    "sentence": "ここで [地下鉄](ちかてつ)に [乗](の)りかえて ください。",
+    "sentenceVi": "Hãy đổi sang tàu điện ngầm ở đây.",
+    "blankWord": "乗りかえて",
+    "blankReading": "のりかえて"
+  },
+  {
+    "id": "v471",
+    "word": "ラッシュ",
+    "reading": "らっしゅ",
+    "meaning": "giờ cao điểm",
+    "sentence": "この [電車](でんしゃ)は [ラッシュ](らっしゅ)でも [座](すわ)れます。",
+    "sentenceVi": "Tàu điện này giờ cao điểm vẫn có thể ngồi được."
+  },
+  {
+    "id": "v472",
+    "word": "こむ",
+    "reading": "こむ",
+    "meaning": "đông",
+    "sentence": "[朝](あさ)の [電車](でんしゃ)は とても [こんでいます](こんでいます)。",
+    "sentenceVi": "Tàu điện buổi sáng rất đông.",
+    "blankWord": "こんでいます",
+    "blankReading": "こんでいます"
+  },
+  {
+    "id": "v473",
+    "word": "すく",
+    "reading": "すく",
+    "meaning": "trống, vắng",
+    "sentence": "この [バス](ばす)は いつも [すいています](すいています)。",
+    "sentenceVi": "Xe buýt này luôn vắng.",
+    "blankWord": "すいています",
+    "blankReading": "すいています"
+  },
+  {
+    "id": "v474",
+    "word": "通る",
+    "reading": "とおる",
+    "meaning": "chạy qua, thông qua, ngang qua",
+    "sentence": "この [駅](えき)には いろいろな [電車](でんしゃ)が [通](とお)っています。",
+    "sentenceVi": "Nhà ga này có nhiều loại tàu điện chạy qua.",
+    "blankWord": "通っています",
+    "blankReading": "とおっています"
+  },
+  {
+    "id": "v475",
+    "word": "すぎる",
+    "reading": "すぎる",
+    "meaning": "chạy qua, quá",
+    "sentence": "[A駅](えーえき)を [すぎたら](すぎたら)、[電車](でんしゃ)が [すきました](すきました)。",
+    "sentenceVi": "Chạy qua nhà ga A thì tàu điện vắng.",
+    "blankWord": "すぎたら",
+    "blankReading": "すぎたら"
+  },
+  {
+    "id": "v476",
+    "word": "開く",
+    "reading": "あく",
+    "meaning": "(cửa) mở",
+    "sentence": "[次](つぎ)の [駅](えき)で [右](みぎ)の [ドア](どあ)が [開](あ)きます。",
+    "sentenceVi": "Ở nhà ga tiếp theo, cửa bên phải sẽ mở.",
+    "blankWord": "開きます",
+    "blankReading": "あきます"
+  },
+  {
+    "id": "v477",
+    "word": "開ける",
+    "reading": "あける",
+    "meaning": "mở (cửa)",
+    "sentence": "[暑](あつ)いので、[窓](まど)を [開](あ)けましょう。",
+    "sentenceVi": "Vì trời nóng, hãy mở cửa sổ ra nào.",
+    "blankWord": "開けましょう",
+    "blankReading": "あけましょう"
+  },
+  {
+    "id": "v478",
+    "word": "閉まる",
+    "reading": "しまる",
+    "meaning": "(cửa) đóng",
+    "sentence": "[右側](みぎがわ)の [ドア](どあ)が [閉](し)まります。",
+    "sentenceVi": "Cửa phía bên phải sẽ đóng.",
+    "blankWord": "閉まります",
+    "blankReading": "しまります"
+  },
+  {
+    "id": "v479",
+    "word": "閉める",
+    "reading": "しめる",
+    "meaning": "đóng (cửa)",
+    "sentence": "[寒](さむ)いので、[窓](まど)を [閉](し)めて ください。",
+    "sentenceVi": "Vì trời lạnh, hãy đóng cửa sổ lại.",
+    "blankWord": "閉めて",
+    "blankReading": "しめて"
+  },
+  {
+    "id": "v480",
+    "word": "運転手",
+    "reading": "うんてんしゅ",
+    "meaning": "tài xế",
+    "sentence": "[子](こ)どものとき、[バス](ばす)の [運転手](うんてんしゅ)に なりたかったです。",
+    "sentenceVi": "Khi còn nhỏ, tôi đã muốn trở thành tài xế xe buýt."
+  },
+  {
+    "id": "v481",
+    "word": "お客さん",
+    "reading": "おきゃくさん",
+    "meaning": "hành khách, khách hàng, người khách",
+    "sentence": "この [バス](ばす)は [外国人](がいこくじん)の お[客](きゃく)さんが [多](おお)いです。",
+    "sentenceVi": "Xe buýt này hành khách người nước ngoài đông."
+  },
+  {
+    "id": "v482",
+    "word": "席",
+    "reading": "せき",
+    "meaning": "ghế, chỗ ngồi",
+    "sentence": "この [飛行機](ひこうき)に まだ [席](せき)が ありますか。",
+    "sentenceVi": "Máy bay này vẫn còn chỗ chứ?"
+  },
+  {
+    "id": "v483",
+    "word": "おとな",
+    "reading": "おとな",
+    "meaning": "người lớn",
+    "sentence": "[おとな](おとな)2[枚](まい)と [子](こ)ども2[枚](まい)、[きっぷ](きっぷ)を ください。",
+    "sentenceVi": "Cho tôi 2 vé người lớn và 2 vé trẻ em."
+  },
+  {
+    "id": "v484",
+    "word": "お年より",
+    "reading": "おとしより",
+    "meaning": "người lớn tuổi, người già",
+    "sentence": "ここは お[年](とし)よりの ための [席](せき)です。",
+    "sentenceVi": "Chỗ này là ghế dành cho người già."
+  },
+  {
+    "id": "v485",
+    "word": "進む",
+    "reading": "すすむ",
+    "meaning": "tiến lên",
+    "sentence": "[道](みち)が [こんでいて](こんでいて)、[車](くるま)が [前](まえ)に [進](すす)めません。",
+    "sentenceVi": "Vì đường đông, xe không thể tiến lên trước được.",
+    "blankWord": "進めません",
+    "blankReading": "すすめません"
+  },
+  {
+    "id": "v486",
+    "word": "向かう",
+    "reading": "むかう",
+    "meaning": "hướng đến, đi đến",
+    "sentence": "[今](いま)、[車](くるま)で [空港](くうこう)に [向](む)かっています。",
+    "sentenceVi": "Bây giờ tôi đang đi (hướng) đến sân bay bằng xe hơi.",
+    "blankWord": "向かっています",
+    "blankReading": "むかっています"
+  },
+  {
+    "id": "v487",
+    "word": "止める",
+    "reading": "とめる",
+    "meaning": "đậu, dừng (xe)",
+    "sentence": "[バス停](ばすてい)の [近](ちか)くに [車](くるま)を [止](と)めては いけません。",
+    "sentenceVi": "Không được đậu xe gần trạm xe buýt.",
+    "blankWord": "止めては",
+    "blankReading": "とめては"
+  },
+  {
+    "id": "v488",
+    "word": "止まる",
+    "reading": "とまる",
+    "meaning": "(xe) dừng, đậu",
+    "sentence": "[道](みち)に [大](おお)きい [バス](ばす)が [止](と)まっています。",
+    "sentenceVi": "Chiếc xe buýt lớn đang dừng trên đường.",
+    "blankWord": "止まっています",
+    "blankReading": "とまっています"
+  },
+  {
+    "id": "v489",
+    "word": "運ぶ",
+    "reading": "はこぶ",
+    "meaning": "chuyên chở, vận chuyển, khiêng vác",
+    "sentence": "この [荷物](にもつ)を いっしょに [運](はこ)んで ください。",
+    "sentenceVi": "Hãy cùng nhau vận chuyển hành lý.",
+    "blankWord": "運んで",
+    "blankReading": "はこんで"
+  },
+  {
+    "id": "v490",
+    "word": "そうさ",
+    "reading": "そうさ",
+    "meaning": "việc điều khiển",
+    "sentence": "[リモコン](りもこん)で [車](くるま)の [ドア](どあ)を [そうさします](そうさします)。",
+    "sentenceVi": "Điều khiển cửa xe hơi bằng đồ điều khiển từ xa.",
+    "blankWord": "そうさします",
+    "blankReading": "そうさします"
+  },
+  {
+    "id": "v491",
+    "word": "回す",
+    "reading": "まわす",
+    "meaning": "vặn, xoay",
+    "sentence": "[車](くるま)の [ハンドル](はんどる)を [回](まわ)します。",
+    "sentenceVi": "Xoay tay lái xe.",
+    "blankWord": "回します",
+    "blankReading": "まわします"
+  },
+  {
+    "id": "v492",
+    "word": "事故",
+    "reading": "じこ",
+    "meaning": "tai nạn",
+    "sentence": "[きのう](きのう)、[道](みち)で [事故](じこ)を [見](み)て しまいました。",
+    "sentenceVi": "Hôm qua tôi đã chứng kiến tai nạn trên đường."
+  },
+  {
+    "id": "v493",
+    "word": "あう",
+    "reading": "あう",
+    "meaning": "gặp (tai nạn)",
+    "sentence": "[交差点](こうさてん)で [事故](じこ)に [あって](あって) しまいました。",
+    "sentenceVi": "Tôi đã gặp tai nạn tại giao lộ.",
+    "blankWord": "あって",
+    "blankReading": "あって"
+  },
+  {
+    "id": "v494",
+    "word": "ぶつかる",
+    "reading": "ぶつかる",
+    "meaning": "đụng, tông",
+    "sentence": "[信号](しんごう)の ところで [2台](にだい)の [タクシー](たくしー)が [ぶつかりました](ぶつかりました)。",
+    "sentenceVi": "Ở chỗ đèn giao thông, 2 chiếc taxi đã đụng nhau.",
+    "blankWord": "ぶつかりました",
+    "blankReading": "ぶつかりました"
+  },
+  {
+    "id": "v495",
+    "word": "すべる",
+    "reading": "すべる",
+    "meaning": "trượt",
+    "sentence": "[雪](ゆき)の [日](ひ)は [すべりやすい](すべりやすい)です。",
+    "sentenceVi": "Ngày tuyết rất dễ trơn trượt.",
+    "blankWord": "すべりやすい",
+    "blankReading": "すべりやすい"
+  },
+  {
+    "id": "v496",
+    "word": "安全",
+    "reading": "あんぜん",
+    "meaning": "sự an toàn (an toàn)",
+    "sentence": "[安全](あんぜん)が いちばん [大切](たいせつ)です。",
+    "sentenceVi": "An toàn là quan trọng nhất."
+  },
+  {
+    "id": "v497",
+    "word": "危険",
+    "reading": "きけん",
+    "meaning": "sự nguy hiểm (nguy hiểm)",
+    "sentence": "この [道](みち)は [車](くるま)が [多](おお)くて、[危険](きけん)です。",
+    "sentenceVi": "Con đường này có nhiều xe nên nguy hiểm."
+  },
+  {
+    "id": "v498",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "meaning": "sự chú ý, lưu ý, nhắc nhở",
+    "sentence": "[車](くるま)にも [自転車](じてんしゃ)にも [注意](ちゅうい)しましょう。",
+    "sentenceVi": "Hãy chú ý cả xe hơi lẫn xe đạp."
+  },
+  {
+    "id": "v499",
+    "word": "赤ちゃん",
+    "reading": "あかちゃん",
+    "meaning": "em bé",
+    "sentence": "[姉](あね)に [赤ちゃん](あかちゃん)が [生](う)まれました。",
+    "sentenceVi": "Chị tôi đã sanh em bé."
+  },
+  {
+    "id": "v500",
+    "word": "故障",
+    "reading": "こしょう",
+    "meaning": "sự hư hỏng",
+    "sentence": "また [車](くるま)が [故障](こしょう)しました。",
+    "sentenceVi": "Xe hơi lại bị hư.",
+    "blankWord": "故障しました",
+    "blankReading": "こしょうしました"
+  },
+  {
+    "id": "v501",
+    "word": "とちゅう",
+    "reading": "とちゅう",
+    "meaning": "giữa chừng, đang (trên đường, làm gì đó)",
+    "sentence": "[空港](くうこう)に [行](い)く [とちゅう](とちゅう)で [事故](じこ)を [見](み)ました。",
+    "sentenceVi": "Trên đường đi đến sân bay tôi nhìn thấy tai nạn."
+  },
+  {
+    "id": "v502",
+    "word": "行き",
+    "reading": "いき",
+    "meaning": "lượt đi, vòng đi, chuyến đi",
+    "sentence": "[行き](いき)は [道](みち)が [すいていました](すいていました)。",
+    "sentenceVi": "Lượt đi đường vắng."
+  },
+  {
+    "id": "v503",
+    "word": "帰り",
+    "reading": "かえり",
+    "meaning": "lượt về, vòng về, chuyến về",
+    "sentence": "[帰り](かえり)は とても [こんでいました](こんでいました)。",
+    "sentenceVi": "Lượt về (đường) rất đông."
+  },
+  {
+    "id": "v504",
+    "word": "ガソリン",
+    "reading": "がそりん",
+    "meaning": "xăng",
+    "sentence": "[ガソリン](がそりん)の [ねだん](ねだん)が また [上](あ)がりました。",
+    "sentenceVi": "Giá xăng lại tăng."
+  },
+  {
+    "id": "v505",
+    "word": "エンジン",
+    "reading": "えんじん",
+    "meaning": "động cơ",
+    "sentence": "あの [車](くるま)は [エンジン](えんじん)の [音](おと)が [大](おお)きいです。",
+    "sentenceVi": "Tiếng động cơ của chiếc xe hơi đó lớn."
+  },
+  {
+    "id": "v506",
+    "word": "信号",
+    "reading": "しんごう",
+    "meaning": "đèn giao thông",
+    "sentence": "[信号](しんごう)は まだ [赤](あか)です。",
+    "sentenceVi": "Đèn giao thông vẫn còn đỏ."
+  },
+  {
+    "id": "v507",
+    "word": "やじるし",
+    "reading": "やじるし",
+    "meaning": "dấu mũi tên",
+    "sentence": "[美術館](びじゅつかん)では [やじるし](やじるし)を [見](み)て、[進](すす)んで ください。",
+    "sentenceVi": "Ở viện bảo tàng mỹ thuật, hãy nhìn dấu mũi tên mà đi theo."
+  },
+  {
+    "id": "v508",
+    "word": "キロ",
+    "reading": "きろ",
+    "meaning": "km, kg",
+    "sentence": "ここから [彼女](かのじょ)の [家](いえ)まで [2キロ](にきろ) あります。",
+    "sentenceVi": "Từ đây đến nhà cô ấy là 2 km."
+  },
+  {
+    "id": "v509",
+    "word": "人口",
+    "reading": "じんこう",
+    "meaning": "dân số",
+    "sentence": "[日本](にほん)の [人口](じんこう)は [少](すく)なくなっています。",
+    "sentenceVi": "Dân số Nhật Bản trở nên ít đi."
+  },
+  {
+    "id": "v510",
+    "word": "億",
+    "reading": "おく",
+    "meaning": "trăm triệu",
+    "sentence": "[世界](せかい)には [70](ななじゅう)[億](おく)[人](にん)の [人](ひと)が [住](す)んでいます。",
+    "sentenceVi": "Trên thế giới có 7 tỉ người sinh sống."
+  },
+  {
+    "id": "v511",
+    "word": "経済",
+    "reading": "けいざい",
+    "meaning": "kinh tế",
+    "sentence": "[アジア](あじあ)の [経済](けいざい)は これから どうなると [思](おも)いますか。",
+    "sentenceVi": "Bạn nghĩ kinh tế châu Á từ nay sẽ như thế nào?"
+  },
+  {
+    "id": "v512",
+    "word": "貿易",
+    "reading": "ぼうえき",
+    "meaning": "mậu dịch",
+    "sentence": "[大学](だいがく)を [卒業](そつぎょう)して、[貿易](ぼうえき)の [仕事](しごと)が したいです。",
+    "sentenceVi": "Tôi muốn tốt nghiệp đại học rồi làm công việc mậu dịch."
+  },
+  {
+    "id": "v513",
+    "word": "輸出する",
+    "reading": "ゆしゅつする",
+    "meaning": "việc xuất khẩu",
+    "sentence": "[日本](にほん)は [車](くるま)を たくさん [輸出](ゆしゅつ)しています。",
+    "sentenceVi": "Nhật Bản xuất khẩu nhiều xe hơi.",
+    "blankWord": "輸出しています",
+    "blankReading": "ゆしゅつしています"
+  },
+  {
+    "id": "v514",
+    "word": "輸入する",
+    "reading": "ゆにゅうする",
+    "meaning": "việc nhập khẩu",
+    "sentence": "[日本](にほん)は [石油](せきゆ)や [原料](げんりょう)を [輸入](ゆにゅう)しています。",
+    "sentenceVi": "Nhật Bản nhập khẩu dầu và nguyên liệu.",
+    "blankWord": "輸入しています",
+    "blankReading": "ゆにゅうしています"
+  },
+  {
+    "id": "v515",
+    "word": "原料",
+    "reading": "げんりょう",
+    "meaning": "nguyên liệu",
+    "sentence": "[A社](えーしゃ)は [ビール](びーる)の [原料](げんりょう)を [輸入](ゆにゅう)しています。",
+    "sentenceVi": "Công ty A nhập khẩu nguyên liệu bia."
+  },
+  {
+    "id": "v516",
+    "word": "石油",
+    "reading": "せきゆ",
+    "meaning": "dầu",
+    "sentence": "また [石油](せきゆ)の ねだんが [上](あ)がっています。",
+    "sentenceVi": "Giá dầu lại tăng."
+  },
+  {
+    "id": "v517",
+    "word": "物価",
+    "reading": "ぶっか",
+    "meaning": "vật giá",
+    "sentence": "この [国](くに)は [物価](ぶっか)が [高](たか)いです。",
+    "sentenceVi": "Đất nước này vật giá đắt đỏ."
+  },
+  {
+    "id": "v518",
+    "word": "政治",
+    "reading": "せいじ",
+    "meaning": "chính trị",
+    "sentence": "[日本](にほん)の [政治](せいじ)を [勉強](べんきょう)しています。",
+    "sentenceVi": "Tôi đang học (về) chính trị Nhật Bản."
+  },
+  {
+    "id": "v519",
+    "word": "首相",
+    "reading": "しゅしょう",
+    "meaning": "thủ tướng",
+    "sentence": "[日本](にほん)と [イギリス](いぎりす)の [首相](しゅしょう)が あいさつしました。",
+    "sentenceVi": "Thủ tướng Nhật và Anh đã chào hỏi nhau."
+  },
+  {
+    "id": "v520",
+    "word": "大統領",
+    "reading": "だいとうりょう",
+    "meaning": "tổng thống",
+    "sentence": "[A国](えーこく)の [大統領](だいとうりょう)が [日本](にほん)へ [来](き)ます。",
+    "sentenceVi": "Tổng thống nước A sẽ đến Nhật."
+  },
+  {
+    "id": "v521",
+    "word": "平和",
+    "reading": "へいわ",
+    "meaning": "nền hòa bình (hòa bình)",
+    "sentence": "[平和](へいわ)の ために [何](なに)が できますか。",
+    "sentenceVi": "Có thể làm được gì cho hòa bình?"
+  },
+  {
+    "id": "v522",
+    "word": "戦争",
+    "reading": "せんそう",
+    "meaning": "chiến tranh",
+    "sentence": "[戦争](せんそう)が ない [世界](せかい)が いいです。",
+    "sentenceVi": "(Tôi mong) Thế giới không có chiến tranh thì tốt."
+  },
+  {
+    "id": "v523",
+    "word": "文化",
+    "reading": "ぶんか",
+    "meaning": "văn hóa",
+    "sentence": "[外国](がいこく)の [文化](ぶんか)を [知](し)りたいです。",
+    "sentenceVi": "Tôi muốn biết văn hóa ngoại quốc."
+  },
+  {
+    "id": "v524",
+    "word": "世界遺産",
+    "reading": "せかいいさん",
+    "meaning": "di sản thế giới",
+    "sentence": "[日本](にほん)に [世界遺産](せかいいさん)は いくつ ありますか。",
+    "sentenceVi": "Ở Nhật có bao nhiêu di sản thế giới?"
+  },
+  {
+    "id": "v525",
+    "word": "世紀",
+    "reading": "せいき",
+    "meaning": "thế kỷ",
+    "sentence": "[2001年](にせんいちねん)から [21](にじゅういち)[世紀](せいき)が [始](はじ)まっています。",
+    "sentenceVi": "Thế kỷ 21 bắt đầu từ năm 2001."
+  },
+  {
+    "id": "v526",
+    "word": "時代",
+    "reading": "じだい",
+    "meaning": "thời đại",
+    "sentence": "[今](いま)は [ロボット](ろぼっと)が [働](はたら)く [時代](じだい)です。",
+    "sentenceVi": "Bây giờ là thời đại người máy làm việc."
+  },
+  {
+    "id": "v527",
+    "word": "国際",
+    "reading": "こくさい",
+    "meaning": "quốc tế",
+    "sentence": "[留学](りゅうがく)して、[国際](こくさい)[的](てき)な [仕事](しごと)が したいです。",
+    "sentenceVi": "Tôi muốn du học rồi làm công việc mang tính quốc tế."
+  },
+  {
+    "id": "v528",
+    "word": "世界中",
+    "reading": "せかいじゅう",
+    "meaning": "khắp thế giới, toàn thế giới",
+    "sentence": "[世界中](せかいじゅう)に [友](とも)だちを [作](つく)りましょう。",
+    "sentenceVi": "Hãy kết bạn khắp thế giới nào."
   }
+]
+}
 
 ]
