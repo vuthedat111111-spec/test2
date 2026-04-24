@@ -8185,6 +8185,1069 @@
     "sentenceEndTime": 950.22
   }
 ]
+   },
+   {
+    "part": 6, 
+    "title": "PHẦN 6 - SỨC KHỎE VÀ TRẠNG THÁI",
+    "audioPath": "./data/audio/nghechinhta/tangon4p6.mp3",
+    "vocabularies": [
+  {
+    "id": "v658",
+    "word": "髪",
+    "reading": "かみ",
+    "meaning": "tóc",
+    "sentence": "[山田](やまだ)さんは [髪](かみ)が [長](なが)いです。",
+    "sentenceVi": "Tóc chị Yamada dài."
+  },
+  {
+    "id": "v659",
+    "word": "おでこ",
+    "reading": "おでこ",
+    "meaning": "trán",
+    "sentence": "[熱](ねつ)が あるとき、おでこを [冷](ひ)やします。",
+    "sentenceVi": "Khi bị sốt thì làm mát trán."
+  },
+  {
+    "id": "v660",
+    "word": "あご",
+    "reading": "あご",
+    "meaning": "cằm",
+    "sentence": "[ガム](がむ)を かむのは あごに いいそうです。",
+    "sentenceVi": "Nghe nói nhai kẹo cao su tốt cho cằm."
+  },
+  {
+    "id": "v661",
+    "word": "ひげ",
+    "reading": "ひげ",
+    "meaning": "râu",
+    "sentence": "[父](ちち)は [若](わか)いとき、ひげが ありました。",
+    "sentenceVi": "Khi còn trẻ, cha tôi có râu."
+  },
+  {
+    "id": "v662",
+    "word": "唇",
+    "reading": "くちびる",
+    "meaning": "môi",
+    "sentence": "[彼女](かのじょ)の [唇](くちびる)は とても [可愛](かわい)いです。",
+    "sentenceVi": "Môi cô ấy rất dễ thương."
+  },
+  {
+    "id": "v663",
+    "word": "首",
+    "reading": "くび",
+    "meaning": "cổ",
+    "sentence": "[朝](あさ) [起](お)きたら、[首](くび)が [痛](いた)かったです。",
+    "sentenceVi": "Buổi sáng khi thức dậy thì cổ tôi bị đau."
+  },
+  {
+    "id": "v664",
+    "word": "喉",
+    "reading": "のど",
+    "meaning": "cổ họng",
+    "sentence": "[喉](のど)に いい [薬](くすり)は ありますか。",
+    "sentenceVi": "Có thuốc tốt cho cổ họng không?"
+  },
+  {
+    "id": "v665",
+    "word": "肩",
+    "reading": "かた",
+    "meaning": "vai",
+    "sentence": "[肩](かた)が [痛](いた)いです。",
+    "sentenceVi": "Hãy thử ấn vào chỗ này trên vai xem. (Vai bị đau)."
+  },
+  {
+    "id": "v666",
+    "word": "腕",
+    "reading": "うで",
+    "meaning": "cánh tay",
+    "sentence": "[腕](うで)を [回](まわ)して ください。",
+    "sentenceVi": "Hãy xoay cánh tay.",
+    "blankWord": "回して",
+    "blankReading": "まわして"
+  },
+  {
+    "id": "v667",
+    "word": "ひじ",
+    "reading": "ひじ",
+    "meaning": "cùi chỏ, khuỷu tay",
+    "sentence": "[右](みぎ)の ひじが [赤](あか)く なっています。",
+    "sentenceVi": "Cùi chỏ bên phải trở nên đỏ."
+  },
+  {
+    "id": "v668",
+    "word": "背中",
+    "reading": "せなか",
+    "meaning": "lưng",
+    "sentence": "[背中](せなか)を まっすぐに して ください。",
+    "sentenceVi": "Hãy thẳng lưng."
+  },
+  {
+    "id": "v669",
+    "word": "胃",
+    "reading": "い",
+    "meaning": "dạ dày",
+    "sentence": "ご[飯](はん)を [食](た)べすぎて、[胃](い)が [痛](いた)いです。",
+    "sentenceVi": "Vì ăn cơm quá nhiều nên tôi đau dạ dày."
+  },
+  {
+    "id": "v670",
+    "word": "腰",
+    "reading": "こし",
+    "meaning": "thắt lưng",
+    "sentence": "[腰](こし)が [痛](いた)くて、[歩](ある)けません。",
+    "sentenceVi": "Thắt lưng đau đến không thể đi được."
+  },
+  {
+    "id": "v671",
+    "word": "膝",
+    "reading": "ひざ",
+    "meaning": "đầu gối",
+    "sentence": "[走](はし)ったら、[膝](ひざ)の [調子](ちょうし)が [悪](わる)く なりました。",
+    "sentenceVi": "Sau khi chạy thì tình trạng đầu gối trở nên xấu đi."
+  },
+  {
+    "id": "v672",
+    "word": "尻",
+    "reading": "しり",
+    "meaning": "mông",
+    "sentence": "ずっと [座](すわ)って いたので、お[尻](しり)が [痛](いた)いです。",
+    "sentenceVi": "Vì ngồi suốt nên bị đau (ê) mông."
+  },
+  {
+    "id": "v673",
+    "word": "指",
+    "reading": "ゆび",
+    "meaning": "ngón (tay, chân)",
+    "sentence": "[バレーボール](ばれーぼーる)で [指](ゆび)の [骨](ほね)を [折](お)りました。",
+    "sentenceVi": "Tôi gãy xương ngón tay vì chơi bóng chuyền."
+  },
+  {
+    "id": "v674",
+    "word": "爪",
+    "reading": "つめ",
+    "meaning": "móng",
+    "sentence": "[毎日](まいにち)、[爪](つめ)を [綺麗](きれい)に [磨](みが)きます。",
+    "sentenceVi": "Hàng ngày tôi chải móng cho sạch."
+  },
+  {
+    "id": "v675",
+    "word": "骨",
+    "reading": "ほね",
+    "meaning": "xương",
+    "sentence": "[カルシウム](かるしうむ)は [骨](ほね)に いいそうです。",
+    "sentenceVi": "Nghe nói canxi tốt cho xương."
+  },
+  {
+    "id": "v676",
+    "word": "血",
+    "reading": "ち",
+    "meaning": "máu",
+    "sentence": "すべって、[足](あし)から [血](ち)が [出](出)ました。",
+    "sentenceVi": "Tôi đã bị trượt và chảy máu chân."
+  },
+  {
+    "id": "v677",
+    "word": "力",
+    "reading": "ちから",
+    "meaning": "lực, sức mạnh",
+    "sentence": "[私](わたし)より [妹](いもうと)の ほうが [力](ちから)が あります。",
+    "sentenceVi": "So với tôi, em gái có sức mạnh hơn."
+  },
+  {
+    "id": "v678",
+    "word": "身長",
+    "reading": "しんちょう",
+    "meaning": "chiều cao",
+    "sentence": "[1年](いちねん)で [身長](しんちょう)が [10センチ](じゅっせんち)も [高](たか)く なりました。",
+    "sentenceVi": "Trong một năm chiều cao đã tăng lên những 10 cm."
+  },
+  {
+    "id": "v679",
+    "word": "体重",
+    "reading": "たいじゅう",
+    "meaning": "cân nặng",
+    "sentence": "[毎日](まいにち)、[体重](たいじゅう)を [チェック](ちぇっく)しています。",
+    "sentenceVi": "Tôi kiểm tra cân nặng hàng ngày."
+  },
+  {
+    "id": "v680",
+    "word": "女性",
+    "reading": "じょせい",
+    "meaning": "nữ giới, phụ nữ",
+    "sentence": "[私](わたし)が [行](い)く [病院](びょういん)の [先生](せんせい)は [女性](じょせい)です。",
+    "sentenceVi": "Bác sỹ bệnh viện tôi đi là phụ nữ."
+  },
+  {
+    "id": "v681",
+    "word": "男性",
+    "reading": "だんせい",
+    "meaning": "nam giới, đàn ông",
+    "sentence": "[男性](だんせい)の [トイレ](といれ)は [2階](にかい)に あります。",
+    "sentenceVi": "Nhà vệ sinh nam ở tầng 2."
+  },
+  {
+    "id": "v682",
+    "word": "健康",
+    "reading": "けんこう",
+    "meaning": "sức khỏe (khỏe mạnh)",
+    "sentence": "[健康](けんこう)の ために [野菜](やさい)を [食](た)べています。",
+    "sentenceVi": "Tôi ăn rau vì sức khỏe."
+  },
+  {
+    "id": "v683",
+    "word": "丈夫な",
+    "reading": "じょうぶな",
+    "meaning": "bền, chắc, khỏe",
+    "sentence": "[運動](うんどう)したら、[体](からだ)が [丈夫](じょうぶ)に なりました。",
+    "sentenceVi": "Tôi tập thể dục thì cơ thể trở nên chắc khỏe lên."
+  },
+  {
+    "id": "v684",
+    "word": "ビタミン",
+    "reading": "びたみん",
+    "meaning": "vitamin",
+    "sentence": "この [食事](しょくじ)は [ビタミン](びたみん)が [足](た)りません。",
+    "sentenceVi": "Bữa ăn này không đủ vitamin."
+  },
+  {
+    "id": "v685",
+    "word": "太る",
+    "reading": "ふとる",
+    "meaning": "mập, béo",
+    "sentence": "[寝](ね)る [前](まえ)に [食](た)べたので、[太](ふと)って しまいました。",
+    "sentenceVi": "Vì tôi ăn trước khi ngủ nên mập lên mất rồi.",
+    "blankWord": "太って",
+    "blankReading": "ふとって"
+  },
+  {
+    "id": "v686",
+    "word": "痩せる",
+    "reading": "やせる",
+    "meaning": "ốm, gầy",
+    "sentence": "[運動](うんどう)しても、なかなか [痩](や)せません。",
+    "sentenceVi": "Dù có tập thể dục tôi mãi vẫn không thể ốm đi được.",
+    "blankWord": "痩せません",
+    "blankReading": "やせません"
+  },
+  {
+    "id": "v687",
+    "word": "ダイエット",
+    "reading": "だいえっと",
+    "meaning": "việc ăn kiêng",
+    "sentence": "[無理](むり)な [ダイエット](だいえっと)は [辞](や)めましょう。",
+    "sentenceVi": "Hãy dừng việc ăn kiêng quá độ."
+  },
+  {
+    "id": "v688",
+    "word": "辞める",
+    "reading": "やめる",
+    "meaning": "ngưng, bỏ",
+    "sentence": "[父](ちち)は [先月](せんげつ)から [卵](たばこ)を [辞](や)めました。",
+    "sentenceVi": "Cha tôi bỏ thuốc lá từ tháng trước.",
+    "blankWord": "辞めました",
+    "blankReading": "やめました"
+  },
+  {
+    "id": "v689",
+    "word": "気をつける",
+    "reading": "きをつける",
+    "meaning": "cẩn thận, giữ gìn",
+    "sentence": "[健康](けんこう)に [気](き)を つけましょう。",
+    "sentenceVi": "Hãy giữ gìn sức khỏe.",
+    "blankWord": "気をつけましょう",
+    "blankReading": "きをつけましょう"
+  },
+  {
+    "id": "v690",
+    "word": "渇く",
+    "reading": "かわく",
+    "meaning": "khát, (cổ họng) khô",
+    "sentence": "とても のどが [渇](かわ)きました。",
+    "sentenceVi": "Tôi đã rất khát.",
+    "blankWord": "渇きました",
+    "blankReading": "かわきました"
+  },
+  {
+    "id": "v691",
+    "word": "すく",
+    "reading": "すく",
+    "meaning": "đói (bụng)",
+    "sentence": "[スポーツ](すぽーつ)を すると、お[腹](なか)が すきます。",
+    "sentenceVi": "Hễ chơi thể thao thì đói bụng.",
+    "blankWord": "すきます",
+    "blankReading": "すきます"
+  },
+  {
+    "id": "v692",
+    "word": "インフルエンザ",
+    "reading": "いんふるえんざ",
+    "meaning": "cúm",
+    "sentence": "[インフルエンザ](いんふるえんざ)で [5日間](いつかかん) [学校](がっこう)を [休](やす)みました。",
+    "sentenceVi": "Tôi đã nghỉ học 5 ngày vì bị cúm."
+  },
+  {
+    "id": "v693",
+    "word": "かぜをひく",
+    "reading": "かぜをひく",
+    "meaning": "biị cảm",
+    "sentence": "[子](こ)どもの とき、よく かぜを ひきました。",
+    "sentenceVi": "Khi còn nhỏ tôi thường bị cảm.",
+    "blankWord": "ひきました",
+    "blankReading": "ひきました"
+  },
+  {
+    "id": "v694",
+    "word": "熱",
+    "reading": "ねつ",
+    "meaning": "cơn sốt",
+    "sentence": "[39度](さんじゅうきゅうど)も [熱](ねつ)が [出](で)て、[学校](がっこう)へ [行](い)けません。",
+    "sentenceVi": "Tôi sốt đến 39 độ nên không thể đi học."
+  },
+  {
+    "id": "v695",
+    "word": "体温計",
+    "reading": "たいおんけい",
+    "meaning": "nhiệt kế",
+    "sentence": "[体温計](たいおんけい)で [熱](ねつ)を はかります。",
+    "sentenceVi": "Đo (nhiệt độ) cơn sốt bằng nhiệt kế."
+  },
+  {
+    "id": "v696",
+    "word": "やけど",
+    "reading": "やけど",
+    "meaning": "phỏng",
+    "sentence": "やかんの お[湯](ゆ)で やけどしました。",
+    "sentenceVi": "Tôi bị phỏng do nước sôi trong ấm."
+  },
+  {
+    "id": "v697",
+    "word": "けが",
+    "reading": "けが",
+    "meaning": "chấn thương",
+    "sentence": "[サッカー](さっかー)で [膝](ひざ)に けがを しました。",
+    "sentenceVi": "Tôi bị thương ở đầu gối do đá bóng."
+  },
+  {
+    "id": "v698",
+    "word": "きず",
+    "reading": "きず",
+    "meaning": "vết thương, vết trầy xước",
+    "sentence": "この きずは すぐ よく なるでしょう。",
+    "sentenceVi": "Vết thương này sẽ lành mau thôi."
+  },
+  {
+    "id": "v699",
+    "word": "調子",
+    "reading": "ちょうし",
+    "meaning": "tình trạng",
+    "sentence": "[胃](い)の [調子](ちょうし)が [悪](わる)かったので、[薬](くすり)を [飲](の)みました。",
+    "sentenceVi": "Vì tình trạng dạ dày không tốt nên tôi đã uống thuốc."
+  },
+  {
+    "id": "v700",
+    "word": "おかしい",
+    "reading": "おかしい",
+    "meaning": "kỳ lạ, buồn cười",
+    "sentence": "お[腹](なか)の [調子](ちょうし)が おかしいので、[学校](がっこう)を [休](やす)みます。",
+    "sentenceVi": "Vì bụng khó chịu nên tôi nghỉ học."
+  },
+  {
+    "id": "v701",
+    "word": "具合",
+    "reading": "ぐあい",
+    "meaning": "cảm giác",
+    "sentence": "[昨日](きのう)から [体](からだ)の [具合](ぐあい)が よく ないです。",
+    "sentenceVi": "Từ hôm qua, tình trạng cơ thể tôi không tốt."
+  },
+  {
+    "id": "v702",
+    "word": "気持ちが悪い",
+    "reading": "きもちがわるい",
+    "meaning": "cảm giác khó chịu",
+    "sentence": "お[酒](さけ)を [飲](の)みすぎて、[気持](きもち)が [悪](わる)いです。",
+    "sentenceVi": "Tôi uống quá nhiều rượu nên có cảm giác khó chịu."
+  },
+  {
+    "id": "v703",
+    "word": "倒れる",
+    "reading": "たおれる",
+    "meaning": "đổ sụp, ngã, đổ, ngã bệnh",
+    "sentence": "[地震](じしん)で [家](いえ)が [倒](たお)れました。",
+    "sentenceVi": "Nhà cửa đã đổ sụp vì động đất.",
+    "blankWord": "倒れました",
+    "blankReading": "たおれました"
+  },
+  {
+    "id": "v704",
+    "word": "診る",
+    "reading": "みる",
+    "meaning": "khám (bệnh)",
+    "sentence": "いつも [近所](きんじょ)の お[医者](いしゃ)さんに [診](み)て もらいます。",
+    "sentenceVi": "Tôi luôn đi bác sỹ ở gần nhà.",
+    "blankWord": "診て",
+    "blankReading": "みて"
+  },
+  {
+    "id": "v705",
+    "word": "なる",
+    "reading": "なる",
+    "meaning": "nằm xuống, nằm ra",
+    "sentence": "では、そちらに よこに なって ください。",
+    "sentenceVi": "Nào mời anh/ chị nằm ra kia.",
+    "blankWord": "なって",
+    "blankReading": "なって"
+  },
+  {
+    "id": "v706",
+    "word": "塗る",
+    "reading": "ぬる",
+    "meaning": "xức, thoa",
+    "sentence": "[1日](いちにち)に [3回](さんかい)、きずに [薬](くすり)を [塗]ぬります。",
+    "sentenceVi": "Xức thuốc vào vết thương 1 ngày 3 lần.",
+    "blankWord": "塗りました",
+    "blankReading": "ぬりました"
+  },
+  {
+    "id": "v707",
+    "word": "治す",
+    "reading": "なおす",
+    "meaning": "chữa",
+    "sentence": "[早](はや)く [寝](ね)て、かぜを [治](なお)して ください。",
+    "sentenceVi": "Hãy đi ngủ sớm để trị cảm.",
+    "blankWord": "治して",
+    "blankReading": "なおして"
+  },
+  {
+    "id": "v708",
+    "word": "治る",
+    "reading": "なおる",
+    "meaning": "lành, khỏi bệnh, hết bệnh",
+    "sentence": "[薬](くすり)を [飲](の)んだら、かぜが [治](なお)りました。",
+    "sentenceVi": "Sau khi uống thuốc rồi thì tôi đã hết cảm.",
+    "blankWord": "治りました",
+    "blankReading": "なおりました"
+  },
+  {
+    "id": "v709",
+    "word": "入院",
+    "reading": "にゅういん",
+    "meaning": "việc nhập viện",
+    "sentence": "[足](あし)の けがで [入院](にゅういん)しました。",
+    "sentenceVi": "Tôi đã nhập viện vì bị thương ở chân."
+  },
+  {
+    "id": "v710",
+    "word": "退院",
+    "reading": "たいいん",
+    "meaning": "việc ra viện, xuất viện",
+    "sentence": "[病気](びょうき)が [治](なお)ったので、[明日](あした) [退院](たいいん)します。",
+    "sentenceVi": "Vì đã hết bệnh nên ngày mai tôi sẽ xuất viện."
+  },
+  {
+    "id": "v711",
+    "word": "見まい",
+    "reading": "みまい",
+    "meaning": "thăm bệnh",
+    "sentence": "[友](とも)だちの お[見](み)まいに [行](い)きました。",
+    "sentenceVi": "Tôi đã đi thăm bệnh người bạn."
+  },
+  {
+    "id": "v712",
+    "word": "生きる",
+    "reading": "いきる",
+    "meaning": "sống",
+    "sentence": "[100](ひゃく)さいまで [生](い)きたいです。",
+    "sentenceVi": "Tôi muốn sống đến 100 tuổi.",
+    "blankWord": "生きたい",
+    "blankReading": "いきたい"
+  },
+  {
+    "id": "v713",
+    "word": "亡くなる",
+    "reading": "なくなる",
+    "meaning": "mất, chết",
+    "sentence": "となりの [家](いえ)の おばあさんが [亡](な)くなりました。",
+    "sentenceVi": "Bà cụ nhà bên cạnh đã mất.",
+    "blankWord": "亡くなりました",
+    "blankReading": "なくなりました"
+  },
+  {
+    "id": "v714",
+    "word": "救急車",
+    "reading": "きゅうきゅうしゃ",
+    "meaning": "xe cấp cứu",
+    "sentence": "[119番](ひゃくじゅうきゅうばん)で [救急車](きゅうきゅうしゃ)を よびます。",
+    "sentenceVi": "Gọi xe cấp cứu bằng số 119."
+  },
+  {
+    "id": "v715",
+    "word": "歯医者",
+    "reading": "はいしゃ",
+    "meaning": "nha sỹ",
+    "sentence": "[子](こ)どもが [歯医者](はいしゃ)で [泣](な)いています。",
+    "sentenceVi": "Đứa bé khóc ở chỗ nha sỹ."
+  },
+  {
+    "id": "v716",
+    "word": "看護師",
+    "reading": "かんごし",
+    "meaning": "y tá",
+    "sentence": "[姉](あね)は [看護師](かんごし)を しています。",
+    "sentenceVi": "Chị tôi làm y tá."
+  },
+      {
+    "id": "v717",
+    "word": "スーツ",
+    "reading": "すーつ",
+    "meaning": "trang phục vét",
+    "sentence": "[毎日](まいにち)、[スーツ](すーつ)を [着](き)て、[会社](かいしゃ)に [行](い)きます。",
+    "sentenceVi": "Hàng ngày tôi mặc vét đi đến công ty. (đi làm)"
+  },
+  {
+    "id": "v718",
+    "word": "着物",
+    "reading": "きもの",
+    "meaning": "kimono",
+    "sentence": "[成人式](せいじんしき)には たくさんの [人](ひと)が [着物](きもの)を [着](き)ます。",
+    "sentenceVi": "Trong lễ thành nhân, có nhiều người mặc kimono."
+  },
+  {
+    "id": "v719",
+    "word": "靴下",
+    "reading": "くつした",
+    "meaning": "vớ",
+    "sentence": "[冬](ふゆ)は [靴下](くつした)を [履](は)いて [寝](ね)ます。",
+    "sentenceVi": "Mùa đông tôi mang vớ đi ngủ.",
+    "blankWord": "はいて",
+    "blankReading": "はいて"
+  },
+  {
+    "id": "v720",
+    "word": "下着",
+    "reading": "したぎ",
+    "meaning": "đồ lót",
+    "sentence": "[旅行](りょこう)の [バッグ](ばっぐ)に [下着](したぎ)を [入](い)れました。",
+    "sentenceVi": "Tôi cho đồ lót vào túi du lịch."
+  },
+  {
+    "id": "v721",
+    "word": "手袋",
+    "reading": "てぶくろ",
+    "meaning": "găng tay",
+    "sentence": "[冬](ふゆ)は [手袋](てぶくろ)を して、[出](で)かけます。",
+    "sentenceVi": "Mùa đông tôi đeo găng tay đi ra ngoài."
+  },
+  {
+    "id": "v722",
+    "word": "指輪",
+    "reading": "ゆびわ",
+    "meaning": "nhẫn",
+    "sentence": "これは [母](はは)から もらった [指輪](ゆびわ)です。",
+    "sentenceVi": "Đây là chiếc nhẫn mẹ tôi cho tôi."
+  },
+  {
+    "id": "v723",
+    "word": "サンダル",
+    "reading": "さんだる",
+    "meaning": "giày xăng-đan",
+    "sentence": "[歩](ある)きやすい [サンダル](さんだる)を [探](さが)しています。",
+    "sentenceVi": "Tôi đang tìm đôi giày xăng-đan dễ mang."
+  },
+  {
+    "id": "v724",
+    "word": "リュック",
+    "reading": "りゅっく",
+    "meaning": "ba lô",
+    "sentence": "この [リュック](りゅっく)には [教科書](きょうかしょ)が たくさん [入](はい)っています。",
+    "sentenceVi": "Trong ba lô này có nhiều sách giáo khoa."
+  },
+  {
+    "id": "v725",
+    "word": "アクセサリー",
+    "reading": "あくせさりー",
+    "meaning": "đồ trang sức",
+    "sentence": "[仕事](しごと)の ときは [アクセサリー](あくせさりー)を しません。",
+    "sentenceVi": "Khi làm việc không đeo đồ trang sức."
+  },
+  {
+    "id": "v726",
+    "word": "ポケット",
+    "reading": "ぽけっと",
+    "meaning": "túi, ngăn",
+    "sentence": "この [バッグ](ばっぐ)は [ポケット](ぽけっと)が [多](おお)いです。",
+    "sentenceVi": "Giỏ xách này có nhiều ngăn."
+  },
+  {
+    "id": "v727",
+    "word": "ひも",
+    "reading": "ひも",
+    "meaning": "dây",
+    "sentence": "この くつの [ひも](ひも)は [綺麗](きれい)です。",
+    "sentenceVi": "Dây đôi giày này đẹp."
+  },
+  {
+    "id": "v728",
+    "word": "髪型",
+    "reading": "かみがた",
+    "meaning": "kiểu tóc",
+    "sentence": "どんな [髪型](かみがた)が [好](す)きですか。",
+    "sentenceVi": "Bạn thích kiểu tóc như thế nào?"
+  },
+  {
+    "id": "v729",
+    "word": "美容院",
+    "reading": "びよういん",
+    "meaning": "tiệm cắt (uốn) tóc",
+    "sentence": "あの [美容院](びよういん)は とても [高](たか)いです。",
+    "sentenceVi": "Tiệm cắt tóc đó rất mắc."
+  },
+  {
+    "id": "v730",
+    "word": "カット",
+    "reading": "かっと",
+    "meaning": "việc cắt (thường chỉ việc cắt tóc)",
+    "sentence": "いつも あの [美容院](びよういん)で [カット](かっと)して います。",
+    "sentenceVi": "Tôi luôn cắt tóc ở tiệm cắt tóc đó.",
+    "blankWord": "カットして",
+    "blankReading": "かっとして"
+  },
+  {
+    "id": "v731",
+    "word": "鏡",
+    "reading": "かがみ",
+    "meaning": "gương",
+    "sentence": "[出](で)かける [前](まえ)に [鏡](かがみ)で [チェック](ちぇっく)します。",
+    "sentenceVi": "Trước khi ra ngoài, kiểm tra qua gương soi."
+  },
+  {
+    "id": "v732",
+    "word": "かっこいい",
+    "reading": "かっこいい",
+    "meaning": "phong độ, đẹp, ngầu",
+    "sentence": "かっこいい [ヘアスタイル](へあすたいる)に したいです。",
+    "sentenceVi": "Tôi muốn kiểu tóc đẹp."
+  },
+  {
+    "id": "v733",
+    "word": "可愛い",
+    "reading": "かわいい",
+    "meaning": "dễ thương",
+    "sentence": "[妹](いもうと)は [可愛](かわい)い [服](ふく)が [大好](だいす)きです。",
+    "sentenceVi": "Chị tôi rất thích trang phục dễ thương."
+  },
+  {
+    "id": "v734",
+    "word": "ちょうどいい",
+    "reading": "ちょうどいい",
+    "meaning": "vừa vặn, vừa phải, vừa đẹp",
+    "sentence": "この [バッグ](ばっぐ)は ちょうどいい [サイズ](さいず)です。",
+    "sentenceVi": "Túi xách này có kích cỡ vừa phải."
+  },
+  {
+    "id": "v735",
+    "word": "様子",
+    "reading": "ようす",
+    "meaning": "tình hình, trạng thái",
+    "sentence": "[暗](くら)くて、[外](そと)の [様子](ようす)が よく [分](わ)かりません。",
+    "sentenceVi": "Tối quá nên tôi không rõ tình hình bên ngoài."
+  },
+  {
+    "id": "v736",
+    "word": "形",
+    "reading": "かたち",
+    "meaning": "hình thức, hình dạng",
+    "sentence": "この [クッキー](くっきー)は [星](ほし)の [形](かたち)です。",
+    "sentenceVi": "Bánh qui này hình ngôi sao."
+  },
+  {
+    "id": "v737",
+    "word": "倍",
+    "reading": "ばい",
+    "meaning": "gấp (hai)",
+    "sentence": "これは あの [ケーキ](けーき)の [2倍](にばい)の [値段](ねだん)です。",
+    "sentenceVi": "Cái này có giá gấp đôi cái bánh kem kia."
+  },
+  {
+    "id": "v738",
+    "word": "以上",
+    "reading": "いじょう",
+    "meaning": "trở lên",
+    "sentence": "[夏](なつ)は [30度](さんじゅうど)[以上](いじょう)の [日](ひ)が [何日](なんにち)も あります。",
+    "sentenceVi": "Mùa hè có nhiều ngày 30°C trở lên."
+  },
+  {
+    "id": "v739",
+    "word": "以下",
+    "reading": "いか",
+    "meaning": "trở xuống, dưới~",
+    "sentence": "[漢字](かんじ)の [テスト](てすと)は いつも [50点](ごじゅってん)[以下](いか)です。",
+    "sentenceVi": "Bài kiểm tra Kanji lúc nào cũng dưới 50 điểm."
+  },
+  {
+    "id": "v740",
+    "word": "以内",
+    "reading": "いない",
+    "meaning": "trong vòng",
+    "sentence": "[2万円](にまんえん)[以内](いない)の [時計](とけい)を [買](か)いたいです。",
+    "sentenceVi": "Tôi muốn mua đồng hồ trong vòng 20.000 yên."
+  },
+  {
+    "id": "v741",
+    "word": "以外",
+    "reading": "いがい",
+    "meaning": "ngoài (~) ra, ngoại trừ",
+    "sentence": "[来週](らいしゅう)の [旅行](りょこう)は [兄](あに)[以外](いがい) みんな [行](い)けます。",
+    "sentenceVi": "Chuyến du lịch tuần sau mọi người đều có thể đi ngoại trừ anh tôi."
+  },
+  {
+    "id": "v742",
+    "word": "両方",
+    "reading": "りょうほう",
+    "meaning": "cả hai",
+    "sentence": "この [赤](あか)と [青](あお)の [シャツ](しゃつ)を [両方](りょうほう) [買](か)いました。",
+    "sentenceVi": "Tôi đã mua cả hai cái áo màu đỏ và màu xanh này."
+  },
+  {
+    "id": "v743",
+    "word": "暇",
+    "reading": "ひま",
+    "meaning": "giờ rảnh (rảnh rỗi)",
+    "sentence": "[忙](いそが)しくて、[遊](あそ)ぶ [暇](ひま)が ありません。[暇](ひま)な ときは [本](ほん)を [読](よ)んでいます。",
+    "sentenceVi": "Tôi bận rộn nên không có thời gian rảnh để chơi. Khi rảnh rỗi, tôi đọc sách."
+  },
+  {
+    "id": "v744",
+    "word": "普通",
+    "reading": "ふつう",
+    "meaning": "sự bình thường (bình thường)",
+    "sentence": "[普通](ふつう)の [毎日](まいにち)が [楽](たの)しいです。あの [店](みせ)は [料理](りょうり)も [サービス](さーびす)も [普通](ふつう)です。",
+    "sentenceVi": "Tôi thấy vui với mỗi ngày bình thường. Tiệm đó cả món ăn lẫn phục vụ đều bình thường."
+  },
+  {
+    "id": "v745",
+    "word": "自由",
+    "reading": "じゆう",
+    "meaning": "sự tự do (tự do)",
+    "sentence": "[大人](おとな)に なったら、[自由](じゆう)が ほしいです。[日本](にほん)の [生活](せいかつ)は とても [自由](じゆう)です。",
+    "sentenceVi": "Nếu thành người lớn, tôi muốn có tự do. Cuộc sống ở Nhật rất tự do."
+  },
+  {
+    "id": "v746",
+    "word": "丁寧な",
+    "reading": "ていねいな",
+    "meaning": "cẩn thận, lịch sự",
+    "sentence": "[先生](せんせい)から [丁寧](ていねい)な [メール](めーる)を いただきました。",
+    "sentenceVi": "Tôi đã nhận e-mail lịch sự từ giáo viên."
+  },
+  {
+    "id": "v747",
+    "word": "大きな",
+    "reading": "おおきな",
+    "meaning": "to lớn",
+    "sentence": "[家](いえ)の [前](まえ)に [大](おお)きな [木](き)が あります。",
+    "sentenceVi": "Trước nhà có một cái cây to."
+  },
+  {
+    "id": "v748",
+    "word": "小さな",
+    "reading": "ちいさな",
+    "meaning": "nhỏ",
+    "sentence": "[庭](にわ)に [小](ちい)さな [花](はな)が [咲](さ)いています。",
+    "sentenceVi": "Trong vườn những bông hoa nhỏ nở."
+  },
+  {
+    "id": "v749",
+    "word": "変な",
+    "reading": "へんな",
+    "meaning": "kỳ lạ, kỳ quặc",
+    "sentence": "[妹](いもうと)は [変](へん)な [ファッション](ふぁっしょん)が [好](す)きです。",
+    "sentenceVi": "Chị tôi thích thời trang kỳ quặc."
+  },
+  {
+    "id": "v750",
+    "word": "十分な",
+    "reading": "じゅうぶんな",
+    "meaning": "đầy đủ, tốt",
+    "sentence": "これが できましたら、[N4](えぬよん)の [勉強](べんきょう)は [十分](じゅうぶん)です。",
+    "sentenceVi": "Nếu làm được bài này thì việc học N4 khá đầy đủ.",
+    "blankWord": "十分",
+    "blankReading": "じゅうぶん"
+  },
+  {
+    "id": "v751",
+    "word": "美しい",
+    "reading": "うつくしい",
+    "meaning": "đẹp",
+    "sentence": "こんなに [美](うつく)しい [景色](けしき)を [見](み)た ことが ありません。",
+    "sentenceVi": "Tôi chưa từng thấy phong cảnh đẹp như thế này."
+  },
+  {
+    "id": "v752",
+    "word": "汚い",
+    "reading": "きたない",
+    "meaning": "dơ, bẩn",
+    "sentence": "[兄](あに)の [部屋](へや)は とても [汚](きたな)いです。",
+    "sentenceVi": "Phòng của anh tôi rất bẩn."
+  },
+  {
+    "id": "v753",
+    "word": "うまい",
+    "reading": "うまい",
+    "meaning": "giỏi",
+    "sentence": "[彼](かれ)は [サッカー](さっかー)も [野球](やきゅう)も とても うまいです。",
+    "sentenceVi": "Anh ấy rất giỏi đá bóng lẫn bóng chày."
+  },
+  {
+    "id": "v754",
+    "word": "柔らかい",
+    "reading": "やわらかい",
+    "meaning": "mềm, mềm mại",
+    "sentence": "[新](あたら)しい [ソファー](そふぁー)は とても [柔](やわ)らかいです。",
+    "sentenceVi": "Bộ sofa mới rất mềm mại."
+  },
+  {
+    "id": "v755",
+    "word": "硬い",
+    "reading": "かたい",
+    "meaning": "cứng",
+    "sentence": "この [パン](ぱん)は [硬](かた)いですが、[美味](おい)しいです。",
+    "sentenceVi": "Bánh mì này cứng nhưng ngon."
+  },
+  {
+    "id": "v756",
+    "word": "詳しい",
+    "reading": "くわしい",
+    "meaning": "chi tiết, cụ thể",
+    "sentence": "この [辞書](じしょ)の [説明](せつめい)は [詳](くわ)しいです。",
+    "sentenceVi": "Phần giải thích của cuốn tự điển này chi tiết."
+  },
+  {
+    "id": "v757",
+    "word": "細かい",
+    "reading": "こまかい",
+    "meaning": "nhỏ, chi tiết, chi li",
+    "sentence": "[玉](たま)ねぎを [細](こま)かく [切](き)って ください。",
+    "sentenceVi": "Hãy cắt hành tây thật nhỏ.",
+    "blankWord": "細かく",
+    "blankReading": "こまかく"
+  },
+  {
+    "id": "v758",
+    "word": "怖い",
+    "reading": "こわい",
+    "meaning": "sợ",
+    "sentence": "この [道](みち)は [夜](よる)に なると、[暗](くら)くて [怖](こわ)いです。",
+    "sentenceVi": "Con đường này khi về đêm thì tối nên tôi sợ."
+  },
+  {
+    "id": "v759",
+    "word": "すごい",
+    "reading": "すごい",
+    "meaning": "tuyệt, giỏi, lớn",
+    "sentence": "[昨日](きのう)の [夜](よる)は すごい [雨](あめ)でした。",
+    "sentenceVi": "Tối hôm qua mưa rất lớn."
+  },
+  {
+    "id": "v760",
+    "word": "素晴らしい",
+    "reading": "すばらしい",
+    "meaning": "tuyệt vời",
+    "sentence": "[留学](りゅうがく)で [素晴](すば)らしい [経験](けいけん)が できました。",
+    "sentenceVi": "Tôi có được kinh nghiệm tuyệt vời nhờ du học."
+  },
+  {
+    "id": "v761",
+    "word": "正しい",
+    "reading": "ただしい",
+    "meaning": "đúng, chính xác",
+    "sentence": "この [答](こた)えが [正](ただ)しいかどうか [分](わ)かりません。",
+    "sentenceVi": "Tôi không biết câu trả lời này có chính xác hay không."
+  },
+  {
+    "id": "v762",
+    "word": "ひどい",
+    "reading": "ひどい",
+    "meaning": "ghê, tồi tệ",
+    "sentence": "[昨日](きのう)の [テスト](てすと)は ひどい [点](てん)でした。",
+    "sentenceVi": "Bài kiểm tra hôm qua có điểm rất tệ."
+  },
+  {
+    "id": "v763",
+    "word": "太い",
+    "reading": "ふとい",
+    "meaning": "mập, to",
+    "sentence": "この [大根](だいこん)は とても [太](ふと)いです。",
+    "sentenceVi": "Củ cải trắng này rất to."
+  },
+  {
+    "id": "v764",
+    "word": "細い",
+    "reading": "ほそい",
+    "meaning": "ốm, nhỏ, thon",
+    "sentence": "[彼女](かのじょ)は [足](あし)が とても [細](ほそ)いです。",
+    "sentenceVi": "Chân cô ấy rất thon."
+  },
+  {
+    "id": "v765",
+    "word": "厚い",
+    "reading": "あつい",
+    "meaning": "dày",
+    "sentence": "[寒](さむ)いので、[厚](あつ)い [コート](こーと)が ほしいです。",
+    "sentenceVi": "Vì trời lạnh nên tôi muốn có chiếc áo choàng dày."
+  },
+  {
+    "id": "v766",
+    "word": "浅い",
+    "reading": "あさい",
+    "meaning": "nông, cạn",
+    "sentence": "この [川](かわ)は [浅](あさ)いので、[子供](こども)も [遊](あそ)べます。",
+    "sentenceVi": "Con sông này rất cạn nên trẻ con cũng có thể chơi đùa."
+  },
+  {
+    "id": "v767",
+    "word": "深い",
+    "reading": "ふかい",
+    "meaning": "sâu",
+    "sentence": "この [プール](ぷーる)の [真](ま)ん[中](なか)は とても [深](ふか)いです。",
+    "sentenceVi": "Chính giữa hồ bơi này rất sâu."
+  },
+  {
+    "id": "v768",
+    "word": "眠い",
+    "reading": "ねむい",
+    "meaning": "buồn ngủ",
+    "sentence": "お[腹](なか)が [一杯](いっぱい)で、ちょっと [眠](ねむ)いです。",
+    "sentenceVi": "Tôi no quá nên hơi buồn ngủ."
+  },
+  {
+    "id": "v769",
+    "word": "珍しい",
+    "reading": "めずらしい",
+    "meaning": "quý hiếm",
+    "sentence": "こんなに [大](おお)きな [ダイヤ](だいや)は [珍](めずら)しいです。",
+    "sentenceVi": "Kim cương to như thế này thì thật quý hiếm."
+  },
+  {
+    "id": "v770",
+    "word": "増える",
+    "reading": "ふえる",
+    "meaning": "tăng",
+    "sentence": "この [店](みせ)は [外国人](がいこくじん)の お[客](きゃく)さんが とても [増](ふ)えて います。",
+    "sentenceVi": "Tiệm này khách nước ngoài tăng nhiều.",
+    "blankWord": "増えています",
+    "blankReading": "ふえています"
+  },
+  {
+    "id": "v771",
+    "word": "増やす",
+    "reading": "ふやす",
+    "meaning": "làm tăng",
+    "sentence": "[アルバイト](あるばいと)を して、[貯金](ちょきん)を [増](ふ)やしたいです。",
+    "sentenceVi": "Tôi muốn làm thêm để tăng tiền tiết kiệm.",
+    "blankWord": "増やしたい",
+    "blankReading": "ふやしたい"
+  },
+  {
+    "id": "v772",
+    "word": "減る",
+    "reading": "へる",
+    "meaning": "giảm",
+    "sentence": "[日本](にほん)では [人口](じんこう)が [減](へ)って います。",
+    "sentenceVi": "Ở Nhật dân số đang giảm đi.",
+    "blankWord": "減っています",
+    "blankReading": "へっています"
+  },
+  {
+    "id": "v773",
+    "word": "減らす",
+    "reading": "へらす",
+    "meaning": "làm giảm",
+    "sentence": "[運動](うんどう)を して、[体重](たいじゅう)を [減](へ)らしました。",
+    "sentenceVi": "Tôi đã giảm cân nhờ tập thể dục.",
+    "blankWord": "減らしました",
+    "blankReading": "へらしました"
+  },
+  {
+    "id": "v774",
+    "word": "違う",
+    "reading": "ちがう",
+    "meaning": "khác",
+    "sentence": "[姉](あね)と [私](わたし)は [大学](だいがく)が [違](ちが)います。",
+    "sentenceVi": "Chị tôi và tôi (học) khác trường đại học.",
+    "blankWord": "違います",
+    "blankReading": "ちがいます"
+  },
+      {
+    "id": "v775",
+    "word": "変える",
+    "reading": "かえる",
+    "meaning": "thay đổi (cái gì đó)",
+    "sentence": "[春](はる)に なったら、[髪型](かみがた)を [変](か)えます。",
+    "sentenceVi": "Mùa xuân đến thì tôi đổi kiểu tóc.",
+    "blankWord": "変えます",
+    "blankReading": "かえます"
+  },
+  {
+    "id": "v776",
+    "word": "変わる",
+    "reading": "かわる",
+    "meaning": "(cái gì đó) thay đổi",
+    "sentence": "[髪](かみ)を [切](き)ったら、[気分](きぶん)が [変](か)わりました。",
+    "sentenceVi": "Tâm trạng đã thay đổi sau khi cắt tóc.",
+    "blankWord": "変わりました",
+    "blankReading": "かわりました"
+  },
+  {
+    "id": "v777",
+    "word": "見える",
+    "reading": "みえる",
+    "meaning": "thấy được",
+    "sentence": "[窓](まど)から [富士山](ふじさん)가 きれいに [見](み)えます。",
+    "sentenceVi": "Từ cửa sổ có thể nhìn thấy núi Phú Sỹ tuyệt đẹp.",
+    "blankWord": "見えます",
+    "blankReading": "みえます"
+  },
+  {
+    "id": "v778",
+    "word": "聞こえる",
+    "reading": "きこえる",
+    "meaning": "nghe được",
+    "sentence": "[近所](きんじょ)から [子供](こども)の [声](こえ)が [聞](き)こえます。",
+    "sentenceVi": "Có thể nghe được tiếng trẻ con từ hàng xóm.",
+    "blankWord": "聞こえます",
+    "blankReading": "きこえます"
+  },
+  {
+    "id": "v779",
+    "word": "空く",
+    "reading": "あく",
+    "meaning": "trống",
+    "sentence": "この [ホテル](ほてる)は [人気](にんき)があって、[部屋](へや)が [空](あ)いていません。",
+    "sentenceVi": "Khách sạn này được ưa chuộng nên không có phòng trống.",
+    "blankWord": "空いていません",
+    "blankReading": "あいていません"
+  },
+  {
+    "id": "v780",
+    "word": "外れる",
+    "reading": "はずれる",
+    "meaning": "(cái gì đó) sút, rời, trật ra",
+    "sentence": "[シャツ](しゃつ)の [ボタン](ぼたん)가 [外](はず)れています。",
+    "sentenceVi": "Nút áo bị sút.",
+    "blankWord": "外れています",
+    "blankReading": "はずれています"
+  },
+  {
+    "id": "v781",
+    "word": "切れる",
+    "reading": "きれる",
+    "meaning": "đứt, hết",
+    "sentence": "[弟](おとうと)の [靴](くつ)の ひもが [切](き)れました。",
+    "sentenceVi": "Dây giày em trai tôi đã đứt rồi.",
+    "blankWord": "切れました",
+    "blankReading": "きれました"
+  }
+]
    }
 
 ]
