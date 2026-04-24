@@ -7907,6 +7907,8 @@
     "meaning": "đi bộ",
     "sentence": "[毎日](まいにち)、[1時間以上](いちじかんいじょう) [歩](ある)きます。",
     "sentenceVi": "Mỗi ngày tôi đi bộ trên 1 tiếng.",
+    "blankWord": "歩きます",
+    "blankReading": "あるきます",
     "wordStartTime": 785.2,
     "wordEndTime": 785.9,
     "sentenceStartTime": 787.01,
