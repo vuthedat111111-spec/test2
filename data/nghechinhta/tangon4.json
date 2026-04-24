@@ -8057,6 +8057,8 @@
     "meaning": "thua",
     "sentence": "もし [負](ま)けても、また [次](つぎ)が あります。",
     "sentenceVi": "Nếu thua vẫn có cơ hội tiếp theo.",
+    "blankWord": "負けても",
+    "blankReading": "まけても",
     "wordStartTime": 873.92,
     "wordEndTime": 874.69,
     "sentenceStartTime": 876.12,
