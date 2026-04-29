@@ -8246,7 +8246,7 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* 3 Nút Cấp Độ Hàng Ngang (Đổi sang hover màu xanh dương) */}
-                    <div className="grid grid-cols-3 gap-3 w-full">
+                    <div className="grid grid-cols-4 gap-3 w-full">
                         {[
                             { id: 'N5', link: 'https://zalo.me/g/rky9oqbibm4retvqmidh' },
                             { id: 'N4', link: 'https://zalo.me/g/gmorq9fx2ctiia0nnekt' },
