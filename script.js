@@ -8261,7 +8261,7 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
                                 className="flex flex-col items-center justify-center py-5 bg-white border-2 border-zinc-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition-all active:scale-95 group shadow-sm"
                             >
                                 <span className="text-2xl font-black text-zinc-900 group-hover:text-blue-700">{lvl.id}</span>
-                                <span className="text-[10px] font-black text-zinc-400 mt-1 uppercase tracking-widest group-hover:text-blue-600">Vào Lớp</span>
+                               
                             </a>
                         ))}
                     </div>
