@@ -8249,7 +8249,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
             setView('menu');
         }
 
-        // XỬ LÝ LỖI IN ẤN
+        // XỬ LÝ LỖI IN ẤN CỦA TRÌNH DUYỆT
         const handleBeforePrint = () => {
             document.body.style.overflow = 'visible';
             document.body.style.height = 'auto';
@@ -8284,19 +8284,17 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
             let combinedData = [];
 
             if (selectedSkill === 'toanbo') {
-                // Nếu chọn toàn bộ, thử load tất cả 4 file và gộp lại
                 const skillList = ['tuvung', 'nguphap', 'dochiu', 'nghehieu'];
                 const promises = skillList.map(skill => 
                     fetch(`./data/jlpt/${selectedLevel}/${skill}.json`)
                         .then(res => res.ok ? res.json() : [])
-                        .catch(() => []) // Bỏ qua lỗi nếu file không tồn tại
+                        .catch(() => []) 
                 );
 
                 const results = await Promise.all(promises);
                 combinedData = results.flat();
 
             } else {
-                // Load 1 file cụ thể
                 const response = await fetch(`./data/jlpt/${selectedLevel}/${selectedSkill}.json`);
                 if (!response.ok) {
                     throw new Error("Không tìm thấy file dữ liệu.");
@@ -8310,7 +8308,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                 return;
             }
 
-            // Chuẩn hóa dữ liệu
             const formattedQuestions = combinedData.map((q, idx) => ({
                 ...q,
                 id: q.id || `${selectedSkill}-${idx + 1}`,
@@ -8328,7 +8325,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         }
     };
 
-    // --- Logic Xử lý JSON Thủ công (Dán/Tải lên) ---
     const processJsonString = (content) => {
         try {
             const parsed = JSON.parse(content);
@@ -8362,7 +8358,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
 
-    // --- Logic Tương tác & In ấn ---
     const handleFormat = (command) => { document.execCommand(command, false, undefined); };
     const handlePrint = () => { window.print(); };
 
@@ -8388,7 +8383,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // --- Biểu tượng Icons (Monochrome) ---
     const IconPrinter = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>;
     const IconUpload = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>;
     const IconCode = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
@@ -8398,41 +8392,10 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    // ==========================================
-    // MÀN HÌNH 1: MENU CHỌN BÀI THI
-    // ==========================================
     if (view === 'menu') {
         return (
             <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                {/* THẺ STYLE CHUYÊN DỤNG (ĐÃ FIX LỖI TREO TRÌNH DUYỆT IN) */}
-                <style>{`
-                    @media print {
-                        body, html {
-                            overflow: visible !important;
-                            height: auto !important;
-                            background-color: white !important;
-                        }
-                        /* Phá vỡ giới hạn fixed/absolute của các thẻ cha để trình duyệt chia trang dễ dàng */
-                        div[class*="fixed"] {
-                            position: static !important;
-                            height: auto !important;
-                            overflow: visible !important;
-                            transform: none !important;
-                        }
-                        main {
-                            overflow: visible !important;
-                        }
-                        /* Định dạng tờ giấy A4 */
-                        #jlpt-a4-paper {
-                            margin: 0 !important;
-                            box-shadow: none !important;
-                            border: none !important;
-                        }
-                    }
-                `}</style>
                 <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
-                    
-                    {/* Header */}
                     <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
                         <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight flex items-center gap-2">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
@@ -8441,9 +8404,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm outline-none">✕</button>
                     </div>
 
-                    {/* Form Chọn */}
                     <div className="p-6 space-y-6 flex-1 overflow-y-auto custom-scrollbar">
-                        {/* 1. Chọn Cấp độ */}
                         <div>
                             <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3 block">1. Chọn cấp độ JLPT</label>
                             <div className="grid grid-cols-5 gap-2">
@@ -8459,7 +8420,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                             </div>
                         </div>
 
-                        {/* 2. Chọn Kỹ năng */}
                         <div>
                             <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3 block">2. Chọn kỹ năng (Môn thi)</label>
                             <div className="grid grid-cols-2 gap-3">
@@ -8490,7 +8450,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         </div>
                     </div>
 
-                    {/* Nút Bắt đầu */}
                     <div className="p-4 border-t border-zinc-100 bg-white shrink-0">
                         <button 
                             onClick={handleLoadTest}
@@ -8512,13 +8471,46 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         );
     }
 
-    // ==========================================
-    // MÀN HÌNH 2: GIAO DIỆN LÀM BÀI / IN A4
-    // ==========================================
     return (
-        <div className="fixed inset-0 z-[1000] bg-zinc-100 overflow-y-auto flex flex-col print:bg-white print:block print:relative print:z-0 animate-in fade-in">
+        <div className="fixed inset-0 z-[1000] bg-zinc-100 overflow-y-auto flex flex-col print:static print:bg-white print:block print:z-auto print:overflow-visible animate-in fade-in">
             
-            {/* JSON Input Modal (Chỉ xuất hiện khi bấm Dán JSON) */}
+            {/* THÊM STYLE ÉP IN TẠI ĐÂY ĐỂ DIỆT BUG CHROMIUM */}
+            <style>{`
+                @media print {
+                    body, html, #root {
+                        overflow: visible !important;
+                        height: auto !important;
+                        background-color: white !important;
+                    }
+                    div[class*="fixed"] {
+                        position: static !important;
+                        height: auto !important;
+                        overflow: visible !important;
+                        transform: none !important;
+                    }
+                    main {
+                        overflow: visible !important;
+                        display: block !important;
+                    }
+                    #jlpt-a4-paper {
+                        margin: 0 !important;
+                        box-shadow: none !important;
+                        border: none !important;
+                        max-width: 100% !important;
+                    }
+                    /* Phá Grid - Tránh Chrome bị treo khi cắt trang */
+                    .print-options-grid {
+                        display: block !important;
+                    }
+                    .print-option-item {
+                        display: inline-block !important;
+                        width: 48% !important; 
+                        margin-bottom: 15px !important;
+                        vertical-align: top !important;
+                    }
+                }
+            `}</style>
+
             {isJsonModalOpen && (
                 <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm print:hidden p-4">
                     <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl flex flex-col animate-in zoom-in-95 border border-zinc-200">
@@ -8537,7 +8529,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                 </div>
             )}
 
-            {/* Sticky Header & Toolbar (Ẩn khi in) */}
             <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-zinc-200 print:hidden shrink-0">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -8576,7 +8567,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                     </div>
                 </div>
 
-                {/* Text Formatter */}
                 <div className="bg-zinc-50 border-t border-zinc-100 py-1.5 px-4">
                     <div className="max-w-5xl mx-auto flex items-center justify-center sm:justify-start gap-1">
                         <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mr-2">Chỉnh sửa đề thi (In):</span>
@@ -8591,11 +8581,9 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                 </div>
             </header>
 
-            {/* Vùng giấy A4 */}
-            <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100">
-                <div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">                    
+            <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100 print:bg-white print:p-0">
+                <div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900">                    
                     
-                    {/* Bảng điểm (Chỉ hiện khi đã nộp bài và không in) */}
                     {isSubmitted && (
                         <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print:hidden animate-in zoom-in-95">
                             <h2 className="text-sm font-black text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -8611,7 +8599,6 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         </div>
                     )}
 
-                    {/* Tiêu đề in */}
                     <div className="text-center mb-10 print:block hidden">
                         <h1 className="text-2xl font-black uppercase tracking-widest mb-1 border-b-2 border-black inline-block pb-1">
                             JLPT MOCK TEST - {selectedLevel.toUpperCase()}
@@ -8619,11 +8606,9 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         <p className="text-sm font-bold mt-2">Phần: {skills.find(s => s.id === selectedSkill).label}</p>
                     </div>
 
-                    {/* Danh sách Câu hỏi */}
                     <div className="space-y-12">
                         {questions.map((item, index) => (
-                            <div key={item.id} className="w-full print:block">
-                                {/* Phần Câu Hỏi */}
+                            <div key={item.id} className="w-full print:block print:mb-8">
                                 <div className="flex items-start gap-3 mb-5">
                                     <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
                                         {index + 1}
@@ -8637,32 +8622,27 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                                     </p>
                                 </div>
                                 
-                                {/* Phần Đáp án */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print:break-inside-avoid">
+                                {/* ÉP PRINT BỎ QUA GRID VÀ CHUYỂN SANG BLOCK */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print-options-grid">
                                     {item.options.map((opt, optIdx) => {
                                         const isSelected = userAnswers[item.id] === optIdx;
                                         const isCorrect = item.correctOption === optIdx;
                                         
-                                        // Style cho nút chọn (Bubble)
                                         let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print:hidden ";
                                         let bubbleContent = optIdx + 1;
 
-                                        // Style cho cả khối block
-                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all print:p-0 print:border-none cursor-pointer border-2 ";
+                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all cursor-pointer border-2 print:p-0 print:border-none print-option-item ";
 
                                         if (isSubmitted) {
                                             if (isCorrect) {
-                                                // Đáp án đúng
                                                 bubbleClass += "bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-200";
                                                 blockClass += "border-emerald-400 bg-emerald-50 font-bold";
                                                 bubbleContent = "✓";
                                             } else if (isSelected && !isCorrect) {
-                                                // Chọn sai
                                                 bubbleClass += "border-red-300 text-red-400 line-through bg-red-50";
                                                 blockClass += "border-red-100 opacity-60 line-through bg-red-50/50";
                                                 bubbleContent = "✕";
                                             } else {
-                                                // Không chọn và sai
                                                 bubbleClass += "border-zinc-200 text-zinc-300";
                                                 blockClass += "border-transparent opacity-60";
                                             }
@@ -8682,19 +8662,16 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                                                 className={`group ${blockClass}`}
                                                 onClick={() => handleSelectOption(item.id, optIdx)}
                                             >
-                                                {/* Bubble UI */}
                                                 <button className={bubbleClass}>
                                                     {bubbleContent}
                                                 </button>
                                                 
-                                                {/* Text số khi in */}
-                                                <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5">
+                                                <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5 mr-2">
                                                     {optIdx + 1}. 
                                                 </span>
                                                 
-                                                {/* Nội dung đáp án */}
                                                 <span 
-                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full"
+                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full print:inline"
                                                     contentEditable={!isSubmitted}
                                                     suppressContentEditableWarning={true}
                                                     onClick={(e) => {
