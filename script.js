@@ -8619,10 +8619,12 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         <p className="text-sm font-bold mt-2">Phần: {skills.find(s => s.id === selectedSkill).label}</p>
                     </div>
 
-                    {/* Danh sách Câu hỏi */}
-                    <div className="space-y-12">
-                        {questions.map((item, index) => (
-                            <div key={item.id} className="w-full" style={{ breakInside: 'avoid', pageBreakInside: 'avoid' }}>
+                   {/* Danh sách Câu hỏi */}
+<div className="space-y-12">
+    {questions.map((item, index) => (
+        <div key={item.id} className="w-full print:block">
+            {/* Phần Câu Hỏi */}
+            <div className="flex items-start gap-3 mb-5">
                                 {/* Phần Câu Hỏi */}
                                 <div className="flex items-start gap-3 mb-5">
                                     <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
@@ -8637,9 +8639,9 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                                     </p>
                                 </div>
                                 
-                                {/* Phần Đáp án */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10">
-                                    {item.options.map((opt, optIdx) => {
+                               {/* Phần Đáp án */}
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print:break-inside-avoid">
+    {item.options.map((opt, optIdx) => {
                                         const isSelected = userAnswers[item.id] === optIdx;
                                         const isCorrect = item.correctOption === optIdx;
                                         
