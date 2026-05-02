@@ -8241,15 +8241,33 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
     ];
 
     React.useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
             document.body.style.overflow = 'unset';
             resetTestState();
             setView('menu');
         }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [isOpen]);
 
+        // THÊM ĐOẠN NÀY ĐỂ XỬ LÝ LỖI IN ẤN
+        const handleBeforePrint = () => {
+            document.body.style.overflow = 'visible';
+            document.body.style.height = 'auto';
+        };
+        const handleAfterPrint = () => {
+            if (isOpen) document.body.style.overflow = 'hidden';
+        };
+
+        window.addEventListener('beforeprint', handleBeforePrint);
+        window.addEventListener('afterprint', handleAfterPrint);
+
+        return () => { 
+            document.body.style.overflow = 'unset'; 
+            window.removeEventListener('beforeprint', handleBeforePrint);
+            window.removeEventListener('afterprint', handleAfterPrint);
+        };
+    }, [isOpen]);
+    
     const resetTestState = () => {
         setUserAnswers({});
         setIsSubmitted(false);
@@ -8386,7 +8404,33 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
     if (view === 'menu') {
         return (
             <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
+                {/* THÊM ĐOẠN DƯỚI ĐÂY */}
+            <style>{`
+                @media print {
+                    body, html {
+                        overflow: visible !important;
+                        height: auto !important;
+                        background-color: white !important;
+                    }
+                    body * {
+                        visibility: hidden;
+                    }
+                    #jlpt-a4-paper, #jlpt-a4-paper * {
+                        visibility: visible;
+                    }
+                    #jlpt-a4-paper {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        box-shadow: none !important;
+                        border: none !important;
+                    }
+                }
+            `}</style>
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
                     
                     {/* Header */}
                     <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
@@ -8549,8 +8593,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
 
             {/* Vùng giấy A4 */}
             <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100">
-                <div className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">
-                    
+<div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">                    
                     {/* Bảng điểm (Chỉ hiện khi đã nộp bài và không in) */}
                     {isSubmitted && (
                         <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print:hidden animate-in zoom-in-95">
