@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "type": "vocabulary",
+    "question": "彼はとても＿＿＿人です。",
+    "options": ["しんせつな", "しんせつに", "しんせつだ", "しんせつの"],
+    "correctOption": 0
+  },
+  {
+    "id": 2,
+    "type": "grammar",
+    "question": "あした、雨が＿＿＿、行きません。",
+    "options": ["ふる", "ふったら", "ふっても", "ふって"],
+    "correctOption": 1
+  },
+  {
+    "id": 3,
+    "type": "vocabulary",
+    "question": "私は毎日＿＿＿を飲みます。",
+    "options": ["みず", "ほん", "くつ", "くるま"],
+    "correctOption": 0
+  },
+  {
+    "id": 4,
+    "type": "vocabulary",
+    "question": "えきまで＿＿＿で行きます。",
+    "options": ["バス", "テーブル", "テレビ", "ノート"],
+    "correctOption": 0
+  },
+  {
+    "id": 5,
+    "type": "vocabulary",
+    "question": "部屋が＿＿＿ですね。電気をつけましょう。",
+    "options": ["あかるい", "くらい", "ひろい", "せまい"],
+    "correctOption": 1
+  },
+  {
+    "id": 6,
+    "type": "vocabulary",
+    "question": "このカメラはとても＿＿＿です。",
+    "options": ["たかい", "ひくい", "みじかい", "とおい"],
+    "correctOption": 0
+  },
+  {
+    "id": 7,
+    "type": "vocabulary",
+    "question": "＿＿＿が痛いです。薬を飲みます。",
+    "options": ["あたま", "かばん", "えんぴつ", "くつ"],
+    "correctOption": 0
+  },
+  {
+    "id": 8,
+    "type": "vocabulary",
+    "question": "さむいですから、＿＿＿を閉めてください。",
+    "options": ["まど", "テレビ", "でんき", "ラジオ"],
+    "correctOption": 0
+  },
+  {
+    "id": 9,
+    "type": "vocabulary",
+    "question": "あしたは日曜日です。学校は＿＿＿です。",
+    "options": ["やすみ", "はたらく", "べんきょう", "おきる"],
+    "correctOption": 0
+  },
+  {
+    "id": 10,
+    "type": "vocabulary",
+    "question": "図書館で本を＿＿＿。",
+    "options": ["かります", "かいます", "かえります", "のみます"],
+    "correctOption": 0
+  },
+  {
+    "id": 11,
+    "type": "vocabulary",
+    "question": "私はきのう、家族に手紙を＿＿＿。",
+    "options": ["かきました", "よみました", "ききました", "みました"],
+    "correctOption": 0
+  },
+  {
+    "id": 12,
+    "type": "vocabulary",
+    "question": "コーヒーに＿＿＿を入れますか。",
+    "options": ["さとう", "しお", "しょうゆ", "こしょう"],
+    "correctOption": 0
+  },
+  {
+    "id": 13,
+    "type": "vocabulary",
+    "question": "きのう、スーパーで＿＿＿を買いました。",
+    "options": ["りんご", "つくえ", "いす", "へや"],
+    "correctOption": 0
+  },
+  {
+    "id": 14,
+    "type": "vocabulary",
+    "question": "わたしの＿＿＿は医者です。",
+    "options": ["あに", "いぬ", "ねこ", "とり"],
+    "correctOption": 0
+  },
+  {
+    "id": 15,
+    "type": "vocabulary",
+    "question": "新しい＿＿＿を買ったので、ドライブに行きましょう。",
+    "options": ["くるま", "ごはん", "さかな", "にく"],
+    "correctOption": 0
+  },
+  {
+    "id": 16,
+    "type": "grammar",
+    "question": "私は毎日6時＿＿＿起きます。",
+    "options": ["に", "で", "を", "へ"],
+    "correctOption": 0
+  },
+  {
+    "id": 17,
+    "type": "grammar",
+    "question": "これはだれ＿＿＿かばんですか。",
+    "options": ["の", "が", "に", "を"],
+    "correctOption": 0
+  },
+  {
+    "id": 18,
+    "type": "grammar",
+    "question": "ノートに黒いペン＿＿＿書きます。",
+    "options": ["で", "に", "を", "が"],
+    "correctOption": 0
+  },
+  {
+    "id": 19,
+    "type": "grammar",
+    "question": "朝ごはんは、パン＿＿＿卵を食べます。",
+    "options": ["と", "が", "を", "で"],
+    "correctOption": 0
+  },
+  {
+    "id": 20,
+    "type": "grammar",
+    "question": "先生＿＿＿日本語を習います。",
+    "options": ["に", "を", "で", "へ"],
+    "correctOption": 0
+  },
+  {
+    "id": 21,
+    "type": "grammar",
+    "question": "風が入って、窓が＿＿＿います。",
+    "options": ["あいて", "あけて", "あく", "あける"],
+    "correctOption": 0
+  },
+  {
+    "id": 22,
+    "type": "grammar",
+    "question": "すみません、ここでちょっと＿＿＿ください。",
+    "options": ["待って", "待ちて", "待んで", "待して"],
+    "correctOption": 0
+  },
+  {
+    "id": 23,
+    "type": "grammar",
+    "question": "わたしは日本へ＿＿＿ことがあります。",
+    "options": ["行った", "行く", "行かない", "行なかった"],
+    "correctOption": 0
+  },
+  {
+    "id": 24,
+    "type": "grammar",
+    "question": "美術館の中で写真を＿＿＿はいけません。",
+    "options": ["とって", "とる", "とった", "とらない"],
+    "correctOption": 0
+  },
+  {
+    "id": 25,
+    "type": "grammar",
+    "question": "この漢字は＿＿＿読みますか。",
+    "options": ["どう", "なに", "どれ", "どの"],
+    "correctOption": 0
+  },
+  {
+    "id": 26,
+    "type": "grammar",
+    "question": "お客さんが来るので、部屋を＿＿＿しましょう。",
+    "options": ["きれいに", "きれいな", "きれいだ", "きれいの"],
+    "correctOption": 0
+  },
+  {
+    "id": 27,
+    "type": "grammar",
+    "question": "わたしは音楽を＿＿＿ながら、本を読みます。",
+    "options": ["聞き", "聞く", "聞いて", "聞か"],
+    "correctOption": 0
+  },
+  {
+    "id": 28,
+    "type": "grammar",
+    "question": "熱があるので、今日は早く＿＿＿ほうがいいですよ。",
+    "options": ["休んだ", "休む", "休んで", "休み"],
+    "correctOption": 0
+  },
+  {
+    "id": 29,
+    "type": "grammar",
+    "question": "富士山は日本で＿＿＿高い山です。",
+    "options": ["いちばん", "もっと", "とても", "たくさん"],
+    "correctOption": 0
+  },
+  {
+    "id": 30,
+    "type": "grammar",
+    "question": "先生は学生に漢字を＿＿＿。",
+    "options": ["書かせました", "書かれました", "書きました", "書かされました"],
+    "correctOption": 0
+  }
+]
