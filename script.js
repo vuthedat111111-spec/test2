@@ -8405,6 +8405,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         return (
             <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
                 {/* THÊM ĐOẠN DƯỚI ĐÂY */}
+            {/* THẺ STYLE CHUYÊN DỤNG (ĐÃ FIX LỖI TREO TRÌNH DUYỆT IN) */}
             <style>{`
                 @media print {
                     body, html {
@@ -8412,19 +8413,19 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         height: auto !important;
                         background-color: white !important;
                     }
-                    body * {
-                        visibility: hidden;
+                    /* Phá vỡ giới hạn fixed/absolute của các thẻ cha để trình duyệt chia trang dễ dàng */
+                    div[class*="fixed"] {
+                        position: static !important;
+                        height: auto !important;
+                        overflow: visible !important;
+                        transform: none !important;
                     }
-                    #jlpt-a4-paper, #jlpt-a4-paper * {
-                        visibility: visible;
+                    main {
+                        overflow: visible !important;
                     }
+                    /* Định dạng tờ giấy A4 */
                     #jlpt-a4-paper {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
                         margin: 0 !important;
-                        padding: 0 !important;
                         box-shadow: none !important;
                         border: none !important;
                     }
