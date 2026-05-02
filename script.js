@@ -8210,7 +8210,7 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
-// --- Component Luyện Đề JLPT (Tích hợp Fetch JSON & Chọn Menu) ---
+// --- Component Luyện Đề JLPT (Đã tối ưu thuật toán In A4) ---
 const JLPTTestModal = ({ isOpen, onClose }) => {
     // --- State Màn hình ---
     const [view, setView] = React.useState('menu'); // 'menu' | 'test'
@@ -8248,23 +8248,9 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
             resetTestState();
             setView('menu');
         }
-
-        // XỬ LÝ LỖI IN ẤN CỦA TRÌNH DUYỆT
-        const handleBeforePrint = () => {
-            document.body.style.overflow = 'visible';
-            document.body.style.height = 'auto';
-        };
-        const handleAfterPrint = () => {
-            if (isOpen) document.body.style.overflow = 'hidden';
-        };
-
-        window.addEventListener('beforeprint', handleBeforePrint);
-        window.addEventListener('afterprint', handleAfterPrint);
-
+        // Đã gỡ bỏ event listeners bằng JS, chuyển toàn quyền xử lý in ấn cho CSS
         return () => { 
             document.body.style.overflow = 'unset'; 
-            window.removeEventListener('beforeprint', handleBeforePrint);
-            window.removeEventListener('afterprint', handleAfterPrint);
         };
     }, [isOpen]);
     
@@ -8275,7 +8261,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         setQuestions([]);
     };
 
-    // --- LOGIC FETCH DỮ LIỆU JSON TỪ THƯ MỤC ---
+    // --- LOGIC FETCH DỮ LIỆU JSON ---
     const handleLoadTest = async () => {
         setIsLoading(true);
         resetTestState();
@@ -8392,10 +8378,105 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
+    // --- BỘ CSS XỬ LÝ LỖI TRẮNG TRANG KHI IN ---
+    const printStyles = (
+        <style>{`
+            .print-show { display: none; }
+            .print-show-inline { display: none; }
+
+            @media print {
+                /* Đưa cấu trúc Document về Flow chuẩn để trình duyệt dễ cắt trang */
+                html, body, #root, #root > div {
+                    display: block !important;
+                    height: auto !important;
+                    min-height: 0 !important;
+                    overflow: visible !important;
+                    position: static !important;
+                    background-color: white !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                /* ẨN SẠCH TẤT CẢ Component đang chạy ngầm (LandingPage, Modal khác...) */
+                #root > div > * {
+                    display: none !important;
+                }
+
+                /* CHỈ HIỆN LẠI DUY NHẤT JLPT TEST MODAL */
+                #root > div > .jlpt-test-modal-container {
+                    display: block !important;
+                    position: static !important;
+                    background-color: white !important;
+                    height: auto !important;
+                    overflow: visible !important;
+                }
+
+                .jlpt-main-content {
+                    display: block !important;
+                    overflow: visible !important;
+                    padding: 0 !important;
+                    background-color: white !important;
+                }
+                
+                /* Mở rộng tờ giấy A4 tràn viền */
+                #jlpt-a4-paper {
+                    display: block !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    box-shadow: none !important;
+                    border: none !important;
+                }
+
+                /* Diệt tận gốc lỗi treo Print Spooler của CSS Grid */
+                .print-options-grid {
+                    display: block !important;
+                }
+
+                /* Sắp xếp đáp án 2 cột an toàn */
+                .print-option-item {
+                    display: inline-block !important;
+                    width: 48% !important; 
+                    margin-bottom: 15px !important;
+                    vertical-align: top !important;
+                    border: none !important;
+                    padding: 0 !important;
+                    background: transparent !important;
+                }
+
+                /* Cắt trang cho từng block */
+                .print-question-block {
+                    page-break-inside: avoid;
+                    break-inside: avoid;
+                    margin-bottom: 30px !important;
+                }
+
+                /* Định dạng con số để in ra không bị cục đen */
+                .print-number-box {
+                    background-color: transparent !important;
+                    color: black !important;
+                    border: 2px solid black !important;
+                    box-shadow: none !important;
+                }
+
+                /* Toggle hiển thị thành phần UI */
+                .print-hide { display: none !important; }
+                .print-show { display: block !important; }
+                .print-show-inline { display: inline-block !important; }
+            }
+        `}</style>
+    );
+
+    // ==========================================
+    // MÀN HÌNH 1: MENU CHỌN BÀI THI
+    // ==========================================
     if (view === 'menu') {
         return (
-            <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200 jlpt-test-modal-container">
+                {printStyles}
                 <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
+                    
                     <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
                         <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight flex items-center gap-2">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
@@ -8471,48 +8552,16 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
         );
     }
 
+    // ==========================================
+    // MÀN HÌNH 2: GIAO DIỆN LÀM BÀI / IN A4
+    // ==========================================
     return (
-        <div className="fixed inset-0 z-[1000] bg-zinc-100 overflow-y-auto flex flex-col print:static print:bg-white print:block print:z-auto print:overflow-visible animate-in fade-in">
-            
-            {/* THÊM STYLE ÉP IN TẠI ĐÂY ĐỂ DIỆT BUG CHROMIUM */}
-            <style>{`
-                @media print {
-                    body, html, #root {
-                        overflow: visible !important;
-                        height: auto !important;
-                        background-color: white !important;
-                    }
-                    div[class*="fixed"] {
-                        position: static !important;
-                        height: auto !important;
-                        overflow: visible !important;
-                        transform: none !important;
-                    }
-                    main {
-                        overflow: visible !important;
-                        display: block !important;
-                    }
-                    #jlpt-a4-paper {
-                        margin: 0 !important;
-                        box-shadow: none !important;
-                        border: none !important;
-                        max-width: 100% !important;
-                    }
-                    /* Phá Grid - Tránh Chrome bị treo khi cắt trang */
-                    .print-options-grid {
-                        display: block !important;
-                    }
-                    .print-option-item {
-                        display: inline-block !important;
-                        width: 48% !important; 
-                        margin-bottom: 15px !important;
-                        vertical-align: top !important;
-                    }
-                }
-            `}</style>
+        <div className="fixed inset-0 z-[1000] bg-zinc-100 overflow-y-auto flex flex-col jlpt-test-modal-container animate-in fade-in">
+            {printStyles}
 
+            {/* Modal Dán JSON */}
             {isJsonModalOpen && (
-                <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm print:hidden p-4">
+                <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm print-hide p-4">
                     <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl flex flex-col animate-in zoom-in-95 border border-zinc-200">
                         <h2 className="text-sm font-black uppercase tracking-widest mb-4 text-zinc-900 border-b border-zinc-100 pb-3">Dán dữ liệu JSON tùy chỉnh</h2>
                         <textarea
@@ -8529,7 +8578,8 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                 </div>
             )}
 
-            <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-zinc-200 print:hidden shrink-0">
+            {/* Header / Thanh điều khiển */}
+            <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-zinc-200 print-hide shrink-0">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3 w-full sm:w-auto">
                         <button onClick={() => setView('menu')} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-900 transition-all shrink-0 outline-none" title="Quay lại Menu">
@@ -8581,11 +8631,13 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                 </div>
             </header>
 
-            <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100 print:bg-white print:p-0">
-                <div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900">                    
+            {/* Main Container / Giấy A4 */}
+            <main className="flex-1 overflow-y-auto custom-scrollbar bg-zinc-100 jlpt-main-content">
+                <div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">                    
                     
+                    {/* Bảng chấm điểm */}
                     {isSubmitted && (
-                        <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print:hidden animate-in zoom-in-95">
+                        <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print-hide animate-in zoom-in-95">
                             <h2 className="text-sm font-black text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                                 Kết quả làm bài
@@ -8599,18 +8651,21 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         </div>
                     )}
 
-                    <div className="text-center mb-10 print:block hidden">
+                    {/* Tiêu đề in ẩn trên web */}
+                    <div className="text-center mb-10 print-show">
                         <h1 className="text-2xl font-black uppercase tracking-widest mb-1 border-b-2 border-black inline-block pb-1">
                             JLPT MOCK TEST - {selectedLevel.toUpperCase()}
                         </h1>
                         <p className="text-sm font-bold mt-2">Phần: {skills.find(s => s.id === selectedSkill).label}</p>
                     </div>
 
+                    {/* Khối sinh câu hỏi */}
                     <div className="space-y-12">
                         {questions.map((item, index) => (
-                            <div key={item.id} className="w-full print:block print:mb-8">
+                            <div key={item.id} className="w-full print-question-block">
+                                
                                 <div className="flex items-start gap-3 mb-5">
-                                    <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
+                                    <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print-number-box">
                                         {index + 1}
                                     </div>
                                     <p 
@@ -8622,16 +8677,15 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                                     </p>
                                 </div>
                                 
-                                {/* ÉP PRINT BỎ QUA GRID VÀ CHUYỂN SANG BLOCK */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print-options-grid">
                                     {item.options.map((opt, optIdx) => {
                                         const isSelected = userAnswers[item.id] === optIdx;
                                         const isCorrect = item.correctOption === optIdx;
                                         
-                                        let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print:hidden ";
+                                        let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print-hide ";
                                         let bubbleContent = optIdx + 1;
 
-                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all cursor-pointer border-2 print:p-0 print:border-none print-option-item ";
+                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all cursor-pointer border-2 print-option-item ";
 
                                         if (isSubmitted) {
                                             if (isCorrect) {
@@ -8666,12 +8720,13 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                                                     {bubbleContent}
                                                 </button>
                                                 
-                                                <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5 mr-2">
+                                                {/* Text đánh số chỉ xuất hiện trên giấy in */}
+                                                <span className="font-bold text-zinc-900 pt-0.5 mr-2 print-show-inline">
                                                     {optIdx + 1}. 
                                                 </span>
                                                 
                                                 <span 
-                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full print:inline"
+                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full"
                                                     contentEditable={!isSubmitted}
                                                     suppressContentEditableWarning={true}
                                                     onClick={(e) => {
@@ -8688,7 +8743,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         ))}
                     </div>
 
-                    <div className="mt-24 text-center text-sm font-bold text-zinc-300 tracking-[0.3em] print:text-black">
+                    <div className="mt-24 text-center text-sm font-bold text-zinc-300 tracking-[0.3em] print-show">
                         --- 終わり ---
                     </div>
                 </div>
