@@ -8249,7 +8249,7 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
             setView('menu');
         }
 
-        // THÊM ĐOẠN NÀY ĐỂ XỬ LÝ LỖI IN ẤN
+        // XỬ LÝ LỖI IN ẤN
         const handleBeforePrint = () => {
             document.body.style.overflow = 'visible';
             document.body.style.height = 'auto';
@@ -8404,34 +8404,33 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
     if (view === 'menu') {
         return (
             <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                {/* THÊM ĐOẠN DƯỚI ĐÂY */}
-            {/* THẺ STYLE CHUYÊN DỤNG (ĐÃ FIX LỖI TREO TRÌNH DUYỆT IN) */}
-            <style>{`
-                @media print {
-                    body, html {
-                        overflow: visible !important;
-                        height: auto !important;
-                        background-color: white !important;
+                {/* THẺ STYLE CHUYÊN DỤNG (ĐÃ FIX LỖI TREO TRÌNH DUYỆT IN) */}
+                <style>{`
+                    @media print {
+                        body, html {
+                            overflow: visible !important;
+                            height: auto !important;
+                            background-color: white !important;
+                        }
+                        /* Phá vỡ giới hạn fixed/absolute của các thẻ cha để trình duyệt chia trang dễ dàng */
+                        div[class*="fixed"] {
+                            position: static !important;
+                            height: auto !important;
+                            overflow: visible !important;
+                            transform: none !important;
+                        }
+                        main {
+                            overflow: visible !important;
+                        }
+                        /* Định dạng tờ giấy A4 */
+                        #jlpt-a4-paper {
+                            margin: 0 !important;
+                            box-shadow: none !important;
+                            border: none !important;
+                        }
                     }
-                    /* Phá vỡ giới hạn fixed/absolute của các thẻ cha để trình duyệt chia trang dễ dàng */
-                    div[class*="fixed"] {
-                        position: static !important;
-                        height: auto !important;
-                        overflow: visible !important;
-                        transform: none !important;
-                    }
-                    main {
-                        overflow: visible !important;
-                    }
-                    /* Định dạng tờ giấy A4 */
-                    #jlpt-a4-paper {
-                        margin: 0 !important;
-                        box-shadow: none !important;
-                        border: none !important;
-                    }
-                }
-            `}</style>
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
+                `}</style>
+                <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
                     
                     {/* Header */}
                     <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
@@ -8594,7 +8593,8 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
 
             {/* Vùng giấy A4 */}
             <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100">
-<div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">                    
+                <div id="jlpt-a4-paper" className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">                    
+                    
                     {/* Bảng điểm (Chỉ hiện khi đã nộp bài và không in) */}
                     {isSubmitted && (
                         <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print:hidden animate-in zoom-in-95">
@@ -8619,98 +8619,97 @@ const JLPTTestModal = ({ isOpen, onClose }) => {
                         <p className="text-sm font-bold mt-2">Phần: {skills.find(s => s.id === selectedSkill).label}</p>
                     </div>
 
-                  {/* Danh sách Câu hỏi */}
-<div className="space-y-12">
-    {questions.map((item, index) => (
-        {/* SỬA LỖI IN: Đã xóa style breakInside ở đây và thêm print:block */}
-        <div key={item.id} className="w-full print:block">
-            {/* Phần Câu Hỏi */}
-            <div className="flex items-start gap-3 mb-5">
-                <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
-                    {index + 1}
-                </div>
-                <p 
-                    className="text-[1.15rem] leading-relaxed whitespace-pre-wrap outline-none focus:bg-zinc-50 rounded px-1 transition-colors w-full"
-                    contentEditable={!isSubmitted}
-                    suppressContentEditableWarning={true}
-                >
-                    {item.question}
-                </p>
-            </div>
-            
-            {/* Phần Đáp án: TỐI ƯU IN - Thêm class print:break-inside-avoid vào thẻ div này để không bị cắt đôi đáp án khi sang trang */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print:break-inside-avoid">
-                {item.options.map((opt, optIdx) => {
-                    const isSelected = userAnswers[item.id] === optIdx;
-                    const isCorrect = item.correctOption === optIdx;
-                    
-                    // Style cho nút chọn (Bubble)
-                    let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print:hidden ";
-                    let bubbleContent = optIdx + 1;
+                    {/* Danh sách Câu hỏi */}
+                    <div className="space-y-12">
+                        {questions.map((item, index) => (
+                            <div key={item.id} className="w-full print:block">
+                                {/* Phần Câu Hỏi */}
+                                <div className="flex items-start gap-3 mb-5">
+                                    <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
+                                        {index + 1}
+                                    </div>
+                                    <p 
+                                        className="text-[1.15rem] leading-relaxed whitespace-pre-wrap outline-none focus:bg-zinc-50 rounded px-1 transition-colors w-full"
+                                        contentEditable={!isSubmitted}
+                                        suppressContentEditableWarning={true}
+                                    >
+                                        {item.question}
+                                    </p>
+                                </div>
+                                
+                                {/* Phần Đáp án */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10 print:break-inside-avoid">
+                                    {item.options.map((opt, optIdx) => {
+                                        const isSelected = userAnswers[item.id] === optIdx;
+                                        const isCorrect = item.correctOption === optIdx;
+                                        
+                                        // Style cho nút chọn (Bubble)
+                                        let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print:hidden ";
+                                        let bubbleContent = optIdx + 1;
 
-                    // Style cho cả khối block
-                    let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all print:p-0 print:border-none cursor-pointer border-2 ";
+                                        // Style cho cả khối block
+                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all print:p-0 print:border-none cursor-pointer border-2 ";
 
-                    if (isSubmitted) {
-                        if (isCorrect) {
-                            // Đáp án đúng
-                            bubbleClass += "bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-200";
-                            blockClass += "border-emerald-400 bg-emerald-50 font-bold";
-                            bubbleContent = "✓";
-                        } else if (isSelected && !isCorrect) {
-                            // Chọn sai
-                            bubbleClass += "border-red-300 text-red-400 line-through bg-red-50";
-                            blockClass += "border-red-100 opacity-60 line-through bg-red-50/50";
-                            bubbleContent = "✕";
-                        } else {
-                            // Không chọn và sai
-                            bubbleClass += "border-zinc-200 text-zinc-300";
-                            blockClass += "border-transparent opacity-60";
-                        }
-                    } else {
-                        if (isSelected) {
-                            bubbleClass += "border-zinc-900 bg-zinc-900 text-white shadow-md";
-                            blockClass += "border-zinc-900 bg-zinc-50 shadow-sm transform scale-[1.02]";
-                        } else {
-                            bubbleClass += "border-zinc-300 text-zinc-500 group-hover:border-zinc-900";
-                            blockClass += "border-transparent hover:bg-zinc-50 hover:border-zinc-200";
-                        }
-                    }
+                                        if (isSubmitted) {
+                                            if (isCorrect) {
+                                                // Đáp án đúng
+                                                bubbleClass += "bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-200";
+                                                blockClass += "border-emerald-400 bg-emerald-50 font-bold";
+                                                bubbleContent = "✓";
+                                            } else if (isSelected && !isCorrect) {
+                                                // Chọn sai
+                                                bubbleClass += "border-red-300 text-red-400 line-through bg-red-50";
+                                                blockClass += "border-red-100 opacity-60 line-through bg-red-50/50";
+                                                bubbleContent = "✕";
+                                            } else {
+                                                // Không chọn và sai
+                                                bubbleClass += "border-zinc-200 text-zinc-300";
+                                                blockClass += "border-transparent opacity-60";
+                                            }
+                                        } else {
+                                            if (isSelected) {
+                                                bubbleClass += "border-zinc-900 bg-zinc-900 text-white shadow-md";
+                                                blockClass += "border-zinc-900 bg-zinc-50 shadow-sm transform scale-[1.02]";
+                                            } else {
+                                                bubbleClass += "border-zinc-300 text-zinc-500 group-hover:border-zinc-900";
+                                                blockClass += "border-transparent hover:bg-zinc-50 hover:border-zinc-200";
+                                            }
+                                        }
 
-                    return (
-                        <div 
-                            key={optIdx} 
-                            className={`group ${blockClass}`}
-                            onClick={() => handleSelectOption(item.id, optIdx)}
-                        >
-                            {/* Bubble UI */}
-                            <button className={bubbleClass}>
-                                {bubbleContent}
-                            </button>
-                            
-                            {/* Text số khi in */}
-                            <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5">
-                                {optIdx + 1}. 
-                            </span>
-                            
-                            {/* Nội dung đáp án */}
-                            <span 
-                                className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full"
-                                contentEditable={!isSubmitted}
-                                suppressContentEditableWarning={true}
-                                onClick={(e) => {
-                                    if(!isSubmitted) e.stopPropagation(); 
-                                }}
-                            >
-                                {opt}
-                            </span>
-                        </div>
-                    );
-                })}
-            </div>
-        </div>
-    ))}
-</div>
+                                        return (
+                                            <div 
+                                                key={optIdx} 
+                                                className={`group ${blockClass}`}
+                                                onClick={() => handleSelectOption(item.id, optIdx)}
+                                            >
+                                                {/* Bubble UI */}
+                                                <button className={bubbleClass}>
+                                                    {bubbleContent}
+                                                </button>
+                                                
+                                                {/* Text số khi in */}
+                                                <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5">
+                                                    {optIdx + 1}. 
+                                                </span>
+                                                
+                                                {/* Nội dung đáp án */}
+                                                <span 
+                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full"
+                                                    contentEditable={!isSubmitted}
+                                                    suppressContentEditableWarning={true}
+                                                    onClick={(e) => {
+                                                        if(!isSubmitted) e.stopPropagation(); 
+                                                    }}
+                                                >
+                                                    {opt}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     <div className="mt-24 text-center text-sm font-bold text-zinc-300 tracking-[0.3em] print:text-black">
                         --- 終わり ---
