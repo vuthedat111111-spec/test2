@@ -790,7 +790,7 @@ const ReviewListModal = ({ isOpen, onClose, srsData, onResetSRS, onLoadChars, db
  // --- BỘ CHUYỂN ĐỔI KANA ---
     const convertToKana = (rawText, targetKanaString) => {
         const hiraMap = {
-            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー','ti':'てぃ','che':'ちぇ'
+            'a':'あ','i':'い','u':'う','e':'え','o':'お','ka':'か','ki':'き','ku':'く','ke':'け','ko':'こ','sa':'さ','shi':'し','si':'し','su':'す','se':'せ','so':'そ','ta':'た','chi':'ち','ti':'ち','tsu':'つ','tu':'つ','te':'て','to':'と','na':'な','ni':'に','nu':'ぬ','ne':'ね','no':'の','ha':'は','hi':'ひ','fu':'ふ','hu':'ふ','he':'へ','ho':'ほ','ma':'ま','mi':'み','mu':'む','me':'め','mo':'も','ya':'や','yu':'ゆ','yo':'よ','ra':'ら','ri':'り','ru':'る','re':'れ','ro':'ろ','wa':'わ','wo':'を','nn':'ん','ga':'が','gi':'ぎ','gu':'ぐ','ge':'げ','go':'ご','za':'ざ','ji':'じ','zi':'じ','zu':'ず','ze':'ぜ','zo':'ぞ','da':'だ','di':'ぢ','du':'づ','de':'で','do':'ど','ba':'ば','bi':'び','bu':'ぶ','be':'べ','bo':'ぼ','pa':'ぱ','pi':'ぴ','pu':'ぷ','pe':'ぺ','po':'ぽ','kya':'きゃ','kyu':'きゅ','kyo':'きょ','sha':'しゃ','shu':'しゅ','sho':'しょ','sya':'しゃ','syu':'しゅ','syo':'しょ','cha':'ちゃ','chu':'ちゅ','cho':'ちょ','tya':'ちゃ','tyu':'ちゅ','tyo':'ちょ','nya':'にゃ','nyu':'にゅ','nyo':'にょ','hya':'ひゃ','hyu':'ひゅ','hyo':'ひょ','mya':'みゃ','myu':'みゅ','myo':'みょ','rya':'りゃ','ryu':'りゅ','ryo':'りょ','gya':'ぎゃ','gyu':'ぎゅ','gyo':'ぎょ','ja':'じゃ','ju':'じゅ','jo':'じょ','zya':'じゃ','zyu':'じゅ','zyo':'じょ','bya':'びゃ','byu':'びゅ','byo':'びょ','pya':'ぴゃ','pyu':'ぴゅ','pyo':'ぴょ','fa':'ふぁ','fi':'ふぃ','fe':'ふぇ','fo':'ふぉ','va':'ゔぁ','vi':'ゔぃ','vu':'ゔ','ve':'ゔぇ','vo':'ゔぉ','-':'ー','ti':'てぃ'
         };
         let result = rawText.toLowerCase();
     result = result.replace(/([bcdfghjklmpqrstvwxyz])\1/g, (match, p1) => p1 === 'n' ? match : 'っ' + p1);
@@ -2789,11 +2789,11 @@ React.useEffect(() => {
     }, [isDocsModalOpen]);
     const notifications = [
         { 
-            id: 6, 
-            title: '🎧 LUYỆN NGHE CHÍNH TẢ', 
-            date: '01/04/2026', 
-            content: 'Tính năng Luyện nghe chép chính tả đã chính thức ra mắt! Bấm ngay vào "LUYỆN NGHE" ở trang chủ để trải nghiệm nhé!'
-        }
+        id: 7, 
+        title: '🔥 KHAI MỞ LÒ LUYỆN JLPT MIỄN PHÍ', 
+        date: '15/04/2026', 
+        content: 'Lò luyện đề JLPT cùng DORA đã chính thức mở cửa! Dành riêng cho anh em hệ "bận rộn" nhưng quyết tâm thi là đỗ. Học đúng trọng tâm, ngày 10 phút là đủ. Lớp có kỷ luật thép: Làm tốt có thưởng, lười là nghe chửi! Bấm ngay vào "ÔN LUYỆN JLPT" ở trang chủ để chọn cấp độ và giữ chỗ nhé.'
+    }
         
     ];
 
@@ -3116,62 +3116,7 @@ TÀI LIỆU HỌC TẬP
             {/* Danh sách tài liệu (Cuộn được nếu dài) */}
             <div className="p-4 space-y-3 overflow-y-auto custom-scrollbar">
 
-                  {/* nhóm học tập */}
-                <a href="https://zalo.me/g/rky9oqbibm4retvqmidh" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
-                    {/* Đã đổi: bg-blue -> bg-orange */}
-                    <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        {/* Đã đổi: Icon File -> Icon Nhóm người */}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">ÔN LUYỆN JLPT N5</p>
-                        <p className="text-[10px] text-gray-400">MIỄN PHÍ</p>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
-
-                                          {/* nhóm học tập */}
-                <a href="https://zalo.me/g/gmorq9fx2ctiia0nnekt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
-                    {/* Đã đổi: bg-blue -> bg-orange */}
-                    <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        {/* Đã đổi: Icon File -> Icon Nhóm người */}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">ÔN LUYỆN JLPT N4</p>
-                        <p className="text-[10px] text-gray-400">MIỄN PHÍ</p>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
-
-                                          {/* nhóm học tập */}
-                <a href="https://zalo.me/g/exn2luuvzoh4mws4bn5n" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
-                    {/* Đã đổi: bg-blue -> bg-orange */}
-                    <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        {/* Đã đổi: Icon File -> Icon Nhóm người */}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-800 truncate group-hover:text-purple-700 pb-1">ÔN LUYỆN JLPT N3</p>
-                        <p className="text-[10px] text-gray-400">MIỄN PHÍ</p>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-300 group-hover:text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </a>
+              
 
 {/* Bộ sách luyện đề */}
                 <a href="https://drive.google.com/drive/folders/19JT79eX8-xn6jweibSj8vzxnugJwjI4C" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all group">
@@ -7278,7 +7223,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         </div>
                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN & VÍ DỤ</span>
                     </button>
-                            <button 
+                    <button 
                         onClick={() => handleLoadBook('tangon4', 'Tango N4')}
                         className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
                     >
@@ -7289,7 +7234,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         </div>
                        <span className="text-xs sm:text-sm font-bold text-zinc-500 mt-1.5 text-left">TỪ ĐƠN & VÍ DỤ</span>
                     </button>
-
+                            
                     <button 
                         onClick={() => handleLoadBook('minna1', 'MINNA NO NIHONGO N5')}
                         className="w-full p-5 sm:p-6 bg-white border border-zinc-200 rounded-2xl hover:border-indigo-400 hover:shadow-md transition-all flex flex-col items-start active:scale-95 group relative overflow-hidden"
@@ -7317,7 +7262,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                     {/* Sách chờ cập nhật */}
                     <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
                      <div className="flex justify-between items-center w-full">
-                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">TANGO N4, N3, N2, N1</span>
+                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">TANGO N3, N2, N1</span>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
                     </button>
@@ -7329,12 +7274,7 @@ const DictationModal = ({ isOpen, onClose }) => {
                         <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
                     </button>
 
-                         <button disabled className="w-full p-5 sm:p-6 bg-zinc-50/50 border border-zinc-100 rounded-2xl flex flex-col items-start cursor-not-allowed opacity-60 relative overflow-hidden">
-                     <div className="flex justify-between items-center w-full">
-                            <span className="text-lg sm:text-xl font-black text-zinc-400 uppercase text-left leading-tight">MINNA NO NIHONGO N4</span>
-                        </div>
-                        <span className="text-xs sm:text-sm font-bold text-zinc-400 mt-1.5 text-left">Sắp ra mắt...</span>
-                    </button>
+            
 
                         
                 </div>
@@ -8234,7 +8174,7 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
                     </div>
 
                     <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 mb-4 text-center leading-tight uppercase">
-                        Lò luyện thi JLPT <br/> <span className="text-blue-600">Thực chiến DORA</span>
+                        Lò luyện thi JLPT <br/> <span className="text-blue-600">MIỄN PHÍ CÙNG DORA</span>
                     </h2>
 
                     <div className="bg-zinc-50 border border-zinc-100 rounded-2xl p-5 mb-8 text-center">
@@ -8248,9 +8188,9 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
                     {/* 3 Nút Cấp Độ Hàng Ngang (Đổi sang hover màu xanh dương) */}
                     <div className="grid grid-cols-4 gap-3 w-full">
                         {[
-                            { id: 'N5', link: 'https://zalo.me/g/rky9oqbibm4retvqmidh' },
-                            { id: 'N4', link: 'https://zalo.me/g/gmorq9fx2ctiia0nnekt' },
-                            { id: 'N3', link: 'https://zalo.me/g/exn2luuvzoh4mws4bn5n' },
+                            { id: 'N5', link: 'https://zalo.me/g/l5mku9ie9jjk9ozgqaym' },
+                            { id: 'N4', link: 'https://zalo.me/g/rtfwntm2upzulpdhgixu' },
+                            { id: 'N3', link: 'https://zalo.me/g/2rvkkieaiitbgfighpqg' },
                             { id: 'N2', link: 'https://zalo.me/g/tvcmippfetkbqlu5awbd' }
                         ].map((lvl) => (
                             <a 
