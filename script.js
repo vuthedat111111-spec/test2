@@ -8210,6 +8210,471 @@ const JLPTPrepModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+// --- Component Luyện Đề JLPT (Tích hợp Fetch JSON & Chọn Menu) ---
+const JLPTTestModal = ({ isOpen, onClose }) => {
+    // --- State Màn hình ---
+    const [view, setView] = React.useState('menu'); // 'menu' | 'test'
+    const [isLoading, setIsLoading] = React.useState(false);
+    
+    // --- State Lựa chọn ---
+    const [selectedLevel, setSelectedLevel] = React.useState('n5');
+    const [selectedSkill, setSelectedSkill] = React.useState('tuvung');
+
+    // --- State Dữ liệu thi ---
+    const [questions, setQuestions] = React.useState([]);
+    const [isJsonModalOpen, setIsJsonModalOpen] = React.useState(false);
+    const [jsonInput, setJsonInput] = React.useState("");
+    const fileInputRef = React.useRef(null);
+
+    // --- State Chấm điểm ---
+    const [userAnswers, setUserAnswers] = React.useState({});
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const [score, setScore] = React.useState(0);
+
+    const levels = ['n5', 'n4', 'n3', 'n2', 'n1'];
+    const skills = [
+        { id: 'tuvung', label: 'Từ vựng' },
+        { id: 'nguphap', label: 'Ngữ pháp' },
+        { id: 'dochiu', label: 'Đọc hiểu' },
+        { id: 'nghehieu', label: 'Nghe hiểu' },
+        { id: 'toanbo', label: 'Toàn bộ (Gộp chung)' }
+    ];
+
+    React.useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else {
+            document.body.style.overflow = 'unset';
+            resetTestState();
+            setView('menu');
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
+    const resetTestState = () => {
+        setUserAnswers({});
+        setIsSubmitted(false);
+        setScore(0);
+        setQuestions([]);
+    };
+
+    // --- LOGIC FETCH DỮ LIỆU JSON TỪ THƯ MỤC ---
+    const handleLoadTest = async () => {
+        setIsLoading(true);
+        resetTestState();
+
+        try {
+            let combinedData = [];
+
+            if (selectedSkill === 'toanbo') {
+                // Nếu chọn toàn bộ, thử load tất cả 4 file và gộp lại
+                const skillList = ['tuvung', 'nguphap', 'dochiu', 'nghehieu'];
+                const promises = skillList.map(skill => 
+                    fetch(`./data/jlpt/${selectedLevel}/${skill}.json`)
+                        .then(res => res.ok ? res.json() : [])
+                        .catch(() => []) // Bỏ qua lỗi nếu file không tồn tại
+                );
+
+                const results = await Promise.all(promises);
+                combinedData = results.flat();
+
+            } else {
+                // Load 1 file cụ thể
+                const response = await fetch(`./data/jlpt/${selectedLevel}/${selectedSkill}.json`);
+                if (!response.ok) {
+                    throw new Error("Không tìm thấy file dữ liệu.");
+                }
+                combinedData = await response.json();
+            }
+
+            if (!combinedData || combinedData.length === 0) {
+                alert(`Chưa có dữ liệu cho phần: ${selectedLevel.toUpperCase()} - ${skills.find(s => s.id === selectedSkill).label}`);
+                setIsLoading(false);
+                return;
+            }
+
+            // Chuẩn hóa dữ liệu
+            const formattedQuestions = combinedData.map((q, idx) => ({
+                ...q,
+                id: q.id || `${selectedSkill}-${idx + 1}`,
+                options: q.options || [],
+                correctOption: q.correctOption !== undefined ? q.correctOption : 0
+            }));
+
+            setQuestions(formattedQuestions);
+            setView('test');
+
+        } catch (error) {
+            alert(`Lỗi: ${error.message}\nHãy kiểm tra xem file đã được tạo đúng đường dẫn ./data/jlpt/${selectedLevel}/${selectedSkill}.json chưa nhé.`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // --- Logic Xử lý JSON Thủ công (Dán/Tải lên) ---
+    const processJsonString = (content) => {
+        try {
+            const parsed = JSON.parse(content);
+            if (Array.isArray(parsed) && parsed.every(q => q.question && Array.isArray(q.options))) {
+                const formattedQuestions = parsed.map((q, idx) => ({
+                    ...q,
+                    id: q.id || `custom-${idx + 1}`,
+                    options: q.options || [],
+                    correctOption: q.correctOption !== undefined ? q.correctOption : 0
+                }));
+                setQuestions(formattedQuestions);
+                setUserAnswers({});
+                setIsSubmitted(false);
+                return true;
+            } else {
+                alert("Dữ liệu JSON không hợp lệ.");
+                return false;
+            }
+        } catch (error) {
+            alert("Lỗi khi đọc file JSON. Vui lòng kiểm tra định dạng.");
+            return false;
+        }
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => { processJsonString(e.target?.result); };
+        reader.readAsText(file);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
+
+    // --- Logic Tương tác & In ấn ---
+    const handleFormat = (command) => { document.execCommand(command, false, undefined); };
+    const handlePrint = () => { window.print(); };
+
+    const handleSelectOption = (qId, optIdx) => {
+        if (isSubmitted) return;
+        setUserAnswers(prev => ({ ...prev, [qId]: optIdx }));
+    };
+
+    const handleSubmit = () => {
+        let correctCount = 0;
+        questions.forEach(q => {
+            if (userAnswers[q.id] === q.correctOption) correctCount++;
+        });
+        setScore(correctCount);
+        setIsSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleRetry = () => {
+        setUserAnswers({});
+        setIsSubmitted(false);
+        setScore(0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // --- Biểu tượng Icons (Monochrome) ---
+    const IconPrinter = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>;
+    const IconUpload = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>;
+    const IconCode = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
+    const IconBold = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M14 12a4 4 0 0 0 0-8H6v8"/><path d="M15 20a4 4 0 0 0 0-8H6v8Z"/></svg>;
+    const IconItalic = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>;
+    const IconUnderline = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>;
+
+    if (!isOpen) return null;
+
+    // ==========================================
+    // MÀN HÌNH 1: MENU CHỌN BÀI THI
+    // ==========================================
+    if (view === 'menu') {
+        return (
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-300 border border-zinc-200 relative flex flex-col">
+                    
+                    {/* Header */}
+                    <div className="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 shrink-0">
+                        <h2 className="text-lg font-black text-zinc-900 uppercase tracking-tight flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                            Thiết lập đề thi
+                        </h2>
+                        <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-all shadow-sm outline-none">✕</button>
+                    </div>
+
+                    {/* Form Chọn */}
+                    <div className="p-6 space-y-6 flex-1 overflow-y-auto custom-scrollbar">
+                        {/* 1. Chọn Cấp độ */}
+                        <div>
+                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3 block">1. Chọn cấp độ JLPT</label>
+                            <div className="grid grid-cols-5 gap-2">
+                                {levels.map(lvl => (
+                                    <button 
+                                        key={lvl}
+                                        onClick={() => setSelectedLevel(lvl)}
+                                        className={`py-3 rounded-xl font-black text-lg transition-all border-2 active:scale-95 uppercase ${selectedLevel === lvl ? 'bg-zinc-900 border-zinc-900 text-white shadow-md' : 'bg-white border-zinc-200 text-zinc-400 hover:border-zinc-400 hover:text-zinc-700'}`}
+                                    >
+                                        {lvl}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* 2. Chọn Kỹ năng */}
+                        <div>
+                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3 block">2. Chọn kỹ năng (Môn thi)</label>
+                            <div className="grid grid-cols-2 gap-3">
+                                {skills.map(skill => (
+                                    <button 
+                                        key={skill.id}
+                                        onClick={() => setSelectedSkill(skill.id)}
+                                        className={`py-3.5 px-3 rounded-xl font-bold text-sm transition-all border-2 active:scale-95 flex items-center justify-center gap-2 ${
+                                            selectedSkill === skill.id 
+                                            ? 'bg-indigo-50 border-indigo-500 text-indigo-700 shadow-sm' 
+                                            : skill.id === 'toanbo' 
+                                                ? 'bg-zinc-50 border-zinc-300 text-zinc-700 hover:border-zinc-500 col-span-2'
+                                                : 'bg-white border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-800'
+                                        }`}
+                                    >
+                                        {selectedSkill === skill.id && <svg className="w-4 h-4 animate-in zoom-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path></svg>}
+                                        {skill.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                        
+                        <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl flex gap-3 text-amber-800">
+                            <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            <p className="text-xs font-medium leading-relaxed">
+                                Đảm bảo bạn đã đặt file json vào đúng đường dẫn hệ thống: <br/><code className="font-mono font-bold bg-white/50 px-1 py-0.5 rounded">data/jlpt/{selectedLevel}/{selectedSkill !== 'toanbo' ? selectedSkill : 'tuvung'}.json</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Nút Bắt đầu */}
+                    <div className="p-4 border-t border-zinc-100 bg-white shrink-0">
+                        <button 
+                            onClick={handleLoadTest}
+                            disabled={isLoading}
+                            className={`w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform flex items-center justify-center gap-2 ${isLoading ? 'bg-zinc-200 text-zinc-500 cursor-wait' : 'bg-zinc-900 hover:bg-black text-white active:scale-95'}`}
+                        >
+                            {isLoading ? (
+                                <>
+                                    <div className="w-4 h-4 border-2 border-zinc-500 border-t-transparent rounded-full animate-spin"></div>
+                                    Đang tải dữ liệu...
+                                </>
+                            ) : (
+                                <>Tải đề & Làm bài <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg></>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // ==========================================
+    // MÀN HÌNH 2: GIAO DIỆN LÀM BÀI / IN A4
+    // ==========================================
+    return (
+        <div className="fixed inset-0 z-[1000] bg-zinc-100 overflow-y-auto flex flex-col print:bg-white print:block print:relative print:z-0 animate-in fade-in">
+            
+            {/* JSON Input Modal (Chỉ xuất hiện khi bấm Dán JSON) */}
+            {isJsonModalOpen && (
+                <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm print:hidden p-4">
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl flex flex-col animate-in zoom-in-95 border border-zinc-200">
+                        <h2 className="text-sm font-black uppercase tracking-widest mb-4 text-zinc-900 border-b border-zinc-100 pb-3">Dán dữ liệu JSON tùy chỉnh</h2>
+                        <textarea
+                            className="w-full border-2 border-zinc-200 rounded-xl p-4 font-mono text-sm h-64 focus:outline-none focus:border-zinc-900 transition-colors custom-scrollbar"
+                            placeholder='[{"question": "...", "options": ["A", "B", "C", "D"], "correctOption": 0}]'
+                            value={jsonInput}
+                            onChange={(e) => setJsonInput(e.target.value)}
+                        />
+                        <div className="mt-5 flex justify-end gap-3">
+                            <button onClick={() => setIsJsonModalOpen(false)} className="px-6 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 text-xs font-bold rounded-xl transition-colors uppercase tracking-widest">Hủy</button>
+                            <button onClick={() => { if(processJsonString(jsonInput)) { setIsJsonModalOpen(false); setJsonInput(""); } }} className="px-6 py-3 bg-zinc-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-colors uppercase tracking-widest">Áp dụng</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Sticky Header & Toolbar (Ẩn khi in) */}
+            <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-zinc-200 print:hidden shrink-0">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 w-full sm:w-auto">
+                        <button onClick={() => setView('menu')} className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-900 transition-all shrink-0 outline-none" title="Quay lại Menu">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <div className="flex flex-col">
+                            <h1 className="text-lg font-black text-zinc-900 uppercase tracking-tight leading-none">
+                                ĐỀ THI {selectedLevel.toUpperCase()} - {skills.find(s => s.id === selectedSkill).label}
+                            </h1>
+                            <p className="text-xs font-bold text-zinc-400 mt-1">{questions.length} Câu hỏi</p>
+                        </div>
+                    </div>
+                    
+                    <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
+                        <button onClick={() => setIsJsonModalOpen(true)} className="flex items-center gap-2 px-3 py-2 bg-white border border-zinc-200 hover:border-zinc-900 text-zinc-700 text-xs font-bold rounded-lg transition-colors active:scale-95 shadow-sm">
+                            <IconCode /> Dán JSON
+                        </button>
+                        <input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
+                        <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-3 py-2 bg-white border border-zinc-200 hover:border-zinc-900 text-zinc-700 text-xs font-bold rounded-lg transition-colors active:scale-95 shadow-sm">
+                            <IconUpload /> Tải lên
+                        </button>
+                        <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white border border-zinc-200 hover:border-zinc-900 text-zinc-700 text-xs font-bold rounded-lg transition-colors active:scale-95 shadow-sm">
+                            <IconPrinter /> In A4
+                        </button>
+                        
+                        {isSubmitted ? (
+                            <button onClick={handleRetry} className="flex items-center gap-2 px-5 py-2 bg-zinc-900 hover:bg-black text-white text-xs font-bold rounded-lg transition-colors active:scale-95 shadow-md">
+                                LÀM LẠI
+                            </button>
+                        ) : (
+                            <button onClick={handleSubmit} className="flex items-center gap-2 px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors active:scale-95 shadow-md">
+                                CHẤM ĐIỂM
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Text Formatter */}
+                <div className="bg-zinc-50 border-t border-zinc-100 py-1.5 px-4">
+                    <div className="max-w-5xl mx-auto flex items-center justify-center sm:justify-start gap-1">
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mr-2">Chỉnh sửa đề thi (In):</span>
+                        {['bold', 'italic', 'underline'].map((cmd, i) => (
+                            <button key={i} onMouseDown={e => e.preventDefault()} onClick={() => handleFormat(cmd)} className="p-1.5 hover:bg-white hover:shadow-sm rounded border border-transparent hover:border-zinc-200 text-zinc-600 transition-all outline-none">
+                                {cmd === 'bold' && <IconBold />}
+                                {cmd === 'italic' && <IconItalic />}
+                                {cmd === 'underline' && <IconUnderline />}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </header>
+
+            {/* Vùng giấy A4 */}
+            <main className="flex-1 overflow-y-auto print:overflow-visible p-4 sm:p-8 custom-scrollbar bg-zinc-100">
+                <div className="max-w-[850px] mx-auto bg-white p-8 sm:p-14 shadow-2xl border border-zinc-200 print:shadow-none print:border-none print:p-0 font-['Noto_Serif_JP',_serif] text-zinc-900 min-h-[297mm]">
+                    
+                    {/* Bảng điểm (Chỉ hiện khi đã nộp bài và không in) */}
+                    {isSubmitted && (
+                        <div className="mb-10 p-6 border-4 border-zinc-900 rounded-3xl bg-zinc-50 flex flex-col items-center justify-center text-center print:hidden animate-in zoom-in-95">
+                            <h2 className="text-sm font-black text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                Kết quả làm bài
+                            </h2>
+                            <p className="text-6xl font-black text-zinc-900 mt-2">
+                                {score} <span className="text-3xl text-zinc-400 font-bold">/ {questions.length}</span>
+                            </p>
+                            <div className="mt-4 w-full max-w-xs h-2 bg-zinc-200 rounded-full overflow-hidden">
+                                <div className="h-full bg-zinc-900 transition-all duration-1000" style={{ width: `${(score / questions.length) * 100}%` }}></div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Tiêu đề in */}
+                    <div className="text-center mb-10 print:block hidden">
+                        <h1 className="text-2xl font-black uppercase tracking-widest mb-1 border-b-2 border-black inline-block pb-1">
+                            JLPT MOCK TEST - {selectedLevel.toUpperCase()}
+                        </h1>
+                        <p className="text-sm font-bold mt-2">Phần: {skills.find(s => s.id === selectedSkill).label}</p>
+                    </div>
+
+                    {/* Danh sách Câu hỏi */}
+                    <div className="space-y-12">
+                        {questions.map((item, index) => (
+                            <div key={item.id} className="w-full" style={{ breakInside: 'avoid', pageBreakInside: 'avoid' }}>
+                                {/* Phần Câu Hỏi */}
+                                <div className="flex items-start gap-3 mb-5">
+                                    <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 bg-zinc-900 text-white font-bold text-sm rounded shadow-sm mt-0.5 print:bg-white print:text-black print:border-2 print:border-black">
+                                        {index + 1}
+                                    </div>
+                                    <p 
+                                        className="text-[1.15rem] leading-relaxed whitespace-pre-wrap outline-none focus:bg-zinc-50 rounded px-1 transition-colors w-full"
+                                        contentEditable={!isSubmitted}
+                                        suppressContentEditableWarning={true}
+                                    >
+                                        {item.question}
+                                    </p>
+                                </div>
+                                
+                                {/* Phần Đáp án */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 pl-10">
+                                    {item.options.map((opt, optIdx) => {
+                                        const isSelected = userAnswers[item.id] === optIdx;
+                                        const isCorrect = item.correctOption === optIdx;
+                                        
+                                        // Style cho nút chọn (Bubble)
+                                        let bubbleClass = "w-7 h-7 rounded-full border-[2.5px] flex items-center justify-center shrink-0 font-sans text-xs font-black transition-all print:hidden ";
+                                        let bubbleContent = optIdx + 1;
+
+                                        // Style cho cả khối block
+                                        let blockClass = "flex items-center gap-3 p-3 rounded-2xl transition-all print:p-0 print:border-none cursor-pointer border-2 ";
+
+                                        if (isSubmitted) {
+                                            if (isCorrect) {
+                                                // Đáp án đúng
+                                                bubbleClass += "bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-200";
+                                                blockClass += "border-emerald-400 bg-emerald-50 font-bold";
+                                                bubbleContent = "✓";
+                                            } else if (isSelected && !isCorrect) {
+                                                // Chọn sai
+                                                bubbleClass += "border-red-300 text-red-400 line-through bg-red-50";
+                                                blockClass += "border-red-100 opacity-60 line-through bg-red-50/50";
+                                                bubbleContent = "✕";
+                                            } else {
+                                                // Không chọn và sai
+                                                bubbleClass += "border-zinc-200 text-zinc-300";
+                                                blockClass += "border-transparent opacity-60";
+                                            }
+                                        } else {
+                                            if (isSelected) {
+                                                bubbleClass += "border-zinc-900 bg-zinc-900 text-white shadow-md";
+                                                blockClass += "border-zinc-900 bg-zinc-50 shadow-sm transform scale-[1.02]";
+                                            } else {
+                                                bubbleClass += "border-zinc-300 text-zinc-500 group-hover:border-zinc-900";
+                                                blockClass += "border-transparent hover:bg-zinc-50 hover:border-zinc-200";
+                                            }
+                                        }
+
+                                        return (
+                                            <div 
+                                                key={optIdx} 
+                                                className={`group ${blockClass}`}
+                                                onClick={() => handleSelectOption(item.id, optIdx)}
+                                            >
+                                                {/* Bubble UI */}
+                                                <button className={bubbleClass}>
+                                                    {bubbleContent}
+                                                </button>
+                                                
+                                                {/* Text số khi in */}
+                                                <span className="hidden print:inline-block font-bold text-zinc-900 pt-0.5">
+                                                    {optIdx + 1}. 
+                                                </span>
+                                                
+                                                {/* Nội dung đáp án */}
+                                                <span 
+                                                    className="text-[1.1rem] leading-relaxed outline-none focus:bg-white rounded px-1 min-w-[20px] w-full"
+                                                    contentEditable={!isSubmitted}
+                                                    suppressContentEditableWarning={true}
+                                                    onClick={(e) => {
+                                                        if(!isSubmitted) e.stopPropagation(); 
+                                                    }}
+                                                >
+                                                    {opt}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-24 text-center text-sm font-bold text-zinc-300 tracking-[0.3em] print:text-black">
+                        --- 終わり ---
+                    </div>
+                </div>
+            </main>
+        </div>
+    );
+};
 const App = () => {
     // --- STATE QUẢN LÝ ỨNG DỤNG ---
     const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
@@ -8228,6 +8693,7 @@ const App = () => {
     const [isDictionaryOpen, setIsDictionaryOpen] = useState(false);
     const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
     const [isJLPTPrepOpen, setIsJLPTPrepOpen] = useState(true);
+    const [isJLPTTestOpen, setIsJLPTTestOpen] = useState(false);
   // THÊM MỚI Ở ĐÂY: State cho Nghe chính tả
     const [isDictationMenuOpen, setIsDictationMenuOpen] = useState(false);
     const [isDictationGameOpen, setIsDictationGameOpen] = useState(false);
@@ -8455,7 +8921,6 @@ React.useEffect(() => {
                 <img src="https://cdn.jsdelivr.net/gh/datto02/luyenvietkanji@main/anhdt.jpg" alt="preload mobile" />
             </div>
             
-{/* 1. TRANG CHỦ TỐI GIẢN (CHỈ CÓ NÚT) */}
 <LandingPage 
     srsData={srsData}
     onOpenReviewList={() => setIsReviewListOpen(true)}
@@ -8463,19 +8928,17 @@ React.useEffect(() => {
     onOpenDictation={() => setIsDictationMenuOpen(true)}
     onOpenCourse={() => setIsCourseModalOpen(true)}
     onOpenSetup={(target) => {
-    
         if (target === 'kaiwa') {
             setIsKaiwaOpen(true);
         } else {
-      
             setSetupConfig({ isOpen: true, targetAction: target });
-           
             if (target === 'conjugate') {
                 handleModeSwitch('vocab'); 
             }
         }
     }}
-onOpenJLPT={() => setIsJLPTPrepOpen(true)}
+    // ĐỔI DÒNG NÀY ĐỂ MỞ BÀI THI REACT THAY VÌ POPUP GIỚI THIỆU ZALO (Hoặc bạn có thể giữ nguyên và thêm nút riêng)
+    onOpenJLPT={() => setIsJLPTTestOpen(true)} 
 />
 {/* GỌI POPUP KHÓA HỌC */}
 <CourseModal 
@@ -8624,6 +9087,11 @@ onOpenJLPT={() => setIsJLPTPrepOpen(true)}
     isOpen={isJLPTPrepOpen} 
     onClose={() => setIsJLPTPrepOpen(false)} 
 />
+        {/* THÊM VÀO ĐÂY */}
+            <JLPTTestModal
+                isOpen={isJLPTTestOpen}
+                onClose={() => setIsJLPTTestOpen(false)}
+            />
 <DictationModal 
         isOpen={isDictationMenuOpen}
         onClose={() => setIsDictationMenuOpen(false)}
